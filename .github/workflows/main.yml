@@ -30,12 +30,12 @@ jobs:
       - name: Install packages
         run: yarn install
       # Runs a single command using the runners shell
-      #- name: Run Https Test
-      #  run: |
-      #  cd projects/https && yarn dev
+      - name: Run Https Test
+        run: |
+        cd projects/https
 
       # Runs a set of commands using the runners shell
       - name: Run React Test
         run: |
-          echo hello word!
+          cd projects
 、
