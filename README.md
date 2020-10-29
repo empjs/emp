@@ -1,5 +1,5 @@
-# EMP - YY业务中台 - 微前端解决方案
-
+# EMP - 微前端解决方案
+> Base on Webpack 5 & Module Federation
 ## Projects
 |Project|NPM|Info|
 |---|---|---|
