@@ -42,7 +42,7 @@ export const HeaderComp = ({theme = 'light'}: THeaderComp) => {
   }
   return (
     <Header className={`header ${theme}`}>
-      <img className="logo" src="https://setmefree.yy.com/Joyy.png" alt="logo" />
+      <img className="logo" src={require('src/assets/logo.jpeg')} alt="logo" />
 
       <Menu
         className="header-left"
