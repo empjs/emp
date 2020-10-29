@@ -25,7 +25,7 @@
     "@babel/preset-typescript": "^7.10.1",
     "@babel/runtime": "^7.11.2",
     "@efox/emp-tsconfig": "^1.0.4",
-    "@efox/emp-tune-dts-plugin": "^0.0.12",
+    "@efox/emp-tune-dts-plugin": "^1.0.12",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
     "@svgr/webpack": "^5.4.0",
     "babel-loader": "^8.1.0",
