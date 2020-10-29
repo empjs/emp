@@ -1,14 +1,12 @@
 // 参考 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/webpack.config.js
 //
-const {setPaths} = require('../helpers/paths')
+const {setPaths, getPaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
-
-//
-
+const {copyPublicFolder} = require('../helpers/build')
 module.exports = async args => {
-  const {src, dist} = args
-  setPaths({src, dist})
+  const {src, dist, public} = args
+  setPaths({src, dist, public})
   const config = await getProjectConfig('production', args)
   //
   webpack(config, (err, stats) => {
@@ -34,5 +32,8 @@ module.exports = async args => {
         colors: true, // Shows colors in the console
       }),
     )
+    console.log('========= build finish =============')
+    const paths = getPaths()
+    copyPublicFolder(paths)
   })
 }
