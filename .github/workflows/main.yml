@@ -21,7 +21,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      # install node_modules
+      - name: Run Yarn
+        run: yarn
       # Runs a single command using the runners shell
       - name: Run Https Test
         run: cd projects/https && yarn dev
