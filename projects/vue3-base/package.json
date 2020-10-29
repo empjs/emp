@@ -1,0 +1,21 @@
+{
+  "name": "@empvue3/base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@efox/emp-cli": "^1.0.29",
+    "@vue/compiler-sfc": "^3.0.0-rc.10",
+    "vue-loader": "^16.0.0-beta.5"
+  },
+  "dependencies": {
+    "vue": "^3.0.0-rc.10"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}

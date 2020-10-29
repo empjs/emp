@@ -1,0 +1,34 @@
+{
+  "name": "emp-workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://git.yy.com/webs/efox/lab/emp-workspace.git",
+  "author": "xuhongbin <xuhongbin@yy.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --ext js,ts,tsx --fix"
+  },
+  "workspaces": [
+    "packages/*",
+    "projects/*",
+    "helpers/*",
+    "components/*"
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^8.3.4",
+    "@efox/eslint-config-react-prittier-ts": "^1.0.19",
+    "commitlint": "^8.3.5",
+    "cross-env": "^7.0.2",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.0",
+    "lint-staged": "^10.2.7",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {}
+}

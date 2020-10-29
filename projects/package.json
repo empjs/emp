@@ -1,0 +1,22 @@
+{
+  "name": "projects",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "lerna run --scope @emp/* --parallel dev",
+    "dev:hot": "lerna run --scope @emp/* --parallel dev:hot",
+    "build": "lerna run --scope @emp/* --parallel build",
+    "build:lab": "lerna run --scope @emp/* --parallel build:lab",
+    "start": "lerna run --scope @emp/* --parallel start",
+    "dev:antd": "lerna run --scope @emp-antd/* --parallel dev",
+    "build:antd": "lerna run --scope @emp-antd/* --parallel build",
+    "start:antd": "lerna run --scope @emp-antd/* --parallel start",
+    "dev:vue": "lerna run --scope @empvue3/* --parallel dev",
+    "build:vue": "lerna run --scope @empvue3/* --parallel build",
+    "stat:vue": "lerna run --scope @empvue3/* --parallel stat",
+    "start:vue": "lerna run --scope @empvue3/* --parallel start"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

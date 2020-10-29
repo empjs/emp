@@ -1,0 +1,28 @@
+{
+  "name": "@efox/eslint-config-react-prittier-ts",
+  "version": "1.0.21",
+  "description": "> efox eslint",
+  "author": "xuhongbin <xuhongbin@yy.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "prettier": "^2.0.5"
+  },
+  "peerDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.3"
+  }
+}
