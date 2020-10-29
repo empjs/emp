@@ -16,7 +16,6 @@ const App = () => (
       </React.Suspense>
       process.env.EMP_ENV:{process.env.EMP_ENV}
       <p>config:{JSON.stringify(config.default)}</p>
-      <a href="http://efox-local-lab.yy.com/emp/projects/demo1/dist/">demo1</a>
     </div>
   </>
 )
