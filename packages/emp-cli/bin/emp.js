@@ -47,14 +47,15 @@ program
   // .alias('d')
   .description('调试项目')
   .option('-s, --src <src>', '目标文件 默认为 src/index.ts')
+  .option('-pc, --public <public>', '目标 默认为 public/')
   .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 dev')
   .option('-h, --hot', '是否使用热更新 默认不启动')
   .option('-o, --open <open>', '是否打开调试页面 默认true,false禁止自动打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
-  .action(({src, env, hot, open, ts}) => {
+  .action(({src, public, env, hot, open, ts}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
-    require('../scripts/dev')({src, empEnv, hot, open, ts})
+    require('../scripts/dev')({src, public, empEnv, hot, open, ts})
   })
 // 构建
 program
@@ -63,14 +64,15 @@ program
   .description('构建项目')
   .option('-s, --src <src>', '目标文件 默认为 src/index.ts')
   .option('-d, --dist <dist>', '目标 默认为 dist/')
+  .option('-pc, --public <public>', '目标 默认为 public/')
   .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
   .option('-a, --analyze', '生成分析报告 默认为 false')
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  .action(({src, dist, analyze, env, ts, createName, createPath}) => {
+  .action(({src, dist, public, analyze, env, ts, createName, createPath}) => {
     const empEnv = env || 'prod'
-    require('../scripts/build')({src, dist, analyze, empEnv, ts, createName, createPath})
+    require('../scripts/build')({src, dist, public, analyze, empEnv, ts, createName, createPath})
   })
 // 正式环境
 program
@@ -137,12 +139,8 @@ program
 program
   .command('init <framework> <projectName>')
   .description('初始化 emp 项目')
-  .action((framework,projectName) => {
-    require('../helpers/downloadRepo')(
-      require('../init.json')[framework],
-      `./${projectName}`,
-      '',
-    )
+  .action((framework, projectName) => {
+    require('../helpers/downloadRepo')(require('../config/template.json')[framework], `./${projectName}`, '')
     console.log('初始化完成，请输入:')
     console.log(`cd ${projectName} && yarn && yarn dev`)
   })
