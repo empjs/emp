@@ -1,5 +1,7 @@
 # @Efox EMP CLI Change Log
 > change log infomation
+## v1.1.15
++ 修复public copy功能
 ## v1.1.12
 + 加入文件缓存 增加打包速度 
 + 升级 postcss

@@ -5,8 +5,8 @@ const WebpackDevServer = require('webpack-dev-server')
 //
 
 module.exports = async args => {
-  const {src} = args
-  setPaths({src})
+  const {src, public} = args
+  setPaths({src, public})
   const config = await getProjectConfig('development', args)
   //::Fix 新版本需要加入一下配置 支持 liveReload 和 hot reload
   WebpackDevServer.addDevServerEntrypoints(config, config.devServer)
