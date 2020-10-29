@@ -7,7 +7,6 @@
     "dev": "lerna run --scope @emp/* --parallel dev",
     "dev:hot": "lerna run --scope @emp/* --parallel dev:hot",
     "build": "lerna run --scope @emp/* --parallel build",
-    "build:lab": "lerna run --scope @emp/* --parallel build:lab",
     "start": "lerna run --scope @emp/* --parallel start",
     "dev:antd": "lerna run --scope @emp-antd/* --parallel dev",
     "build:antd": "lerna run --scope @emp-antd/* --parallel build",

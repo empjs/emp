@@ -6,12 +6,8 @@ module.exports = ({config, env, empEnv}) => {
   console.log('empEnv===> 部署环境变量 serve模式不需要该变量', empEnv, env)
   const port = 8002
   const projectName = 'demo2'
-  let publicPath = `http://localhost:${port}/`
-  let remoteEntry = 'http://localhost:8001/emp.js'
-  if (empEnv === 'lab') {
-    publicPath = `http://efox-local-lab.yy.com/emp/projects/${projectName}/dist/`
-    remoteEntry = 'http://efox-local-lab.yy.com/emp/projects/demo1/dist/emp.js'
-  }
+  const publicPath = `http://localhost:${port}/`
+  const remoteEntry = 'http://localhost:8001/emp.js'
   //
   config.plugin('mf').tap(args => {
     args[0] = {
