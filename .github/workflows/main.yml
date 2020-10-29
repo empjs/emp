@@ -36,6 +36,6 @@ jobs:
 
       # Runs a set of commands using the runners shell
       #- name: Run React Test
-      #  run: |
-      #    cd projects && yarn dev
+        run: |
+          echo hello word!
 、
