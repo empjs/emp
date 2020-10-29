@@ -1,5 +1,7 @@
 # @Efox EMP CLI Change Log
 > change log infomation
+## v1.1.16
++ 增加 dev环境 public 静态路径
 ## v1.1.15
 + 修复public copy功能
 ## v1.1.12
