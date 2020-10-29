@@ -30,12 +30,7 @@ jobs:
       - name: Install packages
         run: yarn install
       # Runs a single command using the runners shell
-      - name: Run Https Test
-        run: |
-        cd projects/https
+      - name: Run ESlint
+        run: yarn lint
 
-      # Runs a set of commands using the runners shell
-      - name: Run React Test
-        run: |
-          cd projects
 、
