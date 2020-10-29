@@ -27,12 +27,12 @@ export const routes: Array<Troutes> = [
     icon: SettingOutlined,
     component: lazy(() => import('src/pages/crud')),
   },
-  {
+  /*   {
     path: '/CrudComponent-demo',
     name: 'CrudComponent-demo',
     icon: SettingOutlined,
     component: lazy(() => import('src/pages/CrudComponent-demo')),
-  },
+  }, */
   {
     path: '/me',
     name: '我',

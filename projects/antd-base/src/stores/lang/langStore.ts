@@ -17,7 +17,7 @@ export const langStore = () => {
     country: '',
     async getLang({project, mod, lang}: LangApi['Req']) {
       this.country = lang
-      this.$l = await http.get(`https://multi-lang-api.yy.com/multiLangBig/${project}/${mod}/${lang}.json`)
+      this.$l = await http.get(`https://api.github.com/users`)
     },
   }
 }

@@ -49,7 +49,7 @@ const FixSlideLayout = ({children, routes}: {children?: React.ReactNode; routes?
         }}>
         <div className="logo">
           <Link to="/">
-            <img src="https://setmefree.yy.com/Joyy.png" alt="logo" />
+            <img src={require('src/assets/logo.jpeg')} alt="logo" />
             <i>
               EMP <span>by Efox</span>
             </i>
