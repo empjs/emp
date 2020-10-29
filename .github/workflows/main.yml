@@ -35,7 +35,7 @@ jobs:
       #  cd projects/https && yarn dev
 
       # Runs a set of commands using the runners shell
-      #- name: Run React Test
+      - name: Run React Test
         run: |
           echo hello word!
 、
