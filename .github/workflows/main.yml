@@ -21,16 +21,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      # install node_modules & cache
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install packages
-        run: yarn install
+      # install node_modules
+      - name: Run Yarn
+        run: yarn
       # Runs a single command using the runners shell
-      - name: Run ESlint
+      - name: Run ESLint
         run: yarn lint
-
-、
