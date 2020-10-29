@@ -6,12 +6,8 @@ console.log(packagePath)
 module.exports = ({config, env}) => {
   const port = 8001
   const projectName = 'demo1'
-  let publicPath = `http://localhost:${port}/`
-  let remoteEntry = 'http://localhost:8002/emp.js'
-  if (empEnv === 'lab') {
-    publicPath = `http://efox-local-lab.yy.com/emp/projects/${projectName}/dist/`
-    remoteEntry = 'http://efox-local-lab.yy.com/emp/projects/demo2/dist/emp.js'
-  }
+  const publicPath = `http://localhost:${port}/`
+  const remoteEntry = 'http://localhost:8002/emp.js'
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
