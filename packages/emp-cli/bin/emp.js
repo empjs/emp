@@ -135,11 +135,11 @@ program
 
 //初始化项目
 program
-  .command('init <projectName>')
+  .command('init <framework> <projectName>')
   .description('初始化 emp 项目')
-  .action(projectName => {
+  .action((framework,projectName) => {
     require('../helpers/downloadRepo')(
-      'https://git.yy.com/webs/efox/template/emp-react-template.git',
+      require('../init.json')[framework],
       `./${projectName}`,
       '',
     )

@@ -12,7 +12,7 @@
 
 ## 指令 
 
-+ `emp init 项目名` 新建项目
++ `emp init 框架名 项目名` 新建项目，当前框架可选 React
 + `emp dev` 调试
   + `emp dev --hot` 热更
   + `emp dev --open` 打开调试页面
