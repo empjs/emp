@@ -1,6 +1,5 @@
 import {useLocalStore} from 'mobx-react-lite'
 import {message} from 'antd'
-// import 'src/services'
 interface CrudAction {
   create?: any
   update?: any
@@ -26,7 +25,8 @@ export const crudStore = function (crud: CrudAction) {
       selectRow, // 可选 批量选择逻辑 固定名称
       visibleRuleModal,
       opt,
-      setOpt(val: any) { // 设置获取列表默认条件
+      setOpt(val: any) {
+        // 设置获取列表默认条件
         this.opt = val
       },
       async nextPage({page = pageIndex, pageSize = 10, opt = {}}) {
@@ -94,9 +94,6 @@ export const crudStore = function (crud: CrudAction) {
         } else {
           message.error(msg)
         }
-        // } catch (e) {
-        //   message.error(e.msg)
-        // }
       },
     }
   }
