@@ -30,14 +30,12 @@ jobs:
       - name: Install packages
         run: yarn install
       # Runs a single command using the runners shell
-      - name: Run Https Test
-        run: |
-        cd projects/https && yarn dev
-        curl https://127.0.0.1:8000/
+      #- name: Run Https Test
+      #  run: |
+      #  cd projects/https && yarn dev
 
       # Runs a set of commands using the runners shell
-      - name: Run React Test
-        run: |
-          cd projects && yarn dev
-          curl https://127.0.0.1:8001/
-          curl https://127.0.0.1:8002/
+      #- name: Run React Test
+      #  run: |
+      #    cd projects && yarn dev
+、
