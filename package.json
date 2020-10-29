@@ -2,8 +2,8 @@
   "name": "emp-workspace",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://git.yy.com/webs/efox/lab/emp-workspace.git",
-  "author": "xuhongbin <xuhongbin@yy.com>",
+  "repository": "https://github.com/efoxTeam/emp.git",
+  "author": "ken <ckken@qq.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
