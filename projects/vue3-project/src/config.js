@@ -5,9 +5,9 @@ const dev = {
   publicPath: 'http://localhost:8006/',
 }
 const prod = {
-  host: 'efox-local-lab.yy.com/empvue3/components',
+  host: 'localhost',
   port: 8006,
-  publicPath: 'https://efox-local-lab.yy.com/empvue3/components/',
+  publicPath: 'http://localhost:8006/',
 }
 const configs = {dev, prod}
 exports.getConfig = env => {
