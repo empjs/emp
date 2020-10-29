@@ -1,9 +1,6 @@
 import axios from 'axios'
-// import conf from 'src/helpers/config'
-
 const http = axios.create({
   baseURL: '',
-  // withCredentials: true,
 })
 
 http.interceptors.request.use(

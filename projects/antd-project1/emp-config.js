@@ -2,7 +2,6 @@ module.exports = ({config, env}) => {
   const port = 8004
   const projectName = 'emp-project1'
   const host = 'localhost'
-  // const host = '172.25.200.250'
   const publicPath = `http://${host}:${port}/`
   //
   config.plugin('html').tap(args => {
@@ -11,9 +10,7 @@ module.exports = ({config, env}) => {
       ...{
         title: 'EMP - Project1',
         files: {
-          // css: ['https://cdn.jsdelivr.net/npm/antd@4.3.1/dist/antd.min.css'],
           js: [`http://${host}:8003/emp.js`],
-          // js: ['https://emp-antd-base.yy.com/emp.js'],
         },
       },
     }
@@ -31,7 +28,6 @@ module.exports = ({config, env}) => {
           '@emp-antd/base': 'empBase',
         },
         exposes: {},
-        // shared: ['react', 'react-dom', 'react-router-dom', 'mobx-react-lite', 'mobx', 'axios'],
         shared: {
           react: {eager: true, singleton: true, requiredVersion: '^16.13.1'},
           'react-dom': {eager: true, singleton: true, requiredVersion: '^16.13.1'},
@@ -45,6 +41,5 @@ module.exports = ({config, env}) => {
     return args
   })
   config.output.publicPath(publicPath)
-  // config.devServer.host(host)
   config.devServer.port(port)
 }
