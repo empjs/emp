@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-tsconfig",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "author": "ken",
   "license": "MIT",
@@ -9,6 +9,6 @@
     "@types/react-dom": "^16.9.8"
   },
   "dependencies": {
-    "typescript-plugin-css-modules": "^2.4.0"
+    "typescript-plugin-css-modules": "^2.7.0"
   }
 }
