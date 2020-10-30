@@ -11236,7 +11236,7 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-plugin-css-modules@^2.4.0:
+typescript-plugin-css-modules@^2.7.0:
   version "2.7.0"
   resolved "https://registry.npm.taobao.org/typescript-plugin-css-modules/download/typescript-plugin-css-modules-2.7.0.tgz#778a74694296f41aa327110f9b41aa7b57d1ae0a"
   integrity sha1-d4p0aUKW9BqjJxEPm0Gqe1fRrgo=
