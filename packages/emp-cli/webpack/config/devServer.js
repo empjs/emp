@@ -1,3 +1,6 @@
+const {getPaths} = require('../../helpers/paths')
+const {public} = getPaths()
+console.log('public', public)
 module.exports = (env, {hot, open}) => {
   const openBrowser = require('react-dev-utils/openBrowser')
   return {
@@ -7,6 +10,8 @@ module.exports = (env, {hot, open}) => {
       //   host: '0.0.0.0',
       // host: 'localhost',
       port: 8000,
+      contentBase: [public],
+      // contentBasePublicPath :'/',//定义静态路径的别名
       // disableHostCheck: true,
       historyApiFallback: true,
       // open: open === true,

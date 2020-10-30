@@ -7,7 +7,7 @@ const HttpDemo = () => {
   useEffect(() => {
     ;(async () => {
       const lang = await axios.get('https://api.github.com/users')
-      setL(lang)
+      setL(lang.data[0])
     })()
   }, [])
   return <p>http:{JSON.stringify(l)}</p>
