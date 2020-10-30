@@ -37,5 +37,5 @@ jobs:
       - name: Run Yarn
         run: yarn
       # Runs a single command using the runners shell
-      - name: Run ESLint
-        run: yarn lint
+      # - name: Run ESLint
+        # run: yarn lint
