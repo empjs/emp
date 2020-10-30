@@ -4,8 +4,8 @@ import {CrudComponent} from '@emp-antd/base/components/common/crud/index'
 import {useObserver} from 'mobx-react-lite'
 import http from 'src/helpers/http'
 import moment from 'moment'
-import { Collapse } from 'antd'
-const { Panel } = Collapse
+import {Collapse} from 'antd'
+const {Panel} = Collapse
 const TableComp = () => {
   const crudStore = useCrudStore({
     // create: (d: any) => API.mgr.createAppTable.request({}, d),
@@ -20,8 +20,8 @@ const TableComp = () => {
       testModal: false,
       setTestModal(val: boolean) {
         this.testModal = val
-      }
-    }
+      },
+    },
   })
   const {page, pageSize} = crudStore
   useEffect(() => {
@@ -36,7 +36,7 @@ const TableComp = () => {
         },
       })
     })()
-  }, [])
+  })
   return useObserver(() => (
     <>
       <CrudComponent
@@ -99,7 +99,7 @@ const TableComp = () => {
               // rules: [{required: true, message: '请输入你要修改的table值'}],
             },
           ],
-          action: async (e: { table: any }) => {
+          action: async (e: {table: any}) => {
             await crudStore.nextPage({
               page,
               pageSize,
@@ -156,11 +156,13 @@ const TableComp = () => {
           },
         ]}
         remove={{
-          items: [{
-            type: 'Text',
-            label: '',
-            data: '确定删除此数据？'
-          }]
+          items: [
+            {
+              type: 'Text',
+              label: '',
+              data: '确定删除此数据？',
+            },
+          ],
         }}
       />
     </>
