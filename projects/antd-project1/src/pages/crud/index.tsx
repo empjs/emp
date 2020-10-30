@@ -20,10 +20,11 @@ const CrudComp = () => {
   const {page, pageSize} = crudStore
   const [visibleStep, setVisibleStep] = useState<boolean>(false)
   useEffect(() => {
+    console.log('crudStore')
     ;(async () => {
       await crudStore.nextPage({page, pageSize})
     })()
-  }, [])
+  })
   return useObserver(() => (
     <>
       <Card className="mt">
