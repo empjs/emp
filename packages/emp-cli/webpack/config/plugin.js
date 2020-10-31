@@ -10,6 +10,7 @@ const {favicon, template} = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
 const fs = require('fs')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 //
 module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot}) => {
@@ -89,12 +90,27 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
           useTypescriptIncrementalApi: true,
           checkSyntacticErrors: true,
           tsconfig,
-          eslint: true,
+          // eslint: true,
+          silent: true,
           // formatter: !isDev ? undefined : typescriptFormatter,
           formatter: typescriptFormatter,
         },
       ],
     }
+  }
+  config.plugin.eslint = {
+    plugin: ESLintPlugin,
+    args: [
+      {
+        extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+        formatter: require.resolve('react-dev-utils/eslintFormatter'),
+        eslintPath: require.resolve('eslint'),
+        context: path.appSrc,
+        cache: true,
+        cwd: path.appPath,
+        resolvePluginsRelativeTo: __dirname,
+      },
+    ],
   }
   // analyzer
   if (analyze) {

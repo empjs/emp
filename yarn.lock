@@ -2203,7 +2203,7 @@
   resolved "https://registry.npm.taobao.org/@types/eslint-visitor-keys/download/@types/eslint-visitor-keys-1.0.0.tgz?cache=0&sync_timestamp=1596838199235&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint-visitor-keys%2Fdownload%2F%40types%2Feslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha1-HuMNeVRMqE1o1LPNsK9PIFZj3S0=
 
-"@types/eslint@*":
+"@types/eslint@*", "@types/eslint@^7.2.0":
   version "7.2.4"
   resolved "https://registry.npm.taobao.org/@types/eslint/download/@types/eslint-7.2.4.tgz?cache=0&sync_timestamp=1602173890460&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint%2Fdownload%2F%40types%2Feslint-7.2.4.tgz#d12eeed7741d2491b69808576ac2d20c14f74c41"
   integrity sha1-0S7u13QdJJG2mAhXasLSDBT3TEE=
@@ -2999,6 +2999,11 @@ arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/arrify/download/arrify-1.0.1.tgz?cache=0&sync_timestamp=1589684737833&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Farrify%2Fdownload%2Farrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
+
+arrify@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/arrify/download/arrify-2.0.1.tgz?cache=0&sync_timestamp=1589684737833&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Farrify%2Fdownload%2Farrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
+  integrity sha1-yWVekzHgq81YjSp8rX6ZVvZnAfo=
 
 asap@^2.0.0, asap@~2.0.6:
   version "2.0.6"
@@ -4960,6 +4965,17 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npm.taobao.org/eslint-visitor-keys/download/eslint-visitor-keys-2.0.0.tgz?cache=0&sync_timestamp=1597435585817&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-visitor-keys%2Fdownload%2Feslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha1-If3I+82ceVzAMh8FY3AglXUVEag=
 
+eslint-webpack-plugin@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npm.taobao.org/eslint-webpack-plugin/download/eslint-webpack-plugin-2.1.0.tgz#6d54f8539897b02f682007eb74fac987965e0b11"
+  integrity sha1-bVT4U5iXsC9oIAfrdPrJh5ZeCxE=
+  dependencies:
+    "@types/eslint" "^7.2.0"
+    arrify "^2.0.1"
+    fs-extra "^9.0.1"
+    micromatch "^4.0.2"
+    schema-utils "^2.7.0"
+
 eslint@^7.12.1:
   version "7.12.1"
   resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.12.1.tgz?cache=0&sync_timestamp=1603768145986&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint%2Fdownload%2Feslint-7.12.1.tgz#bd9a81fa67a6cfd51656cdb88812ce49ccec5801"
@@ -5550,7 +5566,7 @@ fs-extra@^8.1.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^9.0.0:
+fs-extra@^9.0.0, fs-extra@^9.0.1:
   version "9.0.1"
   resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-9.0.1.tgz?cache=0&sync_timestamp=1591229972229&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-9.0.1.tgz#910da0062437ba4c39fedd863f1675ccfefcb9fc"
   integrity sha1-kQ2gBiQ3ukw5/t2GPxZ1zP78ufw=

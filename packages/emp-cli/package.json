@@ -41,6 +41,8 @@
     "commander": "^5.1.0",
     "compression": "^1.7.4",
     "css-loader": "^3.5.3",
+    "eslint": "^7.12.1",
+    "eslint-webpack-plugin": "^2.1.0",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
     "fork-ts-checker-webpack-plugin": "^4.1.6",
