@@ -16,7 +16,8 @@ const setPaths = ({src, dist, public}) => {
   let template = path.join(public, 'index.html')
   favicon = fs.existsSync(favicon) ? favicon : path.join(__dirname, '../template/public/favicon.ico')
   template = fs.existsSync(template) ? template : path.join(__dirname, '../template/public/index.html')
-  paths = {appSrc, entry, dist, public, favicon, template}
+  appPath = resolveApp('.')
+  paths = {appSrc, appPath, entry, dist, public, favicon, template}
 }
 const getPaths = () => paths
 module.exports = {
