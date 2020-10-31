@@ -10,6 +10,7 @@ const {favicon, template} = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
 const fs = require('fs')
+const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 //
 module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -84,7 +85,13 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
+          async: false,
+          useTypescriptIncrementalApi: true,
+          checkSyntacticErrors: true,
           tsconfig,
+          eslint: true,
+          // formatter: !isDev ? undefined : typescriptFormatter,
+          formatter: typescriptFormatter,
         },
       ],
     }
