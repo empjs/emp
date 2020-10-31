@@ -32,7 +32,7 @@ module.exports = async args => {
         colors: true, // Shows colors in the console
       }),
     )
-    console.log('========= build finish =============')
+    // console.log('========= build finish =============')
     const paths = getPaths()
     copyPublicFolder(paths)
   })

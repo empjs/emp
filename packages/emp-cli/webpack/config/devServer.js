@@ -1,6 +1,6 @@
 const {getPaths} = require('../../helpers/paths')
 const {public} = getPaths()
-console.log('public', public)
+// console.log('public', public)
 module.exports = (env, {hot, open}) => {
   const openBrowser = require('react-dev-utils/openBrowser')
   return {
