@@ -1,13 +1,19 @@
 {
   "name": "@efox/emp-tsconfig",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "author": "ken",
   "license": "MIT",
-  "devDependencies": {
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-tsconfig"
   },
+  "devDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "types": "./lib/emp-react.d.ts",
   "dependencies": {
     "typescript-plugin-css-modules": "^2.7.0"
   }

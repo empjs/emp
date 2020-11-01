@@ -6,10 +6,15 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
 const {resolveApp, getPaths} = require('../../helpers/paths')
-const {favicon, template} = getPaths()
+const paths = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
 const fs = require('fs')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
+// const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
+// const reactRefreshOverlayEntry = require.resolve('react-dev-utils/refreshOverlayInterop')
+
 //
 module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -30,8 +35,8 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
         args: [
           {
             title: 'EMP',
-            template,
-            favicon,
+            template: paths.template,
+            favicon: paths.favicon,
             files: {
               css: [],
               js: [],
@@ -84,10 +89,31 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
+          async: true,
+          useTypescriptIncrementalApi: true,
+          checkSyntacticErrors: true,
           tsconfig,
+          // eslint: true,
+          silent: true,
+          // formatter: !isDev ? undefined : typescriptFormatter,
+          formatter: typescriptFormatter,
         },
       ],
     }
+  }
+  config.plugin.eslint = {
+    plugin: ESLintPlugin,
+    args: [
+      {
+        extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+        formatter: require.resolve('react-dev-utils/eslintFormatter'),
+        eslintPath: require.resolve('eslint'),
+        context: path.appSrc,
+        cache: true,
+        cwd: path.appPath,
+        resolvePluginsRelativeTo: __dirname,
+      },
+    ],
   }
   // analyzer
   if (analyze) {
@@ -103,6 +129,11 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
     }
     // console.log('conf.plugin.analyzer===', conf.plugin.analyzer)
   }
+  //ModuleScopePlugin
+  /* config.plugin.modulescope = {
+    plugin: ModuleScopePlugin,
+    args: [paths.appSrc, [paths.appPackageJson, reactRefreshOverlayEntry]],
+  } */
   // react hot loader
   if (hot && isDev) {
     /* conf.plugin.hotModuleReplacement = {
@@ -111,7 +142,19 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
     } */
     conf.plugin.reacthotloader = {
       plugin: ReactRefreshWebpackPlugin,
-      args: [{}],
+      args: [
+        {
+          /* overlay: {
+            entry: webpackDevClientEntry,
+            // The expected exports are slightly different from what the overlay exports,
+            // so an interop is included here to enable feedback on module-level errors.
+            module: reactRefreshOverlayEntry,
+            // Since we ship a custom dev client and overlay integration,
+            // the bundled socket handling logic can be eliminated.
+            sockIntegration: false,
+          }, */
+        },
+      ],
     }
   }
   /** create d.ts */

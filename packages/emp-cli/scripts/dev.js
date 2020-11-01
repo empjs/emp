@@ -14,27 +14,10 @@ module.exports = async args => {
   const compiler = Webpack(config)
   const server = new WebpackDevServer(compiler, config.devServer)
   const host = config.devServer.host || 'localhost'
-  server.listen(config.devServer.port, host, () => {
+  server.listen(config.devServer.port, host, err => {
+    if (err) {
+      return console.error(err)
+    }
     console.log(`Starting server on http://${host}:${config.devServer.port}`)
   })
-  //
-  /* webpack(config, (err, stats) => {
-    if (err) {
-      console.error(err.stack || err)
-      if (err.details) {
-        console.error(err.details)
-      }
-      return
-    }
-    const info = stats.toJson()
-
-    if (stats.hasErrors()) {
-      console.error(info.errors)
-    }
-
-    if (stats.hasWarnings()) {
-      console.warn(info.warnings)
-    }
-    // console.log(info)
-  }) */
 }
