@@ -12,6 +12,7 @@ const path = require('path')
 const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
+
 //
 module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -86,7 +87,7 @@ module.exports = (env, config, {analyze, empEnv, ts, createName, createPath, hot
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
-          async: false,
+          async: true,
           useTypescriptIncrementalApi: true,
           checkSyntacticErrors: true,
           tsconfig,
