@@ -11,7 +11,7 @@ const mf2 = require('src/assets/logo.svg')
 const mf3 = require('src/assets/logo.svg').default
 console.log('logo', mf, mf2, mf3)
 
-const ButtonEvent = () => <button onClick={() => console.log('click event')}>Button Click Event</button>
+const ButtonEvent = () => <button>Button Click Event</button>
 class Democlass {
   a: any = 1
   constructor() {

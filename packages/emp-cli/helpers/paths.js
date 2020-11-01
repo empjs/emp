@@ -9,6 +9,7 @@ let paths = {}
 const setPaths = ({src, dist, public}) => {
   const appSrc = src ? resolveApp(src) : resolveApp('src')
   const entry = src ? resolveApp(src) : resolveApp('src/index.ts')
+  const appPackageJson = resolveApp('package.json')
   dist = dist ? resolveApp(dist) : resolveApp('dist')
   public = public ? resolveApp(public) : resolveApp('public')
 
@@ -16,7 +17,8 @@ const setPaths = ({src, dist, public}) => {
   let template = path.join(public, 'index.html')
   favicon = fs.existsSync(favicon) ? favicon : path.join(__dirname, '../template/public/favicon.ico')
   template = fs.existsSync(template) ? template : path.join(__dirname, '../template/public/index.html')
-  paths = {appSrc, entry, dist, public, favicon, template}
+  appPath = resolveApp('.')
+  paths = {appSrc, appPath, appPackageJson, entry, dist, public, favicon, template}
 }
 const getPaths = () => paths
 module.exports = {
