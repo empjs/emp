@@ -37,7 +37,7 @@ table.push(['@efox/emp-cli', package.version])
 table.push(['webpack', package.dependencies.webpack])
 table.push(['typescript', package.dependencies.typescript])
 table.push(['postcss', package.dependencies.postcss])
-console.log(table.toString())
+console.log(table.toString() + '\n')
 //
 program.version(package.version, '-v, --version').usage('<command> [options]')
 
