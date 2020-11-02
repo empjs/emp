@@ -5,13 +5,17 @@ const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
 const {copyPublicFolder} = require('../helpers/build')
 const chalk = require('chalk')
+const ora = require('ora')
+const spinner = ora('=== EMP Build Start ===\n').start()
 module.exports = async args => {
   const {src, dist, public} = args
   setPaths({src, dist, public})
   const paths = getPaths()
   const config = await getProjectConfig('production', args)
+
   //
   webpack(config, (err, stats) => {
+    spinner.succeed('EMP Build Completed!')
     if (err) {
       console.error(err.stack || err)
       if (err.details) {

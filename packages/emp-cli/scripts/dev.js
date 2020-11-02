@@ -2,6 +2,8 @@ const {setPaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
+const ora = require('ora')
+const spinner = ora('=== EMP Dev Start ===\n').start()
 //
 
 module.exports = async args => {
@@ -15,6 +17,7 @@ module.exports = async args => {
   const server = new WebpackDevServer(compiler, config.devServer)
   const host = config.devServer.host || 'localhost'
   server.listen(config.devServer.port, host, err => {
+    spinner.succeed('EMP Dev Completed!')
     if (err) {
       return console.error(err)
     }
