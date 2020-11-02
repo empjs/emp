@@ -15,14 +15,15 @@ module.exports = async args => {
 
   //
   webpack(config, (err, stats) => {
-    spinner.succeed('EMP Build Completed!')
     if (err) {
       console.error(err.stack || err)
       if (err.details) {
         console.error(err.details)
+        spinner.fail(`=== EMP Build Fail! ===\n`)
       }
       return
     }
+    spinner.succeed('=== EMP Build Completed! ===\n')
     if (stats.hasWarnings()) {
       console.log(chalk.yellow.bold('\n=== EMP Compiled with warnings.===\n'))
       console.log(
