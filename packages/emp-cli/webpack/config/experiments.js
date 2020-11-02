@@ -8,7 +8,7 @@ module.exports = (env, config) => {
       // importAsync: true,
       // importAwait: true,
       // file-loader、url-loader、raw-loader
-      asset: true,
+      // asset: true,
       //wasm
       asyncWebAssembly: true,
       syncWebAssembly: true,

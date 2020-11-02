@@ -10,8 +10,5 @@ module.exports = (args, config, env) => {
     devtool: 'inline-source-map',
     devServer,
   }
-  // const conf = merge.smart(commonWebpackConfig, devConfig)
-  // console.log('dev conf', conf.module.rules, commonWebpackConfig.module.rules)
-  // return devConfig
   config.merge(devConfig)
 }
