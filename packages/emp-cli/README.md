@@ -2,7 +2,8 @@
 > 基于webpack5 module federation 微前端解决方案 
 
 ## 快速开始
-`npx @efox/emp-cli init my-emp`
+初始化 EMP React 基站项目： `npx @efox/emp-cli init react-base 基站项目名`
+初始化 EMP React 应用项目：`npx @efox/emp-cli init react-project 应用项目名`
 
 ## 安装 
 `npm i -g @efox/emp-cli` or `yarn global add @efox/emp-cli` 
