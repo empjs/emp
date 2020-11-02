@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.1.21",
+  "version": "1.2.0",
   "keywords": [
     "react",
     "module federation",
@@ -13,9 +13,6 @@
   "license": "MIT",
   "engines": {
     "node": ">=8"
-  },
-  "scripts": {
-    "publish": "yarn publish --access public"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
