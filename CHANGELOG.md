@@ -1,5 +1,10 @@
 # @Efox EMP CLI Change Log
 > change log infomation
+## v1.1.20
++ 优化构建报错继续执行完成的通知
++ 美化日志提示
++ 增加日志提示选项
+
 ## v1.1.16
 + 增加 dev环境 public 静态路径
 ## v1.1.15

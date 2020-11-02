@@ -52,10 +52,11 @@ program
   .option('-h, --hot', '是否使用热更新 默认不启动')
   .option('-o, --open <open>', '是否打开调试页面 默认true,false禁止自动打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
-  .action(({src, public, env, hot, open, ts}) => {
+  .option('-ps, --progress', '显示进度 默认为 false')
+  .action(({src, public, env, hot, open, ts, progress}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
-    require('../scripts/dev')({src, public, empEnv, hot, open, ts})
+    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress})
   })
 // 构建
 program
@@ -70,9 +71,10 @@ program
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  .action(({src, dist, public, analyze, env, ts, createName, createPath}) => {
+  .option('-ps, --progress', '显示进度 默认为 false')
+  .action(({src, dist, public, analyze, env, ts, progress, createName, createPath}) => {
     const empEnv = env || 'prod'
-    require('../scripts/build')({src, dist, public, analyze, empEnv, ts, createName, createPath})
+    require('../scripts/build')({src, dist, public, analyze, empEnv, ts, progress, createName, createPath})
   })
 // 正式环境
 program
