@@ -5,6 +5,5 @@ module.exports = (args, config, env) => {
     devtool: 'source-map',
     devServer,
   }
-  // return prodConfig
   config.merge(prodConfig)
 }
