@@ -19,6 +19,11 @@ module.exports = (env, config) => {
       },
       postcss: {
         loader: require.resolve('postcss-loader'),
+        options: {
+          postcssOptions: {
+            hideNothingWarning: true,
+          },
+        },
       },
       ...preProcessor,
     }

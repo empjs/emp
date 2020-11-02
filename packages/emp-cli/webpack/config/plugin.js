@@ -62,7 +62,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     },
   }
   // progress
-  if (progress) {
+  /* if (progress) {
     conf.plugin.progress = {
       plugin: webpack.ProgressPlugin,
       args: [
@@ -73,7 +73,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         },
       ],
     }
-  }
+  } */
   // ts ForkTsCheckerWebpackPlugin
   const tsconfig = resolveApp('tsconfig.json')
   if (fs.existsSync(tsconfig)) {

@@ -4,6 +4,7 @@
 + 优化构建报错继续执行完成的通知
 + 美化日志提示
 + 增加日志提示选项
++ postcss 增加 ` hideNothingWarning: true,` 屏蔽不存在的 `postcss.config.js` 的报错
 
 ## v1.1.16
 + 增加 dev环境 public 静态路径

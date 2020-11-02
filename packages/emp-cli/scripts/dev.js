@@ -2,12 +2,10 @@ const {setPaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const ora = require('ora')
-const spinner = ora('=== EMP Dev Start ===\n').start()
-//
+const openBrowser = require('react-dev-utils/openBrowser')
 
 module.exports = async args => {
-  const {src, public} = args
+  const {src, public, open} = args
   setPaths({src, public})
   const config = await getProjectConfig('development', args)
   //::Fix 新版本需要加入一下配置 支持 liveReload 和 hot reload
@@ -17,10 +15,16 @@ module.exports = async args => {
   const server = new WebpackDevServer(compiler, config.devServer)
   const host = config.devServer.host || 'localhost'
   server.listen(config.devServer.port, host, err => {
-    spinner.succeed('EMP Dev Completed!')
     if (err) {
-      return console.error(err)
+      console.error(err)
+      return
     }
-    console.log(`Starting server on http://${host}:${config.devServer.port}`)
+    if (open === true) {
+      let url = host
+      if (config.devServer.port != 80) url += ':' + config.devServer.port
+      const protocol = config.devServer.https ? 'https' : 'http'
+      openBrowser(`${protocol}://${url}`)
+      console.log(`Starting server on http://${host}:${config.devServer.port}`)
+    }
   })
 }
