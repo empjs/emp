@@ -139,10 +139,10 @@ program
 
 //初始化项目
 program
-  .command('init <framework> <projectName>')
+  .command('init <template> <projectName>')
   .description('初始化 emp 项目')
-  .action((framework, projectName) => {
-    require('../helpers/downloadRepo')(require('../config/template.json')[framework], `./${projectName}`, '')
+  .action((template, projectName) => {
+    require('../helpers/downloadRepo')(require('../config/template.json')[template], `./${projectName}`, '')
     console.log('初始化完成，请输入:')
     console.log(`cd ${projectName} && yarn && yarn dev`)
   })
