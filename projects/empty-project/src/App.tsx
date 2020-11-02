@@ -20,6 +20,10 @@ class Democlass {
 }
 new Democlass()
 export default function App() {
+  const a = 1
+  if (a === true) {
+    console.log(1)
+  }
   return (
     <>
       <Logo width="350" className={css['App-logo']} />
