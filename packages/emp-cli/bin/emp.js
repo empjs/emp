@@ -152,9 +152,10 @@ program
 program
   .command('init')
   .description('初始化 emp 项目')
-  .option('-n, --projectName ', '默认项目名 emp-project')
+  .option('-n, --projectName <projectName>', '默认项目名 emp-project')
   .option('-t, --template <template>', '未填则进入选择模板')
   .action(({projectName = 'emp-project', template}) => {
+    console.log(projectName)
     const templateList = require('../config/template.json')
     const templateNameList = []
     for (item in templateList) {
