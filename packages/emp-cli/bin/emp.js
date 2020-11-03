@@ -11,6 +11,7 @@ console.log(chalk.bold('@efox/emp-cli') + ' [ ' + chalk.green.bold(package.versi
 console.log(chalk.bold('webpack') + ' [ ' + chalk.green.bold(package.dependencies.webpack) + ' ]')
 console.log(chalk.bold('typescript') + ' [ ' + chalk.green.bold(package.dependencies.typescript) + ' ]')
 console.log(chalk.bold('====== ====== ====== ======')) */
+const inquirer = require('inquirer') //交互性命令行
 const Table = require('cli-table3')
 const table = new Table({
   head: ['Emp & Deps', 'Version'],
@@ -74,7 +75,17 @@ program
   .option('-ps, --progress', '显示进度 默认为 false')
   .action(({src, dist, public, analyze, env, ts, progress, createName, createPath}) => {
     const empEnv = env || 'prod'
-    require('../scripts/build')({src, dist, public, analyze, empEnv, ts, progress, createName, createPath})
+    require('../scripts/build')({
+      src,
+      dist,
+      public,
+      analyze,
+      empEnv,
+      ts,
+      progress,
+      createName,
+      createPath,
+    })
   })
 // 正式环境
 program
@@ -139,12 +150,32 @@ program
 
 //初始化项目
 program
-  .command('init <template> <projectName>')
+  .command('init')
   .description('初始化 emp 项目')
-  .action((template, projectName) => {
-    require('../helpers/downloadRepo')(require('../config/template.json')[template], `./${projectName}`, '')
-    console.log('初始化完成，请输入:')
-    console.log(`cd ${projectName} && yarn && yarn dev`)
+  .option('-n, --projectName ', '默认项目名 emp-project')
+  .option('-t, --template <template>', '未填则进入选择模板')
+  .action(({projectName = 'emp-project', template}) => {
+    const templateList = require('../config/template.json')
+    const templateNameList = []
+    for (item in templateList) {
+      templateNameList.push(item)
+    }
+    if (!template) {
+      inquirer
+        .prompt([
+          {
+            type: 'list',
+            name: 'template',
+            message: '请选择模板:',
+            choices: templateNameList,
+          },
+        ])
+        .then(answers => {
+          require('../helpers/downloadRepo')(templateList[answers.template], `${projectName}`, '')
+        })
+    } else {
+      require('../helpers/downloadRepo')(templateList[template], `${projectName}`, '')
+    }
   })
 
 // 执行命令
