@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.20.0",
+    "html-webpack-plugin": "^5.0.0-alpha.10",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.7",
     "postcss-px-to-viewport": "^1.1.1",
