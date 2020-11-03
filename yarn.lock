@@ -6100,6 +6100,19 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
+html-webpack-plugin@^5.0.0-alpha.10:
+  version "5.0.0-alpha.10"
+  resolved "https://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-5.0.0-alpha.10.tgz?cache=0&sync_timestamp=1604303597686&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fhtml-webpack-plugin%2Fdownload%2Fhtml-webpack-plugin-5.0.0-alpha.10.tgz#edc754eb32240c4a54b82b4d0a1df1bfa045b27c"
+  integrity sha1-7cdU6zIkDEpUuCtNCh3xv6BFsnw=
+  dependencies:
+    "@types/html-minifier-terser" "^5.0.0"
+    "@types/tapable" "^1.0.5"
+    html-minifier-terser "^5.0.1"
+    loader-utils "2.0.0"
+    lodash "^4.17.20"
+    pretty-error "^2.1.1"
+    tapable "2.0.0"
+
 html-webpack-plugin@^5.0.0-alpha.9:
   version "5.0.0-alpha.9"
   resolved "https://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-5.0.0-alpha.9.tgz#6d04b3be2186756530730e1fb160b04aa0e32383"

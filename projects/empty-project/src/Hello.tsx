@@ -6,8 +6,8 @@ const HttpDemo = () => {
   const [l, setL] = useState({})
   useEffect(() => {
     ;(async () => {
-      const lang = await axios.get('https://api.github.com/users')
-      setL(lang.data[0])
+      // const lang = await axios.get('https://api.github.com/users')
+      // setL(lang.data[0])
     })()
   }, [])
   return <p>http:{JSON.stringify(l)}</p>

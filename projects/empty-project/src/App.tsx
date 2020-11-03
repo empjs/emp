@@ -20,15 +20,15 @@ class Democlass {
 }
 new Democlass()
 export default function App() {
-  const a = 1
+  /* const a = 1
   if (a === true) {
     console.log(1)
-  }
+  } */
   return (
     <>
       <Logo width="350" className={css['App-logo']} />
       <img src={require('src/assets/mf.png')} width="300" />
-      <h1 className={css.main}>EMP EMPTY PROJECT DEMO</h1>
+      <h1 className={css.main}>EMP EMPTY PROJECT DEMO!</h1>
       <p>Infomation!!!</p>
       <p>config:{JSON.stringify(config)}</p>
       <Hello />
