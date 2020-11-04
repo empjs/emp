@@ -5,9 +5,8 @@ console.log(packagePath)
 
 module.exports = ({config, env}) => {
   const port = 8001
-  const projectName = 'demo1'
+  const projectName = 'dynamic_system_host'
   const publicPath = `http://localhost:${port}/`
-  const remoteEntry = 'http://localhost:8002/emp.js'
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
@@ -15,11 +14,7 @@ module.exports = ({config, env}) => {
         name: projectName,
         library: {type: 'var', name: projectName},
         filename: 'emp.js',
-        exposes: {
-          './configs/index': 'src/configs/index',
-          './components/Demo': 'src/components/Demo',
-          './components/Hello': 'src/components/Hello',
-        },
+        exposes: {},
         // shared: ['react', 'react-dom'],
         shared: {...dependencies},
       },
@@ -28,15 +23,4 @@ module.exports = ({config, env}) => {
   })
   config.output.publicPath(publicPath)
   config.devServer.port(port)
-  config.plugin('html').tap(args => {
-    args[0] = {
-      ...args[0],
-      ...{
-        files: {
-          js: [remoteEntry],
-        },
-      },
-    }
-    return args
-  })
 }
