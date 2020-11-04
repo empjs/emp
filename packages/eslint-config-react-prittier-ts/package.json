@@ -5,6 +5,11 @@
   "author": "ken <ckken@qq.com>",
   "homepage": "",
   "license": "MTI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/eslint-config-react-prittier-ts"
+  },
   "main": "index.js",
   "publishConfig": {
     "access": "public"
