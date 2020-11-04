@@ -1,5 +1,8 @@
 # EMP - 微前端解决方案
 > Base on Webpack 5 & Module Federation
+
+[English](./README.md) | 简体中文
+
 ## Projects
 |Project|NPM|Info|
 |---|---|---|
