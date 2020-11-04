@@ -1,4 +1,4 @@
-# emp-tune-dts-plugin
+# @efox/emp-tune-dts-plugin
 
 > 为 Module Federation 项目生成类型文件
 
