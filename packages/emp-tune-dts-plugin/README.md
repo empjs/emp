@@ -98,6 +98,7 @@ tuneType(createPath, createName, true)
 ## 引用远程类型 
 ### 方法1
 `yarn add @efox/emp-cli`
+
 `yarn emp tss 远程项目地址/index.d.ts -n 远程项目名.d.ts `
 
 ### 方法2
