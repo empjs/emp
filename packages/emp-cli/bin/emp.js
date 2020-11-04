@@ -152,31 +152,32 @@ program
 program
   .command('init')
   .description('初始化 emp 项目')
-  .option('-n, --projectName <projectName>', '默认项目名 emp-project')
-  .option('-t, --template <template>', '未填则进入选择模板')
-  .action(({projectName = 'emp-project', template}) => {
-    console.log(projectName)
+  .action(() => {
     const templateList = require('../config/template.json')
     const templateNameList = []
     for (item in templateList) {
       templateNameList.push(item)
     }
-    if (!template) {
-      inquirer
-        .prompt([
-          {
-            type: 'list',
-            name: 'template',
-            message: '请选择模板:',
-            choices: templateNameList,
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'name',
+          message: '请输入项目名:',
+          default: function () {
+            return 'emp-project'
           },
-        ])
-        .then(answers => {
-          require('../helpers/downloadRepo')(templateList[answers.template], `${projectName}`, '')
-        })
-    } else {
-      require('../helpers/downloadRepo')(templateList[template], `${projectName}`, '')
-    }
+        },
+        {
+          type: 'list',
+          name: 'template',
+          message: '请选择模板:',
+          choices: templateNameList,
+        },
+      ])
+      .then(answers => {
+        require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
+      })
   })
 
 // 执行命令
