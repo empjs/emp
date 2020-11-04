@@ -11,6 +11,11 @@
     "emp": "./bin/emp.js"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-cli"
+  },
   "engines": {
     "node": ">=8"
   },

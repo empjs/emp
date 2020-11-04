@@ -11,6 +11,11 @@
   "description": "Tune d.ts Plugin",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-tune-dts-plugin"
+  },
   "engines": {
     "node": ">=8"
   },
