@@ -1,6 +1,8 @@
 # EMP 工具库
 > 基于webpack5 module federation 微前端解决方案 
 
+[English](./README.md) | 简体中文
+
 ## 🙋‍♂️ 快速开始
 + 初始化 EMP React 基站项目： `npx @efox/emp-cli init`
 

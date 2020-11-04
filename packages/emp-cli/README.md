@@ -1,6 +1,8 @@
 # EMP CLI
 > Base on Webpack5 Module Federation Micro Frontends solution
 
+English | [简体中文](./README-zh_CN.md)
+
 ## 🙋‍♂️ Quick start
 + Initialize EMP project： `npx @efox/emp-cli init`
 
