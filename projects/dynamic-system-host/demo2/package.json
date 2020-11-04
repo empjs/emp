@@ -1,0 +1,24 @@
+{
+  "name": "@emp/demo2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "emp dev",
+    "dev:hot": "emp dev --hot",
+    "build": "emp build",
+    "build:lab": "emp build --env lab",
+    "start": "emp serve",
+    "stat": "emp build --analyze"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-tsconfig": "^1.0.0"
+  },
+  "dependencies": {
+    "@efox/emp-tsconfig": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
