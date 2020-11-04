@@ -1,4 +1,4 @@
-# emp-tune-dts-plugin
+# @efox/emp-tune-dts-plugin
 
 > Generate type files for Module Federation project
 
