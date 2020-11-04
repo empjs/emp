@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "keywords": [
     "react",
     "module federation",
@@ -11,6 +11,11 @@
     "emp": "./bin/emp.js"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-cli"
+  },
   "engines": {
     "node": ">=8"
   },
