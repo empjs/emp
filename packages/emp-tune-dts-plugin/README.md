@@ -15,6 +15,9 @@ English | [简体中文](./README-zh_CN.md)
 + Form a closed loop of types, from generation to reference complete
 + Support custom modification
 
+# 👨‍🔧 Architecture
+![Architecture](./img/architecture.png)
+
 ## 📦 Quick start
 
 `npm i @efox/emp-tune-dts-plugin` or `yarn add @efox/emp-tune-dts-plugin`

@@ -15,6 +15,9 @@
 + 形成类型闭环，生成到引用已完善
 + 支持自定义修改
 
+# 👨‍🔧 架构
+![Architecture](./img/architecture-zh.png)
+
 ## 📦 快速开始
 
 `npm i @efox/emp-tune-dts-plugin` or `yarn add @efox/emp-tune-dts-plugin`
