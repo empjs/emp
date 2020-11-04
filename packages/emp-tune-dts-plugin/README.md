@@ -4,6 +4,7 @@
 
 # 为什么需要
 + Typescript开发中，引用远程项目内容需要类型文件支撑。
++ tsc 所生成的模块类型是相对路径，不可被远程项目使用。
 + Module Federation issues: [How typesafe can a remote be with Typescript?](https://github.com/module-federation/module-federation-examples/issues/20)
 
 # 特性
