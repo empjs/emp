@@ -34,6 +34,8 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/class-name-casing': 0,
     '@typescript-eslint/triple-slash-reference': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
