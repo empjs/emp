@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React, {useState} from 'react'
+import {render} from 'react-dom'
 
 import {DynamicWrap, DynamicDataType} from './components/DynamicWrap'
 const DynamicDemo = (): any => {
-  const [system, setSystem] = React.useState<DynamicDataType>()
+  const [system, setSystem] = useState<DynamicDataType>()
 
   function setApp2() {
     // https://www.jeremypay.com/lab/mflab/app2/dist/remoteEntry.js
@@ -34,9 +34,4 @@ const DynamicDemo = (): any => {
 }
 
 // log('==============testing!!!!==============================')
-ReactDOM.render(
-  <>
-    <DynamicDemo />
-  </>,
-  document.getElementById('emp-root'),
-)
+render(<DynamicDemo />, document.getElementById('emp-root'))
