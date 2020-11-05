@@ -1,16 +1,17 @@
-import React, {useState, useEffect, lazy, Suspense} from 'react'
+import React, {useState, useEffect, lazy, Suspense, ReactElement} from 'react'
 
 declare let __webpack_init_sharing__: any
 declare let __webpack_share_scopes__: any
 declare let window: any
 
-export interface DynamicDataType {
+export interface DynamicSystemDataType {
   url: string
   scope: string
   module: string
 }
-export interface DynamicWrapProp {
-  system: DynamicDataType
+export interface DynamicWrapProp<T> {
+  system: DynamicSystemDataType
+  widgetProps?: T
 }
 
 export const loadComponent = (scope: string | number, module: any) => {
@@ -69,10 +70,12 @@ export const useDynamicScript = (args: any): any => {
   }
 }
 
-export const DynamicWrap = (props: DynamicWrapProp): any => {
+export const DynamicWrap = (props: DynamicWrapProp<any>): ReactElement => {
   const {ready, failed} = useDynamicScript({
     url: props?.system && props.system.url,
   })
+
+  // const widgetProps: T = {props?.widgetProps}
 
   if (!props?.system) {
     return <h2>Not system specified</h2>
