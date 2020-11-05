@@ -13,4 +13,4 @@ This example demos a basic host application loading remote component.
 分别进入 `demo2` 、`dynamic_system_host` 项目目录，前台执行 `yarn dev`
 
 - [localhost:3001](http://localhost:3001/) (HOST)
-- [localhost:3002](http://localhost:3002/) (STANDALONE REMOTE)
+- [localhost:3002](http://localhost:3002/) (STANDALONE REMOTE) 不能直接访问，因为其指定的远程项目没有启动
