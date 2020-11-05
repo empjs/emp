@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, lazy, Suspense} from 'react'
 
 declare let __webpack_init_sharing__: any
 declare let __webpack_share_scopes__: any
@@ -27,10 +27,10 @@ export const loadComponent = (scope: string | number, module: any) => {
 }
 
 export const useDynamicScript = (args: any): any => {
-  const [ready, setReady] = React.useState(false)
-  const [failed, setFailed] = React.useState(false)
+  const [ready, setReady] = useState(false)
+  const [failed, setFailed] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!args.url) {
       return
     }
@@ -86,11 +86,11 @@ export const DynamicWrap = (props: DynamicWrapProp): any => {
     return <h2>Failed to load dynamic script: {props.system.url}</h2>
   }
 
-  const Component = React.lazy(loadComponent(props.system.scope, props.system.module))
+  const Component = lazy(loadComponent(props.system.scope, props.system.module))
 
   return (
-    <React.Suspense fallback="Loading System">
+    <Suspense fallback="Loading System">
       <Component />
-    </React.Suspense>
+    </Suspense>
   )
 }
