@@ -14,10 +14,20 @@ const DynamicDemo = (): any => {
     })
   }
 
+  function setApp3() {
+    // https://www.jeremypay.com/lab/mflab/app2/dist/remoteEntry.js
+    setSystem({
+      url: 'http://localhost:8002/emp.js',
+      scope: 'demo2',
+      module: './components/Hello',
+    })
+  }
+
   return (
     <>
       <h1>Hello Dynamic System Host</h1>
-      <button onClick={setApp2}>Load App 2 Widget</button>
+      <button onClick={setApp2}>常规MF组件动态加载</button>
+      <button onClick={setApp3}>EMP组件动态加载</button>
       <div style={{marginTop: '2em'}}>{system ? <DynamicWrap system={system} /> : <></>}</div>
     </>
   )
