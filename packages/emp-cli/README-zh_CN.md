@@ -4,7 +4,7 @@
 [English](./README.md) | 简体中文
 
 ## 🙋‍♂️ 快速开始
-+ 初始化 EMP React 基站项目： `npx @efox/emp-cli init`
++ 初始化 EMP 项目： `npx @efox/emp-cli init`
 
 ## 📦 安装 
 `npm i -g @efox/emp-cli` or `yarn global add @efox/emp-cli` 

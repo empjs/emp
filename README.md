@@ -18,11 +18,12 @@ npx @efox/emp-cli my-emp
 cd my-emp && yarn && yarn dev
 ```
 
-If you've previously installed `@efox/emp-cli`,globally via `npm install -g @efox/emp-cli` or `yarn global add @efox/emp-cli `,  we recommend you uninstall the package using `npm uninstall -g @efox/emp-cli` or `yarn global remove @efox/emp-cli` to ensure that npx always uses the latest version.
++ If you've previously installed `@efox/emp-cli`,globally via `npm install -g @efox/emp-cli` or `yarn global add @efox/emp-cli `.  
++ we recommend you uninstall the package using `npm uninstall -g @efox/emp-cli` or `yarn global remove @efox/emp-cli` to ensure that npx always uses the latest version.
 
-run `cd my-emp && yarn && yarn dev`,the project will automatically open in the browser.
++ run `cd my-emp && yarn && yarn dev`,the project will automatically open in the browser.
 
-If you want to know more about the use of `@efox/emp-cli`, go to [emp-cli](https://github.com/efoxTeam/emp/tree/main/packages/emp-cli).
++ If you want to know more about the use of `@efox/emp-cli`, go to [emp-cli](https://github.com/efoxTeam/emp/tree/main/packages/emp-cli).
 
 <img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
