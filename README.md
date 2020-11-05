@@ -19,7 +19,7 @@ English | [简体中文](./README-zh_CN.md)
 |<img src='assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
 |<img src='assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
 |<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
-|<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects/dynamic-system-host`|
+|<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)

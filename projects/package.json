@@ -14,7 +14,8 @@
     "dev:vue": "lerna run --scope @empvue3/* --parallel dev",
     "build:vue": "lerna run --scope @empvue3/* --parallel build",
     "stat:vue": "lerna run --scope @empvue3/* --parallel stat",
-    "start:vue": "lerna run --scope @empvue3/* --parallel start"
+    "start:vue": "lerna run --scope @empvue3/* --parallel start",
+    "dev:dynamichost": "lerna run --scope '{@emp/demo2,@empdynamichost/host}' --parallel dev"
   },
   "devDependencies": {},
   "dependencies": {}
