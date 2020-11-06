@@ -1,7 +1,7 @@
 <template>
   <div>
     <Content title="I am Vue Project" />
-    <hello-react title="Remote React Component" />
+    <hello-react title="Vue use Remote React Component" />
   </div>
 </template>
 

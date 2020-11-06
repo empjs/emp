@@ -11,7 +11,7 @@ ReactDOM.render(
   <>
     <Hello title="I am React Project" />
     <div style={{ backgroundColor: '#eee', padding: '20px' }}>
-      <VueComponent title="React use Vue Component" />
+      <VueComponent title="React use Remote Vue Component" />
     </div>
   </>,
   document.getElementById('emp-root'),
