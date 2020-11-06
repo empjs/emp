@@ -42,7 +42,6 @@ module.exports = ({config, env, empEnv}) => {
         }, */
         exposes: {
           './Content': './src/components/Content',
-          './Button': './src/components/Button',
         },
         /* shared: {
           ...dependencies,
