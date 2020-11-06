@@ -14,6 +14,10 @@ export interface DynamicWrapProp<T> {
   widgetProps?: T
 }
 
+export interface UseDynamicScriptType {
+  url: string
+}
+
 export const loadComponent = (scope: string | number, module: any) => {
   return async (): Promise<any> => {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -27,7 +31,7 @@ export const loadComponent = (scope: string | number, module: any) => {
   }
 }
 
-export const useDynamicScript = (args: any): any => {
+export const useDynamicScript = (args: UseDynamicScriptType): any => {
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
 
@@ -75,8 +79,6 @@ export const DynamicWrap = (props: DynamicWrapProp<any>): ReactElement => {
     url: props?.system && props.system.url,
   })
 
-  // const widgetProps: T = {props?.widgetProps}
-
   if (!props?.system) {
     return <h2>Not system specified</h2>
   }
@@ -93,7 +95,7 @@ export const DynamicWrap = (props: DynamicWrapProp<any>): ReactElement => {
 
   return (
     <Suspense fallback="Loading System">
-      <Component />
+      <Component {...props?.widgetProps} />
     </Suspense>
   )
 }
