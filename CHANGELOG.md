@@ -1,5 +1,8 @@
 # @Efox EMP CLI Change Log
 > change log infomation
+## 1.2.8
++ 增加 `TSC_COMPILE_ON_ERROR` 让构建可以忽略ts检测继续进行
+
 ## v1.1.20
 + 优化构建报错继续执行完成的通知
 + 美化日志提示

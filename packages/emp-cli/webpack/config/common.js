@@ -15,6 +15,7 @@ module.exports = (env, config, args) => {
     // cache: false,
     optimization: {
       chunkIds: 'named',
+      // minimize: false,
     },
     entry: {index: entry},
     output: {

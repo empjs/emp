@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "emp dev",
-    "build": "emp build",
+    "build": "cross-env TSC_COMPILE_ON_ERROR=true emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
     "start": "emp serve"
@@ -18,7 +18,8 @@
     "@types/loadjs": "^4.0.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "cross-env": "^7.0.2"
   },
   "dependencies": {
     "@efox/emp-tsconfig": "^1.0.0",

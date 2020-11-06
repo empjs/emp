@@ -37,15 +37,24 @@ module.exports = async args => {
     //
     if (stats.hasErrors()) {
       console.log(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
-      console.log(
-        stats.toString({
-          all: false,
-          colors: true,
-          errors: true,
-        }),
-      )
-      process.exit(1)
-      return
+      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
+      if (tscCompileOnError) {
+        console.log(
+          chalk.yellow(
+            'Compiled with the following type errors (you may want to check these before deploying your app):\n',
+          ),
+        )
+      } else {
+        console.log(
+          stats.toString({
+            all: false,
+            colors: true,
+            errors: true,
+          }),
+        )
+        process.exit(1)
+        return
+      }
     }
     //
     console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))

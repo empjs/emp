@@ -14,7 +14,7 @@ module.exports = (env, {hot, open, progress}) => {
       historyApiFallback: true,
       // open: open === true,
       hot: hot === true,
-      overlay: !hot,
+      // overlay: !hot,
       progress: progress === true,
       stats: {
         colors: true,
