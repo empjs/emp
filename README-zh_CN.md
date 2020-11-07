@@ -14,7 +14,7 @@
 
 ## Quick Overview
 ```sh
-npx @efox/emp-cli my-emp
+npx @efox/emp-cli init
 cd my-emp && yarn && yarn dev
 ```
 
