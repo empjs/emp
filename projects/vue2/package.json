@@ -5,8 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "@efox/emp-cli": "^1.1.7",
-    "vue-loader": "^15.9.5",
-    "vue-template-compiler": "^2.6.12"
+    "@efox/emp-vue2": "^1.0.0"
   },
   "dependencies": {
     "vue": "^2.6.12"

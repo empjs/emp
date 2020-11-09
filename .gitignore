@@ -2,3 +2,4 @@ node_modules
 yarn-error.log
 dist
 .emp-cache
+lerna-debug.log

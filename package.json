@@ -11,6 +11,7 @@
   },
   "workspaces": [
     "packages/*",
+    "packages/emp-frameworks/*",
     "projects/*",
     "helpers/*",
     "components/*"

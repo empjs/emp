@@ -1,5 +1,6 @@
+const withVue2 = require('@efox/emp-vue2')
 const path = require('path')
-const {VueLoaderPlugin} = require('vue-loader')
+// const {VueLoaderPlugin} = require('vue-loader')
 //
 const ProjectRootPath = path.resolve('./')
 // const packagePath = path.join(ProjectRootPath, 'package.json')
@@ -7,25 +8,25 @@ const ProjectRootPath = path.resolve('./')
 //
 const {getConfig} = require(path.join(ProjectRootPath, './src/config'))
 //
-module.exports = ({config, env, empEnv}) => {
+module.exports = withVue2(({config, env, empEnv}) => {
   const confEnv = env === 'production' ? 'prod' : 'dev'
   const conf = getConfig(empEnv || confEnv)
   console.log('config', conf)
   //
-  const srcPath = path.resolve('./src')
-  config.entry('index').clear().add(path.join(srcPath, 'main.js'))
+  // const srcPath = path.resolve('./src')
+  // config.entry('index').clear().add(path.join(srcPath, 'main.js'))
   //
-  config.resolve.alias.set('vue', '@vue/runtime-dom')
+  /*   config.resolve.alias.set('vue', '@vue/runtime-dom')
   config.plugin('vue').use(VueLoaderPlugin, [])
   config.module
     .rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader('vue-loader')
+    .loader('vue-loader') */
   //
   const host = conf.host
   const port = conf.port
-  const projectName = 'vue3Components'
+  const projectName = 'vue2Components'
   const publicPath = conf.publicPath
   config.output.publicPath(publicPath)
   config.devServer.port(port)
@@ -51,16 +52,14 @@ module.exports = ({config, env, empEnv}) => {
     return args
   })
 
-  config.resolve.alias
-  .set('vue$', 'vue/dist/vue.esm.js')
-  .clear()
+  // config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
 
   //
   config.plugin('html').tap(args => {
     args[0] = {
       ...args[0],
       ...{
-        title: 'EMP Vue3 Components',
+        title: 'EMP Vue2 Components',
         files: {
           // js: ['http://localhost:8005/emp.js'],
         },
@@ -68,4 +67,4 @@ module.exports = ({config, env, empEnv}) => {
     }
     return args
   })
-}
+})

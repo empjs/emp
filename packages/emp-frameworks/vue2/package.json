@@ -1,0 +1,9 @@
+{
+  "name": "@efox/emp-vue2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "vue-loader": "^15.9.5",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
