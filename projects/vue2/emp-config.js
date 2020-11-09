@@ -25,7 +25,7 @@ module.exports = ({config, env, empEnv}) => {
   //
   const host = conf.host
   const port = conf.port
-  const projectName = 'vue3Components'
+  const projectName = 'vue2Components'
   const publicPath = conf.publicPath
   config.output.publicPath(publicPath)
   config.devServer.port(port)
@@ -38,7 +38,7 @@ module.exports = ({config, env, empEnv}) => {
         library: {type: 'var', name: projectName},
         filename: 'emp.js',
         /* remotes: {
-          vue3Components: 'vue3Components',
+          vue2Components: 'vue2Components',
         }, */
         exposes: {
           './Content.vue': './src/components/Content',
@@ -51,16 +51,14 @@ module.exports = ({config, env, empEnv}) => {
     return args
   })
 
-  config.resolve.alias
-  .set('vue$', 'vue/dist/vue.esm.js')
-  .clear()
+  config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
 
   //
   config.plugin('html').tap(args => {
     args[0] = {
       ...args[0],
       ...{
-        title: 'EMP Vue3 Components',
+        title: 'EMP Vue2 Components',
         files: {
           // js: ['http://localhost:8005/emp.js'],
         },
