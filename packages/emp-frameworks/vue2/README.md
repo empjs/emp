@@ -11,8 +11,8 @@ module.exports = withVue2(({config, env, empEnv}) => {
 ```
 
 ## FQA
-+ Q: How share vue module?
-+ A: You need use `vue/dist/vue.esm.js` in shared array.example:
++ Q: How share Vue dependencie ?
++ A: Vue is special, You need use `vue/dist/vue.esm.js` in shared array.example:
 ```js
   config.plugin('mf').tap(args => {
     args[0] = {
