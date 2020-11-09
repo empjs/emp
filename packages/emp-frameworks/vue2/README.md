@@ -30,7 +30,7 @@ module.exports = withVue2(({config, env, empEnv}) => {
         exposes: {
           './Content.vue': './src/components/Content',
         },
-        shared: ['vue/dist/vue.esm.js'],
+        shared: ['vue/dist/vue.esm.js'],// You need use `vue/dist/vue.esm.js` here
       },
     }
     return args
