@@ -39,7 +39,7 @@ module.exports = withVue2(({config, env, empEnv}) => {
         library: {type: 'var', name: projectName},
         filename: 'emp.js',
         /* remotes: {
-          vue3Components: 'vue3Components',
+          vue2Components: 'vue2Components',
         }, */
         exposes: {
           './Content.vue': './src/components/Content',
