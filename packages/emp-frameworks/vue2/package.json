@@ -2,6 +2,11 @@
   "name": "@efox/emp-vue2",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-frameworks/vue2"
+  },
   "dependencies": {
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.12"
