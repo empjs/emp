@@ -11007,7 +11007,7 @@ svelte-loader@^2.6.12:
     loader-utils "^1.1.0"
     svelte-dev-helper "^1.1.9"
 
-svelte@^15.9.5:
+svelte@^3.29.6:
   version "3.29.6"
   resolved "https://registry.npm.taobao.org/svelte/download/svelte-3.29.6.tgz#0a9e378c7896cdb0cbd617e793e60543ffc26354"
   integrity sha1-Cp43jHiWzbDL1hfnk+YFQ//CY1Q=
