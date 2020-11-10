@@ -1,35 +1,8 @@
-const path = require('path')
-const {VueLoaderPlugin} = require('vue-loader')
-//
-const ProjectRootPath = path.resolve('./')
-// const packagePath = path.join(ProjectRootPath, 'package.json')
-// const {dependencies} = require(packagePath)
-//
-const {getConfig} = require(path.join(ProjectRootPath, './src/config'))
-//
-module.exports = ({config, env, empEnv}) => {
-  const confEnv = env === 'production' ? 'prod' : 'dev'
-  const conf = getConfig(empEnv || confEnv)
-  console.log('config', conf)
-  //
-  const srcPath = path.resolve('./src')
-  config.entry('index').clear().add(path.join(srcPath, 'main.js'))
-  //
-  config.resolve.alias.set('vue', '@vue/runtime-dom')
-  config.plugin('vue3').use(VueLoaderPlugin, [])
-  config.module
-    .rule('vue')
-    .test(/\.vue$/)
-    .use('vue-loader')
-    .loader('vue-loader')
-  //
-  const host = conf.host
-  const port = conf.port
-  const projectName = 'vue3Components'
-  const publicPath = conf.publicPath
-  config.output.publicPath(publicPath)
-  config.devServer.port(port)
-  //
+const withFrameWork = require('@efox/emp-vue3')
+module.exports = withFrameWork(({config}) => {
+  const projectName = 'vue3Project'
+  config.output.publicPath('http://localhost:8006/')
+  config.devServer.port(8006)
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
@@ -37,30 +10,27 @@ module.exports = ({config, env, empEnv}) => {
         name: projectName,
         library: {type: 'var', name: projectName},
         filename: 'emp.js',
-        /* remotes: {
-          vue3Components: 'vue3Components',
-        }, */
-        exposes: {
-          './Content': './src/components/Content',
+        remotes: {
+          '@v3b': 'vue3Base',
         },
+        exposes: {},
         /* shared: {
-          ...dependencies,
+          vue: {eager: true, singleton: true, requiredVersion: '^3.0.2'},
         }, */
       },
     }
     return args
   })
-  //
   config.plugin('html').tap(args => {
     args[0] = {
       ...args[0],
       ...{
-        title: 'EMP Vue3 Components',
+        title: 'EMP Vue3 Project',
         files: {
-          // js: ['http://localhost:8005/emp.js'],
+          js: ['http://localhost:8005/emp.js'],
         },
       },
     }
     return args
   })
-}
+})
