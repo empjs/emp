@@ -38,7 +38,7 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
 ## Framework Config Plugins
-|Framework|path|
+|Framework|demo|
 |---|---|
 |vue2|[demo](packages/emp-frameworks/vue2)|
 |vue3|[demo](packages/emp-frameworks/vue3)|
