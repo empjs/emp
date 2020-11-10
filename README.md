@@ -37,6 +37,11 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
+## Framework Config Plugins
+|Framework|path|
+|---|---|
+|vue2|[demo](packages/emp-frameworks/vue2)|
+|vue3|[demo](packages/emp-frameworks/vue3)|
 
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
