@@ -1,5 +1,13 @@
 {
   "name": "@efox/emp-svetle",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-frameworks/svetle"
+  },
+  "dependencies": {
+    "svelte-loader": "^2.6.12"
+  }
 }
