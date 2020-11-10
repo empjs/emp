@@ -12,7 +12,7 @@
 |[@efox/eslint-config-react-prittier-ts](packages/eslint-config-react-prittier-ts)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react-prittier-ts.svg)](https://www.npmjs.com/package/@efox/eslint-config-react-prittier-ts)|代码规范统一配置|
 |[@efox/emp-sync-vscode-plugin](https://github.com/efoxTeam/emp-sync-vscode-plugin)|[![release](https://img.shields.io/badge/emp--sync--base-v0.1.5-green.svg)](https://marketplace.visualstudio.com/items?itemName=Benny.emp-sync-base)|EMP 类型同步 VSCode插件|
 
-## Quick Overview
+## 快速开始
 ```sh
 npx @efox/emp-cli init
 cd my-emp && yarn && yarn dev
