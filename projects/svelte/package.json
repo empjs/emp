@@ -8,7 +8,7 @@
       "@efox/emp-svetle": "^1.0.0"
     },
     "dependencies": {
-      "svelte": "^15.9.5"
+      "svelte": "^3.29.6"
     },
     "scripts": {
       "dev": "emp dev",
