@@ -44,5 +44,10 @@ cd my-emp && yarn && yarn dev
 |vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vue3.svg)](https://www.npmjs.com/package/@efox/emp-vue3)|[demo](packages/emp-frameworks/vue3)|`yarn add @efox/emp-vue3 -D`|
 |svelte|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-svetle)|[demo](packages/emp-frameworks/svetle)|`yarn add @efox/emp-svetle -D`|
 
+## Use multiple frameworks in EMP Application
+|Framework|demo|cli|
+|---|---|---|
+|<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
+
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)

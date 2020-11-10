@@ -3,7 +3,7 @@
 
 [English](./README.md) | 简体中文
 
-## Projects
+## 项目
 |Project|NPM|Info|
 |---|---|---|
 |[@efox/emp-cli](packages/emp-cli)|[![release](https://img.shields.io/npm/v/@efox/emp-cli.svg)](https://www.npmjs.com/package/@efox/emp-cli)|脚手架|
@@ -12,7 +12,7 @@
 |[@efox/eslint-config-react-prittier-ts](packages/eslint-config-react-prittier-ts)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react-prittier-ts.svg)](https://www.npmjs.com/package/@efox/eslint-config-react-prittier-ts)|代码规范统一配置|
 |[@efox/emp-sync-vscode-plugin](https://github.com/efoxTeam/emp-sync-vscode-plugin)|[![release](https://img.shields.io/badge/emp--sync--base-v0.1.5-green.svg)](https://marketplace.visualstudio.com/items?itemName=Benny.emp-sync-base)|EMP 类型同步 VSCode插件|
 
-## Quick Overview
+## 快速开始
 ```sh
 npx @efox/emp-cli init
 cd my-emp && yarn && yarn dev
@@ -27,7 +27,19 @@ cd my-emp && yarn && yarn dev
 
 <img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
-## Demos
+## 框架配置插件
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|vue2|[![release](https://img.shields.io/npm/v/@efox/emp-vue2.svg)](https://www.npmjs.com/package/@efox/emp-vue2)|[demo](packages/emp-frameworks/vue2)|`yarn add @efox/emp-vue2 -D`|
+|vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vue3.svg)](https://www.npmjs.com/package/@efox/emp-vue3)|[demo](packages/emp-frameworks/vue3)|`yarn add @efox/emp-vue3 -D`|
+
+
+## EMP多框架互调用例
+|Framework|demo|cli|
+|---|---|---|
+|<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
+
+## 用例展示
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
@@ -37,7 +49,7 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
-## Show Case 
+## 案例 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
 
 
