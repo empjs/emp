@@ -38,10 +38,10 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
 ## Framework Config Plugins
-|Framework|demo|install|
-|---|---|---|
-|vue2|[demo](packages/emp-frameworks/vue2)|`yarn add @efox/emp-vue2 -D`|
-|vue3|[demo](packages/emp-frameworks/vue3)|`yarn add @efox/emp-vue3 -D`|
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|vue2|[![release](https://img.shields.io/npm/v/@efox/emp-vue2.svg)](https://www.npmjs.com/package/@efox/emp-vue2)|[demo](packages/emp-frameworks/vue2)|`yarn add @efox/emp-vue2 -D`|
+|vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vue3.svg)](https://www.npmjs.com/package/@efox/emp-vue3)|[demo](packages/emp-frameworks/vue3)|`yarn add @efox/emp-vue3 -D`|
 
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
