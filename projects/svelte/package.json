@@ -1,0 +1,21 @@
+{
+    "name": "@empsvelte/project",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "devDependencies": {
+      "@efox/emp-cli": "^1.1.7",
+      "@efox/emp-svetle": "^1.0.0"
+    },
+    "dependencies": {
+      "svelte": "^15.9.5"
+    },
+    "scripts": {
+      "dev": "emp dev",
+      "build": "emp build --env prod",
+      "start": "emp serve",
+      "stat": "emp build --analyze",
+      "emp": "emp"
+    }
+  }
+  

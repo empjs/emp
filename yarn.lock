@@ -10994,6 +10994,24 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
+svelte-dev-helper@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.npm.taobao.org/svelte-dev-helper/download/svelte-dev-helper-1.1.9.tgz#7d187db5c6cdbbd64d75a32f91b8998bde3273c3"
+  integrity sha1-fRh9tcbNu9ZNdaMvkbiZi94yc8M=
+
+svelte-loader@^2.6.12:
+  version "2.13.6"
+  resolved "https://registry.npm.taobao.org/svelte-loader/download/svelte-loader-2.13.6.tgz#3d5efd5886c2bab034606d5af0cce659da3ee555"
+  integrity sha1-PV79WIbCurA0YG1a8MzmWdo+5VU=
+  dependencies:
+    loader-utils "^1.1.0"
+    svelte-dev-helper "^1.1.9"
+
+svelte@^15.9.5:
+  version "3.29.6"
+  resolved "https://registry.npm.taobao.org/svelte/download/svelte-3.29.6.tgz#0a9e378c7896cdb0cbd617e793e60543ffc26354"
+  integrity sha1-Cp43jHiWzbDL1hfnk+YFQ//CY1Q=
+
 svg-parser@^2.0.2:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/svg-parser/download/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
