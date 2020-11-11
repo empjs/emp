@@ -2,14 +2,13 @@
   "name": "@efox/emp-preact",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {
-    "@efox/emp-cli": "^1.2.9",
-    "@efox/emp-tsconfig": "^1.0.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-frameworks/preact"
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.5",
-    "babel-plugin-jsx-pragmatic": "^1.0.2",
-    "preact": "^10.5.5",
-    "preact-router": "^3.2.1"
+    "babel-plugin-jsx-pragmatic": "^1.0.2"
   }
 }
