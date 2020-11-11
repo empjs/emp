@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "keywords": [
     "react",
     "module federation",
@@ -33,6 +33,7 @@
     "@efox/emp-tune-dts-plugin": "^1.0.12",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
     "@svgr/webpack": "^5.4.0",
+    "axios": "^0.21.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-named-asset-import": "^0.3.7",
