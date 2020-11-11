@@ -1,0 +1,20 @@
+{
+  "name": "@empvue2/base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@efox/emp-cli": "^1.1.7",
+    "@efox/emp-vue2": "^1.0.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}
