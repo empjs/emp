@@ -38,23 +38,23 @@ module.exports = (env, config, {hot}) => {
                     },
                   ],
                   '@babel/preset-typescript',
-                  '@babel/preset-react',
+                  // '@babel/preset-react',
                 ].filter(Boolean),
                 plugins: [
                   //=========================== 只在 tsx 里面 触发 svg 不适用内置 babel
-                  [
-                    require.resolve('babel-plugin-named-asset-import'),
-                    {
-                      loaderMap: {
-                        svg: {
-                          ReactComponent: '@svgr/webpack?-svgo,+titleProp,+ref![path]',
-                        },
-                      },
-                    },
-                  ],
-                  //===================================================
-                  ['import', {libraryName: 'antd', style: true}],
-                  isDev && hot && require.resolve('react-refresh/babel'),
+                  // [
+                  //   require.resolve('babel-plugin-named-asset-import'),
+                  //   {
+                  //     loaderMap: {
+                  //       svg: {
+                  //         ReactComponent: '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                  //       },
+                  //     },
+                  //   },
+                  // ],
+                  // //===================================================
+                  // ['import', {libraryName: 'antd', style: true}],
+                  // isDev && hot && require.resolve('react-refresh/babel'),
                   //
                   // [require('@babel/plugin-syntax-top-level-await').default],//观察是否支持 toplvawait 的 es5支持
                   [
