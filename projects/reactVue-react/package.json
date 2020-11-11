@@ -19,7 +19,7 @@
     "vuera": "^0.2.7"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.1.7",
+    "@efox/emp-cli": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/react": "^16.9.55",
     "@types/react-dom": "^16.9.9"

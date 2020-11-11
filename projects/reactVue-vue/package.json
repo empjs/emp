@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@efox/emp-cli": "^1.1.7",
+    "@efox/emp-cli": "^1.0.0",
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.12"
   },

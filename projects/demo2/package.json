@@ -13,7 +13,7 @@
     "stat": "emp build --analyze"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-cli": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.0"
   },
   "dependencies": {

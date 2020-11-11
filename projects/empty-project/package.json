@@ -1,6 +1,6 @@
 {
   "name": "empty-project",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -22,7 +22,7 @@
     "emp": "emp"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.0.12",
-    "@efox/emp-tsconfig": "^1.0.2"
+    "@efox/emp-cli": "^1.0.0",
+    "@efox/emp-tsconfig": "^1.0.0"
   }
 }

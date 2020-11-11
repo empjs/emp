@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-tune-dts-plugin",
-  "version": "1.0.12",
+  "version": "1.0.0",
   "keywords": [
     "react",
     "module federation",
@@ -20,7 +20,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-cli": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "fs-extra": "^9.0.0",
     "npm-dts": "^1.3.0"
