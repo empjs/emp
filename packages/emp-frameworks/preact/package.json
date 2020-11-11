@@ -1,5 +1,15 @@
 {
   "name": "@efox/emp-preact",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "devDependencies": {
+    "@efox/emp-cli": "^1.2.9",
+    "@efox/emp-tsconfig": "^1.0.4"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.12.5",
+    "babel-plugin-jsx-pragmatic": "^1.0.2",
+    "preact": "^10.5.5",
+    "preact-router": "^3.2.1"
+  }
 }
