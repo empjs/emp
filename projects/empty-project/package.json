@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "axios": "^0.20.0",
     "html-webpack-plugin": "^5.0.0-alpha.10",

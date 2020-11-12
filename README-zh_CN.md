@@ -27,6 +27,17 @@ cd my-emp && yarn && yarn dev
 
 <img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
+## 演示
+|Framework|demo|cli|
+|---|---|---|
+|<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
+|<img src='assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
+|<img src='assets/vue.png' width='38'/>|[vue2-base](projects/vue2-base) [vue2-project](projects/vue2-project)|`cd projects && yarn dev:vue2`|
+|<img src='assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
+|<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
+|<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
+|<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
+
 ## 框架配置插件
 |Framework|NPM|demo|install|
 |---|---|---|---|
