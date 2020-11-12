@@ -37,8 +37,7 @@ jobs:
             ${{ runner.os }}-yarn-
       # install node_modules        
       - name: Run Yarn
-        run: node -v
-        run: yarn
+        run: node -v && yarn
       # Runs a single command using the runners shell
       # - name: Run ESLint
         # run: yarn lint
