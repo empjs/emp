@@ -30,7 +30,7 @@ jobs:
 
       # install node_modules        
       - name: Run Yarn
-        # if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
       # Test        
       - name: JEST TEST
