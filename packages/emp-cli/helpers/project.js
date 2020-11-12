@@ -30,7 +30,7 @@ module.exports = {
       ) {
         withReact(remoteConfigFn)({config, env, empEnv, hot, webpack})
       } else {
-        console.log('======== remoteConfigFn =========')
+        // console.log('======== remoteConfigFn =========')
         remoteConfigFn({config, env, empEnv, hot, webpack})
       }
     } else {
