@@ -40,6 +40,10 @@ jobs:
         run: node -v  
       - name: Run Yarn
         run: yarn
+      - name: Get Path
+        run: pwd
+      - name: LS
+        run: ls
       - name: Jest TEST
         run: yarn test      
       # Runs a single command using the runners shell
