@@ -5,7 +5,6 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@efox/emp-cli": "^1.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -13,5 +12,8 @@
     "dev": "emp dev",
     "build": "emp build",
     "start": "emp serve"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.4.0"
   }
 }

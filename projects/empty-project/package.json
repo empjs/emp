@@ -23,7 +23,7 @@
     "emp": "emp"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-cli": "^1.4.0",
     "@efox/emp-react": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.2"
   }

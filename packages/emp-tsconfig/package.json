@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-tsconfig",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "main": "index.js",
   "author": "ken",
   "license": "MIT",
@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-tsconfig"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "react": "^17.0.1",

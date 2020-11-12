@@ -1,5 +1,25 @@
 {
   "useWorkspaces": true,
   "npmClient": "yarn",
-  "version": "0.0.0"
+  "version": "independent",
+  "command": {
+    "version": {
+      "conventionalCommits": true,
+      "message":"chore(release): publish"
+    }
+  },
+    "changelog": {
+    "repo": "efoxTeam/emp",
+    "labels": {
+      "feat": ":rocket: New Feature",
+      "refactor": ":boom: Refactor",
+      "fix": ":bug: Bug Fix",
+      "test": ":nail_care: Test",
+      "docs": ":memo: Documentation",
+      "style": ":house: Internal",
+      "chore": ":hammer: Chore",
+      "revert": ":meaning: Revert"
+    },
+    "cacheDir": ".changelog"
+  }
 }

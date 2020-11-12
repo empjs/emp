@@ -7,7 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint . --ext js,ts,tsx --fix"
+    "lint": "eslint . --ext js,ts,tsx --fix",
+    "lv":"lerna version --no-private",
+    "lp":"lerna publish from-package"
   },
   "workspaces": [
     "packages/*",
@@ -28,6 +30,7 @@
     "cross-env": "^7.0.2",
     "husky": "^4.2.5",
     "lerna": "^3.22.0",
+    "lerna-changelog": "^1.0.1",
     "lint-staged": "^10.2.7",
     "typescript": "^3.9.3"
   },
