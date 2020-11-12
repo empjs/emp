@@ -9221,6 +9221,16 @@ postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.32, postcss@^7.0.5, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+preact-router@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npm.taobao.org/preact-router/download/preact-router-3.2.1.tgz#c7d12d8fc7a60bfbe5cadf23a234551bec783468"
+  integrity sha1-x9Etj8emC/vlyt8jojRVG+x4NGg=
+
+preact@^10.5.5:
+  version "10.5.5"
+  resolved "https://registry.npm.taobao.org/preact/download/preact-10.5.5.tgz?cache=0&sync_timestamp=1603017937488&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpreact%2Fdownload%2Fpreact-10.5.5.tgz#c6c172ca751df27483350b8ab622abc12956e997"
+  integrity sha1-xsFyynUd8nSDNQuKtiKrwSlW6Zc=
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/prelude-ls/download/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"

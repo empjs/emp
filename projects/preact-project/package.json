@@ -1,0 +1,24 @@
+{
+  "name": "@emp-preact/project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.4.2",
+    "@efox/emp-preact": "^1.1.0"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.12.5",
+    "babel-plugin-jsx-pragmatic": "^1.0.2",
+    "preact": "^10.5.5",
+    "preact-router": "^3.2.1"
+  }
+}

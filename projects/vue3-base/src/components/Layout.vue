@@ -1,7 +1,7 @@
 <template>
 <div class="layout-app">
   <img src="../logo.png" width="30" />
-  <h1>EMP Vue3 Hello</h1>
+  <h1>EMP Preact Hello</h1>
 </div>
 </template>
 
