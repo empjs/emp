@@ -2,16 +2,17 @@
   "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "independent",
-  "changelog": {
-    "repo": "facebook/create-react-app",
+    "changelog": {
+    "repo": "efoxTeam/emp",
     "labels": {
-      "tag: new feature": ":rocket: New Feature",
-      "tag: breaking change": ":boom: Breaking Change",
-      "tag: bug fix": ":bug: Bug Fix",
-      "tag: enhancement": ":nail_care: Enhancement",
-      "tag: documentation": ":memo: Documentation",
-      "tag: internal": ":house: Internal",
-      "tag: underlying tools": ":hammer: Underlying Tools"
+      "feat": ":rocket: New Feature",
+      "refactor": ":boom: Refactor",
+      "fix": ":bug: Bug Fix",
+      "test": ":nail_care: Test",
+      "docs": ":memo: Documentation",
+      "style": ":house: Internal",
+      "chore": ":hammer: Chore",
+      "revert": ":meaning: Revert"
     },
     "cacheDir": ".changelog"
   }
