@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint . --ext js,ts,tsx --fix"
+    "lint": "eslint . --ext js,ts,tsx --fix",
+    "lp":"lerna version --force-publish --conventional-commits --no-private"
   },
   "workspaces": [
     "packages/*",
