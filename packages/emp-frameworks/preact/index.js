@@ -2,8 +2,6 @@ const path = require('path')
 
 module.exports = fn => ec => {
   const { config } = ec
-  const srcPath = path.resolve('./src')
-  config.entry('index').clear().add(path.join(srcPath, 'index.js'))
   config.module
     .rule('scripts')
     .use('babel')
