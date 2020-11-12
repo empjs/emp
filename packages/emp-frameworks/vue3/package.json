@@ -16,5 +16,6 @@
   },
   "peerDependencies": {
     "vue-loader": "^16.0.0-rc.1"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }

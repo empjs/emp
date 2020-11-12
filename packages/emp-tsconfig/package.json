@@ -19,5 +19,6 @@
   "types": "./lib/emp-react.d.ts",
   "dependencies": {
     "typescript-plugin-css-modules": "^2.7.0"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }
