@@ -14,7 +14,7 @@ app.use(compression())
 
 module.exports = async args => {
   const {dist} = args
-  setPaths({dist})
+  await setPaths({dist})
   const config = await getProjectConfig('production', args)
   const isHTTPS = !!config.devServer.https
   const protocol = isHTTPS ? 'https' : 'http'

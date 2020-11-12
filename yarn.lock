@@ -3230,6 +3230,13 @@ babel-plugin-import@^1.13.0:
     "@babel/helper-module-imports" "^7.0.0"
     "@babel/runtime" "^7.0.0"
 
+babel-plugin-jsx-pragmatic@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/babel-plugin-jsx-pragmatic/download/babel-plugin-jsx-pragmatic-1.0.2.tgz#41e2beb8642235f34b2a7ab12ca39e07201b8e59"
+  integrity sha1-QeK+uGQiNfNLKnqxLKOeByAbjlk=
+  dependencies:
+    babel-plugin-syntax-jsx "^6.0.0"
+
 babel-plugin-named-asset-import@^0.3.7:
   version "0.3.7"
   resolved "https://registry.npm.taobao.org/babel-plugin-named-asset-import/download/babel-plugin-named-asset-import-0.3.7.tgz?cache=0&sync_timestamp=1603462325329&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-plugin-named-asset-import%2Fdownload%2Fbabel-plugin-named-asset-import-0.3.7.tgz#156cd55d3f1228a5765774340937afc8398067dd"
