@@ -16,14 +16,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     # https://github.com/actions/cache/blob/main/examples.md#node---yarn
     steps:
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
@@ -35,17 +30,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      # install node_modules   
-      - name: Node Version
-        run: node -v  
+      # install node_modules        
       - name: Run Yarn
         run: yarn
-      - name: Get Path
-        run: pwd
       - name: LS
         run: ls
-      - name: Jest TEST
-        run: yarn test      
       # Runs a single command using the runners shell
       # - name: Run ESLint
         # run: yarn lint
