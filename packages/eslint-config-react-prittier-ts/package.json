@@ -1,6 +1,6 @@
 {
   "name": "@efox/eslint-config-react-prittier-ts",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "emp eslint",
   "author": "ken <ckken@qq.com>",
   "homepage": "",
@@ -30,5 +30,6 @@
   "peerDependencies": {
     "eslint": "^7.12.1",
     "eslint-plugin-prettier": "^3.1.4"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-angular",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -9,5 +9,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }
