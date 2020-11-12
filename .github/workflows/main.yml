@@ -19,12 +19,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     # https://github.com/actions/cache/blob/main/examples.md#node---yarn
     steps:
+      # Checkout
       - name: Checkout
         uses: actions/checkout@v2
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
+      # Cache
       - uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -35,13 +36,6 @@ jobs:
       # install node_modules        
       - name: Run Yarn
         run: yarn
-      - name: LS
-        run: ls
+      # Test        
       - name: JEST TEST
         run: yarn test
-      # Runs a single command using the runners shell
-      # - name: Run ESLint
-        # run: yarn lint
-      # - uses: actions/checkout@v1
-      # - name: Run Jest
-      #   uses: stefanoeb/jest-action@1.0.3
