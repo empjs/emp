@@ -1,13 +1,13 @@
 {
   "name": "@efox/emp-svetle",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-frameworks/svetle"
   },
-  "publishConfig":{
+  "publishConfig": {
     "access": "public"
   },
   "dependencies": {

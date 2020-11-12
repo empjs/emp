@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "keywords": [
     "react",
     "module federation",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-cli"
   },
-  "publishConfig":{
+  "publishConfig": {
     "access": "public"
   },
   "engines": {
@@ -32,9 +32,9 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@babel/runtime": "^7.11.2",
-    "@efox/emp-react": "^1.0.1",
-    "@efox/emp-tsconfig": "^1.0.7",
-    "@efox/emp-tune-dts-plugin": "^1.0.13",
+    "@efox/emp-react": "^1.1.0",
+    "@efox/emp-tsconfig": "^1.1.0",
+    "@efox/emp-tune-dts-plugin": "^1.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
     "@svgr/webpack": "^5.4.0",
     "axios": "^0.21.0",
