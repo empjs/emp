@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix",
     "lv": "lerna version --no-private",
     "lp": "lerna publish from-package"
