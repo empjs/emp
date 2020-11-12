@@ -35,12 +35,16 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      # install node_modules        
+      # install node_modules   
+      - name: Node Version
+        run: node -v  
       - name: Run Yarn
-        run: node -v && yarn
+        run: yarn
+       - name: Jest TEST
+        run: yarn test      
       # Runs a single command using the runners shell
       # - name: Run ESLint
         # run: yarn lint
-      - uses: actions/checkout@v1
-      - name: Run Jest
-        uses: stefanoeb/jest-action@1.0.3
+      # - uses: actions/checkout@v1
+      # - name: Run Jest
+      #   uses: stefanoeb/jest-action@1.0.3
