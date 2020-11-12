@@ -3,3 +3,4 @@ yarn-error.log
 dist
 .emp-cache
 lerna-debug.log
+.changelog
