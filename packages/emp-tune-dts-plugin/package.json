@@ -34,5 +34,6 @@
   "author": "",
   "devDependencies": {
     "@efox/emp-cli": "^1.0.14"
-  }
+  },
+  "gitHead": "8840e4be591ca2f9b7fc861c7ebf755069deb418"
 }
