@@ -19,6 +19,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     # https://github.com/actions/cache/blob/main/examples.md#node---yarn
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
@@ -35,6 +39,8 @@ jobs:
         run: yarn
       - name: LS
         run: ls
+      - name: JEST TEST
+        run: yarn test
       # Runs a single command using the runners shell
       # - name: Run ESLint
         # run: yarn lint
