@@ -22,9 +22,9 @@
     }
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^8.3.4",
     "@efox/eslint-config-react-prittier-ts": "^1.0.19",
-    "commitlint": "^8.3.5",
     "cross-env": "^7.0.2",
     "husky": "^4.2.5",
     "lerna": "^3.22.0",
