@@ -7,6 +7,9 @@
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-frameworks/svetle"
   },
+  "publishConfig":{
+    "access": "public"
+  },
   "dependencies": {
     "svelte-loader": "^2.6.12"
   }

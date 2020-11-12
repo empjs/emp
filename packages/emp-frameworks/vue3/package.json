@@ -7,6 +7,9 @@
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-frameworks/vue3"
   },
+  "publishConfig":{
+    "access": "public"
+  },
   "dependencies": {
     "@vue/compiler-sfc": "^3.0.2",
     "vue-loader": "^16.0.0-rc.1"

@@ -7,6 +7,9 @@
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-frameworks/preact"
   },
+  "publishConfig":{
+    "access": "public"
+  },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.5",
     "babel-plugin-jsx-pragmatic": "^1.0.2"

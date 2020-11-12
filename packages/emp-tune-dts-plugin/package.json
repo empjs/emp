@@ -16,6 +16,9 @@
     "url": "git+https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-tune-dts-plugin"
   },
+  "publishConfig":{
+    "access": "public"
+  },
   "engines": {
     "node": ">=8"
   },

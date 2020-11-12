@@ -9,6 +9,9 @@
     "url": "https://github.com/efoxTeam/emp.git",
     "directory": "packages/emp-tsconfig"
   },
+  "publishConfig":{
+    "access": "public"
+  },
   "devDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
