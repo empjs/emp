@@ -2,6 +2,11 @@
   "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "independent",
+  "command": {
+    "version": {
+      "conventionalCommits": true
+    }
+  },
     "changelog": {
     "repo": "efoxTeam/emp",
     "labels": {
