@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
+    # https://github.com/actions/cache/blob/main/examples.md#node---yarn
     steps:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
