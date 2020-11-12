@@ -32,8 +32,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       # install node_modules        
-      - name: Run Lerna Bootstrap
-        run: lerna bootstrap
+      - name: Run Yarn
+        run: yarn
       # Runs a single command using the runners shell
       # - name: Run ESLint
         # run: yarn lint
