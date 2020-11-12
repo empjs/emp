@@ -10,17 +10,15 @@ let paths = {}
 
 const existsEntry = relativePath => fs.pathExists(resolveApp(relativePath))
 const defaultEntry = async () => {
-  const [isIndexTS, isIndexJS, isMainTS, isMainJS] = await Promise.all([
+  const [isIndexTS, isMainTS, isMainJS] = await Promise.all([
     existsEntry('src/index.ts'),
-    existsEntry('src/index.js'),
     existsEntry('src/main.ts'),
     existsEntry('src/main.js'),
   ])
   if (isIndexTS) return resolveApp('src/index.ts')
-  else if (isIndexJS) return resolveApp('src/index.js')
   else if (isMainTS) return resolveApp('src/main.ts')
   else if (isMainJS) return resolveApp('src/main.js')
-  else return resolveApp('src/index.ts')
+  else return resolveApp('src/index.js')
 }
 const setPaths = async ({src, dist, public}) => {
   const appRoot = appDirectory
