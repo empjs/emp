@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint . --ext js,ts,tsx --fix",
-    "lv":"lerna version --force-publish --no-private",
+    "lv":"lerna version --no-private",
     "lp":"lerna publish from-package"
   },
   "workspaces": [
