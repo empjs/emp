@@ -40,7 +40,7 @@ jobs:
         run: node -v  
       - name: Run Yarn
         run: yarn
-       - name: Jest TEST
+      - name: Jest TEST
         run: yarn test      
       # Runs a single command using the runners shell
       # - name: Run ESLint
