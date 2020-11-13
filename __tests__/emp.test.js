@@ -1,4 +1,4 @@
-const {cli} = require('../../../__tests__/helper')
+const {cli} = require('./helper')
 
 let result = {}
 beforeAll(async () => {

@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import Content from "@v2b/Content"
+//import Content from "@v2b/Content"
 export default {
   components: {
-    Content,
+    Content:()=>import("@v2b/Content"),
   },
 };
 </script>
