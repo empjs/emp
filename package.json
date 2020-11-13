@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix",
-    "lv": "lerna version --no-private",
+    "lv": "lerna version --no-commit-hooks --no-git-tag-version --no-private",
     "lp": "lerna publish from-package"
   },
   "workspaces": [
