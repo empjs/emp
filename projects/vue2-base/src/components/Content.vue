@@ -1,5 +1,8 @@
 <template>
-<div class="v2box">{{ title }}</div>
+<div>
+  <div class="v2box">{{ title }}</div>
+  <div class="v2box">Prop: {{ dataProps }}</div>
+</div>
 </template>
 
 <script>
@@ -8,6 +11,13 @@ export default {
     return {
       title: "EMP Vue2 Component From BASE",
     };
+  },
+  props: {
+    dataProps: { type: String, required: false },
+    methodProps: { type: Function, required: false },
+  },
+  mounted: function () {
+    this.methodProps && this.methodProps();
   },
 };
 </script>
