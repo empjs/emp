@@ -2,6 +2,7 @@
   "react": "https://github.com/efoxTeam/emp-react-template.git",
   "vue2":"https://github.com/efoxTeam/emp-vue2-template.git",
   "vue3":"https://github.com/efoxTeam/emp-vue3-template.git",
+  "preact":"https://github.com/efoxTeam/emp-preact-template.git",
   "react-base":"https://github.com/efoxTeam/emp-react-base-template.git",
   "react-project":"https://github.com/efoxTeam/emp-react-project-template.git",
   "vue3-base":"https://github.com/efoxTeam/emp-vue3-base-template.git",

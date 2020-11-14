@@ -4,16 +4,28 @@ const fs = require('fs-extra')
 //
 const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
+const appPackageJson = resolveApp('package.json')
 // console.log('__dirname===>', __dirname, path.join(__dirname, '../template/public/favicon.ico'))
 let paths = {}
-const setPaths = ({src, dist, public}) => {
+
+const existsEntry = relativePath => fs.pathExists(resolveApp(relativePath))
+const defaultEntry = async () => {
+  const [isIndexTS, isMainTS, isMainJS] = await Promise.all([
+    existsEntry('src/index.ts'),
+    existsEntry('src/main.ts'),
+    existsEntry('src/main.js'),
+  ])
+  if (isIndexTS) return resolveApp('src/index.ts')
+  else if (isMainTS) return resolveApp('src/main.ts')
+  else if (isMainJS) return resolveApp('src/main.js')
+  else return resolveApp('src/index.js')
+}
+const setPaths = async ({src, dist, public}) => {
   const appRoot = appDirectory
   const appSrc = src ? resolveApp(src) : resolveApp('src')
-  const entry = src ? resolveApp(src) : resolveApp('src/index.ts')
-  const appPackageJson = resolveApp('package.json')
+  const entry = src ? resolveApp(src) : await defaultEntry()
   dist = dist ? resolveApp(dist) : resolveApp('dist')
   public = public ? resolveApp(public) : resolveApp('public')
-
   let favicon = path.join(public, 'favicon.ico')
   let template = path.join(public, 'index.html')
   favicon = fs.existsSync(favicon) ? favicon : path.join(__dirname, '../template/public/favicon.ico')
@@ -26,4 +38,5 @@ module.exports = {
   resolveApp,
   getPaths,
   setPaths,
+  appPackageJson,
 }

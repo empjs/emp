@@ -9,7 +9,7 @@ ReactDOM.render(
   <>
     <Hello />
     <div style={{backgroundColor: '#eee', padding: '20px'}}>
-      <h2>Demo2 Component: Hello!!!!!</h2>
+      <h2>Demo2 Component: Hello!!</h2>
       <Hello2 compiler={'emp'} framework={'react'} />
     </div>
   </>,

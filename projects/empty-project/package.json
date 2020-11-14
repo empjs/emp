@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "axios": "^0.20.0",
     "html-webpack-plugin": "^5.0.0-alpha.10",
@@ -22,7 +23,8 @@
     "emp": "emp"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-react": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.2"
   }
 }

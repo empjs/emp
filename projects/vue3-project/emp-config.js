@@ -12,6 +12,7 @@ module.exports = withFrameWork(({config}) => {
         filename: 'emp.js',
         remotes: {
           '@v3b': 'vue3Base',
+          '@v2b': 'vue2Base',
         },
         exposes: {},
         /* shared: {
@@ -27,7 +28,7 @@ module.exports = withFrameWork(({config}) => {
       ...{
         title: 'EMP Vue3 Project',
         files: {
-          js: ['http://localhost:8005/emp.js'],
+          js: ['http://localhost:8005/emp.js', 'http://localhost:8009/emp.js'],
         },
       },
     }

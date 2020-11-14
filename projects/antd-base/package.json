@@ -12,7 +12,7 @@
     "start": "emp serve"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.0.12",
+    "@efox/emp-cli": "^1.4.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",
     "@types/loadjs": "^4.0.0",

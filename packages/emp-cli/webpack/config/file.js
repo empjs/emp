@@ -27,8 +27,12 @@ module.exports = (env, config) => {
           },
         },
         image: {
-          test: /\.(png|jpe?g|gif|webp)$/i,
+          test: /\.(png|jpe?g|gif|webp|ico)$/i,
           type: 'asset',
+        },
+        fonts: {
+          test: /\.(|otf|ttf|eot|woff|woff2)$/i,
+          type: 'asset/resource',
         },
         //解决 svga 解析失败问题
         svga: {

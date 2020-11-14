@@ -2,7 +2,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+// const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
 const {resolveApp, getPaths} = require('../../helpers/paths')
@@ -95,7 +95,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     args: [
       {
         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-        formatter: require.resolve('react-dev-utils/eslintFormatter'),
+        // formatter: require.resolve('react-dev-utils/eslintFormatter'),
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
         cache: false,
@@ -118,12 +118,12 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     }
   }
   // react hot loader
-  if (hot && isDev) {
+  /* if (hot && isDev) {
     conf.plugin.reacthotloader = {
       plugin: ReactRefreshWebpackPlugin,
       args: [{}],
     }
-  }
+  } */
   /** create d.ts */
   // dev 和 build 都生成 d.ts
   if (ts) {

@@ -21,7 +21,7 @@ async function download(remoteUrl, saveName, savePath) {
 }
 
 module.exports = async (type, {createName, createPath, remoteUrl, saveName, savePath}) => {
-  setPaths({})
+  await setPaths({})
   switch (type) {
     case 'create':
       createName = createName || 'index.d.ts'

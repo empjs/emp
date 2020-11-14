@@ -9,7 +9,7 @@ const ora = require('ora')
 const spinner = ora('=== EMP Build Start ===\n').start()
 module.exports = async args => {
   const {src, dist, public} = args
-  setPaths({src, dist, public})
+  await setPaths({src, dist, public})
   const paths = getPaths()
   const config = await getProjectConfig('production', args)
 
@@ -53,7 +53,6 @@ module.exports = async args => {
           }),
         )
         process.exit(1)
-        return
       }
     }
     //

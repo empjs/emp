@@ -6,7 +6,7 @@ const openBrowser = require('react-dev-utils/openBrowser')
 
 module.exports = async args => {
   const {src, public, open} = args
-  setPaths({src, public})
+  await setPaths({src, public})
   const config = await getProjectConfig('development', args)
   //::Fix 新版本需要加入一下配置 支持 liveReload 和 hot reload
   WebpackDevServer.addDevServerEntrypoints(config, config.devServer)

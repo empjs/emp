@@ -7,7 +7,6 @@ const {getConfig} = require(path.join(ProjectRootPath, './src/config'))
 module.exports = withSvetle(({config, env, empEnv}) => {
   const confEnv = env === 'production' ? 'prod' : 'dev'
   const conf = getConfig(empEnv || confEnv)
-  console.log('config', conf)
   const port = conf.port
   const projectName = 'svetleComponents'
   const publicPath = conf.publicPath
