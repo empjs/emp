@@ -20,6 +20,7 @@
     "start:vue2": "lerna run --scope @empvue2/* --parallel start",
     "stat:vue2": "lerna run --scope @empvue2/* --parallel stat",
     "dev:preact": "lerna run --scope @emppreact/* --parallel dev",
+    "dev:cocos2d": "lerna run --scope @empcocos2d/* --parallel dev",
     "dev:dynamichost": "lerna run --scope '{@emp/demo2,@empdynamichost/host}' --parallel dev",
     "dev:reactvue": "lerna run --scope @empreactvue/* --parallel dev"
   },
