@@ -19,7 +19,7 @@ module.exports = withCocos2d(
           //   '@emp-game/base': 'empGameBase',
           // },
           exposes: {
-            './components': 'src/components',
+            './components': 'src/components/index',
           },
         },
       }

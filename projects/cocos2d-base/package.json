@@ -1,9 +1,11 @@
 {
-  "name": "@empcocos2d/project",
+  "name": "@empcocos2d/base",
   "devDependencies": {
     "@efox/emp-cli": "^1.2.9",
     "@efox/emp-tsconfig": "^1.0.5",
     "@efox/emp-cocos2d": "^1.0.0"
+  },
+  "dependencies": {
   },
   "scripts": {
     "dev": "emp dev",

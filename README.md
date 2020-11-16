@@ -44,7 +44,7 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/vue.png' width='38'/>|[vue2-base](projects/vue2-base) [vue2-project](projects/vue2-project)|`cd projects && yarn dev:vue2`|
 |<img src='assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
 |<img src='assets/preact.png' height='38'/>|[preact-base](projects/preact-base) [preact-project](projects/preact-project)|`cd projects && yarn dev:preact`|
-|<img src='assets/cocos2d.png' height='38'/>|[cocos2d-project](projects/cocos2d)|`cd projects && yarn dev:cocos2d`|
+|<img src='assets/cocos2d.png' height='38'/>|[cocos2d-base](projects/cocos2d-base) [cocos2d-project](projects/cocos2d-project)|`cd projects && yarn dev:cocos2d`|
 |<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 
