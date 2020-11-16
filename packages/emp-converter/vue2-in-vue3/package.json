@@ -1,0 +1,11 @@
+{
+  "name": "vue2-in-vue3",
+  "version": "1.0.0",
+  "description": "Vue2 component using in Vue3",
+  "main": "main.js",
+  "repository": "https://github.com/efoxTeam/emp.git",
+  "author": "flyyuan",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

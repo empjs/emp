@@ -13,11 +13,15 @@ export default {
     };
   },
   props: {
-    dataProps: { type: String, required: false },
+    dataProps: { type: Number, required: false },
     methodProps: { type: Function, required: false },
   },
   mounted: function () {
     this.methodProps && this.methodProps();
+    console.log(this.$props)
+    console.log(this.$attrs)
+    console.log(this.$listeners)
+    this.$listeners['my-event']()
   },
 };
 </script>

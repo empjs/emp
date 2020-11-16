@@ -3,42 +3,41 @@
     <h1>VUE 3 Project</h1>
     <v3b-content />
     <v3b-button />
-    <v2b-content />
-    <div id="vue2"></div>
+    <div id="content"></div>
+    <conent-in-vue3 :dataProps="num" :methodProps="propsFunc" />
+    <v3b-content />
+    <v3b-content />
   </div>
 </template>
 
 <script>
 import { defineAsyncComponent, render } from "vue";
 import Vue from "../../../node_modules/vue";
-
-const HelloVue2 = () => ({
-  // 需要加载的组件 (应该是一个 `Promise` 对象)
-  component: import("@v2b/Content").then((res) => {
-    console.log(res.default);
-    const modifyRender = `${res.default.render.toString()}`;
-    console.log(modifyRender);
-    return new Vue({
-      render: (h) => {
-        const element = h(res.default, {
-          props: {
-            dataProps: "Vue3 to Vue2 Props",
-            methodProps: () => {
-              console.log('Vue3 to Vue2 Method Props');
-            },
-          },
-        });
-        return element;
-      },
-    }).$mount("#vue2");
-  })
-});
+import Content from "@v2b/Content";
+import Vue2InVue3 from "../../../packages/emp-converter/vue2-in-vue3";
+const ContentInVue3 = Vue2InVue3(Content,'content');
 
 export default {
   components: {
-    "v2b-content": HelloVue2,
+    "conent-in-vue3": ContentInVue3,
+  },
+  data() {
+    return {
+      component: Content,
+      num: 0,
+    };
+  },
+  methods: {
+    propsFunc() {
+      console.log("Vue3 to Vue2 Method Props");
+    },
   },
   setup() {},
+  mounted() {
+    setInterval(() => {
+      this.num++;
+    }, 1000);
+  },
   name: "App",
 };
 </script>
