@@ -1,18 +1,13 @@
 import Vue2 from './vue'
-let vm
 function Vue2InVue3(WrappedComponent, id) {
+  let vm
   return {
-    props: WrappedComponent.props,
-    watch: {
-      $props: {
-        deep: true,
-        handler: function () {
-          vm.$forceUpdate()
-        },
-      },
-    },
     mounted() {
-      console.log('I have already mounted')
+      // Vue3 移除了 $listeners后，this.$emit 在 Vue3 正常使用
+      // 可以直接 camelCase 调用
+      // this.$emit('myEvent')
+      // 可以直接 kebab-case 调用
+      // this.$emit('my-event')
       vm = new Vue2({
         render: createElement => {
           const slots = Object.keys(this.$slots)
@@ -26,7 +21,12 @@ function Vue2InVue3(WrappedComponent, id) {
             WrappedComponent,
             {
               props: this.$props,
-              on: this.$listeners,
+              // Vue3 移除了 $listeners，通过 $attrs 透传函数
+              // https://v3.vuejs.org/guide/migration/listeners-removed.html#overview
+              // on: this.$listeners,
+              on: this.$attrs,
+              // 透传 scopedSlots
+              scopedSlots: this.$scopedSlots,
               attrs: this.$attrs,
             },
             slots,
@@ -34,6 +34,10 @@ function Vue2InVue3(WrappedComponent, id) {
         },
       })
       vm.$mount(`#${id}`)
+    },
+    props: WrappedComponent.props,
+    render() {
+      vm?.$forceUpdate()
     },
   }
 }

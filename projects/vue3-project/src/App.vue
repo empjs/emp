@@ -1,11 +1,13 @@
 <template>
   <div>
     <h1>VUE 3 Project</h1>
-    <v3b-content />
     <v3b-button />
     <div id="content"></div>
-    <conent-in-vue3 :dataProps="num" :methodProps="propsFunc" />
-    <v3b-content />
+    <conent-in-vue3
+      :dataProps="num"
+      :methodProps="propsFunc"
+      @myEvent="emitFunc"
+    />
     <v3b-content />
   </div>
 </template>
@@ -15,7 +17,7 @@ import { defineAsyncComponent, render } from "vue";
 import Vue from "../../../node_modules/vue";
 import Content from "@v2b/Content";
 import Vue2InVue3 from "../../../packages/emp-converter/vue2-in-vue3";
-const ContentInVue3 = Vue2InVue3(Content,'content');
+const ContentInVue3 = Vue2InVue3(Content, "content");
 
 export default {
   components: {
@@ -31,13 +33,12 @@ export default {
     propsFunc() {
       console.log("Vue3 to Vue2 Method Props");
     },
+    emitFunc() {
+      this.num++;
+    },
   },
   setup() {},
-  mounted() {
-    setInterval(() => {
-      this.num++;
-    }, 1000);
-  },
+  mounted() {},
   name: "App",
 };
 </script>
