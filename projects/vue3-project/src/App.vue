@@ -14,7 +14,6 @@
 
 <script>
 import { defineAsyncComponent, render } from "vue";
-import Vue from "../../../node_modules/vue";
 import Content from "@v2b/Content";
 import Vue2InVue3 from "../../../packages/emp-converter/vue2-in-vue3";
 const ContentInVue3 = Vue2InVue3(Content, "content");
