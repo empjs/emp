@@ -1,5 +1,5 @@
 {
-  "name": "emp-vue2-in-vue3",
+  "name": "@efox/emp-vue2-in-vue3",
   "version": "1.0.0",
   "description": "Vue2 component using in Vue3",
   "main": "main.js",
