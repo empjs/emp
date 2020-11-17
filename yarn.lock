@@ -1181,10 +1181,10 @@
   resolved "https://registry.npm.taobao.org/@commitlint/types/download/@commitlint/types-11.0.0.tgz?cache=0&sync_timestamp=1599988750983&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40commitlint%2Ftypes%2Fdownload%2F%40commitlint%2Ftypes-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha1-cZzwX8wau2UzYQouD13R5h6sFP4=
 
-"@efox/emp-vue2-in-vue3@^1.0.0":
+"@efox/emp-vuett@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/@efox/emp-vue2-in-vue3/download/@efox/emp-vue2-in-vue3-1.0.0.tgz?cache=0&sync_timestamp=1605583631704&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40efox%2Femp-vue2-in-vue3%2Fdownload%2F%40efox%2Femp-vue2-in-vue3-1.0.0.tgz#ba28edcc2e3444892f3915f48ca4c8274a56d7d5"
-  integrity sha1-uijtzC40RIkvORX0jKTIJ0pW19U=
+  resolved "https://registry.npm.taobao.org/@efox/emp-vuett/download/@efox/emp-vuett-1.0.0.tgz?cache=0&sync_timestamp=1605593759296&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40efox%2Femp-vuett%2Fdownload%2F%40efox%2Femp-vuett-1.0.0.tgz#d3edf1aa8512bb2778b31634fdaced4aa83917d4"
+  integrity sha1-0+3xqoUSuyd4sxY0/aztSqg5F9Q=
 
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"

@@ -15,7 +15,7 @@
 <script>
 import { defineAsyncComponent, render } from "vue";
 import Content from "@v2b/Content";
-import Vue2InVue3 from "@efox/emp-vue2-in-vue3";
+import {Vue2InVue3} from "@efox/emp-vuett";
 const ContentInVue3 = Vue2InVue3(Content, "content");
 
 export default {

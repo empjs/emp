@@ -35,6 +35,11 @@ cd my-emp && yarn && yarn dev
 |vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vue3.svg)](https://www.npmjs.com/package/@efox/emp-vue3)|[demo](projects/vue3-base)|`yarn add @efox/emp-vue3 -D`|
 |svelte|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-svetle)|[demo](projects/svelte)|`yarn add @efox/emp-svetle -D`|
 
+## EMP多框架互调转换插件
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|emp-vue2-in-vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vuett.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[demo](projects/vue3-project)|`yarn add @efox/emp-vuett`|
+
 ## 演示
 |Framework|demo|cli|
 |---|---|---|
@@ -49,6 +54,7 @@ cd my-emp && yarn && yarn dev
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
+|<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue3-project) & [Vue2](projects/vue2-base)|`cd projects && yarn dev:vue2 & yarn dev:vue`|
 
 ## 用例展示
 |Framework|demo|cli|
