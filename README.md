@@ -36,6 +36,11 @@ cd my-emp && yarn && yarn dev
 |preact|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/preact)|[@efox/emp-preact](packages/emp-frameworks/preact)|`yarn add @efox/emp-preact -D`|
 |cocos2d|[![release](https://img.shields.io/npm/v/@efox/emp-cocos2d.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/cocos2d)|[@efox/emp-cocos2d](packages/emp-frameworks/cocos2d)|`yarn add @efox/emp-cocos2d -D`|
 
+## EMP multi-frame intermodulation conversion plug-in
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|emp-vue2-in-vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vuett.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[demo](projects/vue3-project)|`yarn add @efox/emp-vuett`|
+
 ## Demos
 |Framework|demo|cli|
 |---|---|---|
@@ -52,6 +57,7 @@ cd my-emp && yarn && yarn dev
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
+|<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue3-project) & [Vue2](projects/vue2-base)|`cd projects && yarn dev:vue2 & yarn dev:vue`|
 
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
