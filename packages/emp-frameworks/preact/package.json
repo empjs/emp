@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-preact",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -13,5 +13,6 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.5",
     "babel-plugin-jsx-pragmatic": "^1.0.2"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }

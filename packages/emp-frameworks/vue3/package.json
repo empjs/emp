@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-vue3",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -16,5 +16,6 @@
   },
   "peerDependencies": {
     "vue-loader": "^16.0.0-rc.1"
-  }
+  },
+  "gitHead": "18b00fbabbdb618873ffdee40ffbc0e1b9646a14"
 }

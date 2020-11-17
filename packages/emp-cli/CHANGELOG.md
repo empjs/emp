@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/efoxTeam/emp/compare/@efox/emp-cli@1.4.1...@efox/emp-cli@1.4.3) (2020-11-12)
+
+
+### Bug Fixes
+
+* 优化入口代码 ([5996943](https://github.com/efoxTeam/emp/commit/5996943e9234d53678ebba8a08104ae209b13a27))
+
+
+
+
+
 ## [1.4.1](https://github.com/efoxTeam/emp/compare/@efox/emp-cli@1.4.0...@efox/emp-cli@1.4.1) (2020-11-12)
 
 **Note:** Version bump only for package @efox/emp-cli

@@ -7,9 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix",
-    "lv":"lerna version --no-private",
-    "lp":"lerna publish from-package"
+    "lv": "lerna version --no-commit-hooks --no-git-tag-version --no-private",
+    "lp": "lerna publish from-package"
   },
   "workspaces": [
     "packages/*",
@@ -29,6 +30,7 @@
     "@efox/eslint-config-react-prittier-ts": "^1.0.19",
     "cross-env": "^7.0.2",
     "husky": "^4.2.5",
+    "jest": "^26.6.3",
     "lerna": "^3.22.0",
     "lerna-changelog": "^1.0.1",
     "lint-staged": "^10.2.7",
