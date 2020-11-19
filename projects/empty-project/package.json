@@ -17,6 +17,7 @@
   },
   "scripts": {
     "dev": "emp dev",
+    "dev:hot": "emp dev --hot",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
