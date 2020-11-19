@@ -1,0 +1,24 @@
+{
+  "name": "element-plus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-vue3": "^1.0.1",
+    "@vue/babel-preset-jsx": "^1.2.4",
+    "@vue/cli-plugin-babel": "^4.5.9"
+  },
+  "dependencies": {
+    "element-plus": "^1.0.1-alpha.15",
+    "vue": "^3.0.2"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}

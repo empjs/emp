@@ -11,6 +11,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@vue/babel-preset-jsx": "^1.2.4",
+    "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/compiler-sfc": "^3.0.2",
     "vue-loader": "^16.0.0-rc.1"
   },
