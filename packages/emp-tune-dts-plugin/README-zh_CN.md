@@ -15,6 +15,23 @@
 + 形成类型闭环，生成到引用已完善
 + 支持自定义修改
 
+# 😊 Example
+### 当这个世界没有 emp-tune-dts-plugin 
+直接执行 `tsc -d` 所生成的类型文件是相对路径的。
+
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff161ef48a5a45ad842451366cbc893f~tplv-k3u1fbpfcp-watermark.image)
+
+把该类型文件拉到子项目后，子项目并不能识别到该远程组件的类型，导致不能编译成功和类型提示。
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3f1c89a91014d95a7521f9c3ab76d50~tplv-k3u1fbpfcp-watermark.image)
+
+### 当这个世界有了 emp-tune-dts-plugin 
+执行 `yarn emp build --ts` 后会生成有当前项目名作为路径前缀的类型文件 index.d.ts。
+![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1b2c4bf7e4fc484294b58ebaf78ef253~tplv-k3u1fbpfcp-watermark.image)
+
+把 emp-tune-dts-plugin  生成的类型文件拉到子项目，子项目不但可以识别到该远程组件的类型，而且编译成功和有类型提示。引用远程的组件、方法等等还有提示，有种微服务上的服务发现的感觉。
+![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fd0fb9b259ec47c8b709baf4beb2a91f~tplv-k3u1fbpfcp-watermark.image)
+
+
 # 👨‍🔧 架构
 ![Architecture](./img/architecture-zh.png)
 
