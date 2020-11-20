@@ -13,12 +13,10 @@ module.exports = (env, config, args) => {
         config: [__filename],
       },
     },
-    // cache: false,
+    cache: false,
     optimization: {
       chunkIds: 'named',
-      runtimeChunk: {
-        name: entrypoint => `runtime-${entrypoint.name}`,
-      },
+      // runtimeChunk: true,//启动后不支持 Module Federation
       // minimize: !isDev,
     },
     entry: {index: entry},

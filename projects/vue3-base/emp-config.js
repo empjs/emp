@@ -1,8 +1,9 @@
 const withFrameWork = require('@efox/emp-vue3')
 module.exports = withFrameWork(({config}) => {
   const projectName = 'vue3Base'
-  config.output.publicPath('http://localhost:8005/')
-  config.devServer.port(8005)
+  const port = 8005
+  config.output.publicPath(`http://localhost:${port}/`)
+  config.devServer.port(port)
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],

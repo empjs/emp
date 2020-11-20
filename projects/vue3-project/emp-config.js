@@ -1,8 +1,9 @@
 const withFrameWork = require('@efox/emp-vue3')
 module.exports = withFrameWork(({config}) => {
   const projectName = 'vue3Project'
-  config.output.publicPath('http://localhost:8006/')
-  config.devServer.port(8006)
+  const port = 8006
+  config.output.publicPath(`http://localhost:${port}/`)
+  config.devServer.port(port)
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
@@ -12,7 +13,7 @@ module.exports = withFrameWork(({config}) => {
         filename: 'emp.js',
         remotes: {
           '@v3b': 'vue3Base',
-          '@v2b': 'vue2Base',
+          // '@v2b': 'vue2Base',
         },
         exposes: {},
         /* shared: {
@@ -28,7 +29,10 @@ module.exports = withFrameWork(({config}) => {
       ...{
         title: 'EMP Vue3 Project',
         files: {
-          js: ['http://localhost:8005/emp.js', 'http://localhost:8009/emp.js'],
+          js: [
+            'http://localhost:8005/emp.js',
+            //'http://localhost:8009/emp.js'
+          ],
         },
       },
     }
