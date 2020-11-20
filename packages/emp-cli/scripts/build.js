@@ -5,8 +5,8 @@ const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
 const {copyPublicFolder} = require('../helpers/build')
 const chalk = require('chalk')
-const ora = require('ora')
-const spinner = ora('=== EMP Build Start ===\n').start()
+// const ora = require('ora')
+// const spinner = ora('=== EMP Build Start ===\n').start()
 module.exports = async args => {
   const {src, dist, public} = args
   await setPaths({src, dist, public})
@@ -19,11 +19,11 @@ module.exports = async args => {
       console.error(err.stack || err)
       if (err.details) {
         console.error(err.details)
-        spinner.fail(`=== EMP Build Fail! ===\n`)
+        // spinner.fail(`=== EMP Build Fail! ===\n`)
       }
       return
     }
-    spinner.succeed('=== EMP Build Completed! ===\n')
+    // spinner.succeed('=== EMP Build Completed! ===\n')
     if (stats.hasWarnings()) {
       console.log(chalk.yellow.bold('\n=== EMP Compiled with warnings.===\n'))
       console.log(

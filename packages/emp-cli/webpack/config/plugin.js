@@ -11,6 +11,7 @@ const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
 const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const webpackbar = require('webpackbar')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -62,6 +63,17 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     },
   }
   // progress
+  if (progress) {
+    conf.plugin.progress = {
+      plugin: webpackbar,
+      args: [
+        {
+          color: 'green',
+          profile: true,
+        },
+      ],
+    }
+  }
   /* if (progress) {
     conf.plugin.progress = {
       plugin: webpack.ProgressPlugin,

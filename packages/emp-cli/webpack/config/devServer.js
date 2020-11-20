@@ -15,7 +15,7 @@ module.exports = (env, {hot, open, progress}) => {
       // open: open === true,
       hot: hot === true,
       // overlay: !hot,
-      progress: progress === true,
+      // progress: progress === true,
       stats: {
         colors: true,
       },
