@@ -13,7 +13,7 @@ module.exports = (env, config, args) => {
         config: [__filename],
       },
     },
-    cache: false,
+    // cache: false,
     optimization: {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
