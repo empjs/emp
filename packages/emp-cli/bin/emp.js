@@ -53,10 +53,11 @@ program
   .option('-h, --hot', '是否使用热更新 默认不启动')
   .option('-o, --open <open>', '是否打开调试页面 默认true,false禁止自动打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
-  .option('-ps, --progress', '显示进度 默认为 false')
+  .option('-ps, --progress', '显示进度 默认为 true')
   .action(({src, public, env, hot, open, ts, progress}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
+    progress = progress == 'false' ? false : true
     require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress})
   })
 // 构建
@@ -75,6 +76,7 @@ program
   .option('-ps, --progress', '显示进度 默认为 false')
   .action(({src, dist, public, analyze, env, ts, progress, createName, createPath}) => {
     const empEnv = env || 'prod'
+    progress = progress == 'false' ? false : true
     require('../scripts/build')({
       src,
       dist,

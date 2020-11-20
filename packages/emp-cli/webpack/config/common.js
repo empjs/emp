@@ -1,6 +1,7 @@
 const {resolveApp, getPaths} = require('../../helpers/paths')
 module.exports = (env, config, args) => {
   const {entry, appSrc, dist} = getPaths()
+  const isDev = env === 'development'
   const commonConfig = {
     cache: {
       type: 'filesystem',
@@ -15,7 +16,10 @@ module.exports = (env, config, args) => {
     // cache: false,
     optimization: {
       chunkIds: 'named',
-      // minimize: false,
+      runtimeChunk: {
+        name: entrypoint => `runtime-${entrypoint.name}`,
+      },
+      // minimize: !isDev,
     },
     entry: {index: entry},
     output: {
