@@ -58,7 +58,7 @@ cd my-emp && yarn && yarn dev
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
-|<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue3-project) & [Vue2](projects/vue2-base)|`cd projects && yarn dev:vue2 & yarn dev:vue`|
+|<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && dev:vue23`|
 
 ## 用例展示
 |Framework|demo|cli|
