@@ -8,10 +8,16 @@ module.exports = fn => ec => {
     .test(/\.vue$/)
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
+  // js
+  config.module.rule('jsvascript').test(/\.js$/).use('babel-loader').loader('babel-loader')
   // ts
   config.module
     .rule('scripts')
     .test(/\.ts$/)
+    // .use('babel-loader')
+    // .loader('babel-loader')
+    // .options({presets: ['@babel/preset-env', '@babel/preset-typescript'], plugins: ['@vue/babel-plugin-jsx']})
+    // .end()
     .use('ts-loader')
     .loader('ts-loader')
     .options({appendTsSuffixTo: [/\.vue$/]})
