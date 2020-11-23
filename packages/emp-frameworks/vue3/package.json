@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-vue3",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -15,10 +15,10 @@
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/compiler-sfc": "^3.0.2",
     "ts-loader": "^8.0.11",
-    "vue-loader": "^16.0.0-rc.1"
+    "vue-loader": "^16.0.0-rc.2",
+    "vue-template-compiler": "^2.6.12"
   },
-  "peerDependencies": {
-    "vue-loader": "^16.0.0-rc.1"
-  },
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
+  "peerDependencies": {},
+  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4",
+  "devDependencies": {}
 }

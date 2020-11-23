@@ -7,7 +7,7 @@ module.exports = fn => ec => {
     .rule('vue_v3')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader('vue-loader')
+    .loader(require.resolve('vue-loader'))
   // ts
   config.module
     .rule('scripts')

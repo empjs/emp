@@ -7,7 +7,7 @@ module.exports = fn => ec => {
     .rule('vue_v2')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader('vue-loader')
+    .loader(require.resolve('vue-loader'))
   config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
   return fn(ec)
 }
