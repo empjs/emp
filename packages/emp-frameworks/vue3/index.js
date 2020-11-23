@@ -14,10 +14,24 @@ module.exports = fn => ec => {
   config.module
     .rule('scripts')
     .test(/\.ts$/)
-    // .use('babel-loader')
-    // .loader('babel-loader')
-    // .options({presets: ['@babel/preset-env', '@babel/preset-typescript'], plugins: ['@vue/babel-plugin-jsx']})
-    // .end()
+    /*     .use('babel-loader')
+    .loader('babel-loader')
+    .options({
+      presets: ['@babel/preset-env', '@babel/preset-typescript'],
+      plugins: [
+        '@vue/babel-plugin-jsx',
+        ['@babel/plugin-proposal-decorators', {legacy: true}],
+        ['@babel/plugin-proposal-class-properties', {loose: true}],
+        '@babel/transform-runtime',
+      ],
+      overrides: [
+        {
+          test: /\.vue$/,
+          plugins: ['@babel/transform-typescript'],
+        },
+      ],
+    })
+    .end() */
     .use('ts-loader')
     .loader('ts-loader')
     .options({appendTsSuffixTo: [/\.vue$/]})
