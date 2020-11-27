@@ -12,6 +12,7 @@ const path = require('path')
 const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
+const Dotenv = require('dotenv-webpack')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -23,6 +24,20 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           {
             MODE_ENV: env,
             EMP_ENV: empEnv,
+          },
+        ],
+      },
+      dotenv: {
+        plugin: Dotenv,
+        args: [
+          {
+            path: resolveApp(`.env.${empEnv}`),
+            // path: './some.other.env', // load this now instead of the ones in '.env'
+            safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+            allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
+            systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+            silent: true, // hide any errors
+            defaults: false, // load '.env.defaults' as the default values if empty.
           },
         ],
       },
