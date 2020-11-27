@@ -1,4 +1,4 @@
-# EMP Svetle Config Plugin
+# EMP ESBUILD Config Plugin
 
 ## Install 
 + `yarn add @efox/emp-swc -D` 

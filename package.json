@@ -13,8 +13,7 @@
     "lp": "lerna publish from-package"
   },
   "workspaces": [
-    "packages/*",
-    "packages/emp-frameworks/*",
+    "packages/**",
     "projects/*",
     "helpers/*",
     "components/*"

@@ -1,0 +1,14 @@
+{
+  "name": "@efox/emp-esm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-compile/esm"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {}
+}

@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
-    "directory": "packages/emp-frameworks/swc"
+    "directory": "packages/emp-compile/esbuild"
   },
   "publishConfig": {
     "access": "public"
