@@ -9,7 +9,7 @@ module.exports = async args => {
   await setPaths({src, public})
   const config = await getProjectConfig('development', args)
   //::Fix 新版本需要加入一下配置 支持 liveReload 和 hot reload
-  WebpackDevServer.addDevServerEntrypoints(config, config.devServer)
+  // WebpackDevServer.addDevServerEntrypoints(config, config.devServer)
   //
   const compiler = Webpack(config)
   const server = new WebpackDevServer(compiler, config.devServer)
