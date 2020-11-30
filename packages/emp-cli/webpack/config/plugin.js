@@ -145,12 +145,12 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     }
   }
   //  hot loader
-  if (isDev && hot) {
+  /*  if (isDev && hot) {
     conf.plugin.hotload = {
       plugin: webpack.HotModuleReplacementPlugin,
       args: [{}],
     }
-  }
+  } */
   /* if (hot && isDev) {
     conf.plugin.reacthotloader = {
       plugin: ReactRefreshWebpackPlugin,

@@ -1,6 +1,7 @@
 const {getPaths} = require('../../helpers/paths')
 const {public} = getPaths()
 module.exports = (env, {hot, open, progress}) => {
+  console.log('hot', hot)
   return {
     devServer: {
       //   contentBase: path.join(__dirname, 'dist'),
@@ -16,6 +17,11 @@ module.exports = (env, {hot, open, progress}) => {
       // open: open === true,
       hot: hot === true,
       // useLocalIp: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      },
       static: [
         {
           directory: public,
@@ -33,6 +39,7 @@ module.exports = (env, {hot, open, progress}) => {
         },
       ],
       // overlay: !hot,
+      // liveReload: !hot,
       // progress: progress === true,
       // stats: {
       //   colors: true,
