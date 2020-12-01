@@ -7,7 +7,7 @@ export interface HelloProps {
 
 const Hello = (props: HelloProps) => (
   <h1>
-    Hello from {props.compiler} and {props.framework}!!
+    Hello from {props.compiler} and {props.framework}!
   </h1>
 )
 

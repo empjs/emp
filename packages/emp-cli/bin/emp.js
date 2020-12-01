@@ -58,7 +58,7 @@ program
   .action(({src, public, env, hot, open, ts, progress}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
-    hot = hot === 'false' ? false : true
+    // hot = hot === 'false' ? false : true
     progress = progress == 'false' ? false : true
     require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress})
   })
