@@ -1,7 +1,6 @@
 const {getPaths} = require('../../helpers/paths')
 const {public} = getPaths()
 module.exports = (env, {hot, open, progress}) => {
-  console.log('hot', hot)
   return {
     devServer: {
       //   contentBase: path.join(__dirname, 'dist'),
