@@ -5,7 +5,7 @@
 
 ## 免费线上分享
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bec68f80ddab497b847c87a23200e699~tplv-k3u1fbpfcp-watermark.image)
+![](./assets/emp-share.jpg)
 
 ## 项目
 |Project|NPM|Info|
