@@ -19,7 +19,7 @@ class Democlass {
   }
 }
 new Democlass()
-export default function App() {
+export default function App(): any {
   /* const a = 1
   if (a === true) {
     console.log(1)
