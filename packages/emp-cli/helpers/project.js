@@ -39,7 +39,7 @@ module.exports = {
         withReact()({config, env, empEnv, hot, webpack})
       }
     }
-    // console.log('webpack config', config.toString(), '==========')
+    // console.log('webpack config', config.toConfig(), '==========')
     return config.toConfig()
   },
 }
