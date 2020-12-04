@@ -11,7 +11,10 @@
     "access": "public"
   },
   "dependencies": {
-    "esbuild-loader": "^2.4.0"
+    "@svgr/webpack": "^5.5.0",
+    "esbuild-loader": "^2.4.0",
+    "loader-utils": "^2.0.0",
+    "url-loader": "^4.1.1"
   },
   "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
 }

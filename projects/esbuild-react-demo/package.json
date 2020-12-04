@@ -23,16 +23,9 @@
     "cross-env": "^7.0.2"
   },
   "dependencies": {
-    "@efox/emp-tsconfig": "^1.0.0",
-    "antd": "^4.1.1",
     "axios": "^0.19.2",
-    "js-cookie": "^2.2.1",
-    "loadjs": "^4.2.0",
-    "mobx": "^6.0.1",
-    "mobx-react-lite": "^3.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-helmet": "^5.2.1",
     "react-router-dom": "^5.1.2"
   }
 }

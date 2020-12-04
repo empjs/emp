@@ -2437,7 +2437,7 @@
     deepmerge "^4.2.2"
     svgo "^1.2.2"
 
-"@svgr/webpack@^5.4.0":
+"@svgr/webpack@^5.4.0", "@svgr/webpack@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/webpack/download/@svgr/webpack-5.5.0.tgz#aae858ee579f5fa8ce6c3166ef56c6a1b381b640"
   integrity sha1-quhY7lefX6jObDFm71bGobOBtkA=
