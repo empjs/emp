@@ -1,11 +1,11 @@
-# EMP ESBUILD Config Plugin
+# EMP SWC Config Plugin
 
 ## Install 
-+ `yarn add @efox/emp-esbuild -D` 
++ `yarn add @efox/emp-swc -D` 
 + `emp-config.js` conf:
 ```javascript
-const withFrameWorkPlugin = require('@efox/emp-esbuild')
-module.exports = withFrameWorkPlugin(({config, env, empEnv}) => {
+const withSWC = require('@efox/emp-swc')
+module.exports = withSWC(({config, env, empEnv}) => {
   // your options here
 })
 ```
