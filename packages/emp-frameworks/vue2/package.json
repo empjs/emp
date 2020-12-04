@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-vue2",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,8 +11,14 @@
     "access": "public"
   },
   "dependencies": {
+    "vue": "^2.6.12",
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.12"
   },
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
+  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4",
+  "peerDependencies": {
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.5",
+    "vue-template-compiler": "^2.6.12"
+  }
 }

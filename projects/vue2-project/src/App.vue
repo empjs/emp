@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3>Main App</h3>
+  <h3>Project App</h3>
   <Content />
 </div>
 </template>
