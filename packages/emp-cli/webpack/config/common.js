@@ -1,7 +1,9 @@
 const {resolveApp, getPaths} = require('../../helpers/paths')
-module.exports = (env, config, args) => {
+module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
+  const buildDependenciesConfigs = [__filename]
+  if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
     cache: {
       type: 'filesystem',
@@ -10,7 +12,7 @@ module.exports = (env, config, args) => {
       // 缓存依赖，当缓存依赖修改时，缓存失效
       buildDependencies: {
         // 将你的配置添加依赖，更改配置时，使得缓存失效
-        config: [__filename],
+        config: buildDependenciesConfigs,
       },
     },
     // cache: false,

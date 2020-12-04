@@ -6,18 +6,6 @@ module.exports = (env, config) => {
         svg: {
           test: /\.svg$/,
           use: {
-            /* babel: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env', '@babel/preset-react'],
-              },
-            },
-            svg: {
-              loader: '@svgr/webpack',
-              options: {
-                babel: 'false',
-              },
-            }, */
             url: {
               loader: 'url-loader', //解决 ReactComponent 无法获取问题
               options: {
