@@ -80,4 +80,4 @@ cd my-emp && yarn && yarn dev
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
 
 ## 微信交流群
-<img src='assets/WeChat.png'/>
+<img src='assets/WeChat.png' width='290'/>
