@@ -7,6 +7,16 @@ const lessModuleRegex = /\.module\.less$/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = (env, config) => {
   const isDev = env === 'development'
+  if (!isDev) {
+    config.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
+      {
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      },
+    ])
+  }
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     return {
       style: {

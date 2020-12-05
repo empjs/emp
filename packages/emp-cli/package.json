@@ -48,7 +48,6 @@
     "commander": "^5.1.0",
     "compression": "^1.7.4",
     "css-loader": "^3.5.3",
-    "css-minimizer-webpack-plugin": "^1.1.5",
     "dotenv-webpack": "^6.0.0",
     "eslint": "^7.12.1",
     "eslint-webpack-plugin": "^2.1.0",

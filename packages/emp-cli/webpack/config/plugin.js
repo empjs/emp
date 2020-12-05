@@ -118,7 +118,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       ],
     }
   }
-  config.plugin.eslint = {
+  conf.plugin.eslint = {
     plugin: ESLintPlugin,
     args: [
       {
@@ -126,8 +126,11 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         // formatter: require.resolve('react-dev-utils/eslintFormatter'),
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
-        cache: false,
+        cache: true,
+        fix: true,
+        threads: true,
         cwd: paths.appRoot,
+        // outputReport: true,
         resolvePluginsRelativeTo: __dirname,
       },
     ],
@@ -171,19 +174,6 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           path: createPath,
           name: createName,
           isDefault: true,
-        },
-      ],
-    }
-  }
-  if (!isDev) {
-    conf.plugin.MiniCssExtractPlugin = {
-      plugin: MiniCssExtractPlugin,
-      args: [
-        {
-          // Options similar to the same options in webpackOptions.output
-          // both options are optional
-          filename: 'static/css/[name].[contenthash:8].css',
-          chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
         },
       ],
     }

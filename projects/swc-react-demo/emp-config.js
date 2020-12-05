@@ -10,7 +10,7 @@ module.exports = withSWC(({config}) => {
           '@emp/demo1': 'demo1@http://localhost:8001/emp.js',
         },
         exposes: {},
-        shared: ['antd', 'axios', 'react', 'react-dom', 'react-router-dom'],
+        shared: ['axios', 'react', 'react-dom', 'react-router-dom'],
       },
     }
     return args
