@@ -79,4 +79,5 @@ cd my-emp && yarn && yarn dev
 ## 案例 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
 
-
+## 微信交流群
+<img src='assets/WeChat.png'/>

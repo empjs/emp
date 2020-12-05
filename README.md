@@ -66,3 +66,6 @@ cd my-emp && yarn && yarn dev
 
 ## Show Case 
 [EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
+
+## WeChat Group
+<img src='assets/WeChat.png'/>
