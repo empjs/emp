@@ -10,9 +10,10 @@ module.exports = withSWC(({config}) => {
           '@emp/demo1': 'demo1@http://localhost:8001/emp.js',
         },
         exposes: {},
-        shared: [],
+        shared: ['antd', 'axios', 'react', 'react-dom', 'react-router-dom'],
       },
     }
     return args
   })
+  config.plugin('dayReplaceToMoment').use(require('antd-dayjs-webpack-plugin'))
 })

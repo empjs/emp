@@ -13,6 +13,7 @@ const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -170,6 +171,19 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           path: createPath,
           name: createName,
           isDefault: true,
+        },
+      ],
+    }
+  }
+  if (!isDev) {
+    conf.plugin.MiniCssExtractPlugin = {
+      plugin: MiniCssExtractPlugin,
+      args: [
+        {
+          // Options similar to the same options in webpackOptions.output
+          // both options are optional
+          filename: 'static/css/[name].[contenthash:8].css',
+          chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
         },
       ],
     }

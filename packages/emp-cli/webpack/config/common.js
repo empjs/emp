@@ -82,5 +82,6 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   require('./module')(env, config, args)
   require('./plugin')(env, config, args)
   require('./experiments')(env, config)
+  // require('./minimize')(env, config)
   // return conf
 }

@@ -4,12 +4,14 @@ const sassRegex = /\.(scss|sass)$/
 const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = (env, config) => {
+  const isDev = env === 'development'
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     return {
       style: {
-        loader: require.resolve('style-loader'),
+        // loader: require.resolve('style-loader'),//
+        loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
       },
       css: {
         loader: require.resolve('css-loader'),
