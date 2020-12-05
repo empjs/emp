@@ -5,13 +5,26 @@ const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 module.exports = (env, config) => {
   const isDev = env === 'development'
   if (!isDev) {
+    config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
+      {
+        parallel: true,
+        sourceMap: false,
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: {removeAll: true},
+            },
+          ],
+        },
+      },
+    ])
     config.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
       {
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       },

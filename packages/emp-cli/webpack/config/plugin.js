@@ -110,7 +110,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       args: [
         {
           async: false, // true dev环境下部分错误验证通过
-          // eslint: true,
+          eslint: false,
           checkSyntacticErrors: true,
           tsconfig,
           silent: true,

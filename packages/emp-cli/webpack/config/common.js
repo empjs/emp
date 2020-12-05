@@ -19,7 +19,8 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
     optimization: {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
-      // minimize: !isDev,
+      minimize: !isDev,
+      minizer: [],
     },
     entry: {index: entry},
     output: {
