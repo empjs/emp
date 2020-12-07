@@ -101,7 +101,8 @@ program
   .description('正式环境调试')
   .option('-d, --dist <dist>', '目标 默认为 dist')
   .action(({dist}) => {
-    require('../scripts/serve')({dist})
+    const empEnv = 'prod'
+    require('../scripts/serve')({dist, empEnv})
   })
 // ts 类型构建
 program
