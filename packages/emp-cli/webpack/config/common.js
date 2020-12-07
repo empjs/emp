@@ -15,7 +15,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
         config: buildDependenciesConfigs,
       },
     },
-    // cache: false,
+    cache: false,
     optimization: {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
@@ -25,9 +25,9 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
     entry: {index: entry},
     output: {
       path: dist,
-      filename: 'js/[name].[contenthash:8].js',
+      filename: 'static/js/[name].[contenthash:8].js',
       // [query] is now a valid placeholder when for paths based on a filename like assets
-      assetModuleFilename: 'asset/[name].[contenthash:8][ext]',
+      assetModuleFilename: 'static/asset/[name].[contenthash:8][ext]',
       // 文件命名模版
       publicPath: 'auto',
       // 支持 es5 输出
