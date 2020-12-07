@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@efox/emp-vuett": "^1.0.0",
-    "vue": "^3.0.2"
+    "vue": "^3.0.4"
   },
   "scripts": {
     "dev": "emp dev",
