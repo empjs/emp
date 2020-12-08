@@ -16,9 +16,9 @@ module.exports = withFrameWork(({config}) => {
           // '@v2b': 'vue2Base',
         },
         exposes: {},
-        /* shared: {
+        shared: {
           vue: {eager: true, singleton: true, requiredVersion: '^3.0.2'},
-        }, */
+        },
       },
     }
     return args

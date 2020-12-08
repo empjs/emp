@@ -6105,6 +6105,19 @@ element-plus@^1.0.1-alpha.15:
     normalize-wheel "^1.0.1"
     resize-observer-polyfill "^1.5.1"
 
+element-plus@^1.0.1-beta.0:
+  version "1.0.1-beta.5"
+  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.1-beta.5.tgz#3382ad1387ac10f198a530972c983534caf4d9cf"
+  integrity sha1-M4KtE4esEPGYpTCXLJg1NMr02c8=
+  dependencies:
+    "@popperjs/core" "^2.4.4"
+    async-validator "^3.4.0"
+    dayjs "1.x"
+    lodash "^4.17.20"
+    mitt "^2.1.0"
+    normalize-wheel "^1.0.1"
+    resize-observer-polyfill "^1.5.1"
+
 elliptic@^6.5.3:
   version "6.5.3"
   resolved "https://registry.npm.taobao.org/elliptic/download/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
