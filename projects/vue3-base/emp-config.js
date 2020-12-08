@@ -9,7 +9,7 @@ module.exports = withFrameWork(({config}) => {
       ...args[0],
       ...{
         name: projectName,
-        library: {type: 'var', name: projectName},
+        // library: {type: 'var', name: projectName},
         filename: 'emp.js',
         shared: {
           vue: {eager: true, singleton: true, requiredVersion: '^3.0.2'},

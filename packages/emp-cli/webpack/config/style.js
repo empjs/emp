@@ -25,6 +25,21 @@ module.exports = (env, config) => {
         options: {
           postcssOptions: {
             hideNothingWarning: true,
+            plugins: [
+              [
+                require('cssnano'),
+                {
+                  preset: [
+                    'default',
+                    {
+                      discardComments: {
+                        removeAll: true,
+                      },
+                    },
+                  ],
+                },
+              ],
+            ],
           },
         },
       },

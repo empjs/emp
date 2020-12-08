@@ -15,7 +15,7 @@
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/compiler-sfc": "^3.0.4",
     "ts-loader": "^8.0.11",
-    "vue-loader": "^16.1.0",
+    "vue-loader": "^16.1.1",
     "vue-template-compiler": "^2.6.12"
   },
   "peerDependencies": {},

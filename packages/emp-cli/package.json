@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.6.3",
+  "version": "1.6.3-beta.2",
   "keywords": [
     "react",
     "module federation",
@@ -49,6 +49,7 @@
     "compression": "^1.7.4",
     "css-loader": "^3.5.3",
     "css-minimizer-webpack-plugin": "^1.1.5",
+    "cssnano": "^4.1.10",
     "dotenv-webpack": "^6.0.0",
     "eslint": "^7.12.1",
     "eslint-webpack-plugin": "^2.1.0",
