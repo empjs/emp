@@ -140,7 +140,6 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         lintDirtyModulesOnly: false,
         cwd: paths.appRoot,
         // outputReport: true,
-        // resolvePluginsRelativeTo: __dirname,
       },
     ],
   }
