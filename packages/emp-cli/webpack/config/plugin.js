@@ -109,7 +109,8 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
-          async: false, // true dev环境下部分错误验证通过
+          // async: isDev, // true dev环境下部分错误验证通过
+          async: false,
           eslint: {
             enabled: false,
             files: path.resolve(paths.appRoot, './src/**/*.{ts,tsx,js,jsx}'),
@@ -128,6 +129,8 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
         // files: ['src'],
         // formatter: require.resolve('react-dev-utils/eslintFormatter'),
+        // emitWarning: true,
+        // failOnWarning: true,
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
         cache: true,

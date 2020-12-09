@@ -3878,7 +3878,7 @@ atob@^2.1.2:
   resolved "https://registry.npm.taobao.org/atob/download/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
 
-available-typed-arrays@^1.0.0, available-typed-arrays@^1.0.2:
+available-typed-arrays@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/available-typed-arrays/download/available-typed-arrays-1.0.2.tgz#6b098ca9d8039079ee3f77f7b783c4480ba513f5"
   integrity sha1-awmMqdgDkHnuP3f3t4PESAulE/U=
@@ -6274,7 +6274,7 @@ error-stack-parser@^2.0.6:
   dependencies:
     stackframe "^1.1.1"
 
-es-abstract@^1.17.0, es-abstract@^1.17.0-next.1, es-abstract@^1.17.2, es-abstract@^1.17.4, es-abstract@^1.17.5:
+es-abstract@^1.17.0, es-abstract@^1.17.0-next.1, es-abstract@^1.17.2, es-abstract@^1.17.5:
   version "1.17.7"
   resolved "https://registry.npm.taobao.org/es-abstract/download/es-abstract-1.17.7.tgz?cache=0&sync_timestamp=1601502719982&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fes-abstract%2Fdownload%2Fes-abstract-1.17.7.tgz#a4de61b2f66989fc7421676c1cb9787573ace54c"
   integrity sha1-pN5hsvZpifx0IWdsHLl4dXOs5Uw=
@@ -8375,9 +8375,9 @@ is-generator-fn@^2.0.0:
   integrity sha1-fRQK3DiarzARqPKipM+m+q3/sRg=
 
 is-generator-function@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npm.taobao.org/is-generator-function/download/is-generator-function-1.0.7.tgz#d2132e529bb0000a7f80794d4bdf5cd5e5813522"
-  integrity sha1-0hMuUpuwAAp/gHlNS99c1eWBNSI=
+  version "1.0.8"
+  resolved "https://registry.npm.taobao.org/is-generator-function/download/is-generator-function-1.0.8.tgz?cache=0&sync_timestamp=1606926728703&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-generator-function%2Fdownload%2Fis-generator-function-1.0.8.tgz#dfb5c2b120e02b0a8d9d2c6806cd5621aa922f7b"
+  integrity sha1-37XCsSDgKwqNnSxoBs1WIaqSL3s=
 
 is-glob@^3.1.0:
   version "3.1.0"
@@ -8549,12 +8549,13 @@ is-text-path@^1.0.1:
     text-extensions "^1.0.0"
 
 is-typed-array@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npm.taobao.org/is-typed-array/download/is-typed-array-1.1.3.tgz#a4ff5a5e672e1a55f99c7f54e59597af5c1df04d"
-  integrity sha1-pP9aXmcuGlX5nH9U5ZWXr1wd8E0=
+  version "1.1.4"
+  resolved "https://registry.npm.taobao.org/is-typed-array/download/is-typed-array-1.1.4.tgz#1f66f34a283a3c94a4335434661ca53fff801120"
+  integrity sha1-H2bzSig6PJSkM1Q0ZhylP/+AESA=
   dependencies:
-    available-typed-arrays "^1.0.0"
-    es-abstract "^1.17.4"
+    available-typed-arrays "^1.0.2"
+    call-bind "^1.0.0"
+    es-abstract "^1.18.0-next.1"
     foreach "^2.0.5"
     has-symbols "^1.0.1"
 
@@ -11014,7 +11015,7 @@ p-retry@^4.2.0:
 
 p-timeout@^3.1.0:
   version "3.2.0"
-  resolved "https://registry.npm.taobao.org/p-timeout/download/p-timeout-3.2.0.tgz#c7e17abc971d2a7962ef83626b35d635acf23dfe"
+  resolved "https://registry.npm.taobao.org/p-timeout/download/p-timeout-3.2.0.tgz?cache=0&sync_timestamp=1607244297737&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fp-timeout%2Fdownload%2Fp-timeout-3.2.0.tgz#c7e17abc971d2a7962ef83626b35d635acf23dfe"
   integrity sha1-x+F6vJcdKnli74NiazXWNazyPf4=
   dependencies:
     p-finally "^1.0.0"
@@ -15340,12 +15341,13 @@ which-pm-runs@^1.0.0:
   integrity sha1-Zws6+8VS4LVd9rd4DKdGFfI60cs=
 
 which-typed-array@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npm.taobao.org/which-typed-array/download/which-typed-array-1.1.2.tgz#e5f98e56bda93e3dac196b01d47c1156679c00b2"
-  integrity sha1-5fmOVr2pPj2sGWsB1HwRVmecALI=
+  version "1.1.4"
+  resolved "https://registry.npm.taobao.org/which-typed-array/download/which-typed-array-1.1.4.tgz#8fcb7d3ee5adf2d771066fba7cf37e32fe8711ff"
+  integrity sha1-j8t9PuWt8tdxBm+6fPN+Mv6HEf8=
   dependencies:
     available-typed-arrays "^1.0.2"
-    es-abstract "^1.17.5"
+    call-bind "^1.0.0"
+    es-abstract "^1.18.0-next.1"
     foreach "^2.0.5"
     function-bind "^1.1.1"
     has-symbols "^1.0.1"
@@ -15523,10 +15525,15 @@ ws@^6.0.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7.2.3, ws@^7.4.0:
+ws@^7.2.3:
   version "7.4.0"
   resolved "https://registry.npm.taobao.org/ws/download/ws-7.4.0.tgz#a5dd76a24197940d4a8bb9e0e152bb4503764da7"
   integrity sha1-pd12okGXlA1Ki7ng4VK7RQN2Tac=
+
+ws@^7.4.0:
+  version "7.4.1"
+  resolved "https://registry.npm.taobao.org/ws/download/ws-7.4.1.tgz?cache=0&sync_timestamp=1607113390244&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fws%2Fdownload%2Fws-7.4.1.tgz#a333be02696bd0e54cea0434e21dcc8a9ac294bb"
+  integrity sha1-ozO+Amlr0OVM6gQ04h3MiprClLs=
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
