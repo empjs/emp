@@ -110,7 +110,10 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       args: [
         {
           async: false, // true dev环境下部分错误验证通过
-          eslint: false,
+          eslint: {
+            enabled: false,
+            files: path.resolve(paths.appRoot, './src/**/*.{ts,tsx,js,jsx}'),
+          },
           checkSyntacticErrors: true,
           tsconfig,
           silent: true,
@@ -123,12 +126,15 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     args: [
       {
         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+        // files: ['src'],
         // formatter: require.resolve('react-dev-utils/eslintFormatter'),
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
-        // cache: true,
+        cache: true,
+        cacheLocation: path.resolve(paths.appRoot, 'node_modules/.cache/.eslintcache'),
         fix: true,
-        // threads: true,
+        threads: true,
+        lintDirtyModulesOnly: false,
         cwd: paths.appRoot,
         // outputReport: true,
         // resolvePluginsRelativeTo: __dirname,

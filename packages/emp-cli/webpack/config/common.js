@@ -5,10 +5,10 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const buildDependenciesConfigs = [__filename]
   if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
+    performance: false,
     cache: {
       type: 'filesystem',
       // cacheDirectory 默认路径是 node_modules/.cache/webpack
-      // cacheDirectory: resolveApp('.emp-wp-cache'),
       // 缓存依赖，当缓存依赖修改时，缓存失效
       buildDependencies: {
         // 将你的配置添加依赖，更改配置时，使得缓存失效
@@ -20,9 +20,12 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
       minimize: !isDev,
-      minizer: [],
+      // minimizer: [],
     },
     entry: {index: entry},
+    watchOptions: {
+      ignored: ['**/.git/**', '**/node_modules/**'],
+    },
     output: {
       path: dist,
       filename: 'static/js/[name].[contenthash:8].js',
