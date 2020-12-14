@@ -64,8 +64,5 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
 |<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && dev:vue23`|
 
-## Show Case 
-[EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
-
 ## WeChat Group
 <img src='assets/WeChat.png' width='290'/>
