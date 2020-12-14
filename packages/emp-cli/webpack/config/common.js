@@ -1,5 +1,16 @@
 const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 const environment = require('./environment')
+//========== cache version control ===================
+const {version} = require('../../package.json')
+const childProcess = require('child_process')
+let gitVersion = 'noGit'
+try {
+  gitVersion = childProcess.execSync('git rev-parse HEAD')
+  gitVersion = gitVersion ? gitVersion.toString() : 'noGit'
+} catch (e) {
+  console.error(e)
+}
+//===================
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
@@ -7,6 +18,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
     cache: {
+      version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}`,
       type: 'filesystem',
       cacheDirectory: cachePaths.webpack, //默认路径是 node_modules/.cache/webpack
       // 缓存依赖，当缓存依赖修改时，缓存失效

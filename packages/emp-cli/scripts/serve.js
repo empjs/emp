@@ -7,15 +7,13 @@ const path = require('path')
 const express = require('express')
 const compression = require('compression')
 let config = {}
-
 config = require('../webpack/config/devServer')
 config = config('production', {hot: false, open: false, progress: false})
 
 if (fs.existsSync(cachePaths.buildConfig)) {
   const buildConfig = require(cachePaths.buildConfig)
-  config = {...config, buildConfig}
+  config = {...config, ...buildConfig}
 }
-
 // console.log('config json', config)
 //
 express.static.mime.types['ts'] = 'application/javascript'

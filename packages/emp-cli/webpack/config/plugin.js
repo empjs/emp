@@ -13,7 +13,6 @@ const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -136,7 +135,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         cache: true,
         cacheLocation: cachePaths.eslint,
         fix: true,
-        // threads: true,
+        threads: true,
         lintDirtyModulesOnly: false,
         cwd: paths.appRoot,
         // outputReport: true,
