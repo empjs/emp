@@ -5,7 +5,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
-const {resolveApp, getPaths} = require('../../helpers/paths')
+const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 const paths = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
@@ -134,9 +134,9 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
         cache: true,
-        cacheLocation: path.resolve(paths.appRoot, 'node_modules/.cache/.eslintcache'),
+        cacheLocation: cachePaths.eslint,
         fix: true,
-        threads: true,
+        // threads: true,
         lintDirtyModulesOnly: false,
         cwd: paths.appRoot,
         // outputReport: true,

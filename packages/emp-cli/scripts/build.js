@@ -1,9 +1,9 @@
 // 参考 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/webpack.config.js
 //
-const {setPaths, getPaths} = require('../helpers/paths')
+const {setPaths, getPaths, cachePaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
-const {copyPublicFolder} = require('../helpers/build')
+const {copyPublicFolder, buildServeConfig} = require('../helpers/build')
 const chalk = require('chalk')
 // const ora = require('ora')
 // const spinner = ora('=== EMP Build Start ===\n').start()
@@ -67,5 +67,6 @@ module.exports = async args => {
     )
     // 复制其他文件到dist
     copyPublicFolder(paths)
+    buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
   })
 }

@@ -1,4 +1,4 @@
-const {resolveApp, getPaths} = require('../../helpers/paths')
+const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 const environment = require('./environment')
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()
@@ -8,7 +8,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const commonConfig = {
     cache: {
       type: 'filesystem',
-      // cacheDirectory 默认路径是 node_modules/.cache/webpack
+      cacheDirectory: cachePaths.webpack, //默认路径是 node_modules/.cache/webpack
       // 缓存依赖，当缓存依赖修改时，缓存失效
       buildDependencies: {
         // 将你的配置添加依赖，更改配置时，使得缓存失效

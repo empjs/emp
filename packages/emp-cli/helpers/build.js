@@ -20,4 +20,12 @@ function copyPublicFolder({public, dist, template, favicon}) {
   })
 }
 
-module.exports = {copyPublicFolder}
+function buildServeConfig(path, config) {
+  // console.log(path, config)
+  fs.writeJson(path, config, err => {
+    if (err) return console.error(err)
+    // console.log('success!')
+  })
+}
+
+module.exports = {copyPublicFolder, buildServeConfig}

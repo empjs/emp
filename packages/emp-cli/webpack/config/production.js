@@ -3,7 +3,7 @@ module.exports = (args, config, env) => {
   const prodConfig = {
     mode: 'production',
     devtool: 'source-map',
-    devServer,
+    // devServer,
     performance: {
       hints: false,
       maxEntrypointSize: 512000,
