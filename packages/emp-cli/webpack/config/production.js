@@ -4,6 +4,11 @@ module.exports = (args, config, env) => {
     mode: 'production',
     devtool: 'source-map',
     devServer,
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
+    },
   }
   config.merge(prodConfig)
 }

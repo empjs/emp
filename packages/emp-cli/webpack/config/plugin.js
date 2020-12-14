@@ -32,7 +32,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: Dotenv,
         args: [
           {
-            path: resolveApp(`.env.${empEnv}`),
+            path: resolveApp(`.env${empEnv ? '.' + empEnv : ''}`),
             // path: './some.other.env', // load this now instead of the ones in '.env'
             safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
             allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)

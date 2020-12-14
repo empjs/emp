@@ -5,7 +5,7 @@ const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 module.exports = (env, config) => {
   const isDev = env === 'development'
   const getStyleLoader = (modules = false, preProcessor = {}) => {
@@ -25,7 +25,7 @@ module.exports = (env, config) => {
         options: {
           postcssOptions: {
             hideNothingWarning: true,
-            plugins: [
+            /* plugins: [
               [
                 require('cssnano'),
                 {
@@ -39,7 +39,7 @@ module.exports = (env, config) => {
                   ],
                 },
               ],
-            ],
+            ], */
           },
         },
       },
@@ -126,7 +126,7 @@ module.exports = (env, config) => {
   }
   //=============== css min
   if (!isDev) {
-    /* config.optimization.minimizer('css').use(CssMinimizerPlugin, [
+    config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
       {
         parallel: true,
         sourceMap: false,
@@ -139,7 +139,7 @@ module.exports = (env, config) => {
           ],
         },
       },
-    ]) */
+    ])
     config.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
       {
         filename: 'static/css/[name].[contenthash:8].css',

@@ -1,11 +1,11 @@
 const {resolveApp, getPaths} = require('../../helpers/paths')
+const environment = require('./environment')
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
   if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
-    performance: false,
     cache: {
       type: 'filesystem',
       // cacheDirectory 默认路径是 node_modules/.cache/webpack
@@ -36,15 +36,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
       // 支持 es5 输出
       // ecmaVersion: 5,
       // output.ecmaVersion is replaced with output.environment which lists features used by webpack
-      environment: {
-        arrowFunction: false,
-        bigIntLiteral: false,
-        const: false,
-        destructuring: false,
-        forOf: false,
-        dynamicImport: false,
-        module: false,
-      },
+      environment: environment('es5'),
       // experiments.outputModule 为 true.
       // module: true,
       // libraryTarget: 'module',

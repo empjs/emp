@@ -42,7 +42,9 @@ module.exports = {
         withReact()({config, env, empEnv, hot, webpack})
       }
     }
+    const wpc = config.toConfig()
     if (args.wplogger) console.log('webpack config', config.toString(), '==========')
-    return config.toConfig()
+    if (env === 'production') wpc.optimization.minimizer.push('...')
+    return wpc
   },
 }
