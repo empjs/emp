@@ -5,7 +5,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
-const {resolveApp, getPaths} = require('../../helpers/paths')
+const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 const paths = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
@@ -13,7 +13,6 @@ const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -32,7 +31,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: Dotenv,
         args: [
           {
-            path: resolveApp(`.env.${empEnv}`),
+            path: resolveApp(`.env${empEnv ? '.' + empEnv : ''}`),
             // path: './some.other.env', // load this now instead of the ones in '.env'
             safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
             allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
@@ -134,7 +133,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         eslintPath: require.resolve('eslint'),
         context: paths.appSrc,
         cache: true,
-        cacheLocation: path.resolve(paths.appRoot, 'node_modules/.cache/.eslintcache'),
+        cacheLocation: cachePaths.eslint,
         fix: true,
         threads: true,
         lintDirtyModulesOnly: false,

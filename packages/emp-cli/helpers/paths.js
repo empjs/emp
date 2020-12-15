@@ -34,9 +34,15 @@ const setPaths = async ({src, dist, public}) => {
   paths = {appRoot, appSrc, appPath, appPackageJson, entry, dist, public, favicon, template}
 }
 const getPaths = () => paths
+const cachePaths = {
+  eslint: path.resolve(appDirectory, 'node_modules/.cache/.eslintcache'),
+  webpack: path.resolve(appDirectory, 'node_modules/.cache/webpack'),
+  buildConfig: path.resolve(appDirectory, 'node_modules/.cache/.buildConfigCache.json'),
+}
 module.exports = {
   resolveApp,
   getPaths,
   setPaths,
+  cachePaths,
   appPackageJson,
 }

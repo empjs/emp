@@ -7,7 +7,7 @@ module.exports = (args, config, env) => {
       usedExports: true,
     },
     // entry: {index: ['react-refresh/runtime', entry]},
-    devtool: 'eval-source-map',
+    devtool: 'eval',
     devServer,
   }
   config.merge(devConfig)

@@ -76,8 +76,5 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
-## 案例 
-[EMP Awesome](https://github.com/efoxTeam/emp-Awesome)
-
 ## 微信交流群
 <img src='assets/WeChat.png' width='290'/>

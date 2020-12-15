@@ -1,14 +1,26 @@
-const {resolveApp, getPaths} = require('../../helpers/paths')
+const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
+const environment = require('./environment')
+//========== cache version control ===================
+const {version} = require('../../package.json')
+const childProcess = require('child_process')
+let gitVersion = 'noGit'
+try {
+  gitVersion = childProcess.execSync('git rev-parse HEAD')
+  gitVersion = gitVersion ? gitVersion.toString() : 'noGit'
+} catch (e) {
+  console.error(e)
+}
+//===================
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
   if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
-    performance: false,
     cache: {
+      version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}`,
       type: 'filesystem',
-      // cacheDirectory 默认路径是 node_modules/.cache/webpack
+      cacheDirectory: cachePaths.webpack, //默认路径是 node_modules/.cache/webpack
       // 缓存依赖，当缓存依赖修改时，缓存失效
       buildDependencies: {
         // 将你的配置添加依赖，更改配置时，使得缓存失效
@@ -36,15 +48,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
       // 支持 es5 输出
       // ecmaVersion: 5,
       // output.ecmaVersion is replaced with output.environment which lists features used by webpack
-      environment: {
-        arrowFunction: false,
-        bigIntLiteral: false,
-        const: false,
-        destructuring: false,
-        forOf: false,
-        dynamicImport: false,
-        module: false,
-      },
+      environment: environment('es5'),
       // experiments.outputModule 为 true.
       // module: true,
       // libraryTarget: 'module',
