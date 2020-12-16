@@ -59,10 +59,12 @@ module.exports = async args => {
     console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
     console.log(
       stats.toString({
-        chunks: false,
+        // chunks: false,
         colors: true,
-        warnings: false,
-        error: false,
+        all: false,
+        assets: true,
+        // warnings: false,
+        // error: false,
       }),
     )
     // 复制其他文件到dist

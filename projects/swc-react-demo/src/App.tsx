@@ -5,7 +5,7 @@ import SVG from 'src/components/SVG'
 import ANTDDEMO from 'src/components/ANTD'
 const App = (): any => (
   <>
-    <h2>.Module Federation DEMO</h2>
+    <h2>.Module Federation DEMO!!!</h2>
     {/* <DEMO /> */}
     <h2>.Antd</h2>
     <ANTDDEMO />
