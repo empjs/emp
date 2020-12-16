@@ -23,6 +23,7 @@
     "cross-env": "^7.0.2"
   },
   "dependencies": {
+    "antd": "^4.9.4",
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
