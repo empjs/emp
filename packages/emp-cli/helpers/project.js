@@ -43,7 +43,17 @@ module.exports = {
       }
     }
     const wpc = config.toConfig()
-    if (args.wplogger) console.log('webpack config', config.toString(), '==========')
+    if (args.wplogger) {
+      if (args.output) {
+        const fileName = args.output === true ? 'output.js' : args.output
+        try {
+          fs.writeFileSync(resolveApp(fileName), JSON.stringify(wpc, null, 2))
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      console.log('webpack config', config.toString(), '==========')
+    }
     if (env === 'production') wpc.optimization.minimizer.push('...')
     return wpc
   },
