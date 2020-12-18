@@ -55,7 +55,7 @@
     "eslint-webpack-plugin": "^2.4.1",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
-    "fork-ts-checker-webpack-plugin": "^4.1.6",
+    "fork-ts-checker-webpack-plugin": "^6.0.7",
     "fs-extra": "^9.0.0",
     "git-promise": "^1.0.0",
     "html-webpack-plugin": "^5.0.0-alpha.16",
@@ -76,11 +76,10 @@
     "style-loader": "^1.2.1",
     "typescript": "^4.0.5",
     "url-loader": "^4.1.1",
-    "webpack": "^5.10.3",
+    "webpack": "^5.11.0",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^4.0.0-beta.0",
     "webpackbar": "^5.0.0-3"
-  },
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
+  }
 }

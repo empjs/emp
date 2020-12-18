@@ -108,40 +108,43 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
-          // async: isDev, // true dev环境下部分错误验证通过
-          async: false,
+          async: isDev, // true dev环境下部分错误验证通过
           eslint: {
-            enabled: false,
-            files: path.resolve(paths.appRoot, './src/**/*.{ts,tsx,js,jsx}'),
+            enabled: true,
+            files: `${paths.appSrc}/**/*.{ts,tsx,js,jsx}`,
           },
-          checkSyntacticErrors: true,
-          tsconfig,
-          silent: true,
+          typescript: {
+            configFile: tsconfig,
+            profile: false,
+            typescriptPath: require.resolve('typescript'),
+          },
+        },
+      ],
+    }
+  } else {
+    conf.plugin.eslint = {
+      plugin: ESLintPlugin,
+      args: [
+        {
+          extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+          // files: ['src'],
+          // formatter: require.resolve('react-dev-utils/eslintFormatter'),
+          // emitWarning: true,
+          // failOnWarning: true,
+          eslintPath: require.resolve('eslint'),
+          context: paths.appSrc,
+          cache: true,
+          cacheLocation: cachePaths.eslint,
+          fix: true,
+          threads: true,
+          lintDirtyModulesOnly: false,
+          cwd: paths.appRoot,
+          // outputReport: true,
         },
       ],
     }
   }
-  conf.plugin.eslint = {
-    plugin: ESLintPlugin,
-    args: [
-      {
-        extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-        // files: ['src'],
-        // formatter: require.resolve('react-dev-utils/eslintFormatter'),
-        // emitWarning: true,
-        // failOnWarning: true,
-        eslintPath: require.resolve('eslint'),
-        context: paths.appSrc,
-        cache: true,
-        cacheLocation: cachePaths.eslint,
-        fix: true,
-        threads: true,
-        lintDirtyModulesOnly: false,
-        cwd: paths.appRoot,
-        // outputReport: true,
-      },
-    ],
-  }
+
   // analyzer
   if (analyze) {
     conf.plugin.analyzer = {

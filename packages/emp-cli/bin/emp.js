@@ -55,14 +55,13 @@ program
   .option('-o, --open <open>', '是否打开调试页面 默认true,false禁止自动打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-ps, --progress', '显示进度 默认为 true')
-  .option('-wl, --wplogger', '显示webpack配置 默认为 false')
-  .option('--output [filename]', '输出webpack配置为文件')
-  .action(({src, public, env, hot, open, ts, progress, wplogger, output}) => {
+  .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
+  .action(({src, public, env, hot, open, ts, progress, wplogger}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
     // hot = hot === 'false' ? false : true
     progress = progress == 'false' ? false : true
-    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger, output})
+    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger})
   })
 // 构建
 program
@@ -78,7 +77,7 @@ program
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
   .option('-ps, --progress', '显示进度 默认为 false')
-  .option('-wl, --wplogger', '显示webpack配置 默认为 false')
+  .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(({src, dist, public, analyze, env, ts, progress, createName, createPath, wplogger}) => {
     const empEnv = env || 'prod'
     progress = progress == 'false' ? false : true
