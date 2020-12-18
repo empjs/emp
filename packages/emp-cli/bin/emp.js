@@ -56,12 +56,13 @@ program
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-ps, --progress', '显示进度 默认为 true')
   .option('-wl, --wplogger', '显示webpack配置 默认为 false')
-  .action(({src, public, env, hot, open, ts, progress, wplogger}) => {
+  .option('--output [filename]', '输出webpack配置为文件')
+  .action(({src, public, env, hot, open, ts, progress, wplogger, output}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
     // hot = hot === 'false' ? false : true
     progress = progress == 'false' ? false : true
-    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger})
+    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger, output})
   })
 // 构建
 program
