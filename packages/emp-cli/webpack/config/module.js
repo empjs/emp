@@ -20,7 +20,7 @@ module.exports = (env, config, {hot}) => {
         //
         scripts: {
           test: /\.(js|jsx|ts|tsx)$/,
-          exclude: /node_modules/,
+          exclude: /(node_modules|bower_components)/,
           use: {
             babel: {
               loader: 'babel-loader',
