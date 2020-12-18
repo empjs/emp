@@ -127,19 +127,15 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       args: [
         {
           extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-          // files: ['src'],
-          // formatter: require.resolve('react-dev-utils/eslintFormatter'),
-          // emitWarning: true,
-          // failOnWarning: true,
+          context: paths.appRoot,
+          overrideConfigFile: resolveApp('.eslintrc.js'),
+          files: ['src/**/*.{ts,tsx,js,jsx}'],
           eslintPath: require.resolve('eslint'),
-          context: paths.appSrc,
           cache: true,
           cacheLocation: cachePaths.eslint,
           fix: true,
           threads: true,
           lintDirtyModulesOnly: false,
-          cwd: paths.appRoot,
-          // outputReport: true,
         },
       ],
     }
