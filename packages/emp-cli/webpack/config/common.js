@@ -1,5 +1,4 @@
 const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
-const environment = require('./environment')
 //========== cache version control ===================
 const {version} = require('../../package.json')
 const childProcess = require('child_process')
@@ -42,13 +41,21 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
       path: dist,
       filename: 'static/js/[name].[contenthash:8].js',
       // [query] is now a valid placeholder when for paths based on a filename like assets
-      assetModuleFilename: 'static/asset/[name].[contenthash:8][ext]',
+      assetModuleFilename: 'static/asset/[name].[contenthash:8][ext][query]',
       // 文件命名模版
       publicPath: 'auto',
       // 支持 es5 输出
       // ecmaVersion: 5,
       // output.ecmaVersion is replaced with output.environment which lists features used by webpack
-      environment: environment('es5'),
+      environment: {
+        arrowFunction: false,
+        bigIntLiteral: false,
+        const: false,
+        destructuring: false,
+        forOf: false,
+        dynamicImport: false,
+        module: false,
+      },
       // experiments.outputModule 为 true.
       // module: true,
       // libraryTarget: 'module',

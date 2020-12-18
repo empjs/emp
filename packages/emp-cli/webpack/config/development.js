@@ -6,7 +6,6 @@ module.exports = (args, config, env) => {
     optimization: {
       usedExports: true,
     },
-    // entry: {index: ['react-refresh/runtime', entry]},
     devtool: 'eval',
     devServer,
   }

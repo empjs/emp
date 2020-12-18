@@ -5,9 +5,17 @@ module.exports = fn => ec => {
   const {config, env, hot} = ec
 
   config.merge({
+    devtool: false,
     target: ['web', 'es2017'],
+    externalsPresets: {
+      web: false,
+      webAsync: true,
+    },
     output: {
       module: true,
+      scriptType: 'module', // script type=module
+      crossOriginLoading: 'anonymous', // 允许跨域
+      publicPath: '/',
       environment: {
         arrowFunction: true,
         bigIntLiteral: true,
