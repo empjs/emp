@@ -1,10 +1,11 @@
 {
   "name": "esm-project",
   "version": "1.0.1",
-  "main": "index.js",
   "license": "MIT",
   "private": true,
-  "type": "module",
+  "exports": "./modern.js",
+  "main": "./legacy.cjs",
+  "module": "./module.js",
   "dependencies": {
     "axios": "^0.20.0",
     "html-webpack-plugin": "^5.0.0-alpha.10",

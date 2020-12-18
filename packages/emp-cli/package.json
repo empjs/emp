@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "keywords": [
     "react",
     "module federation",
@@ -58,7 +58,7 @@
     "fork-ts-checker-webpack-plugin": "^6.0.7",
     "fs-extra": "^9.0.0",
     "git-promise": "^1.0.0",
-    "html-webpack-plugin": "^5.0.0-alpha.16",
+    "html-webpack-plugin": "^5.0.0-beta.1",
     "inquirer": "^7.3.3",
     "less": "^3.11.2",
     "less-loader": "^6.1.0",
@@ -69,7 +69,7 @@
     "postcss": "^8.1.4",
     "postcss-loader": "^4.0.4",
     "react-dev-utils": "^11.0.0",
-    "react-refresh": "^0.9.0-rc.3",
+    "react-refresh": "^0.9.0",
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
     "semver": "^7.3.2",
