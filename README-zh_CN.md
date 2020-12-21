@@ -3,11 +3,20 @@
 
 [English](./README.md) | 简体中文
 
-## 免费线上分享
+这是一个面向未来的，基于Webpack5 Module Federation搭建的微前端解决方案。
 
-![](./assets/emp-share.jpg)
+## 👨🏻‍💻 目录
+* [生态总揽]()
+* [教程文档]()
+* [快速开始]()
+* [框架配置插件]()
+* [EMP多框架互调转换插件]()
+* [演示]()
+* [EMP多框架互调用例]()
+* [用例展示]()
+* [交流社区]()
 
-## 项目
+## 📦 生态总揽
 |Project|NPM|Info|
 |---|---|---|
 |[@efox/emp-cli](packages/emp-cli)|[![release](https://img.shields.io/npm/v/@efox/emp-cli.svg)](https://www.npmjs.com/package/@efox/emp-cli)|脚手架|
@@ -16,7 +25,12 @@
 |[@efox/eslint-config-react-prittier-ts](packages/eslint-config-react-prittier-ts)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react-prittier-ts.svg)](https://www.npmjs.com/package/@efox/eslint-config-react-prittier-ts)|代码规范统一配置|
 |[@efox/emp-sync-vscode-plugin](https://github.com/efoxTeam/emp-sync-vscode-plugin)|[![release](https://img.shields.io/badge/emp--sync--base-v0.1.5-green.svg)](https://marketplace.visualstudio.com/items?itemName=Benny.emp-sync-base)|EMP 类型同步 VSCode插件|
 
-## 快速开始
+
+## 📖 教程文档
+
+[https://github.com/efoxTeam/emp/wiki](https://github.com/efoxTeam/emp/wiki)
+
+## 💿 快速开始
 ```sh
 npx @efox/emp-cli init
 cd my-emp && yarn && yarn dev
@@ -31,8 +45,7 @@ cd my-emp && yarn && yarn dev
 
 <img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
-
-## 框架配置插件
+## ✨ 框架配置插件
 |Framework|NPM|demo|project|install|
 |---|---|---|---|---|
 |react|[![release](https://img.shields.io/npm/v/@efox/emp-react.svg)](https://www.npmjs.com/package/@efox/emp-react)|[demo](projects/react)|[@efox/emp-react](packages/emp-frameworks/react)|`yarn add @efox/emp-react -D`|
@@ -42,12 +55,12 @@ cd my-emp && yarn && yarn dev
 |preact|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/preact)|[@efox/emp-preact](packages/emp-frameworks/preact)|`yarn add @efox/emp-preact -D`|
 |cocos2d|[![release](https://img.shields.io/npm/v/@efox/emp-cocos2d.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/cocos2d)|[@efox/emp-cocos2d](packages/emp-frameworks/cocos2d)|`yarn add @efox/emp-cocos2d -D`|
 
-## EMP多框架互调转换插件
+## ⚡ EMP多框架互调插件
 |Framework|NPM|demo|install|
 |---|---|---|---|
 |emp-vue2-in-vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vuett.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[demo](projects/vue3-project)|`yarn add @efox/emp-vuett`|
 
-## 演示
+## 📦 演示
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
@@ -59,13 +72,13 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 
-## EMP多框架互调用例
+## 💪 EMP多框架互调用例
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
 |<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && dev:vue23`|
 
-## 用例展示
+## 🎯 用例展示
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
@@ -76,5 +89,16 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
-## 微信交流群
+## 👬 交流社区
+
+* 微信交流群：
+
 <img src='assets/WeChat.png' width='290'/>
+
+* 微信公众号： Efox
+
+<img src='assets/wechatLogo.jpg' width='290'/>
+
+* 掘金： https://juejin.cn/user/483440843559406/posts
+
+* 开源中国： https://my.oschina.net/u/568478

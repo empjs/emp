@@ -3,11 +3,21 @@
 
 English | [简体中文](./README-zh_CN.md)
 
-## Free share online
+An implementation of [Micro Frontends](https://micro-frontends.org/), based on [Webpack5 Module Federation](https://webpack.js.org/concepts/module-federation/), but made it production-ready.
 
-![](./assets/emp-share.jpg)
+## 👨🏻‍💻 Table of contents
+* [Projects]()
+* [Documentation]()
+* [Quick Overview]()
+* [Framework Config Plugins]()
+* [EMP multi-frame intermodulation conversion plug-in]()
+* [Demos]()
+* [Use multiple frameworks in EMP Application]()
+* [Community]()
 
-## Projects
+
+## 📦 Projects
+
 |Project|NPM|Info|
 |---|---|---|
 |[@efox/emp-cli](packages/emp-cli)|[![release](https://img.shields.io/npm/v/@efox/emp-cli.svg)](https://www.npmjs.com/package/@efox/emp-cli)|CLI|
@@ -16,7 +26,11 @@ English | [简体中文](./README-zh_CN.md)
 |[@efox/eslint-config-react-prittier-ts](packages/eslint-config-react-prittier-ts)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react-prittier-ts.svg)](https://www.npmjs.com/package/@efox/eslint-config-react-prittier-ts)|ESLint Config|
 |[@efox/emp-sync-vscode-plugin](https://github.com/efoxTeam/emp-sync-vscode-plugin)|[![release](https://img.shields.io/badge/emp--sync--base-v0.1.5-green.svg)](https://marketplace.visualstudio.com/items?itemName=Benny.emp-sync-base)|EMP Type Synchronize VSCode Plugin|
 
-## Quick Overview
+## 📖 Documentation
+
+[https://github.com/efoxTeam/emp/wiki](https://github.com/efoxTeam/emp/wiki)
+
+## 💿 Quick Overview
 ```sh
 npx @efox/emp-cli init
 cd my-emp && yarn && yarn dev
@@ -31,7 +45,7 @@ cd my-emp && yarn && yarn dev
 
 <img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
-## Framework Config Plugins
+## ✨ Framework Config Plugins
 |Framework|NPM|demo|project|install|
 |---|---|---|---|---|
 |react|[![release](https://img.shields.io/npm/v/@efox/emp-react.svg)](https://www.npmjs.com/package/@efox/emp-react)|[demo](projects/react)|[@efox/emp-react](packages/emp-frameworks/react)|`yarn add @efox/emp-react -D`|
@@ -41,12 +55,12 @@ cd my-emp && yarn && yarn dev
 |preact|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/preact)|[@efox/emp-preact](packages/emp-frameworks/preact)|`yarn add @efox/emp-preact -D`|
 |cocos2d|[![release](https://img.shields.io/npm/v/@efox/emp-cocos2d.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/cocos2d)|[@efox/emp-cocos2d](packages/emp-frameworks/cocos2d)|`yarn add @efox/emp-cocos2d -D`|
 
-## EMP multi-frame intermodulation conversion plug-in
+## ⚡ EMP multi-frame intermodulation conversion plug-in
 |Framework|NPM|demo|install|
 |---|---|---|---|
 |emp-vue2-in-vue3|[![release](https://img.shields.io/npm/v/@efox/emp-vuett.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[demo](projects/vue3-project)|`yarn add @efox/emp-vuett`|
 
-## Demos
+## 📦 Demos
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
@@ -58,11 +72,27 @@ cd my-emp && yarn && yarn dev
 |<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
 |<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
 
-## Use multiple frameworks in EMP Application
+## 💪 Use multiple frameworks in EMP Application
 |Framework|demo|cli|
 |---|---|---|
 |<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
 |<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && dev:vue23`|
 
-## WeChat Group
+## 👬 Community
+
+* WeChat Group：
+
 <img src='assets/WeChat.png' width='290'/>
+
+* WeChat Official Account： Efox
+
+<img src='assets/wechatLogo.jpg' width='290'/>
+
+* Juejin： 
+
+https://juejin.cn/user/483440843559406/posts
+
+* oschina: 
+
+https://my.oschina.net/u/568478
+
