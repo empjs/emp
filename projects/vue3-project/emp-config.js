@@ -9,11 +9,9 @@ module.exports = withFrameWork(({config}) => {
       ...args[0],
       ...{
         name: projectName,
-        // library: {type: 'var', name: projectName},
         filename: 'emp.js',
         remotes: {
           '@v3b': 'vue3Base@http://localhost:8005/emp.js',
-          // '@v2b': 'vue2Base',
         },
         exposes: {},
         shared: {

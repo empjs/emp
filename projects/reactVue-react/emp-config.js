@@ -13,13 +13,11 @@ module.exports = ({config, env}) => {
       ...{
         // 项目名称
         name: projectName,
-        // 暴露项目的全局变量名
-        library: {type: 'var', name: projectName},
         // 被远程引入的文件名
         filename: 'emp.js',
         // 远程项目别名:远程引入的项目名
         remotes: {
-          '@emp/vueComponents': 'vueComponents',
+          '@emp/vueComponents': 'vueComponents@http://localhost:8006/emp.js',
         },
         // 需要暴露的东西
         exposes: {
@@ -39,9 +37,7 @@ module.exports = ({config, env}) => {
     args[0] = {
       ...args[0],
       ...{
-        files: {
-          js: ['http://localhost:8006/emp.js'],
-        },
+        files: {},
       },
     }
     return args

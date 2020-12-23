@@ -9,7 +9,6 @@ module.exports = withFrameWork(({config}) => {
       ...args[0],
       ...{
         name: projectName,
-        // library: {type: 'var', name: projectName},
         filename: 'emp.js',
         shared: {
           vue: {eager: true, singleton: true, requiredVersion: '^3.0.2'},
@@ -29,7 +28,6 @@ module.exports = withFrameWork(({config}) => {
       ...args[0],
       ...{
         title: 'EMP Vue3 Base',
-        files: {},
       },
     }
     return args
