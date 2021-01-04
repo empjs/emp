@@ -1,4 +1,31 @@
 const fs = require('fs-extra')
+const path = require('path')
+
+/**
+ * 遍历文件夹内容
+ * @param folderPath 遍历文件夹路径
+ * @param fileType   需要匹配到的文件后缀，比如md
+ * @param callback   匹配到该文件后的会调函数
+ */
+const traverseFolder = async ({folderPath, fileType, callback}) => {
+  // if (!fs.existsSync(folderPath)) {
+  //   console.warn(`${folderPath} not exist!`)
+  //   return
+  // }
+  const files = await fs.readdir(folderPath)
+  files.forEach(async file => {
+    if (file.endsWith(`.${fileType}`)) {
+      callback && callback({folderPath, file})
+    } else if (!file.includes('.')) {
+      traverseFolder({
+        folderPath: path.join(folderPath, file),
+        fileType,
+        callback,
+      })
+    }
+  })
+}
+
 function copyPublicFolder({public, dist, template, favicon}) {
   // console.log(public, dist, template, favicon)
   if (!fs.existsSync(public)) {
@@ -29,7 +56,26 @@ function copyEmpJsonFile({empjson, dist, empjsonDist}) {
     console.warn('dist not exist!')
     return
   }
-  fs.copySync(empjson, empjsonDist, {})
+  fs.copySync(empjson, empjsonDist)
+}
+
+async function copyMdFiles({dist, appSrc, docsDist}) {
+  if (!fs.existsSync(appSrc)) {
+    console.warn('appSrc not exist!')
+    return
+  }
+  if (!fs.existsSync(dist)) {
+    console.warn('dist not exist!')
+    return
+  }
+
+  traverseFolder({
+    folderPath: appSrc,
+    fileType: 'md',
+    callback: ({folderPath, file}) => {
+      fs.copySync(path.join(folderPath, file), path.join(docsDist, file))
+    },
+  })
 }
 
 function buildServeConfig(path, config) {
@@ -40,4 +86,4 @@ function buildServeConfig(path, config) {
   })
 }
 
-module.exports = {copyPublicFolder, copyEmpJsonFile, buildServeConfig}
+module.exports = {copyPublicFolder, copyEmpJsonFile, copyMdFiles, buildServeConfig}
