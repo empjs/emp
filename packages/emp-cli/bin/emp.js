@@ -189,5 +189,15 @@ program
       })
   })
 
+program
+  .command('ui')
+  .description('起emp gui 服务')
+  .option('-h, --host <host>', '起服务的域名，默认是localhost')
+  .option('-p, --port <port>', '起服务的端口号，默认是1234')
+  .option('--headless', '不自动打开浏览器页面')
+  .action(({host, port, headless}) => {
+    require('../scripts/ui')({host, port, headless})
+  })
+
 // 执行命令
 program.parse(process.argv)
