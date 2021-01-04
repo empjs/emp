@@ -72,6 +72,7 @@ program
   .option('-s, --src <src>', '目标文件 默认为 src/index.ts')
   .option('-d, --dist <dist>', '目标 默认为 dist/')
   .option('-pc, --public <public>', '目标 默认为 public/')
+  .option('-dc, --doc <doc>', '目标 默认为 doc/')
   .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
   .option('-a, --analyze', '生成分析报告 默认为 false')
   .option('-t, --ts', '生成类型文件 默认为 false')
@@ -189,7 +190,9 @@ program
       })
   })
 
+
 // ui 起gui项目
+
 program
   .command('ui')
   .description('起emp gui 服务')
