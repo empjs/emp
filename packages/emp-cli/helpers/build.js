@@ -20,6 +20,18 @@ function copyPublicFolder({public, dist, template, favicon}) {
   })
 }
 
+function copyEmpJsonFile({empjson, dist, empjsonDist}) {
+  if (!fs.existsSync(empjson)) {
+    console.warn('emp.json not exist!')
+    return
+  }
+  if (!fs.existsSync(dist)) {
+    console.warn('dist not exist!')
+    return
+  }
+  fs.copySync(empjson, empjsonDist, {})
+}
+
 function buildServeConfig(path, config) {
   // console.log(path, config)
   fs.writeJson(path, config, err => {
@@ -28,4 +40,4 @@ function buildServeConfig(path, config) {
   })
 }
 
-module.exports = {copyPublicFolder, buildServeConfig}
+module.exports = {copyPublicFolder, copyEmpJsonFile, buildServeConfig}
