@@ -73,7 +73,8 @@ async function copyMdFiles({dist, appSrc, docsDist}) {
     folderPath: appSrc,
     fileType: 'md',
     callback: ({folderPath, file}) => {
-      fs.copySync(path.join(folderPath, file), path.join(docsDist, file))
+      const distPath = path.join(docsDist, folderPath.replace(`${appSrc}/`, ''), file)
+      fs.copySync(path.join(folderPath, file), distPath)
     },
   })
 }
