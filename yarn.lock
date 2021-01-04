@@ -1291,6 +1291,7 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
+
 "@efox/emp-gui@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/@efox/emp-gui/download/@efox/emp-gui-1.0.2.tgz?cache=0&sync_timestamp=1609744586763&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40efox%2Femp-gui%2Fdownload%2F%40efox%2Femp-gui-1.0.2.tgz#e404c845a788ca34f31afedb8cdfb08e9b2467ad"
@@ -1310,6 +1311,7 @@
     react-dom "^17.0.1"
     react-router-dom "^5.2.0"
     react-syntax-highlighter "^15.4.3"
+
 
 "@efox/emp-vuett@^1.0.0":
   version "1.0.0"
@@ -3876,56 +3878,7 @@ antd@^4.1.1:
     scroll-into-view-if-needed "^2.2.25"
     warning "^4.0.3"
 
-antd@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.npm.taobao.org/antd/download/antd-4.9.1.tgz?cache=0&sync_timestamp=1606801080681&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.9.1.tgz#486c6e143e04fbd6e110a9ed9f9333bcba54b0f3"
-  integrity sha1-SGxuFD4E+9bhEKntn5MzvLpUsPM=
-  dependencies:
-    "@ant-design/colors" "^5.0.0"
-    "@ant-design/css-animation" "^1.7.2"
-    "@ant-design/icons" "^4.3.0"
-    "@ant-design/react-slick" "~0.27.0"
-    "@babel/runtime" "^7.11.2"
-    array-tree-filter "^2.1.0"
-    classnames "^2.2.6"
-    copy-to-clipboard "^3.2.0"
-    lodash "^4.17.20"
-    moment "^2.25.3"
-    omit.js "^2.0.2"
-    rc-cascader "~1.4.0"
-    rc-checkbox "~2.3.0"
-    rc-collapse "~3.1.0"
-    rc-dialog "~8.4.0"
-    rc-drawer "~4.1.0"
-    rc-dropdown "~3.2.0"
-    rc-field-form "~1.17.0"
-    rc-image "~4.2.0"
-    rc-input-number "~6.1.0"
-    rc-mentions "~1.5.0"
-    rc-menu "~8.10.0"
-    rc-motion "^2.4.0"
-    rc-notification "~4.5.2"
-    rc-pagination "~3.1.2"
-    rc-picker "~2.4.1"
-    rc-progress "~3.1.0"
-    rc-rate "~2.9.0"
-    rc-resize-observer "^0.2.3"
-    rc-select "~11.5.3"
-    rc-slider "~9.6.1"
-    rc-steps "~4.1.0"
-    rc-switch "~3.2.0"
-    rc-table "~7.11.0"
-    rc-tabs "~11.7.0"
-    rc-textarea "~0.3.0"
-    rc-tooltip "~5.0.0"
-    rc-tree "~4.0.0"
-    rc-tree-select "~4.2.0"
-    rc-upload "~3.3.1"
-    rc-util "^5.1.0"
-    scroll-into-view-if-needed "^2.2.25"
-    warning "^4.0.3"
 
-antd@^4.9.4:
   version "4.9.4"
   resolved "https://registry.npm.taobao.org/antd/download/antd-4.9.4.tgz?cache=0&sync_timestamp=1608097036094&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.9.4.tgz#129092bc4a67c774145cb2450e4046d27a1acbb1"
   integrity sha1-EpCSvEpnx3QUXLJFDkBG0noay7E=
