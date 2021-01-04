@@ -4,12 +4,12 @@ import Hello from './Hello'
 import css from './index.module.scss'
 import config from './config'
 import Svgacase from 'src/components/svgacase'
-import {ReactComponent as Logo} from 'src/assets/logo.svg'
+import logourl, {ReactComponent as Logo} from 'src/assets/logo.svg'
 import {ReactComponent as TipIcon} from 'src/assets/tongzhi.svg'
 import mf from 'src/assets/logo.svg'
 const mf2 = require('src/assets/logo.svg')
 const mf3 = require('src/assets/logo.svg').default
-console.log('logo', mf, mf2, mf3)
+console.log('logo:', 'import', mf, 'require', mf2, 'require default', mf3, 'import url', logourl)
 
 const ButtonEvent = () => <button>Button Click Event</button>
 class Democlass {
@@ -19,7 +19,7 @@ class Democlass {
   }
 }
 new Democlass()
-export default function App() {
+export default function App(): any {
   /* const a = 1
   if (a === true) {
     console.log(1)
@@ -28,7 +28,7 @@ export default function App() {
     <>
       <Logo width="350" className={css['App-logo']} />
       <img src={require('src/assets/mf.png')} width="300" />
-      <h1 className={css.main}>EMP EMPTY PROJECT DEMO</h1>
+      <h1 className={css.main}>EMP EMPTY PROJECT DEMO!</h1>
       <p>Infomation!!!</p>
       <p>config:{JSON.stringify(config)}</p>
       <Hello />

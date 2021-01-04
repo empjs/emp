@@ -67,7 +67,8 @@ const PageList = ({
       ? {
           ...rowSelectionOpt,
           selectedRowKeys: selectRow,
-          onChange: (selectedRowKeys: React.ReactText[], selectedRows?: RecordType[]) => onSelectChange && onSelectChange(selectedRowKeys, selectedRows),
+          onChange: (selectedRowKeys: React.ReactText[], selectedRows?: RecordType[]) =>
+            onSelectChange && onSelectChange(selectedRowKeys, selectedRows),
           fixed: true,
         }
       : undefined

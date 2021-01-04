@@ -6,8 +6,7 @@ module.exports = (args, config, env) => {
     optimization: {
       usedExports: true,
     },
-    // entry: {index: ['react-refresh/runtime', entry]},
-    devtool: 'inline-source-map',
+    devtool: 'eval',
     devServer,
   }
   config.merge(devConfig)

@@ -21,7 +21,7 @@ import {FormInstance} from 'antd/lib/form'
 // const [fileList, setFileList] = useState([''])
 
 export const FromItem = ({item}: {item: any}) => {
-  const { render, name, label, rules, type, options, data, defaultValue, onChange, onSelect } = item
+  const {render, name, label, rules, type, options, data, defaultValue, onChange, onSelect} = item
   let html: any
   //console.log('item', item, options)
   switch (type) {

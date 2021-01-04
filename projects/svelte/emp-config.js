@@ -17,7 +17,6 @@ module.exports = withSvetle(({config, env, empEnv}) => {
       ...args[0],
       ...{
         name: projectName,
-        library: {type: 'var', name: projectName},
         filename: 'emp.js',
         remotes: {
           svetleComponents: 'svetleComponents',

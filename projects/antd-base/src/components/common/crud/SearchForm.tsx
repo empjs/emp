@@ -29,14 +29,35 @@ const SearchForm = ({
         initialValues={initialValues}
         onFinishFailed={onFinishFailed}
         name={name}>
-        {
-          options.layout === 'inline' ? 
-          (
-            <>
+        {options.layout === 'inline' ? (
+          <>
+            {formItems.map((item, k) => (
+              <FromItem key={item.name} item={item} />
+            ))}
+            <div style={{marginLeft: '20px'}}>
+              <Button type="primary" htmlType="submit">
+                搜索
+              </Button>
+              <Button
+                style={{marginLeft: 8}}
+                onClick={() => {
+                  formRef.current?.resetFields()
+                }}>
+                清空
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <Row gutter={24}>
               {formItems.map((item, k) => (
-                <FromItem key={item.name} item={item} />
+                <Col span={item.col ? item.col : 4} key={k}>
+                  <FromItem key={item.name} item={item} />
+                </Col>
               ))}
-              <div style={{marginLeft: '20px'}}>
+            </Row>
+            <Row>
+              <Col span={24} style={{textAlign: 'right'}}>
                 <Button type="primary" htmlType="submit">
                   搜索
                 </Button>
@@ -47,36 +68,10 @@ const SearchForm = ({
                   }}>
                   清空
                 </Button>
-              </div>
-            </>
-          )
-          :
-          (
-            <>
-              <Row gutter={24}>
-                {formItems.map((item, k) => (
-                  <Col span={item.col ? item.col : 4} key={k}>
-                    <FromItem key={item.name} item={item} />
-                  </Col>
-                ))}
-              </Row>
-              <Row>
-                <Col span={24} style={{textAlign: 'right'}}>
-                  <Button type="primary" htmlType="submit">
-                    搜索
-                  </Button>
-                  <Button
-                    style={{marginLeft: 8}}
-                    onClick={() => {
-                      formRef.current?.resetFields()
-                    }}>
-                    清空
-                  </Button>
-                </Col>
-              </Row>
-              </>
-            )
-          }
+              </Col>
+            </Row>
+          </>
+        )}
       </Form>
     </Card>
   )

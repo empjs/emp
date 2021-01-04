@@ -6,7 +6,8 @@
   "private": true,
   "devDependencies": {
     "@efox/emp-cli": "^1.4.0",
-    "@efox/emp-vue3": "^1.0.1"
+    "@efox/emp-vue3": "^1.0.1",
+    "style-resources-loader": "^1.4.1"
   },
   "dependencies": {
     "vue": "^3.0.2"

@@ -13,7 +13,7 @@ module.exports = fn => ec => {
       // antd :TODO 增加 是否依赖 antd 判断
       o.plugins.unshift(['import', {libraryName: 'antd', style: true}])
       // 只在 tsx 里面 触发 svg 不适用内置 babel
-      o.plugins.unshift([
+      /* o.plugins.unshift([
         require.resolve('babel-plugin-named-asset-import'),
         {
           loaderMap: {
@@ -22,9 +22,21 @@ module.exports = fn => ec => {
             },
           },
         },
-      ])
+      ]) */
       return o
     })
+
+  config.module
+    .rule('svg')
+    .use('svgr')
+    .before('url')
+    .loader('@svgr/webpack')
+    .options({babel: false})
+    .end()
+    .use('babel')
+    .before('svgr')
+    .loader('babel-loader')
+    .options({presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react']})
 
   if (hot && isDev) {
     config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))

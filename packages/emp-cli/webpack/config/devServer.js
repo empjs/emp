@@ -37,7 +37,7 @@ module.exports = (env, {hot, open, progress}) => {
           // watch: true,
         },
       ],
-      // overlay: !hot,
+      overlay: !hot,
       // liveReload: !hot,
       // progress: progress === true,
       // stats: {

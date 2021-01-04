@@ -7,13 +7,16 @@ const withReact = require('@efox/emp-react')
 module.exports = {
   async getProjectConfig(env, args) {
     args = args || {}
-    require('../webpack/config/common')(env, config, args)
-    require(`../webpack/config/${env}`)(args, config, env)
+    //
     const remoteConfig = resolveApp('emp-config.js')
     const [isRemoteConfig, isRemotePackageJson] = await Promise.all([
       fs.exists(remoteConfig),
       fs.exists(appPackageJson),
     ])
+    //
+    require('../webpack/config/common')(env, config, args, {isRemoteConfig, remoteConfig})
+    require(`../webpack/config/${env}`)(args, config, env)
+    //
     const empEnv = args.empEnv
     const hot = !!args.hot
     const remotePackageJson = isRemotePackageJson
@@ -39,7 +42,21 @@ module.exports = {
         withReact()({config, env, empEnv, hot, webpack})
       }
     }
-    // console.log('webpack config', config.toString(), '==========')
-    return config.toConfig()
+    const wpc = config.toConfig()
+    if (args.wplogger) {
+      if (typeof args.wplogger === 'string') {
+        const fileName = args.wplogger
+        try {
+          // webpack.config.js
+          await fs.writeFile(resolveApp(fileName), `module.exports=${JSON.stringify(wpc, null, 2)}`)
+        } catch (err) {
+          console.error(err)
+        }
+      } else {
+        console.log('webpack config', config.toString(), '==========')
+      }
+    }
+    if (env === 'production') wpc.optimization.minimizer.push('...')
+    return wpc
   },
 }

@@ -1,9 +1,11 @@
 {
   "name": "esm-project",
   "version": "1.0.1",
-  "main": "index.js",
   "license": "MIT",
   "private": true,
+  "exports": "./modern.js",
+  "main": "./legacy.cjs",
+  "module": "./module.js",
   "type": "module",
   "dependencies": {
     "axios": "^0.20.0",

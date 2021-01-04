@@ -1,0 +1,22 @@
+{
+  "name": "esbuild-vue2-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-esbuild": "^1.0.0",
+    "@efox/emp-vue2": "^1.2.2"
+  },
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}

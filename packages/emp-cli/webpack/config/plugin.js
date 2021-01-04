@@ -5,7 +5,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const webpack = require('webpack')
-const {resolveApp, getPaths} = require('../../helpers/paths')
+const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 const paths = getPaths()
 const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
@@ -31,7 +31,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: Dotenv,
         args: [
           {
-            path: resolveApp(`.env.${empEnv}`),
+            path: resolveApp(`.env${empEnv ? '.' + empEnv : ''}`),
             // path: './some.other.env', // load this now instead of the ones in '.env'
             safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
             allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
@@ -108,29 +108,39 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       plugin: ForkTsCheckerWebpackPlugin,
       args: [
         {
-          async: false, // true dev环境下部分错误验证通过
-          // eslint: true,
-          checkSyntacticErrors: true,
-          tsconfig,
-          silent: true,
+          async: isDev, // true dev环境下部分错误验证通过
+          eslint: {
+            enabled: true,
+            files: `${paths.appSrc}/**/*.{ts,tsx,js,jsx}`,
+          },
+          typescript: {
+            configFile: tsconfig,
+            profile: false,
+            typescriptPath: require.resolve('typescript'),
+          },
+        },
+      ],
+    }
+  } else {
+    conf.plugin.eslint = {
+      plugin: ESLintPlugin,
+      args: [
+        {
+          extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+          context: paths.appRoot,
+          overrideConfigFile: resolveApp('.eslintrc.js'),
+          files: ['src/**/*.{ts,tsx,js,jsx}'],
+          eslintPath: require.resolve('eslint'),
+          cache: true,
+          cacheLocation: cachePaths.eslint,
+          fix: true,
+          threads: true,
+          lintDirtyModulesOnly: false,
         },
       ],
     }
   }
-  config.plugin.eslint = {
-    plugin: ESLintPlugin,
-    args: [
-      {
-        extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-        // formatter: require.resolve('react-dev-utils/eslintFormatter'),
-        eslintPath: require.resolve('eslint'),
-        context: paths.appSrc,
-        cache: false,
-        cwd: paths.appRoot,
-        resolvePluginsRelativeTo: __dirname,
-      },
-    ],
-  }
+
   // analyzer
   if (analyze) {
     conf.plugin.analyzer = {

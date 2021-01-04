@@ -9,11 +9,13 @@ module.exports = withVue2(({config}) => {
       ...args[0],
       ...{
         name: projectName,
-        library: {type: 'var', name: projectName},
         filename: 'emp.js',
         shared: ['vue/dist/vue.esm.js'],
         remotes: {
           '@v2b': 'vue2Base',
+        },
+        remotes: {
+          '@v2b': 'vue2Base@http://localhost:8009/emp.js',
         },
       },
     }
@@ -25,9 +27,6 @@ module.exports = withVue2(({config}) => {
       ...args[0],
       ...{
         title: 'EMP Vue2 Project',
-        files: {
-          js: ['http://localhost:8009/emp.js'],
-        },
       },
     }
     return args

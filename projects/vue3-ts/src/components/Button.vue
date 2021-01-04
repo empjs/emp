@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .num {
   font-size: 90px;
   padding: 0;
@@ -42,6 +42,7 @@ export default {
 }
 
 .button {
+  background: @primary-color;
   width: 200px;
   padding: 20px 0;
 }

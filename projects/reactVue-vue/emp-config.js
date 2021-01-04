@@ -35,11 +35,10 @@ module.exports = ({config, env, empEnv}) => {
       ...args[0],
       ...{
         name: projectName,
-        library: {type: 'var', name: projectName},
         filename: 'emp.js',
         remotes: {
-          ReactComponents: 'ReactComponents',
-        }, 
+          ReactComponents: 'ReactComponents@http://localhost:8001/emp.js',
+        },
         exposes: {
           './Content.vue': './src/components/Content',
         },
@@ -51,9 +50,7 @@ module.exports = ({config, env, empEnv}) => {
     return args
   })
 
-  config.resolve.alias
-  .set('vue$', 'vue/dist/vue.esm.js')
-  .clear()
+  config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
 
   //
   config.plugin('html').tap(args => {
@@ -61,9 +58,7 @@ module.exports = ({config, env, empEnv}) => {
       ...args[0],
       ...{
         title: 'EMP Vue Components',
-        files: {
-          js: ['http://localhost:8001/emp.js'],
-        },
+        files: {},
       },
     }
     return args

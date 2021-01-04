@@ -9,7 +9,7 @@
     "@efox/emp-vue3": "^1.0.1"
   },
   "dependencies": {
-    "vue": "^3.0.2"
+    "vue": "^3.0.4"
   },
   "scripts": {
     "dev": "emp dev",

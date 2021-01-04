@@ -9,12 +9,11 @@ module.exports = withVue2(({config}) => {
       ...args[0],
       ...{
         name: projectName,
-        library: {type: 'var', name: projectName},
         filename: 'emp.js',
         exposes: {
           './Content': './src/components/Content',
         },
-        shared: ['vue/dist/vue.esm.js'],
+        // shared: ['vue/dist/vue.esm.js'],
       },
     }
     return args
