@@ -34,8 +34,8 @@ module.exports = ({config, env}) => {
         },
         exposes: {},
         shared: {
-          react: {eager: true, singleton: true, requiredVersion: '^16.13.1'},
-          'react-dom': {eager: true, singleton: true, requiredVersion: '^16.13.1'},
+          react: {eager: true, singleton: true, requiredVersion: '^17.0.1'},
+          'react-dom': {eager: true, singleton: true, requiredVersion: '^17.0.1'},
           'react-router-dom': {requiredVersion: '^5.1.2'},
           'mobx-react-lite': {requiredVersion: '^3.0.1'},
           mobx: {requiredVersion: '^6.0.1'},

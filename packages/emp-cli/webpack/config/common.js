@@ -61,8 +61,8 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
       // libraryTarget: 'module',
 
       // https://github.com/webpack/webpack/issues/11660
-      chunkLoading: false,
-      wasmLoading: false
+      // chunkLoading: false,
+      // wasmLoading: false,
     },
     resolve: {
       modules: [
