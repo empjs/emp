@@ -128,7 +128,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         {
           extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
           context: paths.appRoot,
-          overrideConfigFile: resolveApp('.eslintrc.js'),
+          // overrideConfigFile: resolveApp('.eslintrc.js'),
           files: ['src/**/*.{ts,tsx,js,jsx}'],
           eslintPath: require.resolve('eslint'),
           cache: true,

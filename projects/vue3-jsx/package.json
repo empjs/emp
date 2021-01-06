@@ -1,0 +1,18 @@
+{
+  "name": "vue3-jsx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@efox/emp-cli": "^1.6.7",
+    "@efox/emp-vue3": "^1.2.0",
+    "vue": "^3.0.5"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}
