@@ -28,10 +28,26 @@ const setPaths = async ({src, dist, public}) => {
   public = public ? resolveApp(public) : resolveApp('public')
   let favicon = path.join(public, 'favicon.ico')
   let template = path.join(public, 'index.html')
+  const empjson = resolveApp('./emp.json')
+  const empjsonDist = resolveApp('dist/emp.json')
+  const docsDist = resolveApp('dist/docs') // 最终文档md文件存放的dist目录
   favicon = fs.existsSync(favicon) ? favicon : path.join(__dirname, '../template/public/favicon.ico')
   template = fs.existsSync(template) ? template : path.join(__dirname, '../template/public/index.html')
   appPath = resolveApp('.')
-  paths = {appRoot, appSrc, appPath, appPackageJson, entry, dist, public, favicon, template}
+  paths = {
+    appRoot,
+    appSrc,
+    appPath,
+    appPackageJson,
+    entry,
+    dist,
+    public,
+    favicon,
+    template,
+    empjson,
+    empjsonDist,
+    docsDist,
+  }
 }
 const getPaths = () => paths
 const cachePaths = {

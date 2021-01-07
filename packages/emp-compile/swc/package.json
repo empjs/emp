@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-swc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@svgr/webpack": "^5.5.0",
-    "@swc/core": "^1.2.40",
+    "@swc/core": "^1.2.43",
     "swc-loader": "^0.1.12"
   }
 }

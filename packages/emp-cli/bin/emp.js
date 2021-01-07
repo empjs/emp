@@ -5,6 +5,7 @@ const ora = require('ora') // 实现node.js命令行环境的loading效果，和
 const package = require('../package.json')
 const chalk = require('chalk') // 支持修改控制台中字符串的样式 字体样式、字体颜色、背景颜色
 const {checkNodeVersion} = require('../helpers/cli')
+
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))
 console.log(chalk.bold('@efox/emp-cli') + ' [ ' + chalk.green.bold(package.version) + ' ]')
@@ -71,6 +72,7 @@ program
   .option('-s, --src <src>', '目标文件 默认为 src/index.ts')
   .option('-d, --dist <dist>', '目标 默认为 dist/')
   .option('-pc, --public <public>', '目标 默认为 public/')
+  .option('-dc, --doc <doc>', '目标 默认为 doc/')
   .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
   .option('-a, --analyze', '生成分析报告 默认为 false')
   .option('-t, --ts', '生成类型文件 默认为 false')
@@ -186,6 +188,19 @@ program
       .then(answers => {
         require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
       })
+  })
+
+
+// ui 起gui项目
+
+program
+  .command('ui')
+  .description('起emp gui 服务')
+  .option('-h, --host <host>', '起服务的域名，默认是localhost')
+  .option('-p, --port <port>', '起服务的端口号，默认是1234')
+  .option('--headless', '不自动打开浏览器页面')
+  .action(({host, port, headless}) => {
+    require('../scripts/ui')({host, port, headless})
   })
 
 // 执行命令

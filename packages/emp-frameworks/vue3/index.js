@@ -9,12 +9,10 @@ module.exports = fn => ec => {
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
   // js
-  config.module.rule('jsvascript').test(/\.js$/).use('babel-loader').loader('babel-loader')
-  // ts
   config.module
     .rule('scripts')
-    .test(/\.ts$/)
-    /*     .use('babel-loader')
+    // .test(/\.(js|jsx)$/)
+    .use('babel')
     .loader('babel-loader')
     .options({
       presets: ['@babel/preset-env', '@babel/preset-typescript'],
@@ -31,13 +29,8 @@ module.exports = fn => ec => {
         },
       ],
     })
-    .end() */
-    .use('ts-loader')
-    .loader('ts-loader')
-    .options({appendTsSuffixTo: [/\.vue$/]})
-  //
+
   config.resolve.alias.set('vue', '@vue/runtime-dom')
   config.plugin('vue_v3').use(require('vue-loader').VueLoaderPlugin, [])
-  // config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
   return fn(ec)
 }
