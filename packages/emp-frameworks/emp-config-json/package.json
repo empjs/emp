@@ -1,0 +1,7 @@
+{
+  "name": "@efox/emp-config-json",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "benny",
+  "license": "MIT"
+}
