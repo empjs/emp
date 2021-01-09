@@ -12,7 +12,7 @@ const HttpDemo = () => {
   }, [])
   return <p>http:{JSON.stringify(l)}</p>
 }
-const Hello = () => (
+const Hello = (): JSX.Element => (
   <>
     <div>hello word!!!</div>
     <HttpDemo />

@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.6.8",
+  "version": "1.6.10",
   "keywords": [
     "react",
     "module federation",
@@ -36,7 +36,7 @@
     "@efox/emp-react": "^1.1.3",
     "@efox/emp-tsconfig": "^1.1.3",
     "@efox/emp-tune-dts-plugin": "^1.1.4",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.0",
     "@svgr/webpack": "^5.4.0",
     "axios": "^0.21.0",
     "babel-loader": "^8.2.2",
@@ -78,7 +78,7 @@
     "style-loader": "^1.2.1",
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
-    "webpack": "^5.11.1",
+    "webpack": "^5.12.2",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^4.0.0-beta.0",

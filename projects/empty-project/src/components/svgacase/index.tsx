@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import SVGA from 'svgaplayerweb'
 import svgafile from 'src/assets/throw.svga'
-const SvgaCase = () => {
+const SvgaCase = (): JSX.Element => {
   const canvasRef = React.createRef<HTMLDivElement>()
   useEffect(() => {
     if (canvasRef.current !== null) {
