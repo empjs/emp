@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import './common.scss'
 import './common.less'
 import './common.css'
-const Hello = ({title}: {title: string}) => (
+const Hello = ({title}: {title: string}): ReactElement => (
   <>
     <h1>{title}</h1>
   </>
