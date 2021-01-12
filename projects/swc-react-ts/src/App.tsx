@@ -3,6 +3,7 @@ import SVGA from 'src/components/SVGA'
 import SVG from 'src/components/SVG'
 // import DEMO from 'src/components/DEMO1'
 import ANTDDEMO from 'src/components/ANTD'
+console.log('SVG', SVG)
 const App = (): any => (
   <>
     <h2>.Module Federation DEMO!!!</h2>

@@ -1,0 +1,24 @@
+{
+  "name": "swc-vue3-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-vue3": "^1.0.1",
+    "style-resources-loader": "^1.4.1"
+  },
+  "dependencies": {
+    "@efox/emp-swc": "^1.0.1",
+    "@efox/emp-vue3-swc": "^1.0.0",
+    "vue": "^3.0.2"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}
