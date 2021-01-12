@@ -12,12 +12,10 @@
     "lv": "lerna version --no-commit-hooks --no-git-tag-version --no-private",
     "lp": "lerna publish from-package"
   },
-  "workspaces": [
-    "packages/**",
-    "projects/*",
-    "helpers/*",
-    "components/*"
-  ],
+  "workspaces": {
+    "packages":["packages/**","projects/*"],
+    "nohoist":["**/vue","**/vue/**"]
+  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
