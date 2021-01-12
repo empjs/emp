@@ -1,5 +1,12 @@
 const withFrameWork = require('@efox/emp-vue3')
-module.exports = withFrameWork(({config}) => {
+//
+/* function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+} */
+//
+module.exports = withFrameWork(async ({config}) => {
+  // await timeout(500) //测试用例 async await 外置插件
+  // console.log('======== with vue config end delay =========')
   const projectName = 'vue3Project'
   const port = 8006
   // config.output.publicPath(`http://localhost:${port}/`)
