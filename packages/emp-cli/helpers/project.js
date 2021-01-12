@@ -31,10 +31,13 @@ module.exports = {
         !remotePackageJson.devDependencies['@efox/emp-react'] &&
         !remotePackageJson.dependencies['@efox/emp-react']
       ) {
-        withReact(remoteConfigFn)({config, env, empEnv, hot, webpack})
+        // console.log('======== withReact start =========') //测试用例 async await
+        await withReact(remoteConfigFn)({config, env, empEnv, hot, webpack})
+        // console.log('======== withReact end =========')
       } else {
-        // console.log('======== remoteConfigFn =========')
-        remoteConfigFn({config, env, empEnv, hot, webpack})
+        // console.log('======== remoteConfigFn start =========') //测试用例 async await
+        await remoteConfigFn({config, env, empEnv, hot, webpack})
+        // console.log('======== remoteConfigFn end =========')
       }
     } else {
       // 在没有 emp-config.js 的环境下执行

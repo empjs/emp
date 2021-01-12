@@ -1,4 +1,9 @@
-module.exports = ({config, env}) => {
+/* function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+} */
+module.exports = async ({config, env}) => {
+  // await timeout(300) //测试用例 async await
+  // console.log('======== withReact config =========')
   config.devServer.port(8001)
   config.plugin('mf').tap(args => {
     args[0] = {

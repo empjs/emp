@@ -17,7 +17,7 @@ module.exports = fn => ec => {
       },
     })
 
-  config.module.rule('svg').use('svgr').before('url').loader('@svgr/webpack')
+  // config.module.rule('svg').use('svgr').before('url').loader('@svgr/webpack')
 
   return fn && fn(ec)
 }

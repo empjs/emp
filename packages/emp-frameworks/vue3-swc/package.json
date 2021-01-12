@@ -1,0 +1,22 @@
+{
+  "name": "@efox/emp-vue3-swc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-frameworks/vue3-swc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@swc/core": "^1.2.43",
+    "@swc/helpers": "^0.2.4",
+    "@vue/compiler-sfc": "^3.0.4",
+    "swc-loader": "^0.1.12",
+    "vue-loader": "^16.1.1",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
