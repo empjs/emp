@@ -4,6 +4,13 @@ const {portInUsed} = require('../helpers/port')
 const chalk = require('chalk')
 
 module.exports = async args => {
+  let server
+  try {
+    server = require('@efox/emp-gui/server')
+  } catch (e) {
+    console.log(chalk.red(`请手动全局安装包：@efox/emp-gui `))
+    return
+  }
   const {host = 'localhost', port = '1234', headless = false} = args || {}
   let useablePort = port
   while (await portInUsed({host, port: useablePort})) {
@@ -13,5 +20,5 @@ module.exports = async args => {
     console.log(chalk.green(`由于端口${port}已经被占用，帮你改为启用${useablePort}端口`))
   }
   const url = `http://${host}:${useablePort}`
-  start({host, port: useablePort}, () => (!headless ? openBrowser(url) : console.log(useablePort)))
+  server.start({host, port: useablePort}, () => (!headless ? openBrowser(url) : console.log(useablePort)))
 }

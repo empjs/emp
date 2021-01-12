@@ -32,7 +32,6 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@babel/runtime": "^7.12.5",
-    "@efox/emp-gui": "^1.0.2",
     "@efox/emp-react": "^1.1.3",
     "@efox/emp-tsconfig": "^1.1.3",
     "@efox/emp-tune-dts-plugin": "^1.1.4",
