@@ -1,7 +1,19 @@
 const semver = require('semver') // 语义化版本控制模块
 const chalk = require('chalk')
-
+const child_process = require('child_process')
 module.exports = {
+  // cmd
+  cmdSync(cmd, throwError = false) {
+    try {
+      return child_process.execSync(cmd).toString()
+    } catch (error) {
+      if (throwError) console.error(error)
+      // error.status // Might be 127 in your example.
+      // error.message // Holds the message you typically want.
+      // error.stderr // Holds the stderr output. Use `.toString()`.
+      // error.stdout // Holds the stdout output. Use `.toString()`.
+    }
+  },
   // 检查node版本
   checkNodeVersion(wanted, id) {
     if (!semver.satisfies(process.version, wanted)) {
