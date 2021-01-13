@@ -7,7 +7,8 @@ try {
   gitVersion = childProcess.execSync('git rev-parse HEAD')
   gitVersion = gitVersion ? gitVersion.toString() : 'noGit'
 } catch (e) {
-  console.error(e)
+  // 屏蔽 没装git的情况
+  // console.error(e)
 }
 //===================
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
