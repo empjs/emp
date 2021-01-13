@@ -70,7 +70,7 @@ module.exports = async args => {
     // 复制其他文件到dist
     copyPublicFolder(paths)
     copyEmpJsonFile(paths)
-    copyMdFiles(paths)
+    // copyMdFiles(paths)
     buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
   })
 }
