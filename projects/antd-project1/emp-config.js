@@ -1,7 +1,7 @@
 const path = require('path')
 const packagePath = path.join(path.resolve('./'), 'package.json')
 const deps = require(packagePath).dependencies
-console.log(packagePath, deps)
+// console.log(packagePath, deps)
 
 module.exports = ({config, env}) => {
   const port = 8004

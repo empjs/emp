@@ -17,7 +17,7 @@ declare module '@emp-antd/base/components/common/BreadcrumbComp' {
 declare module '@emp-antd/base/components/common/HeaderUserProfile' {
   import React from 'react'
   import './HeaderUserProfile.less'
-  export const HeaderUserProfile: React.FunctionComponent<object>
+  export const HeaderUserProfile: React.FunctionComponent<any>
 }
 declare module '@emp-antd/base/components/common/LoadingComp' {
   /// <reference types="react" />
@@ -82,7 +82,7 @@ declare module '@emp-antd/base/components/common/crud/ModalForm' {
     title?: string
     name: string
     formOptions?: FormProps
-    initialValues?: object
+    initialValues?: any
     fromItems: FormItemProps[]
     options?: ModalProps
     okText?: string
@@ -141,7 +141,7 @@ declare module '@emp-antd/base/components/common/crud/PageList' {
     nextPage: (d: JSONObject) => void
     selectRow?: React.ReactText[]
     onSelectChange?: ((selectedRowKeys: React.ReactText[], selectedRows?: RecordType[]) => void) | undefined
-    expandable?: object
+    expandable?: any
     bordered?: boolean
     tableTitle?: string
     tableTopOption?: any
@@ -270,7 +270,7 @@ declare module '@emp-antd/base/components/common/crud/SForm/inter' {
     onFinish?: ((values: any) => void) | undefined
     onFinishFailed?: ((values: any) => void) | undefined
     items: FormItemProps[]
-    initialValues?: object
+    initialValues?: any
   }
   export interface SearchFormProps extends Partial<SFormProps> {
     formItems: FormItemProps[]

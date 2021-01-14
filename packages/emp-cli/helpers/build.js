@@ -29,11 +29,11 @@ const traverseFolder = async ({folderPath, fileType, callback}) => {
 function copyPublicFolder({public, dist, template, favicon}) {
   // console.log(public, dist, template, favicon)
   if (!fs.existsSync(public)) {
-    console.warn('public not exist!')
+    // console.warn('public not exist!')
     return
   }
   if (!fs.existsSync(dist)) {
-    console.warn('dist not exist!')
+    // console.warn('dist not exist!')
     return
   }
   const filters = [template, favicon]

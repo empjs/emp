@@ -21,7 +21,7 @@ const LangComp = observer(() => {
   const {langStore}: StoreTypes = useStores() // 引入类型判断
 
   const {$l} = langStore
-  const {lang} = useParams()
+  const {lang}: any = useParams()
   console.log('langStore', JSON.stringify($l), lang)
 
   useEffect(() => {

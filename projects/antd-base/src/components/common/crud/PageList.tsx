@@ -23,7 +23,7 @@ export interface PageListProps {
   nextPage: (d: JSONObject) => void
   selectRow?: React.ReactText[]
   onSelectChange?: ((selectedRowKeys: React.ReactText[], selectedRows?: RecordType[]) => void) | undefined
-  expandable?: object
+  expandable?: any
   bordered?: boolean
   tableTitle?: string
   tableTopOption?: any

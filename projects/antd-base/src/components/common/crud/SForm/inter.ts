@@ -2,13 +2,13 @@ import {ButtonProps, ButtonShape, ButtonType} from 'antd/lib/button'
 import {InputProps, GroupProps, SearchProps, TextAreaProps, PasswordProps} from 'antd/lib/input'
 import {RadioGroupProps, RadioChangeEvent} from 'antd/lib/radio/interface'
 import {UploadProps} from 'antd/lib/upload'
-import {FormProps, Rule} from 'antd/lib/form'
-import {FormInstance} from 'antd/lib/form/util'
+import {FormProps, Rule, FormInstance} from 'antd/lib/form'
+// import {FormInstance} from 'antd/lib/form/util'
 import {DatePickerProps} from 'antd/lib/date-picker'
 import {TimePickerProps} from 'antd/lib/time-picker'
-import {SliderProps} from 'antd/lib/slider'
 import {InputNumberProps} from 'antd/lib/input-number'
 import {SelectProps} from 'rc-select/lib/'
+import {SiderProps} from 'antd/lib/layout'
 declare const ButtonHTMLTypes: ['submit', 'button', 'reset']
 export declare type ButtonHTMLType = typeof ButtonHTMLTypes[number]
 export type SelectFormData = {
@@ -54,7 +54,7 @@ export type FormItemOptionsType =
   | DatePickerProps
   | TimePickerProps
   | UploadProps
-  | SliderProps
+  | SiderProps
   | InputNumberProps
   | SelectProps
   | undefined
@@ -80,7 +80,7 @@ export interface SFormProps {
   onFinish?: ((values: any) => void) | undefined
   onFinishFailed?: ((values: any) => void) | undefined
   items: FormItemProps[]
-  initialValues?: object
+  initialValues?: any
 }
 export interface SearchFormProps extends Partial<SFormProps> {
   formItems: FormItemProps[]

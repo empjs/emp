@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "emp dev",
-    "build": "cross-env TSC_COMPILE_ON_ERROR=true emp build",
+    "build": "emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
     "start": "emp serve"

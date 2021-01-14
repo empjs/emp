@@ -3,7 +3,7 @@
 import {StoresType} from 'src/types'
 export interface EmpStoreType {
   // langStore: TlangStore
-  // userStore: TuserStore
+  userStore?: any
 }
 const stores: StoresType = {
   // langStore,

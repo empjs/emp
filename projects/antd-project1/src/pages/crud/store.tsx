@@ -19,7 +19,7 @@ export const crudStore = () => {
       this.page = page || this.page
       this.pageSize = pageSize || this.pageSize
       this.loading = true
-      const {list, count} = await http.get(`https://api.github.com/users`)
+      const {list, count}: any = await http.get(`/data.json`)
       this.loading = false
       this.list = list
       this.count = count
