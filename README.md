@@ -43,7 +43,7 @@ cd my-emp && yarn && yarn dev
 
 + If you want to know more about the use of `@efox/emp-cli`, go to [emp-cli](https://github.com/efoxTeam/emp/tree/main/packages/emp-cli).
 
-<img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
+<img src='./docs/assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
 ## ✨ Framework Config Plugins
 |Framework|NPM|demo|project|install|
