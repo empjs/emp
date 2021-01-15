@@ -58,7 +58,7 @@ cd my-emp && yarn && yarn dev
 ## ⚡ Compile
 |Framework|NPM|demo|install|
 |---|---|---|---|
-|emp-swc|[![release](https://img.shields.io/npm/v/@efox/emp-swc.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[plugin](packages/emp-compile/swc) [react-demo](projects/swc-react-ts)|`yarn add @efox/emp-swc`|
+|[emp-swc](https://swc.rs/)|[![release](https://img.shields.io/npm/v/@efox/emp-swc.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[plugin](packages/emp-compile/swc) [react-demo](projects/swc-react-ts)|`yarn add @efox/emp-swc`|
 
 ## ⚡ EMP multi-frame intermodulation conversion plug-in
 |Framework|NPM|demo|install|
