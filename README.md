@@ -55,6 +55,11 @@ cd my-emp && yarn && yarn dev
 |preact|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/preact)|[@efox/emp-preact](packages/emp-frameworks/preact)|`yarn add @efox/emp-preact -D`|
 |cocos2d|[![release](https://img.shields.io/npm/v/@efox/emp-cocos2d.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/cocos2d)|[@efox/emp-cocos2d](packages/emp-frameworks/cocos2d)|`yarn add @efox/emp-cocos2d -D`|
 
+## ⚡ Compile
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|emp-swc|[![release](https://img.shields.io/npm/v/@efox/emp-swc.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[plugin](packages/emp-compile/swc) [react-demo](projects/swc-react-ts)|`yarn add @efox/emp-swc`|
+
 ## ⚡ EMP multi-frame intermodulation conversion plug-in
 |Framework|NPM|demo|install|
 |---|---|---|---|
