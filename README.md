@@ -76,6 +76,7 @@ cd my-emp && yarn && yarn dev
 |<img src='./docs/assets/cocos2d.png' height='38'/>|[cocos2d-base](projects/cocos2d-base) [cocos2d-project](projects/cocos2d-project)|`cd projects && yarn dev:cocos2d`|
 |<img src='./docs/assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
 |<img src='./docs/assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
+|<img src='./docs/assets/dotenv.png' height='38'/>|[dotenv](projects/empty-project/.env.prod)|`cd projects/empty-project && yarn dev`|
 
 ## 💪 Use multiple frameworks in EMP Application
 |Framework|demo|cli|
