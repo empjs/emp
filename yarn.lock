@@ -15425,10 +15425,10 @@ webpack@^4.0.0:
     watchpack "^1.7.4"
     webpack-sources "^1.4.1"
 
-webpack@^5.14.0:
-  version "5.14.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.14.0.tgz?cache=0&sync_timestamp=1610580255924&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.14.0.tgz#cdfe9286d14ddc2bb348afabc1d910d166f3c47f"
-  integrity sha1-zf6ShtFN3CuzSK+rwdkQ0WbzxH8=
+webpack@^5.15.0:
+  version "5.15.0"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.15.0.tgz?cache=0&sync_timestamp=1610727436730&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.15.0.tgz#63d7b6228a4e15ee8c89899c2cfdd993e809bdd2"
+  integrity sha1-Y9e2IopOFe6MiYmcLP3Zk+gJvdI=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
