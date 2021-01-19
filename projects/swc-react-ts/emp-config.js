@@ -1,5 +1,5 @@
 const withSWC = require('@efox/emp-swc')
-module.exports = withSWC(({config}) => {
+module.exports = withSWC(({config, env}) => {
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
@@ -16,4 +16,11 @@ module.exports = withSWC(({config}) => {
     return args
   })
   config.plugin('dayReplaceToMoment').use(require('antd-dayjs-webpack-plugin'))
+  // 保留原来类名
+  if (env === 'production') {
+    config.optimization.minimizer('TerserPlugin').tap(args => {
+      args[0].terserOptions.mangle = false
+      return args
+    })
+  }
 })

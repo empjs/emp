@@ -139,7 +139,7 @@ const SForm = ({options = {}, dataRef, form, items, name, onFinish, onFinishFail
     } else {
       formRef.current?.resetFields()
     }
-  }, [initialValues])
+  }, [formRef, initialValues])
   return (
     <>
       <Form

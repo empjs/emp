@@ -3,7 +3,7 @@
 const {setPaths, getPaths, cachePaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
-const {copyPublicFolder, buildServeConfig, copyEmpJsonFile, copyMdFiles} = require('../helpers/build')
+const {copyPublicFolder, buildServeConfig} = require('../helpers/build')
 const chalk = require('chalk')
 // const ora = require('ora')
 // const spinner = ora('=== EMP Build Start ===\n').start()
@@ -36,24 +36,17 @@ module.exports = async args => {
     }
     //
     if (stats.hasErrors()) {
+      // const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
+      console.log(
+        stats.toString({
+          all: false,
+          colors: true,
+          errors: true,
+        }),
+      )
       console.log(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
-      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
-      if (tscCompileOnError) {
-        console.log(
-          chalk.yellow(
-            'Compiled with the following type errors (you may want to check these before deploying your app):\n',
-          ),
-        )
-      } else {
-        console.log(
-          stats.toString({
-            all: false,
-            colors: true,
-            errors: true,
-          }),
-        )
-        process.exit(1)
-      }
+      // if (!tscCompileOnError)
+      process.exit(1)
     }
     //
     console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
@@ -69,8 +62,6 @@ module.exports = async args => {
     )
     // 复制其他文件到dist
     copyPublicFolder(paths)
-    copyEmpJsonFile(paths)
-    copyMdFiles(paths)
     buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
   })
 }

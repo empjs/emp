@@ -24,7 +24,7 @@ const CrudComp = () => {
     ;(async () => {
       await crudStore.nextPage({page, pageSize})
     })()
-  })
+  }, [crudStore, page, pageSize])
   return useObserver(() => (
     <>
       <Card className="mt">

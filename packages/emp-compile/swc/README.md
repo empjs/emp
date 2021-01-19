@@ -9,12 +9,3 @@ module.exports = withSWC(({config, env, empEnv}) => {
   // your options here
 })
 ```
-
-## Feature
-> FOR REACT
-+ MODULE FEDERATION
-+ SVG
-+ SVGA
-+ HMR
-+ LIVE RELOAD 
-+ ANTD `babel-plugin-import` [about](https://github.com/ant-design/babel-plugin-import) `:TODO`

@@ -13,10 +13,12 @@ const storeContext = createContext<EmpStoreType>({} as EmpStoreType)
 export const StoreProvider = ({children, stores}: TstoreProviderProps) => {
   const Stores: any = {}
   for (const k in configStores) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     Stores[k] = useLocalStore(configStores[k])
   }
   // remote store
   for (const k in stores) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     Stores[k] = useLocalStore(stores[k])
   }
   return <storeContext.Provider value={Stores}>{children}</storeContext.Provider>

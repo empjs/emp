@@ -33,7 +33,7 @@ const FixSlideLayout = ({children, routes}: {children?: React.ReactNode; routes?
   //
   useEffect(() => {
     setOpenKey([`/${pathname.split('/')[1]}`])
-  }, [history.location.pathname])
+  }, [history.location.pathname, pathname])
   //
   return (
     <Layout className={`FixSideLayout ${collapsed ? 'iscollapsed' : ''}`}>
@@ -58,10 +58,10 @@ const FixSlideLayout = ({children, routes}: {children?: React.ReactNode; routes?
 
         <Menu
           theme="dark"
-          onClick={menuClick}
+          onClick={k => menuClick({key: k.key.toString()})}
           mode="inline"
           openKeys={openKey}
-          onOpenChange={d => {
+          onOpenChange={(d: any) => {
             setOpenKey(d)
           }}
           //openKeys={selectKey}

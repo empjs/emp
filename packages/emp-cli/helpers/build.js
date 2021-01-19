@@ -29,11 +29,11 @@ const traverseFolder = async ({folderPath, fileType, callback}) => {
 function copyPublicFolder({public, dist, template, favicon}) {
   // console.log(public, dist, template, favicon)
   if (!fs.existsSync(public)) {
-    console.warn('public not exist!')
+    // console.warn('public not exist!')
     return
   }
   if (!fs.existsSync(dist)) {
-    console.warn('dist not exist!')
+    // console.warn('dist not exist!')
     return
   }
   const filters = [template, favicon]
@@ -47,38 +47,6 @@ function copyPublicFolder({public, dist, template, favicon}) {
   })
 }
 
-function copyEmpJsonFile({empjson, dist, empjsonDist}) {
-  if (!fs.existsSync(empjson)) {
-    console.warn('emp.json not exist!')
-    return
-  }
-  if (!fs.existsSync(dist)) {
-    console.warn('dist not exist!')
-    return
-  }
-  fs.copySync(empjson, empjsonDist)
-}
-
-async function copyMdFiles({dist, appSrc, docsDist}) {
-  if (!fs.existsSync(appSrc)) {
-    console.warn('appSrc not exist!')
-    return
-  }
-  if (!fs.existsSync(dist)) {
-    console.warn('dist not exist!')
-    return
-  }
-
-  traverseFolder({
-    folderPath: appSrc,
-    fileType: 'md',
-    callback: ({folderPath, file}) => {
-      const distPath = path.join(docsDist, folderPath.replace(`${appSrc}/`, ''), file)
-      fs.copySync(path.join(folderPath, file), distPath)
-    },
-  })
-}
-
 function buildServeConfig(path, config) {
   // console.log(path, config)
   fs.writeJson(path, config, err => {
@@ -87,4 +55,4 @@ function buildServeConfig(path, config) {
   })
 }
 
-module.exports = {copyPublicFolder, copyEmpJsonFile, copyMdFiles, buildServeConfig}
+module.exports = {copyPublicFolder, buildServeConfig}

@@ -46,7 +46,7 @@ export const HeaderComp = ({theme = 'light'}: THeaderComp) => {
 
       <Menu
         className="header-left"
-        onClick={menuClick}
+        onClick={k => menuClick({key: k.key.toString()})}
         theme={theme}
         mode="horizontal"
         selectedKeys={[selectKey, history.location.pathname]}
@@ -71,7 +71,7 @@ export const SideComp = () => {
     <Sider width={200}>
       <Menu
         mode="inline"
-        onClick={menuItemClick}
+        onClick={k => menuItemClick({key: k.key.toString()})}
         defaultOpenKeys={['me']}
         selectedKeys={[history.location.pathname]}
         style={{height: '100%'}}>

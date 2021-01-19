@@ -1,14 +1,11 @@
 const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 //========== cache version control ===================
 const {version} = require('../../package.json')
-const childProcess = require('child_process')
-let gitVersion = 'noGit'
-try {
-  gitVersion = childProcess.execSync('git rev-parse HEAD')
-  gitVersion = gitVersion ? gitVersion.toString() : 'noGit'
-} catch (e) {
-  console.error(e)
-}
+const {cmdSync} = require('../../helpers/cli')
+// git rev-parse HEAD 提交版本 hash
+// git rev-parse --abbrev-ref HEAD 分支名称
+const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'
+// console.log('gitVersion', gitVersion)
 //===================
 module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const {entry, appSrc, dist} = getPaths()

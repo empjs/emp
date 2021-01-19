@@ -43,7 +43,7 @@ cd my-emp && yarn && yarn dev
 
 + 如果想了解更多关于 `@efox/emp-cli` 的使用，到 [emp-cli](https://github.com/efoxTeam/emp/tree/main/packages/emp-cli)了解更多。
 
-<img src='assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
+<img src='./docs/assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
 ## ✨ 框架配置插件
 |Framework|NPM|demo|project|install|
@@ -55,6 +55,11 @@ cd my-emp && yarn && yarn dev
 |preact|[![release](https://img.shields.io/npm/v/@efox/emp-svetle.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/preact)|[@efox/emp-preact](packages/emp-frameworks/preact)|`yarn add @efox/emp-preact -D`|
 |cocos2d|[![release](https://img.shields.io/npm/v/@efox/emp-cocos2d.svg)](https://www.npmjs.com/package/@efox/emp-preact)|[demo](projects/cocos2d)|[@efox/emp-cocos2d](packages/emp-frameworks/cocos2d)|`yarn add @efox/emp-cocos2d -D`|
 
+## ⚡ 构建
+|Framework|NPM|demo|install|
+|---|---|---|---|
+|[emp-swc](https://swc.rs/)|[![release](https://img.shields.io/npm/v/@efox/emp-swc.svg)](https://www.npmjs.com/package/@efox/emp-vuett)|[plugin](packages/emp-compile/swc) [react-demo](projects/swc-react-ts)|`yarn add @efox/emp-swc`|
+
 ## ⚡ EMP多框架互调插件
 |Framework|NPM|demo|install|
 |---|---|---|---|
@@ -63,41 +68,42 @@ cd my-emp && yarn && yarn dev
 ## 📦 演示
 |Framework|demo|cli|
 |---|---|---|
-|<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
-|<img src='assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
-|<img src='assets/vue.png' width='38'/>|[vue2-base](projects/vue2-base) [vue2-project](projects/vue2-project)|`cd projects && yarn dev:vue2`|
-|<img src='assets/preact.png' height='38'/>|[preact-base](projects/preact-base) [preact-project](projects/preact-project)|`cd projects && yarn dev:preact`|
-|<img src='assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
-|<img src='assets/cocos2d.png' height='38'/>|[cocos2d-base](projects/cocos2d-base) [cocos2d-project](projects/cocos2d-project)|`cd projects && yarn dev:cocos2d`|
-|<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
-|<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
+|<img src='./docs/assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
+|<img src='./docs/assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
+|<img src='./docs/assets/vue.png' width='38'/>|[vue2-base](projects/vue2-base) [vue2-project](projects/vue2-project)|`cd projects && yarn dev:vue2`|
+|<img src='./docs/assets/preact.png' height='38'/>|[preact-base](projects/preact-base) [preact-project](projects/preact-project)|`cd projects && yarn dev:preact`|
+|<img src='./docs/assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
+|<img src='./docs/assets/cocos2d.png' height='38'/>|[cocos2d-base](projects/cocos2d-base) [cocos2d-project](projects/cocos2d-project)|`cd projects && yarn dev:cocos2d`|
+|<img src='./docs/assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
+|<img src='./docs/assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
+|<img src='./docs/assets/dotenv.png' height='38'/>|[dotenv](projects/empty-project/.env.prod)|`cd projects/empty-project && yarn dev`|
 
 ## 💪 EMP多框架互调用例
 |Framework|demo|cli|
 |---|---|---|
-|<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
-|<img src='assets/vue.png' width='38'/><img src='assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && yarn dev:vue23`|
+|<img src='./docs/assets/react.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
+|<img src='./docs/assets/vue.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && yarn dev:vue23`|
 
 ## 🎯 用例展示
 |Framework|demo|cli|
 |---|---|---|
-|<img src='assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
-|<img src='assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
-|<img src='assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
-|<img src='assets/preact.png' height='38'/>|[preact-base](projects/preact-base) [preact-project](projects/preact-project)|`cd projects && yarn dev:preact`|
-|<img src='assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
-|<img src='assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
-|<img src='assets/react.png' width='38'/><img src='assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
+|<img src='./docs/assets/react.png' width='38'/>|[react-demo1](projects/demo1) [react-demo2](projects/demo2)|`cd projects && yarn dev`|
+|<img src='./docs/assets/vue.png' width='38'/>|[vue3-base](projects/vue3-base) [vue3-project](projects/vue3-project)|`cd projects && yarn dev:vue`|
+|<img src='./docs/assets/antd.jpeg' width='38'/>|[antd-base](projects/antd-base) [antd-project](projects/antd-project1)|`cd projects && yarn dev:antd`|
+|<img src='./docs/assets/preact.png' height='38'/>|[preact-base](projects/preact-base) [preact-project](projects/preact-project)|`cd projects && yarn dev:preact`|
+|<img src='./docs/assets/https.png' width='38'/>|[https](projects/https)|`cd projects/https && yarn dev`|
+|<img src='./docs/assets/dynamic.png' height='38'/>|[dynamic-system-host](projects/dynamic-system-host)|`cd projects && yarn dev:dynamichost`|
+|<img src='./docs/assets/react.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
 ## 👬 交流社区
 
 * 微信交流群：
 
-<img src='assets/WeChat.png' width='290'/>
+<img src='./docs/assets/WeChat.png' width='290'/>
 
 * 微信公众号： Efox
 
-<img src='assets/wechatLogo.jpg' width='290'/>
+<img src='./docs/assets/wechatLogo.jpg' width='290'/>
 
 * 掘金： https://juejin.cn/user/483440843559406/posts
 

@@ -59,7 +59,8 @@ module.exports = {
         console.log('webpack config', config.toString(), '==========')
       }
     }
-    if (env === 'production') wpc.optimization.minimizer.push('...')
+    // 取消继承 minimizer TerserPlugin 让压缩更具定制化
+    // if (env === 'production') wpc.optimization.minimizer.push('...')
     return wpc
   },
 }

@@ -9,7 +9,7 @@ export interface ModalFormProps extends ModalProps {
   title?: string
   name: string
   formOptions?: FormProps
-  initialValues?: object
+  initialValues?: any
   fromItems: FormItemProps[]
   options?: ModalProps
   okText?: string

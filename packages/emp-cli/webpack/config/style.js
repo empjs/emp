@@ -142,6 +142,7 @@ module.exports = (env, config) => {
     ])
     config.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
       {
+        ignoreOrder: true,
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       },
