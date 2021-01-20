@@ -20,8 +20,8 @@ function defaultRepalce(fileData) {
   const packagePath = resolveApp('package.json')
   const package = JSON.parse(fs.readFileSync(packagePath))
   const projectName = package.name
-  newFileData = newFileData.replace(/'src/g, `'${projectName}`)
-  newFileData = newFileData.replace(/"src/g, `"${projectName}`)
+  newFileData = newFileData.replace(/'.*src?/g, `'${projectName}`)
+  newFileData = newFileData.replace(/".*src?/g, `"${projectName}`)
   return newFileData
 }
 
