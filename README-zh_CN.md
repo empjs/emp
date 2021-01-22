@@ -1,7 +1,7 @@
 # EMP - 微前端解决方案
 > Base on Webpack 5 & Module Federation
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [讨论组](https://github.com/efoxTeam/emp/discussions)
 
 这是一个面向未来的，基于Webpack5 Module Federation搭建的微前端解决方案。
 
