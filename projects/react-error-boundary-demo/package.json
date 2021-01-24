@@ -15,6 +15,7 @@
     "emp": "emp"
   },
   "dependencies": {
+    "@efox/emp-cli": "^1.6.18",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
