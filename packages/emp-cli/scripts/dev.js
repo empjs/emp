@@ -23,7 +23,7 @@ module.exports = async args => {
       let url = host
       if (config.devServer.port != 80) url += ':' + config.devServer.port
       const protocol = config.devServer.https ? 'https' : 'http'
-      // openBrowser(`${protocol}://${url}`)
+      openBrowser(`${protocol}://${url}`)
       console.log(`Starting server on ${protocol}://${host}:${config.devServer.port}`)
     }
   })
