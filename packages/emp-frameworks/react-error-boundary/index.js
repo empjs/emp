@@ -7,7 +7,7 @@ module.exports = fn => ec => {
   console.log('######:1')
   config.module
     .rule('jsx')
-    .test(/\.(js|jsx|ts|tsx)$/)
+    .test(/\.(jsx|tsx)$/)
     .use('errorBoundary')
     .loader(localLoader)
   return fn(ec)
