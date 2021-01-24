@@ -1,6 +1,6 @@
 import React from 'react'
 const Hello2 = () => {
-  // throw Error
+  throw Error
   return (
     <>
       <h1>Hello2 is here</h1>

@@ -4,7 +4,7 @@ const packagePath = path.join(path.resolve('./'), 'package.json')
 const {dependencies} = require(packagePath)
 module.exports = withBoundary(
   {
-    componentList: ['Hello', 'Hello2'],
+    componentList: ['Hello', 'Hello2', 'Hello3'],
   },
   ({config, env}) => {
     const port = 8001
