@@ -1149,6 +1149,13 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
+"@efox/emp-tsconfig@latest":
+  version "1.1.3"
+  resolved "https://registry.npm.taobao.org/@efox/emp-tsconfig/download/@efox/emp-tsconfig-1.1.3.tgz#5913692258a8217b2cb642d9efcc3366c6e29b30"
+  integrity sha1-WRNpIlioIXsstkLZ78wzZsbimzA=
+  dependencies:
+    typescript-plugin-css-modules "^2.7.0"
+
 "@efox/emp-vuett@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/@efox/emp-vuett/download/@efox/emp-vuett-1.0.0.tgz?cache=0&sync_timestamp=1605593759296&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40efox%2Femp-vuett%2Fdownload%2F%40efox%2Femp-vuett-1.0.0.tgz#d3edf1aa8512bb2778b31634fdaced4aa83917d4"
@@ -2765,7 +2772,7 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/react@^16", "@types/react@^16.9.35", "@types/react@^16.9.55":
+"@types/react@^16", "@types/react@^16.9.35", "@types/react@^16.9.48", "@types/react@^16.9.55":
   version "16.14.2"
   resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.14.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-16.14.2.tgz#85dcc0947d0645349923c04ccef6018a1ab7538c"
   integrity sha1-hdzAlH0GRTSZI8BMzvYBihq3U4w=
@@ -6546,7 +6553,7 @@ eslint-plugin-prettier@^3.1.4:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@^4.2.0:
+eslint-plugin-react-hooks@^4.1.2, eslint-plugin-react-hooks@^4.2.0:
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/eslint-plugin-react-hooks/download/eslint-plugin-react-hooks-4.2.0.tgz#8c229c268d468956334c943bb45fc860280f5556"
   integrity sha1-jCKcJo1GiVYzTJQ7tF/IYCgPVVY=
@@ -12104,7 +12111,7 @@ promise-retry@^1.1.1:
     err-code "^1.0.0"
     retry "^0.10.0"
 
-promise@^8.0.3:
+promise@^8.0.3, promise@^8.1.0:
   version "8.1.0"
   resolved "https://registry.npm.taobao.org/promise/download/promise-8.1.0.tgz#697c25c3dfe7435dd79fcd58c38a135888eaf05e"
   integrity sha1-aXwlw9/nQ13Xn81Yw4oTWIjq8F4=
@@ -12664,6 +12671,18 @@ react-app-polyfill@^1.0.6:
     raf "^3.4.1"
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
+
+react-app-polyfill@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/react-app-polyfill/download/react-app-polyfill-2.0.0.tgz#a0bea50f078b8a082970a9d853dc34b6dcc6a3cf"
+  integrity sha1-oL6lDweLiggpcKnYU9w0ttzGo88=
+  dependencies:
+    core-js "^3.6.5"
+    object-assign "^4.1.1"
+    promise "^8.1.0"
+    raf "^3.4.1"
+    regenerator-runtime "^0.13.7"
+    whatwg-fetch "^3.4.1"
 
 react-dev-utils@^11.0.0:
   version "11.0.1"
@@ -15490,7 +15509,7 @@ whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@^3.0.0:
+whatwg-fetch@^3.0.0, whatwg-fetch@^3.4.1:
   version "3.5.0"
   resolved "https://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-3.5.0.tgz#605a2cd0a7146e5db141e29d1c62ab84c0c4c868"
   integrity sha1-YFos0KcUbl2xQeKdHGKrhMDEyGg=

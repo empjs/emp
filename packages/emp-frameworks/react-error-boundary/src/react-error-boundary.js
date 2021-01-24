@@ -1,21 +1,6 @@
-import {getOptions} from 'loader-utils'
-import validateOptions from 'schema-utils'
-
-const schema = {
-  type: 'object',
-  properties: {
-    test: {
-      type: 'string',
-    },
-  },
-}
-
-export default function (source) {
-  const options = getOptions(this)
-
-  validateOptions(schema, options, 'Example Loader')
-
-  // 对资源应用一些转换……
-
-  return `export default ${JSON.stringify(source)}`
+module.exports = function (source) {
+  // source 为 compiler 传递给 Loader 的一个文件的原内容
+  // 对source进行一些操作 之后返回给下一个loader
+  // console.log('###boundary loader', source)
+  return source
 }
