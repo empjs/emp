@@ -26,8 +26,10 @@ class TuneDtsPlugin {
   apply(compiler) {
     const _options = this.options
     console.log('------------TuneDtsPlugin Working----------')
-    _options.path = compiler.options.output.path
-    _options.output = `${compiler.options.output.path}/${_options.name}`
+    if (compiler.options.output.path) {
+      _options.path = compiler.options.output.path
+      _options.output = `${compiler.options.output.path}/${_options.name}`
+    }
     compiler.hooks.afterEmit.tap(plugin, function () {
       setTimeout(function () {
         generateType(_options)
