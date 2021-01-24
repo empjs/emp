@@ -6,3 +6,7 @@
 + export {[模块名], [模块名]}
 + export default {[模块名], [模块名]}
 
+todo
++ 支持 export const [模块名]
++ loader改用ast优化逻辑
++ loader使用ts开发
