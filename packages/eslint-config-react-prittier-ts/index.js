@@ -38,8 +38,8 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/class-name-casing': 0,
     '@typescript-eslint/triple-slash-reference': 0,
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/rules-of-hooks': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
     'prettier/prettier': [
       'error',
       {

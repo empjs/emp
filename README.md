@@ -1,7 +1,7 @@
 # EMP - Micro Frontends solution
 > Base on Webpack 5 & Module Federation
 
-English | [简体中文](./README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md) | [Discussions](https://github.com/efoxTeam/emp/discussions)
 
 An implementation of [Micro Frontends](https://micro-frontends.org/), based on [Webpack5 Module Federation](https://webpack.js.org/concepts/module-federation/), but made it production-ready.
 
