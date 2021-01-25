@@ -18,8 +18,8 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'array-bracket-spacing': 2,
     'no-var': 2,
     'no-eval': 2,

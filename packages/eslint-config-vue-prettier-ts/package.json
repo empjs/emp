@@ -1,6 +1,6 @@
 {
   "name": "@efox/eslint-config-vue-prettier-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "emp vue eslint",
   "main": "index.js",
   "author": "jiguli",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
-    "directory": "packages/eslint-config-react-prittier-ts"
+    "directory": "packages/eslint-config-vue-prettier-ts"
   },
   "publishConfig": {
     "access": "public"
@@ -30,6 +30,6 @@
     "eslint": "6.5.1",
     "prettier": "^2.2.1",
     "eslint-plugin-prettier": "^3.3.1",
-    "vue-eslint-parser": "^7.4.1",
+    "vue-eslint-parser": "^7.4.1"
   }
 }
