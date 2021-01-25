@@ -1,0 +1,29 @@
+{
+  "name": "@emp/react-error-boundary-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "emp dev",
+    "dev:hot": "emp dev --hot",
+    "build": "emp build",
+    "build:ts": "emp build -t",
+    "build:lab": "emp build --env lab",
+    "tss": "emp tss http://localhost:8002/index.d.ts -n @emp-react-project.d.ts",
+    "start": "emp serve",
+    "emp": "emp"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.6.18",
+    "@efox/emp-react-error-boundary": "^1.0.0",
+    "@efox/emp-tsconfig": "latest",
+    "@efox/eslint-config-react-prittier-ts": "^1.1.0",
+    "@types/react": "^16.9.55",
+    "@types/react-dom": "^16.9.9"
+  }
+}
