@@ -1,0 +1,35 @@
+{
+  "name": "@efox/eslint-config-vue-prettier-ts",
+  "version": "1.0.0",
+  "description": "emp vue eslint",
+  "main": "index.js",
+  "author": "jiguli",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/eslint-config-react-prittier-ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "6.5.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
+    "vue-eslint-parser": "^7.4.1",
+    "prettier": "^2.2.1"
+  },
+  "peerDependencies": {
+    "eslint": "6.5.1",
+    "prettier": "^2.2.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "vue-eslint-parser": "^7.4.1",
+  }
+}
