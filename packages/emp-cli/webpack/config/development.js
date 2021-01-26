@@ -6,7 +6,8 @@ module.exports = (args, config, env) => {
     optimization: {
       usedExports: true,
     },
-    devtool: 'eval',
+    // devtool: 'inline-source-map',
+    devtool: 'cheap-module-source-map',
     devServer,
   }
   config.merge(devConfig)

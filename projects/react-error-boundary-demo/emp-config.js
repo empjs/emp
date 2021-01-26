@@ -7,7 +7,7 @@ module.exports = withBoundary(
     componentList: ['Hello', 'Hello2', 'Hello3'],
   },
   ({config, env}) => {
-    const port = 8001
+    const port = 8003
     const projectName = 'empReactBase'
     const publicPath = `http://localhost:${port}/`
     // 设置项目URL
