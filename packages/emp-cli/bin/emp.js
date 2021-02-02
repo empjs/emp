@@ -190,6 +190,35 @@ program
       })
   })
 
+//初始化topic-emp项目
+program
+  .command('topic')
+  .description('初始化 emp 项目')
+  .action(() => {
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'name',
+          message: '请输入项目名(如 yy): ',
+          default: function () {
+            return 'topic-emp-pro'
+          },
+        },
+      ])
+      .then(async answers => {
+        const name = `topic-emp-${answers.name}`
+        const templateList = require('../config/template.json')
+        await require('../helpers/downloadRepo')(templateList['topic-emp-demo'], name, '')
+        const fs = require('fs')
+        const path = require('path')
+        const filepath = path.resolve(`${name}/package.json`)
+        const content = require(filepath)
+        content.name = name
+        fs.writeFile(`${name}/package.json`, JSON.stringify(content, null, 2), 'utf8', err => {})
+      })
+  })
+
 // ui 起gui项目
 
 program

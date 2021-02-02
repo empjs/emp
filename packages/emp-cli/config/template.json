@@ -8,5 +8,6 @@
   "react-project":"https://github.com/efoxTeam/emp-react-project-template.git",
   "vue3-base":"https://github.com/efoxTeam/emp-vue3-base-template.git",
   "vue3-project":"https://github.com/efoxTeam/emp-vue3-project-template.git",
-  "cocos2d":"https://github.com/efoxTeam/emp-cocos2d-template.git"
+  "cocos2d":"https://github.com/efoxTeam/emp-cocos2d-template.git",
+  "topic-emp-demo":"https://github.com/efoxTeam/topic_emp_tpl.git"
 }
