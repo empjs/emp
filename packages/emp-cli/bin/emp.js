@@ -207,15 +207,20 @@ program
         },
       ])
       .then(async answers => {
-        const name = `topic-emp-${answers.name}`
+        const name = `topic_emp_${answers.name}`
         const templateList = require('../config/template.json')
         await require('../helpers/downloadRepo')(templateList['topic-emp-demo'], name, '')
         const fs = require('fs')
         const path = require('path')
         const filepath = path.resolve(`${name}/package.json`)
-        const content = require(filepath)
+        let content = require(filepath)
         content.name = name
-        fs.writeFile(`${name}/package.json`, JSON.stringify(content, null, 2), 'utf8', err => {})
+        fs.writeFileSync(`${name}/package.json`, JSON.stringify(content, null, 2), 'utf8', err => {})
+
+        const projectFile = path.resolve(`${name}/project-config.js`)
+        content = fs.readFileSync(projectFile, 'utf8')
+        content = content.replace(/topic_emp_base/g, 'bac')
+        fs.writeFileSync(`${name}/project-config.js`, content, 'utf8', err => {})
       })
   })
 
