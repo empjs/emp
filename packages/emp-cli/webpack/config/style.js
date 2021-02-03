@@ -17,7 +17,7 @@ module.exports = (env, config) => {
       css: {
         loader: require.resolve('css-loader'),
         options: {
-          modules,
+          modules: isDev ? {localIdentName: '[path][name]__[local]--[hash:base64:5]'} : modules,
         },
       },
       postcss: {
