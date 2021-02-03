@@ -15671,10 +15671,10 @@ webpack@^4.0.0:
     watchpack "^1.7.4"
     webpack-sources "^1.4.1"
 
-webpack@^5.17.0:
-  version "5.17.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.17.0.tgz?cache=0&sync_timestamp=1611324259768&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.17.0.tgz#e92aebad45be25f86f788dc72fc11daacdcfd55d"
-  integrity sha1-6SrrrUW+JfhveI3HL8Edqs3P1V0=
+webpack@^5.20.0:
+  version "5.20.0"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.20.0.tgz#7225c2e780f4332aef18e0b323b8b3ec01e16d66"
+  integrity sha1-ciXC54D0MyrvGOCzI7iz7AHhbWY=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
@@ -15694,7 +15694,6 @@ webpack@^5.17.0:
     loader-runner "^4.2.0"
     mime-types "^2.1.27"
     neo-async "^2.6.2"
-    pkg-dir "^5.0.0"
     schema-utils "^3.0.0"
     tapable "^2.1.1"
     terser-webpack-plugin "^5.1.1"

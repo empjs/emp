@@ -9,9 +9,9 @@ module.exports = withBoundary(
   ({config, env}) => {
     const port = 8003
     const projectName = 'empReactBase'
-    const publicPath = `http://localhost:${port}/`
+    // const publicPath = `http://localhost:${port}/`
     // 设置项目URL
-    config.output.publicPath(publicPath)
+    // config.output.publicPath(publicPath)
     // 设置项目端口
     config.devServer.port(port)
     config.plugin('mf').tap(args => {

@@ -5,9 +5,9 @@ import Hello from 'src/components/Hello'
 import Hello2 from 'src/components/Hello2'
 import {Hello3} from 'src/components/Hello3'
 import {Hello4, Hello5} from 'src/components/Hello45'
-
+import css from './app.module.scss'
 ReactDOM.render(
-  <>
+  <div className={css.wrap}>
     <div style={{backgroundColor: '#eee', padding: '20px'}}>
       <h2>React Error Boundary Loader Demo</h2>
     </div>
@@ -22,6 +22,6 @@ ReactDOM.render(
     <div style={{borderTop: '1px solid #000'}}>hello5 should be here:</div>
     <Hello5 />
     <div style={{borderTop: '1px solid #000'}}></div>
-  </>,
+  </div>,
   document.getElementById('emp-root'),
 )

@@ -13,6 +13,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const buildDependenciesConfigs = [__filename]
   if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
   const commonConfig = {
+    // profile: true,
     cache: {
       version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}`,
       type: 'filesystem',
