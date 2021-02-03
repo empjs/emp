@@ -219,7 +219,7 @@ program
 
         const projectFile = path.resolve(`${name}/project-config.js`)
         content = fs.readFileSync(projectFile, 'utf8')
-        content = content.replace(/topic_emp_base/g, 'bac')
+        content = content.replace(/topic_emp_tpl/g, name)
         fs.writeFileSync(`${name}/project-config.js`, content, 'utf8', err => {})
       })
   })
