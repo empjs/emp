@@ -28,7 +28,10 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      # install node_modules        
+      # install node_modules  
+      - name: Set Yarn Registry
+        # if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn config set registry https://registry.yarnpkg.com
       - name: Run Yarn
         # if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
