@@ -30,12 +30,10 @@ jobs:
 
       # install node_modules  
       - name: Set Yarn Registry
-        run: rm .yarnrc
-        run: yarn config set registry https://registry.yarnpkg.com
+        run: rm .yarnrc && yarn config set registry https://registry.yarnpkg.com
       - name: Run Yarn
         # if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn config get registry 
-        run: yarn
+        run: yarn config get registry && yarn
       # Test        
       - name: JEST TEST
         run: yarn test
