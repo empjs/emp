@@ -30,7 +30,8 @@ jobs:
 
       # install node_modules  
       - name: Set Yarn Registry
-        run: rm .yarnrc && yarn config set registry https://registry.yarnpkg.com
+        run: sed -i '' '1d' '.yarnrc'
+        
       - name: Run Yarn
         # if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn config get registry && yarn
