@@ -28,14 +28,6 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      # install node_modules for emp-frameworks/react
-      - name: install node_modules for emp-frameworks/react
-        run: cd packages/emp-frameworks/react && yarn
-
-       # move root
-      - name: install node_modules for emp-frameworks/react
-        run: cd ../../../
-
       # install node_modules  
       - name: Set Yarn Registry
         run: sed -i '1d' '.yarnrc'
@@ -43,6 +35,12 @@ jobs:
       - name: Run Yarn
         # if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn config get registry && yarn
+        continue-on-error: true
+
+      # install node_modules for emp-frameworks/react
+      - name: yarn again
+        run: yarn
+
       # Test        
       - name: JEST TEST
         run: yarn test
