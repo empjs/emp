@@ -13,6 +13,7 @@ const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
+const copyPublicFolderPlugin = require('../plugin/copyPublicFolder')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
   const isDev = env === 'development'
@@ -186,6 +187,15 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           isDefault: true,
         },
       ],
+    }
+  }
+
+  // 移动copyPublicFolder函数到webpack插件里
+  // https://github.com/efoxTeam/emp/issues/66
+  if (!isDev) {
+    conf.plugin.copyPublicFolderPlugin = {
+      plugin: copyPublicFolderPlugin,
+      args: [],
     }
   }
   config.merge(conf)

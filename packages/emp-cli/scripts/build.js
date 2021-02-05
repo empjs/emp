@@ -1,16 +1,15 @@
 // 参考 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/webpack.config.js
 //
-const {setPaths, getPaths, cachePaths} = require('../helpers/paths')
+const {setPaths, cachePaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
-const {copyPublicFolder, buildServeConfig} = require('../helpers/build')
+const {buildServeConfig} = require('../helpers/build')
 const chalk = require('chalk')
 // const ora = require('ora')
 // const spinner = ora('=== EMP Build Start ===\n').start()
 module.exports = async args => {
   const {src, dist, public} = args
   await setPaths({src, dist, public})
-  const paths = getPaths()
   const config = await getProjectConfig('production', args)
 
   //
@@ -61,7 +60,9 @@ module.exports = async args => {
       }),
     )
     // 复制其他文件到dist
-    copyPublicFolder(paths)
+    // 移动该方法到webpack插件
+    // https://github.com/efoxTeam/emp/issues/66
+    // copyPublicFolder(paths)
     buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
   })
 }
