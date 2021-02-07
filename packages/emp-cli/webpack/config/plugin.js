@@ -1,6 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
@@ -42,6 +43,23 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         ],
       },
       clean: {plugin: CleanWebpackPlugin, args: []},
+      copy: {
+        plugin: CopyWebpackPlugin,
+        args: [
+          {
+            patterns: [
+              {
+                from: paths.public,
+                to: paths.dist,
+                globOptions: {
+                  ignore: ['*.DS_Store'],
+                },
+                noErrorOnMissing: true,
+              },
+            ],
+          },
+        ],
+      },
       html: {
         plugin: HtmlWebpackPlugin,
         args: [
