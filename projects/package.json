@@ -27,7 +27,8 @@
     "dev:cocos2d": "lerna run --scope @empcocos2d/* --parallel dev",
     "dev:dynamichost": "lerna run --scope '{@emp/demo2,@empdynamichost/host}' --parallel dev",
     "dev:reactvue": "lerna run --scope @empreactvue/* --parallel dev",
-    "dev:vue23":"lerna run --scope @empvue23/* --parallel dev"
+    "dev:vue23":"lerna run --scope @empvue23/* --parallel dev",
+    "dev:reactdiff":"lerna run --scope @emp-reactdiff/* --parallel dev"
   },
   "devDependencies": {},
   "dependencies": {}
