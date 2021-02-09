@@ -81,6 +81,7 @@ cd my-emp && yarn && yarn dev
 ## 💪 Use multiple frameworks in EMP Application
 |Framework|demo|cli|
 |---|---|---|
+|<img src='./docs/assets/react.png' width='38'/><img src='./docs/assets/react.png' width='38'/>|[React 16](projects/react-diff16) & [React 17](projects/react-diff17)|`cd projects && yarn dev:reactdiff`|
 |<img src='./docs/assets/react.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[Vue use React](projects/reactVue-vue) & [React use Vue](projects/reactVue-react)|`cd projects && yarn dev:reactvue`|
 |<img src='./docs/assets/vue.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && yarn dev:vue23`|
 
