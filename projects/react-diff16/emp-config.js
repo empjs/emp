@@ -14,11 +14,7 @@ module.exports = async ({config, env}) => {
         remotes: {
           '@emp/diff17': 'diff17@http://localhost:8002/emp.js',
         },
-        exposes: {
-          './configs/index': 'src/configs/index',
-          './components/Demo': 'src/components/Demo',
-          './components/Hello': 'src/components/Hello',
-        },
+        exposes: {},
         shared: ['react', 'react-dom'],
       },
     }

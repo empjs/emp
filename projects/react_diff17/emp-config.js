@@ -11,7 +11,6 @@ module.exports = ({config, env, empEnv}) => {
         },
         exposes: {
           './components/Hello': 'src/components/Hello',
-          './helper': 'src/helper',
           './newReact': require.resolve('react'),
           './newReactDOM': require.resolve('react-dom'),
         },

@@ -1,0 +1,14 @@
+{
+  "name": "@efox/react-diff-adapt",
+  "version": "1.0.0",
+  "description": "React difference version adapter",
+  "main": "index.js",
+  "author": "benny shi",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  }
+}

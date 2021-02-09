@@ -1,17 +1,12 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import Hello from 'src/components/Hello'
-import Demo from 'src/components/Demo'
-import Adapter from 'src/adapt'
+import Adapter from '@efox/react-diff-adapt'
 ReactDOM.render(
   <>
-    <Hello />
-    <Demo />
     <div style={{backgroundColor: '#eee', padding: '20px'}}>
-      <h2>Demo2 Component: Hello!!</h2>
+      <h2>React 16 Component: Hello!!</h2>
     </div>
-    {/* <Hello2 compiler={'emp'} framework={'react'} /> */}
     <Adapter
       newReactDOM={async () => (await import('@emp/diff17/newReactDOM'))?.default}
       newReact={async () => (await import('@emp/diff17/newReact')).default}
