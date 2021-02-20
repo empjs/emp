@@ -62,6 +62,7 @@ module.exports = async args => {
     )
     // 复制其他文件到dist
     // copyPublicFolder(paths)
+    // 生成 serve 模式下需要文件
     buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
   })
 }

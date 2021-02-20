@@ -52,7 +52,8 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
                 from: paths.public,
                 to: paths.dist,
                 globOptions: {
-                  ignore: ['*.DS_Store'],
+                  // 加入 paths.template 避免被重置
+                  ignore: ['*.DS_Store', paths.template, paths.favicon],
                 },
                 noErrorOnMissing: true,
               },
