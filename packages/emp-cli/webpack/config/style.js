@@ -6,18 +6,25 @@ const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const {getPaths} = require('../../helpers/paths')
+const paths = getPaths()
 module.exports = (env, config) => {
   const isDev = env === 'development'
+  //
+  const styleloaderOption = isDev ? {} : {publicPath: ''} // 解决 MiniCssExtractPlugin 对 webpack 5 pulblicPath=auto 导致的冲突问题
+  const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '_[hash:base64:7]' //正式环境 _ 解决大部分命名冲突问题
+  //
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     return {
       style: {
         // loader: require.resolve('style-loader'),//
         loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        options: styleloaderOption,
       },
       css: {
         loader: require.resolve('css-loader'),
         options: {
-          modules: isDev && modules ? {localIdentName: 'bd[path][name]_[local]_[hash:base64:5]'} : modules,
+          modules: modules ? {localIdentName} : modules,
         },
       },
       postcss: {

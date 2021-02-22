@@ -1,0 +1,6 @@
+@import 'custom';
+@import 'iconfont';
+
+.#{$css-prefix-iconfont} {
+  @include yui-icon();
+}
