@@ -10,11 +10,14 @@ const {getPaths} = require('../../helpers/paths')
 const paths = getPaths()
 module.exports = (env, config) => {
   const isDev = env === 'development'
-  //
-  const styleloaderOption = isDev ? {} : {publicPath: '/'} // 解决 MiniCssExtractPlugin 对 webpack 5 pulblicPath=auto 导致的冲突问题
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '_[hash:base64:7]' //正式环境 _ 解决大部分命名冲突问题
   //
   const getStyleLoader = (modules = false, preProcessor = {}) => {
+    //
+    let publicPath = config.output.get('publicPath')
+    publicPath = publicPath !== 'auto' ? publicPath : '/'
+    const styleloaderOption = isDev ? {} : {publicPath} // 解决 MiniCssExtractPlugin 对 webpack 5 pulblicPath=auto 导致的冲突问题
+    //
     return {
       style: {
         // loader: require.resolve('style-loader'),//
