@@ -14,15 +14,15 @@ module.exports = (env, config) => {
   //
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     //
-    let publicPath = config.output.get('publicPath')
-    publicPath = publicPath !== 'auto' ? publicPath : '/'
-    const styleloaderOption = isDev ? {} : {publicPath} // 解决 MiniCssExtractPlugin 对 webpack 5 pulblicPath=auto 导致的冲突问题
+    // let publicPath = config.output.get('publicPath')
+    // publicPath = publicPath !== 'auto' ? publicPath : '/'
+    // const styleloaderOption = isDev ? {} : {publicPath} // 解决 MiniCssExtractPlugin 对 webpack 5 pulblicPath=auto 导致的冲突问题
     //
     return {
       style: {
         // loader: require.resolve('style-loader'),//
         loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
-        options: styleloaderOption,
+        // options: styleloaderOption,
       },
       css: {
         loader: require.resolve('css-loader'),

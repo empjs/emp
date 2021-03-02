@@ -23,4 +23,6 @@ module.exports = withSWC(({config, env}) => {
       return args
     })
   }
+  //
+  // config.output.publicPath('/')
 })

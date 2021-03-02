@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.7.11",
+  "version": "1.7.12",
   "keywords": [
     "react",
     "module federation",
@@ -63,7 +63,7 @@
     "inquirer": "^7.3.3",
     "less": "^3.11.2",
     "less-loader": "^6.1.0",
-    "mini-css-extract-plugin": "^1.3.8",
+    "mini-css-extract-plugin": "^1.3.9",
     "npm-dts": "^1.3.4",
     "npm-dts-webpack-plugin": "^1.3.0",
     "ora": "^4.0.4",
@@ -78,7 +78,7 @@
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
-    "webpack": "^5.23.0",
+    "webpack": "^5.24.2",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^4.0.0-beta.0",
