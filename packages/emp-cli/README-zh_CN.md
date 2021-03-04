@@ -30,7 +30,8 @@
     + `emp tss <remote-url> -p [types path] -n [types name]` `types path` 相对路径 默认 `src`、`types name` 类型文件名 默认 `empType.d.ts`
 + `emp serve` 正式服务
 + `emp` help 
-
++ `emp deploy` 本地声明文件同步到子项目
+    + `emp tss -p [types path] -n [types name] && emp deploy -p [types path] -n [types name] && emp dev`  `types path` 相对路径 默认 `dist`、`types name` 类型文件名 默认 `index.d.ts` 
 
 ## ✍🏻 环境变量 
 + MODE_ENV webpack mode 环境变量 , 通过 `process.env.EMP_ENV` 调用
