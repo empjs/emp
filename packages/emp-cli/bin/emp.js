@@ -57,13 +57,13 @@ program
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-ps, --progress', '显示进度 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
-  .option('-dl, --deploy [remoteUrl]', '在执行命令时拉取远程分支，远程地址首选package.json里的remoteBaseUrlList，其次是传入的remoteUrl远程地址')
-  .action(({src, public, env, hot, open, ts, progress, wplogger, deploy}) => {
+  .option('-rm, --remote [remoteUrl]', '在执行命令时拉取远程分支，远程地址首选package.json里的remoteBaseUrlList，其次是传入的remoteUrl远程地址')
+  .action(({src, public, env, hot, open, ts, progress, wplogger, remote}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true
     // hot = hot === 'false' ? false : true
     progress = progress == 'false' ? false : true
-    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger, deploy})
+    require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger, remote})
   })
 // 构建
 program
@@ -239,12 +239,12 @@ program
 
 // 增加声明文件在本地的同步功能
 program
-  .command('deploy')
+  .command('dist:ts')
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
   .action(({ts, createName, createPath}) => {
-    require('../scripts/deploy')({ts, createName, createPath})
+    require('../scripts/dist')({ts, createName, createPath})
   })
 
 // 执行命令

@@ -1,3 +1,16 @@
+// "dev": "emp dev -rm --ts "
+// 用于拉取自定义的base项目的远程声明文件
+/**
+ * package.json
+ * {
+ *  "remoteBaseUrlList": [
+ *      {
+ *        "url": "https://com/emp.js"
+ *        "name": "文件名"
+ *      }
+ *   ]
+ * } 
+ */
 const fs = require('fs');
 const axios = require('axios');
 const { resolveApp } = require('./paths');
@@ -7,7 +20,7 @@ const { remoteBaseUrlList=[] } = require(resolveApp('package.json'));
 async function downloadRemoteFile(urlList = remoteBaseUrlList) {
   if (urlList.length === 0) return;
   urlList.map(async (item) => {
-    const file = fs.createWriteStream(`${resolveApp('src')}/${item.name}`);
+    const file = fs.createWriteStream(`${resolveApp('src')}/${item.name.replace('/', '-')}`);
     const response = await axios({
       url: item.url,
       method: "GET",
