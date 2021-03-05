@@ -18,7 +18,7 @@ English | [简体中文](./README-zh_CN.md)
 + `emp dev` Development
   + `emp dev --hot` Hot update
   + `emp dev --open` Open the development page
-  + `emp dev -rm` Pull the remote declaration file
+  + `emp dev -rm` Pull the remote declaration file into the `src` directory
     + -rm --remote：The default is to get the remote address from the remoteBaseUrlList field in package.json in the format
     + ```javascript
       {

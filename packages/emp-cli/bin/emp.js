@@ -57,7 +57,7 @@ program
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-ps, --progress', '显示进度 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
-  .option('-rm, --remote [remoteUrl]', '在执行命令时拉取远程分支，远程地址首选package.json里的remoteBaseUrlList，其次是传入的remoteUrl远程地址')
+  .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
   .action(({src, public, env, hot, open, ts, progress, wplogger, remote}) => {
     const empEnv = env || 'dev'
     open = open === 'false' ? false : true

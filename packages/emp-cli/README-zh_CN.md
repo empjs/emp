@@ -18,7 +18,7 @@
 + `emp dev` 调试
   + `emp dev --hot` 热更
   + `emp dev --open` 打开调试页面
-  + `emp dev -rm` 拉取远程声明文件
+  + `emp dev -rm` 拉取远程声明文件到src目录中
     + -rm --remote：默认是从package.json中的remoteBaseUrlList字段中获取远程地址，格式为
     + ```javascript
       {
