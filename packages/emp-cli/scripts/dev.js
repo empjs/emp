@@ -3,14 +3,18 @@ const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const openBrowser = require('react-dev-utils/openBrowser')
+const downloadRemoteFile = require('../helpers/downloadRemoteFile')
 
 module.exports = async args => {
-  const {src, public, open} = args
+  const {src, public, open, remote} = args
   await setPaths({src, public})
   const config = await getProjectConfig('development', args)
   //::Fix 新版本需要加入一下配置 支持 liveReload 和 hot reload
   // WebpackDevServer.addDevServerEntrypoints(config, config.devServer)
   //
+  if (remote) {
+    downloadRemoteFile()
+  }
   const compiler = Webpack(config)
   const server = new WebpackDevServer(compiler, config.devServer)
   const host = config.devServer.host || 'localhost'

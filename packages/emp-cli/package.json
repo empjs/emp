@@ -82,6 +82,7 @@
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^4.0.0-beta.0",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.0-3",
+    "child_process": "^1.0.2"
   }
 }

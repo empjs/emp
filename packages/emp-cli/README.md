@@ -18,6 +18,18 @@ English | [简体中文](./README-zh_CN.md)
 + `emp dev` Development
   + `emp dev --hot` Hot update
   + `emp dev --open` Open the development page
+  + `emp dev -rm` Pull the remote declaration file into the `src` directory
+    + -rm --remote：The default is to get the remote address from the remoteBaseUrlList field in package.json in the format
+    + ```javascript
+      {
+        "remoteBaseUrlList": [
+          {
+            "url": "https://com/index.d.ts",
+            "name": "project.d.ts"
+          }
+        ]
+      } 
+      ```
 + `emp build` Build
   + `emp build --env` Specify the deployment environment
   + `emp build --analyze` Analyze
@@ -30,6 +42,23 @@ English | [简体中文](./README-zh_CN.md)
     + `emp tss <remote-url> -p [types path] -n [types name]` `types path` default relative path  is `src`、`types name` default type file name is `empType.d.ts`
 + `emp serve` Formal service
 + `emp` help 
++ `emp dist:ts` Synchronize local declaration files to subprojects
+  + `emp tsc && emp dist:ts && emp dev`
+  + dist:ts：default reads the local package.json childPath field to loop output, try to keep base project and project project in the same level, package.json：
+  + ```javascript
+    {
+      "childPath": [
+        {
+          "path": "project",
+          "name": "xxx.d.ts"
+        },
+        {
+          "path": "/User/project",
+          "name": "xxx.d.ts"
+        }
+      ]
+    }
+    ```
 
 
 ## ✍🏻 Environment variable 
