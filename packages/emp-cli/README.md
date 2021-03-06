@@ -24,8 +24,8 @@ English | [简体中文](./README-zh_CN.md)
       {
         "remoteBaseUrlList": [
           {
-            "url": "https://com/emp.js",
-            "name": "project"
+            "url": "https://com/index.d.ts",
+            "name": "project.d.ts"
           }
         ]
       } 
