@@ -1,10 +1,8 @@
-const fs = require('fs-extra')
-const {resolveApp, appPackageJson, checkRemote} = require('./paths')
+const {checkRemote} = require('./paths')
 const {runtimeLog, defaultRumtime} = require('./rumtime')
 const Configs = require('webpack-chain')
 const config = new Configs()
-const webpack = require('webpack')
-const withReact = require('@efox/emp-react')
+
 module.exports = {
   async getProjectConfig(env, args = {}) {
     const {empConfigPath, empPackageJsonPath, isRemoteTsConfig} = await checkRemote()
