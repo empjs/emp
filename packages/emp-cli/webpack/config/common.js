@@ -15,7 +15,7 @@ module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
   const commonConfig = {
     // profile: true,
     cache: {
-      version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}`,
+      version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}${args.empEnv ? '-' + args.empEnv : ''}`,
       type: 'filesystem',
       cacheDirectory: cachePaths.webpack, //默认路径是 node_modules/.cache/webpack
       // 缓存依赖，当缓存依赖修改时，缓存失效
