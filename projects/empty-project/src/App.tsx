@@ -37,6 +37,8 @@ export default function App(): any {
       <TipIcon width={20} height={16} />
       <h2>SVGA CASE</h2>
       <Svgacase />
+      <h2>Background Img</h2>
+      <div className={css.imgBg}></div>
     </>
   )
 }

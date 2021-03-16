@@ -8,6 +8,14 @@
   pointer-events: none;
 }
 
+.imgBg{
+  background: url('~src/assets/mf.png') no-repeat;
+  background-size: 100% 100%;
+  background-color: #f7f7f7;
+  width: 300px;
+  height: 300px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
