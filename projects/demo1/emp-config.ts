@@ -4,6 +4,10 @@ const config: EMPConfig = {
   webpackChain(config) {
     config.devServer.port(8001)
   },
+  // webpack({webpackConfig}) {
+  //   webpackConfig.devServer.port = 8004
+  //   return webpackConfig
+  // },
   moduleFederation: {
     name: 'demo1',
     filename: 'emp.js',

@@ -55,18 +55,20 @@ async function runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt,
       return args
     })
   }
-  console.log('remoteTsConfig', remoteTsConfig)
-  // emp webpack & webpack chain
+  // emp webpack chain
   if (remoteTsConfig.webpackChain && typeof remoteTsConfig.webpackChain === 'function') {
-    // const webpackConfig = config.toConfig()
-    // const webpackConfWithEmpConfig = await remoteTsConfig.config({
-    //   webpackConfig,
-    //   webpackEnv: empConfOpt.env,
-    //   webpackChain: config,
-    //   ...empConfOpt.args,
-    // })
-    // config.merge(webpackConfWithEmpConfig)
     await remoteTsConfig.webpackChain(config, empConfOpt)
+  }
+  // emp webpack
+  if (remoteTsConfig.webpack && typeof remoteTsConfig.webpack === 'function') {
+    const webpackConfig = config.toConfig()
+    const wpc = await remoteTsConfig.webpack({
+      webpackConfig,
+      webpackEnv: empConfOpt.env,
+      webpackChain: config,
+      ...empConfOpt.args,
+    })
+    config.merge(wpc)
   }
 }
 async function runtimeWithJsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {

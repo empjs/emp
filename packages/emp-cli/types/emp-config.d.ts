@@ -1,5 +1,5 @@
 import {Configuration, WebpackOptionsNormalized, container} from 'webpack/types'
-import Config from 'webpack-chain/types'
+import * as webpackChain from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 interface EmpConfigIBase {
   /** webpack */
@@ -7,7 +7,7 @@ interface EmpConfigIBase {
   /** webpack config */
   webpackConfig: WebpackOptionsNormalized
   /** webpack chain */
-  webpackChain: Config
+  webpackChain: webpackChain
   /** emp dev|start --env : env===empEnv */
   empEnv: string
   /** webpack build env */
@@ -46,8 +46,8 @@ interface EmpConfigI {
 }
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
-  // config?: (o: EmpConfigI) => void | WebpackOptionsNormalized | Promise<WebpackOptionsNormalized>
-  webpackChain?: (config: Config, o: EmpConfigI) => void | Promise<any>
+  webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackOptionsNormalized | Promise<WebpackOptionsNormalized>
+  webpackChain?: (config: webpackChain, o: EmpConfigI) => void | Promise<any>
   /** compile replace babel use swc or esbuild */
   compile?: Array<any>
   /** react vue svetle and more */
