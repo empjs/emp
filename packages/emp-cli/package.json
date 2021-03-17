@@ -38,6 +38,7 @@
     "@efox/emp-tune-dts-plugin": "^1.1.7",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.0",
     "@svgr/webpack": "^5.4.0",
+    "@swc/core": "^1.2.50",
     "@types/node": "^14.14.32",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.1",

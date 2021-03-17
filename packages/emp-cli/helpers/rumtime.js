@@ -1,25 +1,53 @@
 const webpack = require('webpack')
 const withReact = require('@efox/emp-react')
+const swc = require('@swc/core')
 const fs = require('fs-extra')
 //
+function isReact(remotePackageJson) {
+  return (
+    !!remotePackageJson.dependencies.react &&
+    !remotePackageJson.devDependencies['@efox/emp-react'] &&
+    !remotePackageJson.dependencies['@efox/emp-react']
+  )
+}
+
+function requireFromString(src, filename) {
+  const Module = module.constructor
+  const m = new Module()
+  m._compile(src, filename)
+  return m.exports
+}
 async function defaultRumtime(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig) {
   const empConfOpt = {...args, config, env, webpack}
   const remotePackageJson = empPackageJsonPath
     ? await fs.readJson(empPackageJsonPath)
     : {dependencies: {}, devDependencies: {}}
   //
-  if (empConfigPath) {
+  if (empConfigPath && !isRemoteTsConfig) {
     let remoteConfigFn = await fs.readFile(empConfigPath, 'utf8')
     remoteConfigFn = eval(remoteConfigFn)
-    if (
-      !!remotePackageJson.dependencies.react &&
-      !remotePackageJson.devDependencies['@efox/emp-react'] &&
-      !remotePackageJson.dependencies['@efox/emp-react']
-    ) {
+    if (isReact(remotePackageJson)) {
       await withReact(remoteConfigFn)(empConfOpt)
     } else {
       await remoteConfigFn(empConfOpt)
     }
+  } else if (empConfigPath && isRemoteTsConfig) {
+    let remoteTsConfig = await fs.readFile(empConfigPath, 'utf8')
+    remoteTsConfig = await swc.transform(remoteTsConfig, {
+      module: {type: 'commonjs'},
+      jsc: {
+        externalHelpers: true,
+        parser: {
+          syntax: 'typescript',
+          tsx: true,
+          dynamicImport: true,
+          decorators: true,
+        },
+      },
+    })
+    remoteTsConfig = requireFromString(remoteTsConfig.code, '')
+    remoteTsConfig = remoteTsConfig.default
+    console.log('remoteTsConfig', remoteTsConfig)
   } else {
     // 在没有 emp-config.js 的环境下执行
     if (remotePackageJson.dependencies.react) {
@@ -27,14 +55,7 @@ async function defaultRumtime(args, empPackageJsonPath, empConfigPath, config, e
     }
   }
 }
-async function runJsFuncEmpConfig(RemoteEMPConfig, isDefaultUseReact, o) {
-  RemoteEMPConfig = eval(RemoteEMPConfig)
-  if (isDefaultUseReact) {
-    await withReact(RemoteEMPConfig)(o)
-  } else {
-    await RemoteEMPConfig(o)
-  }
-}
+
 async function runtimeLog(args, wpc, config) {
   if (args.wplogger) {
     if (typeof args.wplogger === 'string') {
