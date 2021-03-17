@@ -2,8 +2,10 @@ import {Configuration, WebpackOptionsNormalized, container} from 'webpack/types'
 import Config from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 interface EmpConfigIBase {
+  /** webpack */
+  // webpack: webpack
   /** webpack config */
-  webpack: WebpackOptionsNormalized
+  webpackConfig: WebpackOptionsNormalized
   /** webpack chain */
   webpackChain: Config
   /** emp dev|start --env : env===empEnv */
@@ -27,7 +29,7 @@ interface EmpConfigIBase {
   '-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]
   '-p, --createPath <createPath>', '相对命令行目录 默认为 dist
  */
-interface EmpConfigI extends EmpConfigIBase {
+interface EmpConfigI {
   open?: boolean
   progress?: boolean
   src?: string
@@ -44,7 +46,8 @@ interface EmpConfigI extends EmpConfigIBase {
 }
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
-  config?: (o: EmpConfigI) => void | WebpackOptionsNormalized
+  // config?: (o: EmpConfigI) => void | WebpackOptionsNormalized | Promise<WebpackOptionsNormalized>
+  webpackChain?: (config: Config, o: EmpConfigI) => void | Promise<any>
   /** compile replace babel use swc or esbuild */
   compile?: Array<any>
   /** react vue svetle and more */

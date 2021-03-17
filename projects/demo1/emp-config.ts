@@ -1,9 +1,8 @@
 import {EMPConfig} from '@efox/emp-cli/types/emp-config'
 
 const config: EMPConfig = {
-  config({webpack}) {
-    webpack.devServer.port = 8001
-    return webpack
+  webpackChain(config) {
+    config.devServer.port(8001)
   },
   moduleFederation: {
     name: 'demo1',
