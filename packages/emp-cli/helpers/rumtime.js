@@ -47,6 +47,7 @@ async function defaultRumtime(args, empPackageJsonPath, empConfigPath, config, e
     })
     remoteTsConfig = requireFromString(remoteTsConfig.code, '')
     remoteTsConfig = remoteTsConfig.default
+    //::TODO 实例化代码配置
     console.log('remoteTsConfig', remoteTsConfig)
   } else {
     // 在没有 emp-config.js 的环境下执行
