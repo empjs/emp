@@ -5,6 +5,7 @@ const fs = require('fs-extra')
 const https = require('https')
 const path = require('path')
 const express = require('express')
+const cors = require('cors')
 const compression = require('compression')
 let config = {}
 config = require('../webpack/config/devServer')
@@ -20,6 +21,7 @@ express.static.mime.types['ts'] = 'application/javascript'
 //
 const app = express()
 app.use(compression())
+app.use(cors())
 
 module.exports = async args => {
   const {dist} = args
