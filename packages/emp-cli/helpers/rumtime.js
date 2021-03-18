@@ -98,4 +98,23 @@ async function runtimeLog(args, wpc, config) {
   // 取消继承 minimizer TerserPlugin 让压缩更具定制化
   // if (env === 'production') wpc.optimization.minimizer.push('...')
 }
-module.exports = {defaultRumtime, runtimeLog}
+function afterEmpConfigRuntime(config, env) {
+  //等待 webpack更新 asset publicPath
+  /* const isDev = env === 'development'
+  const publicPath = config.output.get('publicPath')
+  config.module
+    .rule('css')
+    .use('style')
+    .tap(o => {
+      if (publicPath === 'auto' && !isDev) o.publicPath = '/'
+      return o
+    })
+  config.module
+    .rule('cssModule')
+    .use('style')
+    .tap(o => {
+      if (publicPath === 'auto' && !isDev) o.publicPath = '/'
+      return o
+    }) */
+}
+module.exports = {defaultRumtime, runtimeLog, afterEmpConfigRuntime}
