@@ -7,11 +7,11 @@ const {cmdSync} = require('../../helpers/cli')
 const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'
 // console.log('gitVersion', gitVersion)
 //===================
-module.exports = (env, config, args, {isRemoteConfig, remoteConfig}) => {
+module.exports = (env, config, args, empConfigPath) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
-  if (isRemoteConfig) buildDependenciesConfigs.push(remoteConfig)
+  if (empConfigPath) buildDependenciesConfigs.push(empConfigPath)
   const commonConfig = {
     // profile: true,
     cache: {

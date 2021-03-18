@@ -1,66 +1,16 @@
-const fs = require('fs-extra')
-const {resolveApp, appPackageJson} = require('../helpers/paths')
+const {checkRemote} = require('./paths')
+const {runtimeLog, defaultRumtime} = require('./rumtime')
 const Configs = require('webpack-chain')
 const config = new Configs()
-const webpack = require('webpack')
-const withReact = require('@efox/emp-react')
+
 module.exports = {
-  async getProjectConfig(env, args) {
-    args = args || {}
-    //
-    const remoteConfig = resolveApp('emp-config.js')
-    const [isRemoteConfig, isRemotePackageJson] = await Promise.all([
-      fs.exists(remoteConfig),
-      fs.exists(appPackageJson),
-    ])
-    //
-    require('../webpack/config/common')(env, config, args, {isRemoteConfig, remoteConfig})
+  async getProjectConfig(env, args = {}) {
+    const {empConfigPath, empPackageJsonPath, isRemoteTsConfig} = await checkRemote()
+    require('../webpack/config/common')(env, config, args, empConfigPath)
     require(`../webpack/config/${env}`)(args, config, env)
-    //
-    const empEnv = args.empEnv
-    const hot = !!args.hot
-    const remotePackageJson = isRemotePackageJson
-      ? await fs.readJson(appPackageJson)
-      : {dependencies: {}, devDependencies: {}}
-    //
-    if (isRemoteConfig) {
-      let remoteConfigFn = await fs.readFile(remoteConfig, 'utf8')
-      remoteConfigFn = eval(remoteConfigFn)
-      if (
-        !!remotePackageJson.dependencies.react &&
-        !remotePackageJson.devDependencies['@efox/emp-react'] &&
-        !remotePackageJson.dependencies['@efox/emp-react']
-      ) {
-        // console.log('======== withReact start =========') //测试用例 async await
-        await withReact(remoteConfigFn)({config, env, empEnv, hot, webpack})
-        // console.log('======== withReact end =========')
-      } else {
-        // console.log('======== remoteConfigFn start =========') //测试用例 async await
-        await remoteConfigFn({config, env, empEnv, hot, webpack})
-        // console.log('======== remoteConfigFn end =========')
-      }
-    } else {
-      // 在没有 emp-config.js 的环境下执行
-      if (remotePackageJson.dependencies.react) {
-        withReact()({config, env, empEnv, hot, webpack})
-      }
-    }
+    await defaultRumtime(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig)
     const wpc = config.toConfig()
-    if (args.wplogger) {
-      if (typeof args.wplogger === 'string') {
-        const fileName = args.wplogger
-        try {
-          // webpack.config.js
-          await fs.writeFile(resolveApp(fileName), `module.exports=${JSON.stringify(wpc, null, 2)}`)
-        } catch (err) {
-          console.error(err)
-        }
-      } else {
-        console.log('webpack config', config.toString(), '==========')
-      }
-    }
-    // 取消继承 minimizer TerserPlugin 让压缩更具定制化
-    // if (env === 'production') wpc.optimization.minimizer.push('...')
+    await runtimeLog(args, wpc, config)
     return wpc
   },
 }
