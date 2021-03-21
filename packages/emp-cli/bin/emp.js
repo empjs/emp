@@ -5,6 +5,7 @@ const ora = require('ora') // 实现node.js命令行环境的loading效果，和
 const package = require('../package.json')
 const chalk = require('chalk') // 支持修改控制台中字符串的样式 字体样式、字体颜色、背景颜色
 const {checkNodeVersion} = require('../helpers/cli')
+const Axios = require('axios')
 
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))
@@ -163,32 +164,48 @@ program
 program
   .command('init')
   .description('初始化 emp 项目')
-  .action(() => {
-    const templateList = require('../config/template.json')
-    const templateNameList = []
-    for (item in templateList) {
-      templateNameList.push(item)
-    }
-    inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'name',
-          message: '请输入项目名:',
-          default: function () {
-            return 'emp-project'
+  .option('-t, --template <template>', '模版文件URL')
+  .action(({template}) => {
+    const downloadTemplate = () => {
+      const templateNameList = []
+      for (item in templateList) {
+        templateNameList.push(item)
+      }
+      inquirer
+        .prompt([
+          {
+            type: 'input',
+            name: 'name',
+            message: '请输入项目名:',
+            default: function () {
+              return 'emp-project'
+            },
           },
-        },
-        {
-          type: 'list',
-          name: 'template',
-          message: '请选择模板:',
-          choices: templateNameList,
-        },
-      ])
-      .then(answers => {
-        require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
-      })
+          {
+            type: 'list',
+            name: 'template',
+            message: '请选择模板:',
+            choices: templateNameList,
+          },
+        ])
+        .then(answers => {
+          require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
+        })
+    }
+    let templateList = []
+    if (!template) {
+      templateList = require('../config/template.json')
+      downloadTemplate()
+    } else {
+      Axios.get(template)
+        .then(res => {
+          templateList = res.data
+          downloadTemplate()
+        })
+        .catch(function (e) {
+          console.log(e)
+        })
+    }
   })
 
 //初始化topic-emp项目
