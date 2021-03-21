@@ -15,6 +15,15 @@
 ## 👨‍💻 指令 
 
 + `emp init` 初始化项目
+  + `emp init -t <remote-template-url>`
+  >自定义模版列表需要使用JSON格式（"模版名":"git 链接"）
+  ```json
+  {
+    "react": "https://github.com/efoxTeam/emp-react-template.git",
+    "vue2":"https://github.com/efoxTeam/emp-vue2-template.git"
+  }
+  ```
+
 + `emp dev` 调试
   + `emp dev --hot` 热更
   + `emp dev --open` 打开调试页面
