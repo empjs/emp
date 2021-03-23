@@ -1,13 +1,19 @@
 import {EMPConfig} from '@efox/emp-cli/types/emp-config'
 
 const config: EMPConfig = {
-  webpackChain(config) {
-    config.devServer.port(8001)
-  },
-  // webpack({webpackConfig}) {
-  //   webpackConfig.devServer.port = 8004
-  //   return webpackConfig
+  // webpackChain(config) {
+  //   config.devServer.port(8001)
   // },
+  webpack() {
+    return {
+      devServer: {
+        port: 8001,
+      },
+      output: {
+        publicPath: 'http://localhost:8001/',
+      },
+    }
+  },
   moduleFederation: {
     name: 'demo1',
     filename: 'emp.js',

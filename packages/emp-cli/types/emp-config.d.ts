@@ -1,11 +1,12 @@
-import {Configuration, WebpackOptionsNormalized, container} from 'webpack/types'
+import {Configuration, container} from 'webpack/types'
+import a from 'webpack-dev-server'
 import * as webpackChain from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 interface EmpConfigIBase {
   /** webpack */
   // webpack: webpack
   /** webpack config */
-  webpackConfig: WebpackOptionsNormalized
+  // webpackConfig: WebpackOptionsNormalized
   /** webpack chain */
   webpackChain: webpackChain
   /** emp dev|start --env : env===empEnv */
@@ -44,9 +45,14 @@ interface EmpConfigI {
   createName?: string
   createPath?: string
 }
+interface WebpackConfigI extends Configuration {
+  devServer?: {
+    [index: string]: any
+  }
+}
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
-  webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackOptionsNormalized | Promise<WebpackOptionsNormalized>
+  webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackConfigI | Promise<WebpackConfigI>
   webpackChain?: (config: webpackChain, o: EmpConfigI) => void | Promise<any>
   /** compile replace babel use swc or esbuild */
   compile?: Array<any>

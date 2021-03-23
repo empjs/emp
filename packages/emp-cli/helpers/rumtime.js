@@ -61,9 +61,9 @@ async function runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt,
   }
   // emp webpack
   if (remoteTsConfig.webpack && typeof remoteTsConfig.webpack === 'function') {
-    const webpackConfig = config.toConfig()
+    // const webpackConfig = config.toConfig()
     const wpc = await remoteTsConfig.webpack({
-      webpackConfig,
+      // webpackConfig,
       webpackEnv: empConfOpt.env,
       webpackChain: config,
       ...empConfOpt.args,
