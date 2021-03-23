@@ -1,5 +1,5 @@
 import {Configuration, container} from 'webpack/types'
-import a from 'webpack-dev-server'
+import {WebpackDevServerI} from './webpack-dev-server'
 import * as webpackChain from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 interface EmpConfigIBase {
@@ -46,9 +46,7 @@ interface EmpConfigI {
   createPath?: string
 }
 interface WebpackConfigI extends Configuration {
-  devServer?: {
-    [index: string]: any
-  }
+  devServer?: WebpackDevServerI
 }
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
