@@ -4,7 +4,8 @@ const config: EMPConfig = {
   // webpackChain(config) {
   //   config.devServer.port(8001)
   // },
-  webpack() {
+  webpack(o) {
+    console.log('webpack', o.hot)
     return {
       devServer: {
         port: 8001,
@@ -14,18 +15,21 @@ const config: EMPConfig = {
       },
     }
   },
-  moduleFederation: {
-    name: 'demo1',
-    filename: 'emp.js',
-    remotes: {
-      '@emp/demo2': 'demo2@http://localhost:8002/emp.js',
-    },
-    exposes: {
-      './configs/index': 'src/configs/index',
-      './components/Demo': 'src/components/Demo',
-      './components/Hello': 'src/components/Hello',
-    },
-    shared: ['react', 'react-dom'],
+  async moduleFederation(o) {
+    console.log('moduleFederation', o.webpackEnv)
+    return {
+      name: 'demo1',
+      filename: 'emp.js',
+      remotes: {
+        '@emp/demo2': 'demo2@http://localhost:8002/emp.js',
+      },
+      exposes: {
+        './configs/index': 'src/configs/index',
+        './components/Demo': 'src/components/Demo',
+        './components/Hello': 'src/components/Hello',
+      },
+      shared: ['react', 'react-dom'],
+    }
   },
 }
 export default config

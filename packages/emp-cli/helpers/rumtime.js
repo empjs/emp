@@ -33,6 +33,13 @@ async function runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt,
   remoteTsConfig = await tsCompile(remoteTsConfig)
   remoteTsConfig = requireFromString(remoteTsConfig.code, '')
   remoteTsConfig = remoteTsConfig.default
+  //
+  const empConfigAll = {
+    // webpackConfig,
+    webpackEnv: empConfOpt.env,
+    webpackChain: config,
+    ...empConfOpt,
+  }
   //::TODO 实例化代码配置
   if (isReact(remotePackageJson) && (!remoteTsConfig.framework || remoteTsConfig.framework.indexOf(withReact) === -1)) {
     await withReact()(empConfOpt)
@@ -47,10 +54,14 @@ async function runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt,
   }
   // emp module federation
   if (remoteTsConfig.moduleFederation) {
+    const moduleFederation =
+      typeof remoteTsConfig.moduleFederation === 'function'
+        ? await remoteTsConfig.moduleFederation(empConfigAll)
+        : remoteTsConfig.moduleFederation
     config.plugin('mf').tap(args => {
       args[0] = {
         ...args[0],
-        ...remoteTsConfig.moduleFederation,
+        ...moduleFederation,
       }
       return args
     })
@@ -61,13 +72,7 @@ async function runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt,
   }
   // emp webpack
   if (remoteTsConfig.webpack && typeof remoteTsConfig.webpack === 'function') {
-    // const webpackConfig = config.toConfig()
-    const wpc = await remoteTsConfig.webpack({
-      // webpackConfig,
-      webpackEnv: empConfOpt.env,
-      webpackChain: config,
-      ...empConfOpt.args,
-    })
+    const wpc = await remoteTsConfig.webpack(empConfigAll)
     config.merge(wpc)
   }
 }

@@ -39,18 +39,12 @@ export interface Watch {
   anyOf: AnyOf3[]
 }
 
-export interface Properties {
-  directory: Directory
-  staticOptions: StaticOptions
-  publicPath: PublicPath
-  serveIndex: ServeIndex
-  watch: Watch
-}
-
 export interface StaticObject {
-  type: string
-  additionalProperties: boolean
-  properties: Properties
+  directory?: Directory
+  staticOptions?: StaticOptions
+  publicPath?: PublicPath
+  serveIndex?: ServeIndex
+  watch?: Watch
 }
 
 export interface StaticString {
@@ -99,33 +93,18 @@ export interface Warnings {
   type: string
 }
 
-export interface Properties4 {
+export interface Overlay {
   errors: Errors
   warnings: Warnings
 }
 
-export interface AnyOf5 {
-  type: string
-  properties: Properties4
-}
-
-export interface Overlay {
-  anyOf: AnyOf5[]
-}
-
-export interface Properties3 {
-  host: Host
-  path: Path
-  port: Port
-  logging: Logging
-  progress: Progress
-  overlay: Overlay
-}
-
 export interface Client {
-  type: string
-  properties: Properties3
-  additionalProperties: boolean
+  host?: Host
+  path?: Path
+  port?: Port
+  logging?: Logging
+  progress?: Progress
+  overlay?: Overlay
 }
 
 export interface Compress {
@@ -227,19 +206,13 @@ export interface Cert {
   anyOf: AnyOf14[]
 }
 
-export interface Properties5 {
-  passphrase: Passphrase
-  requestCert: RequestCert
-  ca: Ca
-  key: Key
-  pfx: Pfx
-  cert: Cert
-}
-
 export interface AnyOf10 {
-  type: string
-  additionalProperties?: boolean
-  properties: Properties5
+  passphrase?: Passphrase
+  requestCert?: RequestCert
+  ca?: Ca
+  key?: Key
+  pfx?: Pfx
+  cert?: Cert
 }
 
 export interface Https {
@@ -373,16 +346,9 @@ export interface Server {
   anyOf: AnyOf25[]
 }
 
-export interface Properties6 {
-  client: Client2
-  server: Server
-}
-
 export interface AnyOf24 {
-  type: string
-  properties: Properties6
-  additionalProperties: boolean
-  enum: string[]
+  client?: Client2
+  server?: Server
 }
 
 export interface TransportMode {

@@ -1,5 +1,6 @@
 const {getPaths} = require('../../helpers/paths')
 const {public} = getPaths()
+const ip = require('internal-ip')
 module.exports = (env, {hot, open, progress}) => {
   return {
     devServer: {
@@ -7,6 +8,7 @@ module.exports = (env, {hot, open, progress}) => {
       //   compress: true,
       //   host: '0.0.0.0',
       // host: 'localhost',
+      // host: ip.v4.sync(),
       port: 8000,
       // contentBase: [public],
       // contentBasePublicPath :'/',//定义静态路径的别名
@@ -37,7 +39,10 @@ module.exports = (env, {hot, open, progress}) => {
           // watch: true,
         },
       ],
-      overlay: !hot,
+      client: {
+        overlay: true,
+      },
+      // overlay: !hot,
       // liveReload: !hot,
       // progress: progress === true,
       // stats: {

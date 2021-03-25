@@ -48,6 +48,9 @@ interface EmpConfigI {
 interface WebpackConfigI extends Configuration {
   devServer?: WebpackDevServerI
 }
+type ModuleFederationFuncType = (o: EmpConfigI & EmpConfigIBase) => MFOptions | Promise<MFOptions>
+type ModuleFederationType = MFOptions | ModuleFederationFuncType
+//
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
   webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackConfigI | Promise<WebpackConfigI>
@@ -57,5 +60,5 @@ declare interface EMPConfig {
   /** react vue svetle and more */
   framework?: Array<any>
   /** module federation config */
-  moduleFederation?: MFOptions
+  moduleFederation?: ModuleFederationType
 }
