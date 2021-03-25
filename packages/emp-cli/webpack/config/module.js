@@ -2,6 +2,12 @@ module.exports = (env, config, {hot}) => {
   const isDev = env === 'development'
   const conf = {
     module: {
+      // webpack 5.28.+
+      generator: {
+        asset: {
+          publicPath: '/',
+        },
+      },
       rule: {
         /* bootstrap: {
           test: /bootstrap\.(tsx|jsx)$/,
