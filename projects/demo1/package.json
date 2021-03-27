@@ -13,12 +13,11 @@
     "emp": "emp"
   },
   "dependencies": {
-    "@efox/emp-cli": "^1.8.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-cli": "^1.8.4",
     "@efox/emp-tsconfig": "^1.0.0"
   }
 }

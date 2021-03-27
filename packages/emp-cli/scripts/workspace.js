@@ -96,7 +96,6 @@ const pullTypes = async () => {
  * @param {*} type
  */
 const downloadHttpFile = async (path, remoteUrl) => {
-  console.log('downloadHttpFile', path, remoteUrl)
   const file = fse.createWriteStream(`${resolveApp('types')}/${path}.d.ts`)
   const response = await axios({
     url: remoteUrl,

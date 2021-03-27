@@ -20,7 +20,7 @@ async function download(remoteUrl, saveName, savePath) {
   })
 }
 
-module.exports = async (type, {createName, createPath, remoteUrl, saveName, savePath}) => {
+module.exports = async (type, {createName, createPath, remoteUrl, saveName, savePath, withVersion}) => {
   await setPaths({})
   switch (type) {
     case 'create':
@@ -38,6 +38,7 @@ module.exports = async (type, {createName, createPath, remoteUrl, saveName, save
           path: createPath,
           name: createName,
           isDefault: true,
+          withVersion,
         })
       } else {
         // console.error(`${createPath} not exist, please tsc after build!`)

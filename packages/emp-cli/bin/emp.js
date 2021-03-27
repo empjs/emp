@@ -113,11 +113,11 @@ program
   .command('ts:create')
   .alias('tsc')
   .description('ts类型创建')
+  .option('-w, --withVersion')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  //
-  .action(({createName, createPath}) => {
-    require('../scripts/typescript')('create', {createName, createPath})
+  .action(({createName, createPath, withVersion}) => {
+    require('../scripts/typescript')('create', {createName, createPath, withVersion})
   })
 // ts 类型同步
 program
