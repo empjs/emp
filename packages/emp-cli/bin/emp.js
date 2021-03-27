@@ -113,11 +113,11 @@ program
   .command('ts:create')
   .alias('tsc')
   .description('ts类型创建')
+  .option('-w, --withVersion')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  //
-  .action(({createName, createPath}) => {
-    require('../scripts/typescript')('create', {createName, createPath})
+  .action(({createName, createPath, withVersion}) => {
+    require('../scripts/typescript')('create', {createName, createPath, withVersion})
   })
 // ts 类型同步
 program
@@ -262,6 +262,21 @@ program
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
   .action(({ts, createName, createPath}) => {
     require('../scripts/dist')({ts, createName, createPath})
+  })
+
+// 生成workspace本地配置
+program
+  .command('workspace')
+  .option('-t, --type <type>')
+  .description([
+    `本地开发配置:`,
+    `[-t init]: 生成配置文件，如:声明文件同步配置`,
+    `[-t pullTypes]:根据workspace:init配置文件的内容，拉取"远程"或"本地"声明文件到本地types目录`,
+    `[-t pushTypes]: 根据workspace:init配置文件的内容，分发声明文件到"本地"远程目录`,
+  ])
+  .action(({type}) => {
+    console.log('workspace type:', type)
+    require('../scripts/workspace')(type)
   })
 
 // 执行命令

@@ -11,7 +11,7 @@ const generateType = _options => {
   generator
     .generate()
     .then(() => {
-      tuneType(_options.path, _options.name, _options.isDefault, _options.operation)
+      tuneType(_options.path, _options.name, _options.isDefault, _options.operation, _options.withVersion)
     })
     .catch(function (e) {
       throw e
