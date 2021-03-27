@@ -1,7 +1,9 @@
 /**
  * 生成本地开发配置
  */
+const fs = require('fs')
 const fse = require('fs-extra')
+const axios = require('axios')
 const {tsCompile, requireFromString} = require('../helpers/compile')
 
 // todo 获取 emp.config 的配置，动态生成@fileTemplate内容
@@ -55,6 +57,9 @@ const init = async () => {
   })
 }
 
+/**
+ * 同步远程文件
+ */
 const pullTypes = async () => {
   console.log('begin pullTypes')
   const workspaceConfigPath = resolveApp(configFilePath)
@@ -66,6 +71,48 @@ const pullTypes = async () => {
       remoteTsConfig = requireFromString(remoteTsConfig.code, '')
       console.log('## data', remoteTsConfig)
       console.log('## data', remoteTsConfig.default.pullConfig)
+      if (remoteTsConfig.default.pullConfig) {
+        for (let key in remoteTsConfig.default.pullConfig) {
+          if (
+            remoteTsConfig.default.pullConfig[key].indexOf('http://') > -1 ||
+            remoteTsConfig.default.pullConfig[key].indexOf('https://') > -1
+          ) {
+            downloadHttpFile(key, remoteTsConfig.default.pullConfig[key])
+          } else {
+            copyLocalFile(key, remoteTsConfig.default.pullConfig[key])
+          }
+        }
+      }
+    }
+  })
+}
+
+/**
+ * 下载远程文件
+ * @param {*} type
+ */
+const downloadHttpFile = async (path, remoteUrl) => {
+  console.log('downloadHttpFile', path, remoteUrl)
+  const file = fse.createWriteStream(`${resolveApp('types')}/${path}.d.ts`)
+  const response = await axios({
+    url: remoteUrl,
+    method: 'GET',
+    responseType: 'stream',
+  })
+
+  await response.data.pipe(file)
+}
+
+/**
+ * 复制本地文件
+ * @param {*} type
+ */
+const copyLocalFile = async (path, localUrl) => {
+  fse.stat(localUrl, async (err, stats) => {
+    if (stats) {
+      fse.copy(localUrl, `${resolveApp('types')}/${path}.d.ts`)
+    } else {
+      console.log('本地文件不存在:', localUrl)
     }
   })
 }
