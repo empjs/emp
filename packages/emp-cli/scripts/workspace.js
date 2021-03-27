@@ -12,21 +12,21 @@ const {resolveApp} = require('../helpers/paths')
 const configFilePath = `emp.workspace.config.ts`
 const gitignorePath = `.gitignore`
 const fileTemplate = `import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-workspace-config'
-
-const empWorkspaceConfig: IWorkSpaceConfig = {
-  pullConfig: {},
-  pushConfig: {
-    localPath: '',
-    remotePath: [],
-  },
-}
-export default empWorkspaceConfig
-`
+ 
+ const empWorkspaceConfig: IWorkSpaceConfig = {
+   pullConfig: {},
+   pushConfig: {
+     localPath: '',
+     remotePath: [],
+   },
+ }
+ export default empWorkspaceConfig
+ `
 
 const ignoreAppendContent = `
-${configFilePath}
-types/
-`
+ ${configFilePath}
+ types/
+ `
 
 /**
  * 初始化 工作区开发配置， 并追加 gitignore 配置
@@ -63,7 +63,6 @@ const getRemoteTsConfig = async () => {
     let remoteTsConfig = await fse.readFile(workspaceConfigPath, 'utf8')
     remoteTsConfig = await tsCompile(remoteTsConfig)
     remoteTsConfig = requireFromString(remoteTsConfig.code, '')
-    console.log('## data', remoteTsConfig)
     return remoteTsConfig
   } else {
     return null
@@ -74,6 +73,10 @@ const getRemoteTsConfig = async () => {
  * 同步远程文件
  */
 const pullTypes = async () => {
+  const isExists = await fse.pathExists(`${resolveApp('types')}`)
+  if (!isExists) {
+    await fse.mkdir(`${resolveApp('types')}`)
+  }
   const remoteTsConfig = await getRemoteTsConfig()
   if (remoteTsConfig.default.pullConfig && Object.keys(remoteTsConfig.default.pullConfig).length > 0) {
     for (let key in remoteTsConfig.default.pullConfig) {
@@ -111,13 +114,12 @@ const downloadHttpFile = async (path, remoteUrl) => {
  * @param {*} type
  */
 const copyLocalFile = async (path, localUrl) => {
-  fse.stat(localUrl, async (err, stats) => {
-    if (stats) {
-      fse.copy(localUrl, `${resolveApp('types')}/${path}.d.ts`)
-    } else {
-      console.log('本地文件不存在:', localUrl)
-    }
-  })
+  const isExists = await fse.pathExists(localUrl)
+  if (isExists) {
+    fse.copy(localUrl, `${resolveApp('types')}/${path}.d.ts`)
+  } else {
+    console.log('本地文件不存在:', localUrl)
+  }
 }
 
 /**
