@@ -1,2 +1,6 @@
 dist
 node_module
+
+
+emp.workspace.config.ts
+types/

@@ -264,5 +264,13 @@ program
     require('../scripts/dist')({ts, createName, createPath})
   })
 
+// 生成workspace本地配置
+program
+  .command('workspace:init')
+  .description('生成本地开发配置 如:声明文件同步配置')
+  .action(() => {
+    require('../scripts/workspace')()
+  })
+
 // 执行命令
 program.parse(process.argv)
