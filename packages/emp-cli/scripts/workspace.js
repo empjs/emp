@@ -127,9 +127,18 @@ const copyLocalFile = async (path, localUrl) => {
  */
 const pushTypes = async () => {
   const remoteTsConfig = await getRemoteTsConfig()
-  console.log('remoteTsConfig.default.pushConfig.localPath', remoteTsConfig)
   if (!remoteTsConfig.default.pushConfig || remoteTsConfig.default.pushConfig.localPath.length < 1) {
     console.log('请使用 emp workspace:init 指令生成配置文件 并配置pushConfig')
+  } else {
+    const localPathPath = resolveApp(remoteTsConfig.default.pushConfig.localPath)
+    const remotePath = remoteTsConfig.default.pushConfig.remotePath
+    const isExists = await fse.pathExists(localPathPath)
+    console.log(localPathPath, `isExists:`, isExists)
+    if (remotePath && remotePath.length > 0) {
+      remotePath.forEach(item => {
+        fse.copy(localPathPath, item)
+      })
+    }
   }
 }
 
