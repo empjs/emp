@@ -25,7 +25,6 @@ const fileTemplate = `import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-wo
 
 const ignoreAppendContent = `
  ${configFilePath}
- types/
  `
 
 /**
