@@ -1,7 +1,8 @@
 import {Configuration, container} from 'webpack/types'
-import {WebpackDevServerI} from './webpack-dev-server'
+// import {WebpackDevServerI} from './webpack-dev-server'
 import * as webpackChain from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
+type GeneratorOptType = Partial<Configuration>['module']['generator']
 interface EmpConfigIBase {
   /** webpack */
   // webpack: webpack
@@ -45,11 +46,12 @@ interface EmpConfigI {
   createName?: string
   createPath?: string
 }
-interface WebpackConfigI extends Configuration {
-  devServer?: WebpackDevServerI
-}
+type WebpackConfigI = Configuration
 type ModuleFederationFuncType = (o: EmpConfigI & EmpConfigIBase) => MFOptions | Promise<MFOptions>
 type ModuleFederationType = MFOptions | ModuleFederationFuncType
+//
+type ModuleGeneratorFuncType = (o: EmpConfigI & EmpConfigIBase) => string | GeneratorOptType | Promise<GeneratorOptType>
+type ModuleGeneratorType = string | GeneratorOptType | ModuleGeneratorFuncType
 //
 declare interface EMPConfig {
   /** webpack & webpack chain config method */
@@ -61,4 +63,9 @@ declare interface EMPConfig {
   framework?: Array<any>
   /** module federation config */
   moduleFederation?: ModuleFederationType
+  /**
+   * global assets path
+   * when output.publicPath=auto & use module federation,need setting this option
+   */
+  moduleGenerator?: ModuleGeneratorType
 }
