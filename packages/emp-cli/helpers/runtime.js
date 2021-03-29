@@ -119,7 +119,9 @@ class RuntimeCompile {
   }
   async runtimeWithJsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
     let remoteConfigFn = await fs.readFile(empConfigPath, 'utf8')
-    remoteConfigFn = eval(remoteConfigFn)
+    // remoteConfigFn = eval(remoteConfigFn)
+    // console.log('remoteConfigFn', remoteConfigFn)
+    remoteConfigFn = requireFromString(remoteConfigFn, '')
     if (this.isReact(remotePackageJson)) {
       await withReact(remoteConfigFn)(empConfOpt)
     } else {
