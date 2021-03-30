@@ -279,5 +279,15 @@ program
     require('../scripts/workspace')(type)
   })
 
+// 项目依赖初始化
+program
+  .command('configure')
+  .description([`依赖初始化:`])
+  .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
+  .action(({env}) => {
+    env = env || 'prod'
+    require('../scripts/configure')(env)
+  })
+
 // 执行命令
 program.parse(process.argv)
