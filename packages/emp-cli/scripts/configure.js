@@ -8,6 +8,7 @@ const {requireFromString} = require('../helpers/compile')
 const prettier = require('prettier')
 const {resolveApp} = require('../helpers/paths')
 const kConfigFile = '/config/depend.json'
+const kDevConfigFile = '/config/depend_dev.json'
 const kPlugnFile = '/emp-build.js'
 
 const kGitIgnoreFile = '.gitignore'
@@ -126,14 +127,24 @@ const configures = async env => {
     isExists = await fse.pathExists(dependsPath)
     if (!isExists) {
       fse.mkdirSync(dependsPath)
-      appendToIgnore(`./${kDependsDir}/*`)
     } else {
       fse.emptyDirSync(dependsPath)
     }
+    appendToIgnore(`./${kDependsDir}/*`)
     appendTsInclude(kDependsDir)
-    const configPath = resolveApp(`${kBuildDir}${kConfigFile}`)
+    let configPath = resolveApp(`${kBuildDir}${kConfigFile}`)
     isExists = await fse.pathExists(configPath)
     if (isExists) {
+      if (env === 'dev') {
+        const devConfigName = `${kBuildDir}${kDevConfigFile}`
+        const devConfigFile = resolveApp(devConfigName)
+        isExists = await fse.pathExists(devConfigFile)
+        if (!isExists) {
+          fse.copyFileSync(configPath, devConfigFile)
+        }
+        configPath = devConfigFile
+        appendToIgnore(`./${devConfigName}`)
+      }
       try {
         let configs = await fse.readFile(configPath, 'utf8')
         configs = JSON.parse(configs)

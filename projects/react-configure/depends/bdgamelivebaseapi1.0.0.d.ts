@@ -193,8 +193,7 @@ declare module 'bdgamelivebaseapi/api/impl/native/ComImpl' {
       selectFileDialog(title: string, dir: string, filter: string, bSingle: boolean): Promise<string>;
       previewImage(path: string): void;
       openFolder(path: string): void;
-      isFileExist(path: string): Promise<boolean>;
-      test(): void;
+      isFileExist(path: string): any;
   }
 
 }
@@ -697,8 +696,6 @@ declare module 'bdgamelivebaseapi/api/impl/native/windows' {
       selectFileDialog: (title: string, dir: string, filter: string, bSingle: boolean) => Promise<string>;
       previewImage: (path: string) => void;
       openFolder: (path: string) => void;
-      isFileExist: (path: string) => Promise<boolean>;
-      test: () => void;
   }
   export interface IYYIPC extends ObjectAlias {
       sendMessageToWindow: (windowId: number, message: string) => void;
@@ -1321,7 +1318,6 @@ declare module 'bdgamelivebaseapi/api/impl/web/ComImpl' {
       previewImage(path: string): void;
       openFolder(path: string): void;
       isFileExist(path: string): Promise<any>;
-      test(): void;
   }
 
 }
@@ -1874,7 +1870,6 @@ declare module 'bdgamelivebaseapi/api/interfaces/Com' {
       abstract previewImage: (path: string) => void;
       abstract openFolder: (path: string) => void;
       abstract isFileExist: (path: string) => Promise<boolean>;
-      abstract test: () => void;
       static get onCpuUsageData(): string;
       static get onConfigUpdated(): string;
       static get onGlobalUpdated(): string;
