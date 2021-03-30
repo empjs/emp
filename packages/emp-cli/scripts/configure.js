@@ -41,14 +41,15 @@ const appendToIgnore = async text => {
 
   let success = true
   try {
-    let context = await fse.readFile(ignoreFile, 'utf8')
+    let content = await fse.readFile(ignoreFile, 'utf8')
 
-    const regex = new RegExp(text.replace('*', '\\*'), 'g')
-    context = context.replace(regex, '')
-    console.log(`++++++++++++++++++++++++++ ${context}`)
-    context && (context += '\n')
-    context += text
-    writeFile(ignoreFile, context)
+    let regex = new RegExp(text.replace('*', '\\*'), 'g')
+    content = content.replace(regex, '')
+    regex = new RegExp('\\n\\n', 'g')
+    content = content.replace(/^[\n|\r\n]*|[\n|\r\n]*$/g, '')
+    content && (content += '\n')
+    content += text
+    writeFile(ignoreFile, content)
   } catch (error) {
     success = false
   }
