@@ -130,8 +130,8 @@ const configures = async env => {
     } else {
       fse.emptyDirSync(dependsPath)
     }
-    appendToIgnore(`./${kDependsDir}/*`)
-    appendTsInclude(kDependsDir)
+    await appendToIgnore(kDependsDir)
+    await appendTsInclude(kDependsDir)
     let configPath = resolveApp(`${kBuildDir}${kConfigFile}`)
     isExists = await fse.pathExists(configPath)
     if (isExists) {
@@ -143,7 +143,7 @@ const configures = async env => {
           fse.copyFileSync(configPath, devConfigFile)
         }
         configPath = devConfigFile
-        appendToIgnore(`./${devConfigName}`)
+        await appendToIgnore(devConfigName)
       }
       try {
         let configs = await fse.readFile(configPath, 'utf8')

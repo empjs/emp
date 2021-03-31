@@ -1,2 +1,2 @@
-./depends/*
-./build/config/depend_dev.json
+depends
+build/config/depend_dev.json
