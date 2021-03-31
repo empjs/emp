@@ -45,12 +45,16 @@ class RuntimeCompile {
         withReact()(empConfOpt)
       }
     }
-    const remotes = await configRemotes()
-    remotes &&
+    const configs = await configRemotes()
+    configs &&
       config.plugin('mf').tap(args => {
+        const {remotes = {}} = args[0]
         args[0] = {
           ...args[0],
-          remotes,
+          remotes: {
+            ...remotes,
+            ...configs,
+          },
         }
         return args
       })
