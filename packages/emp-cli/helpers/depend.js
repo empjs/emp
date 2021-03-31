@@ -70,6 +70,12 @@ const appendTsInclude = async type => {
   }
   try {
     let remoteConfig = await fse.readFile(configFile, 'utf8')
+    remoteConfig = prettier.format(remoteConfig, {
+      printWidth: 80,
+      tabWidth: 2,
+      useTabs: true,
+      parser: 'json',
+    })
     remoteConfig = JSON.parse(remoteConfig)
     const {include = []} = remoteConfig
     const index = include.indexOf(type)
@@ -85,11 +91,11 @@ const appendTsInclude = async type => {
     })
     writeFile(configFile, context)
   } catch (error) {
-    console.error(`修改${kTsConfigFile}  失败!`)
+    console.error(`修改${kTsConfigFile} 失败! ${JSON.stringify(error)}`)
     return
   }
 
-  console.log(`修改${kTsConfigFile}  成功!`)
+  console.log(`修改${kTsConfigFile} 成功!`)
 }
 /**
  * 下载远程文件
@@ -130,8 +136,8 @@ const configures = async env => {
     } else {
       fse.emptyDirSync(dependsPath)
     }
-    appendToIgnore(`./${kDependsDir}/*`)
-    appendTsInclude(kDependsDir)
+    await appendToIgnore(kDependsDir)
+    await appendTsInclude(kDependsDir)
     let configPath = resolveApp(`${kBuildDir}${kConfigFile}`)
     isExists = await fse.pathExists(configPath)
     if (isExists) {
@@ -143,7 +149,7 @@ const configures = async env => {
           fse.copyFileSync(configPath, devConfigFile)
         }
         configPath = devConfigFile
-        appendToIgnore(`./${devConfigName}`)
+        await appendToIgnore(devConfigName)
       }
       try {
         let configs = await fse.readFile(configPath, 'utf8')
