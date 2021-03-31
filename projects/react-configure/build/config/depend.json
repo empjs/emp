@@ -1,6 +1,11 @@
 {
     "bdgamelivebaseapi": {
+        "root": "bdgamelivebaseapi",
         "domain": "http://res-pc-bc-dev.rshun.net/emp_base_api",
         "version": "1.1.0"
+    },
+    "@emp/demo1": {
+        "root": "demo1",
+        "domain": "http://localhost:8001"
     }
   }

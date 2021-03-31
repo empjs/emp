@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const withReact = require('@efox/emp-react')
 const {tsCompile, requireFromString} = require('./compile')
+const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
 
 class RuntimeCompile {
@@ -44,6 +45,15 @@ class RuntimeCompile {
         withReact()(empConfOpt)
       }
     }
+    const remotes = await configRemotes()
+    remotes &&
+      config.plugin('mf').tap(args => {
+        args[0] = {
+          ...args[0],
+          remotes,
+        }
+        return args
+      })
   }
   async runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
     let remoteTsConfig = await fs.readFile(empConfigPath, 'utf8')
