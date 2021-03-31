@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.8.10",
+  "version": "1.8.11-beta.0",
   "keywords": [
     "react",
     "module federation",
@@ -21,7 +21,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
