@@ -153,7 +153,9 @@ const configures = async env => {
         for (const name in configs) {
           const config = configs[name]
           if (!config) continue
-          await downloadRemoteFile(dependsPath, {...config, name})
+          const {domain, version, remote} = configs[name]
+          if (!remote) continue
+          await downloadRemoteFile(dependsPath, {name, domain, version})
         }
       } catch (error) {
         console.error('依赖初始化 失败=====================')
