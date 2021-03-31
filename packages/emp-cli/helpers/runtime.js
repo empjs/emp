@@ -61,8 +61,9 @@ class RuntimeCompile {
   }
   async runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
     let remoteTsConfig = await fs.readFile(empConfigPath, 'utf8')
-    remoteTsConfig = await tsCompile(remoteTsConfig)
-    remoteTsConfig = requireFromString(remoteTsConfig.code, '')
+    remoteTsConfig = await tsCompile(remoteTsConfig, empConfigPath)
+    // console.log('remoteTsConfig', remoteTsConfig.outputFiles[0].text)
+    remoteTsConfig = requireFromString(remoteTsConfig.outputFiles[0].text, empConfigPath)
     remoteTsConfig = remoteTsConfig.default
     //
     const empConfigAll = {

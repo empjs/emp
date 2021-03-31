@@ -1,5 +1,5 @@
 import {Configuration, container} from 'webpack/types'
-// import {WebpackDevServerI} from './webpack-dev-server'
+import {WebpackDevServer} from './webpack-dev-server-4'
 import * as webpackChain from 'webpack-chain/types'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 type GeneratorOptType = Partial<Configuration>['module']['generator']
@@ -46,7 +46,9 @@ interface EmpConfigI {
   createName?: string
   createPath?: string
 }
-type WebpackConfigI = Configuration
+interface WebpackConfigI extends Configuration {
+  devServer?: WebpackDevServer
+}
 type ModuleFederationFuncType = (o: EmpConfigI & EmpConfigIBase) => MFOptions | Promise<MFOptions>
 type ModuleFederationType = MFOptions | ModuleFederationFuncType
 //
