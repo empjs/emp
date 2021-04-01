@@ -43,9 +43,8 @@ module.exports = (env, {hot, open, progress}) => {
           directory: dist,
           publicPath: '/',
           staticOptions: {
-            mimeTypes: {ts: 'application/javascript'},
-            dev: {
-              mimeTypes: {ts: 'application/javascript'},
+            setHeaders: function (res, path) {
+              if (path.toString().endsWith('.d.ts')) res.set('Content-Type', 'application/javascript; charset=utf-8')
             },
           },
         },
