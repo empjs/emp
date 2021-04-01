@@ -4,6 +4,9 @@ const ip = require('internal-ip')
 module.exports = (env, {hot, open, progress}) => {
   return {
     devServer: {
+      dev: {
+        mimeTypes: {ts: 'application/javascript'},
+      },
       bonjour: true,
       //   contentBase: path.join(__dirname, 'dist'),
       //   compress: true,
