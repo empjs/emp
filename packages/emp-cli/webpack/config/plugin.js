@@ -194,7 +194,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
   // dev 和 build 都生成 d.ts
   if (ts) {
     createName = createName || 'index.d.ts'
-    createPath = createPath ? resolveApp(createPath) : resolveApp('dist')
+    createPath = createPath ? resolveApp(createPath) : paths.dist
     conf.plugin.tunedts = {
       plugin: TuneDtsPlugin,
       args: [

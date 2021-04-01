@@ -1,9 +1,10 @@
 const {getPaths} = require('../../helpers/paths')
-const {public} = getPaths()
+const {public, dist} = getPaths()
 const ip = require('internal-ip')
 module.exports = (env, {hot, open, progress}) => {
   return {
     devServer: {
+      bonjour: true,
       //   contentBase: path.join(__dirname, 'dist'),
       //   compress: true,
       //   host: '0.0.0.0',
@@ -37,6 +38,10 @@ module.exports = (env, {hot, open, progress}) => {
           // Can be:
           // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
           // watch: true,
+        },
+        {
+          directory: dist,
+          publicPath: '/',
         },
       ],
       client: {

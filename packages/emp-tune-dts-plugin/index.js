@@ -6,7 +6,7 @@ const plugin = {
 }
 
 const generateType = _options => {
-  const generator = new Generator({..._options, logLevel: 'debug'}, true, true)
+  const generator = new Generator({..._options, logLevel: 'debug', force: true}, true, true)
 
   generator
     .generate()
