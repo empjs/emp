@@ -16,5 +16,14 @@ const config: EMPConfig = {
       axios: {requiredVersion: '^0.19.2'},
     },
   },
+  commander(program) {
+    program
+      .command('style')
+      .description('====== 自定义指令 =========')
+      .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
+      .action(d => {
+        console.log(d)
+      })
+  },
 }
 export default config

@@ -6,6 +6,7 @@ const package = require('../package.json')
 const chalk = require('chalk') // 支持修改控制台中字符串的样式 字体样式、字体颜色、背景颜色
 const {checkNodeVersion} = require('../helpers/cli')
 const Axios = require('axios')
+const {empConfigSync} = require('../helpers/compile')
 
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))
@@ -288,6 +289,13 @@ program
     env = env || 'prod'
     require('../scripts/configure')(env)
   })
+
+// 暴露全局配置变量给到 emp-config.ts
+const empConfig = empConfigSync()
+if (empConfig && empConfig.commander && typeof empConfig.commander === 'function') {
+  empConfig.commander(program)
+}
+console.log('commander', empConfig)
 
 // 执行命令
 program.parse(process.argv)

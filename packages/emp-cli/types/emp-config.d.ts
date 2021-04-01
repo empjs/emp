@@ -1,6 +1,7 @@
 import {Configuration, container} from 'webpack/types'
 import {WebpackDevServer} from './webpack-dev-server-4'
 import * as webpackChain from 'webpack-chain/types'
+import {Command} from 'commander/typings/index'
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 type GeneratorOptType = Partial<Configuration>['module']['generator']
 interface EmpConfigIBase {
@@ -70,4 +71,5 @@ declare interface EMPConfig {
    * when output.publicPath=auto & use module federation,need setting this option
    */
   moduleGenerator?: ModuleGeneratorType
+  commander?: (program: Command) => void
 }

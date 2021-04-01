@@ -60,10 +60,7 @@ class RuntimeCompile {
       })
   }
   async runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
-    let remoteTsConfig = await tsCompile(empConfigPath)
-    remoteTsConfig = requireFromString(remoteTsConfig, empConfigPath)
-    remoteTsConfig = remoteTsConfig.default
-    //
+    const remoteTsConfig = await tsCompile(empConfigPath)
     const empConfigAll = {
       // webpackConfig,
       webpackEnv: empConfOpt.env,

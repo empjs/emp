@@ -1,6 +1,7 @@
 const Module = require('module')
 const path = require('path')
 const fs = require('fs-extra')
+const {resolveApp} = require('./paths')
 //
 function requireFromString(code, filename, opts) {
   if (typeof filename === 'object') {
@@ -32,18 +33,6 @@ function requireFromString(code, filename, opts) {
   return exports
 }
 async function tsCompile(src) {
-  /* return swc.transform(code, {
-    module: {type: 'commonjs'},
-    jsc: {
-      externalHelpers: true,
-      parser: {
-        syntax: 'typescript',
-        tsx: true,
-        dynamicImport: true,
-        decorators: true,
-      },
-    },
-  }) */
   const code = await fs.readFile(src, 'utf8')
   const sourceRoot = path.dirname(src)
   const tsconfig = path.join(sourceRoot, 'tsconfig.json')
@@ -69,10 +58,33 @@ async function tsCompile(src) {
     },
   })
   // console.log('rs.outputFiles[0].text', rs.outputFiles[0].text)
-  return rs.outputFiles[0].text
+  const empConfig = requireFromString(rs.outputFiles[0].text, src)
+  return empConfig.default
+}
+function empConfigSync() {
+  const src = resolveApp('emp-config.ts')
+  const code = fs.readFileSync(src, 'utf8')
+  const sourceRoot = path.dirname(src)
+  const tsconfig = path.join(sourceRoot, 'tsconfig.json')
+  const rs = require('esbuild').buildSync({
+    tsconfig,
+    format: 'cjs',
+    bundle: true,
+    platform: 'node',
+    write: false,
+    external: ['@efox'],
+    stdin: {
+      contents: code,
+      loader: 'ts',
+      resolveDir: sourceRoot,
+    },
+  })
+  const empConfig = requireFromString(rs.outputFiles[0].text, src)
+  return empConfig.default || {}
 }
 
 module.exports = {
   requireFromString,
   tsCompile,
+  empConfigSync,
 }
