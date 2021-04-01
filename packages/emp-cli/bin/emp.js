@@ -295,7 +295,7 @@ const empConfig = empConfigSync()
 if (empConfig && empConfig.commander && typeof empConfig.commander === 'function') {
   empConfig.commander(program)
 }
-console.log('commander', empConfig)
+// console.log('commander', empConfig)
 
 // 执行命令
 program.parse(process.argv)
