@@ -63,6 +63,8 @@ async function tsCompile(src) {
 }
 function empConfigSync() {
   const src = resolveApp('emp-config.ts')
+  const isExist = fs.existsSync(src)
+  if (!isExist) return false
   const code = fs.readFileSync(src, 'utf8')
   const sourceRoot = path.dirname(src)
   const tsconfig = path.join(sourceRoot, 'tsconfig.json')
