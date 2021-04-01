@@ -1,4 +1,3 @@
-// const swc = require('@swc/core')
 const Module = require('module')
 const path = require('path')
 //
@@ -46,7 +45,7 @@ function tsCompile(code, src) {
   }) */
   const sourceRoot = path.dirname(src)
   const tsconfig = path.join(sourceRoot, 'tsconfig.json')
-  return require('esbuild').build({
+  const rs = require('esbuild').build({
     tsconfig,
     format: 'cjs',
     bundle: true,
@@ -58,6 +57,7 @@ function tsCompile(code, src) {
       resolveDir: sourceRoot,
     },
   })
+  return rs.outputFiles[0].text
 }
 
 module.exports = {
