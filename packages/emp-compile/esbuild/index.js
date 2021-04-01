@@ -1,5 +1,5 @@
 // const path = require('path')
-const {ESBuildPlugin, ESBuildMinifyPlugin} = require('esbuild-loader')
+const {ESBuildMinifyPlugin} = require('esbuild-loader')
 module.exports = fn => ec => {
   const {config} = ec
   config.module
@@ -65,7 +65,7 @@ module.exports = fn => ec => {
       loader: 'tsx',
     })
 
-  config.plugin('esbuild-plugin').use(ESBuildPlugin)
+  // config.plugin('esbuild-plugin').use(ESBuildPlugin)
   // config.plugins.delete('reacthotloader')
   config.optimization.minimizer('esbuild-mini').use(ESBuildMinifyPlugin, [
     // {target: 'es5'}

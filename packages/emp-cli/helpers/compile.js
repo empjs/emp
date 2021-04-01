@@ -1,5 +1,6 @@
 const Module = require('module')
 const path = require('path')
+// const fs = require('fs-extra')
 //
 function requireFromString(code, filename, opts) {
   if (typeof filename === 'object') {
@@ -30,7 +31,7 @@ function requireFromString(code, filename, opts) {
 
   return exports
 }
-function tsCompile(code, src) {
+async function tsCompile(code, src) {
   /* return swc.transform(code, {
     module: {type: 'commonjs'},
     jsc: {
@@ -45,18 +46,28 @@ function tsCompile(code, src) {
   }) */
   const sourceRoot = path.dirname(src)
   const tsconfig = path.join(sourceRoot, 'tsconfig.json')
-  const rs = require('esbuild').build({
+  /*   const tsconfigRaw = await fs.readFile(tsconfig, 'utf8')
+  const rs = await require('esbuild').transform(code, {
+    format: 'cjs',
+    loader: 'ts',
+    tsconfigRaw,
+  })
+  console.log('rs', rs)
+  return rs.code */
+  const rs = await require('esbuild').build({
     tsconfig,
     format: 'cjs',
     bundle: true,
     platform: 'node',
     write: false,
+    external: ['@efox'],
     stdin: {
       contents: code,
       loader: 'ts',
       resolveDir: sourceRoot,
     },
   })
+  // console.log('rs.outputFiles[0].text', rs.outputFiles[0].text)
   return rs.outputFiles[0].text
 }
 
