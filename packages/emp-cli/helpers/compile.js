@@ -1,6 +1,6 @@
 const Module = require('module')
 const path = require('path')
-// const fs = require('fs-extra')
+const fs = require('fs-extra')
 //
 function requireFromString(code, filename, opts) {
   if (typeof filename === 'object') {
@@ -31,7 +31,7 @@ function requireFromString(code, filename, opts) {
 
   return exports
 }
-async function tsCompile(code, src) {
+async function tsCompile(src) {
   /* return swc.transform(code, {
     module: {type: 'commonjs'},
     jsc: {
@@ -44,6 +44,7 @@ async function tsCompile(code, src) {
       },
     },
   }) */
+  const code = await fs.readFile(src, 'utf8')
   const sourceRoot = path.dirname(src)
   const tsconfig = path.join(sourceRoot, 'tsconfig.json')
   /*   const tsconfigRaw = await fs.readFile(tsconfig, 'utf8')

@@ -60,8 +60,7 @@ class RuntimeCompile {
       })
   }
   async runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
-    let remoteTsConfig = await fs.readFile(empConfigPath, 'utf8')
-    remoteTsConfig = await tsCompile(remoteTsConfig, empConfigPath)
+    let remoteTsConfig = await tsCompile(empConfigPath)
     remoteTsConfig = requireFromString(remoteTsConfig, empConfigPath)
     remoteTsConfig = remoteTsConfig.default
     //
@@ -71,7 +70,6 @@ class RuntimeCompile {
       webpackChain: config,
       ...empConfOpt,
     }
-    //::TODO 实例化代码配置
     if (
       this.isReact(remotePackageJson) &&
       (!remoteTsConfig.framework || remoteTsConfig.framework.indexOf(withReact) === -1)
