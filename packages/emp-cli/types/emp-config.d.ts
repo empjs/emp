@@ -71,5 +71,6 @@ declare interface EMPConfig {
    * when output.publicPath=auto & use module federation,need setting this option
    */
   moduleGenerator?: ModuleGeneratorType
+  /** style command of emp */
   commander?: (program: Command) => void
 }
