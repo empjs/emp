@@ -9,7 +9,7 @@
 * [生态总揽](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E7%94%9F%E6%80%81%E6%80%BB%E6%8F%BD)
 * [教程文档](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3)
 * [快速开始](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B)
-* [指令插件开发指引](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-指令插件开发指引)
+* [指令插件开发指引](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#%EF%B8%8F-%E6%8C%87%E4%BB%A4%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95)
 * [框架配置插件](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6)
 * [EMP多框架互调转换插件](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-emp%E5%A4%9A%E6%A1%86%E6%9E%B6%E4%BA%92%E8%B0%83%E6%8F%92%E4%BB%B6)
 * [演示](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%BC%94%E7%A4%BA)

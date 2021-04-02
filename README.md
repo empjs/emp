@@ -9,7 +9,7 @@ An implementation of [Micro Frontends](https://micro-frontends.org/), based on [
 * [Projects](https://github.com/efoxTeam/emp#-projects)
 * [Documentation](https://github.com/efoxTeam/emp#-documentation)
 * [Quick Overview](https://github.com/efoxTeam/emp#-quick-overview)
-* [Command plugin development guide](https://github.com/efoxTeam/emp#-command-plugin-development-guide)
+* [Command plugin development guide](https://github.com/efoxTeam/emp#%EF%B8%8F-command-plugin-development-guide)
 * [Framework Config Plugins](https://github.com/efoxTeam/emp#-framework-config-plugins)
 * [EMP multi-frame intermodulation conversion plug-in](https://github.com/efoxTeam/emp#-emp-multi-frame-intermodulation-conversion-plug-in)
 * [Demos](https://github.com/efoxTeam/emp#-demos)
