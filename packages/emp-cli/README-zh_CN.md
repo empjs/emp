@@ -69,6 +69,46 @@
       }
       ```
 
+## 🧞‍♂️ 指令插件开发指引
+### 1.局部插件，仅用于当前项目:
+[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js))
+
+在项目根目录新建 `emp-extra.js`
+```javascript
+registerCommand({
+  name: 'hello',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`hello ${item}`)
+  },
+})
+```
+启动 emp 即可用局部插件<br>
+![image](https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png)
+
+### 2.全局插件，包名前缀需要为 `emp-plugin-*`, `index.js` 为 emp 全局插件入口。
+
+[全局命令插件模版工程](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+
++ 新建项目，以 `emp-plugin-` 为项目前缀,插件入口为 `index.js`
+```javascript
+registerCommand({
+  name: 'helloGlobalPlugin',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`global ${item}`)
+  },
+})
+```
+
+ + 开发完成后(emp-plugin-example 仅为例子包名，具体包名以实际包名为准):
+  + 通过 `yarn` 安装:
+    + `yarn global add emp-plugin-example`
+  + 通过 `npm` 安装:
+    + `npm install emp-plugin-example -g`
+
+ 全局命令下启动 emp 即可用全局插件<br>
+![image](https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png)
 
 ## ✍🏻 环境变量 
 + MODE_ENV webpack mode 环境变量 , 通过 `process.env.EMP_ENV` 调用
