@@ -71,7 +71,7 @@
 
 ## 🧞‍♂️ 指令插件开发指引
 ### 1.局部插件，仅用于当前项目:
-[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js))
 
 在项目根目录新建 `emp-extra.js`
 ```javascript
