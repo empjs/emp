@@ -72,7 +72,7 @@ English | [简体中文](./README-zh_CN.md)
 ### 1. Partial plugin, only used for the current project:
 Create a new `emp-extra.js` in the project root directory
 ```javascript
-register({
+registerCommand({
   name:'hello',
   options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
   exec: ({item}) => {
@@ -80,13 +80,13 @@ register({
   },
 })
 ```
-Start emp to see partial plugins<br>
+Start emp to use partial plugins<br>
 ![image](https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png)
 
 ### 2. Global plugin, the package name prefix needs to be `emp-plugin-*`, `index.js` is the emp global plugin entry.
 + Create a new project with `emp-plugin-` as the project prefix, and the plugin entry is `index.js`
 ```javascript
-register({
+registerCommand({
   name:'helloGlobal',
   options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
   exec: ({item}) => {
@@ -101,7 +101,7 @@ register({
   + Install via `npm`:
     + `npm install emp-plugin-example -g`
 
- Start emp under the global command to see the global plugin<br>
+ Start emp under the global command to use the global plug-in<br>
 ![image](https://user-images.githubusercontent.com/19996552/113373526-9bebc300-939d-11eb-9d6d-75e1bb7c36bc.png)
 
 ## ✍🏻 Environment variable 
