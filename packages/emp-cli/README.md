@@ -68,6 +68,41 @@ English | [简体中文](./README-zh_CN.md)
     }
     ```
 
+## 🧞‍♂️ Command plugin development guide
+### 1. Partial plugin, only used for the current project:
+Create a new `emp-extra.js` in the project root directory
+```javascript
+register({
+  name:'hello',
+  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`hello ${item}`)
+  },
+})
+```
+Start emp to see partial plugins<br>
+![image](https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png)
+
+### 2. Global plugin, the package name prefix needs to be `emp-plugin-*`, `index.js` is the emp global plugin entry.
++ Create a new project with `emp-plugin-` as the project prefix, and the plugin entry is `index.js`
+```javascript
+register({
+  name:'helloGlobal',
+  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`hello global ${item}`)
+  },
+})
+```
+
+ + After the development is completed (emp-plugin-example is only the example package name, the specific package name is subject to the actual package name):
+  + Install via `yarn`:
+    + `yarn global add emp-plugin-example`
+  + Install via `npm`:
+    + `npm install emp-plugin-example -g`
+
+ Start emp under the global command to see the global plugin<br>
+![image](https://user-images.githubusercontent.com/19996552/113373526-9bebc300-939d-11eb-9d6d-75e1bb7c36bc.png)
 
 ## ✍🏻 Environment variable 
 + MODE_ENV webpack mode Environment variable , use  `process.env.EMP_ENV` 

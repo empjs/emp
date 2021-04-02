@@ -1,8 +1,8 @@
-// 局部插件开发例子
+// 全部插件开发例子
 registerCommand({
-  name: 'hello',
+  name: 'helloGlobalPlugin',
   options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
   exec: ({item}) => {
-    console.log(`hello ${item}`)
+    console.log(`global ${item}`)
   },
 })

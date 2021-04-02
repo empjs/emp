@@ -9,11 +9,18 @@ module.exports = {
 
     const globalPlugin = () => {
       const empPlugin = []
-      const globalModules = child_process.execSync('npm root -g').toString()
-      const modulesPath = fs.readdirSync(globalModules.trim())
-      modulesPath.forEach(item => {
-        if (item.match('emp-')) {
-          empPlugin.push(`${globalModules.trim()}/${item}/index.js`)
+      const npmGlobalModules = child_process.execSync('npm root -g').toString()
+      const yarnGlobalModules = child_process.execSync('yarn global dir').toString()
+      const yarnModulesPath = fs.readdirSync(`${yarnGlobalModules.trim()}/node_modules`)
+      const npmModulesPath = fs.readdirSync(npmGlobalModules.trim())
+      npmModulesPath.forEach(item => {
+        if (item && item.match('emp-plugin-')) {
+          empPlugin.push(`${npmGlobalModules.trim()}/${item}/index.js`)
+        }
+      })
+      yarnModulesPath.forEach(item => {
+        if (item && item.match('emp-plugin-')) {
+          empPlugin.push(`${yarnGlobalModules.trim()}/node_modules/${item}/index.js`)
         }
       })
       return empPlugin
@@ -30,7 +37,7 @@ module.exports = {
     }
 
     // register 暴露给第三方进行注册 plugin
-    const register = plugin => {
+    const registerCommand = plugin => {
       eval(`program.command(plugin.name)${optionsMerge(plugin.options)}.action(${plugin.exec})`)
     }
     if (fs.existsSync(extraPath)) {
