@@ -6,7 +6,7 @@ const plugin = {
 }
 
 const generateType = _options => {
-  const generator = new Generator({..._options, logLevel: 'debug', force: true}, true, true)
+  const generator = new Generator({..._options, logLevel: 'debug', force: true}, false, true)
 
   generator
     .generate()
@@ -35,6 +35,12 @@ class TuneDtsPlugin {
         generateType(_options)
       })
     })
+    // compiler.hooks.watchRun.tap('WatchRun', comp => {
+    //   if (comp.modifiedFiles) {
+    //     const changedFiles = Array.from(comp.modifiedFiles, file => `\n  ${file}`).join('')
+    //     generateType(_options)
+    //   }
+    // })
   }
 }
 

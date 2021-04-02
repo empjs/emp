@@ -33,7 +33,7 @@ module.exports = (env, config, args, empConfigPath) => {
     },
     entry: {index: entry},
     watchOptions: {
-      ignored: ['**/.git/**', '**/node_modules/**'],
+      ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
     },
     output: {
       path: dist,
