@@ -71,7 +71,7 @@
 
 ## 🧞‍♂️ 指令插件开发指引
 ### 1.局部插件，仅用于当前项目:
-[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js))
+[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js)
 
 在项目根目录新建 `emp-extra.js`
 ```javascript
@@ -84,7 +84,8 @@ registerCommand({
 })
 ```
 启动 emp 即可用局部插件<br>
-![image](https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png)
+<img src='https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
 
 ### 2.全局插件，包名前缀需要为 `emp-plugin-*`, `index.js` 为 emp 全局插件入口。
 
@@ -108,7 +109,8 @@ registerCommand({
     + `npm install emp-plugin-example -g`
 
  全局命令下启动 emp 即可用全局插件<br>
-![image](https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png)
+ <img src='https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
 
 ## ✍🏻 环境变量 
 + MODE_ENV webpack mode 环境变量 , 通过 `process.env.EMP_ENV` 调用

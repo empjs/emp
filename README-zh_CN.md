@@ -9,6 +9,7 @@
 * [生态总揽](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E7%94%9F%E6%80%81%E6%80%BB%E6%8F%BD)
 * [教程文档](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3)
 * [快速开始](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B)
+* [指令插件开发指引](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-指令插件开发指引)
 * [框架配置插件](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6)
 * [EMP多框架互调转换插件](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-emp%E5%A4%9A%E6%A1%86%E6%9E%B6%E4%BA%92%E8%B0%83%E6%8F%92%E4%BB%B6)
 * [演示](https://github.com/efoxTeam/emp/blob/main/README-zh_CN.md#-%E6%BC%94%E7%A4%BA)
@@ -44,6 +45,50 @@ cd my-emp && yarn && yarn dev
 + 如果想了解更多关于 `@efox/emp-cli` 的使用，到 [emp-cli](https://github.com/efoxTeam/emp/tree/main/packages/emp-cli)了解更多。
 
 <img src='./docs/assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
+<br>
+
+## 🧞‍♂️ 指令插件开发指引
+### 1.局部插件，仅用于当前项目:
+[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js)
+
+在项目根目录新建 `emp-extra.js`
+```javascript
+registerCommand({
+  name: 'hello',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`hello ${item}`)
+  },
+})
+```
+启动 emp 即可用局部插件<br>
+<img src='https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
+
+### 2.全局插件，包名前缀需要为 `emp-plugin-*`, `index.js` 为 emp 全局插件入口。
+
+[全局命令插件模版工程](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+
++ 新建项目，以 `emp-plugin-` 为项目前缀,插件入口为 `index.js`
+```javascript
+registerCommand({
+  name: 'helloGlobalPlugin',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  exec: ({item}) => {
+    console.log(`global ${item}`)
+  },
+})
+```
+
+ + 开发完成后(emp-plugin-example 仅为例子包名，具体包名以实际包名为准):
+  + 通过 `yarn` 安装:
+    + `yarn global add emp-plugin-example`
+  + 通过 `npm` 安装:
+    + `npm install emp-plugin-example -g`
+
+ 全局命令下启动 emp 即可用全局插件<br>
+ <img src='https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
 
 ## ✨ 框架配置插件
 |Framework|NPM|demo|project|install|

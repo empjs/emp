@@ -83,7 +83,8 @@ registerCommand({
 })
 ```
 Start emp to use partial plugins<br>
-![image](https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png)
+<img src='https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
 
 ### 2. Global plugin, the package name prefix needs to be `emp-plugin-*`, `index.js` is the emp global plugin entry.
 
@@ -107,8 +108,8 @@ registerCommand({
     + `npm install emp-plugin-example -g`
 
  Start emp under the global command to use the global plug-in<br>
-![image](https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png)
-
+ <img src='https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png' width='600' alt="npx @efox/emp-cli init"/>
+<br>
 ## ✍🏻 Environment variable 
 + MODE_ENV webpack mode Environment variable , use  `process.env.EMP_ENV` 
 + EMP_ENV use `emp dev --env prod` Set up to distinguish the deployment environment , use `process.env.EMP_ENV`
