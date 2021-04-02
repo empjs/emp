@@ -1,4 +1,6 @@
 const withSWC = require('@efox/emp-swc')
+const env = require('./dev')
+console.log(env)
 module.exports = withSWC(({config, env}) => {
   config.plugin('mf').tap(args => {
     args[0] = {

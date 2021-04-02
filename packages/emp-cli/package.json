@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.8.0",
+  "version": "1.8.12",
   "keywords": [
     "react",
     "module federation",
@@ -21,7 +21,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
@@ -35,8 +35,8 @@
     "@babel/runtime": "^7.12.5",
     "@efox/emp-react": "^1.1.3",
     "@efox/emp-tsconfig": "^1.1.3",
-    "@efox/emp-tune-dts-plugin": "^1.1.7",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.0",
+    "@efox/emp-tune-dts-plugin": "^1.2.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.1",
     "@svgr/webpack": "^5.4.0",
     "@types/node": "^14.14.32",
     "@types/react": "^17.0.1",
@@ -52,11 +52,13 @@
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
     "compression": "^1.7.4",
-    "copy-webpack-plugin": "^7.0.0",
+    "copy-webpack-plugin": "^8.0.0",
+    "cors": "^2.8.5",
     "css-loader": "^3.5.3",
     "css-minimizer-webpack-plugin": "^1.1.5",
     "cssnano": "^4.1.10",
     "dotenv-webpack": "^6.0.0",
+    "esbuild": "^0.11.2",
     "eslint": "^7.12.1",
     "eslint-webpack-plugin": "^2.4.1",
     "express": "^4.17.1",
@@ -72,8 +74,8 @@
     "npm-dts": "^1.3.4",
     "npm-dts-webpack-plugin": "^1.3.0",
     "ora": "^4.0.4",
-    "postcss": "^8.2.1",
-    "postcss-loader": "^4.1.0",
+    "postcss": "^8.2.8",
+    "postcss-loader": "^5.2.0",
     "react-dev-utils": "^11.0.0",
     "react-refresh": "^0.9.0",
     "sass": "^1.30.0",
@@ -83,10 +85,10 @@
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
-    "webpack": "^5.24.4",
+    "webpack": "^5.30.0",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
-    "webpack-dev-server": "^4.0.0-beta.0",
+    "webpack-dev-server": "^4.0.0-beta.1",
     "webpackbar": "^5.0.0-3"
   }
 }

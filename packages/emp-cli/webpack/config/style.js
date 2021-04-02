@@ -4,6 +4,7 @@ const sassRegex = /\.(scss|sass)$/
 const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
+const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const {getPaths} = require('../../helpers/paths')
@@ -23,6 +24,13 @@ module.exports = (env, config) => {
         // loader: require.resolve('style-loader'),//
         loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
         // options: styleloaderOption,
+        /* options: {
+          publicPath: (resourcePath, context) => {
+            const rl = path.relative(path.dirname(resourcePath), context)
+            return path.relative(path.dirname(resourcePath), context) + '/'
+          },
+        }, */
+        options: {},
       },
       css: {
         loader: require.resolve('css-loader'),

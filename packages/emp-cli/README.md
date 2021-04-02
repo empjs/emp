@@ -15,6 +15,14 @@ English | [简体中文](./README-zh_CN.md)
 ## 👨‍💻 Command 
 
 + `emp init` Initialize project
+  + `emp init -t <remote-template-url>`
+  >The list of custom templates needs to use JSON format ("template name": "git link")
+  ```json
+  {
+    "react": "https://github.com/efoxTeam/emp-react-template.git",
+    "vue2":"https://github.com/efoxTeam/emp-vue2-template.git"
+  }
+  ```
 + `emp dev` Development
   + `emp dev --hot` Hot update
   + `emp dev --open` Open the development page

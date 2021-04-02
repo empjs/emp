@@ -15,6 +15,15 @@
 ## 👨‍💻 指令 
 
 + `emp init` 初始化项目
+  + `emp init -t <remote-template-url>`
+  >自定义模版列表需要使用JSON格式（"模版名":"git 链接"）
+  ```json
+  {
+    "react": "https://github.com/efoxTeam/emp-react-template.git",
+    "vue2":"https://github.com/efoxTeam/emp-vue2-template.git"
+  }
+  ```
+
 + `emp dev` 调试
   + `emp dev --hot` 热更
   + `emp dev --open` 打开调试页面
@@ -79,3 +88,50 @@
 }
 
 ```
+
+
+# 声明文件同步方案与多版本
+
+## 前置条件:
++ 使用 `@efox/emp-cli` `1.8.6` 及以上版本
++ `tsconfig.json` `include`配置项请添加 `types` 目录
+```json
+"include": [
+    "types"
+]
+```
++ `package.json`指令强化
+```json
+"dev": "emp workspace -t pullTypes && emp dev",
+"tsc": "emp tsc -w && emp workspace -t pushTypes",
+```
+## 使用方式:
+### 初始化本地emp工作区配置文件
+
+命令行使用 `emp workspace -t init` 指令，会在当前工作目录根目录创建`emp.workspace.config.ts`配置文件，并会在当前目录 `.gitignore`添加`types/`与 `emp.workspace.config.ts`忽略，如项目已有上述文件，请重命名为其他文件，并在之前使用`git rm [filename]` 移除并`push`到远端
+
+配置文件内容参考如下:
+```javascript
+import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-workspace-config'
+
+const empWorkspaceConfig: IWorkSpaceConfig = {
+    // 执行 emp workspace -t pullTypes 指令，会把 pullConfig配置的远程声明文件，拉到当前根目录 types目录下
+  pullConfig: {
+    pcbase: 'http://res-pc-bc-dev.rshun.net/emp_base/1.0.0/index.d.ts',
+    chatbox: 'http://res-pc-bc.rshun.net/emp_chatbox/index.d.ts',
+    stream: 'https://pcyy-base-component.yy.com/bdgamelive/streamer_1.0.10/index.d.ts',
+    localTypeTest1: 'E:/baidu/git/bdgamelive/src/types/svga.d.ts',
+    localTypeTest2: 'E:/baidu/git/bdgamelive/src/types/empbdgamechatbox.d.ts',
+  },
+  // 执行 emp workspace -t pushTypes 指令，会把 pushConfig配置的本地声明文件，推送到remotePath所在的目录
+  pushConfig: {
+    localPath: './dist/index.d.ts',
+    remotePath: ['E:/baidu/git/test/zzz.d.ts', 'G:/baidu/git/test/zzz.d.ts'],
+  },
+}
+export default empWorkspaceConfig
+```
+
+## 声明文件添加版本标识
+
+使用`emp tsc -w`指令生成的声明文件，将会把`主要版本号`,`次要版本号`拼接到模块项目名中

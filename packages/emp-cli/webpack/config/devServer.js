@@ -1,19 +1,22 @@
 const {getPaths} = require('../../helpers/paths')
-const {public} = getPaths()
+const {public, dist} = getPaths()
+const ip = require('internal-ip')
 module.exports = (env, {hot, open, progress}) => {
   return {
     devServer: {
+      bonjour: true,
       //   contentBase: path.join(__dirname, 'dist'),
       //   compress: true,
       //   host: '0.0.0.0',
       // host: 'localhost',
+      // host: ip.v4.sync(),
       port: 8000,
       // contentBase: [public],
       // contentBasePublicPath :'/',//定义静态路径的别名
       // disableHostCheck: true,
       firewall: false,
       historyApiFallback: true,
-      // open: open === true,
+      open: false,
       hot: hot === true,
       // useLocalIp: true,
       headers: {
@@ -36,8 +39,20 @@ module.exports = (env, {hot, open, progress}) => {
           // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
           // watch: true,
         },
+        {
+          directory: dist,
+          publicPath: '/',
+          staticOptions: {
+            setHeaders: function (res, path) {
+              if (path.toString().endsWith('.d.ts')) res.set('Content-Type', 'application/javascript; charset=utf-8')
+            },
+          },
+        },
       ],
-      overlay: !hot,
+      client: {
+        overlay: true,
+      },
+      // overlay: !hot,
       // liveReload: !hot,
       // progress: progress === true,
       // stats: {

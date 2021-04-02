@@ -6,6 +6,8 @@ const package = require('../package.json')
 const chalk = require('chalk') // 支持修改控制台中字符串的样式 字体样式、字体颜色、背景颜色
 const {checkNodeVersion} = require('../helpers/cli')
 const {pluginDriver} = require('../helpers/pluginDriver')
+const Axios = require('axios')
+const {empConfigSync} = require('../helpers/compile')
 
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))
@@ -113,11 +115,11 @@ program
   .command('ts:create')
   .alias('tsc')
   .description('ts类型创建')
+  .option('-w, --withVersion')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  //
-  .action(({createName, createPath}) => {
-    require('../scripts/typescript')('create', {createName, createPath})
+  .action(({createName, createPath, withVersion}) => {
+    require('../scripts/typescript')('create', {createName, createPath, withVersion})
   })
 // ts 类型同步
 program
@@ -164,89 +166,142 @@ program
 program
   .command('init')
   .description('初始化 emp 项目')
-  .action(() => {
-    const templateList = require('../config/template.json')
-    const templateNameList = []
-    for (item in templateList) {
-      templateNameList.push(item)
+  .option('-t, --template <template>', '模版文件URL')
+  .action(({template}) => {
+    const downloadTemplate = () => {
+      const templateNameList = []
+      for (item in templateList) {
+        templateNameList.push(item)
+      }
+      inquirer
+        .prompt([
+          {
+            type: 'input',
+            name: 'name',
+            message: '请输入项目名:',
+            default: function () {
+              return 'emp-project'
+            },
+          },
+          {
+            type: 'list',
+            name: 'template',
+            message: '请选择模板:',
+            choices: templateNameList,
+          },
+        ])
+        .then(answers => {
+          require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
+        })
     }
-    inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'name',
-          message: '请输入项目名:',
-          default: function () {
-            return 'emp-project'
-          },
-        },
-        {
-          type: 'list',
-          name: 'template',
-          message: '请选择模板:',
-          choices: templateNameList,
-        },
-      ])
-      .then(answers => {
-        require('../helpers/downloadRepo')(templateList[answers.template], `${answers.name}`, '')
-      })
+    let templateList = []
+    if (!template) {
+      templateList = require('../config/template.json')
+      downloadTemplate()
+    } else {
+      Axios.get(template)
+        .then(res => {
+          templateList = res.data
+          downloadTemplate()
+        })
+        .catch(function (e) {
+          console.log(e)
+        })
+    }
   })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////// 以下考虑移除全局CLI 的指令 /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //初始化topic-emp项目
+// program
+//   .command('topic')
+//   .description('初始化 emp 项目')
+//   .action(() => {
+//     inquirer
+//       .prompt([
+//         {
+//           type: 'input',
+//           name: 'name',
+//           message: '请输入项目名(如 yy): ',
+//           default: function () {
+//             return 'topic-emp-pro'
+//           },
+//         },
+//       ])
+//       .then(async answers => {
+//         const name = `topic_emp_${answers.name}`
+//         const templateList = require('../config/template.json')
+//         await require('../helpers/downloadRepo')(templateList['topic-emp-demo'], name, '')
+//         const fs = require('fs')
+//         const path = require('path')
+//         const filepath = path.resolve(`${name}/package.json`)
+//         let content = require(filepath)
+//         content.name = name
+//         fs.writeFileSync(`${name}/package.json`, JSON.stringify(content, null, 2), 'utf8', err => {})
 
-//初始化topic-emp项目
-program
-  .command('topic')
-  .description('初始化 emp 项目')
-  .action(() => {
-    inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'name',
-          message: '请输入项目名(如 yy): ',
-          default: function () {
-            return 'topic-emp-pro'
-          },
-        },
-      ])
-      .then(async answers => {
-        const name = `topic_emp_${answers.name}`
-        const templateList = require('../config/template.json')
-        await require('../helpers/downloadRepo')(templateList['topic-emp-demo'], name, '')
-        const fs = require('fs')
-        const path = require('path')
-        const filepath = path.resolve(`${name}/package.json`)
-        let content = require(filepath)
-        content.name = name
-        fs.writeFileSync(`${name}/package.json`, JSON.stringify(content, null, 2), 'utf8', err => {})
+//         const projectFile = path.resolve(`${name}/project-config.js`)
+//         content = fs.readFileSync(projectFile, 'utf8')
+//         content = content.replace(/topic_emp_tpl/g, name)
+//         fs.writeFileSync(`${name}/project-config.js`, content, 'utf8', err => {})
+//       })
+//   })
 
-        const projectFile = path.resolve(`${name}/project-config.js`)
-        content = fs.readFileSync(projectFile, 'utf8')
-        content = content.replace(/topic_emp_tpl/g, name)
-        fs.writeFileSync(`${name}/project-config.js`, content, 'utf8', err => {})
-      })
-  })
+// // ui 起gui项目
 
-// ui 起gui项目
+// program
+//   .command('ui')
+//   .description('起emp gui 服务')
+//   .option('-h, --host <host>', '起服务的域名，默认是localhost')
+//   .option('-p, --port <port>', '起服务的端口号，默认是1234')
+//   .option('--headless', '不自动打开浏览器页面')
+//   .action(({host, port, headless}) => {
+//     require('../scripts/ui')({host, port, headless})
+//   })
 
-program
-  .command('ui')
-  .description('起emp gui 服务')
-  .option('-h, --host <host>', '起服务的域名，默认是localhost')
-  .option('-p, --port <port>', '起服务的端口号，默认是1234')
-  .option('--headless', '不自动打开浏览器页面')
-  .action(({host, port, headless}) => {
-    require('../scripts/ui')({host, port, headless})
-  })
+// // 增加声明文件在本地的同步功能
+// program
+//   .command('dist:ts')
+//   .option('-t, --ts', '生成类型文件 默认为 false')
+//   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
+//   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
+//   .action(({ts, createName, createPath}) => {
+//     require('../scripts/dist')({ts, createName, createPath})
+//   })
 
-// 增加声明文件在本地的同步功能
-program
-  .command('dist:ts')
-  .option('-t, --ts', '生成类型文件 默认为 false')
-  .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值更方便同步]')
-  .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  .action(({ts, createName, createPath}) => {
-    require('../scripts/dist')({ts, createName, createPath})
-  })
+// // 生成workspace本地配置
+// program
+//   .command('workspace')
+//   .option('-t, --type <type>')
+//   .description([
+//     `本地开发配置:`,
+//     `[-t init]: 生成配置文件，如:声明文件同步配置`,
+//     `[-t pullTypes]:根据workspace:init配置文件的内容，拉取"远程"或"本地"声明文件到本地types目录`,
+//     `[-t pushTypes]: 根据workspace:init配置文件的内容，分发声明文件到"本地"远程目录`,
+//   ])
+//   .action(({type}) => {
+//     console.log('workspace type:', type)
+//     require('../scripts/workspace')(type)
+//   })
+
+// // 项目依赖初始化
+// program
+//   .command('configure')
+//   .description([`依赖初始化:`])
+//   .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
+//   .action(({env}) => {
+//     env = env || 'prod'
+//     require('../scripts/configure')(env)
+//   })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////以上考虑移除CLI的命令行//////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 暴露全局配置变量给到 emp-config.ts
+const empConfig = empConfigSync()
+if (empConfig && empConfig.commander && typeof empConfig.commander === 'function') {
+  empConfig.commander(program)
+}
+// console.log('commander', empConfig)
 
 program = pluginDriver(program)
 

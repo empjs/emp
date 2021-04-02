@@ -3,6 +3,7 @@ interface Options {
   path: string
   name: string
   isDefault: boolean
+  withVersion: boolean
 }
 
 export declare const tuneType: (

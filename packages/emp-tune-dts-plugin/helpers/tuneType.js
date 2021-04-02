@@ -12,7 +12,7 @@ function RepalceDts(fileData, regexp, replacement) {
 }
 
 // 默认替换
-function defaultRepalce(fileData) {
+function defaultRepalce(fileData, withVersion = false) {
   // 使用正则去掉结尾的 /index
   let newFileData = fileData.replace(/\/index'/g, "'")
   newFileData = newFileData.replace(/\/index"/g, '"')
@@ -22,6 +22,11 @@ function defaultRepalce(fileData) {
   const projectName = package.name
   newFileData = newFileData.replace(/'.*src?/g, `'${projectName}`)
   newFileData = newFileData.replace(/".*src?/g, `"${projectName}`)
+  if (withVersion) {
+    const replaceRegExp = new RegExp(projectName, 'g')
+    const versionMatch = package.version.match(/(\d+).(\d+).(\d+)/)
+    newFileData = newFileData.replace(replaceRegExp, `${package.name}v${versionMatch[1]}_${versionMatch[2]}`)
+  }
   return newFileData
 }
 
@@ -29,34 +34,13 @@ const emptyFunc = newFileData => {
   return newFileData
 }
 
-function tuneType(createPath, createName, isDefault, operation = emptyFunc) {
+function tuneType(createPath, createName, isDefault, operation = emptyFunc, withVersion = false) {
   // 获取 d.ts 文件
   const filePath = `${createPath}/${createName}`
   const fileData = fs.readFileSync(filePath, {encoding: 'utf-8'})
   let newFileData = ''
-
-  // 获取项目 tsconfig.json 路径
-  // const tsconfigPath = resolveApp('tsconfig.json')
-  // if (fs.existsSync(tsconfigPath)) {
-  //   const config = JSON.parse(fs.readFileSync(tsconfigPath))
-  //   const tuneType = config.tuneType
-
-  //   // 有tuneType则根据配置替换，无则默认替换
-  //   if (tuneType) {
-  //     newFileData = fileData
-  //     tuneType.map(item => {
-  //       console.log(item)
-  //       newFileData =
-  //         item.origin && item.replacement
-  //           ? RepalceDts(newFileData, item.origin, item.replacement)
-  //           : defaultRepalce(fileData)
-  //     })
-  //   } else {
-  //     newFileData = defaultRepalce(fileData)
-  //   }
-  // } else {
   newFileData = fileData
-  isDefault && (newFileData = defaultRepalce(fileData))
+  isDefault && (newFileData = defaultRepalce(fileData, withVersion))
   // }
   newFileData && (newFileData = operation(newFileData) ? operation(newFileData) : newFileData)
   // 覆盖原有 index.d.ts

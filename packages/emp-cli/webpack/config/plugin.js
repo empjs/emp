@@ -49,11 +49,11 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           {
             patterns: [
               {
-                from: paths.public,
-                to: paths.dist,
+                from: paths.public.replace(/\\/g, '/'),
+                to: paths.dist.replace(/\\/g, '/'),
                 globOptions: {
                   // 加入 paths.template 避免被重置
-                  ignore: ['*.DS_Store', paths.template, paths.favicon],
+                  ignore: ['*.DS_Store', paths.template.replace(/\\/g, '/'), paths.favicon.replace(/\\/g, '/')],
                 },
                 noErrorOnMissing: true,
               },
@@ -194,7 +194,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
   // dev 和 build 都生成 d.ts
   if (ts) {
     createName = createName || 'index.d.ts'
-    createPath = createPath ? resolveApp(createPath) : resolveApp('dist')
+    createPath = createPath ? resolveApp(createPath) : paths.dist
     conf.plugin.tunedts = {
       plugin: TuneDtsPlugin,
       args: [

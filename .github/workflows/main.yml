@@ -30,7 +30,7 @@ jobs:
 
       # install node_modules  
       - name: Set Yarn Registry
-        run: sed -i '1d' '.yarnrc'
+        # run: sed -i '1d' '.yarnrc'
         
       - name: Run Yarn
         # if: steps.yarn-cache.outputs.cache-hit != 'true'
