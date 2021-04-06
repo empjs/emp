@@ -75,9 +75,10 @@ English | [简体中文](./README-zh_CN.md)
 Create a new `emp-extra.js` in the project root directory
 ```javascript
 registerCommand({
-  name:'hello',
-  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
-  exec: ({item}) => {
+  command: 'hello',
+  description: 'It is description',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  action: ({item}) => {
     console.log(`hello ${item}`)
   },
 })
@@ -93,10 +94,11 @@ Start emp to use partial plugins<br>
 + Create a new project with `emp-plugin-` as the project prefix, and the plugin entry is `index.js`
 ```javascript
 registerCommand({
-  name:'helloGlobal',
-  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
-  exec: ({item}) => {
-    console.log(`hello global ${item}`)
+  command: 'helloGlobalPlugin',
+  description: 'It is description',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  action: ({item}) => {
+    console.log(`global ${item}`)
   },
 })
 ```
