@@ -76,9 +76,10 @@
 在项目根目录新建 `emp-extra.js`
 ```javascript
 registerCommand({
-  name: 'hello',
+  command: 'hello',
+  description: 'It is description',
   options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
-  exec: ({item}) => {
+  action: ({item}) => {
     console.log(`hello ${item}`)
   },
 })
@@ -94,9 +95,10 @@ registerCommand({
 + 新建项目，以 `emp-plugin-` 为项目前缀,插件入口为 `index.js`
 ```javascript
 registerCommand({
-  name: 'helloGlobalPlugin',
+  command: 'helloGlobalPlugin',
+  description: 'It is description',
   options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
-  exec: ({item}) => {
+  action: ({item}) => {
     console.log(`global ${item}`)
   },
 })

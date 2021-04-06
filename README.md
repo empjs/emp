@@ -47,15 +47,24 @@ cd my-emp && yarn && yarn dev
 <img src='./docs/assets/init.gif' width='600' alt="npx @efox/emp-cli init"/>
 
 ## 🧞‍♂️ Command plugin development guide
+
++ command - define the name of the command line command
++ description - description, it will be shown in help
++ option - Define parameters. It accepts four parameters. In the first parameter, it can enter the short name -a and the long name -app, separated by | or,. When used on the command line, these two are equivalent. The difference is The latter can be obtained through callbacks in the program; the second is the description, which will be displayed in the help message; the third parameter is the callback function, and the parameter it receives is a string. Sometimes we need a command line to create multiple Module, you need a callback to process; the fourth parameter is the default value
++ action - Register a callback function, here you need to pay attention to the current callback does not support let declaration variables
+
 ### 1. Partial plugin, only used for the current project:
 [Partial command plug-in project example](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+
+> During development, start `yarn emp in the current project directory. Your command name-option name` can be started directly
 
 Create a new `emp-extra.js` in the project root directory
 ```javascript
 registerCommand({
-  name:'hello',
-  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
-  exec: ({item}) => {
+  command: 'hello',
+  description: 'It is description',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  action: ({item}) => {
     console.log(`hello ${item}`)
   },
 })
@@ -68,13 +77,16 @@ Start emp to use partial plugins<br>
 
 [Global Command Plugin Template Project](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
 
+> During development, start `yarn emp in the current project directory. Your command name-option name` can be started directly
+
 + Create a new project with `emp-plugin-` as the project prefix, and the plugin entry is `index.js`
 ```javascript
 registerCommand({
-  name:'helloGlobal',
-  options: [{name:'-i, --item <item>', description:'flavour of pizza'}],
-  exec: ({item}) => {
-    console.log(`hello global ${item}`)
+  command: 'helloGlobalPlugin',
+  description: 'It is description',
+  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
+  action: ({item}) => {
+    console.log(`global ${item}`)
   },
 })
 ```

@@ -53,12 +53,12 @@ module.exports = {
     const registerCommand = plugin => {
       if (plugin.description) {
         eval(
-          `program.command(plugin.name).description(plugin.description)${optionsMerge(plugin.options)}.action(${
-            plugin.exec
+          `program.command(plugin.command).description(plugin.description)${optionsMerge(plugin.options)}.action(${
+            plugin.action
           })`,
         )
       } else {
-        eval(`program.command(plugin.name)${optionsMerge(plugin.options)}.action(${plugin.exec})`)
+        eval(`program.command(plugin.command)${optionsMerge(plugin.options)}.action(${plugin.action})`)
       }
     }
     if (fs.existsSync(extraPath)) {
