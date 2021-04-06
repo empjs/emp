@@ -53,29 +53,9 @@ cd my-emp && yarn && yarn dev
 + option - Define parameters. It accepts four parameters. In the first parameter, it can enter the short name -a and the long name -app, separated by | or,. When used on the command line, these two are equivalent. The difference is The latter can be obtained through callbacks in the program; the second is the description, which will be displayed in the help message; the third parameter is the callback function, and the parameter it receives is a string. Sometimes we need a command line to create multiple Module, you need a callback to process; the fourth parameter is the default value
 + action - Register a callback function, here you need to pay attention to the current callback does not support let declaration variables
 
-### 1. Partial plugin, only used for the current project:
-[Partial command plug-in project example](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+### plugin, the package name prefix needs to be `emp-plugin-*`, `index.js` is the emp global plugin entry.
 
-> During development, start `yarn emp in the current project directory. Your command name-option name` can be started directly
-
-Create a new `emp-extra.js` in the project root directory
-```javascript
-registerCommand({
-  command: 'hello',
-  description: 'It is description',
-  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
-  action: ({item}) => {
-    console.log(`hello ${item}`)
-  },
-})
-```
-Start emp to use partial plugins<br>
-<img src='https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png' width='600' alt="npx @efox/emp-cli init"/>
-<br>
-
-### 2. Global plugin, the package name prefix needs to be `emp-plugin-*`, `index.js` is the emp global plugin entry.
-
-[Global Command Plugin Template Project](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+[Command Plugin Template Project](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
 
 > During development, start `yarn emp in the current project directory. Your command name-option name` can be started directly
 
@@ -97,7 +77,7 @@ registerCommand({
   + Install via `npm`:
     + `npm install emp-plugin-example -g`
 
- Start emp under the global command to use the global plug-in<br>
+ Start emp under the command to use the plugin<br>
  <img src='https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png' width='600' alt="npx @efox/emp-cli init"/>
 <br>
 
