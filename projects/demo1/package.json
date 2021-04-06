@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@efox/emp-cli": "^1.8.11",
-    "@efox/emp-tsconfig": "^1.0.0"
+    "@efox/emp-tsconfig": "^1.0.0",
+    "emp-plugin-dts-sync": "^1.0.0"
   }
 }
