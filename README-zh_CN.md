@@ -53,32 +53,11 @@ cd my-emp && yarn && yarn dev
 + description -- 描述，它会在help里面展示
 +  option -- 定义参数。它接受四个参数，在第一个参数中，它可输入短名字 -a和长名字--app ,使用 | 或者,分隔，在命令行里使用时，这两个是等价的，区别是后者可以在程序里通过回调获取到；第二个为描述, 会在 help 信息里展示出来；第三个参数为回调函数，他接收的参数为一个string，有时候我们需要一个命令行创建多个模块，就需要一个回调来处理；第四个参数为默认值
 +  action -- 注册一个callback函数,这里需注意目前回调不支持let声明变量
-
-### 1.局部插件，仅用于当前项目:
-[局部命令插件工程例子](https://github.com/efoxTeam/emp/tree/main/projects/demo1/emp-extra.js)
+### 插件，包名前缀需要为 `emp-plugin-*`, `index.js` 为 emp 插件入口。
 
 > 开发时，当前项目目录启动 `yarn emp 你的命令名 -选项名` 可直接启动
 
-在项目根目录新建 `emp-extra.js`
-```javascript
-registerCommand({
-  command: 'hello',
-  description: 'It is description',
-  options: [{name: '-i, --item <item>', description: 'flavour of pizza'}],
-  action: ({item}) => {
-    console.log(`hello ${item}`)
-  },
-})
-```
-启动 emp 即可用局部插件<br>
-<img src='https://user-images.githubusercontent.com/19996552/113371489-16661400-9399-11eb-9404-9806c1670cbb.png' width='600' alt="npx @efox/emp-cli init"/>
-<br>
-
-### 2.全局插件，包名前缀需要为 `emp-plugin-*`, `index.js` 为 emp 全局插件入口。
-
-> 开发时，当前项目目录启动 `yarn emp 你的命令名 -选项名` 可直接启动
-
-[全局命令插件模版工程](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
+[命令插件模版工程](https://github.com/efoxTeam/emp/tree/main/projects/emp-plugin-example)
 
 + 新建项目，以 `emp-plugin-` 为项目前缀,插件入口为 `index.js`
 ```javascript
@@ -98,7 +77,7 @@ registerCommand({
   + 通过 `npm` 安装:
     + `npm install emp-plugin-example -g`
 
- 全局命令下启动 emp 即可用全局插件<br>
+ 启动 emp 即可用命令行插件<br>
  <img src='https://user-images.githubusercontent.com/19996552/113428029-a55e4500-9408-11eb-906d-29795199f422.png' width='600' alt="npx @efox/emp-cli init"/>
 <br>
 

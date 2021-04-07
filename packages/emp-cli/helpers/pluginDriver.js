@@ -1,42 +1,82 @@
-const {resolveApp} = require('../helpers/paths')
 const fs = require('fs')
-const commander = require('commander')
 const child_process = require('child_process')
 const path = require('path')
+const Module = require('module')
 
 module.exports = {
   pluginDriver(program) {
-    const appPath = resolveApp('')
-    const extraPath = path.join(appPath, 'emp-extra.js')
+    const empPlugin = []
+    const prefix = 'emp-plugin-'
+    const npmGlobalModules = child_process.execSync('npm root -g').toString().trim()
+    const yarnGlobalModules = child_process.execSync('yarn global dir').toString().trim()
+    let isGlobalEmp = false
 
-    const globalPlugin = () => {
-      const empPlugin = []
-      const npmGlobalModules = child_process.execSync('npm root -g').toString()
-      const yarnGlobalModules = child_process.execSync('yarn global dir').toString()
-      const yarnModulesPath = fs.readdirSync(path.join(yarnGlobalModules.trim(), 'node_modules'))
-      const npmModulesPath = fs.readdirSync(npmGlobalModules.trim())
-      npmModulesPath.forEach(item => {
-        if (item && item.match('emp-plugin-')) {
-          empPlugin.push(path.join(npmGlobalModules.trim(), item, 'index.js'))
+    if (__dirname.indexOf(yarnGlobalModules) > -1 || __dirname.indexOf(npmGlobalModules) > -1) {
+      isGlobalEmp = true
+    }
+
+    // npm 全局 node_modules
+    const getNpmGlobalModules = () => {
+      if (fs.existsSync(npmGlobalModules)) {
+        const npmModulesPath = fs.readdirSync(npmGlobalModules)
+        npmModulesPath.forEach(item => {
+          if (item && item.match(prefix)) {
+            empPlugin.push(path.join(npmGlobalModules, item, 'index.js'))
+          }
+        })
+      }
+    }
+
+    // yarn 全局 node_modules
+    const getYarnGlobalModules = () => {
+      if (fs.existsSync(yarnGlobalModules)) {
+        const yarnModulesPath = fs.readdirSync(path.join(yarnGlobalModules, 'node_modules'))
+        yarnModulesPath.forEach(item => {
+          if (item && item.match(prefix)) {
+            empPlugin.push(path.join(yarnGlobalModules, 'node_modules', item, 'index.js'))
+          }
+        })
+      }
+    }
+
+    // 向上遍历 node_modules
+    const getLocalModule = () => {
+      const nodeModulePaths = Module._nodeModulePaths('')
+      nodeModulePaths.forEach(nodeModule => {
+        if (fs.existsSync(nodeModule)) {
+          const nodeModulesDir = fs.readdirSync(nodeModule.trim())
+          nodeModulesDir.forEach(item => {
+            if (item && item.match(prefix)) {
+              empPlugin.push(path.join(nodeModule, item, 'index.js'))
+            }
+          })
         }
       })
-      yarnModulesPath.forEach(item => {
-        if (item && item.match('emp-plugin-')) {
-          empPlugin.push(path.join(yarnGlobalModules.trim(), 'node_modules', item, 'index.js'))
-        }
-      })
+    }
 
+    // 当前项目是不是 plugin 项目
+    const getCwdModule = () => {
       const cwd = process.cwd()
-      if (cwd.match('emp-plugin-')) {
+      if (cwd.match(prefix)) {
         const localPath = cwd.split(path.sep)
         localPath.forEach((item, index) => {
-          if (item.indexOf('emp-plugin-') > -1) {
+          if (item.indexOf(prefix) > -1) {
             const pluginPath = path.join(path.sep, ...localPath.slice(0, index + 1))
             empPlugin.push(path.join(pluginPath, 'index.js'))
           }
         })
       }
-      return empPlugin
+    }
+
+    const getPlugin = () => {
+      if (isGlobalEmp) {
+        getNpmGlobalModules()
+        getYarnGlobalModules()
+        getLocalModule()
+      } else {
+        getLocalModule()
+      }
+      getCwdModule()
     }
 
     const optionsMerge = options => {
@@ -61,15 +101,11 @@ module.exports = {
         eval(`program.command(plugin.command)${optionsMerge(plugin.options)}.action(${plugin.action})`)
       }
     }
-    if (fs.existsSync(extraPath)) {
-      let empExtra = fs.readFileSync(extraPath, 'utf8')
-      eval(empExtra)
-    }
 
-    const globalPluginPath = globalPlugin()
-    globalPluginPath.forEach(pluginPath => {
-      const globalPlugin = fs.readFileSync(pluginPath, 'utf8')
-      eval(globalPlugin)
+    getPlugin()
+    empPlugin.forEach(pluginPath => {
+      const plugin = fs.readFileSync(pluginPath, 'utf8')
+      eval(plugin)
     })
 
     return program
