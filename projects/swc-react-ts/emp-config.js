@@ -27,4 +27,5 @@ module.exports = withSWC(({config, env}) => {
   }
   //
   // config.output.publicPath('/')
+  // config.devServer.host('0.0.0.0')
 })
