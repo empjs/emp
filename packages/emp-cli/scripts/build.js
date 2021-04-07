@@ -3,7 +3,7 @@
 const {setPaths, getPaths, cachePaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
-const {copyPublicFolder, buildServeConfig} = require('../helpers/build')
+const {buildServeConfig} = require('../helpers/build')
 const chalk = require('chalk')
 // const ora = require('ora')
 // const spinner = ora('=== EMP Build Start ===\n').start()
