@@ -1,5 +1,5 @@
 module.exports = ({config, env, empEnv}) => {
-  config.devServer.port(8002)
+  config.devServer.port(8004)
   config.plugin('mf').tap(args => {
     args[0] = {
       ...args[0],
