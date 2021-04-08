@@ -8,6 +8,7 @@ module.exports = (env, {hot, open, progress}) => {
       //   compress: true,
       //   host: '0.0.0.0',
       // host: 'localhost',
+      //::TODO 设置后 localhost 不能访问
       host: 'local-ip',
       port: 8000,
       // contentBase: [public],
