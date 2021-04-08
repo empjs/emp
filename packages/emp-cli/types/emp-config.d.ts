@@ -60,17 +60,40 @@ declare interface EMPConfig {
   /** webpack & webpack chain config method */
   webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackConfigI | Promise<WebpackConfigI>
   webpackChain?: (config: webpackChain, o: EmpConfigI) => void | Promise<any>
-  /** compile replace babel use swc or esbuild */
+  /**
+   * compile replace babel use swc or esbuild
+   * 拓展 swc、build 替换 babel进行构建
+   */
   compile?: Array<any>
-  /** react vue svetle and more */
+  /**
+   * react vue svetle and more
+   * 拓展 js 框架支持
+   */
   framework?: Array<any>
-  /** module federation config */
+  /**
+   * module federation config
+   * module federation 设置
+   */
   moduleFederation?: ModuleFederationType
   /**
    * global assets path
    * when output.publicPath=auto & use module federation,need setting this option
+   * 当 output.publicPath=auto时 自定义静态文件路径
    */
   moduleGenerator?: ModuleGeneratorType
-  /** style command of emp */
+  /**
+   * style command of emp
+   * 命令行拓展
+   */
   commander?: (program: Command) => void
+  /**
+   * before dev env=development server
+   * emp dev 启动前执行
+   */
+  beforeDev?: (config: EmpConfigI) => void | Promise<any>
+  /**
+   * before build env=production server
+   * emp build 启动前执行
+   */
+  beforeBuild?: (config: EmpConfigI) => void | Promise<any>
 }

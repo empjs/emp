@@ -1,6 +1,4 @@
 const {resolveApp, cachePaths} = require('../helpers/paths')
-// const {getProjectConfig} = require('../helpers/project')
-//
 const fs = require('fs-extra')
 const https = require('https')
 const path = require('path')
@@ -15,8 +13,6 @@ if (fs.existsSync(cachePaths.buildConfig)) {
   const buildConfig = require(cachePaths.buildConfig)
   config = {...config, ...buildConfig}
 }
-// console.log('config json', config)
-//
 express.static.mime.types['ts'] = 'application/javascript'
 //
 const app = express()
@@ -25,9 +21,6 @@ app.use(cors())
 
 module.exports = async args => {
   const {dist} = args
-  // await setPaths({dist})
-  //   const pathsDir = getPaths()
-  // const config = await getProjectConfig('production', args)
   const staticRoot = resolveApp(dist || 'dist')
   const isHTTPS = !!config.devServer.https
   const protocol = isHTTPS ? 'https' : 'http'

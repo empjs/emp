@@ -1,1 +1,1 @@
-module.exports = env => require(`mf-${env}`)
+module.exports = env => require(`./mf-${env}`)

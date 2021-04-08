@@ -1,94 +1,113 @@
 const webpack = require('webpack')
 const withReact = require('@efox/emp-react')
 const {tsCompile, requireFromString} = require('./compile')
-const {configRemotes} = require('./depend')
+// const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
 
 class RuntimeCompile {
+  sp = {} //start 函数入参
+  op = {} //emp-config 里函数入参
+  wpc = {} // webpack编译后的值
+  empConfig = {} // emp-config json配置
+  remotePackageJson = {} //远程依赖
   async startCompile(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig) {
-    // this.moduleGenerator = false
-    await this.defaultRumtime(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig)
-    const wpc = config.toConfig()
-    this.afterEmpConfigRuntime(wpc, args, env)
-    await this.runtimeLog(args, wpc, config)
-    return wpc
+    this.sp = {args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig}
+    this.op = {...args, config, env, webpack}
+    await this.defaultRumtime()
+    this.wpc = config.toConfig()
+    this.afterEmpConfigRuntime()
+    await this.runtimeLog()
+    return {webpackConfig: this.wpc, empConfig: this.empConfig || {}}
   }
   /**
    * webpackchain 编译后的操作
-   * @param {*} wpc 编译后的内容
-   * @param {*} args cli入参
-   * @param {*} env webpack 环境
    */
-  afterEmpConfigRuntime(wpc, args, env) {}
+  afterEmpConfigRuntime() {}
   //
-  isReact(remotePackageJson) {
+  isReact() {
     return (
-      !!remotePackageJson.dependencies.react &&
-      !remotePackageJson.devDependencies['@efox/emp-react'] &&
-      !remotePackageJson.dependencies['@efox/emp-react']
+      !!this.remotePackageJson.dependencies.react &&
+      !this.remotePackageJson.devDependencies['@efox/emp-react'] &&
+      !this.remotePackageJson.dependencies['@efox/emp-react']
     )
   }
 
-  async defaultRumtime(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig) {
-    const empConfOpt = {...args, config, env, webpack}
-    const remotePackageJson = empPackageJsonPath
-      ? await fs.readJson(empPackageJsonPath)
+  async defaultRumtime() {
+    this.remotePackageJson = this.sp.empPackageJsonPath
+      ? await fs.readJson(this.sp.empPackageJsonPath)
       : {dependencies: {}, devDependencies: {}}
     //
-    if (empConfigPath && !isRemoteTsConfig) {
-      await this.runtimeWithJsConfig(remotePackageJson, empConfigPath, empConfOpt, config)
-    } else if (empConfigPath && isRemoteTsConfig) {
-      await this.runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config)
+    if (this.sp.empConfigPath && !this.sp.isRemoteTsConfig) {
+      await this.runtimeWithJsConfig()
+    } else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
+      await this.runtimeWithTsConfig()
     } else {
       // 在没有 emp-config.js 的环境下执行
-      if (remotePackageJson.dependencies.react) {
-        withReact()(empConfOpt)
+      if (this.remotePackageJson.dependencies.react) {
+        withReact()(this.op)
       }
     }
-    const configs = await configRemotes()
-    configs &&
-      config.plugin('mf').tap(args => {
-        const {remotes = {}} = args[0]
-        args[0] = {
-          ...args[0],
-          remotes: {
-            ...remotes,
-            ...configs,
-          },
-        }
-        return args
-      })
+    //============清除 depend 逻辑=====================================
+    // const configs = await configRemotes()
+    // configs &&
+    //   config.plugin('mf').tap(args => {
+    //     const {remotes = {}} = args[0]
+    //     args[0] = {
+    //       ...args[0],
+    //       remotes: {
+    //         ...remotes,
+    //         ...configs,
+    //       },
+    //     }
+    //     return args
+    //   })
   }
-  // json 方式 替代 function 取消 ts 方案 避免非ts 导致的麻烦
-  async runtimeWithTsConfigORJsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
-    const remoteTsConfig = await tsCompile(empConfigPath)
-    const empConfigAll = {
-      // webpackConfig,
-      webpackEnv: empConfOpt.env,
-      webpackChain: config,
-      ...empConfOpt,
+  /**
+   * runtimeWithTsConfig
+   */
+  async runtimeWithTsConfig() {
+    this.empConfig = await tsCompile(this.sp.empConfigPath)
+    await this.runtimeWithJSON()
+  }
+  async runtimeWithJsConfig() {
+    let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
+    remoteConfig = requireFromString(remoteConfig, '')
+    if (typeof remoteConfig === 'function') {
+      if (this.isReact()) {
+        await withReact(remoteConfig)(this.op)
+      } else {
+        await remoteConfig(this.op)
+      }
+    } else if (Object.keys(remoteConfig).length > 0) {
+      this.empConfig = remoteConfig
+      await this.runtimeWithJSON()
     }
-    if (
-      this.isReact(remotePackageJson) &&
-      (!remoteTsConfig.framework || remoteTsConfig.framework.indexOf(withReact) === -1)
-    ) {
-      await withReact()(empConfOpt)
+  }
+  async runtimeWithJSON() {
+    // json 模型下 函数入参
+    const op = {
+      webpackEnv: this.op.env,
+      webpackChain: this.sp.config,
+      ...this.op,
+    }
+    if (this.isReact() && (!this.empConfig.framework || this.empConfig.framework.indexOf(withReact) === -1)) {
+      await withReact()(this.op)
     }
     // emp plugin framework like react vue svetle and more
-    if (remoteTsConfig.framework && remoteTsConfig.framework.length > 0) {
-      remoteTsConfig.framework.map(fn => fn()(empConfOpt))
+    if (this.empConfig.framework && this.empConfig.framework.length > 0) {
+      this.empConfig.framework.map(fn => fn()(this.op))
     }
     // emp plugin compile like swc esbuild
-    if (remoteTsConfig.compile && remoteTsConfig.compile.length > 0) {
-      remoteTsConfig.compile.map(fn => fn()(empConfOpt))
+    if (this.empConfig.compile && this.empConfig.compile.length > 0) {
+      this.empConfig.compile.map(fn => fn()(this.op))
     }
     // emp module federation
-    if (remoteTsConfig.moduleFederation) {
+    if (this.empConfig.moduleFederation) {
       const moduleFederation =
-        typeof remoteTsConfig.moduleFederation === 'function'
-          ? await remoteTsConfig.moduleFederation(empConfigAll)
-          : remoteTsConfig.moduleFederation
-      config.plugin('mf').tap(args => {
+        typeof this.empConfig.moduleFederation === 'function'
+          ? await this.empConfig.moduleFederation(op)
+          : this.empConfig.moduleFederation
+      this.sp.config.plugin('mf').tap(args => {
         args[0] = {
           ...args[0],
           ...moduleFederation,
@@ -97,23 +116,23 @@ class RuntimeCompile {
       })
     }
     // emp webpack chain
-    if (remoteTsConfig.webpackChain && typeof remoteTsConfig.webpackChain === 'function') {
-      await remoteTsConfig.webpackChain(config, empConfOpt)
+    if (this.empConfig.webpackChain && typeof this.empConfig.webpackChain === 'function') {
+      await this.empConfig.webpackChain(this.sp.config, this.op)
     }
     // emp webpack
-    if (remoteTsConfig.webpack && typeof remoteTsConfig.webpack === 'function') {
-      const wpc = await remoteTsConfig.webpack(empConfigAll)
-      config.merge(wpc)
+    if (this.empConfig.webpack && typeof this.empConfig.webpack === 'function') {
+      const wpc = await this.empConfig.webpack(op)
+      this.sp.config.merge(wpc)
     }
     // this.moduleGenerator
-    if (remoteTsConfig.moduleGenerator) {
-      // this.moduleGenerator = remoteTsConfig.moduleGenerator
+    if (this.empConfig.moduleGenerator) {
+      // this.moduleGenerator = this.empConfig.moduleGenerator
       const moduleGenerator =
-        typeof remoteTsConfig.moduleGenerator === 'function'
-          ? await remoteTsConfig.moduleGenerator(empConfigAll)
-          : remoteTsConfig.moduleGenerator
+        typeof this.empConfig.moduleGenerator === 'function'
+          ? await this.empConfig.moduleGenerator(op)
+          : this.empConfig.moduleGenerator
       if (typeof moduleGenerator === 'string') {
-        config.merge({
+        this.sp.config.merge({
           module: {
             generator: {
               asset: {
@@ -123,34 +142,23 @@ class RuntimeCompile {
           },
         })
       } else {
-        config.merge({module: {generator: moduleGenerator}})
+        this.sp.config.merge({module: {generator: moduleGenerator}})
       }
     }
   }
-  async runtimeWithJsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
-    let remoteConfigFn = await fs.readFile(empConfigPath, 'utf8')
-    // remoteConfigFn = eval(remoteConfigFn)
-    // console.log('remoteConfigFn', remoteConfigFn)
-    remoteConfigFn = requireFromString(remoteConfigFn, '')
-    if (this.isReact(remotePackageJson)) {
-      await withReact(remoteConfigFn)(empConfOpt)
-    } else {
-      await remoteConfigFn(empConfOpt)
-    }
-  }
 
-  async runtimeLog(args, wpc, config) {
-    if (args.wplogger) {
-      if (typeof args.wplogger === 'string') {
-        const fileName = args.wplogger
+  async runtimeLog() {
+    if (this.sp.args.wplogger) {
+      if (typeof this.sp.args.wplogger === 'string') {
+        const fileName = this.sp.args.wplogger
         try {
           // webpack.config.js
-          await fs.writeFile(resolveApp(fileName), `module.exports=${JSON.stringify(wpc, null, 2)}`)
+          await fs.writeFile(resolveApp(fileName), `module.exports=${JSON.stringify(this.wpc, null, 2)}`)
         } catch (err) {
           console.error(err)
         }
       } else {
-        console.log('webpack config', config.toString(), '==========')
+        console.log('webpack config', this.sp.config.toString(), '==========')
       }
     }
     // 取消继承 minimizer TerserPlugin 让压缩更具定制化
