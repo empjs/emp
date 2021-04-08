@@ -4,7 +4,7 @@ const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const openBrowser = require('../helpers/openBrowser')
 // const downloadRemoteFile = require('../helpers/downloadRemoteFile')
-const {getHostname} = require('../helpers/serveTool')
+const {getHostname, getDevHost} = require('../helpers/serveTool')
 module.exports = async args => {
   const {src, public, open, remote} = args
   await setPaths({src, public})
@@ -22,8 +22,8 @@ module.exports = async args => {
   //
   const compiler = Webpack(config)
   const server = new WebpackDevServer(compiler, config.devServer)
-  const host = getHostname(config.devServer.host) || 'localhost'
-  server.listen(config.devServer.port, host, err => {
+  const host = getDevHost(config.devServer.host)
+  server.listen(config.devServer.port, '0.0.0.0', err => {
     if (err) {
       console.error(err)
       return

@@ -10,7 +10,14 @@ function getHostname(hostname) {
   }
   return hostname
 }
+function getDevHost(host) {
+  if (!host) {
+    host = internalIp.v4.sync() || internalIp.v6.sync() || 'localhost'
+  }
+  return host
+}
 
 module.exports = {
   getHostname,
+  getDevHost,
 }
