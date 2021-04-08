@@ -59,7 +59,8 @@ class RuntimeCompile {
         return args
       })
   }
-  async runtimeWithTsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
+  // json 方式 替代 function 取消 ts 方案 避免非ts 导致的麻烦
+  async runtimeWithTsConfigORJsConfig(remotePackageJson, empConfigPath, empConfOpt, config) {
     const remoteTsConfig = await tsCompile(empConfigPath)
     const empConfigAll = {
       // webpackConfig,

@@ -10,7 +10,7 @@
   "bin": {
     "emp": "./bin/emp.js"
   },
-  "types": "./types/emp-react.d.ts",
+  "types": "./types/emp-config.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
