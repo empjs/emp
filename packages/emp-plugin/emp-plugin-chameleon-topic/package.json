@@ -1,5 +1,5 @@
 {
-  "name": "emp-plugin-chameleon-topic",
+  "name": "@efox/emp-plugin-chameleon-topic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
