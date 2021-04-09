@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const withReact = require('@efox/emp-react')
-const {tsCompile, requireFromString} = require('./compile')
+// const {tsCompile, requireFromString} = require('./compile')
 // const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
 
@@ -71,8 +71,9 @@ class RuntimeCompile {
   //   await this.runtimeWithJSON()
   // }
   async runtimeWithJsConfig() {
-    let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
-    remoteConfig = requireFromString(remoteConfig, '')
+    // let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
+    // remoteConfig = requireFromString(remoteConfig, '')
+    const remoteConfig = require(this.sp.empConfigPath)
     if (typeof remoteConfig === 'function') {
       if (this.isReact()) {
         await withReact(remoteConfig)(this.op)
