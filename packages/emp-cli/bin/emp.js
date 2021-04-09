@@ -5,7 +5,8 @@ const ora = require('ora') // 实现node.js命令行环境的loading效果，和
 const package = require('../package.json')
 const chalk = require('chalk') // 支持修改控制台中字符串的样式 字体样式、字体颜色、背景颜色
 const {checkNodeVersion} = require('../helpers/cli')
-const {pluginDriver} = require('../helpers/pluginDriver')
+// const {pluginDriver} = require('../helpers/pluginDriver')
+const globalCommand = require('../helpers/globalCommand')
 const Axios = require('axios')
 const {empConfigSync} = require('../helpers/compile')
 
@@ -303,7 +304,8 @@ if (empConfig && empConfig.commander && typeof empConfig.commander === 'function
 }
 // console.log('commander', empConfig)
 
-program = pluginDriver(program)
+// program = pluginDriver(program)
+globalCommand(program)
 
 // 执行命令
 program.parse(process.argv)
