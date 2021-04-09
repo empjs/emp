@@ -58,7 +58,6 @@
     "css-minimizer-webpack-plugin": "^1.1.5",
     "cssnano": "^4.1.10",
     "dotenv-webpack": "^6.0.0",
-    "esbuild": "^0.11.2",
     "eslint": "^7.12.1",
     "eslint-webpack-plugin": "^2.4.1",
     "express": "^4.17.1",

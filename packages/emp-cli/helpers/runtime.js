@@ -40,7 +40,8 @@ class RuntimeCompile {
     if (this.sp.empConfigPath && !this.sp.isRemoteTsConfig) {
       await this.runtimeWithJsConfig()
     } else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
-      await this.runtimeWithTsConfig()
+      // await this.runtimeWithTsConfig()
+      throw new Error('use emp-config.js https://github.com/efoxTeam/emp/discussions/88#discussioncomment-583390')
     } else {
       // 在没有 emp-config.js 的环境下执行
       if (this.remotePackageJson.dependencies.react) {
@@ -65,10 +66,10 @@ class RuntimeCompile {
   /**
    * runtimeWithTsConfig
    */
-  async runtimeWithTsConfig() {
-    this.empConfig = await tsCompile(this.sp.empConfigPath)
-    await this.runtimeWithJSON()
-  }
+  // async runtimeWithTsConfig() {
+  //   this.empConfig = await tsCompile(this.sp.empConfigPath)
+  //   await this.runtimeWithJSON()
+  // }
   async runtimeWithJsConfig() {
     let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
     remoteConfig = requireFromString(remoteConfig, '')
