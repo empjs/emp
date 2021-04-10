@@ -1,0 +1,14 @@
+{
+  "name": "@efox/emp-plugin-workspace",
+  "version": "1.0.1",
+  "main": "cli.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "fs-extra": "^9.1.0",
+    "@swc/core": "^1.2.43"
+  }
+}

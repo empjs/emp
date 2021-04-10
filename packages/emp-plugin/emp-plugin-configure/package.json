@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-plugin-configure",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "项目依赖初始化",
   "main": "cli.js",
   "author": "",
