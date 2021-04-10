@@ -5,6 +5,6 @@ module.exports = program => {
     .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
     .action(({env}) => {
       env = env || 'prod'
-      require('../scripts/configure')(env)
+      require('./script/configure')(env)
     })
 }
