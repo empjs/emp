@@ -31,5 +31,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
+  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4",
+  "devDependencies": {
+    "md5": "^2.3.0"
+  }
 }
