@@ -1,6 +1,13 @@
 {
-  "name": "emp-remote-md5",
+  "name": "@efox/emp-remote-md5",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "md5": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
