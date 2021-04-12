@@ -10,11 +10,11 @@ const App = () => (
     <div style={{backgroundColor: '#eee', padding: '20px'}}>
       <h2>remote import load one</h2>
       <HelloDEMO />
-      <h2>remote lazy load!</h2>
+      <h2>remote lazy lo3ad!</h2>
       <React.Suspense fallback={<div />}>
         <Hello2 />
       </React.Suspense>
-      process.env.EMP_ENV:{process.env.EMP_ENV}
+      prweqweqweqweqweqweqweqeqweqeqweqweweqwP_ENV:{process.env.EMP_ENV}
       <p>config:{JSON.stringify(config.default)}</p>
     </div>
   </>
