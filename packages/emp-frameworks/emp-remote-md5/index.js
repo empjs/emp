@@ -6,16 +6,19 @@ const empRemoteMd5 = async config => {
   for (const remoteKey of remotesKey) {
     const remote = config.remotes[remoteKey].split('@')
     const fileUrl = remote[remote.length - 1]
-    const response = await Axios({
-      url: fileUrl,
-      method: 'GET',
-    })
-    const fileMd5 = md5(response.data)
-    console.log(fileMd5)
-    if (remote.length > 0) {
-      config.remotes[remoteKey] = `${remote[0]}@${fileUrl}?md5=${fileMd5}`
-    } else {
-      config.remotes[remoteKey] = fileUrl
+    try {
+      const response = await Axios({
+        url: fileUrl,
+        method: 'GET',
+      })
+      const fileMd5 = md5(response.data)
+      if (remote.length > 0) {
+        config.remotes[remoteKey] = `${remote[0]}@${fileUrl}?md5=${fileMd5}`
+      } else {
+        config.remotes[remoteKey] = fileUrl
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
   return config
