@@ -3,6 +3,7 @@ module.exports = {
   filename: 'emp.js',
   remotes: {
     '@emp/demo2': 'demo2@http://127.0.0.1:8002/emp.js',
+    '@emp/demo3': 'demo3@http://127.0.0.1:8003/emp.js',
   },
   exposes: {
     './configs/index': 'src/configs/index',
