@@ -4,10 +4,10 @@
 const fs = require('fs')
 const fse = require('fs-extra')
 const axios = require('axios')
-const {tsCompile, requireFromString} = require('../helpers/compile')
+const {tsCompile, requireFromString} = require('../helps/compile')
 
 // todo 获取 emp.config 的配置，动态生成@fileTemplate内容
-const {resolveApp} = require('../helpers/paths')
+const {resolveApp} = require('../helps/paths')
 // const package = require(`${resolveApp('package.json')}`)
 const configFilePath = `emp.workspace.config.ts`
 const gitignorePath = `.gitignore`

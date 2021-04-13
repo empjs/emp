@@ -19,6 +19,8 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@efox/emp-plugin-workspace":"^1.0.0",
+    "@efox/emp-plugin-configure":"^1.0.0",
     "@efox/emp-cli": "^1.8.11",
     "@efox/emp-tsconfig": "^1.0.0",
     "emp-plugin-dts-sync": "^1.0.0"
