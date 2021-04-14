@@ -2,9 +2,16 @@ const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 module.exports = program => {
-  const npmGlobalModules = child_process.execSync('npm root -g').toString().trim()
-  let yarnGlobalModules = child_process.execSync('yarn global dir').toString().trim()
-  yarnGlobalModules = path.join(yarnGlobalModules, 'node_modules')
+  let npmGlobalModules = null
+  let yarnGlobalModules = null
+  try {
+    npmGlobalModules = child_process.execSync('npm root -g').toString().trim()
+    // yarn global dir
+    yarnGlobalModules = child_process.execSync('yarn global dir').toString().trim()
+    yarnGlobalModules = path.join(yarnGlobalModules, 'node_modules')
+  } catch (e) {
+    console.error(e)
+  }
   const op = {}
   const prefix = 'emp-plugin-'
   op.npm = npmGlobalModules
@@ -12,7 +19,6 @@ module.exports = program => {
   //====================================
   // local npm yarn or more (pnpm,cnpm)?
   let cliEnv = 'local'
-
   Object.keys(op).map(k => {
     if (process.mainModule.path.indexOf(op[k]) > -1) {
       return (cliEnv = k)
