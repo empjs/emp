@@ -28,4 +28,9 @@ module.exports = withVue2(({config}) => {
     }
     return args
   })
+
+  // 配置 svg loader
+  const svgRule = config.module.rule('svg')
+  svgRule.uses.clear()
+  svgRule.use('vue-svg-loader').loader('vue-svg-loader')
 })

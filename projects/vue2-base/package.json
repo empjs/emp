@@ -6,7 +6,9 @@
   "private": true,
   "devDependencies": {
     "@efox/emp-cli": "^1.4.0",
-    "@efox/emp-vue2": "^1.2.2"
+    "@efox/emp-vue2": "^1.2.2",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
     "vue": "^2.6.12"
