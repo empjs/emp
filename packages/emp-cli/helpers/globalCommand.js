@@ -25,6 +25,7 @@ module.exports = program => {
     }
   })
   // cliEnv = 'yarn' //test
+  // 全局下 emp，走全局插件
   if (cliEnv !== 'local') {
     fs.readdirSync(op[cliEnv]).map(d => {
       if (d.indexOf(prefix) > -1) {
@@ -33,14 +34,21 @@ module.exports = program => {
       }
     })
   } else {
+    /*
+    非全局下 emp：
+    在项目里的 emp 走 deps 里的插件
+    和非项目非全局的 emp ，例如 npx，不走插件
+   */
     const packageJsonPath = path.join(process.cwd(), 'package.json')
-    let deps = require(packageJsonPath)
-    deps = {...(deps.dependencies || {}), ...(deps.devDependencies || {})}
-    Object.keys(deps).map(d => {
-      if (d.indexOf(prefix) > -1) {
-        const fn = require(`${d}/cli`)
-        fn(program)
-      }
-    })
+    if (fs.existsSync(packageJsonPath)) {
+      let deps = require(packageJsonPath)
+      deps = {...(deps.dependencies || {}), ...(deps.devDependencies || {})}
+      Object.keys(deps).map(d => {
+        if (d.indexOf(prefix) > -1) {
+          const fn = require(`${d}/cli`)
+          fn(program)
+        }
+      })
+    }
   }
 }
