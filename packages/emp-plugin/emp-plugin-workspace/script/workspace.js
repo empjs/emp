@@ -12,20 +12,20 @@ const {resolveApp} = require('../helps/paths')
 const configFilePath = `emp.workspace.config.ts`
 const gitignorePath = `.gitignore`
 const fileTemplate = `import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-workspace-config'
- 
- const empWorkspaceConfig: IWorkSpaceConfig = {
-   pullConfig: {},
-   pushConfig: {
-     localPath: '',
-     remotePath: [],
-   },
- }
- export default empWorkspaceConfig
- `
+     
+     const empWorkspaceConfig: IWorkSpaceConfig = {
+       pullConfig: {},
+       pushConfig: {
+         localPath: '',
+         remotePath: [],
+       },
+     }
+     export default empWorkspaceConfig
+     `
 
 const ignoreAppendContent = `
- ${configFilePath}
- `
+     ${configFilePath}
+     `
 
 /**
  * 初始化 工作区开发配置， 并追加 gitignore 配置
@@ -98,7 +98,16 @@ const pullTypes = async () => {
  * @param {*} type
  */
 const downloadHttpFile = async (path, remoteUrl) => {
-  const file = fse.createWriteStream(`${resolveApp('types')}/${path}.d.ts`)
+  await downloadHttpFileAct(`${resolveApp('types')}/${path}.d.ts`, remoteUrl)
+}
+
+/**
+ * 下载远程文件
+ * @param {*} type
+ */
+const downloadHttpFileAct = async (path, remoteUrl) => {
+  console.log(`下载文件${remoteUrl}到${path}`)
+  const file = fse.createWriteStream(path)
   const response = await axios({
     url: remoteUrl,
     method: 'GET',
@@ -142,7 +151,55 @@ const pushTypes = async () => {
   }
 }
 
-module.exports = type => {
+/**
+ * 生产本地配置文件， 并根据当前环境配置 拉取 d.ts
+ */
+const configure = async pullEnv => {
+  const localPath = `mf-local-workspace.js`
+  const curEnv = pullEnv === `dev` ? 'development' : 'production'
+  console.log('configure pullEnv:', pullEnv)
+  const isExists = await fse.pathExists(`./empconfig/${localPath}`)
+  console.log(`存在本地配置文件?`, isExists)
+  if (!isExists) {
+    console.log(`创建本地文件`)
+    fse.copy(`./empconfig/mf-production.js`, `./empconfig/${localPath}`)
+    const stats = await fse.stat(gitignorePath)
+    if (stats) {
+      fse.appendFile(
+        gitignorePath,
+        `
+ empconfig/${localPath}`,
+        err => {
+          if (err) {
+            console.log(`${gitignorePath}追加内容失败`)
+          } else {
+            console.log(`${gitignorePath}追加内容成功`)
+          }
+        },
+      )
+    }
+  }
+  console.log(`开始获取依赖，当前指定拉取环境:`, curEnv)
+  let remoteTsConfig = await fse.readFile(`./empconfig/mf-production.js`, 'utf8')
+  if (curEnv === 'development') {
+    remoteTsConfig = await fse.readFile(`./empconfig/mf-development.js`, 'utf8')
+  }
+  remoteTsConfig = await tsCompile(remoteTsConfig)
+  remoteTsConfig = requireFromString(remoteTsConfig.code, '')
+  console.log('remoteTsConfig', remoteTsConfig.remotes)
+  const isExistsDepends = await fse.pathExists(`${resolveApp('depends')}`)
+  if (!isExistsDepends) {
+    await fse.mkdir(`${resolveApp('depends')}`)
+  }
+  Object.values(remoteTsConfig.remotes).forEach(empUrl => {
+    downloadHttpFileAct(
+      `./depends/${empUrl.split('@')[0]}.d.ts`,
+      empUrl.split('@')[1].replace(`/emp.js`, `/index.d.ts`),
+    )
+  })
+}
+
+module.exports = (type, pullEnv) => {
   switch (type) {
     case 'init':
       init()
@@ -152,6 +209,9 @@ module.exports = type => {
       break
     case 'pushTypes':
       pushTypes()
+      break
+    case 'configure':
+      configure(pullEnv)
       break
   }
 }
