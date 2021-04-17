@@ -12,20 +12,20 @@ const {resolveApp} = require('../helps/paths')
 const configFilePath = `emp.workspace.config.ts`
 const gitignorePath = `.gitignore`
 const fileTemplate = `import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-workspace-config'
-     
-     const empWorkspaceConfig: IWorkSpaceConfig = {
-       pullConfig: {},
-       pushConfig: {
-         localPath: '',
-         remotePath: [],
-       },
-     }
-     export default empWorkspaceConfig
-     `
+       
+       const empWorkspaceConfig: IWorkSpaceConfig = {
+         pullConfig: {},
+         pushConfig: {
+           localPath: '',
+           remotePath: [],
+         },
+       }
+       export default empWorkspaceConfig
+       `
 
 const ignoreAppendContent = `
-     ${configFilePath}
-     `
+       ${configFilePath}
+       `
 
 /**
  * 初始化 工作区开发配置， 并追加 gitignore 配置
@@ -156,6 +156,7 @@ const pushTypes = async () => {
  */
 const configure = async pullEnv => {
   const localPath = `mf-local-workspace.js`
+  const ignoreContext = `empconfig/${localPath}`
   const curEnv = pullEnv === `dev` ? 'development' : 'production'
   console.log('configure pullEnv:', pullEnv)
   const isExists = await fse.pathExists(`./empconfig/${localPath}`)
@@ -165,18 +166,18 @@ const configure = async pullEnv => {
     fse.copy(`./empconfig/mf-production.js`, `./empconfig/${localPath}`)
     const stats = await fse.stat(gitignorePath)
     if (stats) {
-      fse.appendFile(
-        gitignorePath,
-        `
- empconfig/${localPath}`,
-        err => {
+      const lines = fs.readFileSync(gitignorePath).toString().split('\n')
+      if (lines.includes(ignoreContext)) {
+        console.log(`${ignoreContext} 已忽略`)
+      } else {
+        fse.appendFile(gitignorePath, `\n${ignoreContext}`, err => {
           if (err) {
             console.log(`${gitignorePath}追加内容失败`)
           } else {
             console.log(`${gitignorePath}追加内容成功`)
           }
-        },
-      )
+        })
+      }
     }
   }
   console.log(`开始获取依赖，当前指定拉取环境:`, curEnv)
