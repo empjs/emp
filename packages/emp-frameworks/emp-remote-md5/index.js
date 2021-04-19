@@ -2,7 +2,6 @@ const Axios = require('axios')
 const crypto = require('crypto')
 
 const empRemoteMd5 = async config => {
-  const strHash = crypto.createHash('md5')
   const remotesKey = Object.keys(config.remotes)
   for (const remoteKey of remotesKey) {
     const remote = config.remotes[remoteKey].split('@')
@@ -12,8 +11,7 @@ const empRemoteMd5 = async config => {
         url: fileUrl,
         method: 'GET',
       })
-      strHash.update(response.data)
-      const fileMd5 = strHash.digest('hex')
+      const fileMd5 = crypto.createHash('md5').update(response.data).digest('hex')
       if (remote.length > 0) {
         config.remotes[remoteKey] = `${remote[0]}@${fileUrl}?md5=${fileMd5}`
       } else {
