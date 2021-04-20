@@ -1,14 +1,27 @@
-const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const execSync = require('child_process').execSync
+
+function shouldUseYarn() {
+  try {
+    execSync('yarnpkg --version', {stdio: 'ignore'})
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
 module.exports = program => {
   let npmGlobalModules = null
   let yarnGlobalModules = null
+  const useYarn = shouldUseYarn()
   try {
-    npmGlobalModules = child_process.execSync('npm root -g').toString().trim()
+    npmGlobalModules = execSync('npm root -g').toString().trim()
     // yarn global dir
-    yarnGlobalModules = child_process.execSync('yarn global dir').toString().trim()
-    yarnGlobalModules = path.join(yarnGlobalModules, 'node_modules')
+    if (useYarn) {
+      yarnGlobalModules = execSync('yarn global dir').toString().trim()
+      yarnGlobalModules = path.join(yarnGlobalModules, 'node_modules')
+    }
   } catch (e) {
     console.error(e)
   }
