@@ -125,7 +125,7 @@ registerCommand({
 
 * WeChat Group：
 
-<img src='./docs/assets/WeChat.png' width='290'/>
+<img src='https://user-images.githubusercontent.com/3890513/115816051-bd831c00-a42a-11eb-8545-d533b037209f.png' width='290'/>
 
 * WeChat Official Account： Efox
 
