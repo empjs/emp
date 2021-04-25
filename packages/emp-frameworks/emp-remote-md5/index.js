@@ -8,7 +8,7 @@ const empRemoteMd5 = async config => {
     const fileUrl = remote[remote.length - 1]
     try {
       const response = await Axios({
-        url: fileUrl,
+        url: `${fileUrl}?fetchTime=${new Date().getTime()}`,
         method: 'GET',
       })
       const fileMd5 = crypto.createHash('md5').update(response.data).digest('hex')
