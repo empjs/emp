@@ -109,7 +109,7 @@ const downloadHttpFileAct = async (path, remoteUrl) => {
   console.log(`下载文件${remoteUrl}到${path}`)
   const file = fse.createWriteStream(path)
   const response = await axios({
-    url: remoteUrl,
+    url: `${remoteUrl}?fetchTime=${new Date().getTime()}`,
     method: 'GET',
     responseType: 'stream',
   })
