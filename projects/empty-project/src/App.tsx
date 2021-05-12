@@ -28,8 +28,8 @@ export default function App(): any {
     <>
       <Logo width="350" className={css['App-logo']} />
       <img src={require('src/assets/mf.png')} width="300" />
-      <h1 className={css.main}>EMP EMPTY PROJECT DEMO!!</h1>
-      <p>Infomation!!!</p>
+      <h1 className={css.main}>EMP EMPTY PROJECT DEMO!</h1>
+      <p>Infomation!!!!</p>
       <p>config:{JSON.stringify(config)}</p>
       <Hello />
       <ButtonEvent />

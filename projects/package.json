@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "lerna run --scope @emp/* --parallel dev",
-    "dev:hot": "lerna run --scope @emp/* --parallel dev:hot",
+    "dev": "lerna run --scope={@emp/demo1,@emp/demo2} --parallel dev",
+    "dev:hot": "lerna run --scope={@emp/demo1,@emp/demo2} --parallel dev:hot",
     "build": "lerna run --scope @emp/* --parallel build",
     "start": "lerna run --scope @emp/* --parallel start",
     "dev:antd": "lerna run --scope @emp-antd/* --parallel dev",
