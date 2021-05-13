@@ -9,9 +9,9 @@ const uploadOss = async (name, version) => {
   const uploadUrl = `https://koa-simple-test.bdgamelive.com/ossUpload`
   console.log('开始下载', remoteUrl)
   try {
-    const filePath = await download(`${name}-${version}.tgz`, remoteUrl)
+    const downloadResult = await download(`${name}-${version}.tgz`, remoteUrl)
     const formData = new FormData()
-    const stream = fs.createReadStream(filePath)
+    const stream = fs.createReadStream(downloadResult.filePath, {highWaterMark: 1})
 
     formData.append('custompath', `/unpkg/${name.replace(/\//g, '-')}/${version}/`)
     formData.append('file', stream)
@@ -31,7 +31,7 @@ const uploadOss = async (name, version) => {
       .catch(error => {
         console.log('upload error', error)
       })
-    fs.unlinkSync(filePath)
+    fs.unlinkSync(downloadResult.filePath)
   } catch (e) {
     console.log(e)
   }

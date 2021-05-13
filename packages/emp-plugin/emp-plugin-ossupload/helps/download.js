@@ -3,7 +3,7 @@ const fse = require('fs-extra')
 const axios = require('axios')
 const {resolveApp} = require('./paths')
 
-const download = async (fileName, downloadUrl) => {
+const download = async (fileName, downloadUrl, type) => {
   const isExists = await fse.pathExists(`${resolveApp('uploadtemplate')}`)
   if (!isExists) {
     await fse.mkdir(`${resolveApp('uploadtemplate')}`)
@@ -15,11 +15,11 @@ const download = async (fileName, downloadUrl) => {
   const response = await axios({
     url: `${downloadUrl}`,
     method: 'GET',
-    responseType: 'stream',
+    responseType: type || 'stream',
   })
 
-  await response.data.pipe(file)
-  return filePath
+  !type && (await response.data.pipe(file))
+  return {filePath, response}
 }
 
 module.exports = download
