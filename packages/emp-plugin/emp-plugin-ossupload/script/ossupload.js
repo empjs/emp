@@ -1,5 +1,6 @@
 const Axios = require('axios')
 const FormData = require('form-data')
+const http = require('http')
 
 const uploadOss = async (name, version) => {
   console.log(`name,version`, name, version)
@@ -11,16 +12,24 @@ const uploadOss = async (name, version) => {
       url: remoteUrl,
       method: 'GET',
     })
+    console.log('上传包名:', name)
+    console.log('上传版本号:', version)
     const formData = new FormData()
     formData.append('packageName', name)
     formData.append('packageVersion', version)
     formData.append('packageContent', response?.data)
-    console.log('download result:', JSON.stringify(response))
-    const resupload = await Axios({
-      url: uploadUrl,
-      data: formData,
+    console.log('开始上传..')
+    var request = http.request({
+      method: 'post',
+      host: 'koa-simple-test.bdgamelive.com',
+      path: '/ossUploadString',
+      headers: formData.getHeaders(),
     })
-    console.log('resupload result:', JSON.stringify(resupload))
+
+    formData.pipe(request)
+    request.on('response', function (res) {
+      console.log('上传结果:', res.statusCode)
+    })
   } catch (e) {
     console.log(e)
   }
