@@ -1,0 +1,20 @@
+{
+  "name": "@efox/emp-plugin-ossupload",
+  "version": "1.0.8",
+  "description": "use cli to upload file to oss",
+  "main": "index.js",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "doerme",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "form-data": "^4.0.0"
+  }
+}
