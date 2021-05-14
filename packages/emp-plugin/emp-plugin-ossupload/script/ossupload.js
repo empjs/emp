@@ -26,7 +26,10 @@ const uploadOss = async (name, version) => {
         },
       })
       .then(response => {
-        console.log('upload then', response?.status)
+        console.log('上传结果状态:', response?.status)
+        if (response?.status === 200) {
+          console.log('资源线上地址:', response?.data?.url)
+        }
       })
       .catch(error => {
         console.log('upload error', error)
