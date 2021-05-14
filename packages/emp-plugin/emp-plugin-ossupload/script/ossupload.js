@@ -2,8 +2,12 @@ const FormData = require('form-data')
 const fs = require('fs')
 const download = require('../helps/download')
 const axios = require('axios')
+const {resolveApp} = require('../helps/paths')
+const package = require(`${resolveApp('package.json')}`)
 
-const uploadOss = async (name, version) => {
+const uploadOss = async (packageName, packageVersion) => {
+  const name = packageName || package.name
+  const version = packageVersion || package.version
   console.log(`name,version`, name, version)
   const remoteUrl = `https://npm-registry.yy.com/${name}/-/${name}-${version}.tgz`
   const uploadUrl = `https://koa-simple-test.bdgamelive.com/ossUpload`
