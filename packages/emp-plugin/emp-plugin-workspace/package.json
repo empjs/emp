@@ -6,7 +6,7 @@
     "access": "public"
   },
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.21.1",
     "fs-extra": "^9.1.0",
     "@swc/core": "^1.2.43"
