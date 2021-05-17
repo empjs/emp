@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.7.12",
+  "version": "1.7.17",
   "keywords": [
     "react",
     "module federation",
@@ -81,7 +81,7 @@
     "webpack": "^5.24.2",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.4.0",
-    "webpack-dev-server": "^4.0.0-beta.0",
+    "webpack-dev-server": "4.0.0-beta.0",
     "webpackbar": "^5.0.0-3"
   }
 }
