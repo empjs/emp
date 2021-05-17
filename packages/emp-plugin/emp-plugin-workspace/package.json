@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-plugin-workspace",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "main": "cli.js",
   "publishConfig": {
     "access": "public"
@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "fs-extra": "^9.1.0",
-    "@swc/core": "^1.2.43"
+    "@swc/core": "^1.2.43",
+    "@swc/helpers": "^0.2.11"
   }
 }

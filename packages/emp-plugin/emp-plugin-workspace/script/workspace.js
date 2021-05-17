@@ -193,10 +193,9 @@ const configure = async pullEnv => {
     await fse.mkdir(`${resolveApp('depends')}`)
   }
   Object.values(remoteTsConfig.remotes).forEach(empUrl => {
-    downloadHttpFileAct(
-      `./depends/${empUrl.split('@')[0]}.d.ts`,
-      empUrl.split('@')[1].replace(`/emp.js`, `/index.d.ts`),
-    )
+    let subIndex = empUrl.indexOf('@')
+    let downloadFileUrl = empUrl.substr(subIndex + 1).replace('emp.js', 'index.d.ts')
+    downloadHttpFileAct(`./depends/${empUrl.split('@')[0]}.d.ts`, downloadFileUrl)
   })
 }
 
