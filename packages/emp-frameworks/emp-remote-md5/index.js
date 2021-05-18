@@ -4,8 +4,8 @@ const crypto = require('crypto')
 const empRemoteMd5 = async config => {
   const remotesKey = Object.keys(config.remotes)
   for (const remoteKey of remotesKey) {
-    const remote = config.remotes[remoteKey].split('@')
-    const fileUrl = remote[remote.length - 1]
+    const atIndex = config.remotes[remoteKey].indexOf('@')
+    const fileUrl = config.remotes[remoteKey].substring(atIndex + 1)
     try {
       const response = await Axios({
         url: `${fileUrl}?fetchTime=${new Date().getTime()}`,
