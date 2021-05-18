@@ -2287,17 +2287,16 @@
   dependencies:
     "@octokit/openapi-types" "^6.0.0"
 
-"@pmmmwh/react-refresh-webpack-plugin@^0.5.0-beta.7":
-  version "0.5.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.0-beta.7.tgz#84e2ac2db585f06d0aa52aee095341bd7d319447"
-  integrity sha512-oO9sGfhI+rtq4xK+QJar3Ka/6Kx35ag8uT5i4Khvvf5QIdoC10BHKs75IEyNDEvQGv9mF4M8YWH9uZT/to0K4Q==
+"@pmmmwh/react-refresh-webpack-plugin@^0.5.0-beta.8":
+  version "0.5.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.0-beta.8.tgz#0e2d5c82e83e85ef4cb1ec838fed93dafad2d6b4"
+  integrity sha512-/8fjHgK8RdCTL/4hPax7yDojTGoJ6c4bs6mVBx7OQ88gWZJ7nlaM21kEDhV2K0WkawF3G/pa+zhWL86KBSTlRg==
   dependencies:
     ansi-html "^0.0.7"
     core-js-pure "^3.8.1"
     error-stack-parser "^2.0.6"
     html-entities "^2.1.0"
     loader-utils "^2.0.0"
-    native-url "^0.3.4"
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
@@ -10550,13 +10549,6 @@ native-request@^1.0.5:
   resolved "https://registry.yarnpkg.com/native-request/-/native-request-1.0.8.tgz#8f66bf606e0f7ea27c0e5995eb2f5d03e33ae6fb"
   integrity sha512-vU2JojJVelUGp6jRcLwToPoWGxSx23z/0iX+I77J3Ht17rf2INGjrhOoQnjVo60nQd8wVsgzKkPfRXBiVdD2ag==
 
-native-url@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/native-url/-/native-url-0.3.4.tgz#29c943172aed86c63cee62c8c04db7f5756661f8"
-  integrity sha512-6iM8R99ze45ivyH8vybJ7X0yekIcPf5GgLV5K0ENCbmRcaRIDoj37BC8iLEmaaBfqqb8enuZ5p0uhY+lVAbAcA==
-  dependencies:
-    querystring "^0.2.0"
-
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -12352,11 +12344,6 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
-
-querystring@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
-  integrity sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==
 
 queue-microtask@^1.2.2:
   version "1.2.3"

@@ -39,13 +39,7 @@ module.exports = fn => ec => {
     .options({presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react']})
 
   if (hot && isDev) {
-    config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'), [
-      {
-        overlay: {
-          sockProtocol: 'ws',
-        },
-      },
-    ])
+    config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
 
   return fn && fn(ec)

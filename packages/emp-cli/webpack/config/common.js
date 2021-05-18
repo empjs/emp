@@ -24,7 +24,7 @@ module.exports = (env, config, args, empConfigPath) => {
         config: buildDependenciesConfigs,
       },
     },
-    cache: false,
+    // cache: false,
     optimization: {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
