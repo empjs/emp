@@ -12,8 +12,8 @@ const empRemoteMd5 = async config => {
         method: 'GET',
       })
       const fileMd5 = crypto.createHash('md5').update(response.data).digest('hex')
-      if (remote.length > 0) {
-        config.remotes[remoteKey] = `${remote[0]}@${fileUrl}?md5=${fileMd5}`
+      if (atIndex > -1) {
+        config.remotes[remoteKey] = `${config.remotes[remoteKey]}?md5=${fileMd5}`
       } else {
         config.remotes[remoteKey] = fileUrl
       }
