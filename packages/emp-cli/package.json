@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.8.19",
+  "version": "1.8.20",
   "keywords": [
     "react",
     "module federation",
@@ -33,7 +33,7 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@babel/runtime": "^7.12.5",
-    "@efox/emp-react": "^1.1.3",
+    "@efox/emp-react": "^1.1.5",
     "@efox/emp-tsconfig": "^1.1.3",
     "@efox/emp-tune-dts-plugin": "^1.3.1",
     "@svgr/webpack": "^5.4.0",
