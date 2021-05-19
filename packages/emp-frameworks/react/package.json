@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.8",
     "@svgr/webpack": "^5.4.0",
     "babel-plugin-named-asset-import": "^0.3.7",
-    "react-refresh": "^0.9.0"
+    "react-refresh": "^0.10.0"
   },
   "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
 }

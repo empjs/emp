@@ -41,6 +41,7 @@ module.exports = (env, config, {hot}) => {
                       corejs: 3,
                       bugfixes: true,
                       exclude: ['transform-typeof-symbol'],
+                      loose: true,
                     },
                   ],
                   '@babel/preset-typescript',
