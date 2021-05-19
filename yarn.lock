@@ -1206,6 +1206,76 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
+"@efox/emp-cli@1.8.19", "@efox/emp-cli@^1.2.9", "@efox/emp-cli@^1.4.0", "@efox/emp-cli@^1.4.2", "@efox/emp-cli@^1.6.18", "@efox/emp-cli@^1.6.3", "@efox/emp-cli@^1.6.5", "@efox/emp-cli@^1.6.7":
+  version "1.8.19"
+  resolved "https://registry.yarnpkg.com/@efox/emp-cli/-/emp-cli-1.8.19.tgz#6bfffcebbe44ad92aef524c28fa49ab8620cf26d"
+  integrity sha512-OwSgndlGadID2gPT7DEG6qLTTvizLkIK48LDUtZU4L3Wp/cSios7HHMyRL3+U91wjxo94IgZU2+P2bEVvlpg0A==
+  dependencies:
+    "@babel/core" "^7.12.9"
+    "@babel/plugin-proposal-class-properties" "^7.10.4"
+    "@babel/plugin-proposal-decorators" "^7.12.1"
+    "@babel/plugin-syntax-top-level-await" "^7.10.4"
+    "@babel/plugin-transform-runtime" "^7.11.5"
+    "@babel/preset-env" "^7.10.2"
+    "@babel/preset-react" "^7.10.1"
+    "@babel/preset-typescript" "^7.10.1"
+    "@babel/runtime" "^7.12.5"
+    "@efox/emp-react" "^1.1.3"
+    "@efox/emp-tsconfig" "^1.1.3"
+    "@efox/emp-tune-dts-plugin" "^1.3.1"
+    "@pmmmwh/react-refresh-webpack-plugin" "^0.5.0-beta.1"
+    "@svgr/webpack" "^5.4.0"
+    "@types/node" "^14.14.32"
+    "@types/react" "^17.0.1"
+    "@types/react-dom" "^17.0.1"
+    axios "^0.21.0"
+    babel-loader "^8.2.2"
+    babel-plugin-import "^1.13.0"
+    babel-plugin-named-asset-import "^0.3.7"
+    bundle-loader "^0.5.6"
+    chalk "^4.0.0"
+    child_process "^1.0.2"
+    clean-webpack-plugin "^3.0.0"
+    cli-table3 "^0.6.0"
+    commander "^5.1.0"
+    compression "^1.7.4"
+    copy-webpack-plugin "^8.0.0"
+    cors "^2.8.5"
+    css-loader "^3.5.3"
+    css-minimizer-webpack-plugin "^1.1.5"
+    cssnano "^4.1.10"
+    dotenv-webpack "^6.0.0"
+    eslint "^7.12.1"
+    eslint-webpack-plugin "^2.4.1"
+    express "^4.17.1"
+    file-loader "^6.0.0"
+    fork-ts-checker-webpack-plugin "^6.1.0"
+    fs-extra "^9.0.0"
+    git-promise "^1.0.0"
+    html-webpack-plugin "^5.0.0-beta.1"
+    inquirer "^7.3.3"
+    less "^3.11.2"
+    less-loader "^6.1.0"
+    mini-css-extract-plugin "^1.3.9"
+    npm-dts "^1.3.4"
+    npm-dts-webpack-plugin "^1.3.0"
+    ora "^4.0.4"
+    postcss "^8.2.8"
+    postcss-loader "^5.2.0"
+    react-refresh "^0.9.0"
+    sass "^1.30.0"
+    sass-loader "^10.1.0"
+    semver "^7.3.2"
+    style-loader "^1.2.1"
+    terser-webpack-plugin "^5.1.1"
+    typescript "^4.1.3"
+    url-loader "^4.1.1"
+    webpack "^5.32.0"
+    webpack-bundle-analyzer "^3.8.0"
+    webpack-chain "^6.4.0"
+    webpack-dev-server "^4.0.0-beta.2"
+    webpackbar "^5.0.0-3"
+
 "@efox/emp-tsconfig@latest":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@efox/emp-tsconfig/-/emp-tsconfig-1.1.3.tgz#5913692258a8217b2cb642d9efcc3366c6e29b30"
@@ -2321,7 +2391,7 @@
   dependencies:
     "@octokit/openapi-types" "^7.0.0"
 
-"@pmmmwh/react-refresh-webpack-plugin@^0.5.0-beta.8":
+"@pmmmwh/react-refresh-webpack-plugin@^0.5.0-beta.1", "@pmmmwh/react-refresh-webpack-plugin@^0.5.0-beta.8":
   version "0.5.0-beta.8"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.0-beta.8.tgz#0e2d5c82e83e85ef4cb1ec838fed93dafad2d6b4"
   integrity sha512-/8fjHgK8RdCTL/4hPax7yDojTGoJ6c4bs6mVBx7OQ88gWZJ7nlaM21kEDhV2K0WkawF3G/pa+zhWL86KBSTlRg==
@@ -2551,7 +2621,7 @@
     "@swc/core-win32-ia32-msvc" "^1.2.57"
     "@swc/core-win32-x64-msvc" "^1.2.57"
 
-"@swc/helpers@^0.2.4":
+"@swc/helpers@^0.2.11", "@swc/helpers@^0.2.4":
   version "0.2.11"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.2.11.tgz#34c842dcd8182810b4ab72d0d1fc34b553909e2e"
   integrity sha512-0FFPZrCwRDLsbJDKzs1Oo+TAqfAyxnZWZoTF6rUrfWQCYpwuKFj7tAEt/wa830fqCPE5Uk6qIo9KMkPe7Qgukg==
@@ -5078,7 +5148,7 @@ columnify@^1.5.4:
     strip-ansi "^3.0.0"
     wcwidth "^1.0.0"
 
-combined-stream@^1.0.6, combined-stream@~1.0.6:
+combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -6287,9 +6357,9 @@ ejs@^2.6.1:
   integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
 
 electron-to-chromium@^1.3.723:
-  version "1.3.731"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.731.tgz#9f17f7e16f798eaddb21409d80aa755b5b5053dc"
-  integrity sha512-dn1Nyd0DuFa3xhqZJr6/L9phyk+YXJpvrz6Vcu6mFxFqr5TQ9r/F3yvOYFUrEwY4Tbb1YBjN19TDKnSVCQvalA==
+  version "1.3.732"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.732.tgz#2a07a8d61f74f2084b6f6bf2a908605a7a0b2d8d"
+  integrity sha512-qKD5Pbq+QMk4nea4lMuncUMhpEiQwaJyCW7MrvissnRcBDENhVfDmAqQYRQ3X525oTzhar9Zh1cK0L2d1UKYcw==
 
 element-plus@^1.0.1-alpha.15, element-plus@^1.0.1-beta.0:
   version "1.0.1-beta.27"
@@ -7331,6 +7401,15 @@ fork-ts-checker-webpack-plugin@^6.1.0:
     semver "^7.3.2"
     tapable "^1.0.0"
 
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
 form-data@~2.3.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.3.tgz#dcce52c05f644f298c6a7ab936bd724ceffbf3a6"
@@ -7364,6 +7443,15 @@ from2@^2.1.0:
   dependencies:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
+
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
 
 fs-extra@^9.0.0, fs-extra@^9.1.0:
   version "9.1.0"
@@ -12514,9 +12602,9 @@ rc-image@~5.2.4:
     rc-util "^5.0.6"
 
 rc-input-number@~7.1.0:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/rc-input-number/-/rc-input-number-7.1.2.tgz#19b48ce72eff6daf79168f59734ce326f83f17f5"
-  integrity sha512-FQpCt91h+N7kKRtyOjxVNt+YXgiNRD7GW7qMw2z2tben4U+tuiPAL2I0I+eTud6u5REoZ/A2AWfo1j7vIMzOWQ==
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/rc-input-number/-/rc-input-number-7.1.3.tgz#152872d77bf0958980017127622772db652924c0"
+  integrity sha512-o7/YTXAnxio53lCV402OcFRn8/jcm6YfKjCzPd+al0drQ7oyQkjQqcWbacSQwwN4gCHmqXGfgnRuAuBHoYz1dw==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "^2.2.5"
@@ -12840,6 +12928,11 @@ react-refresh@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.10.0.tgz#2f536c9660c0b9b1d500684d9e52a65e7404f7e3"
   integrity sha512-PgidR3wST3dDYKr6b4pJoqQFpPGNKDSCDx4cZoshjXipw3LzO7mG1My2pwEzz2JVkF+inx3xRpDeQLFQGH/hsQ==
+
+react-refresh@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.9.0.tgz#71863337adc3e5c2f8a6bfddd12ae3bfe32aafbf"
+  integrity sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==
 
 react-router-dom@^5.1.2:
   version "5.2.0"
@@ -15503,7 +15596,7 @@ webpack-dev-middleware@^4.1.0:
     range-parser "^1.2.1"
     schema-utils "^3.0.0"
 
-webpack-dev-server@^4.0.0-beta.3:
+webpack-dev-server@^4.0.0-beta.2, webpack-dev-server@^4.0.0-beta.3:
   version "4.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.0.0-beta.3.tgz#57368679f7f1fdd7ec8d9dd287275117271164f0"
   integrity sha512-Ud7ieH15No/KiSdRuzk+2k+S4gSCR/N7m4hJhesDbKQEZy3P+NPXTXfsimNOZvbVX2TRuIEFB+VdLZFn8DwGwg==
@@ -15581,7 +15674,7 @@ webpack@^4.0.0:
     watchpack "^1.7.4"
     webpack-sources "^1.4.1"
 
-webpack@^5.37.1:
+webpack@^5.32.0, webpack@^5.37.1:
   version "5.37.1"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.37.1.tgz#2deb5acd350583c1ab9338471f323381b0b0c14b"
   integrity sha512-btZjGy/hSjCAAVHw+cKG+L0M+rstlyxbO2C+BOTaQ5/XAnxkDrP5sVbqWhXgo4pL3X2dcOib6rqCP20Zr9PLow==
