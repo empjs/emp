@@ -59,7 +59,7 @@ program
   .option('-h, --hot', '是否使用热更新 默认不启动')
   .option('-o, --open <open>', '是否打开调试页面 默认true,false禁止自动打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
-  .option('-ps, --progress', '显示进度 默认为 true')
+  .option('-ps, --progress <progress>', '显示进度 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
   .action(({src, public, env, hot, open, ts, progress, wplogger, remote}) => {
@@ -83,7 +83,7 @@ program
   .option('-t, --ts', '生成类型文件 默认为 false')
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  .option('-ps, --progress', '显示进度 默认为 false')
+  .option('-ps, --progress <progress>', '显示进度 默认为 false')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(({src, dist, public, analyze, env, ts, progress, createName, createPath, wplogger}) => {
     const empEnv = env || 'prod'
