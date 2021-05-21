@@ -24,9 +24,11 @@ function init({regexpName, replaceName}) {
     if (regexpName && matchResult && gitBranchName) {
       console.log('currentBranchName: ', gitBranchName)
       version = gitBranchName.replace(new RegExp(regexpName, 'i'), replaceName || '')
+      if (version !== content.version) {
+        content.version = version
+        fs.writeFileSync(resolveApp('package.json'), JSON.stringify(content, null, 2))
+      }
       console.log('modify version: ', version)
-      content.version = version
-      fs.writeFileSync(resolveApp('package.json'), JSON.stringify(content, null, 2))
       console.log('success')
     } else {
       console.log('git verion lint end')
