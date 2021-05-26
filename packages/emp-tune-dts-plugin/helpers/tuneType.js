@@ -64,9 +64,9 @@ function tuneType(createPath, createName, isDefault, operation = emptyFunc, with
   newFileData = mergeRemoteType(newFileData)
   // 覆盖原有 index.d.ts
   fs.writeFileSync(filePath, newFileData, {encoding: 'utf-8'})
-  // 生成一个 md5 值命名的 index.d.ts
-  const md5Value = md5(newFileData)
-  const md5FilePath = path.join(createPath, `${md5Value}.d.ts`)
-  fs.writeFileSync(md5FilePath, newFileData, {encoding: 'utf-8'})
+  // // 生成一个 md5 值命名的 index.d.ts
+  // const md5Value = md5(newFileData)
+  // const md5FilePath = path.join(createPath, `${md5Value}.d.ts`)
+  // fs.writeFileSync(md5FilePath, newFileData, {encoding: 'utf-8'})
 }
 module.exports = {tuneType}
