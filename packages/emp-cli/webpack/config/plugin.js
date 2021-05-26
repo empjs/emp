@@ -68,6 +68,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
             title: 'EMP',
             template: paths.template,
             favicon: paths.favicon,
+            chunks: ['index'],
             files: {
               css: [],
               js: [],
