@@ -38,6 +38,9 @@ module.exports = (env, {hot, open, progress}) => {
           // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
           // watch: true,
         },
+        /**
+         * 在 dev 时可以访问 d.ts 文件
+         */
         {
           directory: dist,
           publicPath: '/',
