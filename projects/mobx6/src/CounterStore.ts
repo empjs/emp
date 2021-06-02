@@ -1,5 +1,5 @@
 import {makeAutoObservable, configure} from 'mobx'
-// configure({isolateGlobalState: true})
+configure({isolateGlobalState: true})
 class Store {
   data = {
     count: 0,

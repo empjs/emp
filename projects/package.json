@@ -29,7 +29,8 @@
     "dev:reactvue": "lerna run --scope @empreactvue/* --parallel dev",
     "dev:vue23":"lerna run --scope @empvue23/* --parallel dev",
     "dev:reactdiff":"lerna run --scope @emp-reactdiff/* --parallel dev",
-    "dev:remote":"lerna run --scope={@emp/demo1,remote-host-change} --parallel dev"
+    "dev:remote":"lerna run --scope={@emp/demo1,remote-host-change} --parallel dev",
+    "dev:mobx":"lerna run --scope={mobx5,mobx6} --parallel dev"
   },
   "devDependencies": {},
   "dependencies": {}

@@ -7,7 +7,6 @@
   "dependencies": {
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
-    "mobx-react-lite": "^3.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
