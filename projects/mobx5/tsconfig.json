@@ -1,0 +1,10 @@
+{
+  "extends": "@efox/emp-tsconfig",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+  },
+  "include": [
+    "src"
+  ]
+}

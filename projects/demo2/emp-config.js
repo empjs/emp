@@ -28,7 +28,10 @@ module.exports = {
         './components/Hello': 'src/components/Hello',
         './helper': 'src/helper',
       },
-      shared: ['react', 'react-dom'],
+      shared: {
+        react: {eager: true, singleton: true, requiredVersion: '^17.0.1'},
+        'react-dom': {eager: true, singleton: true, requiredVersion: '^17.0.1'},
+      },
     }
   },
 }
