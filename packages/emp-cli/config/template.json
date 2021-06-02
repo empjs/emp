@@ -6,6 +6,8 @@
   "preact":"https://github.com/efoxTeam/emp-preact-template.git",
   "react-base":"https://github.com/efoxTeam/emp-react-base-template.git",
   "react-project":"https://github.com/efoxTeam/emp-react-project-template.git",
+  "vue2-base":"https://github.com/efoxTeam/emp-vue2-base-template.git",
+  "vue2-project":"https://github.com/efoxTeam/emp-vue2-project-template.git",
   "vue3-base":"https://github.com/efoxTeam/emp-vue3-base-template.git",
   "vue3-project":"https://github.com/efoxTeam/emp-vue3-project-template.git",
   "cocos2d":"https://github.com/efoxTeam/emp-cocos2d-template.git",
