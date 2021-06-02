@@ -1,4 +1,5 @@
 const mf = require('./empconfig/mf')
+
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
  */

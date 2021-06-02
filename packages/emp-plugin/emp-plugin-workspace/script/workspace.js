@@ -194,7 +194,7 @@ const configure = async pullEnv => {
   }
   Object.values(remoteTsConfig.remotes).forEach(empUrl => {
     let subIndex = empUrl.indexOf('@')
-    let downloadFileUrl = empUrl.substr(subIndex + 1).replace('emp.js', 'index.d.ts')
+    let downloadFileUrl = empUrl.substr(subIndex + 1).replace(/\/\w+.js/, '/index.d.ts')
     downloadHttpFileAct(`./depends/${empUrl.split('@')[0]}.d.ts`, downloadFileUrl)
   })
 }

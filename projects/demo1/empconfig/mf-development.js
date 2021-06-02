@@ -1,3 +1,4 @@
+const {shareByVersion} = require('./unit')
 module.exports = {
   name: 'demo1',
   filename: 'emp.js',
@@ -10,4 +11,5 @@ module.exports = {
     './components/Hello': 'src/components/Hello',
   },
   shared: ['react', 'react-dom'],
+  // shared: Object.assign({}, shareByVersion('react'), shareByVersion('react-dom')),
 }

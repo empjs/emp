@@ -1,0 +1,21 @@
+{
+  "name": "multi-entry-public-emp-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.8.11",
+    "@efox/emp-tsconfig": "^1.0.0"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
