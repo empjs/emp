@@ -1,13 +1,21 @@
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
  */
+const port = 8002
 module.exports = {
   webpack() {
     return {
       devServer: {
-        port: 8002,
+        port,
       },
     }
+  },
+  webpackChain(config) {
+    config.plugin('html').tap(args => {
+      args[0].files.publicPath = `http://localhost:${port}`
+      console.log(args)
+      return args
+    })
   },
   async moduleFederation() {
     return {

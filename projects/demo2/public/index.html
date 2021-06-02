@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+  <!-- EMP inject title -->
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="shortcut icon" href="<%= htmlWebpackPlugin.options.files.publicPath %>/favicon.ico">
+  <!-- EMP inject css -->
+  <% for (let i in htmlWebpackPlugin.options.files.css) { %>
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.files.css[i] %>" /><% } %>
+  <!-- EMP inject js -->
+  <% for (let i in htmlWebpackPlugin.options.files.js) { %>
+  <script src="<%= htmlWebpackPlugin.options.files.js[i] %>"></script><% } %>
+</head>
+
+<body>
+  <div id="emp-root"></div>
+</body>
+
+</html>
