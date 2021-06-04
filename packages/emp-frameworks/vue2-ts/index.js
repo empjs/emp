@@ -43,5 +43,5 @@ module.exports = fn => ec => {
     },
   ])
 
-  return fn(ec)
+  return fn && fn(ec)
 }

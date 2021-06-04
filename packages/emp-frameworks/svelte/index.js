@@ -7,5 +7,5 @@ module.exports = fn => ec => {
     .test(/\.svelte$/)
     .use('svelte-loader')
     .loader('svelte-loader')
-  return fn(ec)
+  return fn && fn(ec)
 }

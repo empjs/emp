@@ -14,5 +14,5 @@ module.exports = (options, fn) => ec => {
         componentList: ['Test1', 'Test2'],
       },
     )
-  return fn(ec)
+  return fn && fn(ec)
 }

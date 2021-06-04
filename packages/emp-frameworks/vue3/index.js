@@ -32,5 +32,5 @@ module.exports = fn => ec => {
 
   config.resolve.alias.set('vue', '@vue/runtime-dom')
   config.plugin('vue_v3').use(require('vue-loader').VueLoaderPlugin, [])
-  return fn(ec)
+  return fn && fn(ec)
 }

@@ -9,5 +9,5 @@ module.exports = fn => ec => {
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
   config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
-  return fn(ec)
+  return fn && fn(ec)
 }

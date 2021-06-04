@@ -29,5 +29,5 @@ module.exports = fn => ec => {
       console.log(args)
       return args
     })
-  return fn(ec)
+  return fn && fn(ec)
 }
