@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     add() {
+      console.log('click event')
       // Vue2 使用 Vue3 传过来的自定义事件需要把函数名 kebab-case 改为 camelCase 再加前缀 on
       // 例如：调用 @my-event 需要写成 onMyEvent
       this.$emit("onMyEvent");
