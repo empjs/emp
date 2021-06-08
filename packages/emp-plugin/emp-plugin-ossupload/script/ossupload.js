@@ -23,7 +23,7 @@ const uploadOss = async (packageName, packageVersion) => {
     console.log('上传包名:', name)
     console.log('上传版本号:', version)
     console.log('开始上传..')
-    axios
+    await axios
       .post(uploadUrl, formData, {
         headers: {
           ...formHeaders,
@@ -34,13 +34,16 @@ const uploadOss = async (packageName, packageVersion) => {
         if (response?.status === 200) {
           console.log('资源线上地址:', response?.data?.url)
         }
+        // fs.unlinkSync(downloadResult.filePath)
       })
       .catch(error => {
         console.log('upload error', error)
+        // fs.unlinkSync(downloadResult.filePath)
       })
-    fs.unlinkSync(downloadResult.filePath)
+    fs.rmdirSync(resolveApp('uploadtemplate'), {recursive: true})
   } catch (e) {
     console.log(e)
+    fs.rmdirSync(resolveApp('uploadtemplate'), {recursive: true})
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-plugin-ossupload",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "use cli to upload file to oss",
   "main": "index.js",
   "private": false,
