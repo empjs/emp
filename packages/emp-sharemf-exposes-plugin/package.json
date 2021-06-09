@@ -1,0 +1,33 @@
+{
+  "name": "@efox/emp-sharemf-exposes-plugin",
+  "version": "1.0.0",
+  "keywords": [
+    "react",
+    "module federation",
+    "antd",
+    "webpack5",
+    "TypeScript"
+  ],
+  "description": "share mf exposes",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/emp-sharemf-exposes-plugin"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "npm-dts": "^1.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": ""
+}
