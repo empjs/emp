@@ -144,9 +144,6 @@ import {IWorkSpaceConfig} from '@efox/emp-cli/types/emp-workspace-config'
 const empWorkspaceConfig: IWorkSpaceConfig = {
     // 执行 emp workspace -t pullTypes 指令，会把 pullConfig配置的远程声明文件，拉到当前根目录 types目录下
   pullConfig: {
-    pcbase: 'http://res-pc-bc-dev.rshun.net/emp_base/1.0.0/index.d.ts',
-    chatbox: 'http://res-pc-bc.rshun.net/emp_chatbox/index.d.ts',
-    stream: 'https://pcyy-base-component.yy.com/bdgamelive/streamer_1.0.10/index.d.ts',
     localTypeTest1: 'E:/baidu/git/bdgamelive/src/types/svga.d.ts',
     localTypeTest2: 'E:/baidu/git/bdgamelive/src/types/empbdgamechatbox.d.ts',
   },
