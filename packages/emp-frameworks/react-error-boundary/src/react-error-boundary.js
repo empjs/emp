@@ -63,8 +63,8 @@ function transform(source, sourceMap) {
     `
 
     options.componentList.forEach(item => {
-      // 处理 export default Hello1
-
+      // 情况1
+      // 处理 export default Hello1  ==>  export default ErrorBoundaryWrap(Hello1)
       const matchRule1 = source.match(/export\s+default\s+(\w+)/)
       if (matchRule1 && matchRule1[1] && matchRule1[1] === item) {
         replaceCodeRule1.push({
@@ -72,7 +72,10 @@ function transform(source, sourceMap) {
           moduleName: item,
         })
       }
+      // 情况2
       // 处理 export default {Hello1, ...}
+      // ==>
+      // export default {Hello1: ErrorBoundary(Hello1), ...}
       const matchRule2 = source.match(/export\s+default\s*{([\w|,|\s]*)/)
       if (matchRule2 && matchRule2[1] && String(matchRule2[1]).split(',').includes(item)) {
         const tmpCodeString = matchRule2[1].replace(item, `${item}:ErrorBoundaryWrap(${item})`)
@@ -81,7 +84,11 @@ function transform(source, sourceMap) {
           exportDefaultCodeString: tmpCodeString,
         })
       }
+      // 情况3
       // 处理 export {Hello1, ...}
+      // ==>
+      // const Hello1ErrorBoundary = ErrorBoundaryWrap(Hello1)
+      // export {Hello1ErrorBoundary as Hello1, ...}
       const matchRule3 = source.match(/export\s*{([\w|,|\s]*)/)
       if (matchRule3 && matchRule3[1] && String(matchRule3[1]).split(',').includes(item)) {
         prependText += `
@@ -93,6 +100,11 @@ function transform(source, sourceMap) {
           exportDefaultCodeString: tmpCodeString,
         })
       }
+
+      // 情况4
+      // 处理 export const Hello1 = ()=>{...}
+      // ==>
+      // export const Hello1 = ErrorBoundaryWrap(()=>{...})
     })
 
     if (replaceCodeRule1.length === 0 && replaceCodeRule2.length === 0 && replaceCodeRule3.length === 0) {
