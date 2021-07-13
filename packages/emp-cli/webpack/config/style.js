@@ -8,8 +8,9 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const {getPaths} = require('../../helpers/paths')
+const {args} = require('commander')
 const paths = getPaths()
-module.exports = (env, config) => {
+module.exports = (env, config, args) => {
   const isDev = env === 'development'
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '_[hash:base64:7]' //正式环境 _ 解决大部分命名冲突问题
   //
@@ -144,20 +145,22 @@ module.exports = (env, config) => {
   }
   //=============== css min
   if (!isDev) {
-    config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
-      {
-        parallel: true,
-        sourceMap: false,
-        minimizerOptions: {
-          preset: [
-            'default',
-            {
-              discardComments: {removeAll: true},
-            },
-          ],
+    if (args.minify === true) {
+      config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
+        {
+          parallel: true,
+          sourceMap: false,
+          minimizerOptions: {
+            preset: [
+              'default',
+              {
+                discardComments: {removeAll: true},
+              },
+            ],
+          },
         },
-      },
-    ])
+      ])
+    }
     config.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
       {
         ignoreOrder: true,

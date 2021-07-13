@@ -15,7 +15,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
 //
-module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot}) => {
+module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot, minify}) => {
   const isDev = env === 'development'
   const conf = {
     plugin: {
@@ -73,20 +73,21 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
               css: [],
               js: [],
             },
-            minify: !isDev
-              ? {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true,
-                }
-              : false,
+            minify:
+              !isDev && minify === true
+                ? {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    keepClosingSlash: true,
+                    minifyJS: true,
+                    minifyCSS: true,
+                    minifyURLs: true,
+                  }
+                : false,
           },
         ],
       },

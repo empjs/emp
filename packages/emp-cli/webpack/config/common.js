@@ -12,7 +12,12 @@ module.exports = (env, config, args, empConfigPath) => {
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
   if (empConfigPath) buildDependenciesConfigs.push(empConfigPath)
+  // console.log('watch', !!args.watch, 'minify', args.minify)
   const commonConfig = {
+    watch: !!args.watch,
+    /* watchOptions: {
+      ignored: /node_modules/,
+    }, */
     // profile: true,
     cache: {
       version: `${version}-${gitVersion}${args.hot ? '-hot' : ''}${args.empEnv ? '-' + args.empEnv : ''}`,
@@ -28,7 +33,7 @@ module.exports = (env, config, args, empConfigPath) => {
     optimization: {
       chunkIds: 'named',
       // runtimeChunk: true,//启动后不支持 Module Federation
-      minimize: !isDev,
+      minimize: !isDev && args.minify === true,
       // minimizer: [],
     },
     entry: {index: entry},
@@ -92,7 +97,7 @@ module.exports = (env, config, args, empConfigPath) => {
   }
   config.merge(commonConfig)
   //
-  require('./style')(env, config)
+  require('./style')(env, config, args)
   // require('./css')(env, config)
   require('./file')(env, config)
   require('./module')(env, config, args)

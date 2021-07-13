@@ -13,15 +13,17 @@ module.exports = (args, config, env) => {
     },
   }
   config.merge(prodConfig)
-  config.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
-    {
-      extractComments: false,
-      terserOptions: {
-        // mangle: false, 保留ts class name
-        compress: {
-          passes: 2,
+  if (args.minify === true) {
+    config.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
+      {
+        extractComments: false,
+        terserOptions: {
+          // mangle: false, 保留ts class name
+          compress: {
+            passes: 2,
+          },
         },
       },
-    },
-  ])
+    ])
+  }
 }
