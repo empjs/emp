@@ -17,6 +17,8 @@
   const module = await container.get('./module');
   // 
   module.moduleMap
+  // 增加package.json version版本号
+  module.v 
 })();
 ```
 
