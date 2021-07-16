@@ -1,4 +1,4 @@
-const {setPaths} = require('../helpers/paths')
+const {setPaths, getPaths} = require('../helpers/paths')
 const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -8,7 +8,8 @@ const {getHostname, getDevHost} = require('../helpers/serveTool')
 module.exports = async args => {
   const {src, public, open, remote} = args
   await setPaths({src, public})
-  const {webpackConfig: config, empConfig} = await getProjectConfig('development', args)
+  const paths = getPaths()
+  const {webpackConfig: config, empConfig} = await getProjectConfig('development', args, paths)
   // before dev hook
   if (typeof empConfig.beforeDev === 'function') {
     await empConfig.beforeDev(config)

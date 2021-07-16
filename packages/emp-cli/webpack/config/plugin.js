@@ -14,6 +14,7 @@ const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
+const {getMinifyOp} = require('../../helpers/multiEntry')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot, minify}) => {
   const isDev = env === 'development'
@@ -73,21 +74,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
               css: [],
               js: [],
             },
-            minify:
-              !isDev && minify === true
-                ? {
-                    removeComments: true,
-                    collapseWhitespace: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeStyleLinkTypeAttributes: true,
-                    keepClosingSlash: true,
-                    minifyJS: true,
-                    minifyCSS: true,
-                    minifyURLs: true,
-                  }
-                : false,
+            minify: getMinifyOp(!isDev && minify === true),
           },
         ],
       },

@@ -3,6 +3,7 @@ const withReact = require('@efox/emp-react')
 // const {tsCompile, requireFromString} = require('./compile')
 // const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
+const {multiEntriesByConfig} = require('./multiEntry')
 
 class RuntimeCompile {
   sp = {} //start 函数入参
@@ -10,14 +11,23 @@ class RuntimeCompile {
   wpc = {} // webpack编译后的值
   empConfig = {} // emp-config json配置
   remotePackageJson = {} //远程依赖
-  async startCompile(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig) {
+  async startCompile(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig, paths) {
     this.sp = {args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig}
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
+    if (this.empConfig.entries) this.multiEntriesConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()
     await this.runtimeLog()
     return {webpackConfig: this.wpc, empConfig: this.empConfig || {}}
+  }
+  /**
+   * 多入口配置
+   */
+  multiEntriesConfig(paths) {
+    let isMinify = false
+    if (this.op.env === 'production' && this.op.minify !== false) isMinify = true
+    multiEntriesByConfig(this.op.config, paths, this.empConfig.entries, this.empConfig.entryCwd, isMinify)
   }
   /**
    * webpackchain 编译后的操作

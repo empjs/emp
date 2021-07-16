@@ -47,6 +47,25 @@ interface EmpConfigI {
   createName?: string
   createPath?: string
 }
+interface MultiEntryConfig {
+  /**
+   * 路由 url 如 info/user 或 about 等 映射特殊配置到页面
+   * 如: entryCwd 为 src/pages 的话 全路径 src/pages/info/user 配置成 如下配置
+   * {
+   *  'info/user':{title:"用户管理页面",favicon:"./src/assets/favicon.ico"}
+   * }
+   */
+  [key: string]: {
+    title: string
+    template?: string
+    favicon?: string
+    files?: {
+      css?: string[]
+      js?: string[]
+      publicPath?: string
+    }
+  }
+}
 interface WebpackConfigI extends Configuration {
   devServer?: WebpackDevServer
 }
@@ -81,6 +100,15 @@ declare interface EMPConfig {
    * 当 output.publicPath=auto时 自定义静态文件路径
    */
   moduleGenerator?: ModuleGeneratorType
+  /**
+   * 多入口支持
+   */
+  entries?: MultiEntryConfig
+  /**
+   * 默认多页面入口
+   * default src/pages
+   */
+  entryCwd?: string
   /**
    * style command of emp
    * 命令行拓展

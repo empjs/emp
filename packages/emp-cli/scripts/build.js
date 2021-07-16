@@ -11,7 +11,7 @@ module.exports = async args => {
   const {src, dist, public} = args
   await setPaths({src, dist, public})
   const paths = getPaths()
-  const {webpackConfig: config, empConfig} = await getProjectConfig('production', args)
+  const {webpackConfig: config, empConfig} = await getProjectConfig('production', args, paths)
   // before build hook
   if (typeof empConfig.beforeBuild === 'function') {
     await empConfig.beforeBuild(config)

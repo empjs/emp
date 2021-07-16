@@ -1,14 +1,20 @@
+const port = 8002
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
  */
-const port = 8002
 module.exports = {
+  entries: {},
   webpack() {
     return {
       devServer: {
         port,
       },
     }
+  },
+  entries: {
+    'info/user': {
+      title: '用户信息',
+    },
   },
   webpackChain(config) {
     config.plugin('html').tap(args => {
