@@ -15,7 +15,7 @@ class RuntimeCompile {
     this.sp = {args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig}
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
-    if (this.empConfig.entries) this.multiEntriesConfig(paths)
+    if (this.empConfig.entries && this.empConfig.entryCwd !== false) this.multiEntriesConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()
     await this.runtimeLog()

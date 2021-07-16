@@ -107,8 +107,9 @@ declare interface EMPConfig {
   /**
    * 默认多页面入口
    * default src/pages
+   * 当为 false 时 将不启动 多入口
    */
-  entryCwd?: string
+  entryCwd?: string | boolean
   /**
    * style command of emp
    * 命令行拓展
