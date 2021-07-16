@@ -1,3 +1,8 @@
+const path = require('path')
+const fs = require('fs')
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
+
 const ConcatSource = require('webpack-sources').ConcatSource
 
 const plugin = {
@@ -10,6 +15,9 @@ class EmpPluginShareModule {
   apply(compiler) {
     const _options = this.options || {}
     const filename = _options.filename || 'sharemodule.js'
+    const packageJsonPath = resolveApp('package.json')
+    const packageObj = require(packageJsonPath)
+    const v = packageObj.version.replace(/\./g, '_')
     compiler.hooks.compilation.tap(plugin, compilation => {
       // 返回 true 以输出 output 结果，否则返回 false
       compilation.hooks.optimizeChunkAssets.tap(plugin, chunks => {
@@ -27,7 +35,8 @@ class EmpPluginShareModule {
               input = input.replace(
                 'init: function() { return init; }',
                 `init: function() { return init; },
-                 moduleMap: function() { return moduleMap; }`,
+                 moduleMap: function() { return moduleMap; },
+                 v: function () { return '${v}' },`,
               )
               compilation.assets[fileName] = new ConcatSource(input)
             }
