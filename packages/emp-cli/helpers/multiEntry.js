@@ -5,7 +5,6 @@ const entryConfig = function (config, paths, cwd, src, srcKey, op, isMinify) {
   const entryName = src.split('.')[0].replace(/\//gi, '_')
   const chunks = srcKey.replace(/\//gi, '_')
   const filename = `${srcKey}.html`
-  console.log('srcKey', srcKey)
   config.entry(chunks).add(path.join(paths.appRoot, src)).end()
   const htmlOption = {
     title: '',

@@ -19,7 +19,7 @@ module.exports = {
   webpackChain(config) {
     config.plugin('html').tap(args => {
       args[0].files.publicPath = `http://localhost:${port}`
-      console.log(args)
+      // console.log(args)
       return args
     })
   },
