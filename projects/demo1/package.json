@@ -15,8 +15,8 @@
   "dependencies": {
     "@efox/emp-plugin-chameleon-topic": "^1.0.0",
     "@efox/emp-remote-md5": "^1.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@efox/emp-plugin-workspace":"^1.0.0",

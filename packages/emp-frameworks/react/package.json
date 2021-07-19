@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-react",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,11 +11,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.12.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta.8",
-    "@svgr/webpack": "^5.4.0",
+    "@babel/preset-react": "^7.14.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.2",
+    "@svgr/webpack": "^5.5.0",
     "babel-plugin-named-asset-import": "^0.3.7",
     "react-refresh": "^0.10.0"
-  },
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"
+  }
 }
