@@ -4,6 +4,7 @@ const withReact = require('@efox/emp-react')
 // const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
 const {multiEntriesByConfig} = require('./multiEntry')
+const LibraryModel = require('./libraryModel')
 
 class RuntimeCompile {
   sp = {} //start 函数入参
@@ -16,10 +17,17 @@ class RuntimeCompile {
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
     if (this.empConfig.entryCwd !== false && fs.existsSync(this.empConfig.entryCwd)) this.multiEntriesConfig(paths)
+    // if (this.empConfig.library) this.libraryConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()
     await this.runtimeLog()
     return {webpackConfig: this.wpc, empConfig: this.empConfig || {}}
+  }
+  /**
+   * 库模式化
+   */
+  libraryConfig(paths) {
+    new LibraryModel(this.op.config, this.empConfig.library, paths)
   }
   /**
    * 多入口配置

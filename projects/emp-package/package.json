@@ -1,7 +1,7 @@
 {
   "name": "emp-package",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -12,11 +12,10 @@
     "stat": "emp build --analyze"
   },
   "devDependencies": {
-    "@efox/emp-cli": "1.8.26",
+    "@efox/emp-cli": "^1.9.0",
     "@efox/emp-tsconfig": "^1.0.0"
   },
   "dependencies": {
-    "@efox/emp-cli": "^1.9.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }
