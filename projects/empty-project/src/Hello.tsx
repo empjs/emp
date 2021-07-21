@@ -14,7 +14,7 @@ const HttpDemo = () => {
 }
 const Hello = (): JSX.Element => (
   <>
-    <div>hello word!!!</div>
+    <div>hello word</div>
     <HttpDemo />
   </>
 )

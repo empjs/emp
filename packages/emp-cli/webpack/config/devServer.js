@@ -13,7 +13,7 @@ module.exports = (env, {hot, open, progress}) => {
       // contentBase: [public],
       // contentBasePublicPath :'/',//定义静态路径的别名
       // disableHostCheck: true,
-      firewall: false,
+      // firewall: false,
       historyApiFallback: true,
       open: false,
       hot: hot === true,
