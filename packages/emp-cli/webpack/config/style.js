@@ -149,7 +149,7 @@ module.exports = (env, config, args) => {
       config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
         {
           parallel: true,
-          sourceMap: false,
+          // sourceMap: false,
           minimizerOptions: {
             preset: [
               'default',
