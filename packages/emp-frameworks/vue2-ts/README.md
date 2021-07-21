@@ -11,7 +11,7 @@ module.exports = withVue2(({config, env, empEnv}) => {
 ```
 
 ## FAQ
-+ Q: How share Vue dependencie ?
++ Q: How share Vue dependencies ?
 + A: Vue is special, You need use `vue/dist/vue.esm.js` in shared array.example:
 ```js
 const withVue2Ts = require('@efox/emp-vue2-ts')
