@@ -2,8 +2,10 @@
   "extends": "@efox/emp-tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
+    "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
+    "emitDeclarationOnly": true,
   },
   "include": [
     "src"

@@ -16,10 +16,10 @@ class LibraryModel {
       .delete('html')
       .end()
       .output.path(path.join(this.paths.appRoot, 'dist'))
-      .filename(`${name}.bundle.js`)
+      .filename(`[name].js`)
       .library({
-        // name,
-        type: 'module',
+        name,
+        type: 'umd',
       })
     //
     /* this.config.plugin('mf').tap(args => {
