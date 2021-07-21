@@ -1,7 +1,8 @@
 {
   "name": "@efox/emp-react",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "index.js",
+  "types": "./types/emp-react.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
@@ -15,6 +16,9 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.2",
     "@svgr/webpack": "^5.5.0",
     "babel-plugin-named-asset-import": "^0.3.7",
-    "react-refresh": "^0.10.0"
+    "react-refresh": "^0.10.0",
+    "@types/node": "^14.14.32",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.1"
   }
 }
