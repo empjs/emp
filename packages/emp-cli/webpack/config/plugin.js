@@ -43,25 +43,6 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           },
         ],
       },
-      clean: {plugin: CleanWebpackPlugin, args: []},
-      copy: {
-        plugin: CopyWebpackPlugin,
-        args: [
-          {
-            patterns: [
-              {
-                from: paths.public.replace(/\\/g, '/'),
-                to: paths.dist.replace(/\\/g, '/'),
-                globOptions: {
-                  // 加入 paths.template 避免被重置
-                  ignore: ['*.DS_Store', paths.template.replace(/\\/g, '/'), paths.favicon.replace(/\\/g, '/')],
-                },
-                noErrorOnMissing: true,
-              },
-            ],
-          },
-        ],
-      },
       html: {
         plugin: HtmlWebpackPlugin,
         args: [
