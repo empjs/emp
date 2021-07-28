@@ -147,7 +147,7 @@ class RuntimeCompile {
         this.sp.config.merge({
           module: {
             generator: {
-              asset: {
+              'asset/resource': {
                 publicPath: moduleGenerator,
               },
             },
