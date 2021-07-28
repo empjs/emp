@@ -2201,17 +2201,6 @@
     webpack-dev-server "^4.0.0-beta.3"
     webpackbar "^5.0.0-3"
 
-"@efox/emp-react@1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@efox/emp-react/-/emp-react-1.1.6.tgz#f32750629a251cf0ed5998d2938a6a24658e0480"
-  integrity sha512-3fNKJCNNwX+JAb65QkpliWr0vNaRtWLEWMM8d4DbuD0kRJFj11mkRJXYn6SDifc9cSSOOkmbSQe4bWXj/SVJFg==
-  dependencies:
-    "@babel/preset-react" "^7.14.5"
-    "@pmmmwh/react-refresh-webpack-plugin" "^0.5.0-rc.2"
-    "@svgr/webpack" "^5.5.0"
-    babel-plugin-named-asset-import "^0.3.7"
-    react-refresh "^0.10.0"
-
 "@efox/emp-tsconfig@latest":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@efox/emp-tsconfig/-/emp-tsconfig-1.1.3.tgz#5913692258a8217b2cb642d9efcc3366c6e29b30"
@@ -17640,6 +17629,14 @@ webpack-sources@^2.3.0:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
+webpack-sources@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.3.1.tgz#570de0af163949fe272233c2cefe1b56f74511fd"
+  integrity sha512-y9EI9AO42JjEcrTJFOYmVywVZdKVUfOvDUPsJea5GIr1JOEGFVqwlY2K098fFoIjOkDzHn2AjRvM8dsBZu+gCA==
+  dependencies:
+    source-list-map "^2.0.1"
+    source-map "^0.6.1"
+
 webpack@^4.0.0:
   version "4.46.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.46.0.tgz#bf9b4404ea20a073605e0a011d188d77cb6ad542"
@@ -17698,7 +17695,7 @@ webpack@^5.41.0:
     watchpack "^2.2.0"
     webpack-sources "^2.3.0"
 
-webpack@^5.44.0, webpack@^5.45.1:
+webpack@^5.44.0:
   version "5.45.1"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.45.1.tgz#d78dcbeda18a872dc62b0455d3ed3dcfd1c886bb"
   integrity sha512-68VT2ZgG9EHs6h6UxfV2SEYewA9BA3SOLSnC2NEbJJiEwbAiueDL033R1xX0jzjmXvMh0oSeKnKgbO2bDXIEyQ==
@@ -17726,6 +17723,35 @@ webpack@^5.44.0, webpack@^5.45.1:
     terser-webpack-plugin "^5.1.3"
     watchpack "^2.2.0"
     webpack-sources "^2.3.0"
+
+webpack@^5.46.0:
+  version "5.46.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.46.0.tgz#105d20d96f79db59b316b0ae54316f0f630314b5"
+  integrity sha512-qxD0t/KTedJbpcXUmvMxY5PUvXDbF8LsThCzqomeGaDlCA6k998D8yYVwZMvO8sSM3BTEOaD4uzFniwpHaTIJw==
+  dependencies:
+    "@types/eslint-scope" "^3.7.0"
+    "@types/estree" "^0.0.50"
+    "@webassemblyjs/ast" "1.11.1"
+    "@webassemblyjs/wasm-edit" "1.11.1"
+    "@webassemblyjs/wasm-parser" "1.11.1"
+    acorn "^8.4.1"
+    browserslist "^4.14.5"
+    chrome-trace-event "^1.0.2"
+    enhanced-resolve "^5.8.0"
+    es-module-lexer "^0.7.1"
+    eslint-scope "5.1.1"
+    events "^3.2.0"
+    glob-to-regexp "^0.4.1"
+    graceful-fs "^4.2.4"
+    json-parse-better-errors "^1.0.2"
+    loader-runner "^4.2.0"
+    mime-types "^2.1.27"
+    neo-async "^2.6.2"
+    schema-utils "^3.1.0"
+    tapable "^2.1.1"
+    terser-webpack-plugin "^5.1.3"
+    watchpack "^2.2.0"
+    webpack-sources "^2.3.1"
 
 webpackbar@^5.0.0-3:
   version "5.0.0-3"
