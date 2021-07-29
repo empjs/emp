@@ -4,7 +4,7 @@ module.exports = (env, config, {hot}) => {
     module: {
       // webpack 5.28.+
       generator: {
-        asset: {
+        'asset/resource': {
           publicPath: '/',
         },
       },
