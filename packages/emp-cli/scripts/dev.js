@@ -47,11 +47,11 @@ module.exports = async args => {
       console.log()
     })
 
-    if (open === true) {
-      let url = realHost
-      if (config.devServer.port != 80) url += ':' + config.devServer.port
-      openBrowser(`${protocol}://${url}`)
-      console.log(`Starting server on ${protocol}://${host}:${config.devServer.port}`)
-    }
+    // if (open === true) {
+    //   let url = realHost
+    //   if (config.devServer.port != 80) url += ':' + config.devServer.port
+    //   openBrowser(`${protocol}://${url}`)
+    //   console.log(`Starting server on ${protocol}://${host}:${config.devServer.port}`)
+    // }
   })
 }
