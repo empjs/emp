@@ -22,6 +22,7 @@ module.exports = async args => {
   // }
   //
   const compiler = Webpack(config)
+  config.devServer = {allowedHosts: 'all', ...config.devServer}
   const server = new WebpackDevServer(compiler, config.devServer)
   const host = getDevHost(config.devServer.host)
   server.listen(config.devServer.port, '0.0.0.0', err => {
