@@ -11,9 +11,9 @@ module.exports = async args => {
   const {src, public, open, remote} = args
   await setPaths({src, public})
   const paths = getPaths()
-  console.time('getProjectConfig')
+  // console.time('getProjectConfig')
   const {webpackConfig: config, empConfig} = await getProjectConfig('development', args, paths)
-  console.timeEnd('getProjectConfig')
+  // console.timeEnd('getProjectConfig')
   // before dev hook
   if (typeof empConfig.beforeDev === 'function') {
     await empConfig.beforeDev(config)

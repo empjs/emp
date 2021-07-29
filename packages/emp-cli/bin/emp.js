@@ -9,6 +9,7 @@ const {checkNodeVersion} = require('../helpers/cli')
 const globalCommand = require('../helpers/globalCommand')
 const Axios = require('axios')
 const {empConfigSync} = require('../helpers/compile')
+const {measure} = require('../helpers/debug')
 
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))
@@ -286,8 +287,7 @@ if (empConfig && empConfig.commander && typeof empConfig.commander === 'function
 // console.log('commander', empConfig)
 
 // program = pluginDriver(program)
-// console.time('globalCommand')
-globalCommand(program)
-// console.timeEnd('globalCommand')
+
+measure('globalCommand', () => globalCommand(program))
 // 执行命令
 program.parse(process.argv)
