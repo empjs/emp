@@ -21,7 +21,7 @@
   "devDependencies": {
     "@efox/emp-plugin-workspace":"^1.0.0",
     "@efox/emp-plugin-configure":"^1.0.0",
-    "@efox/emp-cli": "^1.8.11",
+    "@efox/emp-cli": "^1.9.0-1",
     "@efox/emp-tsconfig": "^1.0.0",
     "emp-plugin-dts-sync": "^1.0.0"
   }

@@ -59,15 +59,24 @@ const cachePaths = {
 }
 const checkRemote = async () => {
   const remoteConfig = resolveApp('emp-config.js')
-  const remoteTsConfig = resolveApp('emp-config.ts')
-  const [isRemoteConfig, isRemoteTsConfig, isRemotePackageJson] = await Promise.all([
+  // const remoteTsConfig = resolveApp('emp-config.ts')
+  const [
+    isRemoteConfig,
+    // isRemoteTsConfig,
+    isRemotePackageJson,
+  ] = await Promise.all([
     fs.exists(remoteConfig),
-    fs.exists(remoteTsConfig),
+    // fs.exists(remoteTsConfig),
     fs.exists(appPackageJson),
   ])
   const empPackageJsonPath = isRemotePackageJson ? appPackageJson : null
-  let empConfigPath = isRemoteTsConfig ? remoteTsConfig : isRemoteConfig ? remoteConfig : null
-  return {empPackageJsonPath, empConfigPath, isRemoteTsConfig}
+  // let empConfigPath = isRemoteTsConfig ? remoteTsConfig : isRemoteConfig ? remoteConfig : null
+  let empConfigPath = isRemoteConfig ? remoteConfig : null
+  return {
+    empPackageJsonPath,
+    empConfigPath,
+    //  isRemoteTsConfig,
+  }
 }
 module.exports = {
   resolveApp,

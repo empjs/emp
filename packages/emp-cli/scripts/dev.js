@@ -3,7 +3,7 @@ const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const chalk = require('chalk')
-const openBrowser = require('../helpers/openBrowser')
+// const openBrowser = require('../helpers/openBrowser')
 const prepareURLs = require('../helpers/prepareURLs')
 // const downloadRemoteFile = require('../helpers/downloadRemoteFile')
 // const {getHostname, getDevHost} = require('../helpers/serveTool')
@@ -11,7 +11,9 @@ module.exports = async args => {
   const {src, public, open, remote} = args
   await setPaths({src, public})
   const paths = getPaths()
+  console.time('getProjectConfig')
   const {webpackConfig: config, empConfig} = await getProjectConfig('development', args, paths)
+  console.timeEnd('getProjectConfig')
   // before dev hook
   if (typeof empConfig.beforeDev === 'function') {
     await empConfig.beforeDev(config)

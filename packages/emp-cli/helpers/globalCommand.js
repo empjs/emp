@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const execSync = require('child_process').execSync
-
+const {resolveApp} = require('./paths')
 function shouldUseYarn() {
   try {
     execSync('yarnpkg --version', {stdio: 'ignore'})
@@ -12,6 +12,12 @@ function shouldUseYarn() {
 }
 
 module.exports = program => {
+  let empConfig = {}
+  try {
+    empConfig = require(resolveApp('emp-config.js'))
+  } catch (e) {}
+  // console.log('empConfig', empConfig)
+  if (!empConfig.isRegisterCommand) return
   let npmGlobalModules = null
   let yarnGlobalModules = null
   const useYarn = shouldUseYarn()

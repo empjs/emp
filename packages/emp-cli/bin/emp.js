@@ -286,7 +286,8 @@ if (empConfig && empConfig.commander && typeof empConfig.commander === 'function
 // console.log('commander', empConfig)
 
 // program = pluginDriver(program)
+// console.time('globalCommand')
 globalCommand(program)
-
+// console.timeEnd('globalCommand')
 // 执行命令
 program.parse(process.argv)

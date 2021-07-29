@@ -19,4 +19,5 @@ module.exports = {
   async moduleFederation({webpackEnv}) {
     return mf(webpackEnv)
   },
+  // isRegisterCommand: true,
 }
