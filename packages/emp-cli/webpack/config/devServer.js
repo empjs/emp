@@ -16,7 +16,7 @@ module.exports = (env, {hot, open, progress}) => {
       // disableHostCheck: true,
       // firewall: false,
       historyApiFallback: true,
-      open: false,
+      open,
       hot: hot === true,
       // useLocalIp: true,
       headers: {
