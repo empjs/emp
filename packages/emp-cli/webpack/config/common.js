@@ -94,6 +94,12 @@ module.exports = (env, config, args, empConfigPath) => {
         '.svga',
       ],
     },
+    // 为 info 时， webpack-dev-server 才会输出进度信息
+    infrastructureLogging: {
+      level: args.progress ? 'info' : 'warn',
+    },
+    // 精简 webpack 编译输出信息
+    stats: 'errors-warnings',
   }
   config.merge(commonConfig)
   //
