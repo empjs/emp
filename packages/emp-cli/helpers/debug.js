@@ -7,6 +7,7 @@ module.exports = {
       console.timeEnd(t)
       return cb
     }
+
     return fn()
   },
 }
