@@ -7,7 +7,7 @@ module.exports = (args, config, env) => {
       usedExports: true,
     },
     // devtool: 'inline-source-map',
-    devtool: 'cheap-module-source-map',
+    devtool: 'eval-cheap-module-source-map',
     devServer,
   }
   config.merge(devConfig)

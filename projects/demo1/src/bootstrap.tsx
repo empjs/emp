@@ -6,6 +6,11 @@ import {log} from '@emp/demo2/helper'
 import Hello2 from '@emp/demo2/components/Hello'
 import Demo from 'src/components/Demo'
 log('==============testing!!!!==============================')
+const arr = [1, 2, 3, 4, 5, 6, 7, 8]
+console.log('==============for of demo======================')
+for (const v of arr) {
+  console.log(v)
+}
 ReactDOM.render(
   <>
     <Hello />

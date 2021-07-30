@@ -116,13 +116,18 @@ declare interface EMPConfig {
    */
   commander?: (program: Command) => void
   /**
-   * before dev env=development server
+   * before dev env = development server
    * emp dev 启动前执行
    */
   beforeDev?: (config: EmpConfigI) => void | Promise<any>
   /**
-   * before build env=production server
+   * before build env = production server
    * emp build 启动前执行
    */
   beforeBuild?: (config: EmpConfigI) => void | Promise<any>
+  /**
+   * isRegisterCommand = false
+   * 是否检测全局注册命令、默认为 false，开启可以动态注册全局，但是会降低启动速度
+   */
+  isRegisterCommand?: boolean
 }

@@ -2,6 +2,7 @@ const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 //========== cache version control ===================
 const {version} = require('../../package.json')
 const {cmdSync} = require('../../helpers/cli')
+const {measure} = require('../../helpers/debug')
 // git rev-parse HEAD 提交版本 hash
 // git rev-parse --abbrev-ref HEAD 分支名称
 const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'
@@ -94,14 +95,25 @@ module.exports = (env, config, args, empConfigPath) => {
         '.svga',
       ],
     },
+    // 为 info 时， webpack-dev-server 才会输出进度信息
+    infrastructureLogging: {
+      level: args.progress ? 'info' : 'warn',
+    },
+    // 精简 webpack 编译输出信息
+    stats: 'errors-warnings',
   }
   config.merge(commonConfig)
   //
-  require('./style')(env, config, args)
+
+  measure('commonConfig-style', () => require('./style')(env, config, args))
   // require('./css')(env, config)
-  require('./file')(env, config)
-  require('./module')(env, config, args)
-  require('./plugin')(env, config, args)
-  require('./experiments')(env, config)
+  measure('commonConfig-file', () => require('./file')(env, config))
+
+  measure('commonConfig-module', () => require('./module')(env, config, args))
+
+  measure('commonConfig-plugin', () => require('./plugin')(env, config, args))
+
+  measure('commonConfig-experiments', () => require('./experiments')(env, config))
+
   // return conf
 }

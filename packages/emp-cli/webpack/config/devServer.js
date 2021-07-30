@@ -9,13 +9,14 @@ module.exports = (env, {hot, open, progress}) => {
       //   host: '0.0.0.0',
       // host: 'localhost',
       // host: 'local-ip',
+      // port: 'auto',
       port: 8000,
       // contentBase: [public],
       // contentBasePublicPath :'/',//定义静态路径的别名
       // disableHostCheck: true,
-      firewall: false,
+      // firewall: false,
       historyApiFallback: true,
-      open: false,
+      open,
       hot: hot === true,
       // useLocalIp: true,
       headers: {

@@ -9,13 +9,6 @@ module.exports = (env, config, {hot}) => {
         },
       },
       rule: {
-        /* bootstrap: {
-          test: /bootstrap\.(tsx|jsx)$/,
-          loader: 'bundle-loader',
-          options: {
-            lazy: true,
-          },
-        }, */
         // 解决 mjs 加载失败问题
         mjs: {
           test: /\.m?js/,
@@ -33,7 +26,7 @@ module.exports = (env, config, {hot}) => {
               options: {
                 presets: [
                   [
-                    require('@babel/preset-env').default,
+                    '@babel/preset-env',
                     {
                       useBuiltIns: 'entry',
                       // debug: isDev,

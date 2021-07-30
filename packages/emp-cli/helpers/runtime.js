@@ -4,6 +4,7 @@ const withReact = require('@efox/emp-react')
 // const {configRemotes} = require('./depend')
 const fs = require('fs-extra')
 const {multiEntriesByConfig} = require('./multiEntry')
+const LibraryModel = require('./libraryModel')
 
 class RuntimeCompile {
   sp = {} //start 函数入参
@@ -11,15 +12,22 @@ class RuntimeCompile {
   wpc = {} // webpack编译后的值
   empConfig = {} // emp-config json配置
   remotePackageJson = {} //远程依赖
-  async startCompile(args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig, paths) {
-    this.sp = {args, empPackageJsonPath, empConfigPath, config, env, isRemoteTsConfig}
+  async startCompile(args, empPackageJsonPath, empConfigPath, config, env, paths) {
+    this.sp = {args, empPackageJsonPath, empConfigPath, config, env}
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
     if (this.empConfig.entryCwd !== false && fs.existsSync(this.empConfig.entryCwd)) this.multiEntriesConfig(paths)
+    // if (this.empConfig.library) this.libraryConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()
     await this.runtimeLog()
     return {webpackConfig: this.wpc, empConfig: this.empConfig || {}}
+  }
+  /**
+   * 库模式化
+   */
+  libraryConfig(paths) {
+    new LibraryModel(this.op.config, this.empConfig.library, paths)
   }
   /**
    * 多入口配置
@@ -47,12 +55,12 @@ class RuntimeCompile {
       ? await fs.readJson(this.sp.empPackageJsonPath)
       : {dependencies: {}, devDependencies: {}}
     //
-    if (this.sp.empConfigPath && !this.sp.isRemoteTsConfig) {
+    if (this.sp.empConfigPath) {
       await this.runtimeWithJsConfig()
-    } else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
+    } /* else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
       // await this.runtimeWithTsConfig()
       throw new Error('use emp-config.js https://github.com/efoxTeam/emp/discussions/88#discussioncomment-583390')
-    } else {
+    } */ else {
       // 在没有 emp-config.js 的环境下执行
       if (this.remotePackageJson.dependencies.react) {
         withReact()(this.op)

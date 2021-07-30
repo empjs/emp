@@ -1,7 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
@@ -12,8 +12,8 @@ const {TuneDtsPlugin} = require('@efox/emp-tune-dts-plugin')
 const path = require('path')
 const fs = require('fs')
 const ESLintPlugin = require('eslint-webpack-plugin')
-const webpackbar = require('webpackbar')
 const Dotenv = require('dotenv-webpack')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const {getMinifyOp} = require('../../helpers/multiEntry')
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot, minify}) => {
@@ -43,25 +43,6 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           },
         ],
       },
-      clean: {plugin: CleanWebpackPlugin, args: []},
-      copy: {
-        plugin: CopyWebpackPlugin,
-        args: [
-          {
-            patterns: [
-              {
-                from: paths.public.replace(/\\/g, '/'),
-                to: paths.dist.replace(/\\/g, '/'),
-                globOptions: {
-                  // 加入 paths.template 避免被重置
-                  ignore: ['*.DS_Store', paths.template.replace(/\\/g, '/'), paths.favicon.replace(/\\/g, '/')],
-                },
-                noErrorOnMissing: true,
-              },
-            ],
-          },
-        ],
-      },
       html: {
         plugin: HtmlWebpackPlugin,
         args: [
@@ -83,18 +64,17 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: ModuleFederationPlugin,
         args: [{}],
       },
+      friendly: {
+        plugin: FriendlyErrorsWebpackPlugin,
+        args: [{}],
+      },
     },
   }
   // progress
   if (progress) {
     conf.plugin.progress = {
-      plugin: webpackbar,
-      args: [
-        {
-          color: 'green',
-          profile: true,
-        },
-      ],
+      plugin: webpack.ProgressPlugin,
+      args: [],
     }
   }
   /* if (progress) {
