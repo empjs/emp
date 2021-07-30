@@ -26,7 +26,7 @@ module.exports = (env, config, {hot}) => {
               options: {
                 presets: [
                   [
-                    require('@babel/preset-env').default,
+                    '@babel/preset-env',
                     {
                       useBuiltIns: 'entry',
                       // debug: isDev,
