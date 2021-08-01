@@ -6,7 +6,7 @@ module.exports = withSWC(({config, env}) => {
     args[0] = {
       ...args[0],
       ...{
-        name: 'esbuildReactDemo',
+        name: 'swcReactDemo',
         filename: 'emp.js',
         remotes: {
           '@emp/demo1': 'demo1@http://localhost:8001/emp.js',
