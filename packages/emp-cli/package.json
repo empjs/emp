@@ -2,8 +2,7 @@
   "name": "@efox/emp-cli",
   "version": "1.9.1",
   "scripts": {
-    "prepublish": "node ./publish/envVar prod",
-    "postpublish": "node ./publish/envVar debug"
+    "publishNpm": "node ./publish/envVar prod&& npm publish &&node ./publish/envVar debug"
   },
   "keywords": [
     "react",

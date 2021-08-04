@@ -1,4 +1,4 @@
-const env = 'prod'
+const env = 'debug'
 module.exports = {
   measure(t, fn) {
     if (env === 'debug') {
