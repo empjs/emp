@@ -32,7 +32,7 @@ module.exports = (env, config, {hot}) => {
                       // debug: isDev,
                       debug: false,
                       corejs: 3,
-                      bugfixes: true,
+                      // bugfixes: true,
                       exclude: ['transform-typeof-symbol'],
                       loose: true,
                     },

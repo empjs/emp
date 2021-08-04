@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "scripts": {
     "prepublish": "node ./publish/envVar prod",
     "postpublish": "node ./publish/envVar debug"
