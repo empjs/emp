@@ -58,7 +58,7 @@ module.exports = (env, config, {hot}) => {
                   //
                   // [require('@babel/plugin-syntax-top-level-await').default],//观察是否支持 toplvawait 的 es5支持
                   [
-                    require('@babel/plugin-transform-runtime').default,
+                    '@babel/plugin-transform-runtime',
                     {
                       corejs: false,
                       helpers: true,
@@ -68,8 +68,8 @@ module.exports = (env, config, {hot}) => {
                       absoluteRuntime: false,
                     },
                   ],
-                  [require('@babel/plugin-proposal-decorators').default, {legacy: true}],
-                  [require('@babel/plugin-proposal-class-properties').default, {loose: true}],
+                  ['@babel/plugin-proposal-decorators', {legacy: true}],
+                  ['@babel/plugin-proposal-class-properties', {loose: true}],
                 ].filter(Boolean),
               },
             },

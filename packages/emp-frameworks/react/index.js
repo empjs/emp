@@ -1,4 +1,13 @@
 // const path = require('path')
+const {resolveApp} = require('@efox/emp-cli/helpers/paths')
+const packageJson = require(resolveApp('package.json')) || {}
+const {versionStringCompare} = require('./helper')
+packageJson.dependencies = packageJson.dependencies || {}
+packageJson.devDependencies = packageJson.devDependencies || {}
+const reactVersion = packageJson.dependencies.react || packageJson.devDependencies.react
+const isAntd = packageJson.dependencies.antd || packageJson.devDependencies.antd ? true : false
+const isReact17 = versionStringCompare(reactVersion, '17')
+const reactNewJsx = isReact17 ? {runtime: 'automatic'} : {}
 module.exports = fn => ec => {
   const {config, env, hot} = ec
   const isDev = env === 'development'
@@ -7,11 +16,11 @@ module.exports = fn => ec => {
     .use('babel')
     .tap(o => {
       // react
-      o.presets.push(require('@babel/preset-react').default)
+      o.presets.push(['@babel/preset-react', reactNewJsx])
       // fast refresh
       isDev && hot && o.plugins.unshift(require.resolve('react-refresh/babel'))
       // antd :TODO 增加 是否依赖 antd 判断
-      o.plugins.unshift(['import', {libraryName: 'antd', style: true}])
+      isAntd && o.plugins.unshift(['import', {libraryName: 'antd', style: true}])
       // 只在 tsx 里面 触发 svg 不适用内置 babel
       /* o.plugins.unshift([
         require.resolve('babel-plugin-named-asset-import'),
