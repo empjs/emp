@@ -1,5 +1,3 @@
-import * as React from 'react'
-// import * as ReactDOM from 'react-dom'
 import Hello from './Hello'
 import css from './index.module.scss'
 import config from './config'

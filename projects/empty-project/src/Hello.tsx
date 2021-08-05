@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 // const lang = await axios.get('https://api.github.com/users')
 // console.log('lang', lang)

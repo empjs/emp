@@ -30,6 +30,10 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'react-hooks/rules-of-hooks': 'warn',
     'react-hooks/exhaustive-deps': 'off',
+    // react 1.7 后不再需要默认导入
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    //
     'prettier/prettier': [
       'error',
       {

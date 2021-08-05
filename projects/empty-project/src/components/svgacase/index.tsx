@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
+import {useEffect, createRef} from 'react'
 import SVGA from 'svgaplayerweb'
 import svgafile from 'src/assets/throw.svga'
 const SvgaCase = (): JSX.Element => {
-  const canvasRef = React.createRef<HTMLDivElement>()
+  const canvasRef = createRef<HTMLDivElement>()
   useEffect(() => {
     if (canvasRef.current !== null) {
       const player = new SVGA.Player(canvasRef.current)
