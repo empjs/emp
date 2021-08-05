@@ -6,7 +6,9 @@ module.exports = fn => ec => {
     .loader('swc-loader')
     .options({
       sync: true,
+      // coreJs: 3,
       jsc: {
+        loose: true,
         externalHelpers: true,
         parser: {
           syntax: 'typescript',
