@@ -45,7 +45,7 @@ module.exports = fn => ec => {
     .use('babel')
     .before('svgr')
     .loader('babel-loader')
-    .options({presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react']})
+    .options({presets: ['@babel/preset-env', '@babel/preset-typescript', ['@babel/preset-react', reactNewJsx]]})
 
   if (hot && isDev) {
     config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))

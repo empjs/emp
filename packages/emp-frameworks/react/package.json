@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-react",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "main": "index.js",
   "types": "./types/emp-react.d.ts",
   "repository": {
