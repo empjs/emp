@@ -15,6 +15,8 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const {getMinifyOp} = require('../../helpers/multiEntry')
+const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
+
 //
 module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot, minify}) => {
   const isDev = env === 'development'
@@ -63,6 +65,10 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       mf: {
         plugin: ModuleFederationPlugin,
         args: [{}],
+      },
+      mfStats: {
+        plugin: FederatedStatsPlugin,
+        args: [{filename: 'emp-stats.json'}],
       },
       friendly: {
         plugin: FriendlyErrorsWebpackPlugin,

@@ -42,11 +42,15 @@ module.exports = (args, config, env) => {
   if (args.minify === true) {
     config.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
       {
+        parallel: true,
         extractComments: false,
         terserOptions: {
           // mangle: false, 保留ts class name
+          format: {
+            comments: false,
+          },
           compress: {
-            passes: 2,
+            // passes: 2,
           },
         },
       },

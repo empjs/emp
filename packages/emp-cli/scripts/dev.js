@@ -26,8 +26,7 @@ module.exports = async args => {
   // }
   //
   const compiler = Webpack(config)
-  config.devServer = {allowedHosts: 'all', ...config.devServer}
-  const server = new WebpackDevServer(compiler, config.devServer)
+  const server = new WebpackDevServer(config.devServer, compiler)
   // const host = getDevHost(config.devServer.host)
 
   const {https, host, port, publicPath} = config.devServer
@@ -35,7 +34,7 @@ module.exports = async args => {
   const realHost = host || '0.0.0.0'
   const urls = prepareURLs(protocol, realHost, port, publicPath)
 
-  server.listen(config.devServer.port, realHost, err => {
+  server.start(config.devServer.port, realHost, err => {
     if (err) {
       console.error(err)
       return
