@@ -8,7 +8,8 @@
     "react",
     "module federation",
     "antd",
-    "webpack5"
+    "webpack5",
+    "typescript"
   ],
   "bin": {
     "emp": "./bin/emp.js"
