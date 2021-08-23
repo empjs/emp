@@ -14,10 +14,29 @@ class EmpPluginShareModule {
   }
   apply(compiler) {
     const _options = this.options || {}
-    const filename = _options.filename || 'sharemodule.js'
+    const filename = _options.filename || 'emp.js'
+    let urlMap = _options.urlMap
+    let unpkgUrlMap = _options.unpkgUrlMap
+    const name = _options.name || filename.split('.')[0]
     const packageJsonPath = resolveApp('package.json')
     const packageObj = require(packageJsonPath)
-    const v = packageObj.version.replace(/\./g, '_')
+    const version = packageObj.version
+    const v = version.replace(/\./g, '_').replace(/\-/g, '_')
+    const versionName = `${name}_${v}`
+    try {
+      const projectPath = resolveApp('./empconfig/project-config.js')
+      const {ProjectConfig} = require(projectPath)
+      urlMap = urlMap || {
+        prod: `${ProjectConfig.prod}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
+        test: `${ProjectConfig.test}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
+        dev: `${ProjectConfig.dev}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
+      }
+      unpkgUrlMap = unpkgUrlMap || {
+        prod: `https://unpkg.yy.com/${packageObj.name}@${packageObj.version}/dist/${ProjectConfig.filename}`,
+        test: `https://unpkg.yy.com/${packageObj.name}@${packageObj.version}/dist/${ProjectConfig.filename}`,
+        dev: `${ProjectConfig.dev}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
+      }
+    } catch (e) {}
     compiler.hooks.compilation.tap(plugin, compilation => {
       // 返回 true 以输出 output 结果，否则返回 false
       compilation.hooks.optimizeChunkAssets.tap(plugin, chunks => {
@@ -27,17 +46,17 @@ class EmpPluginShareModule {
               const asset = compilation.assets[fileName]
               let input = asset.source()
               // 修改完成后重新写回
-              // input = input.replace(
-              //   '__webpack_require__.p = ',
-              //   `__webpack_require__.p = window.location.origin.indexOf('${origin}') === -1 ? window.location.origin + "/topic_emp_base/" : `,
-              // )
-              // input = input.replace('var init = ', 'var getInst = function() {return __webpack_require__;};var init = ')
               input = input.replace(
                 'init: function() { return init; }',
                 `init: function() { return init; },
                  moduleMap: function() { return moduleMap; },
-                 v: function () { return '${v}' },`,
+                 v: function () { return '${v}' },
+                 vname: function () { return '${versionName}' },
+                 urlMap: function () { return JSON.parse('${JSON.stringify(urlMap)}') },
+                 unpkgUrlMap: function () { return JSON.parse('${JSON.stringify(unpkgUrlMap)}') },`,
               )
+              input = input.replace(`var ${name};`, `var ${versionName}, ${name};`)
+              input = input.replace(`${name} = __webpack_exports__;`, `${versionName} = ${name} = __webpack_exports__;`)
               compilation.assets[fileName] = new ConcatSource(input)
             }
           })
@@ -48,4 +67,18 @@ class EmpPluginShareModule {
   }
 }
 
-module.exports = {EmpPluginShareModule}
+const EmpPluginExposeListPlugin = {
+  name: 'EmpPluginShareModule',
+}
+class EmpPluginExposeList {
+  constructor(options) {
+    this.options = options
+  }
+  apply(compiler) {
+    compiler.hooks.beforeRun.tap(EmpPluginExposeListPlugin, compilation => {
+      console.log('EmpPluginExposeListPlugin', compilation)
+    })
+  }
+}
+
+module.exports = {EmpPluginShareModule, EmpPluginExposeList}
