@@ -30,8 +30,14 @@ class EmpPluginShareModule {
     const version = packageObj.version
     const v = version.replace(/\./g, '_').replace(/\-/g, '_')
     const versionName = `${name}_${v}`
+    const prodVersion = version.split('-')[0]
     try {
-      const projectPath = resolveApp('./empconfig/project-config.js')
+      let projectPath = ''
+      try {
+        projectPath = resolveApp('./empconfig/project-config.js')
+      } catch (e) {
+        projectPath = resolveApp('./empconfig/project-config.ts')
+      }
       const {ProjectConfig} = require(projectPath)
       urlMap = urlMap || {
         prod: `${ProjectConfig.prod}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
@@ -39,8 +45,8 @@ class EmpPluginShareModule {
         dev: `${ProjectConfig.dev}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
       }
       unpkgUrlMap = unpkgUrlMap || {
-        prod: `https://unpkg.yy.com/${packageObj.name}@${packageObj.version}/dist/${ProjectConfig.filename}`,
-        test: `https://unpkg.yy.com/${packageObj.name}@${packageObj.version}/dist/${ProjectConfig.filename}`,
+        prod: `https://unpkg.yy.com/${packageObj.name}@${prodVersion || version}/dist/${ProjectConfig.filename}`,
+        test: `https://unpkg.yy.com/${packageObj.name}@${version}/dist/${ProjectConfig.filename}`,
         dev: `${ProjectConfig.dev}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
       }
     } catch (e) {}
@@ -57,12 +63,11 @@ class EmpPluginShareModule {
                 'init: function() { return init; }',
                 `init: function() { return init; },
                  moduleMap: function() { return moduleMap; },
-                 v: function () { return '${v}' },
+                 v: function () { return '${version}' },
                  vname: function () { return '${versionName}' },
                  urlMap: function () { return JSON.parse('${JSON.stringify(urlMap)}') },
-                 unpkgUrlMap: function () { return ${
-                   unpkg ? `JSON.parse('${JSON.stringify(unpkgUrlMap)}')` : `null`
-                 } },`,
+                 unpkgUrlMap: function () { return ${unpkg ? `JSON.parse('${JSON.stringify(unpkgUrlMap)}')` : `null`} },
+                 projectConfig: function () { return JSON.parse('${JSON.stringify(_options)}') },`,
               )
               input = input.replace(`var ${name};`, `var ${versionName}, ${name};`)
               input = input.replace(`${name} = __webpack_exports__;`, `${versionName} = ${name} = __webpack_exports__;`)
