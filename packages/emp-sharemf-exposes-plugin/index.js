@@ -10,7 +10,7 @@ const plugin = {
 }
 /**
  * filename: emp.js
- * isUnpkg: true, false, default false
+ * unpkg: true, false, default false
  * urlMap: get projectconfig value
  * unpkgUrlMap: { prod: String, test: String, dev: String} // eg: prod: https://unpkg.yy.com/@webbase/chameleonapp@beta/chameleon_share_emp.js
  */
@@ -21,7 +21,7 @@ class EmpPluginShareModule {
   apply(compiler) {
     const _options = this.options || {}
     const filename = _options.filename || 'emp.js'
-    const isUnpkg = _options.isUnpkg || _options.unpkgUrlMap || false
+    const unpkg = _options.unpkg || _options.unpkgUrlMap || false
     let urlMap = _options.urlMap
     let unpkgUrlMap = _options.unpkgUrlMap
     const name = _options.name || filename.split('.')[0]
@@ -61,7 +61,7 @@ class EmpPluginShareModule {
                  vname: function () { return '${versionName}' },
                  urlMap: function () { return JSON.parse('${JSON.stringify(urlMap)}') },
                  unpkgUrlMap: function () { return ${
-                   isUnpkg ? `JSON.parse('${JSON.stringify(unpkgUrlMap)}')` : `null`
+                   unpkg ? `JSON.parse('${JSON.stringify(unpkgUrlMap)}')` : `null`
                  } },`,
               )
               input = input.replace(`var ${name};`, `var ${versionName}, ${name};`)
