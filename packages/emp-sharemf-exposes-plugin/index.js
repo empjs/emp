@@ -50,6 +50,12 @@ class EmpPluginShareModule {
         dev: `${ProjectConfig.dev}${ProjectConfig.context}${filename || ProjectConfig.filename}`,
       }
     } catch (e) {}
+
+    delete _options.remotes
+    delete _options.exposes
+    delete _options.unpkgUrlMap
+    delete _options.urlMap
+
     compiler.hooks.compilation.tap(plugin, compilation => {
       // 返回 true 以输出 output 结果，否则返回 false
       compilation.hooks.optimizeChunkAssets.tap(plugin, chunks => {
@@ -64,7 +70,7 @@ class EmpPluginShareModule {
                 `init: function() { return init; },
                  moduleMap: function() { return moduleMap; },
                  v: function () { return '${version}' },
-                 vname: function () { return '${versionName}' },
+                 vname: function () { return ${unpkg ? `'${versionName}'` : 'null'} },
                  urlMap: function () { return JSON.parse('${JSON.stringify(urlMap)}') },
                  unpkgUrlMap: function () { return ${unpkg ? `JSON.parse('${JSON.stringify(unpkgUrlMap)}')` : `null`} },
                  projectConfig: function () { return JSON.parse('${JSON.stringify(_options)}') },`,
