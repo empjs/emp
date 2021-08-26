@@ -52,7 +52,7 @@ module.exports = (env, config) => {
                 modules: true,
               },
             },
-            sass: {
+            less: {
               loader: require.resolve('less-loader'),
               options: {
                 lessOptions: {javascriptEnabled: true},
