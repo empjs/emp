@@ -21,7 +21,7 @@ const getUnpkgVersion = (version, branchName = 'test') => {
   currentVersionBranchName = currentVersionBranchName || branchName
   const bigNumberVersion = numberVersion.substr(0, numberVersion.lastIndexOf('.'))
   return {
-    test: `>${numberVersion}-${currentVersionBranchName}.0 <${bigNumberVersion}`,
+    test: `>${numberVersion}-${currentVersionBranchName}.0 <${numberVersion}`,
     prod: `~${bigNumberVersion}`,
     xyVersion: bigNumberVersion,
   }
