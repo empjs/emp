@@ -1,12 +1,16 @@
 {
   "name": "@efox/emp-single-mobx6",
-  "version": "1.0.0-beta1.4",
+  "version": "1.0.0-beta1.7",
   "keywords": [
     "react",
     "module federation",
     "webpack5",
     "TypeScript"
   ],
+  "maintainers": [{
+    "name": "yangshangzhi",
+    "email": "yangshangzhi@yy.com"
+  }],
   "description": "single-mobx6",
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
@@ -25,6 +29,14 @@
   "dependencies": {
     "mobx": "^6.3.2"
   },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "IE 11",
+    "not IE 10"
+  ],
   "scripts": {
     "build": "tsc && webpack --mode=production",
     "tsc": "tsc",

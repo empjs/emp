@@ -14,7 +14,7 @@ module.exports = [
       rules: [
         // ts loader
         {
-          test: /\.tsx?$/,
+          test: /\.ts?$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
@@ -28,7 +28,7 @@ module.exports = [
       path: path.join(__dirname, 'build'),
       filename: 'index.js',
       // library: 'singlemobx6',
-      libraryTarget: 'commonjs-module',
+      libraryTarget: 'umd',
     },
     plugins: [
       new CleanWebpackPlugin(),

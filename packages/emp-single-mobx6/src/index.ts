@@ -9,13 +9,16 @@ import './utils/global'
 // })(window)
 
 const __WindowTopCache: any = (win => {
-  const top: any = win.top
-  top.__mobx = top.__mobx || {}
-  return top.__mobx
+  try {
+    const top: any = win.top
+    top.__mobx = top.__mobx || {}
+    return top.__mobx
+  } catch (e) {
+    return {}
+  }
 })(window)
 
 import {makeAutoObservable, observable, observe, onBecomeObserved, onBecomeUnobserved, toJS} from 'mobx'
-
 function empCreateClassStore<T>(Ctor: {new (...args: any[]): any}): T {
   const namespace = Object.keys(Ctor.prototype).join('-').substr(0, 20)
   const clazz = __WindowTopCache[namespace] || new Ctor()
