@@ -16,7 +16,8 @@ class RuntimeCompile {
     this.sp = {args, empPackageJsonPath, empConfigPath, config, env}
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
-    if (this.empConfig.entryCwd !== false && fs.existsSync(this.empConfig.entryCwd)) this.multiEntriesConfig(paths)
+    // console.log('this.empConfig', this.empConfig, paths)
+    if (this.empConfig.entryCwd !== false && this.empConfig.entries) this.multiEntriesConfig(paths)
     // if (this.empConfig.library) this.libraryConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()

@@ -100,8 +100,9 @@ declare interface EMPConfig {
    * 当 output.publicPath=auto时 自定义静态文件路径
    */
   moduleGenerator?: ModuleGeneratorType
+  // =======> entries 与 entryCwd 二选一 不需要两个都同时传
   /**
-   * 多入口支持
+   * 多入口支持 自定义支持
    */
   entries?: MultiEntryConfig
   /**
