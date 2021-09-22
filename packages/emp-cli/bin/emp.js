@@ -9,7 +9,7 @@ const {checkNodeVersion} = require('../helpers/cli')
 const globalCommand = require('../helpers/globalCommand')
 const Axios = require('axios')
 const {empConfigSync} = require('../helpers/compile')
-const {measure} = require('../helpers/debug')
+const {measure} = require('../helpers/logger')
 
 checkNodeVersion(package.engines.node, 'emp')
 /* console.log(chalk.bold('====== EMP 微前端 ======'))

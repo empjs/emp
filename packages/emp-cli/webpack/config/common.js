@@ -2,7 +2,7 @@ const {resolveApp, getPaths, cachePaths} = require('../../helpers/paths')
 //========== cache version control ===================
 const {version} = require('../../package.json')
 const {cmdSync} = require('../../helpers/cli')
-const {measure} = require('../../helpers/debug')
+const {measure} = require('../../helpers/logger')
 // git rev-parse HEAD 提交版本 hash
 // git rev-parse --abbrev-ref HEAD 分支名称
 const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'

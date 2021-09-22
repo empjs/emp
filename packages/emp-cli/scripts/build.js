@@ -5,6 +5,7 @@ const {getProjectConfig} = require('../helpers/project')
 const webpack = require('webpack')
 const {buildServeConfig} = require('../helpers/build')
 const chalk = require('chalk')
+const {logger} = require('../helpers/logger.js')
 // const ora = require('ora')
 // const spinner = ora('=== EMP Build Start ===\n').start()
 module.exports = async args => {
@@ -40,20 +41,22 @@ module.exports = async args => {
     //
     if (stats.hasErrors()) {
       // const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
-      console.log(
+      logger.log(
         stats.toString({
           all: false,
           colors: true,
           errors: true,
         }),
       )
-      console.log(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
+      // console.log(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
+      logger.error('EMP Failed to compile.')
       // if (!tscCompileOnError)
       process.exit(1)
     }
     //
-    console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
-    console.log(
+    // console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
+    logger.success('Compiled successfully.')
+    logger.log(
       stats.toString({
         // chunks: false,
         colors: true,

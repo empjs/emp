@@ -3,7 +3,7 @@ const {checkRemote} = require('./paths')
 const runtimeCompile = require('./runtime')
 const Configs = require('webpack-chain')
 const config = new Configs()
-const {measure} = require('./debug')
+const {measure} = require('./logger')
 
 module.exports = {
   async getProjectConfig(env, args = {}, paths) {

@@ -11,9 +11,11 @@ module.exports = {
       },
     }
   },
-  entries: {
-    'info/user': {
-      title: '用户信息',
+  pages: {
+    router: {
+      'info/user': {
+        title: '用户信息 demo',
+      },
     },
   },
   webpackChain(config) {

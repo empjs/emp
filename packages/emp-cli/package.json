@@ -49,6 +49,7 @@
     "cli-table3": "^0.6.0",
     "commander": "^8.2.0",
     "compression": "^1.7.4",
+    "consola": "^2.15.3",
     "copy-webpack-plugin": "^9.0.1",
     "cors": "^2.8.5",
     "css-loader": "^6.2.0",

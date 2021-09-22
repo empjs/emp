@@ -34,7 +34,7 @@ async function astOptEnv(filePath, env) {
 async function main() {
   // 截取命令行参数
   const env = process.argv.slice(2)[0]
-  const debugFilePath = path.join(__dirname, '../helpers/debug.js')
+  const debugFilePath = path.join(__dirname, '../helpers/logger.js')
   const code = await astOptEnv(debugFilePath, env)
   const res = prettier.format(code, {semi: false, singleQuote: true, parser: 'babel'})
   fs.writeFileSync(debugFilePath, res)

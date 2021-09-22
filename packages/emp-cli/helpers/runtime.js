@@ -17,7 +17,7 @@ class RuntimeCompile {
     this.op = {...args, config, env, webpack}
     await this.defaultRumtime()
     // console.log('this.empConfig', this.empConfig, paths)
-    if (this.empConfig.entryCwd !== false && this.empConfig.entries) this.multiEntriesConfig(paths)
+    if (this.empConfig.pages) this.multiEntriesConfig(paths)
     // if (this.empConfig.library) this.libraryConfig(paths)
     this.wpc = config.toConfig()
     this.afterEmpConfigRuntime()
@@ -36,7 +36,7 @@ class RuntimeCompile {
   multiEntriesConfig(paths) {
     let isMinify = false
     if (this.op.env === 'production' && this.op.minify !== false) isMinify = true
-    multiEntriesByConfig(this.op.config, paths, this.empConfig.entries, this.empConfig.entryCwd, isMinify)
+    multiEntriesByConfig(this.op.config, paths, this.empConfig.pages, isMinify)
   }
   /**
    * webpackchain 编译后的操作

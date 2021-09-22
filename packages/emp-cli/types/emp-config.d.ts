@@ -47,14 +47,14 @@ interface EmpConfigI {
   createName?: string
   createPath?: string
 }
-interface MultiEntryConfig {
-  /**
-   * 路由 url 如 info/user 或 about 等 映射特殊配置到页面
-   * 如: entryCwd 为 src/pages 的话 全路径 src/pages/info/user 配置成 如下配置
-   * {
-   *  'info/user':{title:"用户管理页面",favicon:"./src/assets/favicon.ico"}
-   * }
-   */
+/**
+ * 路由 url 如 info/user 或 about 等 映射特殊配置到页面
+ * 如: root 为 src/pages 的话 全路径 src/pages/info/user 配置成 如下配置
+ * {
+ *  'info/user':{title:"用户管理页面",favicon:"./src/assets/favicon.ico"}
+ * }
+ */
+interface MultiPagesConfigRouter {
   [key: string]: {
     title: string
     template?: string
@@ -65,6 +65,10 @@ interface MultiEntryConfig {
       publicPath?: string
     }
   }
+}
+interface MultiPagesConfig {
+  router?: MultiPagesConfigRouter
+  root?: string //default src/pages
 }
 interface WebpackConfigI extends Configuration {
   devServer?: WebpackDevServer
@@ -100,17 +104,17 @@ declare interface EMPConfig {
    * 当 output.publicPath=auto时 自定义静态文件路径
    */
   moduleGenerator?: ModuleGeneratorType
-  // =======> entries 与 entryCwd 二选一 不需要两个都同时传
   /**
    * 多入口支持 自定义支持
    */
-  entries?: MultiEntryConfig
+  pages?: MultiPagesConfig
   /**
+   * 弃置
    * 默认多页面入口
    * default src/pages
    * 当为 false 时 将不启动 多入口
    */
-  entryCwd?: string | boolean
+  // entryCwd?: string | boolean
   /**
    * style command of emp
    * 命令行拓展
