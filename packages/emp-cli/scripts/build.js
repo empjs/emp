@@ -29,8 +29,8 @@ module.exports = async args => {
     }
     // spinner.succeed('=== EMP Build Completed! ===\n')
     if (stats.hasWarnings()) {
-      console.log(chalk.yellow.bold('\n=== EMP Compiled with warnings.===\n'))
-      console.log(
+      logger.info(chalk.yellow.bold('\n=== EMP Compiled with warnings.===\n'))
+      logger.warn(
         stats.toString({
           all: false,
           colors: true,
@@ -41,30 +41,27 @@ module.exports = async args => {
     //
     if (stats.hasErrors()) {
       // const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
-      logger.log(
+      logger.error(
         stats.toString({
           all: false,
           colors: true,
           errors: true,
         }),
       )
-      // console.log(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
-      logger.error('EMP Failed to compile.')
-      // if (!tscCompileOnError)
+      logger.info(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
       process.exit(1)
     }
-    //
-    // console.log(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
-    logger.success('Compiled successfully.')
-    logger.log(
-      stats.toString({
-        // chunks: false,
-        colors: true,
-        all: false,
-        assets: true,
-        // warnings: false,
-        // error: false,
-      }),
+    logger.info(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
+    logger.info(
+      `\n` +
+        stats.toString({
+          // chunks: false,
+          colors: true,
+          all: false,
+          assets: true,
+          // warnings: false,
+          // error: false,
+        }),
     )
     // 复制其他文件到dist
     // copyPublicFolder(paths)

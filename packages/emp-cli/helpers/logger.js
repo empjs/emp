@@ -1,17 +1,22 @@
-// const Logger = require('js-logger')
-const consola = require('consola')
+const {Logger} = require('tslog')
+// const consola = require('consola')
 const env = 'debug'
 
-let logger = consola.create({
+/* let logger = consola.create({
   level: env === 'debug' ? 5 : 3,
   reporters: [new consola.FancyReporter()],
   defaults: {
     tag: 'EMP',
     additionalColor: 'white',
   },
-})
+}) */
 
-// logger = logger.withScope('EMP')
+logger = new Logger({
+  name: 'EMP',
+  minLevel: env === 'debug' ? 0 : 3,
+  displayDateTime: false,
+  displayFunctionName: false,
+})
 
 module.exports = {
   logger,

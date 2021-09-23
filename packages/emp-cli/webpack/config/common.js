@@ -6,14 +6,12 @@ const {measure} = require('../../helpers/logger')
 // git rev-parse HEAD 提交版本 hash
 // git rev-parse --abbrev-ref HEAD 分支名称
 const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'
-// console.log('gitVersion', gitVersion)
 //===================
 module.exports = (env, config, args, empConfigPath) => {
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
   if (empConfigPath) buildDependenciesConfigs.push(empConfigPath)
-  // console.log('watch', !!args.watch, 'minify', args.minify)
   const commonConfig = {
     watch: !!args.watch,
     /* watchOptions: {

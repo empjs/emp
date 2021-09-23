@@ -3,6 +3,7 @@ const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const chalk = require('chalk')
+const {logger} = require('../helpers/logger.js')
 // const openBrowser = require('../helpers/openBrowser')
 const prepareURLs = require('../helpers/prepareURLs')
 // const downloadRemoteFile = require('../helpers/downloadRemoteFile')
@@ -37,24 +38,14 @@ module.exports = async args => {
 
   server.start(config.devServer.port, realHost, err => {
     if (err) {
-      console.error(err)
+      logger.error(err)
       return
     }
 
     compiler.hooks.done.tap('emp-cli dev', stats => {
-      console.log()
-      console.log()
-      console.log(`  App running at:`)
-      console.log(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`)
-      console.log(`  - Network: ${chalk.cyan(urls.lanUrlForTerminal)}`)
-      console.log()
+      logger.info(`\n  App running at:`)
+      logger.info(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`)
+      logger.info(`  - Network: ${chalk.cyan(urls.lanUrlForTerminal)} \n`)
     })
-
-    // if (open === true) {
-    //   let url = realHost
-    //   if (config.devServer.port != 80) url += ':' + config.devServer.port
-    //   openBrowser(`${protocol}://${url}`)
-    //   console.log(`Starting server on ${protocol}://${host}:${config.devServer.port}`)
-    // }
   })
 }

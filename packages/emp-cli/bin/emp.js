@@ -12,11 +12,6 @@ const {empConfigSync} = require('../helpers/compile')
 const {measure} = require('../helpers/logger')
 
 checkNodeVersion(package.engines.node, 'emp')
-/* console.log(chalk.bold('====== EMP 微前端 ======'))
-console.log(chalk.bold('@efox/emp-cli') + ' [ ' + chalk.green.bold(package.version) + ' ]')
-console.log(chalk.bold('webpack') + ' [ ' + chalk.green.bold(package.dependencies.webpack) + ' ]')
-console.log(chalk.bold('typescript') + ' [ ' + chalk.green.bold(package.dependencies.typescript) + ' ]')
-console.log(chalk.bold('====== ====== ====== ======')) */
 const inquirer = require('inquirer') //交互性命令行
 const Table = require('cli-table3')
 const table = new Table({
