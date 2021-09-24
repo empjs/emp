@@ -1,0 +1,27 @@
+{
+  "name": "multi-pages",
+  "version": "1.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "dev:hot": "emp dev --hot",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "devDependencies": {
+    "@efox/emp-cli": "^1.9.1",
+    "@efox/emp-tsconfig": "^1.0.2",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "typescript": "^4.4.3"
+  }
+}

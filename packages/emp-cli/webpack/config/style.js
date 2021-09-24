@@ -23,7 +23,8 @@ module.exports = (env, config, args) => {
     return {
       style: {
         // loader: require.resolve('style-loader'),//
-        loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        // loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         // options: styleloaderOption,
         /* options: {
           publicPath: (resourcePath, context) => {
@@ -34,13 +35,13 @@ module.exports = (env, config, args) => {
         options: {},
       },
       css: {
-        loader: require.resolve('css-loader'),
+        loader: 'css-loader',
         options: {
           modules: modules ? {localIdentName} : modules,
         },
       },
       postcss: {
-        loader: require.resolve('postcss-loader'),
+        loader: 'postcss-loader',
         options: {
           postcssOptions: {
             hideNothingWarning: true,
@@ -88,7 +89,7 @@ module.exports = (env, config, args) => {
           use: {
             ...getStyleLoader(true, {
               sass: {
-                loader: require.resolve('sass-loader'),
+                loader: 'sass-loader',
                 options: {
                   implementation: require('sass'),
                   sourceMap: env === 'development',
@@ -103,7 +104,7 @@ module.exports = (env, config, args) => {
           use: {
             ...getStyleLoader(false, {
               sass: {
-                loader: require.resolve('sass-loader'),
+                loader: 'sass-loader',
                 options: {
                   implementation: require('sass'),
                   sourceMap: env === 'development',
@@ -118,7 +119,7 @@ module.exports = (env, config, args) => {
           use: {
             ...getStyleLoader(false, {
               less: {
-                loader: require.resolve('less-loader'),
+                loader: 'less-loader',
                 options: {
                   lessOptions: {javascriptEnabled: true},
                 },
@@ -132,7 +133,7 @@ module.exports = (env, config, args) => {
           use: {
             ...getStyleLoader(true, {
               less: {
-                loader: require.resolve('less-loader'),
+                loader: 'less-loader',
                 /* options: {
                 lessOptions: {javascriptEnabled: true},
               }, */

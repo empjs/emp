@@ -26,7 +26,7 @@ const multiEntriesByConfig = function (config, paths, {root, router}, isMinify) 
   const pathsrcs = globby.sync(cwd)
   pathsrcs.map(src => {
     const srcKey = src.replace(`${cwd}/`, '').split('.')[0]
-    const op = router[srcKey] || {}
+    const op = router ? router[srcKey] : {}
     entryConfig(config, paths, cwd, src, srcKey, op, isMinify)
     logger.info(`多入口生成 ${src}`)
   })

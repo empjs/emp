@@ -110,7 +110,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
           typescript: {
             configFile: tsconfig,
             profile: false,
-            typescriptPath: require.resolve('typescript'),
+            typescriptPath: 'typescript',
             // configOverwrite: {
             //   compilerOptions: {skipLibCheck: true},
             // },

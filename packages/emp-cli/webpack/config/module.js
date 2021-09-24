@@ -22,7 +22,7 @@ module.exports = (env, config, {hot}) => {
           exclude: /(node_modules|bower_components)/,
           use: {
             babel: {
-              loader: require.resolve('babel-loader'),
+              loader: 'babel-loader',
               options: {
                 presets: [
                   [
