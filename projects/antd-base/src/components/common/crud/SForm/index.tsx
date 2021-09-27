@@ -150,7 +150,8 @@ const SForm = ({options = {}, dataRef, form, items, name, onFinish, onFinishFail
         {...options}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        name={name}>
+        name={name}
+      >
         {items.map((item, index) => (
           <FromItem key={item.name || index} item={item} />
         ))}

@@ -16,7 +16,7 @@ module.exports = fn => ec => {
     .use('babel')
     .tap(o => {
       // react
-      o.presets.push(['@babel/preset-react', reactNewJsx])
+      o.presets.push([require.resolve('@babel/preset-react'), reactNewJsx])
       // fast refresh
       isDev && hot && o.plugins.unshift(require.resolve('react-refresh/babel'))
       // antd :TODO 增加 是否依赖 antd 判断
@@ -34,7 +34,13 @@ module.exports = fn => ec => {
     .use('babel')
     .before('svgr')
     .loader(require.resolve('babel-loader'))
-    .options({presets: ['@babel/preset-env', '@babel/preset-typescript', ['@babel/preset-react', reactNewJsx]]})
+    .options({
+      presets: [
+        require.resolve('@babel/preset-env'),
+        require.resolve('@babel/preset-typescript'),
+        [require.resolve('@babel/preset-react'), reactNewJsx],
+      ],
+    })
 
   if (hot && isDev) {
     config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))

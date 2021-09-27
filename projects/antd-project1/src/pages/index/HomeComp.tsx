@@ -22,7 +22,8 @@ const PageHeaderComp = () => (
       <Button key="1" type="primary">
         Primary
       </Button>,
-    ]}>
+    ]}
+  >
     <Descriptions size="small" column={3}>
       <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
       <Descriptions.Item label="Association">

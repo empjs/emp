@@ -50,7 +50,8 @@ export const HeaderComp = ({theme = 'light'}: THeaderComp) => {
         theme={theme}
         mode="horizontal"
         selectedKeys={[selectKey, history.location.pathname]}
-        style={{lineHeight: '64px'}}>
+        style={{lineHeight: '64px'}}
+      >
         {/* {headerMenu.map(m => (
           <Menu.Item key={m.path}>{m.name}</Menu.Item>
         ))} */}
@@ -74,7 +75,8 @@ export const SideComp = () => {
         onClick={k => menuItemClick({key: k.key.toString()})}
         defaultOpenKeys={['me']}
         selectedKeys={[history.location.pathname]}
-        style={{height: '100%'}}>
+        style={{height: '100%'}}
+      >
         <SubMenu
           key="me"
           title={
@@ -82,7 +84,8 @@ export const SideComp = () => {
               <UserOutlined />
               me
             </span>
-          }>
+          }
+        >
           <Menu.Item key="/me/home">home</Menu.Item>
           <Menu.Item key="/me/about">about</Menu.Item>
         </SubMenu>

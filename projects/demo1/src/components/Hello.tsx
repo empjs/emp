@@ -1,4 +1,3 @@
-import React from 'react'
 import './common.scss'
 import './common.less'
 import './common.css'

@@ -19,7 +19,7 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.6.18",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-react-error-boundary": "^1.0.0",
     "@efox/emp-tsconfig": "latest",
     "@efox/eslint-config-react-prittier-ts": "^1.1.0",

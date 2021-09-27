@@ -8,7 +8,7 @@
     "directory": "packages/emp-frameworks/cocos2d"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.4",
     "cheerio": "^1.0.0-rc.3"
   },
   "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4"

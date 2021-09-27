@@ -28,7 +28,8 @@ const SearchForm = ({
         onFinish={onFinish}
         initialValues={initialValues}
         onFinishFailed={onFinishFailed}
-        name={name}>
+        name={name}
+      >
         {options.layout === 'inline' ? (
           <>
             {formItems.map((item, k) => (
@@ -42,7 +43,8 @@ const SearchForm = ({
                 style={{marginLeft: 8}}
                 onClick={() => {
                   formRef.current?.resetFields()
-                }}>
+                }}
+              >
                 清空
               </Button>
             </div>
@@ -65,7 +67,8 @@ const SearchForm = ({
                   style={{marginLeft: 8}}
                   onClick={() => {
                     formRef.current?.resetFields()
-                  }}>
+                  }}
+                >
                   清空
                 </Button>
               </Col>

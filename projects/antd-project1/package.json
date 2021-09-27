@@ -10,11 +10,12 @@
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
     "start": "emp serve",
-    "lint": "eslint . --ext js,ts,tsx --fix"
+    "lint": "eslint ./src --ext js,ts,tsx --fix"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.4",
     "js-cookie": "^2.2.1",
     "loadjs": "^4.2.0",
     "mobx": "^6.0.1",
@@ -25,7 +26,7 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-tsconfig": "^1.0.4",
     "@efox/eslint-config-react-prittier-ts": "^1.1.0"
   }

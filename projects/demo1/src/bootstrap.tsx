@@ -1,6 +1,4 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-
+import ReactDOM from 'react-dom'
 import Hello from 'src/components/Hello'
 import {log} from '@emp/demo2/helper'
 import Hello2 from '@emp/demo2/components/Hello'
