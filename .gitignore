@@ -6,3 +6,4 @@ lerna-debug.log
 .changelog
 .DS_Store
 yarn.lock
+yarn-debug.lock
