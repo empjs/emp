@@ -5,3 +5,4 @@ dist
 lerna-debug.log
 .changelog
 .DS_Store
+yarn.lock
