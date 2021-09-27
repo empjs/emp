@@ -10,7 +10,7 @@ const HttpDemo = () => {
       // setL(lang.data[0])
     })()
   }, [])
-  return <p>http:{JSON.stringify(l)}</p>
+  return <p>http:{JSON.stringify(l)}!</p>
 }
 const Hello = (): JSX.Element => (
   <>

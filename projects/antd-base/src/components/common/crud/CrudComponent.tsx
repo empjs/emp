@@ -71,7 +71,8 @@ const CrudComponent = (opt: PageListProps & DataModalProps) => {
                     item: record,
                     show: true,
                   })
-                }}></Button>
+                }}
+              ></Button>
             ) : null}
             {opt.remove ? (
               <Button
@@ -84,7 +85,8 @@ const CrudComponent = (opt: PageListProps & DataModalProps) => {
                     item: record,
                     show: true,
                   })
-                }}></Button>
+                }}
+              ></Button>
             ) : null}
             {opt.actions && opt.actions.some(e => !e.isShow || e.isShow(record)) ? (
               <Dropdown
@@ -100,7 +102,8 @@ const CrudComponent = (opt: PageListProps & DataModalProps) => {
                       ) : null
                     })}
                   </Menu>
-                }>
+                }
+              >
                 <Button type="primary" icon={<UnorderedListOutlined />}></Button>
               </Dropdown>
             ) : null}
@@ -123,7 +126,8 @@ const CrudComponent = (opt: PageListProps & DataModalProps) => {
                   item: {},
                   show: true,
                 })
-              }}>
+              }}
+            >
               新增
             </Button>
           ) : null

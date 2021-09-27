@@ -19,7 +19,7 @@
     "isolatedModules": false,
     "noEmit": false,
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "importsNotUsedAsValues": "preserve"
   },
 }

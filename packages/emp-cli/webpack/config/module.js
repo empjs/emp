@@ -26,7 +26,7 @@ module.exports = (env, config, {hot}) => {
               options: {
                 presets: [
                   [
-                    '@babel/preset-env',
+                    require.resolve('@babel/preset-env'),
                     {
                       useBuiltIns: 'entry',
                       // debug: isDev,
@@ -37,7 +37,7 @@ module.exports = (env, config, {hot}) => {
                       loose: true,
                     },
                   ],
-                  '@babel/preset-typescript',
+                  require.resolve('@babel/preset-typescript'),
                   // '@babel/preset-react',
                 ].filter(Boolean),
                 plugins: [
@@ -58,7 +58,7 @@ module.exports = (env, config, {hot}) => {
                   //
                   // [require('@babel/plugin-syntax-top-level-await').default],//观察是否支持 toplvawait 的 es5支持
                   [
-                    '@babel/plugin-transform-runtime',
+                    require.resolve('@babel/plugin-transform-runtime'),
                     {
                       corejs: false,
                       helpers: true,
@@ -68,8 +68,8 @@ module.exports = (env, config, {hot}) => {
                       absoluteRuntime: false,
                     },
                   ],
-                  ['@babel/plugin-proposal-decorators', {legacy: true}],
-                  ['@babel/plugin-proposal-class-properties', {loose: true}],
+                  [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
+                  [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
                 ].filter(Boolean),
               },
             },

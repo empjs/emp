@@ -12,7 +12,7 @@
     "start": "emp serve"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-esbuild": "^1.0.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "antd": "^4.9.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@efox/emp-cli": "^1.6.7",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-vue3": "^1.2.0",
     "vue": "^3.0.5"
   },

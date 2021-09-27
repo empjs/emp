@@ -46,7 +46,8 @@ const FixSlideLayout = ({children, routes}: {children?: React.ReactNode; routes?
           height: '100vh',
           position: 'fixed',
           left: 0,
-        }}>
+        }}
+      >
         <div className="logo">
           <Link to="/">
             <img src={require('src/assets/logo.jpeg')} alt="logo" />
@@ -66,7 +67,8 @@ const FixSlideLayout = ({children, routes}: {children?: React.ReactNode; routes?
           }}
           //openKeys={selectKey}
           //inlineCollapsed={false}
-          defaultSelectedKeys={selectKey}>
+          defaultSelectedKeys={selectKey}
+        >
           {routes.map(d => {
             if (d.routes && d.routes.length > 0) {
               return (

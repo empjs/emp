@@ -7,9 +7,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
-    "fs-extra": "^9.1.0",
     "@swc/core": "^1.2.43",
-    "@swc/helpers": "^0.2.11"
+    "@swc/helpers": "^0.2.11",
+    "axios": "^0.21.4",
+    "fs-extra": "^9.1.0"
   }
 }

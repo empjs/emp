@@ -17,7 +17,7 @@
     "emp": "emp"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.9.1",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-tsconfig": "^1.0.2",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",

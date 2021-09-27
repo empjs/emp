@@ -66,7 +66,8 @@ const ModalForm = ({
         onOk={onOk}
         onCancel={onCancel}
         okText={okText}
-        cancelText={cancelText}>
+        cancelText={cancelText}
+      >
         {headerRender ? (
           <div className="modal-form-header" style={{marginBottom: '20px'}}>
             {headerRender}

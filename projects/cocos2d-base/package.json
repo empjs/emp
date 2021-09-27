@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "@efox/emp-cli": "^1.2.9",
-    "@efox/emp-tsconfig": "^1.0.5",
-    "@efox/emp-cocos2d": "^1.0.0"
-  },
-  "dependencies": {
+    "@efox/emp-cli": "workspace:^1.9.9-3",
+    "@efox/emp-cocos2d": "^1.0.0",
+    "@efox/emp-tsconfig": "^1.0.5"
   },
   "scripts": {
     "dev": "emp dev",

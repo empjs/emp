@@ -10,10 +10,11 @@
     "build:check": "cross-env TSC_COMPILE_ON_ERROR=true emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
-    "start": "emp serve"
+    "start": "emp serve",
+    "lint": "eslint ./src --ext js,ts,tsx --fix"
   },
   "devDependencies": {
-    "@efox/emp-cli": "^1.4.0",
+    "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",
     "@types/loadjs": "^4.0.0",
@@ -23,13 +24,15 @@
     "cross-env": "^7.0.2"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "antd": "^4.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.4",
     "js-cookie": "^2.2.1",
     "loadjs": "^4.2.0",
     "mobx": "^6.0.1",
     "mobx-react-lite": "^3.0.1",
+    "rc-select": "^13.1.0-alpha.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^5.2.1",

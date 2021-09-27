@@ -1,8 +1,7 @@
 {
   "extends": "@efox/emp-tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
-    "jsx": "react-jsx"
+    "baseUrl": "."
   },
   "include": [
     "src"
