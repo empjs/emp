@@ -1,5 +1,6 @@
 const webpack = require('webpack')
-const withReact = require('@efox/emp-react')
+// const withReact = require('@efox/emp-react')
+const withReact = require('../framework/react')
 // const {tsCompile, requireFromString} = require('./compile')
 // const {configRemotes} = require('./depend')
 const fs = require('fs-extra')

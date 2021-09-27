@@ -7,7 +7,7 @@ module.exports = (env, config) => {
           test: /\.svg$/,
           use: {
             url: {
-              loader: 'url-loader', //解决 ReactComponent 无法获取问题
+              loader: require.resolve('url-loader'), //解决 ReactComponent 无法获取问题
               options: {
                 esModule: false,
               },
