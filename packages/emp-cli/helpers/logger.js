@@ -1,4 +1,4 @@
-const {Logger} = require('tslog') // const consola = require('consola')
+const { Logger } = require('tslog') // const consola = require('consola')
 
 const env = 'debug'
 /* let logger = consola.create({
