@@ -11,9 +11,11 @@
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
     "start": "emp serve",
-    "lint": "eslint ./src --ext js,ts,tsx --fix"
+    "lint": "eslint ./src --ext js,ts,tsx --fix",
+    "stat": "emp build --analyze"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.15.4",
     "@efox/emp-cli": "workspace:^1.9.9-3",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",

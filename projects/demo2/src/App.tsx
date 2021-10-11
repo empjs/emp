@@ -8,7 +8,7 @@ const App = () => (
     <Hello compiler="TypeScript 2" framework="React DEMO 2" />
     <div style={{backgroundColor: '#eee', padding: '20px'}}>
       <h2>remote import load one!</h2>
-      <HelloDEMO />
+      {/* <HelloDEMO /> */}
       <h2>remote lazy load!!</h2>
       <Suspense fallback={<div />}>
         <Hello2 />

@@ -7,3 +7,4 @@ lerna-debug.log
 .DS_Store
 yarn.lock
 yarn-debug.lock
+.pnpm-debug.log

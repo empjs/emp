@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "pnpm run --filter={@emp/demo1,@emp/demo2} --parallel dev",
     "dev:hot": "pnpm run --filter={@emp/demo1,@emp/demo2} --parallel dev:hot",
-    "build": "pnpm run --filter @emp/* --parallel build",
-    "start": "pnpm run --filter @emp/* --parallel start",
+    "build": "pnpm run --filter={@emp/demo1,@emp/demo2} --parallel build",
+    "start": "pnpm run --filter={@emp/demo1,@emp/demo2} --parallel start",
     "dev:antd": "pnpm run --filter @emp-antd/* --parallel dev",
     "build:antd": "pnpm run --filter @emp-antd/* --parallel build",
     "start:antd": "pnpm run --filter @emp-antd/* --parallel start",

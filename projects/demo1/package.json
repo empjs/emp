@@ -10,6 +10,7 @@
     "build": "emp build",
     "build:lab": "emp build --env lab",
     "start": "emp serve",
+    "stat": "emp build --analyze",
     "emp": "emp"
   },
   "dependencies": {

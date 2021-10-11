@@ -5,15 +5,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "emp dev",
+    "dev": "emp dev -wl",
     "build": "emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
-    "start": "emp serve"
+    "start": "emp serve",
+    "stat": "emp build --analyze"
   },
   "devDependencies": {
     "@efox/emp-cli": "workspace:^1.9.9-3",
-    "@efox/emp-swc": "^1.0.0",
+    "@efox/emp-swc": "workspace:^1.1.4",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",
     "@types/loadjs": "^4.0.0",
@@ -28,6 +29,7 @@
     "axios": "^0.21.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "svgaplayerweb": "^2.3.2"
   }
 }

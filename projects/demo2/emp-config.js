@@ -37,8 +37,8 @@ module.exports = {
         './helper': 'src/helper',
       },
       shared: {
-        react: {eager: true, singleton: true, requiredVersion: '^17.0.1'},
-        'react-dom': {eager: true, singleton: true, requiredVersion: '^17.0.1'},
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
       },
     }
   },

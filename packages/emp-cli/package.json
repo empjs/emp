@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.9.9",
+  "version": "1.9.10",
   "scripts": {
     "publishNpm": "node ./publish/envVar prod&& npm publish &&node ./publish/envVar debug"
   },
@@ -88,10 +88,10 @@
     "tslog": "^3.2.2",
     "typescript": "^4.4.3",
     "url-loader": "^4.1.1",
-    "webpack": "5.54.0",
+    "webpack": "5.58.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-chain": "^6.5.1",
-    "webpack-dev-server": "4.3.0",
+    "webpack-dev-server": "4.3.1",
     "webpack-federated-stats-plugin": "^2.0.8"
   }
 }
