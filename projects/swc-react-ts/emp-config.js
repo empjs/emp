@@ -1,5 +1,5 @@
 const withSWC = require('@efox/emp-swc')
-const env = require('./dev')
+// const env = require('./dev')
 const pkg = require('./package.json')
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
@@ -24,13 +24,13 @@ module.exports = {
       'react-router-dom': {requiredVersion: pkg.dependencies['react-router-dom']},
       axios: {requiredVersion: pkg.dependencies.axios},
       react: {
-        eager: true,
-        singleton: true,
+        // eager: true,
+        // singleton: true,
         requiredVersion: pkg.dependencies.react,
       },
       'react-dom': {
-        eager: true,
-        singleton: true,
+        // eager: true,
+        // singleton: true,
         requiredVersion: pkg.dependencies['react-dom'],
       },
     },

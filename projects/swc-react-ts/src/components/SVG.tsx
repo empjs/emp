@@ -1,4 +1,3 @@
-import React from 'react'
 import css from './svg.module.scss'
 import url, {ReactComponent as Logo} from 'src/assets/logo.svg'
 // console.log('Logo', Logo, url)

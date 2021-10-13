@@ -1,4 +1,3 @@
-import React from 'react'
 import SVGA from 'src/components/SVGA'
 import SVG from 'src/components/SVG'
 // import DEMO from 'src/components/DEMO1'

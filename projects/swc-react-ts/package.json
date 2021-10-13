@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "emp dev -wl",
+    "dev": "emp dev",
     "build": "emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",

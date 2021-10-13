@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@efox/emp-cli": "workspace:^1.9.9-3",
-    "@efox/emp-esbuild": "^1.0.0",
+    "@efox/emp-esbuild": "workspace:^1.1.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/js-cookie": "^2.2.6",
     "@types/loadjs": "^4.0.0",

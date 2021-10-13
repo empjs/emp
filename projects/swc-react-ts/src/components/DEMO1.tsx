@@ -1,4 +1,3 @@
-import React from 'react'
 import Demo1 from '@emp/demo1/components/Demo'
 const Demo = (): any => (
   <>

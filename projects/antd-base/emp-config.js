@@ -1,4 +1,54 @@
-module.exports = ({config, env}) => {
+// const withSWC = require('@efox/emp-swc')
+const withESBUILD = require('@efox/emp-esbuild')
+/**
+ * @type {import('@efox/emp-cli').EMPConfig}
+ */
+ module.exports = {
+  // compile:[withESBUILD],
+  webpack(){
+    return {
+      devServer: {
+        port: 8003,
+      }
+    }
+  },
+  moduleFederation:{
+    name: 'empBase',
+    // library: {type: 'var', name: 'empBase'},
+    filename: 'emp.js',
+    remotes: {},
+    exposes: {
+      './App': 'src/App',
+      './stores/index': 'src/stores/index',
+      './components/common/crud/index': 'src/components/common/crud/index',
+      './components/common/RouterComp': 'src/components/common/RouterComp',
+    },
+    // shared: ['react', 'react-dom', 'react-router-dom', 'mobx-react-lite', 'mobx', 'axios'],
+    shared: {
+      react: {requiredVersion: '^17.0.1'},
+      'react-dom': {requiredVersion: '^17.0.1'},
+      'react-router-dom': {requiredVersion: '^5.1.2'},
+      'mobx-react-lite': {requiredVersion: '^3.0.1'},
+      mobx: {requiredVersion: '^6.0.1'},
+      axios: {requiredVersion: '^0.19.2'},
+    },
+  },
+  webpackChain(config){
+    config.plugin('html').tap(args => {
+      args[0] = {
+        ...args[0],
+        ...{
+          title: 'EMP BASE',
+          files: {},
+        },
+      }
+      return args
+    })
+  }
+}
+
+
+/* module.exports = ({config, env}) => {
   const port = 8003
   const projectName = 'empBase'
   const host = 'localhost'
@@ -51,3 +101,4 @@ module.exports = ({config, env}) => {
   // config.externals({react: 'https://unpkg.com/react@16.13.1/umd/react.production.min.js'})
   // config.merge({externals: {react: 'https://unpkg.com/react@16.13.1/umd/react.production.min.js'}})
 }
+ */
