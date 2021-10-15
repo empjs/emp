@@ -65,7 +65,7 @@ module.exports = (env, config, {hot}) => {
                       version: require('@babel/runtime/package.json').version,
                       regenerator: true,
                       useESModules: false,
-                      absoluteRuntime: false,
+                      absoluteRuntime: true,
                     },
                   ],
                   [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],

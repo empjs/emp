@@ -6,6 +6,9 @@ import less from './hello.module.less'
 import css from './hello.module.css'
 console.log(css, less, scss)
 const config = await import('src/configs/index')
+async function abc() {
+  console.log('abc')
+}
 const Hello = () => (
   <>
     <div className={scss.logo}></div>

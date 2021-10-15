@@ -1,6 +1,6 @@
 const {Logger} = require('tslog') // const consola = require('consola')
 
-const env = 'debug'
+const env = 'prod'
 /* let logger = consola.create({
   level: env === 'debug' ? 5 : 3,
   reporters: [new consola.FancyReporter()],
