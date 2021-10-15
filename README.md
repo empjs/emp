@@ -121,6 +121,7 @@ module.exports = program => {
 |<img src='./docs/assets/vue.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[Vue3](projects/vue23-vue2) & [Vue2](projects/vue23-vue3)|`cd projects && yarn dev:vue23`|
 
 ## 👬 Community
-
++ 扫码加 QQ 群<br/>
+![1634291759461](https://user-images.githubusercontent.com/19996552/137469742-9d4488c9-4c8c-424c-a799-07a5455cd484.png)
 + [JueJin](https://juejin.cn/user/483440843559406/posts)
 
