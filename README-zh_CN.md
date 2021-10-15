@@ -127,15 +127,4 @@ module.exports = program => {
 |<img src='./docs/assets/react.png' width='38'/><img src='./docs/assets/vue.png' width='38'/>|[react](projects/reactVue-react) [vue](projects/reactVue-vue)|`cd projects && yarn dev:reactvue`|
 
 ## 👬 交流社区
-
-* 微信交流群：
-
-<img src='./docs/assets/WeChat.png' width='290'/>
-
-* 微信公众号： Efox
-
-<img src='./docs/assets/wechatLogo.jpg' width='290'/>
-
-* 掘金： https://juejin.cn/user/483440843559406/posts
-
-* 开源中国： https://my.oschina.net/u/568478
++ [Efox掘金频道](https://juejin.cn/user/483440843559406/posts)
