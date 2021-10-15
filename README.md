@@ -122,7 +122,5 @@ module.exports = program => {
 
 ## 👬 Community
 
-* Juejin： 
-
-https://juejin.cn/user/483440843559406/posts
++ [Efox掘金频道](https://juejin.cn/user/483440843559406/posts)
 
