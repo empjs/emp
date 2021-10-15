@@ -122,19 +122,7 @@ module.exports = program => {
 
 ## 👬 Community
 
-* WeChat Group：
-
-<img src='https://user-images.githubusercontent.com/3890513/117619197-8a1dec80-b1a1-11eb-9bdc-ed3b4f5fa090.png' width='290'/>
-
-* WeChat Official Account： Efox
-
-<img src='./docs/assets/wechatLogo.jpg' width='290'/>
-
 * Juejin： 
 
 https://juejin.cn/user/483440843559406/posts
-
-* oschina: 
-
-https://my.oschina.net/u/568478
 
