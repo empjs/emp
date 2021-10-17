@@ -8,11 +8,13 @@ module.exports = {
   compile: [withSWC],
   moduleFederation: {
     name: 'swcReactDemo',
-    filename: 'emp.js',
+    // filename: 'emp.js',
     remotes: {
       '@emp/demo1': 'demo1@http://localhost:8001/emp.js',
     },
-    exposes: {},
+    exposes: {
+      './App': './src/App.tsx',
+    },
     // shared: ['axios', 'react', 'react-dom', 'react-router-dom'],
     /* shared: {
       react: {requiredVersion: pkg.dependencies.react},

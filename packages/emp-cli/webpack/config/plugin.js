@@ -64,7 +64,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
 
       mf: {
         plugin: ModuleFederationPlugin,
-        args: [{}],
+        args: [{filename: 'emp.js'}],
       },
       mfStats: {
         plugin: FederatedStatsPlugin,
