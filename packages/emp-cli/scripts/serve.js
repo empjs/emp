@@ -5,6 +5,9 @@ const path = require('path')
 const express = require('express')
 const cors = require('cors')
 const compression = require('compression')
+const {logger} = require('../helpers/logger.js')
+const prepareURLs = require('../helpers/prepareURLs')
+const chalk = require('chalk')
 let config = {}
 config = require('../webpack/config/devServer')
 config = config('production', {hot: false, open: false, progress: false})
@@ -37,10 +40,15 @@ module.exports = async args => {
       ),
     )
   } else {
-    app.listen(config.devServer.port, () =>
-      console.log(
-        `EMP APP listening at ${protocol}://${config.devServer.host || 'localhost'}:${config.devServer.port}`,
-      ),
-    )
+    app.listen(config.devServer.port, () => {
+      // console.log(`EMP APP listening at ${protocol}://${config.devServer.host || 'localhost'}:${config.devServer.port}`)
+      const {https, host, port, publicPath} = config.devServer
+      const protocol = https ? 'https' : 'http'
+      const realHost = host || '0.0.0.0'
+      const urls = prepareURLs(protocol, realHost, port, publicPath)
+      logger.info(`  - Run Serve At:`)
+      logger.info(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`)
+      logger.info(`  - Network: ${chalk.cyan(urls.lanUrlForTerminal)} \n`)
+    })
   }
 }

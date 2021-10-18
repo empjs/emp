@@ -3,16 +3,16 @@ const withESBUILD = require('@efox/emp-esbuild')
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
  */
- module.exports = {
+module.exports = {
   // compile:[withESBUILD],
-  webpack(){
+  webpack() {
     return {
       devServer: {
         port: 8003,
-      }
+      },
     }
   },
-  moduleFederation:{
+  moduleFederation: {
     name: 'empBase',
     // library: {type: 'var', name: 'empBase'},
     filename: 'emp.js',
@@ -33,7 +33,7 @@ const withESBUILD = require('@efox/emp-esbuild')
       axios: {requiredVersion: '^0.19.2'},
     },
   },
-  webpackChain(config){
+  webpackChain(config) {
     config.plugin('html').tap(args => {
       args[0] = {
         ...args[0],
@@ -44,9 +44,8 @@ const withESBUILD = require('@efox/emp-esbuild')
       }
       return args
     })
-  }
+  },
 }
-
 
 /* module.exports = ({config, env}) => {
   const port = 8003

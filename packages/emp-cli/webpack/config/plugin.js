@@ -68,7 +68,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
       },
       mfStats: {
         plugin: FederatedStatsPlugin,
-        args: [{filename: 'emp-stats.json'}],
+        args: [{filename: 'emp.json'}],
       },
       friendly: {
         plugin: FriendlyErrorsWebpackPlugin,
