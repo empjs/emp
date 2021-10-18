@@ -74,6 +74,10 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: FriendlyErrorsWebpackPlugin,
         args: [{}],
       },
+      prefetch: {
+        plugin: webpack.AutomaticPrefetchPlugin,
+        args: [{}],
+      },
     },
   }
   // progress
