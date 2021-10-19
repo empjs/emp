@@ -33,8 +33,8 @@ module.exports = {
         '@emp/demo1': 'demo1@http://localhost:8001/emp.js',
       },
       exposes: {
-        './components/Hello': 'src/components/Hello',
-        './helper': 'src/helper',
+        './components/Hello': './src/components/Hello',
+        './helper': './src/helper',
       },
       shared: {
         react: {requiredVersion: '^17.0.1'},

@@ -7,9 +7,9 @@ module.exports = {
     '@emp/demo3': 'demo3@http://127.0.0.1:8003/emp.js',
   },
   exposes: {
-    './configs/index': 'src/configs/index',
-    './components/Demo': 'src/components/Demo',
-    './components/Hello': 'src/components/Hello',
+    './configs/index': './src/configs/index',
+    './components/Demo': './src/components/Demo',
+    './components/Hello': './src/components/Hello',
   },
   shared: {
     react: {requiredVersion: '^17.0.1'},
