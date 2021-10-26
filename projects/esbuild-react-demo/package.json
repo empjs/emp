@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "emp dev -wl",
+    "dev": "emp dev",
     "build": "cross-env TSC_COMPILE_ON_ERROR=true emp build",
     "build:ts": "emp build --ts",
     "build:analyze": "emp build --analyze",
