@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@efox/emp-cli": "workspace:^1.9.9-3",
-    "@efox/emp-vue3": "^1.0.1"
+    "@efox/emp-cli": "workspace:*",
+    "@efox/emp-vue3": "workspace:*"
   },
   "dependencies": {
     "vue": "^3.0.4"
