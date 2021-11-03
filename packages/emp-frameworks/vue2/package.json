@@ -1,24 +1,25 @@
 {
   "name": "@efox/emp-vue2",
-  "version": "1.2.3",
+  "version": "1.3.0",
+  "description": "",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/efoxTeam/emp.git",
-    "directory": "packages/emp-frameworks/vue2"
+    "url": "git+https://github.com/empfe/emp-vue3.git",
+    "directory": "packages/vue2"
   },
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "vue": "^2.6.12",
-    "vue-loader": "^15.9.5",
-    "vue-template-compiler": "^2.6.12"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "gitHead": "6302c683f8315367daf7cf18aae971408390fbf4",
-  "peerDependencies": {
-    "vue": "^2.6.12",
-    "vue-loader": "^15.9.5",
-    "vue-template-compiler": "^2.6.12"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-loader": "^15.9.8",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.14"
   }
 }

@@ -1,15 +1,13 @@
+// const {resolveApp} = require('@efox/emp-cli/helpers/paths')
 module.exports = fn => ec => {
-  const {config,env} = ec
+  const {config, env} = ec
   console.log('=== Use ESBUILD Replace Babel ===', env)
-  config.module
-    .rule('scripts')
-    .use('babel')
-    .loader(require.resolve('esbuild-loader'))
-    .options({
-      target: 'esnext',
-      loader: 'tsx',
-      // color: true,
-    })
+  config.module.rule('scripts').use('babel').loader(require.resolve('esbuild-loader')).options({
+    target: 'esnext',
+    loader: 'tsx',
+    // color: true,
+    // tsconfigRaw: resolveApp('tsconfig.json'),
+  })
 
   config.module
     .rule('svg')
@@ -27,17 +25,17 @@ module.exports = fn => ec => {
     })
 
   if (env === 'production') {
-    const TerserPlugin = require("terser-webpack-plugin");
-    config.optimization.minimizer('TerserPlugin').tap((args) => {
-      args[0] = { ...args[0], ...{ minify: TerserPlugin.esbuildMinify } }
-      args[0].terserOptions={
-          minify: true,
-          // minifyWhitespace: true,
-          // minifyIdentifiers: true,
-          // minifySyntax: true,
-          legalComments:'none'
+    const TerserPlugin = require('terser-webpack-plugin')
+    config.optimization.minimizer('TerserPlugin').tap(args => {
+      args[0] = {...args[0], ...{minify: TerserPlugin.esbuildMinify}}
+      args[0].terserOptions = {
+        minify: true,
+        // minifyWhitespace: true,
+        // minifyIdentifiers: true,
+        // minifySyntax: true,
+        legalComments: 'none',
       }
-      console.log('=== Use ESBUILD Terser Minify ===', args[0])
+      console.log('=== Use ESBUILD Terser Minify ===', env)
       return args
     })
   }

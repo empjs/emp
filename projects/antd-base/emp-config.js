@@ -1,10 +1,11 @@
 // const withSWC = require('@efox/emp-swc')
-const withESBUILD = require('@efox/emp-esbuild')
+const ESBUILD = require('@efox/emp-esbuild')
+const pkg = require('./package.json')
 /**
  * @type {import('@efox/emp-cli').EMPConfig}
  */
 module.exports = {
-  // compile:[withESBUILD],
+  // compile: [ESBUILD],
   webpack() {
     return {
       devServer: {
@@ -15,7 +16,7 @@ module.exports = {
   moduleFederation: {
     name: 'empBase',
     // library: {type: 'var', name: 'empBase'},
-    filename: 'emp.js',
+    // filename: 'emp.js',
     remotes: {},
     exposes: {
       './App': 'src/App',
@@ -23,14 +24,14 @@ module.exports = {
       './components/common/crud/index': 'src/components/common/crud/index',
       './components/common/RouterComp': 'src/components/common/RouterComp',
     },
-    // shared: ['react', 'react-dom', 'react-router-dom', 'mobx-react-lite', 'mobx', 'axios'],
+    // shared: pkg.dependencies,
     shared: {
-      react: {requiredVersion: '^17.0.1'},
-      'react-dom': {requiredVersion: '^17.0.1'},
-      'react-router-dom': {requiredVersion: '^5.1.2'},
-      'mobx-react-lite': {requiredVersion: '^3.0.1'},
-      mobx: {requiredVersion: '^6.0.1'},
-      axios: {requiredVersion: '^0.19.2'},
+      react: pkg.dependencies.react,
+      'react-dom': pkg.dependencies['react-dom'],
+      'react-router-dom': pkg.dependencies['react-router-dom'],
+      'mobx-react-lite': pkg.dependencies['mobx-react-lite'],
+      mobx: pkg.dependencies.mobx,
+      axios: pkg.dependencies.axios,
     },
   },
   webpackChain(config) {

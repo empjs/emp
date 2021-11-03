@@ -1,36 +1,67 @@
-const path = require('path')
+// const path = require('path')
 module.exports = fn => ec => {
-  const {config} = ec
-  // config.module.delete('scripts')
-  // vue3
+  const {config, env} = ec
+  // 变量声明
+  const isDev = env === 'development'
+  // 清除所有 关于 js jsx ts tsx的配置
+  config.module.rules.store.delete('scripts')
+  // 配置 .vue
   config.module
-    .rule('vue_v3')
+    .rule('vue-loader')
     .test(/\.vue$/)
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
-  // js
+  // 配置 .j|tsx?
   config.module
-    .rule('scripts')
-    // .test(/\.(js|jsx)$/)
-    .use('babel')
-    .loader('babel-loader')
+    .rule('babel-loader')
+    .test(/\.(js|jsx|ts|tsx)$/)
+    .exclude.add(/node_modules/)
+    .end()
+    .use('babel-loader')
+    .loader(require.resolve('babel-loader'))
     .options({
-      presets: ['@babel/preset-env', '@babel/preset-typescript'],
+      presets: [
+        [
+          // 浏览器兼容性
+          require.resolve('@babel/preset-env'),
+          {
+            useBuiltIns: 'entry',
+            debug: false,
+            corejs: 3,
+            loose: true,
+          },
+        ],
+        [
+          // 支持 ts
+          require.resolve('@babel/preset-typescript'),
+          {
+            allExtensions: true, // 支持所有文件扩展名
+          },
+        ],
+      ],
       plugins: [
-        '@vue/babel-plugin-jsx',
-        ['@babel/plugin-proposal-decorators', {legacy: true}],
-        ['@babel/plugin-proposal-class-properties', {loose: true}],
-        '@babel/transform-runtime',
+        [
+          // 自动 polyfill
+          require.resolve('@babel/plugin-transform-runtime'),
+          {
+            corejs: false,
+            helpers: true,
+            version: require('@babel/runtime/package.json').version,
+            regenerator: true,
+            useESModules: false,
+            absoluteRuntime: true,
+          },
+        ],
+        // ts特性拓展
+        [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
+        [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
+        [require.resolve('@vue/babel-plugin-jsx'), {optimize: true, isCustomElement: tag => /^x-/.test(tag)}],
       ],
-      overrides: [
-        {
-          test: /\.vue$/,
-          plugins: ['@babel/transform-typescript'],
-        },
-      ],
+      overrides: [],
     })
-
-  config.resolve.alias.set('vue', '@vue/runtime-dom')
-  config.plugin('vue_v3').use(require('vue-loader').VueLoaderPlugin, [])
+  // alias vue
+  // config.resolve.alias.set('vue', '@vue/runtime-dom')
+  // plugin
+  config.plugin('vue-loader-plugin').use(require('vue-loader').VueLoaderPlugin, [])
   return fn && fn(ec)
 }

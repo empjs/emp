@@ -86,7 +86,7 @@ importers:
       tslog: ^3.2.2
       typescript: ^4.4.3
       url-loader: ^4.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
       webpack-bundle-analyzer: ^4.5.0
       webpack-chain: ^6.5.1
       webpack-dev-server: 4.3.1
@@ -103,62 +103,62 @@ importers:
       '@babel/runtime': 7.15.4
       '@efox/emp-tsconfig': link:../emp-tsconfig
       '@efox/emp-tune-dts-plugin': link:../emp-tune-dts-plugin
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_e584b1598fcc58f556f5cf4153be47af
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_6b0c121d39ac9ff4bfaeef9ed6efce82
       '@svgr/webpack': 5.5.0
       '@types/node': 14.17.19
       '@types/react': 17.0.24
       '@types/react-dom': 17.0.9
       address: 1.1.2
       axios: 0.21.4
-      babel-loader: 8.2.2_f5560e5b4f7053984b6dd7c23aa03d2f
+      babel-loader: 8.2.2_4eb5d49c3f84a314f0749e30d940d4cb
       babel-plugin-import: 1.13.3
       babel-plugin-named-asset-import: 0.3.7_@babel+core@7.15.8
       chalk: 4.1.2
       child_process: 1.0.2
-      clean-webpack-plugin: 4.0.0_webpack@5.58.2
+      clean-webpack-plugin: 4.0.0_webpack@5.60.0
       cli-table3: 0.6.0
       commander: 8.2.0
       compression: 1.7.4
-      copy-webpack-plugin: 9.0.1_webpack@5.58.2
+      copy-webpack-plugin: 9.0.1_webpack@5.60.0
       core-js: 3.18.3
       cors: 2.8.5
-      css-loader: 6.3.0_webpack@5.58.2
-      css-minimizer-webpack-plugin: 3.1.1_webpack@5.58.2
+      css-loader: 6.3.0_webpack@5.60.0
+      css-minimizer-webpack-plugin: 3.1.1_webpack@5.60.0
       cssnano: 5.0.8_postcss@8.3.9
       default-gateway: 6.0.3
-      dotenv-webpack: 7.0.3_webpack@5.58.2
+      dotenv-webpack: 7.0.3_webpack@5.60.0
       eslint: 7.32.0
-      eslint-webpack-plugin: 3.0.1_eslint@7.32.0+webpack@5.58.2
+      eslint-webpack-plugin: 3.0.1_eslint@7.32.0+webpack@5.60.0
       express: 4.17.1
-      file-loader: 6.2.0_webpack@5.58.2
-      fork-ts-checker-webpack-plugin: 6.3.4_a53026502187489a860e750a1c18170d
-      friendly-errors-webpack-plugin: 1.7.0_webpack@5.58.2
+      file-loader: 6.2.0_webpack@5.60.0
+      fork-ts-checker-webpack-plugin: 6.3.4_4cf92f897cc21eb379a730dec9353afe
+      friendly-errors-webpack-plugin: 1.7.0_webpack@5.60.0
       fs-extra: 10.0.0
       git-promise: 1.0.0
       globby: 11.0.4
-      html-webpack-plugin: 5.3.2_webpack@5.58.2
+      html-webpack-plugin: 5.3.2_webpack@5.60.0
       inquirer: 7.3.3
       less: 4.1.2
-      less-loader: 10.1.0_less@4.1.2+webpack@5.58.2
-      mini-css-extract-plugin: 2.4.2_webpack@5.58.2
+      less-loader: 10.1.0_less@4.1.2+webpack@5.60.0
+      mini-css-extract-plugin: 2.4.2_webpack@5.60.0
       ora: 4.1.1
       postcss: 8.3.9
-      postcss-loader: 6.2.0_postcss@8.3.9+webpack@5.58.2
+      postcss-loader: 6.2.0_postcss@8.3.9+webpack@5.60.0
       react-refresh: 0.10.0
       regenerator-runtime: 0.13.9
       sass: 1.42.1
-      sass-loader: 12.1.0_sass@1.42.1+webpack@5.58.2
+      sass-loader: 12.1.0_sass@1.42.1+webpack@5.60.0
       semver: 7.3.5
-      style-loader: 3.3.0_webpack@5.58.2
-      terser-webpack-plugin: 5.2.4_webpack@5.58.2
+      style-loader: 3.3.0_webpack@5.60.0
+      terser-webpack-plugin: 5.2.4_webpack@5.60.0
       tslog: 3.2.2
       typescript: 4.4.3
-      url-loader: 4.1.1_file-loader@6.2.0+webpack@5.58.2
-      webpack: 5.58.2
+      url-loader: 4.1.1_file-loader@6.2.0+webpack@5.60.0
+      webpack: 5.60.0
       webpack-bundle-analyzer: 4.5.0
       webpack-chain: 6.5.1
-      webpack-dev-server: 4.3.1_webpack@5.58.2
-      webpack-federated-stats-plugin: 2.0.8_webpack@5.58.2
+      webpack-dev-server: 4.3.1_webpack@5.60.0
+      webpack-federated-stats-plugin: 2.0.8_webpack@5.60.0
 
   packages/emp-compile/esbuild:
     specifiers:
@@ -261,12 +261,14 @@ importers:
 
   packages/emp-frameworks/vue2:
     specifiers:
-      vue: ^2.6.12
-      vue-loader: ^15.9.5
-      vue-template-compiler: ^2.6.12
+      vue: ^2.6.14
+      vue-loader: ^15.9.8
+      vue-svg-loader: ^0.16.0
+      vue-template-compiler: ^2.6.14
     dependencies:
       vue: 2.6.14
       vue-loader: 15.9.8_vue-template-compiler@2.6.14
+      vue-svg-loader: 0.16.0_vue-template-compiler@2.6.14
       vue-template-compiler: 2.6.14
 
   packages/emp-frameworks/vue2-ts:
@@ -283,23 +285,27 @@ importers:
       vue-loader: 15.9.5_vue-template-compiler@2.6.12
       vue-template-compiler: 2.6.12
 
-  packages/emp-frameworks/vue3:
+  packages/emp-frameworks/vue2/2020:
     specifiers:
-      '@vue/babel-plugin-jsx': ^1.0.0
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/cli-plugin-babel': ^4.5.9
-      '@vue/compiler-sfc': ^3.0.4
-      ts-loader: ^8.0.11
-      vue-loader: ^16.1.1
+      vue: ^2.6.12
+      vue-loader: ^15.9.5
       vue-template-compiler: ^2.6.12
     dependencies:
-      '@vue/babel-plugin-jsx': 1.1.0
-      '@vue/babel-preset-jsx': 1.2.4
-      '@vue/cli-plugin-babel': 4.5.14
-      '@vue/compiler-sfc': 3.2.20
-      ts-loader: 8.3.0_typescript@3.9.10
-      vue-loader: 16.8.1
+      vue: 2.6.14
+      vue-loader: 15.9.8_vue-template-compiler@2.6.14
       vue-template-compiler: 2.6.14
+
+  packages/emp-frameworks/vue3:
+    specifiers:
+      '@vue/babel-plugin-jsx': ^1.1.0
+      '@vue/compiler-sfc': ^3.2.20
+      vue: ^3.2.20
+      vue-loader: ^16.8.1
+    dependencies:
+      '@vue/babel-plugin-jsx': 1.1.0
+      '@vue/compiler-sfc': 3.2.20
+      vue: 3.2.20
+      vue-loader: 16.8.1
 
   packages/emp-frameworks/vue3-swc:
     specifiers:
@@ -314,6 +320,24 @@ importers:
       '@swc/helpers': 0.2.13
       '@vue/compiler-sfc': 3.2.19
       swc-loader: 0.1.15_@swc+core@1.2.91
+      vue-loader: 16.8.1
+      vue-template-compiler: 2.6.14
+
+  packages/emp-frameworks/vue3/2020:
+    specifiers:
+      '@vue/babel-plugin-jsx': ^1.0.0
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/cli-plugin-babel': ^4.5.9
+      '@vue/compiler-sfc': ^3.0.4
+      ts-loader: ^8.0.11
+      vue-loader: ^16.1.1
+      vue-template-compiler: ^2.6.12
+    dependencies:
+      '@vue/babel-plugin-jsx': 1.1.0
+      '@vue/babel-preset-jsx': 1.2.4
+      '@vue/cli-plugin-babel': 4.5.14
+      '@vue/compiler-sfc': 3.2.20
+      ts-loader: 8.3.0_typescript@3.9.10
       vue-loader: 16.8.1
       vue-template-compiler: 2.6.14
 
@@ -467,10 +491,8 @@ importers:
       react-dom: ^17.0.1
       react-helmet: ^5.2.1
       react-router-dom: ^5.1.2
-      regenerator-runtime: ^0.13.9
     dependencies:
       '@ant-design/icons': 4.7.0_react-dom@17.0.2+react@17.0.2
-      '@efox/emp-tsconfig': link:../../packages/emp-tsconfig
       antd: 4.16.13_react-dom@17.0.2+react@17.0.2
       axios: 0.21.4
       js-cookie: 2.2.1
@@ -482,12 +504,12 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-helmet: 5.2.1_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
-      regenerator-runtime: 0.13.9
     devDependencies:
       '@babel/runtime': 7.15.4
       '@efox/emp-cli': link:../../packages/emp-cli
       '@efox/emp-esbuild': link:../../packages/emp-compile/esbuild
       '@efox/emp-swc': link:../../packages/emp-compile/swc
+      '@efox/emp-tsconfig': link:../../packages/emp-tsconfig
       '@swc/helpers': 0.2.13
       '@types/js-cookie': 2.2.7
       '@types/loadjs': 4.0.1
@@ -619,7 +641,7 @@ importers:
       vuex: 4.0.2_vue@3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
 
   projects/element-plus-base:
     specifiers:
@@ -636,7 +658,7 @@ importers:
       vuex: 4.0.2_vue@3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
 
   projects/element-plus-project:
     specifiers:
@@ -647,7 +669,7 @@ importers:
       vue: 3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
 
   projects/emp-gui-config-demo:
     specifiers:
@@ -756,7 +778,7 @@ importers:
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
       '@efox/emp-esbuild': link:../../packages/emp-compile/esbuild
-      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2
+      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2/2020
 
   projects/esm-project:
     specifiers:
@@ -1101,23 +1123,19 @@ importers:
       vue: 3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
       style-resources-loader: 1.4.1
 
   projects/vue2-base:
     specifiers:
-      '@efox/emp-cli': workspace:^1.9.9-3
-      '@efox/emp-vue2': ^1.2.2
+      '@efox/emp-cli': workspace:*
+      '@efox/emp-vue2': workspace:*
       vue: ^2.6.12
-      vue-svg-loader: ^0.16.0
-      vue-template-compiler: ^2.6.12
     dependencies:
       vue: 2.6.14
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
       '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2
-      vue-svg-loader: 0.16.0_vue-template-compiler@2.6.14
-      vue-template-compiler: 2.6.14
 
   projects/vue2-project:
     specifiers:
@@ -1128,7 +1146,7 @@ importers:
       vue: 2.6.14
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2
+      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2/2020
 
   projects/vue23-vue2:
     specifiers:
@@ -1139,7 +1157,7 @@ importers:
       vue: 2.6.14
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2
+      '@efox/emp-vue2': link:../../packages/emp-frameworks/vue2/2020
 
   projects/vue23-vue3:
     specifiers:
@@ -1152,12 +1170,12 @@ importers:
       vue: 3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
 
   projects/vue3-base:
     specifiers:
-      '@efox/emp-cli': workspace:^1.9.9-3
-      '@efox/emp-vue3': ^1.0.1
+      '@efox/emp-cli': workspace:*
+      '@efox/emp-vue3': workspace:*
       vue: ^3.0.4
     dependencies:
       vue: 3.2.19
@@ -1172,7 +1190,7 @@ importers:
       vue: ^3.0.5
     dependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
       vue: 3.2.19
 
   projects/vue3-project:
@@ -1186,7 +1204,7 @@ importers:
       vue: 3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
 
   projects/vue3-ts:
     specifiers:
@@ -1198,7 +1216,7 @@ importers:
       vue: 3.2.19
     devDependencies:
       '@efox/emp-cli': link:../../packages/emp-cli
-      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3
+      '@efox/emp-vue3': link:../../packages/emp-frameworks/vue3/2020
       style-resources-loader: 1.4.1
 
 packages:
@@ -4025,7 +4043,7 @@ packages:
       fastq: 1.13.0
     dev: false
 
-  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_e584b1598fcc58f556f5cf4153be47af:
+  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_6b0c121d39ac9ff4bfaeef9ed6efce82:
     resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}
     engines: {node: '>= 10.13'}
     peerDependencies:
@@ -4061,8 +4079,8 @@ packages:
       react-refresh: 0.10.0
       schema-utils: 3.1.1
       source-map: 0.7.3
-      webpack: 5.58.2
-      webpack-dev-server: 4.3.1_webpack@5.58.2
+      webpack: 5.60.0
+      webpack-dev-server: 4.3.1_webpack@5.60.0
     dev: false
 
   /@pmmmwh/react-refresh-webpack-plugin/0.5.1_react-refresh@0.10.0:
@@ -4682,6 +4700,7 @@ packages:
 
   /@types/q/1.5.5:
     resolution: {integrity: sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==}
+    dev: false
 
   /@types/react-dom/16.9.14:
     resolution: {integrity: sha512-FIX2AVmPTGP30OUJ+0vadeIFJJ07Mh1m+U0rxfgyW34p3rTlXI+nlenvAxNn4BP36YyI9IJ/+UJ7Wu22N1pI7A==}
@@ -5303,6 +5322,12 @@ packages:
       '@vue/shared': 3.2.19
     dev: false
 
+  /@vue/reactivity/3.2.20:
+    resolution: {integrity: sha512-nSmoLojUTk+H8HNTAkrUduB4+yIUBK2HPihJo2uXVSH4Spry6oqN6lFzE5zpLK+F27Sja+UqR9R1+/kIOsHV5w==}
+    dependencies:
+      '@vue/shared': 3.2.20
+    dev: false
+
   /@vue/ref-transform/3.2.19:
     resolution: {integrity: sha512-03wwUnoIAeKti5IGGx6Vk/HEBJ+zUcm5wrUM3+PQsGf7IYnXTbeIfHHpx4HeSeWhnLAjqZjADQwW8uA4rBmVbg==}
     dependencies:
@@ -5330,11 +5355,26 @@ packages:
       '@vue/shared': 3.2.19
     dev: false
 
+  /@vue/runtime-core/3.2.20:
+    resolution: {integrity: sha512-d1xfUGhZPfiZzAN7SatStD4vRtT8deJSXib2+Cz3x0brjMWKxe32asQc154FF1E2fFgMCHtnfd4A90bQEzV4GQ==}
+    dependencies:
+      '@vue/reactivity': 3.2.20
+      '@vue/shared': 3.2.20
+    dev: false
+
   /@vue/runtime-dom/3.2.19:
     resolution: {integrity: sha512-hIRboxXwafeHhbZEkZYNV0MiJXPNf4fP0X6hM2TJb0vssz8BKhD9cF92BkRgZztTQevecbhk0gu4uAPJ3dxL9A==}
     dependencies:
       '@vue/runtime-core': 3.2.19
       '@vue/shared': 3.2.19
+      csstype: 2.6.18
+    dev: false
+
+  /@vue/runtime-dom/3.2.20:
+    resolution: {integrity: sha512-4TCvZMLhESWCFHFYgqN4QmMA/onnINAlUovhopjlS8ST27G1A8Z0tyxPzLoXLa+b5JrOpbMPheEMPvdKExTJig==}
+    dependencies:
+      '@vue/runtime-core': 3.2.20
+      '@vue/shared': 3.2.20
       csstype: 2.6.18
     dev: false
 
@@ -5346,6 +5386,16 @@ packages:
       '@vue/compiler-ssr': 3.2.19
       '@vue/shared': 3.2.19
       vue: 3.2.19
+    dev: false
+
+  /@vue/server-renderer/3.2.20_vue@3.2.20:
+    resolution: {integrity: sha512-viIbZGep9XabnrRcaxWIi00cOh1x21QYm2upIL5W0zqzTJ54VdTzpI+zi1osNp+VfRQDTHpV2U7H3Kn4ljYJvg==}
+    peerDependencies:
+      vue: 3.2.20
+    dependencies:
+      '@vue/compiler-ssr': 3.2.20
+      '@vue/shared': 3.2.20
+      vue: 3.2.20
     dev: false
 
   /@vue/shared/3.2.19:
@@ -6139,6 +6189,21 @@ packages:
       - supports-color
     dev: true
 
+  /babel-loader/8.2.2_4eb5d49c3f84a314f0749e30d940d4cb:
+    resolution: {integrity: sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==}
+    engines: {node: '>= 8.9'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      webpack: '>=2'
+    dependencies:
+      '@babel/core': 7.15.8
+      find-cache-dir: 3.3.2
+      loader-utils: 1.4.0
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
+      webpack: 5.60.0
+    dev: false
+
   /babel-loader/8.2.2_7f185b6b63b1b293762538aa414d8c1b:
     resolution: {integrity: sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==}
     engines: {node: '>= 8.9'}
@@ -6152,21 +6217,6 @@ packages:
       make-dir: 3.1.0
       schema-utils: 2.7.1
       webpack: 4.46.0
-    dev: false
-
-  /babel-loader/8.2.2_f5560e5b4f7053984b6dd7c23aa03d2f:
-    resolution: {integrity: sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==}
-    engines: {node: '>= 8.9'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      webpack: '>=2'
-    dependencies:
-      '@babel/core': 7.15.8
-      find-cache-dir: 3.3.2
-      loader-utils: 1.4.0
-      make-dir: 3.1.0
-      schema-utils: 2.7.1
-      webpack: 5.58.2
     dev: false
 
   /babel-plugin-dynamic-import-node/2.3.3:
@@ -6438,6 +6488,7 @@ packages:
 
   /boolbase/1.0.0:
     resolution: {integrity: sha1-aN/1++YMUes3cl6p4+0xDcwed24=}
+    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -6660,6 +6711,7 @@ packages:
     dependencies:
       function-bind: 1.1.1
       get-intrinsic: 1.1.1
+    dev: false
 
   /caller-callsite/2.0.0:
     resolution: {integrity: sha1-hH4PzgoiN1CpoCfFSzNzGtMVQTQ=}
@@ -6914,14 +6966,14 @@ packages:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
 
-  /clean-webpack-plugin/4.0.0_webpack@5.58.2:
+  /clean-webpack-plugin/4.0.0_webpack@5.60.0:
     resolution: {integrity: sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       webpack: '>=4.0.0 <6.0.0'
     dependencies:
       del: 4.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /cli-cursor/2.1.0:
@@ -6993,6 +7045,7 @@ packages:
       '@types/q': 1.5.5
       chalk: 2.4.2
       q: 1.5.1
+    dev: false
 
   /collect-v8-coverage/1.0.1:
     resolution: {integrity: sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==}
@@ -7255,7 +7308,7 @@ packages:
       toggle-selection: 1.0.6
     dev: false
 
-  /copy-webpack-plugin/9.0.1_webpack@5.58.2:
+  /copy-webpack-plugin/9.0.1_webpack@5.60.0:
     resolution: {integrity: sha512-14gHKKdYIxF84jCEgPgYXCPpldbwpxxLbCmA7LReY7gvbaT555DgeBWBgBZM116tv/fO6RRJrsivBqRyRlukhw==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -7268,7 +7321,7 @@ packages:
       p-limit: 3.1.0
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /core-js-compat/3.18.1:
@@ -7426,7 +7479,7 @@ packages:
       timsort: 0.3.0
     dev: false
 
-  /css-loader/6.3.0_webpack@5.58.2:
+  /css-loader/6.3.0_webpack@5.60.0:
     resolution: {integrity: sha512-9NGvHOR+L6ps13Ilw/b216++Q8q+5RpJcVufCdW9S/9iCzs4KBDNa8qnA/n3FK/sSfWmH35PAIK/cfPi7LOSUg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -7440,10 +7493,10 @@ packages:
       postcss-modules-values: 4.0.0_postcss@8.3.9
       postcss-value-parser: 4.1.0
       semver: 7.3.5
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
-  /css-minimizer-webpack-plugin/3.1.1_webpack@5.58.2:
+  /css-minimizer-webpack-plugin/3.1.1_webpack@5.60.0:
     resolution: {integrity: sha512-KlB8l5uoNcf9F7i5kXnkxoqJGd2BXH4f0+Lj2vSWSmuvMLYO1kNsJ1KHSzeDW8e45/whgSOPcKVT/3JopkT8dg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -7466,7 +7519,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       source-map: 0.6.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /css-parse/2.0.0:
@@ -7477,6 +7530,7 @@ packages:
 
   /css-select-base-adapter/0.1.1:
     resolution: {integrity: sha512-jQVeeRG70QI08vSTwf1jHxp74JoZsr2XSgETae8/xC8ovSnL2WF87GTLO86Sbwdt2lK4Umg4HnnwMO4YF3Ce7w==}
+    dev: false
 
   /css-select/2.1.0:
     resolution: {integrity: sha512-Dqk7LQKpwLoH3VovzZnkzegqNSuAziQyNZUcrdDM401iY+R5NkGBXGmtO05/yaXQziALuPogeG0b7UAgjnTJTQ==}
@@ -7485,6 +7539,7 @@ packages:
       css-what: 3.4.2
       domutils: 1.7.0
       nth-check: 1.0.2
+    dev: false
 
   /css-select/4.1.3:
     resolution: {integrity: sha512-gT3wBNd9Nj49rAbmtFHj1cljIAOLYSX1nZ8CB7TBO3INYckygm5B7LISU/szY//YmdiSLbJvDLOx9VnMVpMBxA==}
@@ -7509,6 +7564,7 @@ packages:
     dependencies:
       mdn-data: 2.0.4
       source-map: 0.6.1
+    dev: false
 
   /css-tree/1.1.3:
     resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==}
@@ -7516,10 +7572,12 @@ packages:
     dependencies:
       mdn-data: 2.0.14
       source-map: 0.6.1
+    dev: false
 
   /css-what/3.4.2:
     resolution: {integrity: sha512-ACUm3L0/jiZTqfzRM3Hi9Q8eZqd6IK37mMWPLz9PJxkLWllYeRf+EHUSHYEtFop2Eqytaq1FizFVh7XfBnXCDQ==}
     engines: {node: '>= 6'}
+    dev: false
 
   /css-what/5.0.1:
     resolution: {integrity: sha512-FYDTSHb/7KXsWICVsxdmiExPjCfRC4qRFBdVwv7Ax9hMnvMmEjP9RfxTEZ3qPZGmADDn2vAKSo9UcN1jKVYscg==}
@@ -7605,6 +7663,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       css-tree: 1.1.3
+    dev: false
 
   /cssom/0.3.8:
     resolution: {integrity: sha512-b0tGHbfegbhPJpxpiBPU2sCkigAqtM9O121le6bbOlgyV+NyGyCmVfJ6QW9eRjz8CpNfWEOYBIMIGRYkLwsIYg==}
@@ -7773,6 +7832,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       object-keys: 1.1.1
+    dev: false
 
   /define-property/0.2.5:
     resolution: {integrity: sha1-w1se+RjsPJkPmlvFe+BKrOxcgRY=}
@@ -7920,6 +7980,7 @@ packages:
     dependencies:
       domelementtype: 2.2.0
       entities: 2.2.0
+    dev: false
 
   /dom-serializer/1.3.2:
     resolution: {integrity: sha512-5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig==}
@@ -7936,9 +7997,11 @@ packages:
 
   /domelementtype/1.3.1:
     resolution: {integrity: sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==}
+    dev: false
 
   /domelementtype/2.2.0:
     resolution: {integrity: sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==}
+    dev: false
 
   /domexception/2.0.1:
     resolution: {integrity: sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==}
@@ -7959,6 +8022,7 @@ packages:
     dependencies:
       dom-serializer: 0.2.2
       domelementtype: 1.3.1
+    dev: false
 
   /domutils/2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
@@ -7995,14 +8059,14 @@ packages:
       dotenv: 8.6.0
     dev: false
 
-  /dotenv-webpack/7.0.3_webpack@5.58.2:
+  /dotenv-webpack/7.0.3_webpack@5.60.0:
     resolution: {integrity: sha512-O0O9pOEwrk+n1zzR3T2uuXRlw64QxHSPeNN1GaiNBloQFNaCUL9V8jxSVz4jlXXFP/CIqK8YecWf8BAvsSgMjw==}
     engines: {node: '>=10'}
     peerDependencies:
       webpack: ^4 || ^5
     dependencies:
       dotenv-defaults: 2.0.2
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /dotenv/8.6.0:
@@ -8136,6 +8200,7 @@ packages:
 
   /entities/2.2.0:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
+    dev: false
 
   /errno/0.1.8:
     resolution: {integrity: sha512-dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==}
@@ -8177,6 +8242,7 @@ packages:
       string.prototype.trimend: 1.0.4
       string.prototype.trimstart: 1.0.4
       unbox-primitive: 1.0.1
+    dev: false
 
   /es-module-lexer/0.9.0:
     resolution: {integrity: sha512-qU2eN/XHsrl3E4y7mK1wdWnyy5c8gXtCbfP6Xcsemm7fPUR1PIV1JhZfP7ojcN0Fzp69CfrS3u76h2tusvfKiQ==}
@@ -8189,6 +8255,7 @@ packages:
       is-callable: 1.2.4
       is-date-object: 1.0.5
       is-symbol: 1.0.4
+    dev: false
 
   /esbuild-android-arm64/0.13.5:
     resolution: {integrity: sha512-xaNH58b9XRAWT5q0rwA2GNTgJynb51JhdotlNKdLmSCyKXPVlF87yqNLNdmlX/zndzRDrZdtpCWSALdn/J63Ug==}
@@ -8577,7 +8644,7 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /eslint-webpack-plugin/3.0.1_eslint@7.32.0+webpack@5.58.2:
+  /eslint-webpack-plugin/3.0.1_eslint@7.32.0+webpack@5.60.0:
     resolution: {integrity: sha512-PAHHDjCg2yWBNoiBPYLZWcv+M83urkslQKER7XvK84lo5YLcihJK6qwnCH2Fkt3eVdX+G1iyGZRlKsIhTiczHw==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -8590,7 +8657,7 @@ packages:
       micromatch: 4.0.4
       normalize-path: 3.0.0
       schema-utils: 3.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /eslint/6.5.1:
@@ -9016,7 +9083,7 @@ packages:
       flat-cache: 3.0.4
     dev: false
 
-  /file-loader/6.2.0_webpack@5.58.2:
+  /file-loader/6.2.0_webpack@5.60.0:
     resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -9024,7 +9091,7 @@ packages:
     dependencies:
       loader-utils: 2.0.0
       schema-utils: 3.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /file-uri-to-path/1.0.0:
@@ -9195,7 +9262,7 @@ packages:
       tapable: 1.1.3
     dev: false
 
-  /fork-ts-checker-webpack-plugin/6.3.4_a53026502187489a860e750a1c18170d:
+  /fork-ts-checker-webpack-plugin/6.3.4_4cf92f897cc21eb379a730dec9353afe:
     resolution: {integrity: sha512-z0dns2NXH9NHH0wpW6iuUmyXYRN9BI2Lqnv+RCdL+9GXSW6tKUqYnwf+h3ZaucJsbsrdobdxuOELGgm1xVZITA==}
     engines: {node: '>=10', yarn: '>=1.0.0'}
     peerDependencies:
@@ -9224,7 +9291,7 @@ packages:
       semver: 7.3.5
       tapable: 1.1.3
       typescript: 4.4.3
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /form-data/2.3.3:
@@ -9261,7 +9328,7 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /friendly-errors-webpack-plugin/1.7.0_webpack@5.58.2:
+  /friendly-errors-webpack-plugin/1.7.0_webpack@5.60.0:
     resolution: {integrity: sha512-K27M3VK30wVoOarP651zDmb93R9zF28usW4ocaK3mfQeIEI5BPht/EzZs5E8QLLwbLRJQMwscAjDxYPb1FuNiw==}
     peerDependencies:
       webpack: ^2.0.0 || ^3.0.0 || ^4.0.0
@@ -9269,7 +9336,7 @@ packages:
       chalk: 1.1.3
       error-stack-parser: 2.0.6
       string-width: 2.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /from2/2.3.0:
@@ -9360,6 +9427,7 @@ packages:
       function-bind: 1.1.1
       has: 1.0.3
       has-symbols: 1.0.2
+    dev: false
 
   /get-own-enumerable-property-symbols/3.0.2:
     resolution: {integrity: sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==}
@@ -9402,6 +9470,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.1.1
+    dev: false
 
   /get-value/2.0.6:
     resolution: {integrity: sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=}
@@ -9582,6 +9651,7 @@ packages:
 
   /has-bigints/1.0.1:
     resolution: {integrity: sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==}
+    dev: false
 
   /has-flag/3.0.0:
     resolution: {integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=}
@@ -9594,12 +9664,14 @@ packages:
   /has-symbols/1.0.2:
     resolution: {integrity: sha512-chXa79rL/UC2KlX17jo3vRGz0azaWEx5tGqZg5pO3NUyEJVB17dMruQlzCCOfUvElghKcm5194+BCRvi2Rv/Gw==}
     engines: {node: '>= 0.4'}
+    dev: false
 
   /has-tostringtag/1.0.0:
     resolution: {integrity: sha512-kFjcSNhnlGV1kyoGk7OXKSawH5JOb/LzUc5w9B02hOTO0dfFRjbHQKvg1d6cf3HbeUmtU9VbbV3qzZ2Teh97WQ==}
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.0.2
+    dev: false
 
   /has-value/0.3.1:
     resolution: {integrity: sha1-ex9YutpiyoJ+wKIHgCVlSEWZXh8=}
@@ -9764,7 +9836,7 @@ packages:
       tapable: 2.2.1
     dev: false
 
-  /html-webpack-plugin/5.3.2_webpack@5.58.2:
+  /html-webpack-plugin/5.3.2_webpack@5.60.0:
     resolution: {integrity: sha512-HvB33boVNCz2lTyBsSiMffsJ+m0YLIQ+pskblXgN9fnjS1BgEcuAfdInfXfGrkdXV406k9FiDi86eVCDBgJOyQ==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
@@ -9775,7 +9847,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 3.0.4
       tapable: 2.2.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /htmlparser2/6.1.0:
@@ -10110,6 +10182,7 @@ packages:
       get-intrinsic: 1.1.1
       has: 1.0.3
       side-channel: 1.0.4
+    dev: false
 
   /ip-regex/4.3.0:
     resolution: {integrity: sha512-B9ZWJxHHOHUhUjCPrMpLD4xEq35bUTClHM1S6CBU5ixQnkZmwipwgc96vAd7AAGM9TGHvJR+Uss+/Ak6UphK+Q==}
@@ -10166,6 +10239,7 @@ packages:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
     dependencies:
       has-bigints: 1.0.1
+    dev: false
 
   /is-binary-path/1.0.1:
     resolution: {integrity: sha1-dfFmQrSA8YenEcgUFh/TpKdlWJg=}
@@ -10188,6 +10262,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
+    dev: false
 
   /is-buffer/1.1.6:
     resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
@@ -10195,6 +10270,7 @@ packages:
   /is-callable/1.2.4:
     resolution: {integrity: sha512-nsuwtxZfMX67Oryl9LCQ+upnC0Z0BgpwntpS89m1H/TLF0zNfzfLMV/9Wa/6MZsj0acpEjAO0KF1xT6ZdLl95w==}
     engines: {node: '>= 0.4'}
+    dev: false
 
   /is-ci/2.0.0:
     resolution: {integrity: sha512-YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF+LGCsX4FZ8tcr3b19LcZq4w==}
@@ -10225,6 +10301,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-tostringtag: 1.0.0
+    dev: false
 
   /is-descriptor/0.1.6:
     resolution: {integrity: sha512-avDYr0SB3DwO9zsMov0gKCESFYqCnE4hq/4z3TdUlukEy5t9C0YRq7HLrsN52NAcqXKaepeCD0n+B0arnVG3Hg==}
@@ -10315,12 +10392,14 @@ packages:
   /is-negative-zero/2.0.1:
     resolution: {integrity: sha512-2z6JzQvZRa9A2Y7xC6dQQm4FSTSTNWjKIYYTt4246eMTJmIo0Q+ZyOsU66X8lxK1AbB92dFeglPLrhwpeRKO6w==}
     engines: {node: '>= 0.4'}
+    dev: false
 
   /is-number-object/1.0.6:
     resolution: {integrity: sha512-bEVOqiRcvo3zO1+G2lVMy+gkkEm9Yh7cDMRusKKu5ZJKPUYSJwICTKZrNKHA2EbSP0Tu0+6B/emsYNHZyn6K8g==}
     engines: {node: '>= 0.4'}
     dependencies:
       has-tostringtag: 1.0.0
+    dev: false
 
   /is-number/3.0.0:
     resolution: {integrity: sha1-JP1iAaR4LPUFYcgQJ2r8fRLXEZU=}
@@ -10397,6 +10476,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
+    dev: false
 
   /is-regexp/1.0.0:
     resolution: {integrity: sha1-/S2INUXEa6xaYz57mgnof6LLUGk=}
@@ -10419,12 +10499,14 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-tostringtag: 1.0.0
+    dev: false
 
   /is-symbol/1.0.4:
     resolution: {integrity: sha512-C/CPBqKWnvdcxqIARxyOh4v1UUEOCHpgDa0WYgpKDFMszcrPcffg5uhwSgPCLD2WWxmq6isisz87tzT01tuGhg==}
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.0.2
+    dev: false
 
   /is-text-path/1.0.1:
     resolution: {integrity: sha1-Thqg+1G/vLPpJogAE5cgLBd1tm4=}
@@ -11195,7 +11277,7 @@ packages:
       shell-quote: 1.7.2
     dev: false
 
-  /less-loader/10.1.0_less@4.1.2+webpack@5.58.2:
+  /less-loader/10.1.0_less@4.1.2+webpack@5.60.0:
     resolution: {integrity: sha512-Xz5e/YLoLmdWFu7XzzA6LVX8a2+6onDz5LJb8oLWAkOnIZ5Hjcpe+nf+Sta6UgEoIMfzWVrR3XlIVfPeZDb10A==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -11204,7 +11286,7 @@ packages:
     dependencies:
       klona: 2.0.4
       less: 4.1.2
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /less/3.13.1:
@@ -11540,9 +11622,11 @@ packages:
 
   /mdn-data/2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
+    dev: false
 
   /mdn-data/2.0.4:
     resolution: {integrity: sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==}
+    dev: false
 
   /media-typer/0.3.0:
     resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
@@ -11712,14 +11796,14 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
-  /mini-css-extract-plugin/2.4.2_webpack@5.58.2:
+  /mini-css-extract-plugin/2.4.2_webpack@5.60.0:
     resolution: {integrity: sha512-ZmqShkn79D36uerdED+9qdo1ZYG8C1YsWvXu0UMJxurZnSdgz7gQKO2EGv8T55MhDqG3DYmGtizZNpM/UbTlcA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
       schema-utils: 3.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /minimalistic-assert/1.0.1:
@@ -11779,6 +11863,7 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.5
+    dev: false
 
   /mkdirp/1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
@@ -12155,6 +12240,7 @@ packages:
     resolution: {integrity: sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==}
     dependencies:
       boolbase: 1.0.0
+    dev: false
 
   /nth-check/2.0.1:
     resolution: {integrity: sha512-it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w==}
@@ -12184,6 +12270,7 @@ packages:
 
   /object-inspect/1.11.0:
     resolution: {integrity: sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==}
+    dev: false
 
   /object-is/1.1.5:
     resolution: {integrity: sha512-3cyDsyHgtmi7I7DfSSI2LDp6SK2lwvtbg0p0R1e0RvTqF5ceGx+K2dfSjm1bKDMVCFEDAQvy+o8c6a7VujOddw==}
@@ -12196,6 +12283,7 @@ packages:
   /object-keys/1.1.1:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
     engines: {node: '>= 0.4'}
+    dev: false
 
   /object-visit/1.0.1:
     resolution: {integrity: sha1-95xEk68MU3e1n+OdOV5BBC3QRbs=}
@@ -12211,6 +12299,7 @@ packages:
       define-properties: 1.1.3
       has-symbols: 1.0.2
       object-keys: 1.1.1
+    dev: false
 
   /object.entries/1.1.4:
     resolution: {integrity: sha512-h4LWKWE+wKQGhtMjZEBud7uLGhqyLwj8fpHOarZhD2uY3C9cRtk57VQ89ke3moByLXMedqs3XCHzyb4AmA2DjA==}
@@ -12238,6 +12327,7 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.1.3
       es-abstract: 1.18.6
+    dev: false
 
   /object.hasown/1.0.0:
     resolution: {integrity: sha512-qYMF2CLIjxxLGleeM0jrcB4kiv3loGVAjKQKvH8pSU/i2VcRRvUNmxbD+nEMmrXRfORhuVJuH8OtSYCZoue3zA==}
@@ -12259,6 +12349,7 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.1.3
       es-abstract: 1.18.6
+    dev: false
 
   /obuf/1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
@@ -12819,7 +12910,7 @@ packages:
       import-cwd: 2.1.0
     dev: false
 
-  /postcss-loader/6.2.0_postcss@8.3.9+webpack@5.58.2:
+  /postcss-loader/6.2.0_postcss@8.3.9+webpack@5.60.0:
     resolution: {integrity: sha512-H9hv447QjQJVDbHj3OUdciyAXY3v5+UDduzEytAlZCVHCpNAAg/mCSwhYYqZr9BiGYhmYspU8QXxZwiHTLn3yA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -12830,7 +12921,7 @@ packages:
       klona: 2.0.4
       postcss: 8.3.9
       semver: 7.3.5
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /postcss-merge-longhand/5.0.2_postcss@8.3.9:
@@ -14949,7 +15040,7 @@ packages:
       walker: 1.0.7
     dev: true
 
-  /sass-loader/12.1.0_sass@1.42.1+webpack@5.58.2:
+  /sass-loader/12.1.0_sass@1.42.1+webpack@5.60.0:
     resolution: {integrity: sha512-FVJZ9kxVRYNZTIe2xhw93n3xJNYZADr+q69/s98l9nTCrWASo+DR2Ot0s5xTKQDDEosUkatsGeHxcH4QBp5bSg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -14968,7 +15059,7 @@ packages:
       klona: 2.0.4
       neo-async: 2.6.2
       sass: 1.42.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /sass/1.42.1:
@@ -14981,6 +15072,7 @@ packages:
 
   /sax/1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    dev: false
 
   /saxes/5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
@@ -15218,6 +15310,7 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.1.1
       object-inspect: 1.11.0
+    dev: false
 
   /signal-exit/3.0.4:
     resolution: {integrity: sha512-rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==}
@@ -15431,6 +15524,7 @@ packages:
 
   /stable/0.1.8:
     resolution: {integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==}
+    dev: false
 
   /stack-trace/0.0.10:
     resolution: {integrity: sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=}
@@ -15546,12 +15640,14 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
+    dev: false
 
   /string.prototype.trimstart/1.0.4:
     resolution: {integrity: sha512-jh6e984OBfvxS50tdY2nRZnoC5/mLFKOREQfw8t5yytkoUsJRNxvI/E39qu1sD0OtWI3OC0XgKSmcWwziwYuZw==}
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
+    dev: false
 
   /string_decoder/1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
@@ -15636,13 +15732,13 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /style-loader/3.3.0_webpack@5.58.2:
+  /style-loader/3.3.0_webpack@5.60.0:
     resolution: {integrity: sha512-szANub7ksJtQioJYtpbWwh1hUl99uK15n5HDlikeCRil/zYMZgSxucHddyF/4A3qJMUiAjPhFowrrQuNMA7jwQ==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /style-resources-loader/1.4.1:
@@ -15746,7 +15842,7 @@ packages:
     dependencies:
       svgo: 1.3.2
       vue-template-compiler: 2.6.14
-    dev: true
+    dev: false
 
   /svgaplayerweb/2.3.2:
     resolution: {integrity: sha512-QuTvNIgy3W6Mi4h74SczEHUtAwb8m3ax7Ai7xRLUuN6hjJh49RGtWOWq1IuF2I7ECcl0HAYn8FcTn99UDz9UiQ==}
@@ -15755,6 +15851,7 @@ packages:
   /svgo/1.3.2:
     resolution: {integrity: sha512-yhy/sQYxR5BkC98CY7o31VGsg014AKLEPxdfhora76l36hD9Rdy5NZA/Ocn6yayNPgSamYdtX2rFJdcv07AYVw==}
     engines: {node: '>=4.0.0'}
+    deprecated: This SVGO version is no longer supported. Upgrade to v2.x.x.
     hasBin: true
     dependencies:
       chalk: 2.4.2
@@ -15770,6 +15867,7 @@ packages:
       stable: 0.1.8
       unquote: 1.1.1
       util.promisify: 1.0.1
+    dev: false
 
   /svgo/2.7.0:
     resolution: {integrity: sha512-aDLsGkre4fTDCWvolyW+fs8ZJFABpzLXbtdK1y71CKnHzAnpDxKXPj2mNKj+pyOXUCzFHzuxRJ94XOFygOWV3w==}
@@ -15916,7 +16014,7 @@ packages:
       terser: 5.9.0
     dev: false
 
-  /terser-webpack-plugin/5.2.4_webpack@5.58.2:
+  /terser-webpack-plugin/5.2.4_webpack@5.60.0:
     resolution: {integrity: sha512-E2CkNMN+1cho04YpdANyRrn8CyN4yMy+WdFKZIySFZrGXZxJwJP6PMNGGc/Mcr6qygQHUUqRxnAPmi0M9f00XA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -15938,7 +16036,7 @@ packages:
       serialize-javascript: 6.0.0
       source-map: 0.6.1
       terser: 5.9.0
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /terser/4.8.0:
@@ -16306,6 +16404,7 @@ packages:
       has-bigints: 1.0.1
       has-symbols: 1.0.2
       which-boxed-primitive: 1.0.2
+    dev: false
 
   /unicode-canonical-property-names-ecmascript/2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}
@@ -16371,6 +16470,7 @@ packages:
 
   /unquote/1.1.1:
     resolution: {integrity: sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=}
+    dev: false
 
   /unset-value/1.0.0:
     resolution: {integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk=}
@@ -16409,7 +16509,7 @@ packages:
       schema-utils: 3.1.1
     dev: false
 
-  /url-loader/4.1.1_file-loader@6.2.0+webpack@5.58.2:
+  /url-loader/4.1.1_file-loader@6.2.0+webpack@5.60.0:
     resolution: {integrity: sha512-3BTV812+AVHHOJQO8O5MkWgZ5aosP7GnROJwvzLS9hWDj00lZ6Z0wNak423Lp9PBZN05N+Jk/N5Si8jRAlGyWA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -16419,11 +16519,11 @@ packages:
       file-loader:
         optional: true
     dependencies:
-      file-loader: 6.2.0_webpack@5.58.2
+      file-loader: 6.2.0_webpack@5.60.0
       loader-utils: 2.0.0
       mime-types: 2.1.32
       schema-utils: 3.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /url/0.11.0:
@@ -16447,6 +16547,7 @@ packages:
       es-abstract: 1.18.6
       has-symbols: 1.0.2
       object.getownpropertydescriptors: 2.1.2
+    dev: false
 
   /util/0.10.3:
     resolution: {integrity: sha1-evsa/lCAUkZInj23/g7TeTNqwPk=}
@@ -16621,7 +16722,7 @@ packages:
       loader-utils: 1.4.0
       svg-to-vue: 0.7.0_vue-template-compiler@2.6.14
       vue-template-compiler: 2.6.14
-    dev: true
+    dev: false
 
   /vue-template-compiler/2.6.12:
     resolution: {integrity: sha512-OzzZ52zS41YUbkCBfdXShQTe69j1gQDZ9HIX8miuC9C3rBCk9wIRjLiZZLrmX9V+Ftq/YEyv1JaVr5Y/hNtByg==}
@@ -16655,6 +16756,16 @@ packages:
       '@vue/runtime-dom': 3.2.19
       '@vue/server-renderer': 3.2.19_vue@3.2.19
       '@vue/shared': 3.2.19
+    dev: false
+
+  /vue/3.2.20:
+    resolution: {integrity: sha512-81JjEP4OGk9oO8+CU0h2nFPGgJBm9mNa3kdCX2k6FuRdrWrC+CNe+tOnuIeTg8EWwQuI+wwdra5Q7vSzp7p4Iw==}
+    dependencies:
+      '@vue/compiler-dom': 3.2.20
+      '@vue/compiler-sfc': 3.2.20
+      '@vue/runtime-dom': 3.2.20
+      '@vue/server-renderer': 3.2.20_vue@3.2.20
+      '@vue/shared': 3.2.20
     dev: false
 
   /vuera/0.2.7_c83e1fe12f05bb9dc779b9a6a1d69d3a:
@@ -16778,7 +16889,7 @@ packages:
       javascript-stringify: 2.1.0
     dev: false
 
-  /webpack-dev-middleware/5.2.1_webpack@5.58.2:
+  /webpack-dev-middleware/5.2.1_webpack@5.60.0:
     resolution: {integrity: sha512-Kx1X+36Rn9JaZcQMrJ7qN3PMAuKmEDD9ZISjUj3Cgq4A6PtwYsC4mpaKotSRYH3iOF6HsUa8viHKS59FlyVifQ==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -16789,10 +16900,10 @@ packages:
       mime-types: 2.1.32
       range-parser: 1.2.1
       schema-utils: 3.1.1
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
-  /webpack-dev-server/4.3.1_webpack@5.58.2:
+  /webpack-dev-server/4.3.1_webpack@5.60.0:
     resolution: {integrity: sha512-qNXQCVYo1kYhH9pgLtm8LRNkXX3XzTfHSj/zqzaqYzGPca+Qjr+81wj1jgPMCHhIhso9WEQ+kX9z23iG9PzQ7w==}
     engines: {node: '>= 12.13.0'}
     hasBin: true
@@ -16826,8 +16937,8 @@ packages:
       spdy: 4.0.2
       strip-ansi: 7.0.1
       url: 0.11.0
-      webpack: 5.58.2
-      webpack-dev-middleware: 5.2.1_webpack@5.58.2
+      webpack: 5.60.0
+      webpack-dev-middleware: 5.2.1_webpack@5.60.0
       ws: 8.2.2
     transitivePeerDependencies:
       - bufferutil
@@ -16836,12 +16947,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /webpack-federated-stats-plugin/2.0.8_webpack@5.58.2:
+  /webpack-federated-stats-plugin/2.0.8_webpack@5.60.0:
     resolution: {integrity: sha512-N/lcCFS+GlF3r2Yi5i8tJM7iej3Z7OihzUquKlv98+1TArGATd7KP8h3uwcXuZ0Du+KMIFcbyXUoURqncJZpxA==}
     peerDependencies:
       webpack: '5'
     dependencies:
-      webpack: 5.58.2
+      webpack: 5.60.0
     dev: false
 
   /webpack-sources/1.4.3:
@@ -16902,8 +17013,8 @@ packages:
       webpack-sources: 1.4.3
     dev: false
 
-  /webpack/5.58.2:
-    resolution: {integrity: sha512-3S6e9Vo1W2ijk4F4PPWRIu6D/uGgqaPmqw+av3W3jLDujuNkdxX5h5c+RQ6GkjVR+WwIPOfgY8av+j5j4tMqJw==}
+  /webpack/5.60.0:
+    resolution: {integrity: sha512-OL5GDYi2dKxnwJPSOg2tODgzDxAffN0osgWkZaBo/l3ikCxDFP+tuJT3uF7GyBE3SDBpKML/+a8EobyWAQO3DQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -16933,7 +17044,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.2.4_webpack@5.58.2
+      terser-webpack-plugin: 5.2.4_webpack@5.60.0
       watchpack: 2.2.0
       webpack-sources: 3.2.1
     transitivePeerDependencies:
@@ -16986,6 +17097,7 @@ packages:
       is-number-object: 1.0.6
       is-string: 1.0.7
       is-symbol: 1.0.4
+    dev: false
 
   /which-module/2.0.0:
     resolution: {integrity: sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=}
