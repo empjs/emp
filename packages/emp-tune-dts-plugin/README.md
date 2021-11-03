@@ -97,6 +97,7 @@ Parameter explanation:
 | path| string (Required)| d.ts Folder path|
 | name| string (Required)| d.ts File name|
 | isDefault | boolean(Required) | Replace relative paths with absolute paths by default |
+| isRmExportDefault | boolean(Optional) | remove default = |
 | operation| Function (Optional)| Custom operation d.ts file function (when isDefault is true, operation will inherit the content after the default Replace). The input parameter is the content of the d.ts file, and the d.ts data must be returned after the operation is completed. operationDemo as an example|
 
 ## 💪 Generate

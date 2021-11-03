@@ -95,6 +95,7 @@ plugins: [
 | path| string (必填)| d.ts 文件夹路径|
 | name| string (必填)| d.ts 文件名|
 | isDefault | boolean(必填) | 默认将相对路径替换为绝对路径 |
+| isRmExportDefault | boolean(选填) | 移除默认导出声明 |
 | operation| Function (选填)| 自定义操作 d.ts 文件函数（isDefault 为 true 时，operation 会继承 默认 Replace 后的内容）。入参为 d.ts 文件内容，操作完成后必须返回 d.ts 数据。 operationDemo 为例子|
 
 ## 💪 生成

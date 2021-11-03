@@ -52,7 +52,22 @@ const emptyFunc = newFileData => {
   return newFileData
 }
 
-function tuneType(createPath, createName, isDefault, operation = emptyFunc, withVersion = false) {
+const rmExportDefault = content => {
+  const lines = content.split('\n')
+  lines.splice(lines.length - 4, 4)
+  const newText = lines.join('\n')
+  console.log(newText)
+  return newText
+}
+
+function tuneType(
+  createPath,
+  createName,
+  isDefault,
+  operation = emptyFunc,
+  withVersion = false,
+  isRmExportDefault = false,
+) {
   // 获取 d.ts 文件
   const filePath = path.join(createPath, createName)
   const fileData = fs.readFileSync(filePath, {encoding: 'utf-8'})
@@ -60,6 +75,8 @@ function tuneType(createPath, createName, isDefault, operation = emptyFunc, with
   newFileData = fileData
   isDefault && (newFileData = defaultRepalce(fileData, withVersion))
   newFileData && (newFileData = operation(newFileData) ? operation(newFileData) : newFileData)
+  // 移除 export default 声明
+  isRmExportDefault && (newFileData = rmExportDefault(newFileData))
   // 合并 remote 的 d.ts
   newFileData = mergeRemoteType(newFileData)
   // 覆盖原有 index.d.ts
