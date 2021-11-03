@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 const md5 = require('md5')
+const prettier = require('prettier')
 
 const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
@@ -56,8 +57,16 @@ const rmExportDefault = content => {
   const lines = content.split('\n')
   lines.splice(lines.length - 4, 4)
   const newText = lines.join('\n')
-  console.log(newText)
   return newText
+}
+
+/**
+ * 格式化代码
+ * @param {*} fileOut 需要格式化的文件路径
+ */
+function format(code, parser) {
+  const res = prettier.format(code, {semi: false, singleQuote: true, parser: parser})
+  return res
 }
 
 function tuneType(
@@ -77,6 +86,8 @@ function tuneType(
   newFileData && (newFileData = operation(newFileData) ? operation(newFileData) : newFileData)
   // 移除 export default 声明
   isRmExportDefault && (newFileData = rmExportDefault(newFileData))
+  // 代码格式化
+  newFileData = format(newFileData, 'typescript')
   // 合并 remote 的 d.ts
   newFileData = mergeRemoteType(newFileData)
   // 覆盖原有 index.d.ts
