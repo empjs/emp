@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "declarationDir": "types",
+    "plugins": [{ "transform": "ts-transform-paths" }],
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
+  },
+  "include": [
+    "src",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

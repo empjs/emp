@@ -1,9 +1,6 @@
 node_modules
 yarn-error.log
 dist
-.emp-cache
-lerna-debug.log
-.changelog
 .DS_Store
 yarn.lock
 yarn-debug.lock

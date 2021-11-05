@@ -10,16 +10,6 @@
     "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix"
   },
-  "workspaces": {
-    "packages": [
-      "packages/**",
-      "projects/*"
-    ],
-    "nohoist": [
-      "**/vue",
-      "**/vue/**"
-    ]
-  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -28,11 +18,11 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^8.3.4",
-    "@efox/eslint-config-react-prittier-ts": "workspace:^1.2.6",
+    "@efox/eslint-config-react-prittier-ts": "^1.2.7",
     "cross-env": "^7.0.3",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
-    "typescript": "^3.9.10"
+    "typescript": "^4.4.4"
   }
 }

@@ -1,0 +1,20 @@
+
+   
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": false,
+    "esModuleInterop": true,
+    // "useUnknownInCatchVariables": false,
+    // "checkJs": false,
+    //
+    "experimentalDecorators": true,
+    // "allowSyntheticDefaultImports": true,
+    "sourceMap": true
+  }
+}
