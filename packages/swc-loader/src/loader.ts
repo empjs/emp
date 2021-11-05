@@ -1,11 +1,11 @@
-import {getOptions} from 'loader-utils'
-import swc from '@swc/core'
+import {getOptions, OptionObject} from 'loader-utils'
+import swc, {Options} from '@swc/core'
 async function SWCLoader(this: any, source: string, inputSourceMap: string): Promise<void> {
   // Make the loader async
   const callback = this.async()
   const filename = this.resourcePath
 
-  let loaderOptions: any = getOptions(this) || {}
+  let loaderOptions: OptionObject = getOptions(this) || {}
 
   // Standardize on 'sourceMaps' as the key passed through to Webpack, so that
   // users may safely use either one alongside our default use of
@@ -24,7 +24,7 @@ async function SWCLoader(this: any, source: string, inputSourceMap: string): Pro
     inputSourceMap = JSON.stringify(inputSourceMap)
   }
 
-  const programmaticOptions = Object.assign({}, loaderOptions, {
+  const programmaticOptions: Options & OptionObject = Object.assign({}, loaderOptions, {
     filename,
     inputSourceMap: inputSourceMap || undefined,
 
