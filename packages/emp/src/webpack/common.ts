@@ -71,7 +71,7 @@ export const wpCommon = () => {
           // exclude: /(node_modules|bower_components)/,//不能加 exclude 否则会专程 arrow
           use: [
             {
-              loader: require.resolve('swc-loader'),
+              loader: require.resolve('@efox/swc-loader'),
               options: {
                 jsc: {
                   minify: {

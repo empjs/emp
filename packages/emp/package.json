@@ -37,10 +37,10 @@
   },
   "author": "Ken",
   "dependencies": {
+    "@efox/swc-loader": "workspace:^1.0.0",
     "@swc/core": "^1.2.106",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
-    "swc-loader": "^0.1.15",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.61.0",
     "webpack-chain": "^6.5.1",
