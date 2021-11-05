@@ -39,11 +39,11 @@
   "dependencies": {
     "@swc/core": "^1.2.106",
     "chalk": "^4.1.2",
-    "clean-webpack-plugin": "^4.0.0",
     "commander": "^8.3.0",
     "swc-loader": "^0.1.15",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.61.0",
+    "webpack-chain": "^6.5.1",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
   },

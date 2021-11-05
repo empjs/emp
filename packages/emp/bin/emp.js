@@ -7,12 +7,12 @@ const importSource = (path = 'index.js') => require(`../dist/${path}`).default
 program.version(pkg.version, '-v, --version').usage('<command> [options]')
 program.command('dev').action(async () => {
   const fn = importSource('script')
-  fn.exec('devServer')
+  fn.exec('devServer', 'development')
 })
 // // 构建
 program.command('build').action(() => {
   const fn = importSource('script')
-  fn.exec('build')
+  fn.exec('build', 'production')
 })
 // // 正式环境
 program.command('serve').action(() => {

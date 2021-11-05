@@ -1,67 +1,42 @@
-import Paths from 'src/helper/paths'
-import chalk from 'chalk'
 import {webpack} from 'webpack'
-import WebpackDevServer from 'webpack-dev-server'
-import logger from 'src/helper/logger'
-import common from 'src/webpack/common'
+import {getConfig} from 'src/helper/wpChain'
+
 class Build {
-  private paths: Paths
-  constructor(paths: Paths) {
-    this.paths = paths
+  constructor() {
     this.setup()
   }
   async setup() {
-    const config = common(this.paths, 'production')
-
+    const config = getConfig()
     webpack(config, (err: any, stats: any) => {
       if (err) {
-        logger.error(err.stack || err)
+        console.error(err.stack || err)
         if (err.details) {
-          logger.error(err.details)
-          // spinner.fail(`=== EMP Build Fail! ===\n`)
+          console.error(err.details)
         }
         return
       }
-      // spinner.succeed('=== EMP Build Completed! ===\n')
-      if (stats.hasWarnings()) {
-        logger.info(chalk.yellow.bold('\n=== EMP Compiled with warnings.===\n'))
-        logger.warn(
-          stats.toString({
-            all: false,
-            colors: true,
-            warnings: true,
-          }),
-        )
-      }
-      //
+
+      const info = stats.toJson()
+
       if (stats.hasErrors()) {
-        // const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
-        logger.error(
-          stats.toString({
-            all: false,
-            colors: true,
-            errors: true,
-          }),
-        )
-        logger.info(chalk.red.bold('\n=== EMP Failed to compile.===\n'))
-        process.exit(1)
+        console.error(info.errors)
       }
-      logger.info(chalk.green.bold('\n=== EMP Compiled successfully.===\n'))
-      logger.info(
-        `\n` +
-          stats.toString({
-            // chunks: false,
-            colors: true,
-            all: false,
-            assets: true,
-            // warnings: false,
-            // error: false,
-          }),
+
+      if (stats.hasWarnings()) {
+        console.warn(info.warnings)
+      }
+
+      console.log(
+        stats.toString({
+          all: false,
+          hash: true,
+          assets: true,
+          warnings: true,
+          errors: true,
+          errorDetails: false,
+          colors: true,
+        }),
       )
-      // 复制其他文件到dist
-      // copyPublicFolder(paths)
-      // 生成 serve 模式下需要文件
-      // buildServeConfig(cachePaths.buildConfig, {devServer: config.devServer})
     })
   }
 }

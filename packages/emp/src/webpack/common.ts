@@ -1,29 +1,59 @@
 import path from 'path'
-import Paths from 'src/helper/paths'
-import TerserPlugin from 'terser-webpack-plugin'
-import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-export default (paths: Paths, mode: string): any => {
-  const src = paths.appSrc
-  const dist = paths.outDir
-  return {
-    mode,
+import gls from 'src/helper/globalVars'
+import wpChain from 'src/helper/wpChain'
+import {Configuration} from 'webpack'
+export const wpCommon = () => {
+  const config: Configuration = {
+    mode: gls.wpEnv,
+    watchOptions: {
+      ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
+    },
+
+    cache: {
+      type: 'filesystem',
+      profile: true,
+    },
+
     resolve: {
-      modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src'), 'node_modules'],
+      modules: [gls.resolve('node_modules'), gls.resolve('src'), 'node_modules'],
       alias: {
-        src,
+        src: gls.appSrc,
       },
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: [
+        '.js',
+        '.jsx',
+        '.mjs',
+        '.ts',
+        '.tsx',
+        '.css',
+        '.less',
+        '.scss',
+        '.sass',
+        '.json',
+        '.wasm',
+        '.vue',
+        '.svg',
+        '.svga',
+      ],
     },
     entry: {
-      index: path.resolve(src, 'index.ts'),
+      index: path.resolve(gls.appSrc, 'index.ts'),
+    },
+    experiments: {
+      outputModule: true,
+      topLevelAwait: true,
+      buildHttp: {allowedUris: []},
     },
     output: {
-      path: dist,
+      publicPath: 'auto',
+      clean: true, //替代 clean-webpack-plugin
+      path: gls.outDir,
       filename: 'index.js',
-      library: {
+      /* library: {
         name: 'index',
-        type: 'umd',
-      },
+        type: 'module',
+        // type: 'umd',
+      }, */
       environment: {
         arrowFunction: false,
         bigIntLiteral: false,
@@ -47,7 +77,7 @@ export default (paths: Paths, mode: string): any => {
                   minify: {
                     compress: false,
                   },
-                  target: 'es2022',
+                  target: 'es2015',
                   externalHelpers: false,
                   parser: {
                     syntax: 'typescript',
@@ -59,18 +89,14 @@ export default (paths: Paths, mode: string): any => {
         },
       ],
     },
-    plugins: [new CleanWebpackPlugin()],
+    plugins: [],
     optimization: {
-      // chunkIds: 'named',
-      // minimize: true,
-      minimizer: [
-        /* new TerserPlugin({
-          minify: TerserPlugin.swcMinify,
-          terserOptions: {
-            compress: false,
-          },
-        }), */
-      ],
+      chunkIds: 'named',
+      minimize: false,
+    },
+    stats: {
+      // all: true,
     },
   }
+  wpChain.merge(config)
 }

@@ -1,16 +1,14 @@
-import Paths from 'src/helper/paths'
 import {webpack} from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import logger from 'src/helper/logger'
+import {getConfig} from 'src/helper/wpChain'
 class devServer {
-  private paths: Paths
-  constructor(paths: Paths) {
-    this.paths = paths
+  constructor() {
     this.setup()
   }
   async setup() {
-    const compiler = webpack({})
-    const server = new WebpackDevServer({}, compiler)
+    const config = getConfig()
+    const compiler = webpack(config)
+    const server = new WebpackDevServer(config.devServer || {}, compiler)
     server.start()
   }
 }

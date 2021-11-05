@@ -1,6 +1,2 @@
-const a = async () => {
-  console.log('async function')
-}
-;(async () => {
-  await a()
-})()
+import logger from './logger'
+logger('abc')

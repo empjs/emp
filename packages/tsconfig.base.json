@@ -12,9 +12,18 @@
     "esModuleInterop": true,
     // "useUnknownInCatchVariables": false,
     // "checkJs": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     //
     "experimentalDecorators": true,
     // "allowSyntheticDefaultImports": true,
-    "sourceMap": true
-  }
+    "sourceMap": true,
+    "plugins": [{ "transform": "ts-transform-paths" }],
+  },
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    ".pnpm",
+  ]
 }

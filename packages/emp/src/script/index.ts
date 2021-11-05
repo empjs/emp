@@ -1,17 +1,21 @@
-import Paths from 'src/helper/paths'
+import gls from 'src/helper/globalVars'
+import {modeType} from 'src/types'
+import WPConfig from 'src/webpack'
 class EMPScript {
-  paths: Paths
-  constructor() {
-    this.paths = new Paths()
-  }
+  constructor() {}
   /**
    * 执行命令相关脚本
    * @param name
    */
-  async exec(name: string): Promise<void> {
-    await this.paths.setConfig()
+  async exec(name: string, webpackEnv: modeType): Promise<void> {
+    // 全局变量实例化
+    await gls.setConfig(webpackEnv)
+    // webpack实例化
+    const wpConfig = new WPConfig()
+    await wpConfig.setup()
+    // 执行cli脚本
     const RumtimeScript = await import(`./${name}`)
-    new RumtimeScript.default(this.paths)
+    new RumtimeScript.default()
   }
 }
 
