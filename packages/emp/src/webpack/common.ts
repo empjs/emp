@@ -1,4 +1,5 @@
 import path from 'path'
+import globalVars from 'src/helper/globalVars'
 import gls from 'src/helper/globalVars'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -9,32 +10,17 @@ export const wpCommon = () => {
       ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
     },
 
-    cache: {
+    /*  cache: {
       type: 'filesystem',
-      profile: true,
-    },
-
+      allowCollectingMemory: true,
+    }, */
+    cache: false,
     resolve: {
       modules: [gls.resolve('node_modules'), gls.resolve('src'), 'node_modules'],
       alias: {
         src: gls.appSrc,
       },
-      extensions: [
-        '.js',
-        '.jsx',
-        '.mjs',
-        '.ts',
-        '.tsx',
-        '.css',
-        '.less',
-        '.scss',
-        '.sass',
-        '.json',
-        '.wasm',
-        '.vue',
-        '.svg',
-        '.svga',
-      ],
+      extensions: gls.extensions,
     },
     entry: {
       index: path.resolve(gls.appSrc, 'index.ts'),
@@ -45,54 +31,21 @@ export const wpCommon = () => {
       buildHttp: {allowedUris: []},
     },
     output: {
-      publicPath: 'auto',
-      clean: true, //替代 clean-webpack-plugin
-      path: gls.outDir,
-      filename: 'index.js',
-      /* library: {
-        name: 'index',
+      module: true,
+      libraryTarget: 'module',
+      clean: gls.config.build.emptyOutDir, //替代 clean-webpack-plugin
+      library: {
+        // name: 'index',
         type: 'module',
         // type: 'umd',
-      }, */
-      environment: {
-        arrowFunction: false,
-        bigIntLiteral: false,
-        const: false,
-        destructuring: false,
-        forOf: false,
-        dynamicImport: false,
-        module: false,
       },
+      ...gls.wpPaths.output,
     },
-    module: {
-      rules: [
-        {
-          test: /\.(js|jsx|ts|tsx)$/,
-          // exclude: /(node_modules|bower_components)/,//不能加 exclude 否则会专程 arrow
-          use: [
-            {
-              loader: require.resolve('@efox/swc-loader'),
-              options: {
-                jsc: {
-                  minify: {
-                    compress: false,
-                  },
-                  target: 'es2015',
-                  externalHelpers: false,
-                  parser: {
-                    syntax: 'typescript',
-                  },
-                },
-              },
-            },
-          ],
-        },
-      ],
-    },
+
     plugins: [],
     optimization: {
       chunkIds: 'named',
-      minimize: false,
+      minimize: globalVars.config.build.minify,
     },
     stats: {
       // all: true,

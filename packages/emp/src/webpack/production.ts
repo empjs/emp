@@ -4,8 +4,9 @@ import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 export const wpProduction = () => {
   const config: Configuration = {
-    // devtool: 'source-map',
-    devtool: false,
+    // devtool: false,
+    // devtool: 'eval-cheap-module-source-map',
+    devtool: gls.config.build.sourcemap ? 'source-map' : false, //Recommended
     // devServer,
     performance: {
       hints: false,

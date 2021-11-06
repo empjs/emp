@@ -6,6 +6,7 @@ export const wpDevelopment = () => {
     optimization: {
       usedExports: true, //Tells webpack to determine used exports for each module
     },
+    // devtool: 'eval-source-map',//Recommended
     devtool: 'eval-cheap-module-source-map',
     devServer: {
       bonjour: true,

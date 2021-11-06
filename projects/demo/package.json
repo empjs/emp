@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "@efox/emp": "workspace:^2.0.0"
+  },
+  "dependencies": {
+    "url-loader": "^4.1.1"
   }
 }
