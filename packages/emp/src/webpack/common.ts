@@ -27,12 +27,12 @@ export const wpCommon = () => {
       index: path.resolve(gls.appSrc, 'index.ts'),
     },
     experiments: {
-      outputModule: true,
+      // outputModule: true,
       topLevelAwait: true,
       buildHttp: {allowedUris: []},
     },
     output: {
-      module: true,
+      // module: true,
       // libraryTarget: 'module',
       clean: gls.config.build.emptyOutDir, //替代 clean-webpack-plugin
       // library: {
