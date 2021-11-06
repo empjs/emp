@@ -1,8 +1,9 @@
+import {JscConfig} from '@efox/swc-loader/types/swcType'
 export type BuildOptions = {
   /**
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */
-  target?: 'es3' | 'es5' | 'es2015' | 'es2016' | 'es2017' | 'es2018' | 'es2019' | 'es2020' | 'es2021' | 'es2022'
+  target?: JscConfig['target']
   /**
    * 生成代码目录
    * @default 'dist'

@@ -26,6 +26,13 @@ export const wpPlugin = () => {
       },
     },
   }
+  // hmr
+  // if (globalVars.wpEnv === 'development') {
+  //   config.plugin.hmr = {
+  //     plugin: webpack.HotModuleReplacementPlugin,
+  //     args: [],
+  //   }
+  // }
   // progress
   if (globalVars.cliOptions.progress) {
     config.plugin.progress = {

@@ -1,11 +1,8 @@
 import webpack from 'webpack'
-import {Options, transform, transformSync} from '@swc/core'
-type SWCLoaderType = Options & {
-  sync?: boolean
-  baseUrl?: string
-}
+import {transform, transformSync} from '@swc/core'
+import {SWCLoaderOptions} from './swcType'
 
-async function SWCLoader(this: webpack.LoaderContext<SWCLoaderType>, source: string) {
+async function SWCLoader(this: webpack.LoaderContext<SWCLoaderOptions>, source: string) {
   const done = this.async()
   const options = this.getOptions()
   // console.log('options', options)

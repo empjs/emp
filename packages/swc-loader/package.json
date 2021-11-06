@@ -2,6 +2,10 @@
   "name": "@efox/swc-loader",
   "version": "1.0.0",
   "description": "swc loader for webpack5",
+  "files": [
+    "dist",
+    "types"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
@@ -16,14 +20,14 @@
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist && ttsc -w",
-    "build": "rimraf dist && ttsc"
+    "dev": "rimraf dist types && ttsc -w",
+    "build": "rimraf dist types && ttsc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@swc/core": "^1.2.106",
-    "webpack": "^5.61.0"
+    "webpack": "^5.62.1"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",

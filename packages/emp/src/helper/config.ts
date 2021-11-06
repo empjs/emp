@@ -1,4 +1,5 @@
 import {BuildOptions, initBuild} from './build'
+import {ServerOptions, initServer} from './server'
 export type EMPConfig = {
   /**
    * 项目代码路径
@@ -16,7 +17,7 @@ export type EMPConfig = {
    * 静态文件路径
    * @default 'public'
    */
-  publicDir?: string | false
+  publicDir?: string
   /**
    * 缓存目录
    * @default 'node_modules/.emp-cache'
@@ -31,7 +32,7 @@ export type EMPConfig = {
    */
   define?: Record<string, any>
   plugins?: any[]
-  server?: any
+  server?: ServerOptions
   build?: BuildOptions
   /**
    * 日志级别
@@ -54,6 +55,7 @@ export type ResovleConfig = Required<EMPConfig> & {
 export const initConfig = (op: EMPConfig | any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
+  const server = initServer(op.server)
   delete op.build
   //
   return {
@@ -63,10 +65,10 @@ export const initConfig = (op: EMPConfig | any = {}): ResovleConfig => {
       base: '/',
       publicDir: 'public',
       cacheDir: 'node_modules/.emp-cache',
-      build: build,
+      build,
       define: [],
       plugins: [],
-      server: [],
+      server,
       logLevel: 'info',
     },
     ...op,

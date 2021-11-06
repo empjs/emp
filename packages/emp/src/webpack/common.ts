@@ -5,6 +5,7 @@ import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 export const wpCommon = () => {
   const config: Configuration = {
+    // target: 'web',
     mode: gls.wpEnv,
     watchOptions: {
       ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
@@ -32,13 +33,13 @@ export const wpCommon = () => {
     },
     output: {
       module: true,
-      libraryTarget: 'module',
+      // libraryTarget: 'module',
       clean: gls.config.build.emptyOutDir, //替代 clean-webpack-plugin
-      library: {
-        // name: 'index',
-        type: 'module',
-        // type: 'umd',
-      },
+      // library: {
+      //   // name: 'index',
+      //   // type: 'module',
+      //   // type: 'umd',
+      // },
       ...gls.wpPaths.output,
     },
 
@@ -46,9 +47,11 @@ export const wpCommon = () => {
     optimization: {
       chunkIds: 'named',
       minimize: globalVars.config.build.minify,
+      runtimeChunk: 'single',
     },
     stats: {
       // all: true,
+      errorDetails: true,
     },
   }
   wpChain.merge(config)

@@ -2,6 +2,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import {cliOptionsType, modeType, wpPathsType} from 'src/types'
 import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from './config'
+import logger from './logger'
 class GlobalVars {
   /**
    * 项目根目录绝对路径
@@ -35,9 +36,13 @@ class GlobalVars {
    */
   public appSrc: string
   /**
-   * 生成目录
+   * 源码生成目录
    */
   public outDir: string
+  /**
+   * 静态文件目录
+   */
+  public publicDir: string
   /**
    * webpack 环境变量
    */
@@ -59,6 +64,7 @@ class GlobalVars {
     this.config = initConfig()
     this.appSrc = this.resolve(this.config.appSrc)
     this.outDir = this.resolve(this.config.build.outDir)
+    this.publicDir = this.resolve(this.config.publicDir)
   }
   async setConfig(webpackEnv: modeType, cliOptions: cliOptionsType) {
     this.wpEnv = webpackEnv || 'development'
@@ -74,9 +80,11 @@ class GlobalVars {
       }
     }
     this.appSrc = this.config.appSrc ? this.resolve(this.config.appSrc) : this.appSrc
-    //
+    // command option 处理 优先级优于 emp-config,把 config覆盖
     this.cliOptions = cliOptions
-    if (this.cliOptions.wplogger) console.log('this.config', this.config)
+    if (this.cliOptions.wplogger) logger.info('=== emp config ===', this.config)
+    if (this.cliOptions.open) this.config.server.open = true
+    if (this.cliOptions.hot) this.config.server.hot = true
     //
     this.setWpPaths()
     //

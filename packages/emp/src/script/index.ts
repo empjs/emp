@@ -1,4 +1,4 @@
-import gls from 'src/helper/globalVars'
+import globalVars from 'src/helper/globalVars'
 import {cliOptionsType, modeType} from 'src/types'
 import WPConfig from 'src/webpack'
 class EMPScript {
@@ -9,7 +9,7 @@ class EMPScript {
    */
   async exec(name: string, webpackEnv: modeType, cliOptions: cliOptionsType): Promise<void> {
     // 全局变量实例化
-    await gls.setConfig(webpackEnv, cliOptions)
+    await globalVars.setConfig(webpackEnv, cliOptions)
     // webpack实例化
     const wpConfig = new WPConfig()
     await wpConfig.setup()
