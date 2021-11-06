@@ -30,6 +30,7 @@ export const wpCommon = () => {
       // outputModule: true,
       topLevelAwait: true,
       buildHttp: {allowedUris: []},
+      backCompat: true,
     },
     output: {
       // module: true,

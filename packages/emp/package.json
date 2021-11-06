@@ -40,6 +40,7 @@
     "@efox/swc-loader": "workspace:^1.0.0",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
+    "copy-webpack-plugin": "^9.0.1",
     "fast-glob": "^3.2.7",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.62.1",
@@ -50,6 +51,7 @@
     "webpack-federated-stats-plugin": "^2.0.8"
   },
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^8.0.1",
     "@types/fs-extra": "^9.0.13",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.3.1",

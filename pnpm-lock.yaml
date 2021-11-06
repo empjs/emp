@@ -25,11 +25,13 @@ importers:
   packages/emp:
     specifiers:
       '@efox/swc-loader': workspace:^1.0.0
+      '@types/copy-webpack-plugin': ^8.0.1
       '@types/fs-extra': ^9.0.13
       '@types/webpack-bundle-analyzer': ^4.4.1
       '@types/webpack-dev-server': ^4.3.1
       chalk: ^4.1.2
       commander: ^8.3.0
+      copy-webpack-plugin: ^9.0.1
       fast-glob: ^3.2.7
       fs-extra: ^10.0.0
       html-webpack-plugin: ^5.5.0
@@ -49,6 +51,7 @@ importers:
       '@efox/swc-loader': link:../swc-loader
       chalk: 4.1.2
       commander: 8.3.0
+      copy-webpack-plugin: 9.0.1_webpack@5.62.1
       fast-glob: 3.2.7
       terser-webpack-plugin: 5.2.4_webpack@5.62.1
       webpack: 5.62.1_webpack-cli@4.9.1
@@ -58,6 +61,7 @@ importers:
       webpack-dev-server: 4.4.0_webpack-cli@4.9.1+webpack@5.62.1
       webpack-federated-stats-plugin: 2.0.8_webpack@5.62.1
     devDependencies:
+      '@types/copy-webpack-plugin': 8.0.1_webpack-cli@4.9.1
       '@types/fs-extra': 9.0.13
       '@types/webpack-bundle-analyzer': 4.4.1_webpack-cli@4.9.1
       '@types/webpack-dev-server': 4.3.1_webpack-cli@4.9.1
@@ -1082,6 +1086,19 @@ packages:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 16.10.1
+    dev: true
+
+  /@types/copy-webpack-plugin/8.0.1_webpack-cli@4.9.1:
+    resolution: {integrity: sha512-TwEeGse0/wq+t3SFW0DEwroMS/cDkwVZT+vj7tMAYTp7llt/yz6NuW2n04X2M5P/kSfBQOORhrHAN2mqZdmybg==}
+    dependencies:
+      '@types/node': 16.10.1
+      tapable: 2.2.1
+      webpack: 5.62.1_webpack-cli@4.9.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
     dev: true
 
   /@types/eslint-scope/3.7.1:
@@ -2305,6 +2322,22 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /copy-webpack-plugin/9.0.1_webpack@5.62.1:
+    resolution: {integrity: sha512-14gHKKdYIxF84jCEgPgYXCPpldbwpxxLbCmA7LReY7gvbaT555DgeBWBgBZM116tv/fO6RRJrsivBqRyRlukhw==}
+    engines: {node: '>= 12.13.0'}
+    peerDependencies:
+      webpack: ^5.1.0
+    dependencies:
+      fast-glob: 3.2.7
+      glob-parent: 6.0.2
+      globby: 11.0.4
+      normalize-path: 3.0.0
+      p-limit: 3.1.0
+      schema-utils: 3.1.1
+      serialize-javascript: 6.0.0
+      webpack: 5.62.1_webpack-cli@4.9.1
+    dev: false
+
   /core-js/3.18.1:
     resolution: {integrity: sha512-vJlUi/7YdlCZeL6fXvWNaLUPh/id12WXj3MbkMw5uOyF0PfWPBNOCNbs53YqgrvtujLNlt9JQpruyIKkUZ+PKA==}
     requiresBuild: true
@@ -2515,7 +2548,7 @@ packages:
     dependencies:
       globby: 11.0.4
       graceful-fs: 4.2.8
-      is-glob: 4.0.2
+      is-glob: 4.0.3
       is-path-cwd: 2.2.0
       is-path-inside: 3.0.3
       p-map: 4.0.0
@@ -3405,6 +3438,13 @@ packages:
     dependencies:
       is-glob: 4.0.2
 
+  /glob-parent/6.0.2:
+    resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      is-glob: 4.0.3
+    dev: false
+
   /glob-to-regexp/0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
 
@@ -3967,6 +4007,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       is-extglob: 2.1.1
+
+  /is-glob/4.0.3:
+    resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      is-extglob: 2.1.1
+    dev: false
 
   /is-ip/3.1.0:
     resolution: {integrity: sha512-35vd5necO7IitFPjd/YBeqwWnyDWbuLH9ZXQdMfDA8TEo7pv5X8yfrvVO3xbJbLUlERCMvf6X0hTUamQxCYJ9Q==}

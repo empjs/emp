@@ -1,12 +1,13 @@
 import TerserPlugin from 'terser-webpack-plugin'
-import gls from 'src/helper/globalVars'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import globalVars from 'src/helper/globalVars'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 export const wpProduction = () => {
   const config: Configuration = {
     // devtool: false,
     // devtool: 'eval-cheap-module-source-map',
-    devtool: gls.config.build.sourcemap ? 'source-map' : false, //Recommended
+    devtool: globalVars.config.build.sourcemap ? 'source-map' : false, //Recommended
     // devServer,
     performance: {
       hints: false,
@@ -16,7 +17,35 @@ export const wpProduction = () => {
   }
   wpChain.merge(config)
   //
-  if (gls.config.build.minify === true) {
+  const wpcConfig = {
+    plugin: {
+      copy: {
+        plugin: CopyWebpackPlugin,
+        args: [
+          {
+            patterns: [
+              {
+                from: globalVars.publicDir.replace(/\\/g, '/'),
+                to: globalVars.outDir.replace(/\\/g, '/'),
+                globOptions: {
+                  // 加入 paths.template 避免被重置
+                  ignore: [
+                    '*.DS_Store',
+                    // paths.template.replace(/\\/g, '/'),
+                    //  paths.favicon.replace(/\\/g, '/'),
+                  ],
+                },
+                noErrorOnMissing: true,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  }
+  wpChain.merge(wpcConfig)
+  //
+  if (globalVars.config.build.minify === true) {
     wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
       {
         minify: TerserPlugin.swcMinify,

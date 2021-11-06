@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "types": ["webpack/module"],
     "baseUrl": ".",
     "outDir": "dist",
     "declarationDir": "types",

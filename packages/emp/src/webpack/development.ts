@@ -5,7 +5,7 @@ export const wpDevelopment = () => {
   const {hot, open, port, host} = globalVars.config.server
   const config: Configuration = {
     optimization: {
-      usedExports: true, //Tells webpack to determine used exports for each module
+      // usedExports: true, //Tells webpack to determine used exports for each module
     },
     // devtool: 'eval-source-map',//Recommended
     devtool: 'eval-cheap-module-source-map',
@@ -15,7 +15,7 @@ export const wpDevelopment = () => {
       historyApiFallback: true,
       host,
       open,
-      hot,
+      hot: 'only',
       // liveReload: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
