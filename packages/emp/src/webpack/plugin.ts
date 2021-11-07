@@ -2,9 +2,9 @@ import wpChain from 'src/helper/wpChain'
 import webpack from 'webpack'
 import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import globalVars from 'src/helper/globalVars'
+import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import wpPluginOptions from 'src/helper/wpPluginOptions'
+import wpPluginOptions from 'src/webpack/options/plugin'
 export const wpPlugin = () => {
   const config: any = {
     plugin: {
@@ -27,7 +27,7 @@ export const wpPlugin = () => {
     },
   }
   // progress
-  if (globalVars.cliOptions.progress) {
+  if (store.cliOptions.progress) {
     config.plugin.progress = {
       plugin: webpack.ProgressPlugin,
       args: [
@@ -48,7 +48,7 @@ export const wpPlugin = () => {
     }
   }
   //analyzer
-  if (globalVars.cliOptions.analyze) {
+  if (store.cliOptions.analyze) {
     config.plugin.analyzer = {
       plugin: BundleAnalyzerPlugin,
       args: [

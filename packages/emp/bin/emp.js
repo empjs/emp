@@ -18,8 +18,8 @@ program
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
   .action(async o => {
-    const fn = importSource('script')
-    fn.exec('devServer', 'development', o)
+    const fn = importSource('cli')
+    fn.exec('dev', 'development', o)
   })
 // // 构建
 program
@@ -39,7 +39,7 @@ program
   .option('-ps, --progress <progress>', '显示进度 默认为 false')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(o => {
-    const fn = importSource('script')
+    const fn = importSource('cli')
     fn.exec('build', 'production', o)
   })
 // // 正式环境
@@ -48,7 +48,7 @@ program
   .description('Server 模式')
   .option('-d, --dist <dist>', '目标 默认为 dist')
   .action(o => {
-    const fn = importSource('script')
+    const fn = importSource('cli')
     fn.exec('serve', undefined, o)
   })
 

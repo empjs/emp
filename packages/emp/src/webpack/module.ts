@@ -1,8 +1,8 @@
-import globalVars from 'src/helper/globalVars'
+import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {SWCLoaderOptions} from '@efox/swc-loader/types/swcType'
 export const wpModule = () => {
-  const isDev = globalVars.wpEnv === 'development'
+  const isDev = store.wpEnv === 'development'
   console.log('isDev', isDev)
   const swcOptions: SWCLoaderOptions = {
     sourceMaps: true,
@@ -11,7 +11,7 @@ export const wpModule = () => {
       // minify: {
       //   compress: false,
       // },
-      target: globalVars.config.build.target,
+      target: store.config.build.target,
       externalHelpers: false,
       parser: {
         syntax: 'typescript',
@@ -33,7 +33,7 @@ export const wpModule = () => {
     module: {
       generator: {
         'asset/resource': {
-          publicPath: globalVars.config.base,
+          publicPath: store.config.base,
         },
       },
       rule: {

@@ -1,5 +1,5 @@
-import {BuildOptions, initBuild} from './build'
-import {ServerOptions, initServer} from './server'
+import {BuildOptions, initBuild} from 'src/config/build'
+import {ServerOptions, initServer} from 'src/config/server'
 export type EMPConfig = {
   /**
    * 项目代码路径

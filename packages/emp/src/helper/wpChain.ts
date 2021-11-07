@@ -1,15 +1,15 @@
 import WPChain from 'webpack-chain'
-import globalVars from './globalVars'
+import store from './store'
 import fs from 'fs-extra'
 import logger from './logger'
 
 const wpChain = new WPChain()
 export const getConfig = () => {
   const conf = wpChain.toConfig()
-  const {wplogger} = globalVars.cliOptions
+  const {wplogger} = store.cliOptions
   if (wplogger) {
     if (typeof wplogger === 'string') {
-      fs.writeFile(globalVars.resolve(wplogger), `module.exports=${JSON.stringify(conf, null, 2)}`).catch(e =>
+      fs.writeFile(store.resolve(wplogger), `module.exports=${JSON.stringify(conf, null, 2)}`).catch(e =>
         logger.error(e),
       )
     } else {

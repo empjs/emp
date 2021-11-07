@@ -1,20 +1,20 @@
 import path from 'path'
-import globalVars from 'src/helper/globalVars'
+import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
-console.log(globalVars.empResolve('node_modules'))
+console.log(store.empResolve('node_modules'))
 export const wpCommon = () => {
-  const isDev = globalVars.wpEnv === 'development'
+  const isDev = store.wpEnv === 'development'
   const config: Configuration = {
     resolve: {
-      modules: [globalVars.resolve('src'), 'node_modules'],
+      modules: [store.resolve('src'), 'node_modules'],
       alias: {
-        src: globalVars.appSrc,
+        src: store.appSrc,
       },
-      extensions: globalVars.extensions,
+      extensions: store.extensions,
     },
     entry: {
-      index: [path.resolve(globalVars.appSrc, 'index.ts')],
+      index: [path.resolve(store.appSrc, 'index.ts')],
     },
     experiments: {
       // outputModule: true,
@@ -33,8 +33,8 @@ export const wpCommon = () => {
       //   // type: 'module',
       //   // type: 'umd',
       // },
-      clean: globalVars.config.build.emptyOutDir && !isDev, //替代 clean-webpack-plugin
-      ...globalVars.wpPaths.output,
+      clean: store.config.build.emptyOutDir && !isDev, //替代 clean-webpack-plugin
+      ...store.wpPaths.output,
     },
     stats: {
       errorDetails: true,

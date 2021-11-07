@@ -1,9 +1,9 @@
 import fs from 'fs-extra'
 import path from 'path'
 import {cliOptionsType, modeType, wpPathsType} from 'src/types'
-import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from './config'
+import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
-class GlobalVars {
+class GlobalStore {
   /**
    * 项目根目录绝对路径
    * @default process.cwd()
@@ -133,4 +133,4 @@ class GlobalVars {
     ]
   }
 }
-export default new GlobalVars()
+export default new GlobalStore()

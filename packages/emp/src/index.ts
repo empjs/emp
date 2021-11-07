@@ -1,1 +1,1 @@
-export {defineConfig, EMPConfig} from 'src/helper/config'
+export {defineConfig, EMPConfig} from 'src/config'

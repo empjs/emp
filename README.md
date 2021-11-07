@@ -13,3 +13,6 @@
 + 支持 热更 [js、react、module federation] `ken doing`
 + css sass less postcss 支持
 + react svgr 支持 
++ 增加 插件支持 
+  + 先 适配业务 再 深度定制 SWC  支持 
+  + `plugin-react`

@@ -1,4 +1,4 @@
-import globalVars from 'src/helper/globalVars'
+import store from 'src/helper/store'
 import {wpCommon} from './common'
 import {wpDevelopment} from './development'
 import {wpFile} from './file'
@@ -12,9 +12,9 @@ class WPConfig {
     wpModule()
     wpPlugin()
     wpFile()
-    if (globalVars.wpEnv === 'development') {
+    if (store.wpEnv === 'development') {
       wpDevelopment()
-    } else if (globalVars.wpEnv === 'production') {
+    } else if (store.wpEnv === 'production') {
       wpProduction()
     }
   }

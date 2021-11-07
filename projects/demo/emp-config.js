@@ -4,6 +4,7 @@ module.exports = defineConfig({
   appSrc: 'src',
   server: {
     port: 8080,
+    // hot: 'only',
   },
   build: {
     // target: 'es5',

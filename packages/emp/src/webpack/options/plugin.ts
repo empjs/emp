@@ -1,4 +1,4 @@
-import globalVars from './globalVars'
+import store from 'src/helper/store'
 import fs from 'fs-extra'
 class WpPluginOptions {
   public htmlWebpackPlugin
@@ -6,25 +6,25 @@ class WpPluginOptions {
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
   }
   setHtmlWebpackPlugin() {
-    let template = globalVars.resolve('src/index.html')
-    let favicon = globalVars.resolve('src/favicon.ico')
+    let template = store.resolve('src/index.html')
+    let favicon = store.resolve('src/favicon.ico')
     if (!fs.existsSync(template)) {
-      template = globalVars.empResolve('template/index.html')
+      template = store.empResolve('template/index.html')
     }
     if (!fs.existsSync(favicon)) {
-      favicon = globalVars.empResolve('template/favicon.ico')
+      favicon = store.empResolve('template/favicon.ico')
     }
     return {
       title: 'EMP',
       template,
       favicon,
-      // filename: 'index.html',
-      // chunks: ['index'],
-      /* files: {
+      /* filename: 'index.html',
+      chunks: ['index'],
+      files: {
         css: [],
         js: [],
       }, */
-      minify: globalVars.wpEnv === 'production' && {
+      minify: store.wpEnv === 'production' && {
         removeComments: true,
         collapseWhitespace: true,
         removeRedundantAttributes: true,

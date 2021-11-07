@@ -1,4 +1,4 @@
-import globalVars from 'src/helper/globalVars'
+import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 export const wpCSS = () => {
   const config = {}
