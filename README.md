@@ -16,3 +16,26 @@
 + 增加 插件支持 
   + 先 适配业务 再 深度定制 SWC  支持 
   + `plugin-react`
+
+## emp 文件分布详解 
+```
+.
+├── bin
+│   ├── emp.js 命令行入口
+│   └── openChrome.applescript
+├── package.json
+├── src
+│   ├── cli 命令行脚本
+│   ├── config 全局配置处理
+│   └── helper
+│       ├── logger.ts 日志全局 `未完善`
+│       ├── store.ts 全局配置、路径等变量引用
+│       └── wpChain.ts [webpack chain] 方法调用与合并 增量更新 webpack 内容
+│   ├── index.ts 全局配置类型 与 实例化方法
+│   ├── types.ts
+│   └── webpack [webpack] 相关配置内容
+└── template 全局模板
+    ├── favicon.ico
+    └── index.html
+ 
+```
