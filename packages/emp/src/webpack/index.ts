@@ -11,7 +11,7 @@ class WPConfig {
     wpCommon()
     wpModule()
     wpPlugin()
-    wpFile()
+    // wpFile()
     if (globalVars.wpEnv === 'development') {
       wpDevelopment()
     } else if (globalVars.wpEnv === 'production') {

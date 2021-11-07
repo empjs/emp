@@ -38,16 +38,20 @@
   "author": "Ken",
   "dependencies": {
     "@efox/swc-loader": "workspace:^1.0.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
+    "babel-loader": "^8.2.3",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "copy-webpack-plugin": "^9.0.1",
+    "esbuild-loader": "^2.16.0",
     "fast-glob": "^3.2.7",
+    "react-refresh": "^0.10.0",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.62.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.4.0",
+    "webpack-dev-server": "4.3.1",
     "webpack-federated-stats-plugin": "^2.0.8"
   },
   "devDependencies": {
@@ -61,6 +65,7 @@
     "ts-transform-paths": "^2.0.3",
     "tslog": "^3.2.2",
     "ttypescript": "^1.5.12",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "url-loader": "^4.1.1"
   }
 }

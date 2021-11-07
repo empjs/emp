@@ -110,7 +110,7 @@ class GlobalVars {
         filename: 'js/[name].[contenthash:8].js',
         assetModuleFilename: `${this.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
         environment,
-        scriptType: ['es3', 'es5'].indexOf(this.config.build.target) === -1 ? 'module' : 'text/javascript',
+        // scriptType: ['es3', 'es5'].indexOf(this.config.build.target) === -1 ? 'module' : 'text/javascript',
       },
     }
   }

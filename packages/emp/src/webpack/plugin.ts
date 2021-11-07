@@ -5,10 +5,11 @@ import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import globalVars from 'src/helper/globalVars'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import wpPluginOptions from 'src/helper/wpPluginOptions'
+import ReactRefresh from '@pmmmwh/react-refresh-webpack-plugin'
 export const wpPlugin = () => {
   const config: any = {
     plugin: {
-      prefetch: {
+      /* prefetch: {
         plugin: webpack.AutomaticPrefetchPlugin,
         args: [{}],
       },
@@ -19,7 +20,7 @@ export const wpPlugin = () => {
       mfStats: {
         plugin: FederatedStatsPlugin,
         args: [{filename: 'emp.json'}],
-      },
+      }, */
       html: {
         plugin: HtmlWebpackPlugin,
         args: [wpPluginOptions.htmlWebpackPlugin],
@@ -68,5 +69,14 @@ export const wpPlugin = () => {
     }
   }
   // dts
+  // hmr
+  /* if (globalVars.wpEnv === 'development') {
+    config.plugin.reacthotloader = {
+      plugin: ReactRefresh,
+      args: [{}],
+    }
+  } */
+
+  //
   wpChain.merge(config)
 }

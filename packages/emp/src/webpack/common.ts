@@ -1,30 +1,35 @@
 import path from 'path'
 import globalVars from 'src/helper/globalVars'
-import gls from 'src/helper/globalVars'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
+console.log(globalVars.empResolve('node_modules'))
 export const wpCommon = () => {
+  const isDev = globalVars.wpEnv === 'development'
   const config: Configuration = {
-    // target: 'web',
-    mode: gls.wpEnv,
-    watchOptions: {
-      ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
-    },
+    mode: globalVars.wpEnv,
+    watch: !!globalVars.cliOptions.watch,
+    // watchOptions: {
+    //   ignored: ['**/.git/**', '**/node_modules/**', '**/dist/**'],
+    // },
 
     /*  cache: {
       type: 'filesystem',
       allowCollectingMemory: true,
     }, */
-    cache: false,
     resolve: {
-      modules: [gls.resolve('node_modules'), gls.resolve('src'), 'node_modules'],
+      modules: [globalVars.resolve('src'), 'node_modules'],
       alias: {
-        src: gls.appSrc,
+        src: globalVars.appSrc,
       },
-      extensions: gls.extensions,
+      extensions: globalVars.extensions,
     },
     entry: {
-      index: path.resolve(gls.appSrc, 'index.ts'),
+      index: [
+        // globalVars.empResolve('node_modules/webpack/hot/dev-server.js'),
+        // Dev server client for web socket transport, hot and live reload logic
+        // globalVars.empResolve('node_modules/webpack-dev-server/client/index.js?hot=true&live-reload=true'),
+        path.resolve(globalVars.appSrc, 'index.js'),
+      ],
     },
     experiments: {
       // outputModule: true,
@@ -35,20 +40,20 @@ export const wpCommon = () => {
     output: {
       // module: true,
       // libraryTarget: 'module',
-      clean: gls.config.build.emptyOutDir, //替代 clean-webpack-plugin
+      clean: globalVars.config.build.emptyOutDir && !isDev, //替代 clean-webpack-plugin
       // library: {
       //   // name: 'index',
       //   // type: 'module',
       //   // type: 'umd',
       // },
-      ...gls.wpPaths.output,
+      ...globalVars.wpPaths.output,
     },
 
     plugins: [],
     optimization: {
       chunkIds: 'named',
-      minimize: globalVars.config.build.minify,
-      runtimeChunk: 'single',
+      minimize: globalVars.config.build.minify && !isDev,
+      // runtimeChunk: 'single',
     },
     stats: {
       // all: true,

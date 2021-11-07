@@ -6,6 +6,7 @@ export const wpModule = () => {
   console.log('isDev', isDev)
   const swcOptions: SWCLoaderOptions = {
     sourceMaps: true,
+    sync: true,
     jsc: {
       // minify: {
       //   compress: false,
@@ -20,7 +21,7 @@ export const wpModule = () => {
         react: {
           runtime: 'automatic',
           importSource: 'react',
-          // refresh: isDev,
+          refresh: isDev,
           development: isDev,
           useBuiltins: false,
         },
@@ -30,15 +31,21 @@ export const wpModule = () => {
   //
   const config = {
     module: {
+      /* generator: {
+        'asset/resource': {
+          publicPath: '/',
+        },
+      }, */
       rule: {
         scripts: {
           test: /\.(js|jsx|ts|tsx)$/,
-          // exclude: /(node_modules|bower_components)/,//不能加 exclude 否则会专程 arrow
+          // exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
           use: {
             swc: {
               loader: require.resolve('@efox/swc-loader'),
-
               options: swcOptions,
+              //
+              // loader: require.resolve('babel-loader'),
             },
           },
         },
