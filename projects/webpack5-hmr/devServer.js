@@ -1,7 +1,0 @@
-const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
-const config = require('./webpack.config')
-console.log(`config`, JSON.stringify(config, null, 2))
-const compiler = webpack(config)
-const server = new WebpackDevServer(config.devServer, compiler)
-server.start()

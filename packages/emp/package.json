@@ -38,34 +38,30 @@
   "author": "Ken",
   "dependencies": {
     "@efox/swc-loader": "workspace:^1.0.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
-    "babel-loader": "^8.2.3",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "copy-webpack-plugin": "^9.0.1",
     "esbuild-loader": "^2.16.0",
     "fast-glob": "^3.2.7",
-    "react-refresh": "^0.10.0",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.62.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
-    "webpack-cli": "^4.9.1",
     "webpack-dev-server": "4.3.1",
-    "webpack-federated-stats-plugin": "^2.0.8"
+    "webpack-federated-stats-plugin": "^2.0.8",
+    "fs-extra": "^10.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "url-loader": "^4.1.1",
+    "tslog": "^3.2.2"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/fs-extra": "^9.0.13",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.3.1",
-    "fs-extra": "^10.0.0",
-    "html-webpack-plugin": "^5.5.0",
     "rimraf": "^3.0.2",
     "ts-transform-paths": "^2.0.3",
-    "tslog": "^3.2.2",
     "ttypescript": "^1.5.12",
-    "typescript": "^4.4.4",
-    "url-loader": "^4.1.1"
+    "typescript": "^4.4.4"
   }
 }

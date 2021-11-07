@@ -55,8 +55,9 @@ export type ResovleConfig = Required<EMPConfig> & {
 export const initConfig = (op: EMPConfig | any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
-  const server = initServer(op.server)
   delete op.build
+  const server = initServer(op.server)
+  delete op.server
   //
   return {
     ...{

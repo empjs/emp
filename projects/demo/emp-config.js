@@ -3,10 +3,10 @@ const {defineConfig} = require('@efox/emp')
 module.exports = defineConfig({
   appSrc: 'src',
   server: {
-    port: 8001,
+    port: 8080,
   },
   build: {
-    target: 'es5',
+    // target: 'es5',
     sourcemap: false,
     outDir: 'build',
   },

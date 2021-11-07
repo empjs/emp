@@ -5,18 +5,20 @@ import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 export const wpProduction = () => {
   const config: Configuration = {
-    // devtool: false,
-    // devtool: 'eval-cheap-module-source-map',
+    mode: 'production',
     devtool: globalVars.config.build.sourcemap ? 'source-map' : false, //Recommended
-    // devServer,
     performance: {
       hints: false,
       maxEntrypointSize: 512000,
       maxAssetSize: 512000,
     },
+    optimization: {
+      chunkIds: 'named',
+      minimize: globalVars.config.build.minify,
+      runtimeChunk: 'single',
+    },
   }
   wpChain.merge(config)
-  //
   const wpcConfig = {
     plugin: {
       copy: {
@@ -29,11 +31,7 @@ export const wpProduction = () => {
                 to: globalVars.outDir.replace(/\\/g, '/'),
                 globOptions: {
                   // 加入 paths.template 避免被重置
-                  ignore: [
-                    '*.DS_Store',
-                    // paths.template.replace(/\\/g, '/'),
-                    //  paths.favicon.replace(/\\/g, '/'),
-                  ],
+                  ignore: ['*.DS_Store'],
                 },
                 noErrorOnMissing: true,
               },

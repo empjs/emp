@@ -10,5 +10,6 @@
 + 切换到 html 为入口 
 + 指定 html 入口 目录 
 + 利用 `fast-glob` 支持多入口
-+ 支持 热更 [js、react、module federation]
++ 支持 热更 [js、react、module federation] `ken doing`
 + css sass less postcss 支持
++ react svgr 支持 
