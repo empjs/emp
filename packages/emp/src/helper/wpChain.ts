@@ -4,7 +4,7 @@ import fs from 'fs-extra'
 import logger from './logger'
 
 const wpChain = new WPChain()
-export const getConfig = () => {
+export const getConfig: any = () => {
   const conf = wpChain.toConfig()
   const {wplogger} = store.cliOptions
   if (wplogger) {
