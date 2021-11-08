@@ -59,6 +59,12 @@ class GlobalStore {
   public wpo = new WpOptions()
 
   constructor() {}
+  /**
+   * setConfig 设置全局配置
+   * @param mode webpack mode
+   * @param cliOptions command options
+   * @param pkg package.json data
+   */
   async setConfig(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
     this.pkgVersion = pkg.version
     const fp = this.resolve('emp-config.js')

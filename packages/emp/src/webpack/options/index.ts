@@ -95,7 +95,10 @@ class WpOptions {
       version: true, //显示 webpack 版本
     }
     if (store.config.mode === 'production') {
-      this.stats = {...this.stats, ...{chunks: true, chunksSort: '!size'}}
+      this.stats = {
+        ...this.stats,
+        ...{preset: 'none', chunks: true, chunksSort: '!size', assets: true, assetsSort: '!size'},
+      }
     }
   }
 }

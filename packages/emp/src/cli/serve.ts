@@ -16,7 +16,7 @@ class Serve {
     this.app = app
   }
   async setup() {
-    logTitle(`start server running at:`)
+    logTitle(`server running at:`)
     const staticRoot = store.resolve(store.config.build.outDir)
     const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
     this.app.use(express.static(staticRoot))
