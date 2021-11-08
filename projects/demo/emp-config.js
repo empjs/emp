@@ -7,8 +7,8 @@ module.exports = defineConfig({
     // hot: 'only',
   },
   build: {
-    target: 'es5',
+    // target: 'es5',
     sourcemap: false,
-    outDir: 'build',
+    // outDir: 'build',
   },
 })

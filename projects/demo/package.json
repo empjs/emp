@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "emp dev",
+    "dev": "emp dev -wl",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze"

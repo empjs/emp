@@ -10,11 +10,13 @@ export const wpCommon = () => {
       index: [path.resolve(store.appSrc, 'index.ts')],
     },
     experiments: {
-      // outputModule: true,
+      outputModule: ['es3', 'es5'].indexOf(store.config.build.target) === -1,
       topLevelAwait: true,
       // buildHttp: {allowedUris: []},//影响热更
       backCompat: true,
     },
+    // externalsType: 'module',
+    // target: store.config.build.target,
     output: {
       // module: true,
       // iife: false,
