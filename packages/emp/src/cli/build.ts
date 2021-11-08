@@ -1,6 +1,6 @@
 import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
-
+import store from 'src/helper/store'
 class Build {
   constructor() {}
   async setup() {
@@ -24,17 +24,7 @@ class Build {
         console.warn(info.warnings)
       }
 
-      console.log(
-        stats.toString({
-          all: false,
-          hash: true,
-          assets: true,
-          warnings: true,
-          errors: true,
-          errorDetails: false,
-          colors: true,
-        }),
-      )
+      console.log(stats.toString(store.wpo.stats))
     })
   }
 }

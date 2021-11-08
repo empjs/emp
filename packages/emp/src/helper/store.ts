@@ -3,6 +3,7 @@ import path from 'path'
 import {cliOptionsType, modeType, wpPathsType} from 'src/types'
 import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
+import WpOptions from 'src/webpack/options'
 class GlobalStore {
   /**
    * 项目根目录绝对路径
@@ -44,30 +45,21 @@ class GlobalStore {
    */
   public publicDir = ''
   /**
-   * webpack 环境变量
-   */
-  public wpEnv: modeType
-  /**
    * 命令行变量
    */
   public cliOptions: cliOptionsType = {}
   /**
-   * webpack 文件路径
+   * webpack options 全局变量 所有webpack配置收归到这里
    */
-  public wpPaths: wpPathsType = {output: {}}
-  /**
-   * 设置文件拓展
-   */
-  public extensions: string[] = []
+  public wpo = new WpOptions()
 
   constructor() {}
-  async setConfig(webpackEnv: modeType, cliOptions: cliOptionsType) {
-    this.wpEnv = webpackEnv || 'development'
+  async setConfig(mode: modeType, cliOptions: cliOptionsType) {
     const fp = this.resolve('emp-config.js')
     if (fs.existsSync(fp)) {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
-        const conf = await configExport()
+        const conf = await configExport({mode})
         this.config = initConfig(conf)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport
@@ -82,52 +74,8 @@ class GlobalStore {
     if (this.cliOptions.wplogger) logger.info('=== emp config ===', this.config)
     if (this.cliOptions.open) this.config.server.open = true
     if (this.cliOptions.hot) this.config.server.hot = true
-    //
-    this.setWpPaths()
-    //
-    this.setExtensions()
-  }
-  setWpPaths() {
-    const environment =
-      this.config.build.target === 'es5'
-        ? {
-            arrowFunction: false,
-            bigIntLiteral: false,
-            const: false,
-            destructuring: false,
-            forOf: false,
-            dynamicImport: false,
-            module: false,
-          }
-        : {}
-    this.wpPaths = {
-      output: {
-        path: this.outDir,
-        publicPath: this.config.build.useLib ? this.config.base : 'auto',
-        filename: 'js/[name].[contenthash:8].js',
-        assetModuleFilename: `${this.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
-        environment,
-        // scriptType: ['es3', 'es5'].indexOf(this.config.build.target) === -1 ? 'module' : 'text/javascript',
-      },
-    }
-  }
-  setExtensions() {
-    this.extensions = [
-      '.js',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.css',
-      '.less',
-      '.scss',
-      '.sass',
-      '.json',
-      '.wasm',
-      '.vue',
-      '.svg',
-      '.svga',
-    ]
+    // 初始化所有 webpack options
+    await this.wpo.setup(mode)
   }
 }
 export default new GlobalStore()

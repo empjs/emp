@@ -2,17 +2,10 @@ import path from 'path'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
-console.log(store.empResolve('node_modules'))
 export const wpCommon = () => {
-  const isDev = store.wpEnv === 'development'
+  const isDev = store.wpo.mode === 'development'
   const config: Configuration = {
-    resolve: {
-      modules: [store.resolve('src'), 'node_modules'],
-      alias: {
-        src: store.appSrc,
-      },
-      extensions: store.extensions,
-    },
+    resolve: store.wpo.resolve,
     entry: {
       index: [path.resolve(store.appSrc, 'index.ts')],
     },
@@ -34,11 +27,9 @@ export const wpCommon = () => {
       //   // type: 'umd',
       // },
       clean: store.config.build.emptyOutDir && !isDev, //替代 clean-webpack-plugin
-      ...store.wpPaths.output,
+      ...store.wpo.output,
     },
-    stats: {
-      errorDetails: true,
-    },
+    stats: store.wpo.stats,
   }
   wpChain.merge(config)
 }

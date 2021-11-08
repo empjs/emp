@@ -4,7 +4,7 @@ import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import wpPluginOptions from 'src/webpack/options/plugin'
+
 export const wpPlugin = () => {
   const config: any = {
     plugin: {
@@ -12,19 +12,21 @@ export const wpPlugin = () => {
         plugin: webpack.AutomaticPrefetchPlugin,
         args: [{}],
       },
-      mf: {
-        plugin: webpack.container.ModuleFederationPlugin,
-        args: [{filename: 'emp.js'}],
-      },
-      mfStats: {
-        plugin: FederatedStatsPlugin,
-        args: [{filename: 'emp.json'}],
-      },
       html: {
         plugin: HtmlWebpackPlugin,
-        args: [wpPluginOptions.htmlWebpackPlugin],
+        args: [store.wpo.plugins?.htmlWebpackPlugin],
       },
     },
+  }
+  if (store.config.moduleFederation) {
+    config.mf = {
+      plugin: webpack.container.ModuleFederationPlugin,
+      args: [{filename: 'emp.js'}],
+    }
+    config.mfStats = {
+      plugin: FederatedStatsPlugin,
+      args: [{filename: 'emp.json'}],
+    }
   }
   // progress
   if (store.cliOptions.progress) {

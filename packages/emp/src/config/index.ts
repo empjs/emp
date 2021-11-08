@@ -1,5 +1,10 @@
+import {container} from '.pnpm/webpack@5.62.1_@swc+core@1.2.106/node_modules/webpack'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
+import {modeType} from 'src/types'
+//
+type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
+//
 export type EMPConfig = {
   /**
    * 项目代码路径
@@ -39,10 +44,11 @@ export type EMPConfig = {
    * @default 'info'
    */
   logLevel?: string
+  moduleFederation?: MFOptions
 }
 export interface ConfigEnv {
-  mode: string
-  [key: string]: string
+  mode: modeType
+  [key: string]: any
 }
 export type EMPConfigFn = (env?: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | Promise<EMPConfig> | EMPConfigFn
@@ -51,6 +57,8 @@ export function defineConfig(config: EMPConfigExport): EMPConfigExport {
 }
 export type ResovleConfig = Required<EMPConfig> & {
   build: Required<BuildOptions>
+  server: Required<ServerOptions>
+  moduleFederation?: MFOptions
 }
 export const initConfig = (op: EMPConfig | any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题

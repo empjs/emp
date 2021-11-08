@@ -12,9 +12,9 @@ class WPConfig {
     wpModule()
     wpPlugin()
     wpFile()
-    if (store.wpEnv === 'development') {
+    if (store.wpo.mode === 'development') {
       wpDevelopment()
-    } else if (store.wpEnv === 'production') {
+    } else if (store.wpo.mode === 'production') {
       wpProduction()
     }
   }

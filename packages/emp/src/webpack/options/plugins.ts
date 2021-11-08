@@ -24,7 +24,7 @@ class WpPluginOptions {
         css: [],
         js: [],
       }, */
-      minify: store.wpEnv === 'production' && {
+      minify: store.wpo.mode === 'production' && {
         removeComments: true,
         collapseWhitespace: true,
         removeRedundantAttributes: true,
@@ -40,4 +40,4 @@ class WpPluginOptions {
   }
 }
 
-export default new WpPluginOptions()
+export default WpPluginOptions
