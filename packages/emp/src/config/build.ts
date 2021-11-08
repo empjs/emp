@@ -39,7 +39,7 @@ export type BuildOptions = {
 export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
   return {
     ...{
-      target: 'es2015',
+      target: 'es2018',
       outDir: 'dist',
       assetsDir: 'assets',
       minify: true,

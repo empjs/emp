@@ -1,9 +1,9 @@
 import webpack from 'webpack'
-import {transform, transformSync} from '@swc/core'
-import {SWCLoaderOptions} from './swcType'
+import {transform, transformSync} from 'esbuild'
+import {ESBUILDLoaderOptions} from './types'
 
 async function SWCLoader(
-  this: webpack.LoaderContext<SWCLoaderOptions>,
+  this: webpack.LoaderContext<ESBUILDLoaderOptions>,
   source: string,
   // inputSourceMap: true,
 ) {
@@ -11,8 +11,8 @@ async function SWCLoader(
   const options = this.getOptions()
   const isSync = options.sync
   //
-  options.sourceMaps = typeof options.sourceMaps !== 'undefined' ? options.sourceMaps : this.sourceMap
-  options.sourceFileName = typeof options.sourceFileName !== 'undefined' ? options.sourceFileName : this.resourcePath
+  // options.sourceMaps = typeof options.sourceMaps !== 'undefined' ? options.sourceMaps : this.sourceMap
+  // options.sourceFileName = typeof options.sourceFileName !== 'undefined' ? options.sourceFileName : this.resourcePath
   delete options.sync
   //
   try {

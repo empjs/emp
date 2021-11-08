@@ -16,7 +16,7 @@ class Build {
         return
       }
 
-      const info = stats.toJson()
+      const info = stats.toJson('minimal')
 
       if (stats.hasErrors()) {
         logger.error(info.errors)

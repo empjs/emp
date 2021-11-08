@@ -16,6 +16,7 @@ class WpPluginOptions {
       // emp esm module
       if (!moduleFederation.library && ['es3', 'es5'].indexOf(build.target) === -1) {
         // moduleFederation.library = {type: 'module'}
+        // moduleFederation.library = {type: 'window', name: moduleFederation.name}
       }
       mf = moduleFederation
     }

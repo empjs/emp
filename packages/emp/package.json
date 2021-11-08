@@ -56,7 +56,8 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "4.3.1",
-    "webpack-federated-stats-plugin": "^2.0.8"
+    "webpack-federated-stats-plugin": "^2.0.8",
+    "webpackbar": "^5.0.2"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",

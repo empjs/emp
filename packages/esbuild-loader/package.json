@@ -1,0 +1,37 @@
+{
+  "name": "@efox/esbuild-loader",
+  "version": "1.0.0",
+  "description": "esbuild loader for webpack5",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/esbuild-loader"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "dev": "rimraf dist types && ttsc -w",
+    "build": "rimraf dist types && ttsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.13.12",
+    "webpack": "^5.62.1"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "ts-transform-paths": "^2.0.3",
+    "ttypescript": "^1.5.12"
+  }
+}

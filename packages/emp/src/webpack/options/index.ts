@@ -29,8 +29,8 @@ class WpOptions {
           module: false,
         }
       : {
-          // module: true,
-          // dynamicImport: true,
+          module: true,
+          dynamicImport: true,
         }
     this.output = {
       path: store.outDir,
@@ -68,7 +68,8 @@ class WpOptions {
   setStats() {
     this.stats = {
       colors: true,
-      preset: 'minimal',
+      // preset: 'minimal',
+      preset: 'none',
       moduleTrace: true,
       errorDetails: true,
       //=========================
@@ -95,12 +96,18 @@ class WpOptions {
       // assets: true,
       // assetsSort: '!size',
       //
-      version: true, //显示 webpack 版本
+      // version: true, //显示 webpack 版本
     }
     if (store.config.mode === 'production') {
       this.stats = {
         ...this.stats,
-        ...{preset: 'none', chunks: true, chunksSort: '!size', assets: true, assetsSort: '!size'},
+        ...{
+          // preset: 'none',
+          chunks: true,
+          chunksSort: '!size',
+          assets: true,
+          assetsSort: '!size',
+        },
       }
     }
   }

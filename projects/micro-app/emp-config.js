@@ -7,7 +7,7 @@ module.exports = defineConfig({
   moduleFederation: {
     name: 'microApp',
     remotes: {
-      '@microHost': 'microHost@http://172.29.175.5:8001/emp.js',
+      '@microHost': 'microHost@http://localhost:8001/emp.js',
     },
     exposes: {
       './App': './src/App',
