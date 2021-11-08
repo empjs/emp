@@ -6,6 +6,11 @@ import logger from './logger'
 import WpOptions from 'src/webpack/options'
 class GlobalStore {
   /**
+   * EMP Version
+   * @default package version
+   */
+  public pkgVersion = '0.0.0'
+  /**
    * 项目根目录绝对路径
    * @default process.cwd()
    */
@@ -54,16 +59,17 @@ class GlobalStore {
   public wpo = new WpOptions()
 
   constructor() {}
-  async setConfig(mode: modeType, cliOptions: cliOptionsType) {
+  async setConfig(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
+    this.pkgVersion = pkg.version
     const fp = this.resolve('emp-config.js')
     if (fs.existsSync(fp)) {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
         const conf = await configExport({mode})
-        this.config = initConfig(conf)
+        this.config = initConfig(conf, mode)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport
-        this.config = initConfig(conf)
+        this.config = initConfig(conf, mode)
       }
     }
     this.appSrc = this.resolve(this.config.appSrc)

@@ -68,6 +68,34 @@ class WpOptions {
       preset: 'minimal',
       moduleTrace: true,
       errorDetails: true,
+      //=========================
+      // moduleAssets: false,
+      // groupAssetsByChunk: true,
+      // nestedModules: false,
+      // runtimeModules: false,
+      // dependentModules: false,
+      // children: false,
+      // chunkGroups: false,
+      // chunkModules: false,
+      // chunkOrigins: false,
+      // modules: false,
+      // relatedAssets: false,
+      // chunkGroupAuxiliary: false,
+      // chunkRelations: false,
+      // ids: false,
+      // usedExports: false,
+      // timings: true,
+      // providedExports: true,
+      //================================
+
+      //
+      // assets: true,
+      // assetsSort: '!size',
+      //
+      version: true, //显示 webpack 版本
+    }
+    if (store.config.mode === 'production') {
+      this.stats = {...this.stats, ...{chunks: true, chunksSort: '!size'}}
     }
   }
 }

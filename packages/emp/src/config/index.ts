@@ -60,16 +60,23 @@ export type ResovleConfig = Required<EMPConfig> & {
   server: Required<ServerOptions>
   moduleFederation?: MFOptions
 }
-export const initConfig = (op: EMPConfig | any = {}): ResovleConfig => {
+export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
   const server = initServer(op.server)
   delete op.server
+  if (op.moduleFederation) {
+    op.moduleFederation.filename = op.moduleFederation.filename || 'emp.js'
+    // emp esm module
+    if (!op.moduleFederation.library && ['es3', 'es5'].indexOf(build.target) === -1) {
+      op.moduleFederation.library = {type: 'module'}
+    }
+  }
   //
   return {
     ...{
-      mode: 'dev',
+      mode,
       appSrc: 'src',
       base: '/',
       publicDir: 'public',

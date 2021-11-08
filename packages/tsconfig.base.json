@@ -14,6 +14,7 @@
     // "checkJs": false,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
     //
     "experimentalDecorators": true,
     // "allowSyntheticDefaultImports": true,

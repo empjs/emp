@@ -19,7 +19,7 @@ program
   .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
   .action(async o => {
     const fn = importSource('cli')
-    fn.exec('dev', 'development', o)
+    fn.exec('dev', 'development', o, pkg)
   })
 // // 构建
 program
@@ -40,7 +40,7 @@ program
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(o => {
     const fn = importSource('cli')
-    fn.exec('build', 'production', o)
+    fn.exec('build', 'production', o, pkg)
   })
 // // 正式环境
 program
@@ -49,7 +49,7 @@ program
   .option('-d, --dist <dist>', '目标 默认为 dist')
   .action(o => {
     const fn = importSource('cli')
-    fn.exec('serve', undefined, o)
+    fn.exec('serve', 'none', o, pkg)
   })
 
 // 执行命令

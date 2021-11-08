@@ -4,6 +4,7 @@ import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import logger from 'src/helper/logger'
 
 export const wpPlugin = () => {
   const config: any = {
@@ -29,15 +30,15 @@ export const wpPlugin = () => {
     }
   }
   // progress
-  if (store.cliOptions.progress) {
-    config.plugin.progress = {
-      plugin: webpack.ProgressPlugin,
-      args: [
-        {
+  // if (store.cliOptions.progress) {
+  config.plugin.progress = {
+    plugin: webpack.ProgressPlugin,
+    args: [
+      /* {
           activeModules: false,
           entries: true,
           handler(percentage: any, message: any, ...args: any[]) {
-            console.info(Math.round(percentage * 100), message, ...args)
+            logger.info(Math.round(percentage * 100), message, ...args)
           },
           modules: true,
           modulesCount: 5000,
@@ -45,10 +46,10 @@ export const wpPlugin = () => {
           dependencies: true,
           dependenciesCount: 10000,
           percentBy: 'modules',
-        },
-      ],
-    }
+        }, */
+    ],
   }
+  // }
   //analyzer
   if (store.cliOptions.analyze) {
     config.plugin.analyzer = {

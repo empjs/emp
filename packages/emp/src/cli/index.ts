@@ -7,9 +7,9 @@ class EMPScript {
    * 执行命令相关脚本
    * @param name
    */
-  async exec(name: string, webpackEnv: modeType, cliOptions: cliOptionsType): Promise<void> {
+  async exec(name: string, mode: modeType, cliOptions: cliOptionsType, pkg: any): Promise<void> {
     // 全局变量实例化
-    await store.setConfig(webpackEnv, cliOptions)
+    await store.setConfig(mode, cliOptions, pkg)
     // webpack实例化
     const wpConfig = new WPConfig()
     await wpConfig.setup()

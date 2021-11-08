@@ -44,11 +44,9 @@ importers:
       fast-glob: ^3.2.7
       fs-extra: ^10.0.0
       html-webpack-plugin: ^5.5.0
-      regenerator-runtime: ^0.13.9
       rimraf: ^3.0.2
       terser-webpack-plugin: ^5.2.4
       ts-transform-paths: ^2.0.3
-      tslog: ^3.2.2
       ttypescript: ^1.5.12
       typescript: ^4.4.4
       url-loader: ^4.1.1
@@ -71,9 +69,7 @@ importers:
       fast-glob: 3.2.7
       fs-extra: 10.0.0
       html-webpack-plugin: 5.5.0_webpack@5.62.1
-      regenerator-runtime: 0.13.9
       terser-webpack-plugin: 5.2.4_webpack@5.62.1
-      tslog: 3.2.2
       url-loader: 4.1.1_webpack@5.62.1
       webpack: 5.62.1
       webpack-bundle-analyzer: 4.5.0
@@ -6887,13 +6883,6 @@ packages:
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
-    dev: false
-
-  /tslog/3.2.2:
-    resolution: {integrity: sha512-8dwb1cYpj3/w/MZTrSkPrdlA44loUodGT8N6ULMojqV4YByVM7ynhvVs9JwcIYxhhHf4bz1C5O3NKIPehnGp/w==}
-    engines: {node: '>=10'}
-    dependencies:
-      source-map-support: 0.5.20
     dev: false
 
   /tsutils/3.21.0_typescript@4.4.4:

@@ -1,15 +1,17 @@
 import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 import store from 'src/helper/store'
+import logger, {logTitle} from 'src/helper/logger'
 class Build {
   constructor() {}
   async setup() {
+    logTitle(`build for production:`)
     const config = getConfig()
     webpack(config, (err: any, stats: any) => {
       if (err) {
-        console.error(err.stack || err)
+        logger.error(err.stack || err)
         if (err.details) {
-          console.error(err.details)
+          logger.error(err.details)
         }
         return
       }
@@ -17,14 +19,14 @@ class Build {
       const info = stats.toJson()
 
       if (stats.hasErrors()) {
-        console.error(info.errors)
+        logger.error(info.errors)
       }
 
       if (stats.hasWarnings()) {
-        console.warn(info.warnings)
+        logger.warn(info.warnings)
       }
 
-      console.log(stats.toString(store.wpo.stats))
+      logger.info(stats.toString(store.wpo.stats))
     })
   }
 }

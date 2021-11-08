@@ -1,9 +1,11 @@
 import {webpack} from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import {getConfig} from 'src/helper/wpChain'
+import {logTitle} from 'src/helper/logger'
 class devServer {
   constructor() {}
   async setup() {
+    logTitle(`dev server running at:`)
     const config = getConfig()
     const compiler = webpack(config)
     const server = new WebpackDevServer(config.devServer || {}, compiler)
