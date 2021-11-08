@@ -3,7 +3,6 @@ import wpChain from 'src/helper/wpChain'
 import {SWCLoaderOptions} from '@efox/swc-loader/types/swcType'
 export const wpModule = () => {
   const isDev = store.wpEnv === 'development'
-  console.log('isDev', isDev)
   const swcOptions: SWCLoaderOptions = {
     sourceMaps: true,
     // sync: true,

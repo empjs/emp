@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "emp dev -wl",
+    "dev": "emp dev",
     "build": "emp build",
-    "start": "emp serve"
+    "start": "emp serve",
+    "stat": "emp build --analyze"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.0.1"
+    "react-router-dom": "^6.0.1",
+    "regenerator-runtime": "^0.13.9"
   }
 }

@@ -2,9 +2,7 @@ import {webpack} from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import {getConfig} from 'src/helper/wpChain'
 class devServer {
-  constructor() {
-    this.setup()
-  }
+  constructor() {}
   async setup() {
     const config = getConfig()
     const compiler = webpack(config)
@@ -12,4 +10,4 @@ class devServer {
     server.start()
   }
 }
-export default devServer
+export default new devServer()

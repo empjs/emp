@@ -2,9 +2,7 @@ import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 
 class Build {
-  constructor() {
-    this.setup()
-  }
+  constructor() {}
   async setup() {
     const config = getConfig()
     webpack(config, (err: any, stats: any) => {
@@ -40,4 +38,4 @@ class Build {
     })
   }
 }
-export default Build
+export default new Build()

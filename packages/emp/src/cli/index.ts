@@ -14,8 +14,8 @@ class EMPScript {
     const wpConfig = new WPConfig()
     await wpConfig.setup()
     // 执行cli脚本
-    const RumtimeScript = await import(`./${name}`)
-    new RumtimeScript.default()
+    const cilScript = await import(`./${name}`)
+    await cilScript.default.setup()
   }
 }
 

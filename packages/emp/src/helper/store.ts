@@ -17,7 +17,7 @@ class GlobalStore {
   /**
    * 项目配置
    */
-  public config: ResovleConfig
+  public config: ResovleConfig = initConfig()
   /**
    * 获取项目 根目录绝对路径
    * @param relativePath
@@ -34,15 +34,15 @@ class GlobalStore {
   /**
    * 源码地址
    */
-  public appSrc: string
+  public appSrc = ''
   /**
    * 源码生成目录
    */
-  public outDir: string
+  public outDir = ''
   /**
    * 静态文件目录
    */
-  public publicDir: string
+  public publicDir = ''
   /**
    * webpack 环境变量
    */
@@ -60,12 +60,7 @@ class GlobalStore {
    */
   public extensions: string[] = []
 
-  constructor() {
-    this.config = initConfig()
-    this.appSrc = this.resolve(this.config.appSrc)
-    this.outDir = this.resolve(this.config.build.outDir)
-    this.publicDir = this.resolve(this.config.publicDir)
-  }
+  constructor() {}
   async setConfig(webpackEnv: modeType, cliOptions: cliOptionsType) {
     this.wpEnv = webpackEnv || 'development'
     const fp = this.resolve('emp-config.js')
@@ -79,7 +74,9 @@ class GlobalStore {
         this.config = initConfig(conf)
       }
     }
-    this.appSrc = this.config.appSrc ? this.resolve(this.config.appSrc) : this.appSrc
+    this.appSrc = this.resolve(this.config.appSrc)
+    this.outDir = this.resolve(this.config.build.outDir)
+    this.publicDir = this.resolve(this.config.publicDir)
     // command option 处理 优先级优于 emp-config,把 config覆盖
     this.cliOptions = cliOptions
     if (this.cliOptions.wplogger) logger.info('=== emp config ===', this.config)
