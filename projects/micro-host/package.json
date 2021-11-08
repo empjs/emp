@@ -1,0 +1,22 @@
+{
+  "name": "micro-host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev -wl",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp": "workspace:^2.0.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.0.1"
+  }
+}

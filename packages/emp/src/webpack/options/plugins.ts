@@ -2,8 +2,24 @@ import store from 'src/helper/store'
 import fs from 'fs-extra'
 class WpPluginOptions {
   public htmlWebpackPlugin
+  public moduleFederation
   constructor() {
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
+    this.moduleFederation = this.setModuleFederation()
+  }
+  setModuleFederation() {
+    let mf = {}
+    const {moduleFederation, build} = store.config
+    // console.log('moduleFederation', moduleFederation)
+    if (moduleFederation) {
+      moduleFederation.filename = moduleFederation.filename || 'emp.js'
+      // emp esm module
+      if (!moduleFederation.library && ['es3', 'es5'].indexOf(build.target) === -1) {
+        // moduleFederation.library = {type: 'module'}
+      }
+      mf = moduleFederation
+    }
+    return mf
   }
   setHtmlWebpackPlugin() {
     let template = store.resolve('src/index.html')
@@ -17,11 +33,11 @@ class WpPluginOptions {
     return {
       title: 'EMP',
       template,
+      chunks: ['index'],
       // favicon: false,/disable favicion
       //
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
       /* filename: 'index.html',
-      chunks: ['index'],
       files: {
         css: [],
         js: [],

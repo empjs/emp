@@ -66,13 +66,13 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   delete op.build
   const server = initServer(op.server)
   delete op.server
-  if (op.moduleFederation) {
+  /* if (op.moduleFederation) {
     op.moduleFederation.filename = op.moduleFederation.filename || 'emp.js'
     // emp esm module
     if (!op.moduleFederation.library && ['es3', 'es5'].indexOf(build.target) === -1) {
       op.moduleFederation.library = {type: 'module'}
     }
-  }
+  } */
   //
   return {
     ...{

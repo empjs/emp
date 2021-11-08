@@ -15,7 +15,7 @@ export const wpProduction = () => {
     optimization: {
       chunkIds: 'named',
       minimize: store.config.build.minify,
-      runtimeChunk: 'single',
+      // runtimeChunk: 'single', // 影响 MF 执行
     },
   }
   wpChain.merge(config)

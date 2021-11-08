@@ -17,18 +17,21 @@ class WpOptions {
     this.plugins = new WpPluginOptions()
   }
   setOput() {
-    const environment =
-      store.config.build.target === 'es5'
-        ? {
-            arrowFunction: false,
-            bigIntLiteral: false,
-            const: false,
-            destructuring: false,
-            forOf: false,
-            dynamicImport: false,
-            module: false,
-          }
-        : {}
+    const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
+    const environment = !isESM
+      ? {
+          arrowFunction: false,
+          bigIntLiteral: false,
+          const: false,
+          destructuring: false,
+          forOf: false,
+          dynamicImport: false,
+          module: false,
+        }
+      : {
+          // module: true,
+          // dynamicImport: true,
+        }
     this.output = {
       path: store.outDir,
       publicPath: store.config.build.useLib ? store.config.base : 'auto',

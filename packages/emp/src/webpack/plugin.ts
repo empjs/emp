@@ -20,11 +20,11 @@ export const wpPlugin = () => {
     },
   }
   if (store.config.moduleFederation) {
-    config.mf = {
+    config.plugin.mf = {
       plugin: webpack.container.ModuleFederationPlugin,
-      args: [{filename: 'emp.js'}],
+      args: [store.wpo.plugins?.moduleFederation],
     }
-    config.mfStats = {
+    config.plugin.mfStats = {
       plugin: FederatedStatsPlugin,
       args: [{filename: 'emp.json'}],
     }

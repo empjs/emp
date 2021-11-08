@@ -20,6 +20,7 @@ class Build {
 
       if (stats.hasErrors()) {
         logger.error(info.errors)
+        return
       }
 
       if (stats.hasWarnings()) {
