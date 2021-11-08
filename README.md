@@ -21,6 +21,7 @@
   + `plugin-react`
 + 多入口 `ken [doing]`
 + library 模式 `ken  [doing]`
++ 同时 支持 es5 与 ESM 模块 `ken [done]`
 
 ## emp 文件分布详解 
 ```
