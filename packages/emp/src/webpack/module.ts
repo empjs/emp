@@ -19,10 +19,6 @@ export const wpModule = () => {
               loader: require.resolve('@efox/swc-loader'),
               options: store.wpo.modules?.swcLoader,
             },
-            /* esbuild: {
-              loader: require.resolve('@efox/esbuild-loader'),
-              options: store.wpo.modules?.esbuildLoader,
-            }, */
           },
         },
       },

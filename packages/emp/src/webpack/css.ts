@@ -1,14 +1,16 @@
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import store from 'src/helper/store'
+import wpChain from 'src/helper/wpChain'
+//
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
 const sassRegex = /\.(scss|sass)$/
 const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
-
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-import wpChain from 'src/helper/wpChain'
-export const wpCSS = (env: string | undefined) => {
-  const isDev = env === 'development'
+//
+export const wpCSS = () => {
+  const isDev = store.wpo.mode === 'development'
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     return {
@@ -57,7 +59,7 @@ export const wpCSS = (env: string | undefined) => {
                 loader: require.resolve('sass-loader'),
                 options: {
                   implementation: require('sass'),
-                  sourceMap: env === 'development',
+                  sourceMap: isDev,
                 },
               },
             }),
@@ -72,7 +74,7 @@ export const wpCSS = (env: string | undefined) => {
                 loader: require.resolve('sass-loader'),
                 options: {
                   implementation: require('sass'),
-                  sourceMap: env === 'development',
+                  sourceMap: isDev,
                 },
               },
             }),

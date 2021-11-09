@@ -29,6 +29,7 @@ class WpOptions {
   async setEntry(): Promise<any> {
     const {resolve} = store
     if (!store.config.appEntry) {
+      //默认入口排查
       const existsEntry = (relativePath: string) => fs.pathExists(resolve(relativePath))
       const defaultEntry = async () => {
         const [isTS, isTSX, isJSX, isJS] = await Promise.all([
@@ -69,7 +70,7 @@ class WpOptions {
       filename: 'js/[name].[contenthash:8].js',
       assetModuleFilename: `${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
       environment,
-      // scriptType: ['es3', 'es5'].indexOf(this.config.build.target) === -1 ? 'module' : 'text/javascript',
+      // scriptType: isESM ? 'module' : 'text/javascript',
     }
   }
   setResolve() {
@@ -98,50 +99,11 @@ class WpOptions {
   }
   setStats() {
     this.stats = {
-      // all: false,
       colors: true,
       preset: 'minimal',
-      // preset: 'none',
       moduleTrace: true,
       errorDetails: true,
-      //=========================
-      // moduleAssets: false,
-      // groupAssetsByChunk: true,
-      // nestedModules: false,
-      // runtimeModules: false,
-      // dependentModules: false,
-      // children: false,
-      // chunkGroups: false,
-      // chunkModules: false,
-      // chunkOrigins: false,
-      // modules: false,
-      // relatedAssets: false,
-      // chunkGroupAuxiliary: false,
-      // chunkRelations: false,
-      // ids: false,
-      // usedExports: false,
-      // timings: true,
-      // providedExports: true,
-      //================================
-
-      //
-      // assets: true,
-      // assetsSort: '!size',
-      //
-      // version: true, //显示 webpack 版本
     }
-    /* if (store.config.mode === 'production') {
-      this.stats = {
-        ...this.stats,
-        ...{
-          // preset: 'none',
-          chunks: true,
-          chunksSort: '!size',
-          assets: true,
-          assetsSort: '!size',
-        },
-      }
-    } */
   }
 }
 

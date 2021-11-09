@@ -1,4 +1,3 @@
-// import globalVars from 'src/helper/globalVars'
 import wpChain from 'src/helper/wpChain'
 export const wpFile = () => {
   const config = {

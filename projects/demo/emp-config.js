@@ -10,18 +10,16 @@ module.exports = defineConfig({
     sourcemap: false,
     // outDir: 'build',
   },
-  externals(config) {
-    return [
-      {
-        module: 'react',
-        global: 'React',
-        entry: 'https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js',
-      },
-      {
-        module: 'react-dom',
-        global: 'ReactDOM',
-        entry: 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
-      },
-    ]
-  },
+  externals: [
+    {
+      module: 'react',
+      global: 'React',
+      entry: 'https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.production.min.js',
+    },
+    {
+      module: 'react-dom',
+      global: 'ReactDOM',
+      entry: 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.production.min.js',
+    },
+  ],
 })

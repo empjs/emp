@@ -5,11 +5,15 @@ import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 // import logger from 'src/helper/logger'
-import WebpackBarPlugin from 'webpackbar'
+// import WebpackBarPlugin from 'webpackbar'
 
 export const wpPlugin = () => {
   const config: any = {
     plugin: {
+      define: {
+        plugin: webpack.DefinePlugin,
+        args: [store.wpo.plugins?.definePlugin],
+      },
       prefetch: {
         plugin: webpack.AutomaticPrefetchPlugin,
         args: [{}],
@@ -18,6 +22,7 @@ export const wpPlugin = () => {
         plugin: HtmlWebpackPlugin,
         args: [store.wpo.plugins?.htmlWebpackPlugin],
       },
+      //TODO: 产生复制不了的命令行的bug
       // webpackbar: {
       //   plugin: WebpackBarPlugin,
       //   args: [

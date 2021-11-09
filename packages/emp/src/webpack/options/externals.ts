@@ -1,4 +1,4 @@
-import {Configuration} from '.pnpm/webpack@5.62.1_@swc+core@1.2.106/node_modules/webpack'
+import {Configuration} from 'webpack'
 import {ResovleConfig} from 'src/config'
 import store from 'src/helper/store'
 
@@ -16,19 +16,22 @@ export type ExternalsItemType = {
    */
   global: string
 }
-export type ExternalsType = (config: ResovleConfig) => ExternalsItemType[] | Promise<ExternalsItemType[]>
+export type ExternalsType = (
+  config: ResovleConfig,
+) => ExternalsItemType[] | Promise<ExternalsItemType[]> | ExternalsItemType[]
 class WpExternalsOptions {
   constructor() {}
   async setup(externals: any, externalAssets: string[] = []): Promise<void> {
     if (store.config.externals) {
-      const list = await store.config.externals(store.config)
+      let list = []
+      if (typeof store.config.externals === 'function') {
+        list = await store.config.externals(store.config)
+      } else {
+        list = store.config.externals
+      }
       list.map(v => {
-        // externals[v.module] = `${v.global}@${v.entry}`
-        // externals[v.module] = [v.entry, v.global]
         externals[v.module] = v.global
         externalAssets.push(v.entry)
-        // console.log('entry', entry)
-        // entry.index.push(v.entry)
       })
     }
   }

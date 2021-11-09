@@ -19,6 +19,7 @@ export const wpCommon = () => {
     // externalsType: 'module',
     // target: store.config.build.target,
     output: {
+      //TODO: Library 模式的处理
       // module: true,
       // iife: false,
       // scriptType: 'module',

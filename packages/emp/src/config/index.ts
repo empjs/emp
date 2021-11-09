@@ -36,9 +36,11 @@ export type EMPConfig = {
    */
   cacheDir?: string
   /**
-   * 命令行 --mode option.
+   * 调试模式为 development
+   * 构建模式为 production
+   * 正式环境为 none
    */
-  mode?: string
+  mode?: modeType
   /**
    * 全局环境替换
    */
@@ -74,13 +76,6 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   delete op.build
   const server = initServer(op.server)
   delete op.server
-  /* if (op.moduleFederation) {
-    op.moduleFederation.filename = op.moduleFederation.filename || 'emp.js'
-    // emp esm module
-    if (!op.moduleFederation.library && ['es3', 'es5'].indexOf(build.target) === -1) {
-      op.moduleFederation.library = {type: 'module'}
-    }
-  } */
   //
   return {
     ...{

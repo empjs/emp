@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import path from 'path'
-import {cliOptionsType, modeType, wpPathsType} from 'src/types'
-import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from 'src/config'
+import {cliOptionsType, modeType} from 'src/types'
+import {EMPConfigExport, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
 import WpOptions from 'src/webpack/options'
 import ConfigPlugins from 'src/config/plugins'
@@ -58,6 +58,9 @@ class GlobalStore {
    * webpack options 全局变量 所有webpack配置收归到这里
    */
   public wpo = new WpOptions()
+  /**
+   * emp 插件列表
+   */
   public configPlugins = new ConfigPlugins()
 
   constructor() {}
@@ -68,6 +71,7 @@ class GlobalStore {
    * @param pkg package.json data
    */
   async setConfig(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
+    //初始化 emp-config.js
     this.pkgVersion = pkg.version
     const fp = this.resolve('emp-config.js')
     if (fs.existsSync(fp)) {
@@ -80,17 +84,18 @@ class GlobalStore {
         this.config = initConfig(conf, mode)
       }
     }
+    //
     this.appSrc = this.resolve(this.config.appSrc)
     this.outDir = this.resolve(this.config.build.outDir)
     this.publicDir = this.resolve(this.config.publicDir)
     // command option 处理 优先级优于 emp-config,把 config覆盖
     this.cliOptions = cliOptions
-    if (this.cliOptions.wplogger) logger.info('=== emp config ===', this.config)
+    if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
     if (this.cliOptions.open) this.config.server.open = true
     if (this.cliOptions.hot) this.config.server.hot = true
     // 初始化所有 webpack options
     await this.wpo.setup(mode)
-    // 初始化配置里的 Plugins
+    // 初始化所有 EMP Plugins
     await this.configPlugins.setup()
   }
 }

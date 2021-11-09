@@ -13,7 +13,7 @@ class WPConfig {
     wpModule()
     wpPlugin()
     wpFile()
-    wpCSS(store.wpo.mode)
+    wpCSS()
     if (store.wpo.mode === 'development') {
       wpDevelopment()
     } else if (store.wpo.mode === 'production') {

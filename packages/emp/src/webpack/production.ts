@@ -45,8 +45,8 @@ export const wpProduction = () => {
         args: [
           {
             ignoreOrder: true,
-            filename: 'static/css/[name].[contenthash:8].css',
-            chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].chunk.css',
           },
         ],
       },

@@ -7,6 +7,7 @@ class ConfigPlugins {
   constructor() {}
   async setup() {
     if (store.config.plugins.length > 0) {
+      // 并行执行所有插件方法
       await Promise.all(
         store.config.plugins.map(async (fn: ConfigPluginType) => {
           if (fn) await fn(wpChain, store.config)

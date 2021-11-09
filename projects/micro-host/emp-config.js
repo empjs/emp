@@ -7,7 +7,7 @@ module.exports = defineConfig({
   moduleFederation: {
     name: 'microHost',
     // esm 共享需要设置 window
-    library: {name: 'microHost', type: 'window'},
+    // library: {name: 'microHost', type: 'window'},
     exposes: {
       './App': './src/App',
     },
