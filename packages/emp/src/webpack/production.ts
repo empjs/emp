@@ -1,5 +1,6 @@
 import TerserPlugin from 'terser-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -36,6 +37,16 @@ export const wpProduction = () => {
                 noErrorOnMissing: true,
               },
             ],
+          },
+        ],
+      },
+      css: {
+        plugin: MiniCssExtractPlugin,
+        args: [
+          {
+            ignoreOrder: true,
+            filename: 'static/css/[name].[contenthash:8].css',
+            chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
           },
         ],
       },
