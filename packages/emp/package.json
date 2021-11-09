@@ -37,7 +37,7 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@efox/swc-loader": "workspace:^1.0.0",
+    "@efox/swc-loader": "workspace:^2.0.0",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",

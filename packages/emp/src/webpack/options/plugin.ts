@@ -7,7 +7,7 @@ class WpPluginOptions {
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.moduleFederation = this.setModuleFederation()
   }
-  setModuleFederation() {
+  private setModuleFederation() {
     let mf = {}
     const {moduleFederation, build} = store.config
     // console.log('moduleFederation', moduleFederation)
@@ -22,7 +22,7 @@ class WpPluginOptions {
     }
     return mf
   }
-  setHtmlWebpackPlugin() {
+  private setHtmlWebpackPlugin() {
     let template = store.resolve('src/index.html')
     // let favicon = store.resolve('src/favicon.ico')
     if (!fs.existsSync(template)) {

@@ -24,7 +24,8 @@ importers:
 
   packages/emp:
     specifiers:
-      '@efox/swc-loader': workspace:^1.0.0
+      '@efox/esbuild-loader': workspace:^2.0.0
+      '@efox/swc-loader': workspace:^2.0.0
       '@types/compression': ^1.7.2
       '@types/copy-webpack-plugin': ^8.0.1
       '@types/cors': ^2.8.12
@@ -66,6 +67,7 @@ importers:
       webpack-federated-stats-plugin: ^2.0.8
       webpackbar: ^5.0.2
     dependencies:
+      '@efox/esbuild-loader': link:../esbuild-loader
       '@efox/swc-loader': link:../swc-loader
       address: 1.1.2
       chalk: 4.1.2

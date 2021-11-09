@@ -1,13 +1,14 @@
 import {Configuration} from 'webpack'
 import store from 'src/helper/store'
-import WpPluginOptions from 'src/webpack/options/plugins'
+import WpPluginOptions from 'src/webpack/options/plugin'
+import WpModuleOptions from 'src/webpack/options/module'
 class WpOptions {
   output: Configuration['output'] = {}
   resolve: Configuration['resolve'] = {}
   mode: Configuration['mode'] = 'none'
   stats: Configuration['stats'] = {}
   plugins?: WpPluginOptions
-  modules = {}
+  modules?: WpModuleOptions
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode
@@ -15,6 +16,7 @@ class WpOptions {
     this.setResolve()
     this.setStats()
     this.plugins = new WpPluginOptions()
+    this.modules = new WpModuleOptions()
   }
   setOput() {
     const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
@@ -67,9 +69,10 @@ class WpOptions {
   }
   setStats() {
     this.stats = {
+      // all: false,
       colors: true,
-      // preset: 'minimal',
-      preset: 'none',
+      preset: 'minimal',
+      // preset: 'none',
       moduleTrace: true,
       errorDetails: true,
       //=========================
@@ -98,7 +101,7 @@ class WpOptions {
       //
       // version: true, //显示 webpack 版本
     }
-    if (store.config.mode === 'production') {
+    /* if (store.config.mode === 'production') {
       this.stats = {
         ...this.stats,
         ...{
@@ -109,7 +112,7 @@ class WpOptions {
           assetsSort: '!size',
         },
       }
-    }
+    } */
   }
 }
 
