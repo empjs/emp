@@ -1,8 +1,9 @@
-import {container} from '.pnpm/webpack@5.62.1_@swc+core@1.2.106/node_modules/webpack'
+import {container} from 'webpack'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
 import {modeType} from 'src/types'
-import {ConfigPluginType} from './plugins'
+import {ExternalsType} from 'src/webpack/options/externals'
+import {ConfigPluginType} from 'src/config/plugins'
 //
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 //
@@ -45,6 +46,7 @@ export type EMPConfig = {
   plugins?: ConfigPluginType[]
   server?: ServerOptions
   build?: BuildOptions
+  externals?: ExternalsType
   /**
    * 日志级别
    * @default 'info'

@@ -3,6 +3,7 @@ import store from 'src/helper/store'
 import fs from 'fs-extra'
 import WpPluginOptions from 'src/webpack/options/plugin'
 import WpModuleOptions from 'src/webpack/options/module'
+import wpExternalsOptions from 'src/webpack/options/externals'
 class WpOptions {
   output: Configuration['output'] = {}
   resolve: Configuration['resolve'] = {}
@@ -11,12 +12,16 @@ class WpOptions {
   plugins?: WpPluginOptions
   modules?: WpModuleOptions
   entry?: Configuration['entry'] = {}
+  external: Configuration['externals'] = {}
+  externalAssets: string[] = []
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode
     this.setOput()
     this.setResolve()
     this.setStats()
+    // 先执行 entry 有助于 external 与之联动
+    await wpExternalsOptions.setup(this.external, this.externalAssets)
     this.plugins = new WpPluginOptions()
     this.modules = new WpModuleOptions()
     this.entry = await this.setEntry()
@@ -38,9 +43,9 @@ class WpOptions {
         else if (isJSX) return resolve('src/index.jsx')
       }
       const appEntry = await defaultEntry()
-      return appEntry ? {index: appEntry} : {}
+      return appEntry ? {index: [appEntry]} : {}
     }
-    return {index: store.config.appEntry}
+    return {index: [store.config.appEntry]}
   }
   setOput() {
     const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
