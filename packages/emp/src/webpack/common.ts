@@ -10,6 +10,7 @@ export const wpCommon = () => {
     entry: {
       index: [path.resolve(store.appSrc)],
     },
+    // externals: {react: 'React', 'react-dom': 'ReactDOM'},
     experiments: {
       outputModule: isESM,
       topLevelAwait: true,

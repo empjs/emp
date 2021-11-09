@@ -11,9 +11,9 @@ module.exports = defineConfig({
     exposes: {
       './App': './src/App',
     },
-    shared: {
+    /* shared: {
       react: {requiredVersion: '^17.0.1'},
       'react-dom': {requiredVersion: '^17.0.1'},
-    },
+    }, */
   },
 })
