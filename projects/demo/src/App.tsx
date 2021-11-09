@@ -9,6 +9,6 @@ const App = () => {
       await getPromise()
     })()
   }, [])
-  return <h1>EMP V2.0!</h1>
+  return <h1>EMP V2.0!!!</h1>
 }
 export default App

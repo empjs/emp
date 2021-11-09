@@ -4,6 +4,7 @@ import {cliOptionsType, modeType, wpPathsType} from 'src/types'
 import {EMPConfigExport, EMPConfig, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
 import WpOptions from 'src/webpack/options'
+import ConfigPlugins from 'src/config/plugins'
 class GlobalStore {
   /**
    * EMP Version
@@ -57,6 +58,7 @@ class GlobalStore {
    * webpack options 全局变量 所有webpack配置收归到这里
    */
   public wpo = new WpOptions()
+  public configPlugins = new ConfigPlugins()
 
   constructor() {}
   /**
@@ -88,6 +90,8 @@ class GlobalStore {
     if (this.cliOptions.hot) this.config.server.hot = true
     // 初始化所有 webpack options
     await this.wpo.setup(mode)
+    // 初始化配置里的 Plugins
+    await this.configPlugins.setup()
   }
 }
 export default new GlobalStore()

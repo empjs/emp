@@ -1,7 +1,9 @@
-import {container} from '.pnpm/webpack@5.62.1_@swc+core@1.2.106/node_modules/webpack'
+import {container} from 'webpack'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
 import {modeType} from 'src/types'
+import {ExternalsType} from 'src/webpack/options/externals'
+import {ConfigPluginType} from 'src/config/plugins'
 //
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 //
@@ -11,6 +13,11 @@ export type EMPConfig = {
    * @default 'src'
    */
   appSrc?: string
+  /**
+   * 项目代码入口文件 如 `src/index.js`
+   * @default 'index.js'
+   */
+  appEntry?: string
   /**
    * publicPath 根路径 可参考webpack
    * 库模式 默认为 / 避免加入 auto判断
@@ -36,9 +43,10 @@ export type EMPConfig = {
    * 全局环境替换
    */
   define?: Record<string, any>
-  plugins?: any[]
+  plugins?: ConfigPluginType[]
   server?: ServerOptions
   build?: BuildOptions
+  externals?: ExternalsType
   /**
    * 日志级别
    * @default 'info'

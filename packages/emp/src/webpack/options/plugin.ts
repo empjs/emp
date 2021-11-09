@@ -7,7 +7,7 @@ class WpPluginOptions {
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.moduleFederation = this.setModuleFederation()
   }
-  setModuleFederation() {
+  private setModuleFederation() {
     let mf = {}
     const {moduleFederation, build} = store.config
     // console.log('moduleFederation', moduleFederation)
@@ -22,7 +22,7 @@ class WpPluginOptions {
     }
     return mf
   }
-  setHtmlWebpackPlugin() {
+  private setHtmlWebpackPlugin() {
     let template = store.resolve('src/index.html')
     // let favicon = store.resolve('src/favicon.ico')
     if (!fs.existsSync(template)) {
@@ -38,11 +38,11 @@ class WpPluginOptions {
       // favicon: false,/disable favicion
       //
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
-      /* filename: 'index.html',
+      //  filename: 'index.html',
       files: {
         css: [],
-        js: [],
-      }, */
+        js: store.wpo.externalAssets,
+      },
       scriptLoading: ['es3', 'es5'].indexOf(store.config.build.target) > -1 ? 'defer' : 'module',
       minify: store.wpo.mode === 'production' && {
         removeComments: true,

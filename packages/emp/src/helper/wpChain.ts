@@ -2,7 +2,7 @@ import WPChain from 'webpack-chain'
 import store from './store'
 import fs from 'fs-extra'
 import logger from './logger'
-
+export {WPChain}
 const wpChain = new WPChain()
 export const getConfig: any = () => {
   const conf = wpChain.toConfig()

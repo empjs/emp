@@ -18,17 +18,17 @@ export const wpPlugin = () => {
         plugin: HtmlWebpackPlugin,
         args: [store.wpo.plugins?.htmlWebpackPlugin],
       },
-      webpackbar: {
-        plugin: WebpackBarPlugin,
-        args: [
-          {
-            name: '[EMP]',
-            // profile: true,
-            // reporter: true,
-            // reporters: ['profile'],
-          },
-        ],
-      },
+      // webpackbar: {
+      //   plugin: WebpackBarPlugin,
+      //   args: [
+      //     {
+      //       name: '[EMP]',
+      //       // profile: true,
+      //       // reporter: true,
+      //       // reporters: ['profile'],
+      //     },
+      //   ],
+      // },
     },
   }
   if (store.config.moduleFederation) {
@@ -42,26 +42,26 @@ export const wpPlugin = () => {
     }
   }
   // progress
-  /* if (store.cliOptions.progress) {
-    config.plugin.progress = {
-      plugin: webpack.ProgressPlugin,
-      args: [
-        {
-          activeModules: false,
-          entries: true,
-          handler(percentage: any, message: any, ...args: any[]) {
-            logger.info(Math.round(percentage * 100), message, ...args)
-          },
-          modules: true,
-          modulesCount: 5000,
-          profile: true,
-          dependencies: true,
-          dependenciesCount: 10000,
-          percentBy: 'modules',
-        },
-      ],
-    }
-  } */
+  // if (store.cliOptions.progress) {
+  config.plugin.progress = {
+    plugin: webpack.ProgressPlugin,
+    args: [
+      {
+        // activeModules: false,
+        // entries: true,
+        // handler(percentage: any, message: any, ...args: any[]) {
+        //   logger.info(Math.round(percentage * 100), message, ...args)
+        // },
+        // modules: true,
+        // modulesCount: 5000,
+        // profile: true,
+        // dependencies: true,
+        // dependenciesCount: 10000,
+        // percentBy: 'modules',
+      },
+    ],
+  }
+  // }
   //analyzer
   if (store.cliOptions.analyze) {
     config.plugin.analyzer = {

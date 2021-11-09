@@ -7,9 +7,9 @@ export const wpCommon = () => {
   const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
   const config: Configuration = {
     resolve: store.wpo.resolve,
-    entry: {
-      index: [path.resolve(store.appSrc, 'index.ts')],
-    },
+    entry: store.wpo.entry,
+    // externalsType: 'script',
+    externals: store.wpo.external,
     experiments: {
       outputModule: isESM,
       topLevelAwait: true,

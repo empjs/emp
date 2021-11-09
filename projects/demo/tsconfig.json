@@ -1,0 +1,11 @@
+{
+    "extends": "@efox/emp-tsconfig",
+    "compilerOptions": {
+      "jsx": "preserve",
+      "baseUrl": ".",
+      "esModuleInterop": true,
+    },
+    "include": [
+      "src",
+    ]
+  }
