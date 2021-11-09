@@ -169,6 +169,7 @@ importers:
   projects/demo:
     specifiers:
       '@efox/emp': workspace:^2.0.0
+      '@efox/emp-tsconfig': ^1.1.4
       react: ^17.0.2
       react-dom: ^17.0.2
       react-router-dom: ^6.0.1
@@ -180,6 +181,7 @@ importers:
       regenerator-runtime: 0.13.9
     devDependencies:
       '@efox/emp': link:../../packages/emp
+      '@efox/emp-tsconfig': 1.1.4_typescript@4.4.4
 
   projects/micro-app:
     specifiers:

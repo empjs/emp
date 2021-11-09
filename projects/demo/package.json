@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0"
+    "@efox/emp": "workspace:^2.0.0",
+    "@efox/emp-tsconfig": "^1.1.4"
   },
   "dependencies": {
     "react": "^17.0.2",

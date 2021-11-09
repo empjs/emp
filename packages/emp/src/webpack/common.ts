@@ -8,7 +8,7 @@ export const wpCommon = () => {
   const config: Configuration = {
     resolve: store.wpo.resolve,
     entry: {
-      index: [path.resolve(store.appSrc, 'index.ts')],
+      index: [path.resolve(store.appSrc)],
     },
     experiments: {
       outputModule: isESM,

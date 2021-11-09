@@ -1,5 +1,6 @@
 import {Configuration} from 'webpack'
 import store from 'src/helper/store'
+import fs from 'fs-extra'
 import WpPluginOptions from 'src/webpack/options/plugin'
 import WpModuleOptions from 'src/webpack/options/module'
 class WpOptions {
@@ -9,6 +10,7 @@ class WpOptions {
   stats: Configuration['stats'] = {}
   plugins?: WpPluginOptions
   modules?: WpModuleOptions
+  entry?: Configuration['entry'] = {}
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode
@@ -17,6 +19,28 @@ class WpOptions {
     this.setStats()
     this.plugins = new WpPluginOptions()
     this.modules = new WpModuleOptions()
+    this.entry = await this.setEntry()
+  }
+  async setEntry(): Promise<any> {
+    const {resolve} = store
+    if (!store.config.appEntry) {
+      const existsEntry = (relativePath: string) => fs.pathExists(resolve(relativePath))
+      const defaultEntry = async () => {
+        const [isTS, isTSX, isJSX, isJS] = await Promise.all([
+          existsEntry('src/index.ts'),
+          existsEntry('src/index.tsx'),
+          existsEntry('src/index.jsx'),
+          existsEntry('src/index.js'),
+        ])
+        if (isTS) return resolve('src/index.ts')
+        if (isTSX) return resolve('src/index.tsx')
+        else if (isJS) resolve('src/index.js')
+        else if (isJSX) return resolve('src/index.jsx')
+      }
+      const appEntry = await defaultEntry()
+      return appEntry ? {index: appEntry} : {}
+    }
+    return {index: store.config.appEntry}
   }
   setOput() {
     const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
