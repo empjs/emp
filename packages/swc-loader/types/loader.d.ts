@@ -1,4 +1,4 @@
 import webpack from 'webpack';
-import { SWCLoaderOptions } from './swcType';
-declare function SWCLoader(this: webpack.LoaderContext<SWCLoaderOptions>, source: string): Promise<void>;
+import { ResovleConfig } from '@efox/emp/index';
+declare function SWCLoader(this: webpack.LoaderContext<ResovleConfig>, source: string): Promise<void>;
 export default SWCLoader;

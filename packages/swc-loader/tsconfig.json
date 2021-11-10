@@ -11,7 +11,8 @@
     "paths": {
       "src/*": [
         "./src/*"
-      ]
+      ],
+      "@efox/emp/*": ["../emp/types/*"]
     },
   },
   "include": [

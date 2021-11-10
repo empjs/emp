@@ -1,5 +1,10 @@
-import {JscConfig} from '@efox/swc-loader/types/swcType'
+import {JscConfig} from '@efox/swc-loader/types/type'
 export type BuildOptions = {
+  /**
+   * swc & esbuild 是否异步构建
+   * @default false
+   */
+  sync?: boolean
   /**
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */
@@ -23,7 +28,8 @@ export type BuildOptions = {
    * 是否生成 source map
    * @default true
    */
-  sourcemap?: boolean | 'inline' | 'hidden'
+  sourcemap?: boolean
+  // sourcemap?: boolean | 'inline' | 'hidden'
   /**
    * 是否使用 library模式
    * @default true
@@ -39,6 +45,7 @@ export type BuildOptions = {
 export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
   return {
     ...{
+      sync: false,
       // target: 'es2018',
       target: 'es5',
       outDir: 'dist',

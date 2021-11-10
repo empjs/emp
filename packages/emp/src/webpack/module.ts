@@ -17,7 +17,8 @@ export const wpModule = () => {
           use: {
             swc: {
               loader: require.resolve('@efox/swc-loader'),
-              options: store.wpo.modules?.swcLoader,
+              // options: store.wpo.modules?.swcLoader,
+              options: store.config,
             },
           },
         },

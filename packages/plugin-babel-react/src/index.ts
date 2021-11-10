@@ -74,3 +74,4 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
 }
 
 export default PluginBabelReact
+module.exports = PluginBabelReact

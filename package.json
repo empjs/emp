@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix",
+    "build": "pnpm build:pkg",
     "build:pkg": "pnpm run --filter=@efox/* --parallel build",
     "dev:mf": "pnpm run --filter={micro-app,micro-host} --parallel dev"
   },

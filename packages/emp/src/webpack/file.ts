@@ -10,7 +10,7 @@ export const wpFile = () => {
           use: {
             script: {
               loader: require.resolve('@efox/swc-loader'),
-              options: store.wpo.modules?.swcLoader,
+              options: store.config,
             },
             svgr: {
               loader: require.resolve('@svgr/webpack'),
