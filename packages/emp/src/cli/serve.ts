@@ -6,7 +6,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import chalk from 'chalk'
 import logger, {logTag} from 'src/helper/logger'
-import prepareURLs from 'src/cli/utils/prepareURLs'
+import prepareURLs from 'src/cli/prepareURLs'
 class Serve {
   public app: Express
   constructor() {
