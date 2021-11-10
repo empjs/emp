@@ -5,17 +5,27 @@ import {externalAssetsType} from 'src/types'
 
 export type ExternalsItemType = {
   /**
-   * 模块名 如 react
+   * 模块名
+   * @example react-dom
    */
-  module: string
+  module?: string
+  /**
+   * 全局变量
+   * @example ReactDom
+   */
+  global?: string
   /**
    * 入口地址
+   * @example http://
    */
   entry: string
   /**
-   * 全局变量
+   * 类型入口
+   * @default js
+   * @enum js | css
+   * @example css
    */
-  global: string
+  type?: string
 }
 export type ExternalsType = (
   config: ResovleConfig,
@@ -31,8 +41,13 @@ class WpExternalsOptions {
         list = store.config.externals
       }
       list.map(v => {
-        externals[v.module] = v.global
-        externalAssets.js.push(v.entry)
+        v.type = v.type || 'js'
+        if (v.type === 'js' && v.module) {
+          externals[v.module] = v.global
+          externalAssets.js.push(v.entry)
+        } else if (v.type === 'css') {
+          externalAssets.css.push(v.entry)
+        }
       })
     }
   }
