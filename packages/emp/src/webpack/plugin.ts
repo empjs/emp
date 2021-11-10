@@ -4,6 +4,7 @@ import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import Dotenv from 'dotenv-webpack'
 // import logger from 'src/helper/logger'
 // import WebpackBarPlugin from 'webpackbar'
 
@@ -13,6 +14,20 @@ export const wpPlugin = () => {
       define: {
         plugin: webpack.DefinePlugin,
         args: [store.wpo.plugins?.definePlugin],
+      },
+      dotenv: {
+        plugin: Dotenv,
+        args: [
+          {
+            path: store.resolve(`.env${store.config.mode ? '.' + store.config.mode : ''}`),
+            // path: './some.other.env', // load this now instead of the ones in '.env'
+            safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+            allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
+            systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+            silent: true, // hide any errors
+            defaults: false, // load '.env.defaults' as the default values if empty.
+          },
+        ],
       },
       prefetch: {
         plugin: webpack.AutomaticPrefetchPlugin,

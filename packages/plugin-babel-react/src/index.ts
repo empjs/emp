@@ -8,6 +8,8 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
   const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
   const isReact17 = vCompare(reactVersion, '17')
   const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
+  // console.log(`path.resolve('node_modules')`, path.resolve(__dirname, '../node_modules'))
+  wpChain.resolve.modules.prepend(path.resolve(__dirname, '../node_modules'))
   // remove swc
   wpChain.module.rules.delete('scripts')
   // wpChain.module.rule('scripts').oneOfs.delete('swc')
@@ -29,8 +31,8 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
           require.resolve('@babel/preset-env'),
           {
             useBuiltIns: 'entry',
-            // debug: isDev,
-            debug: false,
+            // debug: true,
+            // debug: false,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
             loose: true,
@@ -74,7 +76,7 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
     wpChain.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
   // react svgr
-  wpChain.module.rule('svg').use('svgr').before('url').loader('@svgr/webpack')
+  wpChain.module.rule('svg').use('svgr').before('url').loader(require.resolve('@svgr/webpack'))
   /* .options({babel: false})
     .end()
     .use('babel')

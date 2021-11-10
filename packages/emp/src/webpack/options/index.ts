@@ -76,7 +76,7 @@ class WpOptions {
   }
   setResolve() {
     this.resolve = {
-      modules: [store.resolve('src'), 'node_modules'],
+      modules: ['node_modules', store.resolve('node_modules'), store.resolve('src')],
       alias: {
         src: store.appSrc,
       },
