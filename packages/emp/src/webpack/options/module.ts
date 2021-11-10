@@ -8,6 +8,9 @@ class WpModuleOptions {
     this.swcLoader = this.setSwcLoader()
   }
   private setSwcLoader() {
+    /**
+     * 这部分逻辑应该切换到 swc-loader里面做 保持 config的稳定性
+     */
     const pkg = require(store.resolve('package.json'))
     const isDev = store.wpo.mode === 'development'
     const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
