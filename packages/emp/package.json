@@ -32,8 +32,9 @@
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist && ttsc -w",
-    "build": "rimraf dist && ttsc"
+    "clean":"rimraf dist && rimraf types",
+    "dev": "pnpm clean && ttsc -w",
+    "build": "pnpm clean && ttsc"
   },
   "author": "Ken",
   "dependencies": {

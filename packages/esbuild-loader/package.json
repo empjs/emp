@@ -20,8 +20,9 @@
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist types && ttsc -w",
-    "build": "rimraf dist types && ttsc"
+    "clean":"rimraf dist && rimraf types",
+    "dev": "pnpm clean && ttsc -w",
+    "build": "pnpm clean && ttsc"
   },
   "author": "",
   "license": "ISC",

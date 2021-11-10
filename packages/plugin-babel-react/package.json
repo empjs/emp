@@ -1,0 +1,51 @@
+{
+  "name": "@efox/plugin-babel-react",
+  "version": "2.0.0",
+  "description": "EMP babel React plugin",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/plugin-babel-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist && rimraf types",
+    "dev": "pnpm clean && ttsc -w",
+    "build": "pnpm clean && ttsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
+    "@svgr/webpack": "^5.5.0",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-import": "^1.13.3",
+    "core-js": "^3.19.1",
+    "react-refresh": "^0.11.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "ts-transform-paths": "^2.0.3",
+    "ttypescript": "^1.5.12"
+  }
+}

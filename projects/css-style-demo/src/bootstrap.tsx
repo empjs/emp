@@ -14,8 +14,9 @@ ReactDOM.render(
 /**
  * mf 模式需把 热更代码放到这里 考虑用 plugin 动态加入
  */
-if (module.hot) {
+/* if (module.hot) {
   module.hot.accept(err => {
     console.log('An error occurred while accepting new version')
   })
 }
+ */

@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     //
     "experimentalDecorators": true,
-    // "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "plugins": [{ "transform": "ts-transform-paths" }],
   },

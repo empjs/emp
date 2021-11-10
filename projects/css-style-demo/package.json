@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "emp dev",
+    "dev": "emp dev -wl",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
@@ -13,12 +13,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@efox/plugin-babel-react": "workspace:^2.0.0",
     "@efox/emp": "workspace:^2.0.0",
     "@efox/emp-tsconfig": "^1.0.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "postcss-px-to-viewport": "^1.1.1"
   },
   "dependencies": {
     "react": "^17.0.2",

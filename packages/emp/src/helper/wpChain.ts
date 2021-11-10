@@ -13,7 +13,7 @@ export const getConfig: any = () => {
         logger.error(e),
       )
     } else {
-      logger.info('=== webpack config ===', JSON.stringify(conf, null, 2))
+      logger.info('[webpack config]', JSON.stringify(conf, null, 2))
     }
   }
   return conf

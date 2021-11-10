@@ -9,6 +9,11 @@ type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[
 //
 export type EMPConfig = {
   /**
+   * 项目根目录绝对路径 提供给 plugin 使用 一般不需要设置
+   * @default process.cwd()
+   */
+  root?: string
+  /**
    * 项目代码路径
    * @default 'src'
    */
@@ -79,6 +84,7 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   //
   return {
     ...{
+      root: process.cwd(),
       mode,
       appSrc: 'src',
       base: '/',

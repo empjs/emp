@@ -1,3 +1,5 @@
 const {defineConfig} = require('@efox/emp')
-
-module.exports = defineConfig({})
+const pluginBabelReact = require('@efox/plugin-babel-react').default
+module.exports = defineConfig({
+  plugins: [pluginBabelReact],
+})

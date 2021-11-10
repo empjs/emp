@@ -17,8 +17,8 @@ const App = () => {
   }, [])
 
   return (
-    <h1 style={{fontWeight: 300}}>
-      Css Pack Test
+    <h1 className={SassModule.title}>
+      Css Pack Test!!!
       <Common />
       <CSass />
       <CLess />
