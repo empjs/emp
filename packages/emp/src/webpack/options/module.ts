@@ -1,5 +1,5 @@
 import store from 'src/helper/store'
-import fs from 'fs-extra'
+// import fs from 'fs-extra'
 import {SWCLoaderOptions} from '@efox/swc-loader/types/swcType'
 import {vCompare} from 'src/helper/utils'
 class WpModuleOptions {
@@ -15,16 +15,16 @@ class WpModuleOptions {
     let isReact17 = false
     let react = {}
     if (reactVersion) {
+      isReact17 = vCompare(reactVersion, '17') > -1
       react = {
         runtime: isReact17 ? 'automatic' : 'classic',
-        throwIfNamespace: true,
+        // throwIfNamespace: true,
         // importSource: 'react',
         //TODO 增加 react-refresh 支持
         // refresh: isDev,
         development: isDev,
         useBuiltins: false,
       }
-      isReact17 = vCompare(reactVersion, '17') > -1
     }
     const swcOptions: SWCLoaderOptions = {
       sourceMaps: true,
