@@ -20,11 +20,13 @@
 + 增加 插件支持 
   + 先 适配业务 再 深度定制 SWC  支持 
   + `plugin-react`
-+ 多入口 `ken [doing]`
++ 😇 多入口模式支持 类似于next  `ken` `跟 externals 有相关逻辑需要考虑`
 + 🤯 library 模式 `ken`
 + 🥳 同时 支持 es5 与 ESM 模块 `ken`
 + 🤯 优化日志友好度 `ken`
-+ 动态变量适配 `process.env` & `import.meta.env` 支持 es5 与 esm
++ 🤯 动态变量适配 `process.env` & `import.meta.env` 支持 es5 与 esm
++ 😇 探讨babel环境下 的 esm实现 或者 只 支持 ES5
++ 🤯 验证 复杂型项目在 swc 环境下的 可行性
 
 ## emp 文件分布详解 
 ```
