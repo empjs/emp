@@ -19,9 +19,11 @@ class WpModuleOptions {
           tsx: true,
         },
         transform: {
+          legacyDecorator: true,
           react: {
             runtime: 'automatic',
-            importSource: 'react',
+            throwIfNamespace: true,
+            // importSource: 'react',
             //TODO 增加 react-refresh 支持
             // refresh: isDev,
             development: isDev,

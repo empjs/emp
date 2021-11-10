@@ -64,6 +64,7 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/compression": "^1.7.2",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/cors": "^2.8.12",

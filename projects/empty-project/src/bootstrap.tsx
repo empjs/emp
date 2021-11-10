@@ -9,3 +9,9 @@ import App from './App'
   process.env.EMP_ENV,
 ) */
 ReactDOM.render(<App />, document.getElementById('emp-root'))
+
+/* if (module.hot) {
+  module.hot.accept(err => {
+    console.log('An error occurred while accepting new version')
+  })
+} */

@@ -8,14 +8,10 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
   const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
   const isReact17 = vCompare(reactVersion, '17')
   const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
-  // console.log(`path.resolve('node_modules')`, path.resolve(__dirname, '../node_modules'))
+  // 增加 node_modules 搜寻依赖
   wpChain.resolve.modules.prepend(path.resolve(__dirname, '../node_modules'))
   // remove swc
   wpChain.module.rules.delete('scripts')
-  // wpChain.module.rule('scripts').oneOfs.delete('swc')
-  // console.log('config.module.rules', wpChain.module.rules)
-  // test: /\.(js|jsx|ts|tsx)$/,
-  // exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
   // babel config
   wpChain.module
     .rule('scripts')
@@ -40,7 +36,7 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
         ],
         require.resolve('@babel/preset-typescript'),
         // [require.resolve('@babel/preset-react'), reactRumtime],
-      ].filter(Boolean),
+      ],
       plugins: [
         [require('@babel/plugin-syntax-top-level-await').default], //观察是否支持 toplvawait 的 es5支持
         [
@@ -75,20 +71,6 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
   if ((config.mode === 'development', config.server.hot)) {
     wpChain.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
-  // react svgr
-  wpChain.module.rule('svg').use('svgr').before('url').loader(require.resolve('@svgr/webpack'))
-  /* .options({babel: false})
-    .end()
-    .use('babel')
-    .before('svgr')
-    .loader(require.resolve('babel-loader'))
-    .options({
-      presets: [
-        [require.resolve('@babel/preset-env')],
-        [require.resolve('@babel/preset-typescript')],
-        [require.resolve('@babel/preset-react'), reactRumtime],
-      ],
-    }) */
 }
 
 export default PluginBabelReact

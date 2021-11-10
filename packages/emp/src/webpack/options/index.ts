@@ -76,7 +76,12 @@ class WpOptions {
   }
   setResolve() {
     this.resolve = {
-      modules: ['node_modules', store.resolve('node_modules'), store.resolve('src')],
+      modules: [
+        'node_modules', //默认
+        store.resolve('node_modules'), // 项目
+        store.empResolve('node_modules'), // emp
+        store.resolve('src'), // 项目src
+      ],
       alias: {
         src: store.appSrc,
       },

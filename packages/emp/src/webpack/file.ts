@@ -1,3 +1,4 @@
+import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 export const wpFile = () => {
   const config = {
@@ -7,6 +8,16 @@ export const wpFile = () => {
         svg: {
           test: /\.svg$/,
           use: {
+            script: {
+              loader: require.resolve('@efox/swc-loader'),
+              options: store.wpo.modules?.swcLoader,
+            },
+            svgr: {
+              loader: require.resolve('@svgr/webpack'),
+              options: {
+                babel: false,
+              },
+            },
             url: {
               loader: require.resolve('url-loader'), //解决 ReactComponent 无法获取问题
               options: {
