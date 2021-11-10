@@ -25,6 +25,7 @@ importers:
   packages/emp:
     specifiers:
       '@efox/swc-loader': workspace:^2.0.0
+      '@pmmmwh/react-refresh-webpack-plugin': ^0.5.1
       '@svgr/webpack': ^5.5.0
       '@types/compression': ^1.7.2
       '@types/copy-webpack-plugin': ^8.0.1
@@ -71,6 +72,7 @@ importers:
       webpackbar: ^5.0.2
     dependencies:
       '@efox/swc-loader': link:../swc-loader
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_5aa00830fbc23c3cbfb7eb04ab3f1b58
       address: 1.1.2
       chalk: 4.1.2
       commander: 8.3.0
@@ -2213,6 +2215,45 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+
+  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_5aa00830fbc23c3cbfb7eb04ab3f1b58:
+    resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      '@types/webpack': 4.x || 5.x
+      react-refresh: ^0.10.0
+      sockjs-client: ^1.4.0
+      type-fest: '>=0.17.0 <3.0.0'
+      webpack: '>=4.43.0 <6.0.0'
+      webpack-dev-server: 3.x || 4.x
+      webpack-hot-middleware: 2.x
+      webpack-plugin-serve: 0.x || 1.x
+    peerDependenciesMeta:
+      '@types/webpack':
+        optional: true
+      sockjs-client:
+        optional: true
+      type-fest:
+        optional: true
+      webpack-dev-server:
+        optional: true
+      webpack-hot-middleware:
+        optional: true
+      webpack-plugin-serve:
+        optional: true
+    dependencies:
+      ansi-html-community: 0.0.8
+      common-path-prefix: 3.0.0
+      core-js-pure: 3.19.1
+      error-stack-parser: 2.0.6
+      find-up: 5.0.0
+      html-entities: 2.3.2
+      loader-utils: 2.0.2
+      schema-utils: 3.1.1
+      source-map: 0.7.3
+      webpack: 5.62.1
+      webpack-dev-server: 4.3.1_webpack@5.62.1
+    dev: false
 
   /@pmmmwh/react-refresh-webpack-plugin/0.5.1_react-refresh@0.11.0:
     resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}

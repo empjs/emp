@@ -4,7 +4,7 @@
     "types": ["webpack/module"],
     "baseUrl": ".",
     "outDir": "dist",
-    "declarationDir": "types",
+    "declarationDir": "dist/types",
     "paths": {
       "src/*": [
         "./src/*"

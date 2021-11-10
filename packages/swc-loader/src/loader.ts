@@ -1,6 +1,5 @@
 import webpack from 'webpack'
-import {transform, TransformConfig, transformSync} from '@swc/core'
-import {SWCLoaderOptions, JscConfig} from './type'
+import {transform, TransformConfig, transformSync, Options, JscConfig} from '@swc/core'
 import {ResovleConfig} from '@efox/emp/index'
 import {vCompare} from './helper'
 //
@@ -26,7 +25,7 @@ async function SWCLoader(
   if (isReact) {
     react = {
       runtime: isReact17 ? 'automatic' : 'classic',
-      // refresh: isDev,//TODO 增加 react-refresh 支持
+      refresh: isDev, //TODO 增加 react-refresh 支持
       development: isDev,
       useBuiltins: false,
     }
@@ -47,7 +46,7 @@ async function SWCLoader(
     }
   }
   //
-  const swcOptions: SWCLoaderOptions = {
+  const swcOptions: Options = {
     sourceFileName: this.resourcePath,
     sourceMaps: typeof options.build.sourcemap !== 'undefined' ? options.build.sourcemap : this.sourceMap,
     jsc: {

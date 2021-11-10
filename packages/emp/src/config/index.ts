@@ -59,7 +59,16 @@ export type EMPConfig = {
    * @default 'info'
    */
   logLevel?: string
+  /**
+   * module federation 配置
+   */
   moduleFederation?: MFOptions
+  /**
+   * 启用 import.meta
+   * 需要在 script type=module 才可以执行
+   * @default false
+   */
+  useImportMeta?: boolean
 }
 export interface ConfigEnv {
   mode: modeType
@@ -95,6 +104,7 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
       plugins: [],
       server,
       logLevel: 'info',
+      useImportMeta: false,
     },
     ...op,
   }

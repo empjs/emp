@@ -30,15 +30,15 @@
     "emp": "./bin/emp.js"
   },
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist && rimraf types",
-    "dev": "pnpm clean && ttsc -w",
-    "build": "pnpm clean && ttsc"
+    "dev": "rimraf dist && ttsc -w",
+    "build": "rimraf dist && ttsc"
   },
   "author": "Ken",
   "dependencies": {
     "@efox/swc-loader": "workspace:^2.0.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",

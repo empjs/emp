@@ -1,4 +1,4 @@
-import {JscConfig} from '@efox/swc-loader/types/type'
+import {JscConfig} from '@efox/swc-loader'
 export type BuildOptions = {
   /**
    * swc & esbuild 是否异步构建

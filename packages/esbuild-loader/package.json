@@ -21,7 +21,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "clean":"rimraf dist && rimraf types",
-    "dev": "pnpm clean && ttsc -w",
+    "dev": "rimraf dist && ttsc -w",
     "build": "pnpm clean && ttsc"
   },
   "author": "",

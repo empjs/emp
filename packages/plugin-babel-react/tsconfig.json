@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "declarationDir": "types",
+    "declarationDir": "dist/types",
 		"declaration": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
@@ -12,7 +12,7 @@
       "src/*": [
         "./src/*"
       ],
-      "@efox/emp/*": ["../emp/types/*"]
+      "@efox/emp/*": ["../emp/dist/types/*"]
     },
   },
   "include": [

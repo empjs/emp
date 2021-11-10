@@ -16,8 +16,8 @@ class WpPluginOptions {
     defines.mode = store.config.mode
     const setDefineEnv = (d: cliOptionsType) => {
       Object.keys(d).map(key => {
-        if (!this.isESM) defines[`process.env.${key}`] = JSON.stringify(d[key])
-        else defines[`import.meta.env.${key}`] = JSON.stringify(d[key])
+        if (this.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(d[key])
+        else defines[`process.env.${key}`] = JSON.stringify(d[key])
       })
     }
     setDefineEnv(defines)
