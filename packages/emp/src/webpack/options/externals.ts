@@ -1,6 +1,7 @@
 import {Configuration} from 'webpack'
 import {ResovleConfig} from 'src/config'
 import store from 'src/helper/store'
+import {externalAssetsType} from 'src/types'
 
 export type ExternalsItemType = {
   /**
@@ -21,7 +22,7 @@ export type ExternalsType = (
 ) => ExternalsItemType[] | Promise<ExternalsItemType[]> | ExternalsItemType[]
 class WpExternalsOptions {
   constructor() {}
-  async setup(externals: any, externalAssets: string[] = []): Promise<void> {
+  async setup(externals: any, externalAssets: externalAssetsType): Promise<void> {
     if (store.config.externals) {
       let list = []
       if (typeof store.config.externals === 'function') {
@@ -31,7 +32,7 @@ class WpExternalsOptions {
       }
       list.map(v => {
         externals[v.module] = v.global
-        externalAssets.push(v.entry)
+        externalAssets.js.push(v.entry)
       })
     }
   }

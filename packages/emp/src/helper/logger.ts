@@ -20,19 +20,22 @@ export const logTitle = (title: string) =>
  * @param tag
  */
 type tagType = 'green' | 'blue' | 'yellow' | 'red'
+const logTagStyle = (msg: any, c1: string, c2: string, w = '#ecf0f1') =>
+  console.log(`${chalk.bgHex(w).hex(c1)(` EMP v${store.pkgVersion} `)}${chalk.hex(w).bgHex(c2)(` ${msg} `)}\n`)
 export const logTag = (msg: string, tag: tagType = 'blue') => {
   switch (tag) {
     case 'green':
-      console.log(chalk.hex('#ecf0f1').bgHex('#27ae60')(` EMP v${store.pkgVersion} `), chalk.hex('#2ecc71')(msg))
+      logTagStyle(msg, '#27ae60', '#2ecc71')
       break
     case 'blue':
-      console.log(chalk.hex('#ecf0f1').bgHex('#2980b9')(` EMP v${store.pkgVersion} `), chalk.hex('#3498db')(msg))
+      logTagStyle(msg, '#2980b9', '#3498db')
+
       break
     case 'red':
-      console.log(chalk.hex('#ecf0f1').bgHex('#c0392b')(` EMP v${store.pkgVersion} `), chalk.hex('#e74c3c')(msg))
+      logTagStyle(msg, '#c0392b', '#e74c3c')
       break
     case 'yellow':
-      console.log(chalk.hex('#ecf0f1').bgHex('#f39c12')(` EMP v${store.pkgVersion} `), chalk.hex('#f1c40f')(msg))
+      logTagStyle(msg, '#f39c12', '#f1c40f')
       break
   }
 }

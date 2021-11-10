@@ -4,6 +4,7 @@ import fs from 'fs-extra'
 import WpPluginOptions from 'src/webpack/options/plugin'
 import WpModuleOptions from 'src/webpack/options/module'
 import wpExternalsOptions from 'src/webpack/options/externals'
+import {externalAssetsType} from 'src/types'
 class WpOptions {
   output: Configuration['output'] = {}
   resolve: Configuration['resolve'] = {}
@@ -13,7 +14,7 @@ class WpOptions {
   modules?: WpModuleOptions
   entry?: Configuration['entry'] = {}
   external: Configuration['externals'] = {}
-  externalAssets: string[] = []
+  externalAssets: externalAssetsType = {js: [], css: []}
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode

@@ -56,8 +56,8 @@ class WpPluginOptions {
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
       //  filename: 'index.html',
       files: {
-        css: [],
-        js: store.wpo.externalAssets,
+        css: store.wpo.externalAssets.css,
+        js: store.wpo.externalAssets.js,
       },
       scriptLoading: ['es3', 'es5'].indexOf(store.config.build.target) > -1 ? 'defer' : 'module',
       minify: store.wpo.mode === 'production' && {

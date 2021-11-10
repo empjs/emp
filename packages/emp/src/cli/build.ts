@@ -39,17 +39,16 @@ class Build {
         )
       }
 
-      logTag(`Compiled successfully.`, 'green')
       logger.info(
-        `\n` +
-          stats.toString({
-            colors: true,
-            all: false,
-            assets: true,
-            timings: true,
-            version: true,
-          }),
+        stats.toString({
+          colors: true,
+          all: false,
+          assets: true,
+          timings: true,
+          version: true,
+        }) + '\n',
       )
+      logTag(`Compiled successfully.`, 'green')
     })
   }
 }
