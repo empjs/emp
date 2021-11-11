@@ -21,7 +21,7 @@ class WpPluginOptions {
       else defines[`process.env.${key}`] = JSON.stringify(clist[key])
     })
 
-    console.log('defines', defines)
+    // console.log('defines', defines)
     return defines
   }
   private setModuleFederation() {

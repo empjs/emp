@@ -55,12 +55,11 @@
     "terser-webpack-plugin": "^5.2.4",
     "tslog": "^3.2.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.62.1",
+    "webpack": "^5.63.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.4.0",
-    "webpack-federated-stats-plugin": "^2.0.8",
-    "webpackbar": "^5.0.2"
+    "webpack-federated-stats-plugin": "^2.0.8"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",

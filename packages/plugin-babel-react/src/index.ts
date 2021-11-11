@@ -68,9 +68,9 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
       return o
     })
   //  react hot reload
-  if (config.mode === 'development' && config.server.hot) {
+  /* if (config.mode === 'development' && config.server.hot) {
     wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'))
-  }
+  } */
 }
 
 export default PluginBabelReact
