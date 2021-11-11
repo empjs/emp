@@ -24,6 +24,14 @@ class WpModuleOptions {
   async setup() {
     this.setScriptReactLoader()
   }
+  public swcLoader() {
+    return {
+      swc: {
+        loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
+        options: {},
+      },
+    }
+  }
   private setScriptReactLoader() {
     const pkg = require(path.resolve(store.root, 'package.json'))
     this.pkg = {...this.pkg, ...pkg}

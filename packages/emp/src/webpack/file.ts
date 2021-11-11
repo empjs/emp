@@ -1,6 +1,6 @@
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
-import path from 'path'
+// import path from 'path'
 export const wpFile = () => {
   const config = {
     module: {
@@ -10,10 +10,7 @@ export const wpFile = () => {
           test: /\.svg$/,
           // exclude: /(node_modules|bower_components)/,
           use: {
-            script: {
-              loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-              options: {},
-            },
+            ...store.wpo.modules.swcLoader(),
             svgr: {
               loader: require.resolve('@svgr/webpack'),
               options: {
