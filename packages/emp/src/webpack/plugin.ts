@@ -1,17 +1,17 @@
 import wpChain from 'src/helper/wpChain'
 import webpack from 'webpack'
-import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+// import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
+// import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
-import ESLintPlugin from 'eslint-webpack-plugin'
+// import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+// import ESLintPlugin from 'eslint-webpack-plugin'
 import path from 'path'
-// import WebpackBarPlugin from 'webpackbar'
 import fs from 'fs-extra'
-const isDev = store.wpo.mode === 'development'
 export const wpPlugin = () => {
+  const isDev = store.wpo.mode === 'development'
+
   const config: any = {
     plugin: {
       define: {
@@ -32,15 +32,11 @@ export const wpPlugin = () => {
           },
         ],
       },
-      prefetch: {
-        plugin: webpack.AutomaticPrefetchPlugin,
-        args: [{}],
-      },
       html: {
         plugin: HtmlWebpackPlugin,
         args: [store.wpo.plugins?.htmlWebpackPlugin],
       },
-      //TODO: 产生复制不了的命令行的bug
+      //加了不热更
       // webpackbar: {
       //   plugin: WebpackBarPlugin,
       //   args: [
@@ -54,19 +50,25 @@ export const wpPlugin = () => {
       // },
     },
   }
+  if (isDev && store.wpo.modules.react) {
+    config.plugin.reactRefresh = {
+      plugin: require('@pmmmwh/react-refresh-webpack-plugin'),
+      args: [],
+    }
+  }
   if (store.config.moduleFederation) {
     config.plugin.mf = {
       plugin: webpack.container.ModuleFederationPlugin,
       args: [store.wpo.plugins?.moduleFederation],
     }
     config.plugin.mfStats = {
-      plugin: FederatedStatsPlugin,
+      plugin: require('webpack-federated-stats-plugin'),
       args: [{filename: 'emp.json'}],
     }
   }
-  // progress
+  // 加了会出bug
   // if (store.cliOptions.progress) {
-  config.plugin.progress = {
+  /* config.plugin.progress = {
     plugin: webpack.ProgressPlugin,
     args: [
       {
@@ -83,12 +85,12 @@ export const wpPlugin = () => {
         // percentBy: 'modules',
       },
     ],
-  }
+  } */
   // }
   //analyzer
   if (store.cliOptions.analyze) {
     config.plugin.analyzer = {
-      plugin: BundleAnalyzerPlugin,
+      plugin: require('webpack-bundle-analyzer'),
       args: [
         {
           // analyzerMode: 'static',
@@ -102,7 +104,7 @@ export const wpPlugin = () => {
   const tsconfigJson = store.resolve('tsconfig.json')
   if (fs.existsSync(tsconfigJson)) {
     config.plugin.tsCheck = {
-      plugin: ForkTsCheckerWebpackPlugin,
+      plugin: require('fork-ts-checker-webpack-plugin'),
       args: [
         {
           async: isDev, // true dev环境下部分错误验证通过
@@ -124,7 +126,7 @@ export const wpPlugin = () => {
     }
   } else {
     config.plugin.eslint = {
-      plugin: ESLintPlugin,
+      plugin: require('eslint-webpack-plugin'),
       args: [
         {
           extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],

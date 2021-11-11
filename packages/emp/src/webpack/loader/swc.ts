@@ -7,8 +7,8 @@ const isDev = store.config.mode === 'development'
 const {isReact17} = store.wpo.modules.react
 const {build} = store.config
 //
-console.log('\n')
-logTag('swc compile.', 'green')
+// console.log('\n')
+// logTag('swc compile.', 'green')
 async function SWCLoader(
   this: webpack.LoaderContext<ResovleConfig>,
   source: string,
@@ -29,7 +29,7 @@ async function SWCLoader(
       useBuiltins: false,
     }
   }
-  console.log({isTypescript, isReact, isDev})
+  // console.log({isTypescript, isReact, isDev})
   let parser: JscConfig['parser'] = {
     syntax: 'ecmascript',
     jsx: isReact,

@@ -10,16 +10,24 @@ module.exports = defineConfig({
     sourcemap: false,
     // outDir: 'build',
   },
-  externals: [
-    {
-      module: 'react',
-      global: 'React',
-      entry: 'https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.production.min.js',
-    },
-    {
-      module: 'react-dom',
-      global: 'ReactDOM',
-      entry: 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.production.min.js',
-    },
-  ],
+  externals(config) {
+    return [
+      {
+        module: 'react',
+        global: 'React',
+        entry:
+          config.mode === 'development'
+            ? `https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.development.js`
+            : `https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.production.min.js`,
+      },
+      {
+        module: 'react-dom',
+        global: 'ReactDOM',
+        entry:
+          config.mode === 'development'
+            ? 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.development.js'
+            : 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.production.min.js',
+      },
+    ]
+  },
 })

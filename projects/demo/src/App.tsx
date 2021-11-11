@@ -1,14 +1,25 @@
-import {useEffect} from 'react'
-async function getPromise() {
-  setTimeout(() => Promise.resolve(console.log('getPromise')), 1000)
+import {lazy, Suspense} from 'react'
+import {ArrowFunction} from './ArrowFunction'
+import ClassDefault from './ClassDefault'
+import {ClassNamed} from './ClassNamed'
+import FunctionDefault from './FunctionDefault'
+import {FunctionNamed} from './FunctionNamed'
+
+const LazyComponent = lazy(() => import('./LazyComponent'))
+
+function App() {
+  return (
+    <div>
+      <ClassDefault />
+      <ClassNamed />
+      <FunctionDefault />
+      <FunctionNamed />
+      <ArrowFunction />
+      <Suspense fallback={<h1>Loading</h1>}>
+        <LazyComponent />
+      </Suspense>
+    </div>
+  )
 }
-const App = () => {
-  useEffect(() => {
-    ;(async () => {
-      console.log('async function')
-      await getPromise()
-    })()
-  }, [])
-  return <h1>EMP V2.0!!!</h1>
-}
+
 export default App

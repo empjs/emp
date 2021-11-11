@@ -12,7 +12,7 @@ export const wpDevelopment = () => {
       open,
       hot,
       historyApiFallback: true,
-      compress: true,
+      // compress: true,
       static: store.publicDir,
       headers: {
         'Access-Control-Allow-Origin': '*',
