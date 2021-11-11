@@ -2,13 +2,13 @@ import webpack from 'webpack'
 import {ResovleConfig} from 'src/config'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
-// import {logTag} from 'src/helper/logger'
+import {logTag} from 'src/helper/logger'
 const isDev = store.config.mode === 'development'
 const {isReact17} = store.wpo.modules.react
 const {build} = store.config
 //
-// console.log('\n')
-// logTag('swc compile.', 'green')
+console.log('\n')
+logTag('swc compile.', 'green')
 async function SWCLoader(
   this: webpack.LoaderContext<ResovleConfig>,
   source: string,
@@ -29,7 +29,7 @@ async function SWCLoader(
       useBuiltins: false,
     }
   }
-  // console.log({isTypescript, isReact, isDev})
+  console.log({isTypescript, isReact, isDev})
   let parser: JscConfig['parser'] = {
     syntax: 'ecmascript',
     jsx: isReact,
@@ -48,6 +48,7 @@ async function SWCLoader(
   const swcOptions: Options = {
     sourceFileName: this.resourcePath,
     sourceMaps: typeof build.sourcemap !== 'undefined' ? build.sourcemap : this.sourceMap,
+    // env: {mode: 'usage'},
     jsc: {
       target: build.target,
       externalHelpers: false,

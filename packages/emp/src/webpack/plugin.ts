@@ -5,9 +5,12 @@ import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
-// import logger from 'src/helper/logger'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import ESLintPlugin from 'eslint-webpack-plugin'
+import path from 'path'
 // import WebpackBarPlugin from 'webpackbar'
-
+import fs from 'fs-extra'
+const isDev = store.wpo.mode === 'development'
 export const wpPlugin = () => {
   const config: any = {
     plugin: {
@@ -95,7 +98,49 @@ export const wpPlugin = () => {
       ],
     }
   }
-  // dts
+  // ts check
+  const tsconfigJson = store.resolve('tsconfig.json')
+  if (fs.existsSync(tsconfigJson)) {
+    config.plugin.tsCheck = {
+      plugin: ForkTsCheckerWebpackPlugin,
+      args: [
+        {
+          async: isDev, // true dev环境下部分错误验证通过
+          eslint: {
+            enabled: true,
+            files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
+          },
+          typescript: {
+            configFile: tsconfigJson,
+            profile: false,
+            typescriptPath: 'typescript',
+            // configOverwrite: {
+            //   compilerOptions: {skipLibCheck: true},
+            // },
+          },
+          // logger: {issues: 'console'},
+        },
+      ],
+    }
+  } else {
+    config.plugin.eslint = {
+      plugin: ESLintPlugin,
+      args: [
+        {
+          extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+          context: store.root,
+          // overrideConfigFile: resolveApp('.eslintrc.js'),
+          files: ['src/**/*.{ts,tsx,js,jsx}'],
+          // eslintPath: require.resolve('eslint'),
+          cache: true,
+          cacheLocation: path.resolve(store.config.cacheDir, 'eslint'),
+          fix: true,
+          threads: true,
+          lintDirtyModulesOnly: false,
+        },
+      ],
+    }
+  }
 
   wpChain.merge(config)
 }

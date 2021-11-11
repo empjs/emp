@@ -39,17 +39,21 @@ class GlobalStore {
   public empResolve = (relativePath: string) => path.resolve(this.empRoot, relativePath)
 
   /**
-   * 源码地址
+   * 源码地址 绝对路径
    */
   public appSrc = ''
   /**
-   * 源码生成目录
+   * 源码生成目录 绝对路径
    */
   public outDir = ''
   /**
-   * 静态文件目录
+   * 静态文件目录 绝对路径
    */
   public publicDir = ''
+  /**
+   * 缓存目录 绝对路径
+   */
+  public cacheDir = ''
   /**
    * 命令行变量
    */
@@ -84,6 +88,7 @@ class GlobalStore {
     this.appSrc = this.resolve(this.config.appSrc)
     this.outDir = this.resolve(this.config.build.outDir)
     this.publicDir = this.resolve(this.config.publicDir)
+    this.cacheDir = this.resolve(this.config.cacheDir)
     // command option 处理 优先级优于 emp-config,把 config覆盖
     this.cliOptions = cliOptions
     if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
