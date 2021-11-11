@@ -18,7 +18,7 @@
     "node": ">=12"
   },
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "rimraf dist && ttsc -w",
     "build": "rimraf dist && ttsc"

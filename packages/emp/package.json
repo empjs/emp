@@ -30,7 +30,7 @@
     "emp": "./bin/emp.js"
   },
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "dev": "rimraf dist && ttsc -w",
     "build": "rimraf dist && ttsc"

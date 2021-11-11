@@ -18,11 +18,10 @@
     "node": ">=12"
   },
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "clean":"rimraf dist && rimraf types",
     "dev": "rimraf dist && ttsc -w",
-    "build": "pnpm clean && ttsc"
+    "build": "rimraf dist && ttsc"
   },
   "author": "",
   "license": "ISC",

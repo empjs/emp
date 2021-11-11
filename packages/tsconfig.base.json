@@ -20,6 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "plugins": [{ "transform": "ts-transform-paths" }],
+    // "types": ["./emp/typings/index"]
   },
   "exclude": [
     "node_modules",

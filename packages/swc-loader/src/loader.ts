@@ -1,6 +1,6 @@
 import webpack from 'webpack'
 import {transform, TransformConfig, transformSync, Options, JscConfig} from '@swc/core'
-import {ResovleConfig} from '@efox/emp/index'
+import type {ResovleConfig} from 'types/index'
 import {vCompare} from './helper'
 //
 import path from 'path'

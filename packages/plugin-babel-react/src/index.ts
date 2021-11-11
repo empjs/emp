@@ -1,4 +1,4 @@
-import {ConfigPluginOptions} from '@efox/emp/index'
+import type {ConfigPluginOptions} from 'types/index'
 import path from 'path'
 import {vCompare} from './helper'
 const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
