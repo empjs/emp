@@ -1,60 +1,40 @@
 import store from 'src/helper/store'
-// import fs from 'fs-extra'
-// import {SWCLoaderOptions} from '@efox/swc-loader/types/swcType'
-
+import path from 'path'
 import wpChain from 'src/helper/wpChain'
-
-// import {vCompare} from 'src/helper/utils'
+import {vCompare} from 'src/helper/utils'
+type pkgType = {
+  dependencies: {[key: string]: string | undefined}
+  devDependencies: {[key: string]: string | undefined}
+  version: string
+}
+type reactCheckType = {
+  version: string | undefined
+  isReact17: boolean
+}
 class WpModuleOptions {
-  public swcLoader
+  pkg: pkgType
+  react: reactCheckType
   constructor() {
-    this.swcLoader = this.setSwcLoader()
+    this.pkg = {dependencies: {}, devDependencies: {}, version: ''}
+    this.react = {
+      version: undefined,
+      isReact17: false,
+    }
   }
-  private setSwcLoader() {
-    const pkg = require(store.resolve('package.json'))
-    const isDev = store.wpo.mode === 'development'
-    const isReact = pkg.dependencies.react || pkg.devDependencies.react
-
-    if (isDev && store.config.server.hot && isReact)
-      wpChain.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
-    //   /**
-    //    * 这部分逻辑应该切换到 swc-loader里面做 保持 config的稳定性
-    //    */
-    //   const pkg = require(store.resolve('package.json'))
-    //   const isDev = store.wpo.mode === 'development'
-    //   const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
-    //   // const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
-    //   let isReact17 = false
-    //   let react = {}
-    //   if (reactVersion) {
-    //     isReact17 = vCompare(reactVersion, '17') > -1
-    //     react = {
-    //       runtime: isReact17 ? 'automatic' : 'classic',
-    //       // throwIfNamespace: true,
-    //       // importSource: 'react',
-    //       //TODO 增加 react-refresh 支持
-    //       // refresh: isDev,
-    //       development: isDev,
-    //       useBuiltins: false,
-    //     }
-    //   }
-    //   const swcOptions: SWCLoaderOptions = {
-    //     sourceMaps: true,
-    //     // sync: true,
-    //     jsc: {
-    //       target: store.config.build.target,
-    //       externalHelpers: false,
-    //       parser: {
-    //         syntax: 'typescript',
-    //         tsx: true,
-    //       },
-    //       transform: {
-    //         legacyDecorator: true,
-    //         react,
-    //       },
-    //     },
-    //   }
-    //   return swcOptions
+  async setup() {
+    this.setScriptReactLoader()
+  }
+  private setScriptReactLoader() {
+    const pkg = require(path.resolve(store.root, 'package.json'))
+    this.pkg = {...this.pkg, ...pkg}
+    this.react.version = this.pkg.dependencies.react || this.pkg.devDependencies.react
+    const isDev = store.config.mode === 'development'
+    //const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
+    this.react.isReact17 = false
+    if (this.react.version) this.react.isReact17 = vCompare(this.react.version, '17') > -1
+    // 增加插件支持
+    if (isDev && store.config.server.hot && !!this.react.version)
+      wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
 }
 

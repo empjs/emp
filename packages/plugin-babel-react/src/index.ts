@@ -1,4 +1,4 @@
-import type {ConfigPluginOptions} from 'types/index'
+import type {ConfigPluginOptions} from '@efox/emp'
 import path from 'path'
 import {vCompare} from './helper'
 const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
@@ -69,7 +69,7 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
     })
   //  react hot reload
   if (config.mode === 'development' && config.server.hot) {
-    wpChain.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
+    wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
 }
 

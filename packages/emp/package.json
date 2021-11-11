@@ -5,8 +5,7 @@
   "license": "MIT",
   "files": [
     "dist",
-    "bin",
-    "types"
+    "bin"
   ],
   "repository": {
     "type": "git",
@@ -30,15 +29,15 @@
     "emp": "./bin/emp.js"
   },
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "rimraf dist && ttsc -w",
     "build": "rimraf dist && ttsc"
   },
   "author": "Ken",
   "dependencies": {
-    "@efox/swc-loader": "workspace:^2.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
+    "@swc/core": "^1.2.106",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
@@ -59,7 +58,7 @@
     "webpack": "^5.62.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
-    "webpack-dev-server": "4.3.1",
+    "webpack-dev-server": "^4.4.0",
     "webpack-federated-stats-plugin": "^2.0.8",
     "webpackbar": "^5.0.2"
   },

@@ -12,7 +12,7 @@
     "svgaplayerweb": "^2.3.1"
   },
   "scripts": {
-    "dev": "emp dev",
+    "dev": "emp dev --env prod",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",

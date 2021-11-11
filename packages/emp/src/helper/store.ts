@@ -20,6 +20,7 @@ class GlobalStore {
    * @default path.resolve(__dirname, '../../')
    */
   public empRoot = path.resolve(__dirname, '../../')
+  public empSource = path.resolve(this.empRoot, 'dist')
   /**
    * 项目配置
    */

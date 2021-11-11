@@ -1,5 +1,6 @@
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
+import path from 'path'
 export const wpFile = () => {
   const config = {
     module: {
@@ -7,10 +8,11 @@ export const wpFile = () => {
         // 解决svgr ReactComponent 无法获取的问题
         svg: {
           test: /\.svg$/,
+          // exclude: /(node_modules|bower_components)/,
           use: {
             script: {
-              loader: require.resolve('@efox/swc-loader'),
-              options: store.config,
+              loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
+              options: {},
             },
             svgr: {
               loader: require.resolve('@svgr/webpack'),

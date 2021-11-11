@@ -1,26 +1,22 @@
 import webpack from 'webpack'
-import {transform, TransformConfig, transformSync, Options, JscConfig} from '@swc/core'
-import type {ResovleConfig} from '@efox/emp'
-import {vCompare} from './helper'
+import {ResovleConfig} from 'src/config'
+import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
+import store from 'src/helper/store'
+const isDev = store.config.mode === 'development'
+const {isReact17} = store.wpo.modules.react
+const {build} = store.config
 //
-import path from 'path'
-const root = process.cwd()
-const pkg = require(path.resolve(root, 'package.json'))
-const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
-//const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
-let isReact17 = false
-if (reactVersion) isReact17 = vCompare(reactVersion, '17') > -1
 async function SWCLoader(
   this: webpack.LoaderContext<ResovleConfig>,
   source: string,
   // inputSourceMap: true,
 ) {
   const done = this.async()
-  const options = this.getOptions()
+  // const options = this.getOptions()
   //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
-  const isDev = options.mode === 'development'
+
   let react: TransformConfig['react'] = undefined
   if (isReact) {
     react = {
@@ -48,9 +44,9 @@ async function SWCLoader(
   //
   const swcOptions: Options = {
     sourceFileName: this.resourcePath,
-    sourceMaps: typeof options.build.sourcemap !== 'undefined' ? options.build.sourcemap : this.sourceMap,
+    sourceMaps: typeof build.sourcemap !== 'undefined' ? build.sourcemap : this.sourceMap,
     jsc: {
-      target: options.build.target,
+      target: build.target,
       externalHelpers: false,
       parser,
       transform: {
@@ -63,8 +59,8 @@ async function SWCLoader(
 
   //
   try {
-    const {code, map} = options.build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)
-    // console.log('code', swcOptions)
+    const {code, map} = build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)
+    // console.log('code', JSON.stringify(swcOptions, null, 2))
     done(null, code, map && JSON.parse(map))
   } catch (e) {
     done(e as Error)

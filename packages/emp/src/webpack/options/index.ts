@@ -11,7 +11,7 @@ class WpOptions {
   mode: Configuration['mode'] = 'none'
   stats: Configuration['stats'] = {}
   plugins?: WpPluginOptions
-  modules?: WpModuleOptions
+  modules = new WpModuleOptions()
   entry?: Configuration['entry'] = {}
   external: Configuration['externals'] = {}
   externalAssets: externalAssetsType = {js: [], css: []}
@@ -24,7 +24,7 @@ class WpOptions {
     // 先执行 entry 有助于 external 与之联动
     await wpExternalsOptions.setup(this.external, this.externalAssets)
     this.plugins = new WpPluginOptions()
-    this.modules = new WpModuleOptions()
+    await this.modules.setup()
     this.entry = await this.setEntry()
   }
   async setEntry(): Promise<any> {

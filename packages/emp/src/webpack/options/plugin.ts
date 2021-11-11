@@ -12,15 +12,16 @@ class WpPluginOptions {
     this.definePlugin = this.setDefinePlugin()
   }
   private setDefinePlugin() {
+    const clist: cliOptionsType = store.cliOptions
+    clist.mode = store.config.mode
     const defines: cliOptionsType = {}
-    defines.mode = store.config.mode
-    const setDefineEnv = (d: cliOptionsType) => {
-      Object.keys(d).map(key => {
-        if (this.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(d[key])
-        else defines[`process.env.${key}`] = JSON.stringify(d[key])
-      })
-    }
-    setDefineEnv(defines)
+
+    Object.keys(clist).map(key => {
+      if (this.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(clist[key])
+      else defines[`process.env.${key}`] = JSON.stringify(clist[key])
+    })
+
+    console.log('defines', defines)
     return defines
   }
   private setModuleFederation() {
