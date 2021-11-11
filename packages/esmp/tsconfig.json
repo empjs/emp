@@ -1,0 +1,18 @@
+{
+    "include": [
+        "src"
+    ],
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES2018",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "experimentalDecorators":true,
+        "emitDecoratorMetadata": true,
+        "strict": true,
+        "declaration": true,
+        "sourceMap": true,
+        "noUnusedLocals": true,
+        "esModuleInterop": true
+    }
+}
