@@ -3,7 +3,7 @@ const App = () => {
   return (
     <>
       <HostApp />
-      <h1>Micro app</h1>
+      <h1>Micro app!!</h1>
     </>
   )
 }

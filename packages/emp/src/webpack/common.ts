@@ -6,6 +6,10 @@ export const wpCommon = () => {
   const isDev = store.wpo.mode === 'development'
   const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
   const config: Configuration = {
+    /* cache: {
+      type: 'filesystem',
+      cacheDirectory: store.cacheDir,
+    }, */
     resolve: store.wpo.resolve,
     entry: store.wpo.entry,
     // externalsType: 'script',
