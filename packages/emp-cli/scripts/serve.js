@@ -5,7 +5,7 @@ const path = require('path')
 const express = require('express')
 const cors = require('cors')
 const compression = require('compression')
-const {logger} = require('../helpers/logger.js')
+const {logger, logTag} = require('../helpers/logger.js')
 const prepareURLs = require('../helpers/prepareURLs')
 const chalk = require('chalk')
 let config = {}
@@ -23,6 +23,8 @@ app.use(compression())
 app.use(cors())
 
 module.exports = async args => {
+  logTag(`server running at:`)
+  //
   const {dist} = args
   const staticRoot = resolveApp(dist || 'dist')
   const isHTTPS = !!config.devServer.https
@@ -46,9 +48,8 @@ module.exports = async args => {
       const protocol = https ? 'https' : 'http'
       const realHost = host || '0.0.0.0'
       const urls = prepareURLs(protocol, realHost, port, publicPath)
-      logger.info(`  - Run Serve At:`)
-      logger.info(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`)
-      logger.info(`  - Network: ${chalk.cyan(urls.lanUrlForTerminal)} \n`)
+      logger.info(`- Local:   ${chalk.hex('#3498db')(urls.localUrlForTerminal)}`)
+      logger.info(`- Network: ${chalk.hex('#3498db')(urls.lanUrlForTerminal)} \n`)
     })
   }
 }

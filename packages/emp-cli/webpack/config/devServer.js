@@ -3,7 +3,7 @@ const {public, dist} = getPaths()
 module.exports = (env, {hot, open, progress}) => {
   return {
     devServer: {
-      bonjour: true,
+      // bonjour: true,
       //   contentBase: path.join(__dirname, 'dist'),
       //   compress: true,
       //   host: '0.0.0.0',
@@ -18,7 +18,7 @@ module.exports = (env, {hot, open, progress}) => {
       // allowedHosts: 'all',
       historyApiFallback: true,
       open,
-      hot: hot === true,
+      hot,
       // useLocalIp: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -50,9 +50,9 @@ module.exports = (env, {hot, open, progress}) => {
           },
         },
       ],
-      client: {
-        overlay: true,
-      },
+      // client: {
+      //   overlay: true,
+      // },
       // overlay: !hot,
       // liveReload: !hot,
       // progress: progress === true,

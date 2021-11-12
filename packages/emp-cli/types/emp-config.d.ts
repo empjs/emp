@@ -79,7 +79,38 @@ type ModuleFederationType = MFOptions | ModuleFederationFuncType
 type ModuleGeneratorFuncType = (o: EmpConfigI & EmpConfigIBase) => string | GeneratorOptType | Promise<GeneratorOptType>
 type ModuleGeneratorType = string | GeneratorOptType | ModuleGeneratorFuncType
 //
+export type ExternalsItemType = {
+  /**
+   * 模块名
+   * @example react-dom
+   */
+  module?: string
+  /**
+   * 全局变量
+   * @example ReactDom
+   */
+  global?: string
+  /**
+   * 入口地址
+   * @example http://
+   */
+  entry: string
+  /**
+   * 类型入口
+   * @default js
+   * @enum js | css
+   * @example css
+   */
+  type?: string
+}
+export type ExternalsType = (config: {
+  mode: 'development' | 'production'
+}) => ExternalsItemType[] | Promise<ExternalsItemType[]> | ExternalsItemType[]
 declare interface EMPConfig {
+  /**
+   * 下沉公共模块
+   */
+  externals?: ExternalsType
   /**
    * splitCss
    * @default true

@@ -24,6 +24,7 @@ module.exports = (env, config, {hot}) => {
             babel: {
               loader: require.resolve('babel-loader'),
               options: {
+                // compact: !isDev,
                 presets: [
                   [
                     require.resolve('@babel/preset-env'),

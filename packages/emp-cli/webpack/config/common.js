@@ -100,7 +100,15 @@ module.exports = () => {
       level: args.progress ? 'info' : 'warn',
     },
     // 精简 webpack 编译输出信息
-    stats: 'errors-warnings',
+    stats: {
+      colors: true,
+      preset: 'minimal',
+      moduleTrace: true,
+      errorDetails: true,
+    },
+  }
+  if (empRuntime.empConfig.externals) {
+    commonConfig.externals = empRuntime.empConfig.externals
   }
   config.merge(commonConfig)
   //
@@ -111,7 +119,7 @@ module.exports = () => {
 
   measure('commonConfig-module', () => require('./module')(env, config, args))
 
-  measure('commonConfig-plugin', () => require('./plugin')(env, config, args))
+  measure('commonConfig-plugin', () => require('./plugin')())
 
   measure('commonConfig-experiments', () => require('./experiments')(env, config))
 

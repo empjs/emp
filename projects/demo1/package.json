@@ -6,7 +6,6 @@
   "private": true,
   "scripts": {
     "dev": "emp dev",
-    "dev:hot": "emp dev --hot",
     "build": "emp build",
     "build:lab": "emp build --env lab",
     "start": "emp serve",

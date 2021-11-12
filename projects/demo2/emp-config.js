@@ -3,7 +3,28 @@ const port = 8002
  * @type {import('@efox/emp-cli').EMPConfig}
  */
 module.exports = {
+  // splitCss: false,
   entries: {},
+  externals(config) {
+    return [
+      {
+        module: 'react',
+        global: 'React',
+        entry:
+          config.mode === 'development'
+            ? `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js`
+            : `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js`,
+      },
+      {
+        module: 'react-dom',
+        global: 'ReactDOM',
+        entry:
+          config.mode === 'development'
+            ? 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js'
+            : 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
+      },
+    ]
+  },
   webpack() {
     return {
       devServer: {
@@ -36,10 +57,10 @@ module.exports = {
         './components/Hello': './src/components/Hello',
         './helper': './src/helper',
       },
-      shared: {
+      /* shared: {
         react: {requiredVersion: '^17.0.1'},
         'react-dom': {requiredVersion: '^17.0.1'},
-      },
+      }, */
     }
   },
 }

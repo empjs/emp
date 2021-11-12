@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-cli",
-  "version": "1.9.10",
+  "version": "1.10.0",
   "scripts": {
     "publishNpm": "node ./publish/envVar prod&& npm publish &&node ./publish/envVar debug"
   },
@@ -87,7 +87,6 @@
     "semver": "^7.3.5",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.2.4",
-    "tslog": "^3.2.2",
     "typescript": "^4.4.3",
     "url-loader": "^4.1.1",
     "webpack": "5.64.0",

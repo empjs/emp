@@ -16,7 +16,7 @@ module.exports = fn => ec => {
     .use('babel')
     .tap(o => {
       // react
-      o.presets.push([require.resolve('@babel/preset-react'), reactNewJsx])
+      reactVersion && o.presets.push([require.resolve('@babel/preset-react'), reactNewJsx])
       // fast refresh
       isDev && hot && o.plugins.unshift(require.resolve('react-refresh/babel'))
       // antd :TODO 增加 是否依赖 antd 判断
@@ -41,7 +41,7 @@ module.exports = fn => ec => {
         [require.resolve('@babel/preset-react'), reactNewJsx],
       ],
     })
-
+  // console.log('hot', hot, 'isdev', isDev)
   if (hot && isDev) {
     config.plugin('reacthotloader').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }

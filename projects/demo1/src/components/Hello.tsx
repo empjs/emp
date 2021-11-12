@@ -12,7 +12,7 @@ async function abc() {
 const Hello = () => (
   <>
     <div className={scss.logo}></div>
-    <h1>Hello from Typescript and Demo!!!</h1>
+    <h1>Hello from Typescript and Demo</h1>
     <p>config:{JSON.stringify(config.default)}</p>
     <p className={scss.helloStyle}>sass module style</p>
     <p className={less.helloStyle}>less module style</p>

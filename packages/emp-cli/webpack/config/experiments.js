@@ -12,6 +12,7 @@ module.exports = (env, config) => {
       //wasm
       asyncWebAssembly: true,
       syncWebAssembly: true,
+      backCompat: true,
     },
   }
   config.merge(experimentConf)

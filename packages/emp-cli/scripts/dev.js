@@ -3,12 +3,17 @@ const {getProjectConfig} = require('../helpers/project')
 const Webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const chalk = require('chalk')
-const {logger} = require('../helpers/logger.js')
+// const ora = require('ora')
+const {logger, logTag} = require('../helpers/logger.js')
 // const openBrowser = require('../helpers/openBrowser')
 const prepareURLs = require('../helpers/prepareURLs')
+
 // const downloadRemoteFile = require('../helpers/downloadRemoteFile')
 // const {getHostname, getDevHost} = require('../helpers/serveTool')
 module.exports = async args => {
+  logTag(`dev server running at:`)
+  // const spinner = ora('Loading...\n').start()
+  //
   const {src, public, open, remote} = args
   await setPaths({src, public})
   const paths = getPaths()
@@ -30,8 +35,13 @@ module.exports = async args => {
   config.devServer = {allowedHosts: 'all', ...config.devServer}
   const server = new WebpackDevServer(config.devServer, compiler)
   // const host = getDevHost(config.devServer.host)
+  const runServer = async () => {
+    await server.start()
+    // spinner.succeed('server success.')
+  }
 
-  const {https, host, port, publicPath} = config.devServer
+  runServer()
+  /*   const {https, host, port, publicPath} = config.devServer
   const protocol = https ? 'https' : 'http'
   const realHost = host || '0.0.0.0'
   const urls = prepareURLs(protocol, realHost, port, publicPath)
@@ -39,13 +49,14 @@ module.exports = async args => {
   server.start(config.devServer.port, realHost, err => {
     if (err) {
       logger.error(err)
+      spinner.err('server fail.')
       return
     }
-
+    spinner.succeed('server success.')
     compiler.hooks.done.tap('emp-cli dev', stats => {
       logger.info(`\n  App running at:`)
       logger.info(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)}`)
       logger.info(`  - Network: ${chalk.cyan(urls.lanUrlForTerminal)} \n`)
     })
-  })
+  }) */
 }

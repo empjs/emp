@@ -14,9 +14,18 @@ const empRuntime = require('../../helpers/runtime')
 module.exports = (env, config, args) => {
   const isDev = env === 'development'
   const isSplitCSS = typeof empRuntime.empConfig.splitCss !== 'undefined' ? empRuntime.empConfig.splitCss : true
+  // console.log('isDev', isDev, 'isSplitCSS', isSplitCSS)
+  const checkStyleLoader = () => {
+    if (!isSplitCSS) return true
+    if (isDev) return true
+    return false
+  }
+  const checkMiniCss = () => {
+    if (isSplitCSS && !isDev) return true
+    return false
+  }
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '_[hash:base64:7]' //正式环境 _ 解决大部分命名冲突问题
   //
-  console.log('isSplitCSS', isSplitCSS, empRuntime.empConfig)
   const getStyleLoader = (modules = false, preProcessor = {}) => {
     //
     // let publicPath = config.output.get('publicPath')
@@ -26,7 +35,7 @@ module.exports = (env, config, args) => {
     return {
       style: {
         // loader: require.resolve('style-loader'),//
-        loader: isDev || !isSplitCSS ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        loader: checkStyleLoader() ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
         // loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         // options: styleloaderOption,
         /* options: {
@@ -148,7 +157,7 @@ module.exports = (env, config, args) => {
     },
   }
   //=============== css min
-  if (!isDev && isSplitCSS) {
+  if (checkMiniCss()) {
     if (args.minify === true) {
       config.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
         {

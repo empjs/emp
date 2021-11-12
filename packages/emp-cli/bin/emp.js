@@ -13,7 +13,7 @@ const {measure} = require('../helpers/logger')
 
 checkNodeVersion(package.engines.node, 'emp')
 const inquirer = require('inquirer') //交互性命令行
-const Table = require('cli-table3')
+/* const Table = require('cli-table3')
 const table = new Table({
   head: ['Emp & Deps', 'Version'],
   style: {head: ['cyan']},
@@ -40,7 +40,7 @@ table.push(['webpack', package.dependencies.webpack])
 table.push(['webpack-dev-server', package.dependencies['webpack-dev-server']])
 table.push(['typescript', package.dependencies.typescript])
 table.push(['postcss', package.dependencies.postcss])
-console.log(table.toString() + '\n')
+console.log(table.toString() + '\n') */
 //
 program.version(package.version, '-v, --version').usage('<command> [options]')
 
@@ -61,7 +61,7 @@ program
   .action(({src, public, env, hot, open, ts, progress, wplogger, remote}) => {
     const empEnv = env || 'dev'
     // open = open === 'false' ? false : true
-    // hot = hot === 'false' ? false : true
+    hot = hot === 'false' ? false : true
     progress = progress == 'false' ? false : true
     require('../scripts/dev')({src, public, empEnv, hot, open, ts, progress, wplogger, remote})
   })

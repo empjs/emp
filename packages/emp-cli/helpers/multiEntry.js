@@ -28,7 +28,7 @@ const multiEntriesByConfig = function (config, paths, {root, router}, isMinify) 
     const srcKey = src.replace(`${cwd}/`, '').split('.')[0]
     const op = router ? router[srcKey] : {}
     entryConfig(config, paths, cwd, src, srcKey, op, isMinify)
-    logger.info(`多入口生成 ${src}`)
+    // logger.info(`多入口生成 ${src}`)
   })
 }
 const getMinifyOp = function (isMinify) {

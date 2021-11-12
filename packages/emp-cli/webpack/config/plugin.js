@@ -16,9 +16,12 @@ const Dotenv = require('dotenv-webpack')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const {getMinifyOp} = require('../../helpers/multiEntry')
 const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
+const empRuntime = require('../../helpers/runtime')
 
 //
-module.exports = (env, config, {analyze, empEnv, ts, progress, createName, createPath, hot, minify}) => {
+module.exports = () => {
+  const {env, config, args} = empRuntime.sp
+  const {analyze, empEnv, ts, progress, createName, createPath, hot, minify} = args
   const isDev = env === 'development'
   const conf = {
     plugin: {
@@ -56,6 +59,7 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
             files: {
               css: [],
               js: [],
+              ...empRuntime.empConfig.externalAssets,
             },
             minify: getMinifyOp(!isDev && minify === true),
           },
@@ -70,10 +74,10 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: FederatedStatsPlugin,
         args: [{filename: 'emp.json'}],
       },
-      friendly: {
+      /* friendly: {
         plugin: FriendlyErrorsWebpackPlugin,
         args: [{}],
-      },
+      }, */
       // 影响热更
       /*  prefetch: {
         plugin: webpack.AutomaticPrefetchPlugin,
@@ -102,48 +106,48 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
     }
   } */
   // ts ForkTsCheckerWebpackPlugin
-  const tsconfig = resolveApp('tsconfig.json')
-  if (fs.existsSync(tsconfig)) {
-    conf.plugin.ts = {
-      plugin: ForkTsCheckerWebpackPlugin,
-      args: [
-        {
-          async: isDev, // true dev环境下部分错误验证通过
-          eslint: {
-            enabled: true,
-            files: `${paths.appSrc}/**/*.{ts,tsx,js,jsx}`,
-          },
-          typescript: {
-            configFile: tsconfig,
-            profile: false,
-            typescriptPath: 'typescript',
-            // configOverwrite: {
-            //   compilerOptions: {skipLibCheck: true},
-            // },
-          },
-          // logger: {issues: 'console'},
-        },
-      ],
-    }
-  } else {
-    conf.plugin.eslint = {
-      plugin: ESLintPlugin,
-      args: [
-        {
-          extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-          context: paths.appRoot,
-          // overrideConfigFile: resolveApp('.eslintrc.js'),
-          files: ['src/**/*.{ts,tsx,js,jsx}'],
-          // eslintPath: require.resolve('eslint'),
-          cache: true,
-          cacheLocation: cachePaths.eslint,
-          fix: true,
-          threads: true,
-          lintDirtyModulesOnly: false,
-        },
-      ],
-    }
-  }
+  // const tsconfig = resolveApp('tsconfig.json')
+  // if (fs.existsSync(tsconfig)) {
+  //   conf.plugin.ts = {
+  //     plugin: ForkTsCheckerWebpackPlugin,
+  //     args: [
+  //       {
+  //         async: isDev, // true dev环境下部分错误验证通过
+  //         eslint: {
+  //           enabled: true,
+  //           files: `${paths.appSrc}/**/*.{ts,tsx,js,jsx}`,
+  //         },
+  //         typescript: {
+  //           configFile: tsconfig,
+  //           profile: false,
+  //           typescriptPath: 'typescript',
+  //           // configOverwrite: {
+  //           //   compilerOptions: {skipLibCheck: true},
+  //           // },
+  //         },
+  //         // logger: {issues: 'console'},
+  //       },
+  //     ],
+  //   }
+  // } else {
+  //   conf.plugin.eslint = {
+  //     plugin: ESLintPlugin,
+  //     args: [
+  //       {
+  //         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+  //         context: paths.appRoot,
+  //         // overrideConfigFile: resolveApp('.eslintrc.js'),
+  //         files: ['src/**/*.{ts,tsx,js,jsx}'],
+  //         // eslintPath: require.resolve('eslint'),
+  //         cache: true,
+  //         cacheLocation: cachePaths.eslint,
+  //         fix: true,
+  //         threads: true,
+  //         lintDirtyModulesOnly: false,
+  //       },
+  //     ],
+  //   }
+  // }
 
   // analyzer
   if (analyze) {

@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 import App from './App'
-import 'src/components/styles/icon.scss'
+// import 'src/components/styles/icon.scss'
 console.log(
   'process.env.DB_HOST',
   process.env.DB_HOST,

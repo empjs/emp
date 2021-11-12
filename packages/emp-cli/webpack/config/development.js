@@ -3,11 +3,11 @@ module.exports = (args, config, env) => {
   const {devServer} = require('./devServer')(env, args)
   const devConfig = {
     mode: 'development',
-    optimization: {
+    /* optimization: {
       usedExports: true,
-    },
-    // devtool: 'inline-source-map',
-    devtool: 'eval-cheap-module-source-map',
+    }, */
+    devtool: 'inline-source-map',
+    // devtool: 'eval-cheap-module-source-map',
     devServer,
   }
   config.merge(devConfig)

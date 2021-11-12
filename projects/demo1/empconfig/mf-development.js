@@ -10,9 +10,9 @@ module.exports = {
     './components/Demo': './src/components/Demo',
     './components/Hello': './src/components/Hello',
   },
-  shared: {
+  /*  shared: {
     react: {requiredVersion: '^17.0.1'},
     'react-dom': {requiredVersion: '^17.0.1'},
-  },
+  }, */
   // shared: Object.assign({}, shareByVersion('react'), shareByVersion('react-dom')),
 }

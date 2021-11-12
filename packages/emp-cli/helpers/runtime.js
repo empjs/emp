@@ -27,13 +27,33 @@ class RuntimeCompile {
     await this.setEmpConfig()
   }
   async setEmpConfig() {
-    // await this.defaultRumtime()
     this.remotePackageJson = this.sp.empPackageJsonPath
       ? await fs.readJson(this.sp.empPackageJsonPath)
       : {dependencies: {}, devDependencies: {}}
-    //
     if (this.sp.empConfigPath) {
-      await this.runtimeWithJsConfig()
+      const remoteConfig = require(this.sp.empConfigPath)
+      if (Object.keys(remoteConfig).length > 0) {
+        this.empConfig = remoteConfig
+        this.empConfig.externalAssets = {js: [], css: []}
+
+        if (this.empConfig.externals) {
+          if (typeof this.empConfig.externals === 'function') {
+            this.empConfig.externals = await this.empConfig.externals({mode: this.sp.env})
+          }
+          const externals = {}
+          this.empConfig.externals.map(v => {
+            v.type = v.type || 'js'
+            if (v.type === 'js' && v.module) {
+              externals[v.module] = v.global
+              this.empConfig.externalAssets.js.push(v.entry)
+            } else if (v.type === 'css') {
+              this.empConfig.externalAssets.css.push(v.entry)
+            }
+          })
+          this.empConfig.externals = externals
+        }
+        // console.log('this.sp.env', this.sp.env, JSON.stringify(this.empConfig.externals))
+      }
     }
   }
   async startCompile() {
@@ -125,22 +145,22 @@ class RuntimeCompile {
   //   this.empConfig = await tsCompile(this.sp.empConfigPath)
   //   await this.runtimeWithJSON()
   // }
-  async runtimeWithJsConfig() {
-    // let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
-    // remoteConfig = requireFromString(remoteConfig, '')
-    const remoteConfig = require(this.sp.empConfigPath)
-    /* if (typeof remoteConfig === 'function') {
-      if (this.isReact()) {
-        await withReact(remoteConfig)(this.op)
-      } else {
-        await remoteConfig(this.op)
-      }
-    } */
-    if (Object.keys(remoteConfig).length > 0) {
-      this.empConfig = remoteConfig
-      // await this.runtimeWithJSON()
-    }
-  }
+  // async runtimeWithJsConfig() {
+  //   // let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
+  //   // remoteConfig = requireFromString(remoteConfig, '')
+  //   const remoteConfig = require(this.sp.empConfigPath)
+  //   /* if (typeof remoteConfig === 'function') {
+  //     if (this.isReact()) {
+  //       await withReact(remoteConfig)(this.op)
+  //     } else {
+  //       await remoteConfig(this.op)
+  //     }
+  //   } */
+  //   if (Object.keys(remoteConfig).length > 0) {
+  //     this.empConfig = remoteConfig
+  //     // await this.runtimeWithJSON()
+  //   }
+  // }
   async runtimeWithJSON() {
     // json 模型下 函数入参
     const op = {
@@ -216,7 +236,7 @@ class RuntimeCompile {
           console.error(err)
         }
       } else {
-        console.log('webpack config', this.sp.config.toString(), '==========')
+        console.log('[webpack config]\n', this.sp.config.toString())
       }
     }
     // 取消继承 minimizer TerserPlugin 让压缩更具定制化
