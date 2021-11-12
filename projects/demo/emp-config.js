@@ -17,16 +17,16 @@ module.exports = defineConfig({
         global: 'React',
         entry:
           config.mode === 'development'
-            ? `https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.development.js`
-            : `https://unpkg.bdgamelive.com/webupload/gfe/react@17.0.2/umd/react.production.min.js`,
+            ? `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js`
+            : `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js`,
       },
       {
         module: 'react-dom',
         global: 'ReactDOM',
         entry:
           config.mode === 'development'
-            ? 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.development.js'
-            : 'https://unpkg.bdgamelive.com/webupload/gfe/react-dom@17.0.2/umd/react-dom.production.min.js',
+            ? 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js'
+            : 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
       },
     ]
   },

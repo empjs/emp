@@ -17,6 +17,7 @@ program
   .option('-ps, --progress <progress>', '显示进度 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
+  .option('-pr, --profile', '统计模块消耗')
   .action(async o => {
     const fn = importSource('cli')
     fn.exec('dev', 'development', o, pkg)
@@ -37,6 +38,7 @@ program
   .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
   .option('-ps, --progress <progress>', '显示进度 默认为 false')
+  .option('-pr, --profile', '统计模块消耗')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(o => {
     const fn = importSource('cli')

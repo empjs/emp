@@ -59,8 +59,8 @@ importers:
       rimraf: ^3.0.2
       sass: ^1.43.4
       sass-loader: ^12.3.0
+      speed-measure-webpack-plugin: ^1.5.0
       style-loader: ^3.3.1
-      swc-loader: ^0.1.15
       terser-webpack-plugin: ^5.2.4
       ts-transform-paths: ^2.0.3
       ttypescript: ^1.5.12
@@ -97,8 +97,8 @@ importers:
       regenerator-runtime: 0.13.9
       sass: 1.43.4
       sass-loader: 12.3.0_sass@1.43.4+webpack@5.64.0
+      speed-measure-webpack-plugin: 1.5.0_webpack@5.64.0
       style-loader: 3.3.1_webpack@5.64.0
-      swc-loader: 0.1.15_@swc+core@1.2.106+webpack@5.64.0
       terser-webpack-plugin: 5.2.4_@swc+core@1.2.106+webpack@5.64.0
       url-loader: 4.1.1_webpack@5.64.0
       webpack: 5.64.0_@swc+core@1.2.106
@@ -9436,6 +9436,16 @@ packages:
       - supports-color
     dev: false
 
+  /speed-measure-webpack-plugin/1.5.0_webpack@5.64.0:
+    resolution: {integrity: sha512-Re0wX5CtM6gW7bZA64ONOfEPEhwbiSF/vz6e2GvadjuaPrQcHTQdRGsD8+BE7iUOysXH8tIenkPCQBEcspXsNg==}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      webpack: ^1 || ^2 || ^3 || ^4 || ^5
+    dependencies:
+      chalk: 4.1.2
+      webpack: 5.64.0_@swc+core@1.2.106
+    dev: false
+
   /split-string/3.1.0:
     resolution: {integrity: sha512-NzNVhJDYpwceVVii8/Hu6DKfD2G+NrQHlS/V/qgv763EYudVwEcMQNxd2lh+0VrUByXN/oJkl5grOhYWvQUYiw==}
     engines: {node: '>=0.10.0'}
@@ -9684,17 +9694,6 @@ packages:
       stable: 0.1.8
       unquote: 1.1.1
       util.promisify: 1.0.1
-    dev: false
-
-  /swc-loader/0.1.15_@swc+core@1.2.106+webpack@5.64.0:
-    resolution: {integrity: sha512-cn1WPIeQJvXM4bbo3OwdEIapsQ4uUGOfyFj0h2+2+brT0k76DCGnZXDE2KmcqTd2JSQ+b61z2NPMib7eEwMYYw==}
-    peerDependencies:
-      '@swc/core': ^1.2.52
-      webpack: '>=2'
-    dependencies:
-      '@swc/core': 1.2.106
-      loader-utils: 2.0.2
-      webpack: 5.64.0_@swc+core@1.2.106
     dev: false
 
   /symbol-tree/3.2.4:

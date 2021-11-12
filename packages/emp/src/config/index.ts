@@ -69,6 +69,11 @@ export type EMPConfig = {
    * @default false
    */
   useImportMeta?: boolean
+  /**
+   * 启用 ForkTsChecker or Eslint
+   * @default false
+   */
+  jsCheck?: boolean
 }
 export interface ConfigEnv {
   mode: modeType

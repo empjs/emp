@@ -86,47 +86,49 @@ export const wpPlugin = () => {
       ],
     }
   }
-  // ts check
-  const tsconfigJson = store.resolve('tsconfig.json')
-  if (fs.existsSync(tsconfigJson)) {
-    config.plugin.tsCheck = {
-      plugin: require('fork-ts-checker-webpack-plugin'),
-      args: [
-        {
-          async: isDev, // true dev环境下部分错误验证通过
-          eslint: {
-            enabled: true,
-            files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
+  if (store.config.jsCheck) {
+    // ts check
+    const tsconfigJson = store.resolve('tsconfig.json')
+    if (fs.existsSync(tsconfigJson)) {
+      config.plugin.tsCheck = {
+        plugin: require('fork-ts-checker-webpack-plugin'),
+        args: [
+          {
+            async: isDev, // true dev环境下部分错误验证通过
+            eslint: {
+              enabled: true,
+              files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
+            },
+            typescript: {
+              configFile: tsconfigJson,
+              profile: false,
+              typescriptPath: 'typescript',
+              // configOverwrite: {
+              //   compilerOptions: {skipLibCheck: true},
+              // },
+            },
+            // logger: {issues: 'console'},
           },
-          typescript: {
-            configFile: tsconfigJson,
-            profile: false,
-            typescriptPath: 'typescript',
-            // configOverwrite: {
-            //   compilerOptions: {skipLibCheck: true},
-            // },
+        ],
+      }
+    } else {
+      config.plugin.eslint = {
+        plugin: require('eslint-webpack-plugin'),
+        args: [
+          {
+            extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+            context: store.root,
+            // overrideConfigFile: resolveApp('.eslintrc.js'),
+            files: ['src/**/*.{ts,tsx,js,jsx}'],
+            // eslintPath: require.resolve('eslint'),
+            cache: true,
+            cacheLocation: path.resolve(store.config.cacheDir, 'eslint'),
+            fix: true,
+            threads: true,
+            lintDirtyModulesOnly: false,
           },
-          // logger: {issues: 'console'},
-        },
-      ],
-    }
-  } else {
-    config.plugin.eslint = {
-      plugin: require('eslint-webpack-plugin'),
-      args: [
-        {
-          extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-          context: store.root,
-          // overrideConfigFile: resolveApp('.eslintrc.js'),
-          files: ['src/**/*.{ts,tsx,js,jsx}'],
-          // eslintPath: require.resolve('eslint'),
-          cache: true,
-          cacheLocation: path.resolve(store.config.cacheDir, 'eslint'),
-          fix: true,
-          threads: true,
-          lintDirtyModulesOnly: false,
-        },
-      ],
+        ],
+      }
     }
   }
 

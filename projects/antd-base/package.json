@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "antd-base",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,8 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0",
-    "@efox/emp-tsconfig": "^1.1.4"
+    "@efox/emp": "workspace:^2.0.0"
   },
   "dependencies": {
     "react": "^17.0.2",
