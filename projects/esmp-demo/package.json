@@ -12,6 +12,9 @@
   "dependencies": {
     "esmp": "workspace:^1.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "@ant-design/icons": "^4.7.0",
+    "@ant-design/pro-layout": "^6.28.0",
+    "antd": "^4.16.13"
   }
 }

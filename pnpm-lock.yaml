@@ -145,10 +145,12 @@ importers:
   packages/esmp:
     specifiers:
       '@craftamap/esbuild-plugin-html': ^0.2.0
+      '@es-pack/esbuild-sass-plugin': ^2.0.0
       '@types/rimraf': ^3.0.2
       commander: ^8.3.0
       cross-env: ^7.0.3
       esbuild: ^0.13.12
+      esbuild-css-modules-plugin: ^2.0.9
       esbuild-dev-server: ^0.2.2
       esbuild-plugin-d.ts: ^1.0.6
       esbuild-plugin-less: ^1.1.5
@@ -160,9 +162,11 @@ importers:
       typescript: ^4.4.4
     dependencies:
       '@craftamap/esbuild-plugin-html': 0.2.0_esbuild@0.13.12
+      '@es-pack/esbuild-sass-plugin': 2.0.0_esbuild@0.13.12
       commander: 8.3.0
       cross-env: 7.0.3
       esbuild: 0.13.12
+      esbuild-css-modules-plugin: 2.0.9
       esbuild-dev-server: 0.2.2
       esbuild-plugin-d.ts: 1.0.6_typescript@4.4.4
       esbuild-plugin-less: 1.1.5_esbuild@0.13.12
@@ -329,10 +333,16 @@ importers:
 
   projects/esmp-demo:
     specifiers:
+      '@ant-design/icons': ^4.7.0
+      '@ant-design/pro-layout': ^6.28.0
+      antd: ^4.16.13
       esmp: workspace:^1.0.0
       react: ^17.0.2
       react-dom: ^17.0.2
     dependencies:
+      '@ant-design/icons': 4.7.0_react-dom@17.0.2+react@17.0.2
+      '@ant-design/pro-layout': 6.28.0_cb15c3fd8cfa79dfc1ac8043488ce288
+      antd: 4.16.13_react-dom@17.0.2+react@17.0.2
       esmp: link:../../packages/esmp
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -2247,6 +2257,16 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@es-pack/esbuild-sass-plugin/2.0.0_esbuild@0.13.12:
+    resolution: {integrity: sha512-FNG0XDH9B85tFqi9KUlUPAdMPpFGRSqp6Sl6woMIxHD0RTf6ddHHXuSllxoki+a7K96GA0/Wmbjj5+8SIWhWyQ==}
+    engines: {node: '>=12.9.0'}
+    peerDependencies:
+      esbuild: ^0.13.0
+    dependencies:
+      esbuild: 0.13.12
+      sass: 1.32.8
+    dev: false
 
   /@eslint/eslintrc/0.4.3:
     resolution: {integrity: sha512-J6KFFz5QCYUJq3pf0mjEcCJVERbzv71PUIDczuh9JkwGEzced6CO5ADLHB1rbf/+oPBtoPfMYNOpGDzCANlbXw==}
@@ -10341,6 +10361,14 @@ packages:
       neo-async: 2.6.2
       sass: 1.43.4
       webpack: 5.64.0_94e02d445515fc2b624d0d70d0565c1a
+    dev: false
+
+  /sass/1.32.8:
+    resolution: {integrity: sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==}
+    engines: {node: '>=8.9.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.2
     dev: false
 
   /sass/1.43.4:

@@ -16,9 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "@craftamap/esbuild-plugin-html": "^0.2.0",
+    "@es-pack/esbuild-sass-plugin": "^2.0.0",
     "commander": "^8.3.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.13.12",
+    "esbuild-css-modules-plugin": "^2.0.9",
     "esbuild-dev-server": "^0.2.2",
     "esbuild-plugin-d.ts": "^1.0.6",
     "esbuild-plugin-less": "^1.1.5",
