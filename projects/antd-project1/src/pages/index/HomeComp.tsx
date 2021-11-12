@@ -5,7 +5,7 @@ const HomeComp = () => (
   <>
     <Card className="mt">
       <PageHeaderComp />
-      home components!!!!!!！
+      home components!!
     </Card>
     <Card>{JSON.stringify(config)}</Card>
   </>

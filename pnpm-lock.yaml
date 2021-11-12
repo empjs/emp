@@ -548,24 +548,24 @@ importers:
       '@efox/emp-tsconfig': ^1.0.4
       '@efox/eslint-config-react-prittier-ts': ^1.1.0
       antd: ^4.1.1
-      axios: ^0.21.4
+      axios: ^0.24.0
       js-cookie: ^2.2.1
       loadjs: ^4.2.0
-      mobx: ^6.0.1
-      mobx-react-lite: ^3.0.1
+      mobx: ^6.3.6
+      mobx-react-lite: ^3.2.2
       moment: ^2.29.1
-      react: ^17.0.1
-      react-dom: ^17.0.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
       react-helmet: ^5.2.1
-      react-router-dom: ^5.1.2
+      react-router-dom: ^5.3.0
     dependencies:
       '@ant-design/icons': 4.7.0_react-dom@17.0.2+react@17.0.2
       antd: 4.16.13_react-dom@17.0.2+react@17.0.2
-      axios: 0.21.4
+      axios: 0.24.0
       js-cookie: 2.2.1
       loadjs: 4.2.0
-      mobx: 6.3.3
-      mobx-react-lite: 3.2.1_8aec6830c9f393111667240500a3b25c
+      mobx: 6.3.7
+      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
       moment: 2.29.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -6281,6 +6281,14 @@ packages:
 
   /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.14.4
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios/0.24.0:
+    resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
     dependencies:
       follow-redirects: 1.14.4
     transitivePeerDependencies:
@@ -12133,6 +12141,24 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /mobx-react-lite/3.2.2_17a9a2b9737f188c3f2d8ece9728da86:
+    resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
+    peerDependencies:
+      mobx: ^6.1.0
+      react: ^16.8.0 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: 6.3.7
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
   /mobx-react/6.3.1_39d463ce7769f1a2935ab17929e2e668:
     resolution: {integrity: sha512-IOxdJGnRSNSJrL2uGpWO5w9JH5q5HoxEqwOF4gye1gmZYdjoYkkMzSGMDnRCUpN/BNzZcFoMdHXrjvkwO7KgaQ==}
     peerDependencies:
@@ -12172,6 +12198,10 @@ packages:
 
   /mobx/6.3.3:
     resolution: {integrity: sha512-JoNU50rO6d1wHwKPJqKq4rmUMbYnI9CsJmBo+Cu4exBYenFvIN77LWrZENpzW6reZPADtXMmB1DicbDSfy8Clw==}
+    dev: false
+
+  /mobx/6.3.7:
+    resolution: {integrity: sha512-X7yU7eOEyxIBk4gjIi2UIilwdw48gXh0kcZ5ex3Rc+COJsJmJ4SNpf42uYea3aUqb1hedTv5xzJrq5Q55p0P5g==}
     dev: false
 
   /moment/2.29.1:

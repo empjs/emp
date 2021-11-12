@@ -185,6 +185,7 @@ class RuntimeCompile {
         typeof this.empConfig.moduleFederation === 'function'
           ? await this.empConfig.moduleFederation(op)
           : this.empConfig.moduleFederation
+      moduleFederation.filename = moduleFederation.filename || 'emp.js'
       this.sp.config.plugin('mf').tap(args => {
         args[0] = {
           ...args[0],

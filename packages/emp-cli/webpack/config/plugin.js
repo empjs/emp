@@ -17,6 +17,8 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const {getMinifyOp} = require('../../helpers/multiEntry')
 const FederatedStatsPlugin = require('webpack-federated-stats-plugin')
 const empRuntime = require('../../helpers/runtime')
+//
+// const Webpackbar = require('webpackbar')
 
 //
 module.exports = () => {
@@ -25,6 +27,10 @@ module.exports = () => {
   const isDev = env === 'development'
   const conf = {
     plugin: {
+      /* webpackbar: {
+        plugin: Webpackbar,
+        args: [{name: 'EMP'}],
+      }, */
       env: {
         plugin: webpack.EnvironmentPlugin,
         args: [
@@ -87,12 +93,12 @@ module.exports = () => {
   }
   // progress
   //影响退出
-  /* if (progress) {
-    conf.plugin.progress = {
-      plugin: webpack.ProgressPlugin,
-      args: [],
-    }
-  } */
+  // if (progress) {
+  conf.plugin.progress = {
+    plugin: webpack.ProgressPlugin,
+    args: [],
+  }
+  // }
   /* if (progress) {
     conf.plugin.progress = {
       plugin: webpack.ProgressPlugin,
