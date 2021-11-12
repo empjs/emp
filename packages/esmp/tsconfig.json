@@ -8,6 +8,7 @@
         "module": "CommonJS",
         "moduleResolution": "Node",
         "experimentalDecorators":true,
+        // "declarationDir": "dist/types",
         "emitDecoratorMetadata": true,
         "strict": true,
         "declaration": true,

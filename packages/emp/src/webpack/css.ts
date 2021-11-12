@@ -1,4 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 //
@@ -11,11 +12,24 @@ const lessModuleRegex = /\.module\.less$/
 //
 export const wpCSS = () => {
   const isDev = store.wpo.mode === 'development'
+  const {splitCss} = store.config
+  //
+  const checkStyleLoader = () => {
+    if (!splitCss) return true
+    if (isDev) return true
+    return false
+  }
+  const checkMiniCss = () => {
+    if (splitCss && !isDev) return true
+    return false
+  }
+  //
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
   const getStyleLoader = (modules = false, preProcessor = {}) => {
+    // console.log(`checkStyleLoader()`, checkStyleLoader())
     return {
       style: {
-        loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        loader: checkStyleLoader() ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
         options: {},
       },
       css: {
@@ -35,7 +49,7 @@ export const wpCSS = () => {
       ...preProcessor,
     }
   }
-  const config = {
+  const config: any = {
     module: {
       rule: {
         css: {
@@ -106,6 +120,42 @@ export const wpCSS = () => {
         },
       },
     },
+  }
+  //[css minify]
+  // console.log(`checkMiniCss()`, checkMiniCss())
+  if (checkMiniCss()) {
+    if (store.config.build.minify === true) {
+      wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
+        {
+          parallel: true,
+          // sourceMap: false,
+          minimizerOptions: {
+            preset: [
+              'default',
+              {
+                discardComments: {removeAll: true},
+              },
+            ],
+          },
+        },
+      ])
+    }
+    wpChain.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
+      {
+        ignoreOrder: true,
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        /**
+            experimentalUseImportModule
+            https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule
+            Use an experimental webpack API to execute modules instead of child compilers.
+            This improves performance and memory usage a lot, but isn't as stable as the normal approach.
+            When combined with experiments.layers, this adds a layer option to the loader options to specify the layer of the css execution.
+            You need to have at least webpack 5.33.2.
+           */
+        // experimentalUseImportModule: true,
+      },
+    ])
   }
   wpChain.merge(config)
 }

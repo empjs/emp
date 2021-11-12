@@ -2,6 +2,7 @@ import store from 'src/helper/store'
 import path from 'path'
 import wpChain from 'src/helper/wpChain'
 import {vCompare} from 'src/helper/utils'
+import {TransformOptions} from 'esbuild'
 type pkgType = {
   dependencies: {[key: string]: string | undefined}
   devDependencies: {[key: string]: string | undefined}
@@ -23,6 +24,18 @@ class WpModuleOptions {
   }
   async setup() {
     this.setScriptReactLoader()
+  }
+  public esbuildLoader(options: TransformOptions) {
+    return {
+      loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/esbuild')),
+      options,
+    }
+    /* return {
+      esbuild: {
+        loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/esbuild')),
+        options,
+      },
+    } */
   }
   public swcLoader() {
     return {

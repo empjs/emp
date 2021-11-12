@@ -74,6 +74,12 @@ export type EMPConfig = {
    * @default false
    */
   jsCheck?: boolean
+  /**
+   * 启动 mini-css-extract-plugin
+   * 分离 js里的css
+   * @default true
+   */
+  splitCss?: boolean
 }
 export interface ConfigEnv {
   mode: modeType
@@ -110,6 +116,7 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
       server,
       logLevel: 'info',
       useImportMeta: false,
+      splitCss: true,
     },
     ...op,
   }
