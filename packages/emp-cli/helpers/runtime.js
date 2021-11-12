@@ -6,6 +6,8 @@ const withReact = require('../framework/react')
 const fs = require('fs-extra')
 const {multiEntriesByConfig} = require('./multiEntry')
 const LibraryModel = require('./libraryModel')
+const {checkRemote} = require('./paths')
+const {measure} = require('./logger')
 
 class RuntimeCompile {
   sp = {} //start 函数入参
@@ -13,14 +15,33 @@ class RuntimeCompile {
   wpc = {} // webpack编译后的值
   empConfig = {} // emp-config json配置
   remotePackageJson = {} //远程依赖
-  async startCompile(args, empPackageJsonPath, empConfigPath, config, env, paths) {
-    this.sp = {args, empPackageJsonPath, empConfigPath, config, env}
+  constructor() {}
+  async setup(args, config, env, paths) {
+    const {
+      empConfigPath,
+      empPackageJsonPath,
+      // isRemoteTsConfig,
+    } = await measure('checkRemote', () => checkRemote())
+    this.sp = {args, empPackageJsonPath, empConfigPath, config, env, paths}
     this.op = {...args, config, env, webpack}
+    await this.setEmpConfig()
+  }
+  async setEmpConfig() {
+    // await this.defaultRumtime()
+    this.remotePackageJson = this.sp.empPackageJsonPath
+      ? await fs.readJson(this.sp.empPackageJsonPath)
+      : {dependencies: {}, devDependencies: {}}
+    //
+    if (this.sp.empConfigPath) {
+      await this.runtimeWithJsConfig()
+    }
+  }
+  async startCompile() {
     await this.defaultRumtime()
     // console.log('this.empConfig', this.empConfig, paths)
-    if (this.empConfig.pages) this.multiEntriesConfig(paths)
+    if (this.empConfig.pages) this.multiEntriesConfig(this.sp.paths)
     // if (this.empConfig.library) this.libraryConfig(paths)
-    this.wpc = config.toConfig()
+    this.wpc = this.sp.config.toConfig()
     this.afterEmpConfigRuntime()
     await this.runtimeLog()
     return {webpackConfig: this.wpc, empConfig: this.empConfig || {}}
@@ -53,19 +74,33 @@ class RuntimeCompile {
   }
 
   async defaultRumtime() {
-    this.remotePackageJson = this.sp.empPackageJsonPath
-      ? await fs.readJson(this.sp.empPackageJsonPath)
-      : {dependencies: {}, devDependencies: {}}
-    //
-    if (this.sp.empConfigPath) {
-      await this.runtimeWithJsConfig()
-    } /* else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
-      // await this.runtimeWithTsConfig()
-      throw new Error('use emp-config.js https://github.com/efoxTeam/emp/discussions/88#discussioncomment-583390')
-    } */ else {
+    // this.remotePackageJson = this.sp.empPackageJsonPath
+    //   ? await fs.readJson(this.sp.empPackageJsonPath)
+    //   : {dependencies: {}, devDependencies: {}}
+    // //
+    // if (this.sp.empConfigPath) {
+    //   await this.runtimeWithJsConfig()
+    // } /* else if (this.sp.empConfigPath && this.sp.isRemoteTsConfig) {
+    //   // await this.runtimeWithTsConfig()
+    //   throw new Error('use emp-config.js https://github.com/efoxTeam/emp/discussions/88#discussioncomment-583390')
+    // } */ else {
+    if (!this.sp.empConfigPath) {
       // 在没有 emp-config.js 的环境下执行
       if (this.remotePackageJson.dependencies.react) {
         withReact()(this.op)
+      }
+    } else {
+      const remoteConfig = require(this.sp.empConfigPath)
+      if (typeof remoteConfig === 'function') {
+        if (this.isReact()) {
+          await withReact(remoteConfig)(this.op)
+        } else {
+          await remoteConfig(this.op)
+        }
+      }
+      if (Object.keys(this.empConfig).length > 0) {
+        // this.empConfig = remoteConfig
+        await this.runtimeWithJSON()
       }
     }
     //============清除 depend 逻辑=====================================
@@ -94,15 +129,16 @@ class RuntimeCompile {
     // let remoteConfig = await fs.readFile(this.sp.empConfigPath, 'utf8')
     // remoteConfig = requireFromString(remoteConfig, '')
     const remoteConfig = require(this.sp.empConfigPath)
-    if (typeof remoteConfig === 'function') {
+    /* if (typeof remoteConfig === 'function') {
       if (this.isReact()) {
         await withReact(remoteConfig)(this.op)
       } else {
         await remoteConfig(this.op)
       }
-    } else if (Object.keys(remoteConfig).length > 0) {
+    } */
+    if (Object.keys(remoteConfig).length > 0) {
       this.empConfig = remoteConfig
-      await this.runtimeWithJSON()
+      // await this.runtimeWithJSON()
     }
   }
   async runtimeWithJSON() {

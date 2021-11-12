@@ -80,6 +80,11 @@ type ModuleGeneratorFuncType = (o: EmpConfigI & EmpConfigIBase) => string | Gene
 type ModuleGeneratorType = string | GeneratorOptType | ModuleGeneratorFuncType
 //
 declare interface EMPConfig {
+  /**
+   * splitCss
+   * @default true
+   */
+  splitCss?: boolean
   /** webpack & webpack chain config method */
   webpack?: (o: EmpConfigI & EmpConfigIBase) => WebpackConfigI | Promise<WebpackConfigI>
   webpackChain?: (config: webpackChain, o: EmpConfigI) => void | Promise<any>

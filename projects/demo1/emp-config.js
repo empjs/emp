@@ -4,6 +4,7 @@ const mf = require('./empconfig/mf')
  * @type {import('@efox/emp-cli').EMPConfig}
  */
 module.exports = {
+  splitCss: false,
   webpack({webpackEnv}) {
     console.log('webpack', webpackEnv)
     return {

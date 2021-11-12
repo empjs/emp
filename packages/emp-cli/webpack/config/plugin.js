@@ -74,19 +74,21 @@ module.exports = (env, config, {analyze, empEnv, ts, progress, createName, creat
         plugin: FriendlyErrorsWebpackPlugin,
         args: [{}],
       },
-      prefetch: {
+      // 影响热更
+      /*  prefetch: {
         plugin: webpack.AutomaticPrefetchPlugin,
         args: [{}],
-      },
+      }, */
     },
   }
   // progress
-  if (progress) {
+  //影响退出
+  /* if (progress) {
     conf.plugin.progress = {
       plugin: webpack.ProgressPlugin,
       args: [],
     }
-  }
+  } */
   /* if (progress) {
     conf.plugin.progress = {
       plugin: webpack.ProgressPlugin,

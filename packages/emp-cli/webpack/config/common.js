@@ -6,8 +6,10 @@ const {measure} = require('../../helpers/logger')
 // git rev-parse HEAD 提交版本 hash
 // git rev-parse --abbrev-ref HEAD 分支名称
 const gitVersion = cmdSync('git rev-parse --abbrev-ref HEAD') || 'noGit'
+const empRuntime = require('../../helpers/runtime')
 //===================
-module.exports = (env, config, args, empConfigPath) => {
+module.exports = () => {
+  const {env, config, args, empConfigPath} = empRuntime.sp
   const {entry, appSrc, dist} = getPaths()
   const isDev = env === 'development'
   const buildDependenciesConfigs = [__filename]
