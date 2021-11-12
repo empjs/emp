@@ -68,24 +68,10 @@ export const wpPlugin = () => {
   }
   // 加了会出bug
   // if (store.cliOptions.progress) {
-  /* config.plugin.progress = {
+  config.plugin.progress = {
     plugin: webpack.ProgressPlugin,
-    args: [
-      {
-        // activeModules: false,
-        // entries: true,
-        // handler(percentage: any, message: any, ...args: any[]) {
-        //   logger.info(Math.round(percentage * 100), message, ...args)
-        // },
-        // modules: true,
-        // modulesCount: 5000,
-        // profile: true,
-        // dependencies: true,
-        // dependenciesCount: 10000,
-        // percentBy: 'modules',
-      },
-    ],
-  } */
+    args: [{}],
+  }
   // }
   //analyzer
   if (store.cliOptions.analyze) {
