@@ -38,7 +38,7 @@ const root = process.cwd()
 const projectResolve = (rpath: string) => path.resolve(root, rpath)
 const pkg = require(projectResolve('package.json'))
 const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
-// const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
+const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
 const isReact17 = vCompare(reactVersion, '17')
 const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
 //
@@ -86,7 +86,7 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
       // fast refresh
       config.mode === 'development' && config.server.hot && o.plugins.unshift(require.resolve('react-refresh/babel'))
       // antd
-      // isAntd && o.plugins.unshift(['import', {libraryName: 'antd', style: true}])
+      isAntd && o.plugins.unshift([require.resolve('babel-plugin-import'), {libraryName: 'antd', style: true}])
       return o
     })
   //  react hot reload
