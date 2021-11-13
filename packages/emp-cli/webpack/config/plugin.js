@@ -23,7 +23,8 @@ const empRuntime = require('../../helpers/runtime')
 //
 module.exports = () => {
   const {env, config, args} = empRuntime.sp
-  const {analyze, empEnv, ts, progress, createName, createPath, hot, minify} = args
+  const {analyze, empEnv, ts, progress, hot, minify} = args
+  let {createName, createPath} = args
   const isDev = env === 'development'
   const conf = {
     plugin: {
@@ -71,15 +72,16 @@ module.exports = () => {
           },
         ],
       },
-
-      mf: {
+      //============
+      /*  mf: {
         plugin: ModuleFederationPlugin,
         args: [{filename: 'emp.js'}],
       },
       mfStats: {
         plugin: FederatedStatsPlugin,
         args: [{filename: 'emp.json'}],
-      },
+      }, */
+      //==========
       /* friendly: {
         plugin: FriendlyErrorsWebpackPlugin,
         args: [{}],
@@ -90,6 +92,18 @@ module.exports = () => {
         args: [{}],
       }, */
     },
+  }
+  // console.log(empRuntime.empConfig)
+  //module federation
+  if (empRuntime.empConfig.moduleFederation) {
+    conf.plugin.mf = {
+      plugin: ModuleFederationPlugin,
+      args: [{filename: 'emp.js'}],
+    }
+    conf.plugin.mfStats = {
+      plugin: FederatedStatsPlugin,
+      args: [{filename: 'emp.json'}],
+    }
   }
   // progress
   //影响退出

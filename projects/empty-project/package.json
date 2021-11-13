@@ -19,6 +19,7 @@
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
+    "dts": "emp build --ts",
     "emp": "emp"
   },
   "devDependencies": {
