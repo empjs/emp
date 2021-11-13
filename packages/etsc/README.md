@@ -5,8 +5,9 @@
   <a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/@efox/etsc.svg" alt="node compatibility"></a>
 </p>
 
-> 基于 esbuild 的 ts开发环境 
-+ 📦 实例 [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/etsc-demo)
+基于 esbuild 的 typescript 库生产工具 
+
+📦 实例 [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/etsc-demo)
 
 ## 安装 
 `yarn add @efox/etsc -D` 
