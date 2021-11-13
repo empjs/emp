@@ -362,8 +362,10 @@ importers:
   projects/etsc-demo:
     specifiers:
       '@efox/etsc': workspace:^1.0.0
+      chalk: ^4.1.2
     dependencies:
       '@efox/etsc': link:../../packages/etsc
+      chalk: 4.1.2
 
   projects/micro-app:
     specifiers:

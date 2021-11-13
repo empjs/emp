@@ -1,5 +1,13 @@
-# E-TSC 
+<h2 align="center" style="font-size:60px;font-weight:bold;">E-TSC ⚡</h2>
+
+<p align="center">
+  <a href="https://npmjs.com/package/@efox/etsc"><img src="https://img.shields.io/npm/v/@efox/etsc.svg" alt="npm package"></a>
+  <a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/@efox/etsc.svg" alt="node compatibility"></a>
+
+</p>
+
 > 基于 esbuild 的 ts开发环境 
++ 📦 实例 [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/etsc-demo)
 
 ## 安装 
 `yarn add @efox/etsc -D` 

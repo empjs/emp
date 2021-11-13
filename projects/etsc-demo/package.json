@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@efox/etsc": "workspace:^1.0.0"
+    "@efox/etsc": "workspace:^1.0.0",
+    "chalk": "^4.1.2"
   }
 }

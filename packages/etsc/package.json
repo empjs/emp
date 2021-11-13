@@ -1,6 +1,6 @@
 {
   "name": "@efox/etsc",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "esbuild typescript development cli",
   "main": "index.js",
   "repository": {

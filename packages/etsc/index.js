@@ -4,6 +4,7 @@ const rimraf = require('rimraf')
 const fs = require('fs-extra')
 const esbuild = require('esbuild')
 const {dtsPlugin} = require('esbuild-plugin-d.ts')
+const logger = require('./logger')
 //
 class Etsc {
   constructor() {
@@ -14,6 +15,8 @@ class Etsc {
   async exec(mode, clioptions) {
     this.mode = mode
     this.watch = mode === 'development' ? true : false
+    //
+    logger(`compile env ${mode}.`, 'blue')
     //
     this.resetConfig()
     //
@@ -56,12 +59,13 @@ class Etsc {
     if (isExistTsconfig) {
       const tsg = require(tsconfigPath)
       const compilerOptions = tsg.compilerOptions || {}
-      const {outDir, target, module, moduleResolution} = compilerOptions
-      // console.log('tsg', tsg)
+      const {outDir, target, module, moduleResolution, sourceMap} = compilerOptions
+      // console.log('tsg', tsg, sourceMap)
       if (outDir) this.outdir = outDir.toLowerCase()
       if (target) this.target = target.toLowerCase()
       if (module) this.format = this.moduleToEsbuild(module.toLowerCase())
       if (moduleResolution) this.platform = moduleResolution.toLowerCase()
+      if (typeof sourceMap !== 'undefined') this.sourcemap = sourceMap
       //
       this.tsconfig = tsconfigPath
     } else {
@@ -74,13 +78,14 @@ class Etsc {
     if (clioptions.target) this.target = clioptions.target
     if (clioptions.format) this.format = clioptions.format
     if (clioptions.platform) this.platform = clioptions.platform
+    if (typeof clioptions.sourcemap !== 'undefined') this.sourcemap = clioptions.sourcemap
     this.minify = clioptions.minify === true ? true : false
     this.bundle = clioptions.bundle === true ? true : false
     this.logLevel = clioptions.logLevel || 'debug'
     this.debug = clioptions.debug === true ? true : false
   }
   build() {
-    const {entryPoints, tsconfig, watch, outdir, minify, bundle, logLevel, format, platform, target} = this
+    const {entryPoints, tsconfig, watch, outdir, minify, bundle, logLevel, format, platform, target, sourcemap} = this
     const esConfig = {
       entryPoints,
       outbase: this.src,
@@ -92,6 +97,7 @@ class Etsc {
       watch,
       logLevel,
       minify,
+      sourcemap,
       tsconfig,
       plugins: [dtsPlugin({tsconfig})],
       loader: {
