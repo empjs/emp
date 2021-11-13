@@ -4,6 +4,8 @@ import {ServerOptions, initServer} from 'src/config/server'
 import {modeType} from 'src/types'
 import {ExternalsType} from 'src/webpack/options/externals'
 import {ConfigPluginType} from 'src/config/plugins'
+import {WebpackChainType} from './chain'
+import store from 'src/helper/store'
 //
 type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 //
@@ -59,6 +61,12 @@ export type EMPConfig = {
    * @default 'info'
    */
   logLevel?: string
+
+  /**
+   * webpackChain 暴露到 emp-config
+   */
+  webpackChain?: WebpackChainType
+
   /**
    * module federation 配置
    */

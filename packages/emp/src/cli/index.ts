@@ -2,6 +2,7 @@ import store from 'src/helper/store'
 import {cliOptionsType, modeType} from 'src/types'
 import WPConfig from 'src/webpack'
 import configPlugins from 'src/config/plugins'
+import configChain from 'src/config/chain'
 class EMPScript {
   constructor() {}
   /**
@@ -16,6 +17,8 @@ class EMPScript {
     await wpConfig.setup()
     // 初始化所有 EMP Plugins
     await configPlugins.setup()
+    // webpack Chain
+    await configChain.setup()
     // 执行cli脚本
     const cilScript = await import(`./${name}`)
     await cilScript.default.setup()
