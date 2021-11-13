@@ -37,7 +37,8 @@ module.exports = defineConfig({
       'react-dom': {requiredVersion: '^17.0.1'},
     }, */
   },
-  webpackChain(chain, globalConfig) {
+  webpackChain(chain, empConfig) {
+    console.log('empConfig', empConfig)
     chain.plugin('html').tap(args => {
       args[0] = {
         ...args[0],
