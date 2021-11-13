@@ -1,5 +1,5 @@
 {
-  "name": "esmp",
+  "name": "@efox/esmp",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
