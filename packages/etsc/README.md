@@ -1,4 +1,4 @@
-<h2 align="center" style="font-size:60px;font-weight:bold;">E-TSC ⚡</h2>
+# E-TSC ⚡
 
 <p align="center">
   <a href="https://npmjs.com/package/@efox/etsc"><img src="https://img.shields.io/npm/v/@efox/etsc.svg" alt="npm package"></a>
