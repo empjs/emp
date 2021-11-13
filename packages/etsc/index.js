@@ -16,7 +16,7 @@ class Etsc {
     this.mode = mode
     this.watch = mode === 'development' ? true : false
     //
-    logger(`compile env ${mode}.`, 'blue')
+    logger(`compile env ${mode}.`, 'green')
     //
     this.resetConfig()
     //
@@ -48,7 +48,6 @@ class Etsc {
     }
   }
   async setAbPath() {
-    console.log('setAbPath', this.src, this.root)
     this.appSrc = path.resolve(this.root, this.src)
     this.outputSourceDir = path.resolve(this.root, this.outdir)
     this.entryPoints = await glob(path.join(this.appSrc, '**/**.*'))
@@ -60,7 +59,6 @@ class Etsc {
       const tsg = require(tsconfigPath)
       const compilerOptions = tsg.compilerOptions || {}
       const {outDir, target, module, moduleResolution, sourceMap} = compilerOptions
-      // console.log('tsg', tsg, sourceMap)
       if (outDir) this.outdir = outDir.toLowerCase()
       if (target) this.target = target.toLowerCase()
       if (module) this.format = this.moduleToEsbuild(module.toLowerCase())

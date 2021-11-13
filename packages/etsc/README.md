@@ -5,7 +5,7 @@
   <a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/@efox/etsc.svg" alt="node compatibility"></a>
 </p>
 
-基于 esbuild 的 typescript 库生产工具 
+基于 ESbuild 的 Typescript Library 构建工具、用于ts的开发生产以及类型生成
 
 📦 实例 [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/etsc-demo)
 
@@ -45,3 +45,6 @@
 }
 
 ```
+
+## TODO: 
++ 解决 paths 替换问题
