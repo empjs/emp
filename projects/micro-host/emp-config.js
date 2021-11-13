@@ -16,4 +16,15 @@ module.exports = defineConfig({
       'react-dom': {requiredVersion: '^17.0.1'},
     }, */
   },
+  webpackChain(chain, globalConfig) {
+    chain.plugin('html').tap(args => {
+      args[0] = {
+        ...args[0],
+        ...{
+          title: 'Micro-Host',
+        },
+      }
+      return args
+    })
+  },
 })
