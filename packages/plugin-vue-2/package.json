@@ -1,0 +1,39 @@
+{
+  "name": "@efox/plugin-vue-2",
+  "version": "1.0.0",
+  "description": "EMP vue 2 plugin",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/plugin-vue-2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rimraf dist && ttsc -w",
+    "build": "rimraf dist && ttsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-loader": "^15.9.8",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "ts-transform-paths": "^2.0.3",
+    "ttypescript": "^1.5.12",
+    "@efox/emp": "workspace:^2.0.0"
+  }
+}

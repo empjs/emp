@@ -1,0 +1,22 @@
+{
+  "name": "vue-2-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "scripts": {
+    "dev": "emp dev -wl",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp": "workspace:^2.0.0",
+    "@efox/plugin-vue-2": "workspace:^1.0.0"
+  }
+}

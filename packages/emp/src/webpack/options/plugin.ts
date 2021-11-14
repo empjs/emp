@@ -1,15 +1,18 @@
 import store from 'src/helper/store'
 import fs from 'fs-extra'
 import {cliOptionsType} from 'src/types'
+import {MFOptions} from 'src/config'
 class WpPluginOptions {
-  public htmlWebpackPlugin
-  public moduleFederation
-  public definePlugin
-  private isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
-  constructor() {
+  public htmlWebpackPlugin = {}
+  public moduleFederation: MFOptions = {}
+  public definePlugin = {}
+  private isESM = false
+  constructor() {}
+  public async setup() {
+    this.isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
-    this.moduleFederation = this.setModuleFederation()
     this.definePlugin = this.setDefinePlugin()
+    this.moduleFederation = await this.setModuleFederation()
   }
   private setDefinePlugin() {
     const clist: cliOptionsType = store.cliOptions
@@ -24,10 +27,13 @@ class WpPluginOptions {
     // console.log('defines', defines)
     return defines
   }
-  private setModuleFederation() {
-    let mf = {}
-    const {moduleFederation} = store.config
+  private async setModuleFederation() {
+    let mf: MFOptions = {}
+    let {moduleFederation} = store.config
     if (moduleFederation) {
+      if (typeof moduleFederation === 'function') {
+        moduleFederation = await moduleFederation(store.config)
+      }
       moduleFederation.filename = moduleFederation.filename || 'emp.js'
       // emp esm module
       if (!moduleFederation.library && this.isESM) {
@@ -48,6 +54,7 @@ class WpPluginOptions {
     if (!fs.existsSync(favicon)) {
       favicon = store.empResolve('template/favicon.ico')
     }
+    console.log('store.config', store.config)
     return {
       title: 'EMP',
       template,

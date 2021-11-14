@@ -7,7 +7,9 @@ import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import store from 'src/helper/store'
 //
-type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
+export type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
+type MFFunction = (o: EMPConfig) => MFOptions | Promise<MFOptions>
+type MFExport = MFOptions | MFFunction
 //
 export type EMPConfig = {
   /**
@@ -70,7 +72,7 @@ export type EMPConfig = {
   /**
    * module federation 配置
    */
-  moduleFederation?: MFOptions
+  moduleFederation?: MFExport
   /**
    * 启用 import.meta
    * 需要在 script type=module 才可以执行
@@ -101,7 +103,7 @@ export function defineConfig(config: EMPConfigExport): EMPConfigExport {
 export type ResovleConfig = Required<EMPConfig> & {
   build: Required<BuildOptions>
   server: Required<ServerOptions>
-  moduleFederation?: MFOptions
+  moduleFederation?: MFExport
 }
 export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   //解决深度拷贝被替代问题

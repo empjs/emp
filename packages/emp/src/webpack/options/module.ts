@@ -23,6 +23,12 @@ class WpModuleOptions {
     }
   }
   async setup() {
+    const pkg = require(path.resolve(store.root, 'package.json'))
+    this.pkg = {...this.pkg, ...pkg}
+    this.react.version = this.pkg.dependencies.react || this.pkg.devDependencies.react
+    this.react.isReact17 = false
+    if (this.react.version) this.react.isReact17 = vCompare(this.react.version, '17') > -1
+    //
     this.setScriptReactLoader()
   }
   // public esbuildLoader(options: TransformOptions) {
@@ -46,13 +52,8 @@ class WpModuleOptions {
     }
   }
   private setScriptReactLoader() {
-    const pkg = require(path.resolve(store.root, 'package.json'))
-    this.pkg = {...this.pkg, ...pkg}
-    this.react.version = this.pkg.dependencies.react || this.pkg.devDependencies.react
     const isDev = store.config.mode === 'development'
     //const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
-    this.react.isReact17 = false
-    if (this.react.version) this.react.isReact17 = vCompare(this.react.version, '17') > -1
     // 增加插件支持
     if (isDev && store.config.server.hot && !!this.react.version)
       wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'))

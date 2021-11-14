@@ -10,7 +10,7 @@ class WpOptions {
   resolve: Configuration['resolve'] = {}
   mode: Configuration['mode'] = 'none'
   stats: Configuration['stats'] = {}
-  plugins?: WpPluginOptions
+  plugins = new WpPluginOptions()
   modules = new WpModuleOptions()
   entry?: Configuration['entry'] = {}
   external: Configuration['externals'] = {}
@@ -22,12 +22,18 @@ class WpOptions {
     this.setResolve()
     this.setStats()
     // 先执行 entry 有助于 external 与之联动
-    await wpExternalsOptions.setup(this.external, this.externalAssets)
-    this.plugins = new WpPluginOptions()
-    await this.modules.setup()
-    this.entry = await this.setEntry()
+    // await wpExternalsOptions.setup(this.external, this.externalAssets)
+    // await this.plugins.setup()
+    // await this.modules.setup()
+    // await this.setEntry()
+    await Promise.all([
+      wpExternalsOptions.setup(this.external, this.externalAssets),
+      this.plugins.setup(),
+      this.modules.setup(),
+      this.setEntry(),
+    ])
   }
-  async setEntry(): Promise<any> {
+  async setEntry() {
     const {resolve} = store
     if (!store.config.appEntry) {
       //默认入口排查
@@ -45,9 +51,9 @@ class WpOptions {
         else if (isJSX) return resolve('src/index.jsx')
       }
       const appEntry = await defaultEntry()
-      return appEntry ? {index: [appEntry]} : {}
+      this.entry = appEntry ? {index: [appEntry]} : {}
     }
-    return {index: [store.config.appEntry]}
+    this.entry = {index: [store.config.appEntry]}
   }
   setOput() {
     const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
