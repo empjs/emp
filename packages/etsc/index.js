@@ -2,10 +2,8 @@ const path = require('path')
 const glob = require('tiny-glob')
 const rimraf = require('rimraf')
 const fs = require('fs-extra')
-const esbuild = require('esbuild')
-// const {dtsPlugin} = require('esbuild-plugin-d.ts')
 const logger = require('./helper/logger')
-const tsPlugin = require('./helper/tsPlugin')
+const esbuild = require('./helper/esbuild')
 //
 class Etsc {
   constructor() {
@@ -84,34 +82,7 @@ class Etsc {
     this.debug = clioptions.debug === true ? true : false
   }
   build() {
-    const {entryPoints, tsconfig, watch, outdir, minify, bundle, logLevel, format, platform, target, sourcemap} = this
-    const esConfig = {
-      entryPoints,
-      outbase: this.src,
-      target,
-      format,
-      platform,
-      outdir,
-      bundle,
-      watch,
-      logLevel,
-      minify,
-      sourcemap,
-      tsconfig,
-      plugins: [
-        tsPlugin,
-        // dtsPlugin({tsconfig}),
-      ],
-      loader: {
-        '.tsx': 'tsx',
-        '.ts': 'ts',
-        '.jsx': 'jsx',
-        '.js': 'js',
-        '.json': 'json',
-      },
-    }
-    if (this.debug) console.log('[esConfig]\n', esConfig)
-    return esbuild.build(esConfig)
+    return esbuild(this)
   }
 }
 

@@ -23,6 +23,8 @@
   "author": "Ken",
   "license": "MTI",
   "dependencies": {
+    "@swc/cli": "^0.1.51",
+    "@swc/core": "^1.2.106",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "esbuild": "^0.13.13",
