@@ -14,9 +14,6 @@
         "declaration": true,
         "sourceMap": true,
         "noUnusedLocals": true,
-        "esModuleInterop": true,
-        "paths": {
-            "src/*": ["./src/*"]
-        }
+        "esModuleInterop": true
     }
 }

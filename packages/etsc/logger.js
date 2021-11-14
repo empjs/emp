@@ -19,5 +19,11 @@ module.exports = function (msg, tag = 'blue') {
     case 'yellow':
       logTagStyle(msg, '#f39c12', '#f1c40f')
       break
+    case 'purple':
+      logTagStyle(msg, '#8e44ad', '#9b59b6')
+      break
+    case 'black':
+      logTagStyle(msg, '#2c3e50', '#34495e')
+      break
   }
 }

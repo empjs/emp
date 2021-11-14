@@ -1,6 +1,6 @@
 import type {ConfigPluginOptions} from '@efox/emp'
 import path from 'path'
-import {vCompare} from './helper'
+import {vCompare} from 'src/helper'
 const babelOptions = {
   presets: [
     [

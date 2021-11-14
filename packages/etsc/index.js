@@ -5,6 +5,7 @@ const fs = require('fs-extra')
 const esbuild = require('esbuild')
 const {dtsPlugin} = require('esbuild-plugin-d.ts')
 const logger = require('./logger')
+const transformPathsPlugin = require('./transformPathsPlugin')
 //
 class Etsc {
   constructor() {
@@ -16,7 +17,7 @@ class Etsc {
     this.mode = mode
     this.watch = mode === 'development' ? true : false
     //
-    logger(`compile env ${mode}.`, 'green')
+    logger(`compile env ${mode}.`, 'black')
     //
     this.resetConfig()
     //
@@ -97,7 +98,7 @@ class Etsc {
       minify,
       sourcemap,
       tsconfig,
-      plugins: [dtsPlugin({tsconfig})],
+      plugins: [transformPathsPlugin, dtsPlugin({tsconfig})],
       loader: {
         '.tsx': 'tsx',
         '.ts': 'ts',

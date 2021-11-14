@@ -23,6 +23,7 @@
   "author": "Ken",
   "license": "MTI",
   "dependencies": {
+    "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "esbuild": "^0.13.13",
     "esbuild-plugin-d.ts": "^1.0.6",
