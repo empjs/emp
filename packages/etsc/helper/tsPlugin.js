@@ -4,6 +4,8 @@ const transformPathsPlugin = {
     //
     const path = require('path')
     const fs = require('fs')
+    const dtsGenertor = require('./dts')
+
     const options = build.initialOptions
     console.log('options', options)
     //
@@ -14,15 +16,17 @@ const transformPathsPlugin = {
       console.log('[onResolve]', args, outPath)
       return outPath
     })
-    build.onLoad({filter: /.*/}, async args => {
+    build.onLoad({filter: /.[ts|tsx]/}, async args => {
       console.log('[onLoad]', args)
       //
       let source = await fs.promises.readFile(args.path, 'utf8')
       let filename = path.relative(process.cwd(), args.path)
-      console.log('source', source, args.path, 'filename', filename)
+      const entryName = args.path.replace(`${path.dirname(args.path)}/`, '')
+      console.log('[source]\n', source, args.path, '\n filename\n', filename, '\n entryName\n', entryName)
     })
     build.onEnd(result => {
       console.log('[onEnd]', `build ended with ${result.errors.length} errors`, result)
+      dtsGenertor()
     })
   },
 }

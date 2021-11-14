@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const pkg = require('./package.json')
+const pkg = require('../package.json')
 const logTagStyle = function (msg, c1, c2, w = '#ecf0f1') {
   return console.log(`${chalk.bgHex(w).hex(c1)(` ETSC v${pkg.version} `)}${chalk.hex(w).bgHex(c2)(` ${msg} `)}\n`)
 }

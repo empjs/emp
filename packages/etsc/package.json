@@ -26,9 +26,9 @@
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "esbuild": "^0.13.13",
-    "esbuild-plugin-d.ts": "^1.0.6",
     "fs-extra": "^10.0.0",
     "rimraf": "^3.0.2",
-    "tiny-glob": "^0.2.9"
+    "tiny-glob": "^0.2.9",
+    "typescript": "^4.4.4"
   }
 }

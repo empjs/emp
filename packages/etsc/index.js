@@ -3,9 +3,9 @@ const glob = require('tiny-glob')
 const rimraf = require('rimraf')
 const fs = require('fs-extra')
 const esbuild = require('esbuild')
-const {dtsPlugin} = require('esbuild-plugin-d.ts')
-const logger = require('./logger')
-const transformPathsPlugin = require('./transformPathsPlugin')
+// const {dtsPlugin} = require('esbuild-plugin-d.ts')
+const logger = require('./helper/logger')
+const tsPlugin = require('./helper/tsPlugin')
 //
 class Etsc {
   constructor() {
@@ -98,7 +98,10 @@ class Etsc {
       minify,
       sourcemap,
       tsconfig,
-      plugins: [transformPathsPlugin, dtsPlugin({tsconfig})],
+      plugins: [
+        tsPlugin,
+        // dtsPlugin({tsconfig}),
+      ],
       loader: {
         '.tsx': 'tsx',
         '.ts': 'ts',
