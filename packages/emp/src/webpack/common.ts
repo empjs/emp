@@ -4,7 +4,7 @@ import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 export const wpCommon = () => {
   const isDev = store.wpo.mode === 'development'
-  const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
+  const isESM = store.isESM
   const config: Configuration = {
     /* cache: {
       type: 'filesystem',

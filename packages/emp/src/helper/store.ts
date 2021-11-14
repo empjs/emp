@@ -62,6 +62,10 @@ class GlobalStore {
    * webpack options 全局变量 所有webpack配置收归到这里
    */
   public wpo = new WpOptions()
+  /**
+   * 是否 ESM 模块
+   */
+  public isESM = false
 
   constructor() {}
   /**
@@ -84,6 +88,8 @@ class GlobalStore {
         this.config = initConfig(conf, mode)
       }
     }
+    // check IsESM
+    this.isESM = ['es3', 'es5'].indexOf(this.config.build.target) === -1
     //
     this.appSrc = this.resolve(this.config.appSrc)
     this.outDir = this.resolve(this.config.build.outDir)

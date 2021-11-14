@@ -9,7 +9,7 @@ class WpPluginOptions {
   private isESM = false
   constructor() {}
   public async setup() {
-    this.isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
+    this.isESM = store.isESM
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.definePlugin = this.setDefinePlugin()
     this.moduleFederation = await this.setModuleFederation()
@@ -54,7 +54,6 @@ class WpPluginOptions {
     if (!fs.existsSync(favicon)) {
       favicon = store.empResolve('template/favicon.ico')
     }
-    console.log('store.config', store.config)
     return {
       title: 'EMP',
       template,

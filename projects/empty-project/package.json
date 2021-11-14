@@ -13,7 +13,7 @@
     "webpackbar": "^5.0.2"
   },
   "scripts": {
-    "dev": "emp dev --env prod",
+    "dev": "emp dev",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",

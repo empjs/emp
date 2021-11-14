@@ -22,10 +22,10 @@ class WpOptions {
     this.setResolve()
     this.setStats()
     // 先执行 entry 有助于 external 与之联动
-    // await wpExternalsOptions.setup(this.external, this.externalAssets)
-    // await this.plugins.setup()
-    // await this.modules.setup()
-    // await this.setEntry()
+    /* await wpExternalsOptions.setup(this.external, this.externalAssets)
+    await this.plugins.setup()
+    await this.modules.setup()
+    await this.setEntry() */
     await Promise.all([
       wpExternalsOptions.setup(this.external, this.externalAssets),
       this.plugins.setup(),
@@ -52,6 +52,7 @@ class WpOptions {
       }
       const appEntry = await defaultEntry()
       this.entry = appEntry ? {index: [appEntry]} : {}
+      return
     }
     this.entry = {index: [store.config.appEntry]}
   }
