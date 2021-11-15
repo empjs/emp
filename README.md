@@ -31,6 +31,7 @@
 + 🥳 dotenv 跟就 cli --env 做判断再跟进 mode 做判断
 + 🤯 支持https 代理 
 + 🤯 支持域名设置
++ 😇 DTS 重写 [非commander]
 
 ## emp 文件分布详解 
 ```
