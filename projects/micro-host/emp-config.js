@@ -17,7 +17,6 @@ module.exports = defineConfig({
     }, */
   },
   webpackChain(chain, empConfig) {
-    console.log('empConfig', empConfig)
     chain.plugin('html').tap(args => {
       args[0] = {
         ...args[0],
