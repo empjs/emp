@@ -6,6 +6,7 @@ class WpPluginOptions {
   public htmlWebpackPlugin = {}
   public moduleFederation: MFOptions = {}
   public definePlugin = {}
+  public dotenv = {}
   private isESM = false
   constructor() {}
   public async setup() {
@@ -13,6 +14,20 @@ class WpPluginOptions {
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.definePlugin = this.setDefinePlugin()
     this.moduleFederation = await this.setModuleFederation()
+    this.dotenv = this.setDotenv()
+  }
+  private setDotenv() {
+    const env = store.cliOptions.env || store.config.mode
+    const config = {
+      path: store.resolve(`.env${env ? '.' + env : ''}`),
+      // path: './some.other.env', // load this now instead of the ones in '.env'
+      safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      allowEmptyValues: true, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: true, // hide any errors
+      defaults: false, // load '.env.defaults' as the default values if empty.
+    }
+    return config
   }
   private setDefinePlugin() {
     const clist: cliOptionsType = store.cliOptions

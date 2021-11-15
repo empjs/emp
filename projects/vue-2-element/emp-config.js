@@ -1,5 +1,6 @@
-const {defineConfig} = require('@efox/emp')
+const {defineConfig, empStore} = require('@efox/emp')
 const vue = require('@efox/plugin-vue-2')
+console.log('empStore 处理全局方法', empStore)
 module.exports = defineConfig({
   plugins: [vue],
   html: {title: 'EMP Vue2 element'},

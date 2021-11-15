@@ -14,6 +14,8 @@
   },
   "scripts": {
     "dev": "emp dev",
+    "dev:dev": "emp dev --env dev",
+    "dev:prod": "emp dev --env prod",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
