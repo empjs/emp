@@ -27,9 +27,8 @@ export type ExternalsItemType = {
    */
   type?: string
 }
-export type ExternalsType = (
-  config: ResovleConfig,
-) => ExternalsItemType[] | Promise<ExternalsItemType[]> | ExternalsItemType[]
+export type ExternalsFunc = (config: ResovleConfig) => ExternalsItemType[] | Promise<ExternalsItemType[]>
+export type ExternalsType = ExternalsItemType[] | ExternalsFunc
 class WpExternalsOptions {
   constructor() {}
   async setup(externals: any, externalAssets: externalAssetsType): Promise<void> {

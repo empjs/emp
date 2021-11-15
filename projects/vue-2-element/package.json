@@ -1,8 +1,13 @@
 {
-  "name": "vue-2-base",
+  "name": "vue-2-element",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@efox/emp": "workspace:^2.0.0",
+    "@efox/plugin-vue-2": "workspace:^1.0.0"
+  },
   "dependencies": {
     "vue": "^2.6.12"
   },
@@ -12,11 +17,5 @@
     "start": "emp serve",
     "stat": "emp build --analyze",
     "emp": "emp"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0",
-    "@efox/plugin-vue-2": "workspace:^1.0.0"
   }
 }

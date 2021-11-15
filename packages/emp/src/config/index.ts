@@ -6,6 +6,7 @@ import {ExternalsType} from 'src/webpack/options/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import store from 'src/helper/store'
+import {HtmlOptions, initHtml} from 'src/config/html'
 //
 export type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 type MFFunction = (o: EMPConfig) => MFOptions | Promise<MFOptions>
@@ -90,6 +91,10 @@ export type EMPConfig = {
    * @default true
    */
   splitCss?: boolean
+  /**
+   * html-webpack-plugin 相关操作
+   */
+  html?: HtmlOptions
 }
 export interface ConfigEnv {
   mode: modeType
@@ -111,6 +116,8 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
   delete op.build
   const server = initServer(op.server)
   delete op.server
+  const html = initHtml(op.html)
+  delete op.html
   //
   return {
     ...{
@@ -124,6 +131,7 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
       define: [],
       plugins: [],
       server,
+      html,
       logLevel: 'info',
       useImportMeta: false,
       splitCss: true,
