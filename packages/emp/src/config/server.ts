@@ -1,5 +1,5 @@
 import {Configuration} from 'webpack-dev-server'
-export type ServerOptions = {
+export type ServerConfig = {
   /**
    * 访问 host
    * @default '0.0.0.0'
@@ -14,9 +14,9 @@ export type ServerOptions = {
    * 自动切换端口
    * @default false
    */
-  strictPort?: boolean
-  https?: Configuration['https']
-  proxy?: Configuration['proxy'] | boolean
+  // strictPort?: boolean
+  // https?: Configuration['https']
+  // proxy?: Configuration['proxy'] | boolean
   /**
    * 自动打开
    * @default false
@@ -28,18 +28,17 @@ export type ServerOptions = {
    */
   hot?: Configuration['hot']
 }
-
-export const initServer = (op?: ServerOptions): Required<ServerOptions> => {
-  return {
-    ...{
-      host: '0.0.0.0',
-      port: 8000,
-      strictPort: false,
-      https: false,
-      open: false,
-      proxy: false,
-      hot: true,
-      ...op,
-    },
-  }
-}
+export type ServerOptions = Configuration & ServerConfig
+export type ResolveServerConfig = Configuration & Required<ServerConfig>
+export const initServer = (op?: ServerOptions): ResolveServerConfig => ({
+  ...{
+    host: '0.0.0.0',
+    port: 8000,
+    // strictPort: false,
+    // https: false,
+    open: false,
+    // proxy: false,
+    hot: true,
+    ...op,
+  },
+})

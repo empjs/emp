@@ -7,6 +7,7 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import logger, {logTag} from 'src/helper/logger'
 import prepareURLs from 'src/cli/prepareURLs'
+import https from 'https'
 class Serve {
   public app: Express
   constructor() {
@@ -15,23 +16,33 @@ class Serve {
     app.use(cors())
     this.app = app
   }
+  startLogger({httpsOptions, host, port, publicPath}: any) {
+    const protocol = httpsOptions ? 'https' : 'http'
+    const realHost = host || '0.0.0.0'
+    const urls = prepareURLs(protocol, realHost, port as any, publicPath)
+    // logger.info(`  - Run Serve At:`)
+    logger.info(`- Local:   ${chalk.hex('#3498db')(urls.localUrlForTerminal)}`)
+    logger.info(`- Network: ${chalk.hex('#3498db')(urls.lanUrlForTerminal)} \n`)
+  }
   async setup() {
     logTag(`server running at:`)
     const staticRoot = store.resolve(store.config.build.outDir)
     const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
     this.app.use(express.static(staticRoot))
     this.app.get('*', (req, res) => res.send(html))
-    const {https, host, port} = store.config.server
+    const {host, port} = store.config.server
+    const httpsOptions: any = store.config.server.https
     const publicPath = store.config.base
-    //TODO: 支持 https
-    this.app.listen(port, () => {
-      const protocol = https ? 'https' : 'http'
-      const realHost = host || '0.0.0.0'
-      const urls = prepareURLs(protocol, realHost, port as any, publicPath)
-      // logger.info(`  - Run Serve At:`)
-      logger.info(`- Local:   ${chalk.hex('#3498db')(urls.localUrlForTerminal)}`)
-      logger.info(`- Network: ${chalk.hex('#3498db')(urls.lanUrlForTerminal)} \n`)
-    })
+    if (httpsOptions) {
+      const httpsServer = https.createServer(httpsOptions, this.app)
+      httpsServer.listen(port, () => {
+        this.startLogger({httpsOptions, host, port, publicPath})
+      })
+    } else {
+      this.app.listen(port, () => {
+        this.startLogger({httpsOptions, host, port, publicPath})
+      })
+    }
   }
 }
 
