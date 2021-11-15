@@ -1,10 +1,10 @@
 import store from 'src/helper/store'
 import fs from 'fs-extra'
 import {cliOptionsType} from 'src/types'
-import {MFOptions} from 'src/config'
+// import {MFOptions, getModuleFederation} from 'src/config/empShare'
 class WpPluginOptions {
   public htmlWebpackPlugin = {}
-  public moduleFederation: MFOptions = {}
+  // public moduleFederation: MFOptions = {}
   public definePlugin = {}
   public dotenv = {}
   private isESM = false
@@ -13,7 +13,7 @@ class WpPluginOptions {
     this.isESM = store.isESM
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.definePlugin = this.setDefinePlugin()
-    this.moduleFederation = await this.setModuleFederation()
+    // this.moduleFederation = await getModuleFederation()
     this.dotenv = this.setDotenv()
   }
   private setDotenv() {
@@ -42,7 +42,7 @@ class WpPluginOptions {
     // console.log('defines', defines)
     return defines
   }
-  private async setModuleFederation() {
+  /* private async setModuleFederation() {
     let mf: MFOptions = {}
     let {moduleFederation} = store.config
     if (moduleFederation) {
@@ -59,7 +59,7 @@ class WpPluginOptions {
       mf = moduleFederation
     }
     return mf
-  }
+  } */
   private setHtmlWebpackPlugin() {
     /* let template = store.resolve('src/index.html')
     let favicon = store.resolve('src/favicon.ico')
@@ -71,10 +71,10 @@ class WpPluginOptions {
     } */
     if (store.config.html.files) {
       if (store.config.html.files.css) {
-        store.wpo.externalAssets.css.concat(store.config.html.files.css)
+        store.empShare.externalAssets.css.concat(store.config.html.files.css)
       }
       if (store.config.html.files.js) {
-        store.wpo.externalAssets.js.concat(store.config.html.files.js)
+        store.empShare.externalAssets.js.concat(store.config.html.files.js)
       }
       delete store.config.html.files
     }
@@ -87,8 +87,8 @@ class WpPluginOptions {
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
       //  filename: 'index.html',
       files: {
-        css: store.wpo.externalAssets.css,
-        js: store.wpo.externalAssets.js,
+        css: store.empShare.externalAssets.css,
+        js: store.empShare.externalAssets.js,
       },
       scriptLoading: store.isESM ? 'defer' : 'module',
       minify: store.wpo.mode === 'production' && {

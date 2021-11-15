@@ -1,16 +1,14 @@
-import {container} from 'webpack'
+import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
 import {modeType} from 'src/types'
-import {ExternalsType} from 'src/webpack/options/externals'
+import {ExternalsType} from 'src/config/empShare'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
-import store from 'src/helper/store'
 import {HtmlOptions, initHtml} from 'src/config/html'
+import {MFExport} from './empShare'
 //
-export type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
-type MFFunction = (o: EMPConfig) => MFOptions | Promise<MFOptions>
-type MFExport = MFOptions | MFFunction
+
 //
 export type EMPConfig = {
   /**

@@ -1,4 +1,4 @@
-import path from 'path'
+// import path from 'path'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -13,7 +13,7 @@ export const wpCommon = () => {
     resolve: store.wpo.resolve,
     entry: store.wpo.entry,
     // externalsType: 'script',
-    externals: store.wpo.external,
+    externals: store.empShare.externals,
     experiments: {
       outputModule: isESM,
       topLevelAwait: true,

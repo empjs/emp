@@ -4,6 +4,7 @@ import {cliOptionsType, modeType} from 'src/types'
 import {EMPConfigExport, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
 import WpOptions from 'src/webpack/options'
+import EMPShare from 'src/config/empShare'
 class GlobalStore {
   /**
    * EMP Version
@@ -66,6 +67,7 @@ class GlobalStore {
    * 是否 ESM 模块
    */
   public isESM = false
+  public empShare = new EMPShare()
 
   constructor() {}
   /**
@@ -100,6 +102,8 @@ class GlobalStore {
     if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
     if (this.cliOptions.open) this.config.server.open = true
     if (this.cliOptions.hot) this.config.server.hot = true
+    // empShare 初始化
+    await this.empShare.setup()
     // 初始化所有 webpack options
     await this.wpo.setup(mode)
   }

@@ -3,8 +3,8 @@ import store from 'src/helper/store'
 import fs from 'fs-extra'
 import WpPluginOptions from 'src/webpack/options/plugin'
 import WpModuleOptions from 'src/webpack/options/module'
-import wpExternalsOptions from 'src/webpack/options/externals'
-import {externalAssetsType} from 'src/types'
+// import wpExternalsOptions from 'src/webpack/options/externals'
+// import {externalAssetsType} from 'src/types'
 class WpOptions {
   output: Configuration['output'] = {}
   resolve: Configuration['resolve'] = {}
@@ -13,8 +13,8 @@ class WpOptions {
   plugins = new WpPluginOptions()
   modules = new WpModuleOptions()
   entry?: Configuration['entry'] = {}
-  external: Configuration['externals'] = {}
-  externalAssets: externalAssetsType = {js: [], css: []}
+  // external: Configuration['externals'] = {}
+  // externalAssets: externalAssetsType = {js: [], css: []}
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode
@@ -27,7 +27,7 @@ class WpOptions {
     await this.modules.setup()
     await this.setEntry() */
     await Promise.all([
-      wpExternalsOptions.setup(this.external, this.externalAssets),
+      // wpExternalsOptions.setup(this.external, this.externalAssets),
       this.plugins.setup(),
       this.modules.setup(),
       this.setEntry(),

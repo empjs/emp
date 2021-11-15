@@ -46,10 +46,10 @@ export const wpPlugin = () => {
       args: [],
     }
   }
-  if (store.config.moduleFederation) {
+  if (Object.keys(store.empShare.moduleFederation).length > 0) {
     config.plugin.mf = {
       plugin: webpack.container.ModuleFederationPlugin,
-      args: [store.wpo.plugins?.moduleFederation],
+      args: [store.empShare.moduleFederation],
     }
     config.plugin.mfStats = {
       plugin: require('webpack-federated-stats-plugin'),
