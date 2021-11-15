@@ -1,0 +1,31 @@
+
+*{
+    /* font-family: '微软雅黑'; */
+}
+:root {
+--c-brand: #2c3e50;
+--c-brand-light: #34495e;
+}
+#main-title{
+      font-size: 5rem!important;
+  }
+  
+.tagline{
+    font-size: 1rem!important;
+}
+
+
+.release-tag {
+    font-size: .6rem;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+     top: 0;
+    /* transform: translateY(-50%);  */
+    padding: 6px;
+    margin-left: 6px;
+    background: var(--c-brand);
+    color: white;
+    border-radius: 3px;
+  }
+  

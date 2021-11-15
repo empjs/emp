@@ -1,4 +1,24 @@
 module.exports = {
   title: 'EMP',
-  description: 'Next Generation Frontend Tooling',
+  description: '基于下一代构建实现微前端解决方案',
+  themeConfig: {
+    repo: 'efoxTeam/emp',
+    // logo: '/logo.svg',
+    docsDir: 'docs',
+    docsBranch: 'next',
+    editLinks: true,
+    editLinkText: '修改这页内容',
+
+    nav: [
+      { text: '指引', link: '/guide/' },
+      { text: '配置', link: '/config/' },
+      { text: '插件', link: '/plugin/' },
+    ],
+
+    sidebar: {
+      '/guide/': 'auto',
+      '/config/': 'auto',
+      '/plugins/': 'auto',
+    }
+  }
 }
