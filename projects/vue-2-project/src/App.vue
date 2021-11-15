@@ -9,9 +9,9 @@
 //import Content from "@v2b/Content"
 export default {
   components: {
-    Content: () => import("@v2b/Content"),
+    Content: () => import('@v2b/Content'),
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -22,8 +22,7 @@ export default {
 
   h1 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size:60px;
-    
+    font-size: 60px;
   }
 }
 </style>

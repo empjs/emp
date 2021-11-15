@@ -4,21 +4,21 @@
     <logo style="width: 100px" />
     <img :src="require('./logo.png')" alt="logo" />
     <Content />
-    <Table></Table>
+    <Table />
   </div>
 </template>
 
 <script>
-import Content from './components/Content'
-import logo from './logo.svg'
-import Table from './components/table.vue'
+import Content from "./components/Content";
+import logo from "./logo.svg";
+import Table from "./components/table.vue";
 export default {
   components: {
     Content,
     logo,
-    Table
+    Table,
   },
-}
+};
 </script>
 
 <style scoped>

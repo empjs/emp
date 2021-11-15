@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@efox/emp": "workspace:^2.0.0",
+    "@efox/eslint-config-vue-prettier-ts": "^1.0.1",
     "@efox/plugin-vue-2": "workspace:^1.0.0"
   }
 }
