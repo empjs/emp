@@ -40,12 +40,6 @@ export const wpPlugin = () => {
       // },
     },
   }
-  if (isDev && store.wpo.modules.react.version) {
-    config.plugin.reactRefresh = {
-      plugin: require('@pmmmwh/react-refresh-webpack-plugin'),
-      args: [],
-    }
-  }
   if (Object.keys(store.empShare.moduleFederation).length > 0) {
     config.plugin.mf = {
       plugin: webpack.container.ModuleFederationPlugin,

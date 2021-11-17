@@ -12,6 +12,7 @@ module.exports = defineConfig({
     sourcemap: false,
     // outDir: 'build',
   },
+  reactRuntime: 'automatic', //增加这个实现无安装依赖热更
   empShare(config) {
     const {mode} = config
     // console.log('emp-config of demo', config)

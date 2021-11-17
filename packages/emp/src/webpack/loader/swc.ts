@@ -2,10 +2,16 @@ import webpack from 'webpack'
 import {ResovleConfig} from 'src/config'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
-import {logTag} from 'src/helper/logger'
+// import {logTag} from 'src/helper/logger'
 const isDev = store.config.mode === 'development'
-const {isReact17} = store.wpo.modules.react
 const {build} = store.config
+let react: TransformConfig['react'] = {
+  runtime: store.wpo.modules.reactRuntime || 'classic',
+  refresh: isDev, //TODO 增加 react-refresh 支持
+  development: isDev,
+  useBuiltins: false,
+}
+
 //
 // console.log('\n')
 // logTag('swc compile.', 'green')
@@ -20,16 +26,9 @@ async function SWCLoader(
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
 
-  let react: TransformConfig['react'] = undefined
-  if (isReact) {
-    react = {
-      runtime: isReact17 ? 'automatic' : 'classic',
-      refresh: isDev, //TODO 增加 react-refresh 支持
-      development: isDev,
-      useBuiltins: false,
-    }
+  if (!isReact) {
+    react = undefined
   }
-  // console.log({isTypescript, isReact, isDev})
   let parser: JscConfig['parser'] = {
     syntax: 'ecmascript',
     jsx: isReact,

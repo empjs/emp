@@ -1,4 +1,4 @@
-import store from 'src/helper/store'
+// import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
 import {cliOptionsType, modeType} from 'src/types'
@@ -99,6 +99,13 @@ export type EMPConfig = {
    * html-webpack-plugin 相关操作
    */
   html?: HtmlOptions
+  /**
+   * React Runtime 手动切换jsx模式
+   * 当 external react时需要设置
+   * 本地安装时会自动判断 不需要设置
+   * @default undefined
+   */
+  reactRuntime?: 'automatic' | 'classic'
 }
 export interface ConfigEnv {
   mode: modeType
@@ -121,6 +128,7 @@ export type ResovleConfig = Override<
     empShare?: EMPShareExport
     cliOptions: cliOptionsType
     webpackChain?: WebpackChainType
+    reactRuntime?: 'automatic' | 'classic'
   }
 >
 export const initConfig = (

@@ -2,47 +2,26 @@ import store from 'src/helper/store'
 import path from 'path'
 import wpChain from 'src/helper/wpChain'
 import {vCompare} from 'src/helper/utils'
-// import {TransformOptions} from 'esbuild'
-type pkgType = {
-  dependencies: {[key: string]: string | undefined}
-  devDependencies: {[key: string]: string | undefined}
-  version: string
-}
-type reactCheckType = {
-  version: string | undefined
-  isReact17: boolean
-}
+
+type ReactRuntimeType = 'automatic' | 'classic'
 class WpModuleOptions {
-  pkg: pkgType
-  react: reactCheckType
-  constructor() {
-    this.pkg = {dependencies: {}, devDependencies: {}, version: ''}
-    this.react = {
-      version: undefined,
-      isReact17: false,
-    }
-  }
+  reactRuntime?: ReactRuntimeType
+  constructor() {}
   async setup() {
-    const pkg = require(path.resolve(store.root, 'package.json'))
-    this.pkg = {...this.pkg, ...pkg}
-    this.react.version = this.pkg.dependencies.react || this.pkg.devDependencies.react
-    this.react.isReact17 = false
-    if (this.react.version) this.react.isReact17 = vCompare(this.react.version, '17') > -1
-    //
+    if (!store.config.reactRuntime) {
+      this.checkReactVersion()
+    } else {
+      this.reactRuntime = store.config.reactRuntime
+    }
     this.setScriptReactLoader()
   }
-  // public esbuildLoader(options: TransformOptions) {
-  //   return {
-  //     loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/esbuild')),
-  //     options,
-  //   }
-  //   /* return {
-  //     esbuild: {
-  //       loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/esbuild')),
-  //       options,
-  //     },
-  //   } */
-  // }
+  private checkReactVersion() {
+    const pkg = require(path.resolve(store.root, 'package.json'))
+    const version = pkg.dependencies.react || pkg.devDependencies.react
+    if (version) {
+      this.reactRuntime = vCompare(version, '17') > -1 ? 'automatic' : 'classic'
+    }
+  }
   public swcLoader() {
     return {
       swc: {
@@ -55,7 +34,7 @@ class WpModuleOptions {
     const isDev = store.config.mode === 'development'
     //const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
     // 增加插件支持
-    if (isDev && store.config.server.hot && !!this.react.version)
+    if (isDev && store.config.server.hot && !!this.reactRuntime)
       wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'))
   }
 }
