@@ -1,14 +1,15 @@
 {
   "name": "@efox/emp",
-  "version": "2.0.0",
+  "version": "2.0.0-3",
   "description": "",
   "license": "MIT",
   "files": [
     "dist",
-    "bin"
+    "bin",
+    "template"
   ],
   "maintainers": [
-    "xuhongbin@yy.com"
+    "xuhongbin"
   ],
   "repository": {
     "type": "git",
