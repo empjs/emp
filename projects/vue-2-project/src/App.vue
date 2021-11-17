@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>Project App</h1>
+    <h1>Project App ! vue 2 project</h1>
     <Content />
   </div>
 </template>

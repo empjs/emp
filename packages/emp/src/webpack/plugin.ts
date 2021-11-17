@@ -40,7 +40,7 @@ export const wpPlugin = () => {
       // },
     },
   }
-  if (isDev && store.wpo.modules.react) {
+  if (isDev && store.wpo.modules.react.version) {
     config.plugin.reactRefresh = {
       plugin: require('@pmmmwh/react-refresh-webpack-plugin'),
       args: [],

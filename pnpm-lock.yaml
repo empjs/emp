@@ -58,6 +58,7 @@ importers:
       less-loader: ^10.2.0
       mini-css-extract-plugin: ^2.4.4
       postcss-loader: ^6.2.0
+      react-refresh: ^0.11.0
       regenerator-runtime: ^0.13.9
       rimraf: ^3.0.2
       sass: ^1.43.4
@@ -75,7 +76,7 @@ importers:
       webpack-dev-server: ^4.4.0
       webpack-federated-stats-plugin: ^2.0.8
     dependencies:
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_b39712dcdf2f1953aad0e72a9a66d399
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_dce0acf8331fa5af48162ff7f2506b2c
       '@svgr/webpack': 5.5.0
       '@swc/core': 1.2.106
       address: 1.1.2
@@ -97,6 +98,7 @@ importers:
       less-loader: 10.2.0_webpack@5.64.0
       mini-css-extract-plugin: 2.4.4_webpack@5.64.0
       postcss-loader: 6.2.0_webpack@5.64.0
+      react-refresh: 0.11.0
       regenerator-runtime: 0.13.9
       sass: 1.43.4
       sass-loader: 12.3.0_sass@1.43.4+webpack@5.64.0
@@ -211,12 +213,9 @@ importers:
       '@babel/preset-typescript': ^7.16.0
       '@babel/runtime': ^7.16.3
       '@efox/emp': workspace:^2.0.0
-      '@pmmmwh/react-refresh-webpack-plugin': ^0.5.1
-      '@svgr/webpack': ^5.5.0
       babel-loader: ^8.2.3
       babel-plugin-import: ^1.13.3
       core-js: ^3.19.1
-      react-refresh: ^0.11.0
       rimraf: ^3.0.2
       ts-transform-paths: ^2.0.3
       ttypescript: ^1.5.12
@@ -231,12 +230,9 @@ importers:
       '@babel/preset-typescript': 7.16.0_@babel+core@7.16.0
       '@babel/runtime': 7.16.3
       '@efox/emp': link:../emp
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_react-refresh@0.11.0
-      '@svgr/webpack': 5.5.0
       babel-loader: 8.2.3_@babel+core@7.16.0
       babel-plugin-import: 1.13.3
       core-js: 3.19.1
-      react-refresh: 0.11.0
     devDependencies:
       rimraf: 3.0.2
       ts-transform-paths: 2.0.3
@@ -2756,46 +2752,7 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_b39712dcdf2f1953aad0e72a9a66d399:
-    resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}
-    engines: {node: '>= 10.13'}
-    peerDependencies:
-      '@types/webpack': 4.x || 5.x
-      react-refresh: ^0.10.0
-      sockjs-client: ^1.4.0
-      type-fest: '>=0.17.0 <3.0.0'
-      webpack: '>=4.43.0 <6.0.0'
-      webpack-dev-server: 3.x || 4.x
-      webpack-hot-middleware: 2.x
-      webpack-plugin-serve: 0.x || 1.x
-    peerDependenciesMeta:
-      '@types/webpack':
-        optional: true
-      sockjs-client:
-        optional: true
-      type-fest:
-        optional: true
-      webpack-dev-server:
-        optional: true
-      webpack-hot-middleware:
-        optional: true
-      webpack-plugin-serve:
-        optional: true
-    dependencies:
-      ansi-html-community: 0.0.8
-      common-path-prefix: 3.0.0
-      core-js-pure: 3.19.1
-      error-stack-parser: 2.0.6
-      find-up: 5.0.0
-      html-entities: 2.3.2
-      loader-utils: 2.0.2
-      schema-utils: 3.1.1
-      source-map: 0.7.3
-      webpack: 5.64.0_@swc+core@1.2.106
-      webpack-dev-server: 4.4.0_webpack@5.64.0
-    dev: false
-
-  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_react-refresh@0.11.0:
+  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_dce0acf8331fa5af48162ff7f2506b2c:
     resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}
     engines: {node: '>= 10.13'}
     peerDependencies:
@@ -2831,6 +2788,8 @@ packages:
       react-refresh: 0.11.0
       schema-utils: 3.1.1
       source-map: 0.7.3
+      webpack: 5.64.0_@swc+core@1.2.106
+      webpack-dev-server: 4.4.0_webpack@5.64.0
     dev: false
 
   /@polka/url/1.0.0-next.21:

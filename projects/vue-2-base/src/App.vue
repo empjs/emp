@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Base App</h3>
+    <h1>Vue 2 Base</h1>
     <logo style="width: 100px" />
     <img :src="require('./logo.png')" alt="logo" />
     <Content />
