@@ -12,24 +12,18 @@ module.exports = defineConfig({
     sourcemap: false,
     // outDir: 'build',
   },
-  externals(config) {
-    return [
-      {
-        module: 'react',
-        global: 'React',
-        entry:
-          config.mode === 'development'
-            ? `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js`
-            : `https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js`,
+  empShare({mode}) {
+    return {
+      shareLib: {
+        react:
+          mode === 'development'
+            ? `React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js`
+            : `React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js`,
+        'react-dom':
+          mode === 'development'
+            ? 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js'
+            : 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
       },
-      {
-        module: 'react-dom',
-        global: 'ReactDOM',
-        entry:
-          config.mode === 'development'
-            ? 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js'
-            : 'https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
-      },
-    ]
+    }
   },
 })

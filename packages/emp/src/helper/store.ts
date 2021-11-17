@@ -84,10 +84,10 @@ class GlobalStore {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
         const conf = await configExport({mode})
-        this.config = initConfig(conf, mode)
+        this.config = initConfig(conf, mode, cliOptions)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport
-        this.config = initConfig(conf, mode)
+        this.config = initConfig(conf, mode, cliOptions)
       }
     }
     // check IsESM

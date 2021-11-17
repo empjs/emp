@@ -71,11 +71,12 @@ class WpPluginOptions {
     } */
     if (store.config.html.files) {
       if (store.config.html.files.css) {
-        store.empShare.externalAssets.css.concat(store.config.html.files.css)
+        store.empShare.externalAssets.css = store.empShare.externalAssets.css.concat(store.config.html.files.css)
       }
       if (store.config.html.files.js) {
-        store.empShare.externalAssets.js.concat(store.config.html.files.js)
+        store.empShare.externalAssets.js = store.empShare.externalAssets.js.concat(store.config.html.files.js)
       }
+      //避免 merge 影响全局加载
       delete store.config.html.files
     }
     return {

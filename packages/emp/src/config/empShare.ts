@@ -2,7 +2,7 @@ import {EMPConfig} from './index'
 import {container, Configuration} from 'webpack'
 import store from 'src/helper/store'
 import {externalAssetsType} from 'src/types'
-import {ResovleConfig} from '..'
+import {ResovleConfig} from './index'
 //
 export type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
 type MFFunction = (o: EMPConfig) => MFOptions | Promise<MFOptions>
@@ -34,23 +34,103 @@ export type ExternalsItemType = {
 }
 export type ExternalsFunc = (config: ResovleConfig) => ExternalsItemType[] | Promise<ExternalsItemType[]>
 export type ExternalsType = ExternalsItemType[] | ExternalsFunc
-
+//
+export type EMPshareLibItemType = {
+  [module: string]:
+    | {
+        entry: string
+        global?: string
+        type?: 'js' | 'css'
+      }
+    | string
+    | string[]
+}
+export type EMPShareType = MFOptions & {
+  /**
+   * emp 基于库共享模块
+   */
+  shareLib?: EMPshareLibItemType
+}
+export type EMPShareFunc = (config: ResovleConfig) => EMPShareType | Promise<EMPShareType>
+export type EMPShareExport = EMPShareType | EMPShareFunc
 class EMPShare {
   moduleFederation: MFOptions = {}
   externals: Configuration['externals'] | any = {}
   externalAssets: externalAssetsType = {js: [], css: []}
+  // empShare: EMPShareType = {}
   constructor() {}
   async setup() {
-    await Promise.all([this.setExternals(), this.setModuleFederation()])
+    if (store.config.empShare) {
+      await this.setEmpShare()
+    } else {
+      await Promise.all([this.setExternals(), this.setModuleFederation()])
+    }
   }
-  async setExternals(): Promise<void> {
-    if (store.config.externals) {
-      let list = []
-      if (typeof store.config.externals === 'function') {
-        list = await store.config.externals(store.config)
-      } else {
-        list = store.config.externals
+  private async setEmpShare() {
+    let mf: EMPShareType = {}
+    if (typeof store.config.empShare === 'function') {
+      mf = await store.config.empShare(store.config)
+    } else if (store.config.empShare) {
+      mf = store.config.empShare
+    }
+    const externals: ExternalsItemType[] = []
+    if (typeof mf.shareLib === 'object') {
+      for (const [k, v] of Object.entries(mf.shareLib)) {
+        let externalsItem: ExternalsItemType = {entry: ''}
+        externalsItem.module = k
+        if (typeof v === 'string') {
+          const cb: any = v.match(/^([a-zA-Z\s]+)@(.*)/)
+          externalsItem.global = cb[1]
+          externalsItem.entry = cb[2]
+          externalsItem.type = 'js'
+          externals.push(externalsItem)
+          externalsItem = {entry: ''}
+        } else if (Array.isArray(v)) {
+          v.map(vo => {
+            if (!vo) return
+            const isJS = vo.split('?')[0].endsWith('.js')
+            // console.log('vo', vo)
+            // const isCSS = vo.split('?')[0].endsWith('.css')
+            // if (!isJS && !isCSS) return
+            if (isJS) {
+              const cb: any = vo.match(/^([a-zA-Z\s]+)@(.*)/)
+              externalsItem.global = cb[1]
+              externalsItem.entry = cb[2]
+              externalsItem.type = 'js'
+            } else if (vo) {
+              externalsItem.entry = vo
+              externalsItem.type = 'css'
+            }
+            externals.push(externalsItem)
+            externalsItem = {entry: ''}
+          })
+        } else if (typeof v === 'object' && v.entry) {
+          externalsItem.entry = v.entry
+          externalsItem.global = v.global
+          externalsItem.type = v.type
+          externals.push(externalsItem)
+          externalsItem = {entry: ''}
+        }
       }
+      delete mf.shareLib
+      await Promise.all([this.setExternals(externals), this.setModuleFederation(mf)])
+    }
+  }
+  /**
+   * setExternals
+   * concat empShare's externals
+   * @param externals
+   */
+  private async setExternals(externals: ExternalsItemType[] = []): Promise<void> {
+    const externalsOpt = store.config.externals || []
+    if (externalsOpt || externals.length > 0) {
+      let list: ExternalsItemType[] = []
+      if (typeof externalsOpt === 'function') {
+        list = await externalsOpt(store.config)
+      } else if (externalsOpt.length > 0) {
+        list = externalsOpt
+      }
+      list = list.concat(externals)
       list.map(v => {
         v.type = v.type || 'js'
         if (v.type === 'js' && v.module) {
@@ -62,20 +142,27 @@ class EMPShare {
       })
     }
   }
-  async setModuleFederation() {
-    let {moduleFederation} = store.config
-    if (moduleFederation) {
-      if (typeof moduleFederation === 'function') {
-        moduleFederation = await moduleFederation(store.config)
+  /**
+   * setModuleFederation
+   * empshare Replace module federation options
+   * @param moduleFederation
+   */
+  private async setModuleFederation(moduleFederation?: MFOptions) {
+    let moduleFederationOpt = moduleFederation || store.config.moduleFederation
+    if (moduleFederationOpt) {
+      if (typeof moduleFederationOpt === 'function') {
+        moduleFederationOpt = await moduleFederationOpt(store.config)
       }
-      moduleFederation.filename = moduleFederation.filename || 'emp.js'
-      // emp esm module
-      if (!moduleFederation.library && store.isESM) {
-        //TODO: 实验 MF 的 ESM 模式是否正常运行
-        // moduleFederation.library = {type: 'module'}
-        // moduleFederation.library = {type: 'window', name: moduleFederation.name}
+      if (moduleFederationOpt.name) {
+        moduleFederationOpt.filename = moduleFederationOpt.filename || 'emp.js'
+        // emp esm module
+        if (!moduleFederationOpt.library && store.isESM) {
+          //TODO: 实验 MF 的 ESM 模式是否正常运行
+          // moduleFederationOpt.library = {type: 'module'}
+          // moduleFederationOpt.library = {type: 'window', name: moduleFederationOpt.name}
+        }
+        this.moduleFederation = moduleFederationOpt
       }
-      this.moduleFederation = moduleFederation
     }
   }
 }

@@ -1,12 +1,12 @@
 import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
-import {modeType} from 'src/types'
+import {cliOptionsType, modeType} from 'src/types'
 import {ExternalsType} from 'src/config/empShare'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml} from 'src/config/html'
-import {MFExport} from './empShare'
+import {MFExport, EMPShareExport} from './empShare'
 //
 
 //
@@ -73,6 +73,12 @@ export type EMPConfig = {
    */
   moduleFederation?: MFExport
   /**
+   * emp share 配置
+   * 实现3重共享模型
+   * empshare 与 module federation 只能选择一个配置
+   */
+  empShare?: EMPShareExport
+  /**
    * 启用 import.meta
    * 需要在 script type=module 才可以执行
    * @default false
@@ -103,12 +109,25 @@ export type EMPConfigExport = EMPConfig | Promise<EMPConfig> | EMPConfigFn
 export function defineConfig(config: EMPConfigExport): EMPConfigExport {
   return config
 }
-export type ResovleConfig = Required<EMPConfig> & {
-  build: Required<BuildOptions>
-  server: Required<ServerOptions>
-  moduleFederation?: MFExport
-}
-export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
+//
+type Override<What, With> = Omit<What, keyof With> & With
+export type ResovleConfig = Override<
+  Required<EMPConfig>,
+  {
+    build: Required<BuildOptions>
+    server: Required<ServerOptions>
+    moduleFederation?: MFExport
+    externals?: ExternalsType
+    empShare?: EMPShareExport
+    cliOptions: cliOptionsType
+    webpackChain?: WebpackChainType
+  }
+>
+export const initConfig = (
+  op: any = {},
+  mode: modeType = 'development',
+  cliOptions: cliOptionsType = {},
+): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
@@ -133,6 +152,9 @@ export const initConfig = (op: EMPConfig = {}, mode = 'development'): any => {
       logLevel: 'info',
       useImportMeta: false,
       splitCss: true,
+      cliOptions,
+      appEntry: '',
+      jsCheck: false,
     },
     ...op,
   }
