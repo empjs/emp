@@ -10,6 +10,10 @@ const LazyComponent = lazy(() => import('./LazyComponent'))
 function App() {
   return (
     <div>
+      <h3>src from public</h3>
+      <img src="/logo.jpg" />
+      <h3>src from require</h3>
+      <img src={require('./assets/logo.jpg')} />
       <ClassDefault />
       <ClassNamed />
       <FunctionDefault />

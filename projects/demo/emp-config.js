@@ -1,6 +1,7 @@
 const {defineConfig} = require('@efox/emp')
 
 module.exports = defineConfig({
+  base: 'http://172.29.174.164:8000/',
   server: {
     port: 8000,
     // hot: 'only',

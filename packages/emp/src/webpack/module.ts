@@ -6,7 +6,7 @@ export const wpModule = () => {
   const config = {
     module: {
       generator: {
-        'asset/resource': {
+        asset: {
           publicPath: store.config.base,
         },
       },
