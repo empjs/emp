@@ -32,6 +32,7 @@
 + 🤯 支持https 代理 
 + 🤯 支持域名设置
 + 😇 DTS 重写 [非commander]
++ 🤯 cliOptions 在 build 的情况下无法获取
 
 ## emp 文件分布详解 
 ```

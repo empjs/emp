@@ -21,9 +21,11 @@ export type ExternalsItemType = {
   global?: string
   /**
    * 入口地址
+   * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
+   * 如 http://...?react&react-dom&react-router&mobx
    * @example http://
    */
-  entry: string
+  entry?: string
   /**
    * 类型入口
    * @default js
@@ -76,7 +78,7 @@ class EMPShare {
     const externals: ExternalsItemType[] = []
     if (typeof mf.shareLib === 'object') {
       for (const [k, v] of Object.entries(mf.shareLib)) {
-        let externalsItem: ExternalsItemType = {entry: ''}
+        let externalsItem: ExternalsItemType = {}
         externalsItem.module = k
         if (typeof v === 'string') {
           const cb: any = v.match(/^([a-zA-Z\s]+)@(.*)/)
@@ -84,7 +86,7 @@ class EMPShare {
           externalsItem.entry = cb[2]
           externalsItem.type = 'js'
           externals.push(externalsItem)
-          externalsItem = {entry: ''}
+          externalsItem = {}
         } else if (Array.isArray(v)) {
           v.map(vo => {
             if (!vo) return
@@ -102,14 +104,14 @@ class EMPShare {
               externalsItem.type = 'css'
             }
             externals.push(externalsItem)
-            externalsItem = {entry: ''}
+            externalsItem = {}
           })
         } else if (typeof v === 'object' && v.entry) {
           externalsItem.entry = v.entry
           externalsItem.global = v.global
           externalsItem.type = v.type
           externals.push(externalsItem)
-          externalsItem = {entry: ''}
+          externalsItem = {}
         }
       }
       delete mf.shareLib
@@ -135,8 +137,9 @@ class EMPShare {
         v.type = v.type || 'js'
         if (v.type === 'js' && v.module) {
           this.externals[v.module] = v.global
-          this.externalAssets.js.push(v.entry)
-        } else if (v.type === 'css') {
+          // 可以不传入 entry 利用传统的 merge request 进行合并请求
+          if (v.entry) this.externalAssets.js.push(v.entry)
+        } else if (v.type === 'css' && v.entry) {
           this.externalAssets.css.push(v.entry)
         }
       })

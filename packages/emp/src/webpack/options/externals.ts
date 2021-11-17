@@ -18,7 +18,7 @@ export type ExternalsItemType = {
    * 入口地址
    * @example http://
    */
-  entry: string
+  entry?: string
   /**
    * 类型入口
    * @default js
@@ -42,9 +42,10 @@ class WpExternalsOptions {
       list.map(v => {
         v.type = v.type || 'js'
         if (v.type === 'js' && v.module) {
+          // 可以不传入 entry 利用传统的 merge request 进行合并请求
           externals[v.module] = v.global
-          externalAssets.js.push(v.entry)
-        } else if (v.type === 'css') {
+          if (v.entry) externalAssets.js.push(v.entry)
+        } else if (v.type === 'css' && v.entry) {
           externalAssets.css.push(v.entry)
         }
       })

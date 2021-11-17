@@ -6,7 +6,7 @@ module.exports = defineConfig({
   appEntry: 'main.js',
   server: {port: 9001},
   html: {title: 'EMP Vue2 Base'},
-  externals: [
+  /* externals: [
     {module: 'vue', global: 'Vue', entry: 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js'},
     {module: 'element-ui', global: 'ELEMENT', entry: 'https://unpkg.com/element-ui/lib/index.js'},
     {entry: `https://unpkg.com/element-ui/lib/theme-chalk/index.css`, type: 'css'},
@@ -20,5 +20,19 @@ module.exports = defineConfig({
       },
       // shared: ['vue/dist/vue.esm.js'],
     }
-  },
+  }, */
+  empShare: {
+    name: 'vue2Base',
+    exposes: {
+      './Content': './src/components/Content',
+      './Table': './src/components/table',
+    },
+    shareLib: {
+      vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
+      'element-ui': [
+        'ELEMENT@https://unpkg.com/element-ui/lib/index.js', 
+        `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
+      ],
+    }
+  }
 })

@@ -12,7 +12,9 @@ module.exports = defineConfig({
     sourcemap: false,
     // outDir: 'build',
   },
-  empShare({mode}) {
+  empShare(config) {
+    const {mode} = config
+    console.log('emp-config of demo', config)
     return {
       shareLib: {
         react:
