@@ -35,6 +35,7 @@ module.exports = fn => ec => {
           // 支持 ts
           require.resolve('@babel/preset-typescript'),
           {
+            isTSX: true, // allExtensions依赖isTSX  https://babeljs.io/docs/en/babel-preset-typescript#allextensions
             allExtensions: true, // 支持所有文件扩展名
           },
         ],
