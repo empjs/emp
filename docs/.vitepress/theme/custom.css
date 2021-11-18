@@ -28,4 +28,14 @@
     color: white;
     border-radius: 3px;
   }
-  
+  .contact{
+    text-align: center;
+  }
+  .contact .footer{
+    color: #999;
+    font-size: .8rem;
+  }
+
+  .contact img{
+    width: 200px;
+  }
