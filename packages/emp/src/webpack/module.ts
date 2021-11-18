@@ -5,7 +5,7 @@ export const wpModule = () => {
   //
   const config = {
     module: {
-      // mini-css-extract-plugin 编译不过
+      // mini-css-extract-plugin 编译不过！
       /* generator: {
         asset: {
           publicPath: store.config.base,
