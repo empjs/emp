@@ -17,12 +17,16 @@ class Serve {
     this.app = app
   }
   startLogger({httpsOptions, host, port, publicPath}: any) {
-    const protocol = httpsOptions ? 'https' : 'http'
-    const realHost = host || '0.0.0.0'
-    const urls = prepareURLs(protocol, realHost, port as any, publicPath)
-    // logger.info(`  - Run Serve At:`)
-    logger.info(`- Local:   ${chalk.hex('#3498db')(urls.localUrlForTerminal)}`)
-    logger.info(`- Network: ${chalk.hex('#3498db')(urls.lanUrlForTerminal)} \n`)
+    if (publicPath && (publicPath.indexOf('http://') > -1 || publicPath.indexOf('https://') > -1)) {
+      logger.info(`- Network: ${chalk.hex('#3498db')(publicPath)} \n`)
+    } else {
+      const protocol = httpsOptions ? 'https' : 'http'
+      const realHost = host || '0.0.0.0'
+      const urls = prepareURLs(protocol, realHost, port as any, publicPath)
+      // logger.info(`  - Run Serve At:`)
+      logger.info(`- Local:   ${chalk.hex('#3498db')(urls.localUrlForTerminal)}`)
+      logger.info(`- Network: ${chalk.hex('#3498db')(urls.lanUrlForTerminal)} \n`)
+    }
   }
   async setup() {
     logTag(`server running at:`)

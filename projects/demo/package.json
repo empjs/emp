@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "emp dev -wl --env dev",
-    "build": "emp build --env prod",
+    "build": "emp build -wl --env prod",
     "start": "emp serve",
     "stat": "emp build --analyze"
   },

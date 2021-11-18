@@ -25,13 +25,22 @@ export const wpCSS = () => {
   }
   //
   const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
+  const styleLoader = (isStyle: boolean) => {
+    return isStyle
+      ? {
+          loader: require.resolve('style-loader'),
+          options: {},
+        }
+      : {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: store.config.base, //修复css 绝对路径的问题
+          },
+        }
+  }
   const getStyleLoader = (modules = false, preProcessor = {}) => {
-    // console.log(`checkStyleLoader()`, checkStyleLoader())
     return {
-      style: {
-        loader: checkStyleLoader() ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
-        options: {},
-      },
+      style: styleLoader(checkStyleLoader()),
       css: {
         loader: require.resolve('css-loader'),
         options: {
@@ -143,8 +152,8 @@ export const wpCSS = () => {
     wpChain.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
       {
         ignoreOrder: true,
-        filename: 'static/css/[name].[contenthash:8].css',
-        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].chunk.css',
         /**
             experimentalUseImportModule
             https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule
