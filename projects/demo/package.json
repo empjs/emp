@@ -13,10 +13,12 @@
   "license": "ISC",
   "devDependencies": {
     "@efox/emp": "workspace:^2.0.0",
-    "@efox/emp-tsconfig": "^1.1.4"
+    "@efox/emp-tsconfig": "^1.1.4",
+    "@types/lodash": "^4.14.177"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.1.5",
+    "lodash": "^4.17.21",
     "mobx": "^6.3.7",
     "mobx-react": "^7.2.1",
     "mobx-react-lite": "^3.2.2",

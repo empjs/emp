@@ -60,7 +60,7 @@ export const wpPlugin = () => {
   //analyzer
   if (store.cliOptions.analyze) {
     config.plugin.analyzer = {
-      plugin: require('webpack-bundle-analyzer'),
+      plugin: require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
       args: [
         {
           // analyzerMode: 'static',

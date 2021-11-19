@@ -332,7 +332,9 @@ importers:
     specifiers:
       '@efox/emp': workspace:^2.0.0
       '@efox/emp-tsconfig': ^1.1.4
+      '@types/lodash': ^4.14.177
       '@types/react-router-dom': ^5.1.5
+      lodash: ^4.17.21
       mobx: ^6.3.7
       mobx-react: ^7.2.1
       mobx-react-lite: ^3.2.2
@@ -340,6 +342,7 @@ importers:
       react-dom: ^17.0.2
     dependencies:
       '@types/react-router-dom': 5.3.2
+      lodash: 4.17.21
       mobx: 6.3.7
       mobx-react: 7.2.1_17a9a2b9737f188c3f2d8ece9728da86
       mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
@@ -348,6 +351,7 @@ importers:
     devDependencies:
       '@efox/emp': link:../../packages/emp
       '@efox/emp-tsconfig': 1.1.4_typescript@4.4.4
+      '@types/lodash': 4.14.177
 
   projects/empty-project:
     specifiers:
@@ -3296,6 +3300,10 @@ packages:
   /@types/less/3.0.3:
     resolution: {integrity: sha512-1YXyYH83h6We1djyoUEqTlVyQtCfJAFXELSKW2ZRtjHD4hQ82CC4lvrv5D0l0FLcKBaiPbXyi3MpMsI9ZRgKsw==}
     dev: false
+
+  /@types/lodash/4.14.177:
+    resolution: {integrity: sha512-0fDwydE2clKe9MNfvXHBHF9WEahRuj+msTuQqOmAApNORFvhMYZKNGGJdCzuhheVjMps/ti0Ak/iJPACMaevvw==}
+    dev: true
 
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
