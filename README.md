@@ -48,6 +48,11 @@ cd my-emp && yarn && yarn dev
 
 ## 🧞‍♂️ Command plugin development guide
 
+Using plugin need to add Something in emp-config.js
+```
+isRegisterCommand: true
+```
+
 + command - define the name of the command line command
 + description - description, it will be shown in help
 + option - Define parameters. It accepts four parameters. In the first parameter, it can enter the short name -a and the long name -app, separated by | or,. When used on the command line, these two are equivalent. The difference is The latter can be obtained through callbacks in the program; the second is the description, which will be displayed in the help message; the third parameter is the callback function, and the parameter it receives is a string. Sometimes we need a command line to create multiple Module, you need a callback to process; the fourth parameter is the default value
