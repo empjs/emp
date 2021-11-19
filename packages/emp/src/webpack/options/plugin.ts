@@ -1,10 +1,7 @@
 import store from 'src/helper/store'
-import fs from 'fs-extra'
 import {cliOptionsType} from 'src/types'
-// import {MFOptions, getModuleFederation} from 'src/config/empShare'
 class WpPluginOptions {
   public htmlWebpackPlugin = {}
-  // public moduleFederation: MFOptions = {}
   public definePlugin = {}
   public dotenv = {}
   private isESM = false
@@ -38,37 +35,12 @@ class WpPluginOptions {
       if (this.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(clist[key])
       else defines[`process.env.${key}`] = JSON.stringify(clist[key])
     })
-
-    // console.log('defines', defines)
     return defines
   }
-  /* private async setModuleFederation() {
-    let mf: MFOptions = {}
-    let {moduleFederation} = store.config
-    if (moduleFederation) {
-      if (typeof moduleFederation === 'function') {
-        moduleFederation = await moduleFederation(store.config)
-      }
-      moduleFederation.filename = moduleFederation.filename || 'emp.js'
-      // emp esm module
-      if (!moduleFederation.library && this.isESM) {
-        //TODO: 实验 MF 的 ESM 模式是否正常运行
-        // moduleFederation.library = {type: 'module'}
-        // moduleFederation.library = {type: 'window', name: moduleFederation.name}
-      }
-      mf = moduleFederation
-    }
-    return mf
-  } */
+  /**
+   * 自定义内容移到 config里面 方便外部自定义
+   */
   private setHtmlWebpackPlugin() {
-    /* let template = store.resolve('src/index.html')
-    let favicon = store.resolve('src/favicon.ico')
-    if (!fs.existsSync(template)) {
-      template = store.empResolve('template/index.html')
-    }
-    if (!fs.existsSync(favicon)) {
-      favicon = store.empResolve('template/favicon.ico')
-    } */
     if (store.config.html.files) {
       if (store.config.html.files.css) {
         store.empShare.externalAssets.css = store.empShare.externalAssets.css.concat(store.config.html.files.css)

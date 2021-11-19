@@ -3,8 +3,6 @@ import store from 'src/helper/store'
 import fs from 'fs-extra'
 import WpPluginOptions from 'src/webpack/options/plugin'
 import WpModuleOptions from 'src/webpack/options/module'
-// import wpExternalsOptions from 'src/webpack/options/externals'
-// import {externalAssetsType} from 'src/types'
 class WpOptions {
   output: Configuration['output'] = {}
   resolve: Configuration['resolve'] = {}
@@ -13,25 +11,13 @@ class WpOptions {
   plugins = new WpPluginOptions()
   modules = new WpModuleOptions()
   entry?: Configuration['entry'] = {}
-  // external: Configuration['externals'] = {}
-  // externalAssets: externalAssetsType = {js: [], css: []}
   constructor() {}
   async setup(mode: Configuration['mode']) {
     this.mode = mode
     this.setOput()
     this.setResolve()
     this.setStats()
-    // 先执行 entry 有助于 external 与之联动
-    /* await wpExternalsOptions.setup(this.external, this.externalAssets)
-    await this.plugins.setup()
-    await this.modules.setup()
-    await this.setEntry() */
-    await Promise.all([
-      // wpExternalsOptions.setup(this.external, this.externalAssets),
-      this.plugins.setup(),
-      this.modules.setup(),
-      this.setEntry(),
-    ])
+    await Promise.all([this.plugins.setup(), this.modules.setup(), this.setEntry()])
   }
   async setEntry() {
     const {resolve} = store
@@ -57,8 +43,7 @@ class WpOptions {
     this.entry = {index: [store.config.appEntry]}
   }
   setOput() {
-    const isESM = ['es3', 'es5'].indexOf(store.config.build.target) === -1
-    const environment = !isESM
+    const environment = !store.isESM
       ? {
           arrowFunction: false,
           bigIntLiteral: false,

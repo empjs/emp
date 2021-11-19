@@ -80,8 +80,10 @@ class EMPShare {
       for (const [k, v] of Object.entries(mf.shareLib)) {
         let externalsItem: ExternalsItemType = {}
         externalsItem.module = k
+        //TODO: 需要解决lodash 等特殊符号的问题 如 _@http
+        const exp = /^([a-zA-Z\s]+)@(.*)/ // 匹配库内容如 React@http://
         if (typeof v === 'string') {
-          const cb: any = v.match(/^([a-zA-Z\s]+)@(.*)/)
+          const cb: any = v.match(exp)
           externalsItem.global = cb[1]
           externalsItem.entry = cb[2]
           externalsItem.type = 'js'
@@ -95,7 +97,7 @@ class EMPShare {
             // const isCSS = vo.split('?')[0].endsWith('.css')
             // if (!isJS && !isCSS) return
             if (isJS) {
-              const cb: any = vo.match(/^([a-zA-Z\s]+)@(.*)/)
+              const cb: any = vo.match(exp)
               externalsItem.global = cb[1]
               externalsItem.entry = cb[2]
               externalsItem.type = 'js'
