@@ -12,6 +12,14 @@ export const wpModule = () => {
         },
       }, */
       rule: {
+        // 解决 mjs 加载失败问题
+        mjs: {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
+        //
         scripts: {
           test: /\.(js|jsx|ts|tsx)$/,
           exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow

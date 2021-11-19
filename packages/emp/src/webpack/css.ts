@@ -10,23 +10,32 @@ const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
 //
-export const wpCSS = () => {
-  const isDev = store.wpo.mode === 'development'
-  const {splitCss} = store.config
-  //
-  const checkStyleLoader = () => {
+class WPCSSOptions {
+  splitCss: boolean
+  isDev: boolean
+  localIdentName: string
+  isModules = false
+  publicPath: string
+  constructor({splitCss, isDev, publicPath}: any) {
+    this.splitCss = splitCss
+    this.isDev = isDev
+    this.publicPath = publicPath
+    this.localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
+  }
+  get isStyleLoader() {
+    const {splitCss, isDev} = this
     if (!splitCss) return true
     if (isDev) return true
     return false
   }
-  const checkMiniCss = () => {
+  get isMiniCss() {
+    const {splitCss, isDev} = this
     if (splitCss && !isDev) return true
     return false
   }
-  //
-  const localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
-  const styleLoader = (isStyle: boolean) => {
-    return isStyle
+  get style() {
+    const {publicPath} = this
+    return this.isStyleLoader
       ? {
           loader: require.resolve('style-loader'),
           options: {},
@@ -34,105 +43,107 @@ export const wpCSS = () => {
       : {
           loader: MiniCssExtractPlugin.loader,
           options: {
-            publicPath: store.config.base, //修复css 绝对路径的问题
+            publicPath, //修复css 绝对路径的问题
           },
         }
   }
-  const getStyleLoader = (modules = false, preProcessor = {}) => {
+  get css() {
+    const {localIdentName, isModules} = this
     return {
-      style: styleLoader(checkStyleLoader()),
-      css: {
-        loader: require.resolve('css-loader'),
-        options: {
-          modules: modules ? {localIdentName} : modules,
-        },
+      loader: require.resolve('css-loader'),
+      options: {
+        modules: isModules ? {localIdentName} : isModules,
       },
-      postcss: {
-        loader: require.resolve('postcss-loader'),
-        options: {
-          postcssOptions: {
-            hideNothingWarning: true,
-          },
-        },
-      },
-      ...preProcessor,
     }
   }
-  const config: any = {
+  get sass() {
+    const {isDev} = this
+    return {
+      loader: require.resolve('sass-loader'),
+      options: {
+        implementation: require('sass'),
+        sourceMap: isDev,
+      },
+    }
+  }
+  get less() {
+    const {isModules} = this
+    return isModules
+      ? {loader: require.resolve('less-loader')}
+      : {
+          loader: require.resolve('less-loader'),
+          options: {
+            lessOptions: {javascriptEnabled: true},
+          },
+        }
+  }
+  get postcss() {
+    return {
+      loader: require.resolve('postcss-loader'),
+      options: {
+        postcssOptions: {
+          hideNothingWarning: true,
+        },
+      },
+    }
+  }
+  loaders(isModules = false, parser?: 'sass' | 'less') {
+    this.isModules = isModules
+    const {style, css, postcss, sass, less} = this
+    const opt: any = {
+      style,
+      css,
+      postcss,
+    }
+    if (parser && parser === 'sass') {
+      opt.sass = sass
+    } else if (parser && parser === 'less') {
+      opt.less = less
+    }
+    return opt
+  }
+}
+//
+export const wpCSS = () => {
+  const isDev = store.wpo.mode === 'development'
+  const {splitCss} = store.config
+  const wpCssOptions = new WPCSSOptions({isDev, splitCss, publicPath: store.config.base})
+  //
+  const config = {
     module: {
       rule: {
         css: {
           test: cssRegex,
           exclude: cssModuleRegex,
-          use: {
-            ...getStyleLoader(),
-          },
+          use: wpCssOptions.loaders(),
         },
         cssModule: {
           test: cssModuleRegex,
-          use: {
-            ...getStyleLoader(true),
-          },
+          use: wpCssOptions.loaders(true),
         },
         sassModule: {
           test: sassModuleRegex,
-          use: {
-            ...getStyleLoader(true, {
-              sass: {
-                loader: require.resolve('sass-loader'),
-                options: {
-                  implementation: require('sass'),
-                  sourceMap: isDev,
-                },
-              },
-            }),
-          },
+          use: wpCssOptions.loaders(true, 'sass'),
         },
         sass: {
           test: sassRegex,
           exclude: sassModuleRegex,
-          use: {
-            ...getStyleLoader(false, {
-              sass: {
-                loader: require.resolve('sass-loader'),
-                options: {
-                  implementation: require('sass'),
-                  sourceMap: isDev,
-                },
-              },
-            }),
-          },
+          use: wpCssOptions.loaders(false, 'sass'),
         },
         less: {
           test: lessRegex,
           exclude: lessModuleRegex,
-          use: {
-            ...getStyleLoader(false, {
-              less: {
-                loader: require.resolve('less-loader'),
-                options: {
-                  lessOptions: {javascriptEnabled: true},
-                },
-              },
-            }),
-          },
+          use: wpCssOptions.loaders(false, 'less'),
         },
         lessModule: {
           test: lessModuleRegex,
-          use: {
-            ...getStyleLoader(true, {
-              less: {
-                loader: require.resolve('less-loader'),
-              },
-            }),
-          },
+          use: wpCssOptions.loaders(true, 'less'),
         },
       },
     },
   }
   //[css minify]
-  // console.log(`checkMiniCss()`, checkMiniCss())
-  if (checkMiniCss()) {
+  if (wpCssOptions.isMiniCss) {
     if (store.config.build.minify === true) {
       wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
         {

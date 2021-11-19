@@ -13,7 +13,7 @@ export const wpProduction = () => {
       maxAssetSize: 512000,
     },
     optimization: {
-      chunkIds: 'named',
+      chunkIds: store.config.chunkIds || 'deterministic', // deterministic 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
       minimize: store.config.build.minify,
       // runtimeChunk: 'single', // 影响 MF 执行
     },

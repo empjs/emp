@@ -4,11 +4,15 @@ import ClassDefault from './ClassDefault'
 import {ClassNamed} from './ClassNamed'
 import FunctionDefault from './FunctionDefault'
 import {FunctionNamed} from './FunctionNamed'
-import css from './App.module.less'
 import {Link} from 'react-router-dom'
 import incStore from './store/incStore'
 import {observer} from 'mobx-react-lite'
 import partition from 'lodash/partition'
+//
+// import css from './App.module.less'
+// import 'reset.less'
+import css from './App.module.scss'
+import 'reset.scss'
 console.log('css', css)
 console.log(
   'partition',

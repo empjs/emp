@@ -80,8 +80,8 @@ class EMPShare {
       for (const [k, v] of Object.entries(mf.shareLib)) {
         let externalsItem: ExternalsItemType = {}
         externalsItem.module = k
-        //TODO: 需要解决lodash 等特殊符号的问题 如 _@http
-        const exp = /^([a-zA-Z\s]+)@(.*)/ // 匹配库内容如 React@http://
+        //增加下划线 支持lodash 等特殊符号的问题 如 _@http
+        const exp = /^([a-zA-Z_\s]+)@(.*)/ // 匹配库内容如 React@http://
         if (typeof v === 'string') {
           const cb: any = v.match(exp)
           externalsItem.global = cb[1]

@@ -7,6 +7,7 @@ import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml} from 'src/config/html'
 import {MFExport, EMPShareExport} from './empShare'
+import {Configuration} from 'webpack'
 //
 
 //
@@ -106,6 +107,10 @@ export type EMPConfig = {
    * @default undefined
    */
   reactRuntime?: 'automatic' | 'classic'
+  /**
+   * chunkIds
+   */
+  chunkIds?: false | 'natural' | 'named' | 'deterministic' | 'size' | 'total-size'
 }
 export interface ConfigEnv {
   mode: modeType
