@@ -58,5 +58,5 @@
 ```
 
 ## 👬 Community
-+ ![wxgroup](docs/contact_me_qr.png)
++ ![wxgroup](docs/img/contact_me_qr.png)
 + [掘金专栏](https://juejin.cn/user/483440843559406/posts)
