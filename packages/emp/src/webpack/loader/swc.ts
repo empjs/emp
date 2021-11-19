@@ -2,19 +2,45 @@ import webpack from 'webpack'
 import {ResovleConfig} from 'src/config'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
-// import {logTag} from 'src/helper/logger'
 const isDev = store.config.mode === 'development'
 const {build} = store.config
-let react: TransformConfig['react'] = {
-  runtime: store.wpo.modules.reactRuntime || 'classic',
-  refresh: isDev, //TODO 增加 react-refresh 支持
-  development: isDev,
-  useBuiltins: false,
-}
 
+class SWCOpt {
+  isTypescript = false
+  isReact = false
+  resetType(isTypescript: boolean, isReact: boolean) {
+    this.isReact = isReact
+    this.isTypescript = isTypescript
+  }
+  get parser(): JscConfig['parser'] {
+    if (this.isTypescript) {
+      return {
+        syntax: 'typescript',
+        tsx: this.isReact,
+        decorators: true,
+        dynamicImport: true, //
+      }
+    }
+    return {
+      syntax: 'ecmascript',
+      jsx: this.isReact,
+      decorators: true,
+      decoratorsBeforeExport: false,
+    }
+  }
+  get react(): TransformConfig['react'] {
+    return this.isReact
+      ? {
+          runtime: store.wpo.modules.reactRuntime || 'classic',
+          refresh: isDev, //TODO 增加 react-refresh 支持
+          development: isDev,
+          useBuiltins: false,
+        }
+      : undefined
+  }
+}
+const swcOpt = new SWCOpt()
 //
-// console.log('\n')
-// logTag('swc compile.', 'green')
 async function SWCLoader(
   this: webpack.LoaderContext<ResovleConfig>,
   source: string,
@@ -25,25 +51,9 @@ async function SWCLoader(
   //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
+  swcOpt.resetType(isTypescript, isReact)
+  const {parser, react} = swcOpt
 
-  if (!isReact) {
-    react = undefined
-  }
-  let parser: JscConfig['parser'] = {
-    syntax: 'ecmascript',
-    jsx: isReact,
-    decorators: true,
-    decoratorsBeforeExport: false,
-  }
-  if (isTypescript) {
-    parser = {
-      syntax: 'typescript',
-      tsx: isReact,
-      decorators: true,
-      dynamicImport: true, //
-    }
-  }
-  //
   const swcOptions: Options = {
     sourceFileName: this.resourcePath,
     sourceMaps: typeof build.sourcemap !== 'undefined' ? build.sourcemap : this.sourceMap,

@@ -1,4 +1,4 @@
 import {render} from 'react-dom'
-import App from './App'
+import RouterComp from 'src/RouterComp'
 
-render(<App />, document.getElementById('emp-root'))
+render(<RouterComp />, document.getElementById('emp-root'))

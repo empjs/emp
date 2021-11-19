@@ -1,5 +1,5 @@
 const {defineConfig} = require('@efox/emp')
-
+const {envLib, lib} = require('./cdn')
 module.exports = defineConfig({
   base: '/',
   html: {title: 'Demo | EMP v2'},
@@ -15,17 +15,10 @@ module.exports = defineConfig({
   reactRuntime: 'automatic', //增加这个实现无安装依赖热更
   empShare(config) {
     const {mode} = config
-    // console.log('emp-config of demo', config)
     return {
       shareLib: {
-        react:
-          mode === 'development'
-            ? `React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js`
-            : `React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js`,
-        'react-dom':
-          mode === 'development'
-            ? 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js'
-            : 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js',
+        ...envLib[mode],
+        ...lib,
       },
     }
   },
