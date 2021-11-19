@@ -12,9 +12,9 @@
     "build": "pnpm build:pkg",
     "build:pkg": "pnpm run --filter=@efox/emp build && pnpm run --filter=@efox/*  --filter=!@efox/emp --parallel build",
     "dev:mf": "pnpm run --filter={micro-app,micro-host} --parallel dev",
-    "docs:dev": "vitepress dev docs",
+    "docs:dev": "vitepress dev docs --host",
     "docs:build": "vitepress build docs",
-    "docs:start": "vitepress serve docs"
+    "docs:start": "vitepress serve docs --host"
   },
   "husky": {
     "hooks": {

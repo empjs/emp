@@ -9,7 +9,7 @@ actionLink: /guide/
 
 features:
   - title: 💡 微组件化
-    details: 结合webpack5、Module Federation的丰富项目实战
+    details: 结合webpack5、Module Federation的丰富项目实战、建立三层共享模型
   - title: ⚡️ 快速构建重载
     details: 结合SWC进行bundle编译构建、提升整体构建速度.
   - title: 🛠️ 多功能模块支持
