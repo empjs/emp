@@ -15,7 +15,7 @@ class WPPlugin {
   constructor() {}
   private get dotenv() {
     const env = store.cliOptions.env || store.config.mode
-    const config = {
+    const options = {
       path: store.resolve(`.env${env ? '.' + env : ''}`),
       // path: './some.other.env', // load this now instead of the ones in '.env'
       safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
@@ -24,31 +24,34 @@ class WPPlugin {
       silent: true, // hide any errors
       defaults: false, // load '.env.defaults' as the default values if empty.
     }
-    return config
+    return {
+      plugin: Dotenv,
+      args: [options],
+    }
   }
   private get define() {
     const clist: cliOptionsType = store.cliOptions
     clist.mode = store.config.mode
-    const defines: cliOptionsType = {}
+    const options: cliOptionsType = {}
     Object.keys(clist).map(key => {
-      if (store.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(clist[key])
-      else defines[`process.env.${key}`] = JSON.stringify(clist[key])
+      if (store.isESM && store.config.useImportMeta) options[`import.meta.env.${key}`] = JSON.stringify(clist[key])
+      else options[`process.env.${key}`] = JSON.stringify(clist[key])
     })
-    return defines
+    // return defines
+    return {
+      plugin: webpack.DefinePlugin,
+      args: [options],
+    }
   }
+  //
   async setup() {
     const isDev = store.config.mode === 'development'
     this.isDev = isDev
+    const {define, dotenv} = this
     const config: any = {
       plugin: {
-        define: {
-          plugin: webpack.DefinePlugin,
-          args: [this.define],
-        },
-        dotenv: {
-          plugin: Dotenv,
-          args: [this.dotenv],
-        },
+        define,
+        dotenv,
       },
     }
     if (Object.keys(store.empShare.moduleFederation).length > 0) {

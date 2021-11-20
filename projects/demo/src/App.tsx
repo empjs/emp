@@ -12,7 +12,7 @@ import partition from 'lodash/partition'
 // import css from './App.module.less'
 import css from './App.module.scss'
 
-console.log('css', css)
+console.log('css', css, process.env.env)
 console.log(
   'partition',
   partition([1, 2, 3, 4], n => n % 2),

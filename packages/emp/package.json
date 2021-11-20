@@ -71,7 +71,7 @@
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.2.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.64.1",
+    "webpack": "^5.64.2",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.4.0",

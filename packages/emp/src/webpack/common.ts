@@ -4,37 +4,38 @@ import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 class WPCommon {
   isDev = true
-  isESM = false
   constructor() {}
   async setup() {
     this.isDev = store.config.mode === 'development'
-    this.isESM = store.isESM
     this.setCommon()
   }
   private setCommon() {
+    const {cache, resolve, experiments, output, stats} = this
     const config: Configuration = {
-      /* cache: {
-        type: 'filesystem',
-        cacheDirectory: store.cacheDir,
-      }, */
-      resolve: this.resolve,
-      // externalsType: 'script',
+      cache,
+      resolve,
       externals: store.empShare.externals,
-      experiments: this.experiments,
-      // externalsType: 'module',
-      // target: store.config.build.target,
-      output: this.output,
-      stats: this.stats,
+      experiments,
+      output,
+      stats,
     }
-    if (this.isESM) {
+    if (store.isESM) {
       config.externalsType = 'module'
       // config.externalsType = 'import'
+      //config.externalsType = 'script'
     }
     wpChain.merge(config)
   }
+  get cache() {
+    /* return {
+      type: 'filesystem',
+      cacheDirectory: store.cacheDir,
+    } */
+    return false
+  }
   get experiments() {
     return {
-      outputModule: this.isESM,
+      outputModule: store.isESM,
       topLevelAwait: true,
       // buildHttp: {allowedUris: []},//影响热更
       backCompat: true,
