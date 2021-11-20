@@ -40,6 +40,10 @@ export type BuildOptions = {
    * @default true
    */
   emptyOutDir?: boolean
+  /**
+   * chunkIds
+   */
+  chunkIds?: false | 'natural' | 'named' | 'deterministic' | 'size' | 'total-size'
 }
 
 export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
@@ -54,6 +58,7 @@ export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
       sourcemap: true,
       useLib: false,
       emptyOutDir: true,
+      chunkIds: false,
     },
     ...op,
   }

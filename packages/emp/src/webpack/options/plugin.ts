@@ -4,10 +4,9 @@ class WpPluginOptions {
   public htmlWebpackPlugin = {}
   public definePlugin = {}
   public dotenv = {}
-  private isESM = false
+
   constructor() {}
   public async setup() {
-    this.isESM = store.isESM
     this.htmlWebpackPlugin = this.setHtmlWebpackPlugin()
     this.definePlugin = this.setDefinePlugin()
     // this.moduleFederation = await getModuleFederation()
@@ -32,7 +31,7 @@ class WpPluginOptions {
     const defines: cliOptionsType = {}
 
     Object.keys(clist).map(key => {
-      if (this.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(clist[key])
+      if (store.isESM && store.config.useImportMeta) defines[`import.meta.env.${key}`] = JSON.stringify(clist[key])
       else defines[`process.env.${key}`] = JSON.stringify(clist[key])
     })
     return defines
@@ -59,11 +58,12 @@ class WpPluginOptions {
       //
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
       //  filename: 'index.html',
+      // isESM: store.isESM,
       files: {
         css: store.empShare.externalAssets.css,
         js: store.empShare.externalAssets.js,
       },
-      scriptLoading: store.isESM ? 'defer' : 'module',
+      scriptLoading: !store.isESM ? 'defer' : 'module',
       minify: store.wpo.mode === 'production' && {
         removeComments: true,
         collapseWhitespace: true,

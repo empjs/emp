@@ -139,16 +139,16 @@ html-webpack-plugin 相关操作
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
-### chunkIds 
+## 构建选项 
+### build
+ + 类型 `BuildOptions`
+
+### build.chunkIds 
 + 类型 `false` | `natural` | `named` | `deterministic` | `size` | `total-size`  
 + 默认 `named` | `deterministic` 
 
 `named` 有助于定位问题 开发模式默认启动
 `deterministic` 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
-
-## 构建选项 
-### build
- + 类型 `BuildOptions`
 
 ## 服务选项 
 ### server

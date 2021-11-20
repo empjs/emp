@@ -24,21 +24,31 @@ const Nav = observer(() => {
     <>
       <Link to="about">About</Link>
       <p>{incStore.num}</p>
-      <button onClick={() => incStore.inc()}>+1</button>
+      <pre>{incStore.code}</pre>
+      <button
+        onClick={() => {
+          incStore.inc()
+          incStore.loadData()
+        }}
+      >
+        +1
+      </button>
     </>
   )
 })
-function App() {
+const App = () => {
   return (
     <>
       <Nav />
       <div>
         <h3>[SRC] From PublicPath ENV:{process.env.env}</h3>
+
         <img src="/logo.jpg" />
         <h3>src from require</h3>
         <img src={require('./assets/logo.jpg')} />
         <h3>background</h3>
         <div className={css.bg}>bg</div>
+
         <ClassDefault />
         <ClassNamed />
         <FunctionDefault />

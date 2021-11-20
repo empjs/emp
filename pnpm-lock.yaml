@@ -334,24 +334,22 @@ importers:
       '@efox/emp-tsconfig': ^1.1.4
       '@types/lodash': ^4.14.177
       '@types/react-router-dom': ^5.1.5
+      axios: ^0.21.4
       lodash: ^4.17.21
       mobx: ^6.3.7
-      mobx-react: ^7.2.1
       mobx-react-lite: ^3.2.2
       react: ^17.0.2
-      react-dom: ^17.0.2
     dependencies:
-      '@types/react-router-dom': 5.3.2
+      axios: 0.21.4
       lodash: 4.17.21
       mobx: 6.3.7
-      mobx-react: 7.2.1_17a9a2b9737f188c3f2d8ece9728da86
-      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
+      mobx-react-lite: 3.2.2_mobx@6.3.7+react@17.0.2
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
       '@efox/emp-tsconfig': 1.1.4_typescript@4.4.4
       '@types/lodash': 4.14.177
+      '@types/react-router-dom': 5.3.2
 
   projects/empty-project:
     specifiers:
@@ -3256,6 +3254,7 @@ packages:
 
   /@types/history/4.7.9:
     resolution: {integrity: sha512-MUc6zSmU3tEVnkQ78q0peeEjKWPUADMlC/t++2bI8WnAG2tvYRPIgHG8lWkXwqc8MsUF6Z2MOf+Mh5sazOmhiQ==}
+    dev: true
 
   /@types/html-minifier-terser/6.0.0:
     resolution: {integrity: sha512-NZwaaynfs1oIoLAV1vg18e7QMVDvw+6SQrdJc8w3BwUaoroVSf6EBj/Sk4PBWGxsq0dzhA2drbsuMC1/6C6KgQ==}
@@ -3350,6 +3349,7 @@ packages:
 
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
+    dev: true
 
   /@types/q/1.5.5:
     resolution: {integrity: sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==}
@@ -3375,12 +3375,14 @@ packages:
       '@types/history': 4.7.9
       '@types/react': 16.14.20
       '@types/react-router': 5.1.17
+    dev: true
 
   /@types/react-router/5.1.17:
     resolution: {integrity: sha512-RNSXOyb3VyRs/EOGmjBhhGKTbnN6fHWvy5FNLzWfOWOGjgVUKqJZXfpKzLmgoU8h6Hj8mpALj/mbXQASOb92wQ==}
     dependencies:
       '@types/history': 4.7.9
       '@types/react': 16.14.20
+    dev: true
 
   /@types/react/16.14.20:
     resolution: {integrity: sha512-SV7TaVc8e9E/5Xuv6TIyJ5VhQpZoVFJqX6IZgj5HZoFCtIDCArE3qXkcHlc6O/Ud4UwcMoX+tlvDA95YrKdLgA==}
@@ -3388,6 +3390,7 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.9
+    dev: true
 
   /@types/retry/0.12.1:
     resolution: {integrity: sha512-xoDlM2S4ortawSWORYqsdU+2rxdh4LRW9ytc3zmT37RIKQh6IHyKwwtKhKis9ah8ol07DCkZxPt8BBvPjC6v4g==}
@@ -3402,6 +3405,7 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
 
   /@types/serve-index/1.9.1:
     resolution: {integrity: sha512-d/Hs3nWDxNL2xAczmOVZNj92YZCS6RGxfBPjKzuu/XirCgXdpKEb88dYNbrYGint6IVWLNP+yonwVAuRC0T2Dg==}
@@ -5318,6 +5322,7 @@ packages:
 
   /csstype/3.0.9:
     resolution: {integrity: sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==}
+    dev: true
 
   /dargs/7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
@@ -9125,7 +9130,7 @@ packages:
     hasBin: true
     dev: true
 
-  /mobx-react-lite/3.2.2_17a9a2b9737f188c3f2d8ece9728da86:
+  /mobx-react-lite/3.2.2_mobx@6.3.7+react@17.0.2:
     resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
     peerDependencies:
       mobx: ^6.1.0
@@ -9140,26 +9145,6 @@ packages:
     dependencies:
       mobx: 6.3.7
       react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /mobx-react/7.2.1_17a9a2b9737f188c3f2d8ece9728da86:
-    resolution: {integrity: sha512-LZS99KFLn75VWDXPdRJhILzVQ7qLcRjQbzkK+wVs0Qg4kWw5hOI2USp7tmu+9zP9KYsVBmKyx2k/8cTTBfsymw==}
-    peerDependencies:
-      mobx: ^6.1.0
-      react: ^16.8.0 || ^17
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      mobx: 6.3.7
-      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /mobx/6.3.7:
