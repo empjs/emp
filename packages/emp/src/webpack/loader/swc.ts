@@ -31,7 +31,7 @@ class SWCOpt {
   get react(): TransformConfig['react'] {
     return this.isReact
       ? {
-          runtime: store.wpo.modules.reactRuntime || 'classic',
+          runtime: store.config.reactRuntime || 'classic',
           refresh: isDev, //TODO 增加 react-refresh 支持
           development: isDev,
           useBuiltins: false,

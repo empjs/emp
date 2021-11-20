@@ -1,3 +1,7 @@
+export * from './empShare'
+export * from './externals'
+export * from './modulefederation'
+//
 import {Configuration} from 'webpack'
 export type modeType = 'development' | 'production' | 'none' | undefined
 export type cliOptionsType = {[key: string]: string | number | boolean} & {
@@ -13,4 +17,9 @@ export type wpPathsType = {
 export type externalAssetsType = {
   js: string[]
   css: string[]
+}
+export type pkgType = {
+  dependencies: any
+  devDependencies: any
+  version: string
 }

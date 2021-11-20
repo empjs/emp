@@ -2,14 +2,12 @@
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
 import {cliOptionsType, modeType} from 'src/types'
-import {ExternalsType} from 'src/config/empShare'
+import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml} from 'src/config/html'
-import {MFExport, EMPShareExport} from './empShare'
-import {Configuration} from 'webpack'
-//
-
+import {MFExport} from 'src/types/modulefederation'
+import {EMPShareExport} from 'src/types/empShare'
 //
 export type EMPConfig = {
   /**

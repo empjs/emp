@@ -10,9 +10,8 @@ import {observer} from 'mobx-react-lite'
 import partition from 'lodash/partition'
 //
 // import css from './App.module.less'
-// import 'reset.less'
 import css from './App.module.scss'
-import 'reset.scss'
+
 console.log('css', css)
 console.log(
   'partition',

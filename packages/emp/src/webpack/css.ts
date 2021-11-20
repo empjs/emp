@@ -10,17 +10,95 @@ const sassModuleRegex = /\.module\.(scss|sass)$/
 const lessRegex = /\.less$/
 const lessModuleRegex = /\.module\.less$/
 //
-class WPCSSOptions {
-  splitCss: boolean
-  isDev: boolean
-  localIdentName: string
+class WPCss {
+  splitCss = true
+  isDev = true
+  localIdentName = ''
   isModules = false
-  publicPath: string
-  constructor({splitCss, isDev, publicPath}: any) {
-    this.splitCss = splitCss
-    this.isDev = isDev
-    this.publicPath = publicPath
-    this.localIdentName = isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
+  publicPath = '/'
+  constructor() {}
+  async setup() {
+    this.isDev = store.config.mode === 'development'
+    this.splitCss = store.config.splitCss
+    this.publicPath = store.config.base
+    this.localIdentName = this.isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
+    //
+    this.setCssConfig()
+    this.setCssMinify()
+  }
+  private setCssConfig() {
+    //
+    const config = {
+      module: {
+        rule: {
+          css: {
+            test: cssRegex,
+            exclude: cssModuleRegex,
+            use: this.loaders(),
+          },
+          cssModule: {
+            test: cssModuleRegex,
+            use: this.loaders(true),
+          },
+          sassModule: {
+            test: sassModuleRegex,
+            use: this.loaders(true, 'sass'),
+          },
+          sass: {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: this.loaders(false, 'sass'),
+          },
+          less: {
+            test: lessRegex,
+            exclude: lessModuleRegex,
+            use: this.loaders(false, 'less'),
+          },
+          lessModule: {
+            test: lessModuleRegex,
+            use: this.loaders(true, 'less'),
+          },
+        },
+      },
+    }
+    wpChain.merge(config)
+  }
+  private setCssMinify() {
+    //[css minify]
+    if (this.isMiniCss) {
+      if (store.config.build.minify === true) {
+        wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
+          {
+            parallel: true,
+            // sourceMap: false,
+            minimizerOptions: {
+              preset: [
+                'default',
+                {
+                  discardComments: {removeAll: true},
+                },
+              ],
+            },
+          },
+        ])
+      }
+      wpChain.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
+        {
+          ignoreOrder: true,
+          filename: 'css/[name].[contenthash:8].css',
+          chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+          /**
+            experimentalUseImportModule
+            https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule
+            Use an experimental webpack API to execute modules instead of child compilers.
+            This improves performance and memory usage a lot, but isn't as stable as the normal approach.
+            When combined with experiments.layers, this adds a layer option to the loader options to specify the layer of the css execution.
+            You need to have at least webpack 5.33.2.
+           */
+          // experimentalUseImportModule: true,
+        },
+      ])
+    }
   }
   get isStyleLoader() {
     const {splitCss, isDev} = this
@@ -104,78 +182,4 @@ class WPCSSOptions {
   }
 }
 //
-export const wpCSS = () => {
-  const isDev = store.wpo.mode === 'development'
-  const {splitCss} = store.config
-  const wpCssOptions = new WPCSSOptions({isDev, splitCss, publicPath: store.config.base})
-  //
-  const config = {
-    module: {
-      rule: {
-        css: {
-          test: cssRegex,
-          exclude: cssModuleRegex,
-          use: wpCssOptions.loaders(),
-        },
-        cssModule: {
-          test: cssModuleRegex,
-          use: wpCssOptions.loaders(true),
-        },
-        sassModule: {
-          test: sassModuleRegex,
-          use: wpCssOptions.loaders(true, 'sass'),
-        },
-        sass: {
-          test: sassRegex,
-          exclude: sassModuleRegex,
-          use: wpCssOptions.loaders(false, 'sass'),
-        },
-        less: {
-          test: lessRegex,
-          exclude: lessModuleRegex,
-          use: wpCssOptions.loaders(false, 'less'),
-        },
-        lessModule: {
-          test: lessModuleRegex,
-          use: wpCssOptions.loaders(true, 'less'),
-        },
-      },
-    },
-  }
-  //[css minify]
-  if (wpCssOptions.isMiniCss) {
-    if (store.config.build.minify === true) {
-      wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
-        {
-          parallel: true,
-          // sourceMap: false,
-          minimizerOptions: {
-            preset: [
-              'default',
-              {
-                discardComments: {removeAll: true},
-              },
-            ],
-          },
-        },
-      ])
-    }
-    wpChain.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
-      {
-        ignoreOrder: true,
-        filename: 'css/[name].[contenthash:8].css',
-        chunkFilename: 'css/[name].[contenthash:8].chunk.css',
-        /**
-            experimentalUseImportModule
-            https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule
-            Use an experimental webpack API to execute modules instead of child compilers.
-            This improves performance and memory usage a lot, but isn't as stable as the normal approach.
-            When combined with experiments.layers, this adds a layer option to the loader options to specify the layer of the css execution.
-            You need to have at least webpack 5.33.2.
-           */
-        // experimentalUseImportModule: true,
-      },
-    ])
-  }
-  wpChain.merge(config)
-}
+export default WPCss

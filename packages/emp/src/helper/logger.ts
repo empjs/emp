@@ -13,7 +13,7 @@ const logger = {
  * @returns
  */
 export const logTitle = (title: string) =>
-  console.log(`${chalk.cyan(`EMP v${store.pkgVersion}`)} ${chalk.green(title)} \n`)
+  console.log(`${chalk.cyan(`EMP v${store.pkg.version}`)} ${chalk.green(title)} \n`)
 /**
  * tag log
  * @param msg
@@ -21,7 +21,7 @@ export const logTitle = (title: string) =>
  */
 type tagType = 'green' | 'blue' | 'yellow' | 'red'
 const logTagStyle = (msg: any, c1: string, c2: string, w = '#ecf0f1') =>
-  console.log(`${chalk.bgHex(w).hex(c1)(` EMP v${store.pkgVersion} `)}${chalk.hex(w).bgHex(c2)(` ${msg} `)}\n`)
+  console.log(`${chalk.bgHex(w).hex(c1)(` EMP v${store.pkg.version} `)}${chalk.hex(w).bgHex(c2)(` ${msg} `)}\n`)
 export const logTag = (msg: string, tag: tagType = 'blue') => {
   switch (tag) {
     case 'green':

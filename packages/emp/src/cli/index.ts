@@ -11,7 +11,7 @@ class EMPScript {
    */
   async exec(name: string, mode: modeType, cliOptions: cliOptionsType, pkg: any): Promise<void> {
     // 全局变量实例化
-    await store.setConfig(mode, cliOptions, pkg)
+    await store.setup(mode, cliOptions, pkg)
     // webpack实例化
     const wpConfig = new WPConfig()
     await wpConfig.setup()

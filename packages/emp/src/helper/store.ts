@@ -1,16 +1,16 @@
 import fs from 'fs-extra'
 import path from 'path'
-import {cliOptionsType, modeType} from 'src/types'
+import {cliOptionsType, modeType, pkgType} from 'src/types'
 import {EMPConfigExport, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
-import WpOptions from 'src/webpack/options'
 import EMPShare from 'src/config/empShare'
+import {vCompare} from 'src/helper/utils'
 class GlobalStore {
   /**
    * EMP Version
    * @default package version
    */
-  public pkgVersion = '0.0.0'
+  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0'}
   /**
    * 项目根目录绝对路径
    * @default process.cwd()
@@ -21,6 +21,9 @@ class GlobalStore {
    * @default path.resolve(__dirname, '../../')
    */
   public empRoot = path.resolve(__dirname, '../../')
+  /**
+   * emp 执行代码路径
+   */
   public empSource = path.resolve(this.empRoot, 'dist')
   /**
    * 项目配置
@@ -60,10 +63,6 @@ class GlobalStore {
    */
   public cliOptions: cliOptionsType = {}
   /**
-   * webpack options 全局变量 所有webpack配置收归到这里
-   */
-  public wpo = new WpOptions()
-  /**
    * 是否 ESM 模块
    */
   public isESM = false
@@ -76,9 +75,35 @@ class GlobalStore {
    * @param cliOptions command options
    * @param pkg package.json data
    */
-  async setConfig(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
+  async setup(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
+    //初始化 pkg
+    this.pkg = {...this.pkg, ...pkg}
+    //
+    this.setConfig(mode, cliOptions)
+    // check IsESM
+    this.isESM = ['es3', 'es5'].indexOf(this.config.build.target) === -1
+    //设置绝对路径
+    this.setAbsPaths()
+    // command option 处理 优先级优于 emp-config,把 config覆盖
+    this.setCliOptions(cliOptions)
+    // empShare 初始化
+    await this.empShare.setup()
+  }
+  setCliOptions(cliOptions: cliOptionsType) {
+    this.cliOptions = cliOptions
+    if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
+    if (this.cliOptions.open) this.config.server.open = true
+    if (this.cliOptions.hot) this.config.server.hot = true
+  }
+  setAbsPaths() {
+    //
+    this.appSrc = this.resolve(this.config.appSrc)
+    this.outDir = this.resolve(this.config.build.outDir)
+    this.publicDir = this.resolve(this.config.publicDir)
+    this.cacheDir = this.resolve(this.config.cacheDir)
+  }
+  async setConfig(mode: modeType, cliOptions: cliOptionsType) {
     //初始化 emp-config.js
-    this.pkgVersion = pkg.version
     const fp = this.resolve('emp-config.js')
     if (fs.existsSync(fp)) {
       const configExport: EMPConfigExport = require(fp)
@@ -90,22 +115,11 @@ class GlobalStore {
         this.config = initConfig(conf, mode, cliOptions)
       }
     }
-    // check IsESM
-    this.isESM = ['es3', 'es5'].indexOf(this.config.build.target) === -1
-    //
-    this.appSrc = this.resolve(this.config.appSrc)
-    this.outDir = this.resolve(this.config.build.outDir)
-    this.publicDir = this.resolve(this.config.publicDir)
-    this.cacheDir = this.resolve(this.config.cacheDir)
-    // command option 处理 优先级优于 emp-config,把 config覆盖
-    this.cliOptions = cliOptions
-    if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
-    if (this.cliOptions.open) this.config.server.open = true
-    if (this.cliOptions.hot) this.config.server.hot = true
-    // empShare 初始化
-    await this.empShare.setup()
-    // 初始化所有 webpack options
-    await this.wpo.setup(mode)
+    // reactRuntime settings
+    const version = this.pkg.dependencies.react || this.pkg.devDependencies.react
+    if (version) {
+      this.config.reactRuntime = vCompare(version, '17') > -1 ? 'automatic' : 'classic'
+    }
   }
 }
 export default new GlobalStore()

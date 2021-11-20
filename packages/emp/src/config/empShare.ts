@@ -1,60 +1,10 @@
-import {EMPConfig} from './index'
-import {container, Configuration} from 'webpack'
+import {Configuration} from 'webpack'
 import store from 'src/helper/store'
 import {externalAssetsType} from 'src/types'
-import {ResovleConfig} from './index'
-//
-export type MFOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0]
-type MFFunction = (o: EMPConfig) => MFOptions | Promise<MFOptions>
-export type MFExport = MFOptions | MFFunction
-//
-export type ExternalsItemType = {
-  /**
-   * 模块名
-   * @example react-dom
-   */
-  module?: string
-  /**
-   * 全局变量
-   * @example ReactDom
-   */
-  global?: string
-  /**
-   * 入口地址
-   * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
-   * 如 http://...?react&react-dom&react-router&mobx
-   * @example http://
-   */
-  entry?: string
-  /**
-   * 类型入口
-   * @default js
-   * @enum js | css
-   * @example css
-   */
-  type?: string
-}
-export type ExternalsFunc = (config: ResovleConfig) => ExternalsItemType[] | Promise<ExternalsItemType[]>
-export type ExternalsType = ExternalsItemType[] | ExternalsFunc
-//
-export type EMPshareLibItemType = {
-  [module: string]:
-    | {
-        entry: string
-        global?: string
-        type?: 'js' | 'css'
-      }
-    | string
-    | string[]
-}
-export type EMPShareType = MFOptions & {
-  /**
-   * emp 基于库共享模块
-   */
-  shareLib?: EMPshareLibItemType
-}
-export type EMPShareFunc = (config: ResovleConfig) => EMPShareType | Promise<EMPShareType>
-export type EMPShareExport = EMPShareType | EMPShareFunc
+import {MFOptions} from 'src/types/modulefederation'
+import {EMPShareType} from 'src/types/empShare'
+import {ExternalsItemType} from 'src/types/externals'
+
 class EMPShare {
   moduleFederation: MFOptions = {}
   externals: Configuration['externals'] | any = {}
