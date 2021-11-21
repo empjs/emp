@@ -2,11 +2,14 @@ import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 // import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
+// import reporter from 'src/helper/reporter'
 class Build {
   constructor() {}
   async setup() {
     logTag(`build for production:`)
     const config = getConfig()
+    //
+    // await reporter.measureFileSizesBeforeBuild()
     webpack(config, (err: any, stats: any) => {
       if (err) {
         console.error(err.stack || err)
@@ -49,6 +52,7 @@ class Build {
         }) + '\n',
       )
       logTag(`Compiled successfully.`, 'green')
+      // reporter.printFileSizesAfterBuild(stats)
     })
   }
 }

@@ -127,10 +127,15 @@ module federation 配置
   - 分离 js里的css
 
 ### html
-+ 类型 `HtmlOptions`
-+ 默认 `true` 
++ 类型 `HtmlOptions` 
+  - template `string` html模板 默认 `src/index.html`
+  - favicon `string` favicon连接 默认 `src/favicon.ico`
+  - files 文件插入到html 与 `externals` 叠加 类型 `{css:string[] js:string:[]}`
+    - css `string[]` 插入 css
+    - js `string[]` 插入 js
 
-html-webpack-plugin 相关操作
+其他可以参考 html-webpack-plugin 相关设置
+
 
 ### reactRuntime
 + 类型 `automatic` | `classic`

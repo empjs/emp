@@ -3,6 +3,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
+import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 class WPProduction {
   constructor() {}
   private setCommon() {
@@ -59,6 +60,13 @@ class WPProduction {
       ] as any)
     }
   }
+  setManifest() {
+    wpChain.plugin('WebpackManifestPlugin').use(WebpackManifestPlugin, [
+      {
+        publicPath: store.config.base,
+      },
+    ])
+  }
   async setup() {
     //common
     this.setCommon()
@@ -66,6 +74,8 @@ class WPProduction {
     this.setCopy()
     // minify
     this.setMinify()
+    // manifest 比较耗时 TODO 增加 config.build.manifest
+    // this.setManifest()
   }
 }
 export default WPProduction
