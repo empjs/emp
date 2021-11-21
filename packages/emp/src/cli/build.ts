@@ -47,9 +47,9 @@ class Build {
           colors: true,
           all: false,
           assets: true,
-          // chunks: true,
-          timings: true,
-          version: true,
+          // // chunks: true,
+          // timings: true,
+          // version: true,
         }) + '\n',
       )
       logTag(`Compiled successfully.`, 'green')

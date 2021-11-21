@@ -43,6 +43,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
     "@svgr/webpack": "^5.5.0",
     "@swc/core": "^1.2.106",
+    "@types/node": "^16.11.9",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
@@ -70,17 +71,18 @@
     "regenerator-runtime": "^0.13.9",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
-    "speed-measure-webpack-plugin": "^1.5.0",
     "strip-ansi": "6.0.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.2.4",
+    "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.64.2",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.4.0",
     "webpack-federated-stats-plugin": "^2.0.8",
-    "webpack-manifest-plugin": "^4.0.2"
+    "webpack-manifest-plugin": "^4.0.2",
+    "webpackbar": "^5.0.2"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",

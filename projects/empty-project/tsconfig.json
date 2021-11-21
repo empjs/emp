@@ -1,5 +1,5 @@
 {
-  "extends": "@efox/emp-tsconfig",
+  "extends": "@efox/emp/emp-tsconfig",
   "compilerOptions": {
     "baseUrl": "."
   },

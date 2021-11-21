@@ -10,7 +10,11 @@ class GlobalStore {
    * EMP Version
    * @default package version
    */
-  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0'}
+  public empPkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0'}
+  /**
+   * 项目pkg信息
+   */
+  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '0.0.0'}
   /**
    * 项目根目录绝对路径
    * @default process.cwd()
@@ -75,9 +79,11 @@ class GlobalStore {
    * @param cliOptions command options
    * @param pkg package.json data
    */
-  async setup(mode: modeType, cliOptions: cliOptionsType, pkg: any) {
-    //初始化 pkg
-    this.pkg = {...this.pkg, ...pkg}
+  async setup(mode: modeType, cliOptions: cliOptionsType, empPkg: any) {
+    //初始化 emp pkg 暂时不获取依赖
+    this.empPkg = {...this.empPkg, ...{version: empPkg.version}}
+    // 项目 package.json
+    this.pkg = require(this.resolve('package.json'))
     //
     this.setConfig(mode, cliOptions)
     // check IsESM

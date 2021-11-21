@@ -109,8 +109,9 @@ class WPCommon {
   get stats() {
     return {
       colors: true,
-      preset: 'minimal',
-      moduleTrace: true,
+      preset: 'none',
+      // preset: 'minimal',
+      // moduleTrace: true,
       errorDetails: true,
     }
   }

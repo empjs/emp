@@ -65,12 +65,21 @@ class WPPlugin {
       }
     }
     // 加了会出bug
-    // if (store.cliOptions.progress) {
-    config.plugin.progress = {
+    if (store.cliOptions.progress !== false) {
+      /* config.plugin.progress = {
       plugin: webpack.ProgressPlugin,
       args: [{}],
+    } */
+      const options: any = {name: `[EMP]`}
+      if (store.cliOptions.profile) {
+        options.reporters = ['fancy', 'profile']
+        options.profile = true
+      }
+      config.plugin.progress = {
+        plugin: require.resolve('webpackbar'),
+        args: [options],
+      }
     }
-    // }
     //analyzer
     if (store.cliOptions.analyze) {
       config.plugin.analyzer = {
