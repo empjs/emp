@@ -14,8 +14,7 @@ class Reporter {
   private previousSizeMap: any
   canReadAsset(asset: string) {
     return (
-      // /\.(js|css|html)$/.test(asset) &&
-      !/service-worker\.js/.test(asset) && !/precache-manifest\.[0-9a-f]+\.js/.test(asset)
+      /\.(js|css)$/.test(asset) && !/service-worker\.js/.test(asset) && !/precache-manifest\.[0-9a-f]+\.js/.test(asset)
     )
   }
   removeFileNameHash(buildFolder: string, fileName: string) {
@@ -49,6 +48,7 @@ class Reporter {
     })
   }
   async measureFileSizesBeforeBuild(buildFolder = store.outDir) {
+    console.time('Spend Time')
     const fileNames: any = await this.recursiveAsync(buildFolder)
     let sizes
     if (fileNames) {
@@ -96,7 +96,7 @@ class Reporter {
       null,
       assets.map((a: any) => stripAnsi(a.sizeLabel).length),
     )
-    let suggestBundleSplitting = false
+    // let suggestBundleSplitting = false
     assets.forEach((asset: any) => {
       let sizeLabel = asset.sizeLabel
       const sizeLength = stripAnsi(sizeLabel).length
@@ -107,23 +107,23 @@ class Reporter {
       const isMainBundle = asset.name.indexOf('main.') === 0
       const maxRecommendedSize = isMainBundle ? maxBundleGzipSize : maxChunkGzipSize
       const isLarge = maxRecommendedSize && asset.size > maxRecommendedSize
-      if (isLarge && path.extname(asset.name) === '.js') {
+      /*  if (isLarge && path.extname(asset.name) === '.js') {
         suggestBundleSplitting = true
-      }
+      } */
       console.log(
-        '  ' +
-          (isLarge ? chalk.yellow(sizeLabel) : sizeLabel) +
-          '  ' +
-          chalk.dim(asset.folder + path.sep) +
-          chalk.cyan(asset.name),
+        `${isLarge ? chalk.yellow(sizeLabel) : sizeLabel} ${chalk.dim(asset.folder + path.sep)}${chalk.cyan(
+          asset.name,
+        )}`,
       )
     })
-    if (suggestBundleSplitting) {
+    console.log('\t')
+    /* if (suggestBundleSplitting) {
       console.log()
       console.log(chalk.yellow('The bundle size is significantly larger than recommended.'))
       console.log(chalk.yellow('Consider reducing it with code splitting: https://goo.gl/9VhYWB'))
       console.log(chalk.yellow('You can also analyze the project dependencies: https://goo.gl/LeUzfb'))
-    }
+    } */
+    console.timeEnd('Spend Time')
   }
 }
 

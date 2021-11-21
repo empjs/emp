@@ -2,7 +2,7 @@ import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 // import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
-// import reporter from 'src/helper/reporter'
+// import reporter from 'src/helper/reporter'//使用后增加 500ms
 class Build {
   constructor() {}
   async setup() {
@@ -47,6 +47,7 @@ class Build {
           colors: true,
           all: false,
           assets: true,
+          chunks: true,
           timings: true,
           version: true,
         }) + '\n',

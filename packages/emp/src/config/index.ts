@@ -99,6 +99,18 @@ export type EMPConfig = {
    */
   html?: HtmlOptions
   /**
+   * 多页面模式
+   * chunk 为 string 基于 pages目录如 `info/index`
+   * 默认关闭
+   * @default false
+   */
+  pages?: {[chunk: string]: HtmlOptions} | boolean
+  /**
+   * pagesEntry pages入口文件夹 基于项目根目录
+   * @default src/pages
+   */
+  pagesEntry?: string
+  /**
    * React Runtime 手动切换jsx模式
    * 当 external react时需要设置
    * 本地安装时会自动判断 不需要设置
@@ -162,6 +174,9 @@ export const initConfig = (
       cliOptions,
       appEntry: '',
       jsCheck: false,
+      //
+      pages: false,
+      pagesEntry: 'src/pages',
     },
     ...op,
   }

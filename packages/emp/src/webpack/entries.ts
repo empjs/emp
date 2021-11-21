@@ -9,22 +9,30 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
  */
 class WPEntries {
   entry: any = {}
+  wpConfig: any = {entry: {}, plugin: {}}
   constructor() {}
   async setup() {
+    await this.singleEntry()
+    wpChain.merge(this.wpConfig)
+  }
+  async singleEntry() {
     await this.setEntry()
+    for (const [chunk, entry] of Object.entries(this.entry)) {
+      this.setHtmlWebpackPlugin([chunk])
+    }
   }
   async setEntry() {
-    const entrys = await glob([`${store.config.appSrc}/index.{ts,tsx,jsx,js}`])
-    if (!entrys[0]) {
+    const elist = await glob([`${store.config.appSrc}/index.{ts,tsx,jsx,js}`])
+    if (!elist[0]) {
       throw new Error('找不到入口文件!')
     }
-    const entry = entrys[0]
+    const entry = elist[0]
     const extname = path.extname(entry)
-    const entryKey: string = entry.replace(extname, '').replace(`${store.config.appSrc}/`, '')
-    this.entry[entryKey] = [entry]
+    const chunk: string = entry.replace(extname, '').replace(`${store.config.appSrc}/`, '')
+    this.entry[chunk] = [entry]
     // console.log('this.entry', this.entry)
-    wpChain.merge({entry: this.entry})
-    this.setHtmlWebpackPlugin([entryKey])
+    this.wpConfig.entry = this.entry
+    // this.setHtmlWebpackPlugin([entryKey])
   }
   private setHtmlWebpackPlugin(chunks: string[] = ['index']) {
     if (store.config.html.files) {
@@ -65,7 +73,11 @@ class WPEntries {
       },
       ...store.config.html,
     }
-    wpChain.plugin('html').use(HtmlWebpackPlugin, [options])
+    // wpChain.plugin(`html_plugin_${chunks}`).use(HtmlWebpackPlugin, [options])
+    this.wpConfig.plugin[`html_plugin_${chunks}`] = {
+      plugin: HtmlWebpackPlugin,
+      args: [options],
+    }
   }
 }
 
