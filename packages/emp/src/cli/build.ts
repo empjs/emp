@@ -47,7 +47,7 @@ class Build {
           colors: true,
           all: false,
           assets: true,
-          chunks: true,
+          // chunks: true,
           timings: true,
           version: true,
         }) + '\n',

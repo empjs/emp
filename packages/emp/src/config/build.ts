@@ -26,7 +26,7 @@ export type BuildOptions = {
   minify?: boolean
   /**
    * 是否生成 source map
-   * @default true
+   * @default false
    */
   sourcemap?: boolean
   // sourcemap?: boolean | 'inline' | 'hidden'
@@ -55,7 +55,7 @@ export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
       outDir: 'dist',
       assetsDir: 'assets',
       minify: true,
-      sourcemap: true,
+      sourcemap: false,
       useLib: false,
       emptyOutDir: true,
       chunkIds: false,

@@ -70,7 +70,6 @@ class WPCss {
         wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
           {
             parallel: true,
-            // sourceMap: false,
             minimizerOptions: {
               preset: [
                 'default',

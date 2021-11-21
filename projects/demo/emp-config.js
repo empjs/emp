@@ -23,4 +23,7 @@ module.exports = defineConfig({
       },
     }
   },
+  html: {
+    favicon: 'public/favicon.ico',
+  },
 })
