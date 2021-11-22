@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@efox/emp": "workspace:^2.0.0",
-    "@efox/emp-tsconfig": "^1.1.4",
     "@types/lodash": "^4.14.177",
     "@types/react-router-dom": "^5.1.5"
   },

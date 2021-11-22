@@ -1,9 +1,8 @@
 {
-    "extends": "@efox/emp-tsconfig",
+    "extends": "@efox/emp/emp-tsconfig.json",
     "compilerOptions": {
-      "jsx": "preserve",
+      "types": ["@efox/emp/client"],
       "baseUrl": ".",
-      "esModuleInterop": true,
     },
     "include": [
       "src",
