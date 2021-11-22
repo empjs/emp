@@ -22,14 +22,20 @@ class WPEntries {
     }
   }
   async setEntry() {
-    const elist = await glob([`${store.config.appSrc}/index.{ts,tsx,jsx,js}`])
-    if (!elist[0]) {
-      throw new Error('找不到入口文件!')
+    let entry = ''
+    if (!store.config.appEntry) {
+      const elist = await glob([`${store.config.appSrc}/index.{ts,tsx,jsx,js}`])
+      if (!elist[0]) {
+        throw new Error('找不到入口文件!')
+      }
+      entry = elist[0]
+    } else {
+      entry = `${store.config.appSrc}/${store.config.appEntry}`
     }
-    const entry = elist[0]
     const extname = path.extname(entry)
     const chunk: string = entry.replace(extname, '').replace(`${store.config.appSrc}/`, '')
-    this.entry[chunk] = [entry]
+    //
+    this.entry[chunk] = [store.resolve(entry)]
     // console.log('this.entry', this.entry)
     this.wpConfig.entry = this.entry
     // this.setHtmlWebpackPlugin([entryKey])

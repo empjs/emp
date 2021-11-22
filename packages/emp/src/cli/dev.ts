@@ -2,7 +2,7 @@ import {webpack} from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import {getConfig} from 'src/helper/wpChain'
 import {logTag} from 'src/helper/logger'
-import {clearConsole} from 'src/helper/utils'
+// import {clearConsole} from 'src/helper/utils'
 class devServer {
   server?: WebpackDevServer
   constructor() {}
@@ -11,7 +11,7 @@ class devServer {
     this.setProcess()
   }
   async setServer() {
-    clearConsole()
+    // clearConsole()
     logTag(`dev server running at:`)
     const config = getConfig()
     const compiler = webpack(config)
