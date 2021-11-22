@@ -56,6 +56,7 @@ class WPCommon {
           module: true,
           dynamicImport: true,
         }
+    const publicPath = store.config.base || ''
     return {
       //TODO: Library 模式的处理
       // module: true,
@@ -70,7 +71,7 @@ class WPCommon {
       // },
       clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
       path: store.outDir,
-      publicPath: store.config.build.useLib ? store.config.base : 'auto',
+      publicPath: store.config.build.useLib ? publicPath : 'auto',
       filename: 'js/[name].[contenthash:8].js',
       assetModuleFilename: `${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
       environment,

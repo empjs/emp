@@ -15,12 +15,10 @@ class WPCss {
   isDev = true
   localIdentName = ''
   isModules = false
-  publicPath = '/'
   constructor() {}
   async setup() {
     this.isDev = store.config.mode === 'development'
     this.splitCss = store.config.splitCss
-    this.publicPath = store.config.base
     this.localIdentName = this.isDev ? '[path][name]-[local]-[hash:base64:5]' : '[local]-[hash:base64:5]'
     //
     this.setCssConfig()
@@ -111,7 +109,7 @@ class WPCss {
     return false
   }
   get style() {
-    const {publicPath} = this
+    const options = store.config.base ? {publicPath: store.config.base} : {} //修复css 绝对路径的问题[改进项]
     return this.isStyleLoader
       ? {
           loader: require.resolve('style-loader'),
@@ -119,9 +117,7 @@ class WPCss {
         }
       : {
           loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath, //修复css 绝对路径的问题
-          },
+          options,
         }
   }
   get css() {

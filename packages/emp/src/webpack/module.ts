@@ -15,7 +15,7 @@ class WPModule {
         // mini-css-extract-plugin 编译不过！
         /* generator: {
           asset: {
-            publicPath: store.config.base,
+            publicPath: store.config.base,//:TODO 验证 publicPath auto 需要设置 '/' or ''
           },
         }, */
         rule: {

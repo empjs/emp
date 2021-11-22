@@ -26,10 +26,10 @@ export type EMPConfig = {
    */
   appEntry?: string
   /**
-   * publicPath 根路径 可参考webpack
-   * 库模式 默认为 / 避免加入 auto判断
-   * 业务模式默认为 auto
-   * @default '/'
+   * publicPath 根路径 可参考webpack,库模式 默认为 '' 避免加入 auto判断,业务模式默认为 auto
+   * html 部分 publicPath 默认为 undefined,可设置全量域名或子目录适配，也可以单独在html设置 Public
+   *
+   * @default undefined
    */
   base?: string
   /**
@@ -141,6 +141,7 @@ export type ResovleConfig = Override<
     cliOptions: cliOptionsType
     webpackChain?: WebpackChainType
     reactRuntime?: 'automatic' | 'classic'
+    base?: string
   }
 >
 export const initConfig = (
@@ -161,7 +162,6 @@ export const initConfig = (
       root: process.cwd(),
       mode,
       appSrc: 'src',
-      base: '/',
       publicDir: 'public',
       cacheDir: 'node_modules/.emp-cache',
       build,

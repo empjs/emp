@@ -61,11 +61,8 @@ class WPProduction {
     }
   }
   setManifest() {
-    wpChain.plugin('WebpackManifestPlugin').use(WebpackManifestPlugin, [
-      {
-        publicPath: store.config.base,
-      },
-    ])
+    const options = store.config.base ? {publicPath: store.config.base} : {}
+    wpChain.plugin('WebpackManifestPlugin').use(WebpackManifestPlugin, [options])
   }
   async setup() {
     //common

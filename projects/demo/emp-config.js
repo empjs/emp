@@ -4,7 +4,7 @@ module.exports = defineConfig(config => {
   const {mode, env} = config
   console.log('[demo emp-config]', config)
   return {
-    base: '/',
+    // base: '/',
     html: {title: 'Demo | EMP v2'},
     server: {
       port: 8000,
@@ -25,6 +25,7 @@ module.exports = defineConfig(config => {
     },
     html: {
       favicon: 'public/favicon.ico',
+      // publicPath: '/',域名配置可以设置这里
     },
   }
 })

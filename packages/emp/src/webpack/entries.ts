@@ -57,7 +57,6 @@ class WPEntries {
         css: store.empShare.externalAssets.css,
         js: store.empShare.externalAssets.js,
       },
-      // publicPath: store.config.base, //迁移到外部配置； auto模式下 默认为空、适配更多业务需求 不自动设置
       scriptLoading: !store.isESM ? 'defer' : 'module',
       minify: store.config.mode === 'production' && {
         removeComments: true,
@@ -72,6 +71,9 @@ class WPEntries {
         minifyURLs: true,
       },
       ...store.config.html,
+    }
+    if (store.config.base && !options.publicPath) {
+      options.publicPath = store.config.base
     }
     // wpChain.plugin(`html_plugin_${chunks}`).use(HtmlWebpackPlugin, [options])
     this.wpConfig.plugin[`html_plugin_${chunks}`] = {
