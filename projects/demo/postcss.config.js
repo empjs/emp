@@ -8,7 +8,7 @@ module.exports = {
       minPixelValue: 1,
       mediaQuery: false,
       include: [],
-      exclude: [/App\.module\.scss/],
+      exclude: [/reset\.scss/], //验证 postcss是否正常
     },
   },
 }

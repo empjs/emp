@@ -2,7 +2,7 @@ const {defineConfig} = require('@efox/emp')
 const {envLib, lib} = require('./cdn')
 module.exports = defineConfig(config => {
   const {mode, env} = config
-  console.log('[demo emp-config]', config)
+  // console.log('[demo emp-config]', config)
   return {
     // base: '/',
     html: {title: 'Demo | EMP v2'},
@@ -25,7 +25,6 @@ module.exports = defineConfig(config => {
     },
     html: {
       favicon: 'public/favicon.ico',
-      // publicPath: '/',域名配置可以设置这里
     },
   }
 })
