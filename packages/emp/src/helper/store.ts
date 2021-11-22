@@ -85,7 +85,7 @@ class GlobalStore {
     // 项目 package.json
     this.pkg = require(this.resolve('package.json'))
     //
-    this.setConfig(mode, cliOptions)
+    await this.setConfig(mode, cliOptions)
     // check IsESM
     this.isESM = ['es3', 'es5'].indexOf(this.config.build.target) === -1
     //设置绝对路径
@@ -114,7 +114,7 @@ class GlobalStore {
     if (fs.existsSync(fp)) {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
-        const conf = await configExport({mode})
+        const conf = await configExport({mode, ...cliOptions})
         this.config = initConfig(conf, mode, cliOptions)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport

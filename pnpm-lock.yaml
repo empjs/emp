@@ -80,12 +80,12 @@ importers:
       webpack: ^5.64.2
       webpack-bundle-analyzer: ^4.5.0
       webpack-chain: ^6.5.1
-      webpack-dev-server: ^4.4.0
+      webpack-dev-server: ^4.5.0
       webpack-federated-stats-plugin: ^2.0.8
       webpack-manifest-plugin: ^4.0.2
       webpackbar: ^5.0.2
     dependencies:
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_527b92d62132623062a9963aaf430093
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.1_1a2a3d8b2738469181f8fc374c341323
       '@svgr/webpack': 5.5.0
       '@swc/core': 1.2.106
       '@types/node': 16.11.9
@@ -124,7 +124,7 @@ importers:
       webpack: 5.64.2_@swc+core@1.2.106
       webpack-bundle-analyzer: 4.5.0
       webpack-chain: 6.5.1
-      webpack-dev-server: 4.4.0_webpack@5.64.2
+      webpack-dev-server: 4.5.0_webpack@5.64.2
       webpack-federated-stats-plugin: 2.0.8_webpack@5.64.2
       webpack-manifest-plugin: 4.0.2_webpack@5.64.2
       webpackbar: 5.0.2_webpack@5.64.2
@@ -363,7 +363,7 @@ importers:
       react: 17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
-      '@efox/emp-tsconfig': 1.1.4
+      '@efox/emp-tsconfig': 1.1.4_typescript@4.4.4
       '@types/lodash': 4.14.177
       '@types/react-router-dom': 5.3.2
 
@@ -2455,14 +2455,6 @@ packages:
       algoliasearch: 4.11.0
     dev: true
 
-  /@efox/emp-tsconfig/1.1.4:
-    resolution: {integrity: sha512-bJG845AtWYRq/W5nP5lxER2CPO9QI9rE0tAWtW5NcxcMl1SWMtxLjn92u3V4Ne6rMjUyMCkQw22Su3/5ryac5A==}
-    dependencies:
-      typescript-plugin-css-modules: 2.8.0
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
   /@efox/emp-tsconfig/1.1.4_typescript@4.4.4:
     resolution: {integrity: sha512-bJG845AtWYRq/W5nP5lxER2CPO9QI9rE0tAWtW5NcxcMl1SWMtxLjn92u3V4Ne6rMjUyMCkQw22Su3/5ryac5A==}
     dependencies:
@@ -2784,7 +2776,7 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_527b92d62132623062a9963aaf430093:
+  /@pmmmwh/react-refresh-webpack-plugin/0.5.1_1a2a3d8b2738469181f8fc374c341323:
     resolution: {integrity: sha512-ccap6o7+y5L8cnvkZ9h8UXCGyy2DqtwCD+/N3Yru6lxMvcdkPKtdx13qd7sAC9s5qZktOmWf9lfUjsGOvSdYhg==}
     engines: {node: '>= 10.13'}
     peerDependencies:
@@ -2821,7 +2813,7 @@ packages:
       schema-utils: 3.1.1
       source-map: 0.7.3
       webpack: 5.64.2_@swc+core@1.2.106
-      webpack-dev-server: 4.4.0_webpack@5.64.2
+      webpack-dev-server: 4.5.0_webpack@5.64.2
     dev: false
 
   /@polka/url/1.0.0-next.21:
@@ -12447,25 +12439,6 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typescript-plugin-css-modules/2.8.0:
-    resolution: {integrity: sha512-zx/MZNKvP8TogSBKuMOr/+gfknhfq15D87UGeMhrDdm051MmrnxlOIrFPzWZ1usN7GQMjYzp5w0eGGrGzlZrxQ==}
-    peerDependencies:
-      typescript: '>=3.0.0'
-    dependencies:
-      dotenv: 8.6.0
-      icss-utils: 4.1.1
-      less: 3.13.1
-      lodash.camelcase: 4.3.0
-      postcss: 7.0.39
-      postcss-filter-plugins: 3.0.1
-      postcss-icss-selectors: 2.0.3
-      postcss-load-config: 2.1.2
-      reserved-words: 0.1.2
-      sass: 1.43.4
-      stylus: 0.54.8
-      tsconfig-paths: 3.11.0
-    dev: true
-
   /typescript-plugin-css-modules/2.8.0_typescript@4.4.4:
     resolution: {integrity: sha512-zx/MZNKvP8TogSBKuMOr/+gfknhfq15D87UGeMhrDdm051MmrnxlOIrFPzWZ1usN7GQMjYzp5w0eGGrGzlZrxQ==}
     peerDependencies:
@@ -12950,8 +12923,8 @@ packages:
       webpack: 5.64.2_@swc+core@1.2.106
     dev: false
 
-  /webpack-dev-server/4.4.0_webpack@5.64.2:
-    resolution: {integrity: sha512-+S0XRIbsopVjPFjCO8I07FXYBWYqkFmuP56ucGMTs2hA/gV4q2M9xTmNo5Tg4o8ffRR+Nm3AsXnQXxKRyYovrA==}
+  /webpack-dev-server/4.5.0_webpack@5.64.2:
+    resolution: {integrity: sha512-Ss4WptsUjYa+3hPI4iYZYEc8FrtnfkaPrm5WTjk9ux5kiCS718836srs0ppKMHRaCHP5mQ6g4JZGcfDdGbCjpQ==}
     engines: {node: '>= 12.13.0'}
     hasBin: true
     peerDependencies:

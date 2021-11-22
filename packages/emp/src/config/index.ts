@@ -120,10 +120,11 @@ export type EMPConfig = {
 }
 export interface ConfigEnv {
   mode: modeType
+  env?: string
   [key: string]: any
 }
-export type EMPConfigFn = (env?: ConfigEnv) => EMPConfig | Promise<EMPConfig>
-export type EMPConfigExport = EMPConfig | Promise<EMPConfig> | EMPConfigFn
+export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
+export type EMPConfigExport = EMPConfig | EMPConfigFn
 export function defineConfig(config: EMPConfigExport): EMPConfigExport {
   return config
 }

@@ -6,7 +6,9 @@
   "files": [
     "dist",
     "bin",
-    "template"
+    "template",
+    "client.d.ts",
+    "emp-tsconfig.json"
   ],
   "maintainers": [
     "xuhongbin"
@@ -79,7 +81,7 @@
     "webpack": "^5.64.2",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
-    "webpack-dev-server": "^4.4.0",
+    "webpack-dev-server": "^4.5.0",
     "webpack-federated-stats-plugin": "^2.0.8",
     "webpack-manifest-plugin": "^4.0.2",
     "webpackbar": "^5.0.2"
