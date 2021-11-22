@@ -2,11 +2,14 @@ import {webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 // import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
+import {clearConsole} from 'src/helper/utils'
 // import reporter from 'src/helper/reporter'//使用后增加 500ms
 class Build {
   constructor() {}
   async setup() {
+    clearConsole()
     logTag(`build for production:`)
+    //
     const config = getConfig()
     //
     // await reporter.measureFileSizesBeforeBuild()

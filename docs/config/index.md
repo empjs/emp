@@ -56,7 +56,6 @@ module.exports = defineConfig(async({mode})=>{
 
 ### base
 + 类型 `string`
-+ 默认 `/` 
   - 绝对 URL 路径名，例如 /
   - 完整的 URL，例如 https://baidu.com/
 
