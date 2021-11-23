@@ -21,7 +21,7 @@ module.exports = defineConfig(config => {
       shareLib: cdn(mode),
     },
     html: {
-      favicon: 'public/favicon.ico',
+      favicon: 'src/favicon.ico',
     },
   }
 })

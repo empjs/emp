@@ -7,7 +7,7 @@ import {clearConsole} from 'src/helper/utils'
 class Build {
   constructor() {}
   async setup() {
-    if (!store.cliOptions.wplogger) clearConsole()
+    if (!store.config.clearLog) clearConsole()
     logTag(`build for production:`)
     //
     const config = getConfig()

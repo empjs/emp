@@ -8,7 +8,7 @@ import chalk from 'chalk'
 import logger, {logTag} from 'src/helper/logger'
 import prepareURLs from 'src/cli/prepareURLs'
 import https from 'https'
-// import {clearConsole} from 'src/helper/utils'
+import {clearConsole} from 'src/helper/utils'
 class Serve {
   public app: Express
   constructor() {
@@ -30,7 +30,7 @@ class Serve {
     }
   }
   async setup() {
-    // clearConsole()
+    if (!store.config.clearLog) clearConsole()
     logTag(`server running at:`)
     const staticRoot = store.resolve(store.config.build.outDir)
     const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
