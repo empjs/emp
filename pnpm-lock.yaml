@@ -415,23 +415,35 @@ importers:
   projects/micro-app:
     specifiers:
       '@efox/emp': workspace:^2.0.0
+      axios: ^0.21.4
+      mobx-react: ^7.2.1
+      mobx-react-lite: ^3.2.2
       react: ^17.0.2
       react-dom: ^17.0.2
-      react-router-dom: ^6.0.1
     dependencies:
+      axios: 0.21.4
+      mobx-react: 7.2.1_react-dom@17.0.2+react@17.0.2
+      mobx-react-lite: 3.2.2_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-router-dom: 6.0.1_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
 
   projects/micro-host:
     specifiers:
       '@efox/emp': workspace:^2.0.0
+      axios: ^0.21.4
+      mobx: ^6.3.7
+      mobx-react: ^7.2.1
+      mobx-react-lite: ^3.2.2
       react: ^17.0.2
       react-dom: ^17.0.2
       react-router-dom: ^6.0.1
     dependencies:
+      axios: 0.21.4
+      mobx: 6.3.7
+      mobx-react: 7.2.1_17a9a2b9737f188c3f2d8ece9728da86
+      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 6.0.1_react-dom@17.0.2+react@17.0.2
@@ -9139,6 +9151,24 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  /mobx-react-lite/3.2.2_17a9a2b9737f188c3f2d8ece9728da86:
+    resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
+    peerDependencies:
+      mobx: ^6.1.0
+      react: ^16.8.0 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: 6.3.7
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
   /mobx-react-lite/3.2.2_mobx@6.3.7+react@17.0.2:
     resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
     peerDependencies:
@@ -9154,6 +9184,60 @@ packages:
     dependencies:
       mobx: 6.3.7
       react: 17.0.2
+    dev: false
+
+  /mobx-react-lite/3.2.2_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
+    peerDependencies:
+      mobx: ^6.1.0
+      react: ^16.8.0 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /mobx-react/7.2.1_17a9a2b9737f188c3f2d8ece9728da86:
+    resolution: {integrity: sha512-LZS99KFLn75VWDXPdRJhILzVQ7qLcRjQbzkK+wVs0Qg4kWw5hOI2USp7tmu+9zP9KYsVBmKyx2k/8cTTBfsymw==}
+    peerDependencies:
+      mobx: ^6.1.0
+      react: ^16.8.0 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: 6.3.7
+      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /mobx-react/7.2.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-LZS99KFLn75VWDXPdRJhILzVQ7qLcRjQbzkK+wVs0Qg4kWw5hOI2USp7tmu+9zP9KYsVBmKyx2k/8cTTBfsymw==}
+    peerDependencies:
+      mobx: ^6.1.0
+      react: ^16.8.0 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx-react-lite: 3.2.2_react-dom@17.0.2+react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /mobx/6.3.7:

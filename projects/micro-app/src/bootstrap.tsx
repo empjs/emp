@@ -1,9 +1,4 @@
 import ReactDOM from 'react-dom'
-import App from './App'
+import RouterComp from 'src/RouterComp'
 
-ReactDOM.render(
-  <>
-    <App />
-  </>,
-  document.getElementById('emp-root'),
-)
+ReactDOM.render(<RouterComp />, document.getElementById('emp-root'))

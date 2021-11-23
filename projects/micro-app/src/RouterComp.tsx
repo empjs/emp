@@ -13,7 +13,6 @@ const RouterComp = () => (
         </li>
       </ul>
     </nav>
-
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/about" component={About} />

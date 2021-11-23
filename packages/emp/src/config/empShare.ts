@@ -43,7 +43,6 @@ class EMPShare {
           v.map(vo => {
             if (!vo) return
             const isJS = vo.split('?')[0].endsWith('.js')
-            // console.log('vo', vo)
             // const isCSS = vo.split('?')[0].endsWith('.css')
             // if (!isJS && !isCSS) return
             if (isJS) {
@@ -67,8 +66,8 @@ class EMPShare {
         }
       }
       delete mf.shareLib
-      await Promise.all([this.setExternals(externals), this.setModuleFederation(mf)])
     }
+    await Promise.all([this.setExternals(externals), this.setModuleFederation(mf)])
   }
   /**
    * setExternals

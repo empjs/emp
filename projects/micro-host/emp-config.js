@@ -1,30 +1,24 @@
 const {defineConfig} = require('@efox/emp')
+const cdn = require('./cdn')
 
-module.exports = defineConfig({
-  server: {
-    port: 8001,
-  },
-  moduleFederation: {
-    name: 'microHost',
-    // esm 共享需要设置 window
-    // library: {name: 'microHost', type: 'window'},
-    exposes: {
-      './App': './src/App',
+module.exports = defineConfig(({mode}) => {
+  return {
+    server: {
+      port: 8001,
     },
-    /* shared: {
-      react: {requiredVersion: '^17.0.1'},
-      'react-dom': {requiredVersion: '^17.0.1'},
-    }, */
-  },
-  webpackChain(chain, empConfig) {
-    chain.plugin('html').tap(args => {
-      args[0] = {
-        ...args[0],
-        ...{
-          title: 'Micro-Host',
-        },
-      }
-      return args
-    })
-  },
+    empShare: {
+      name: 'microHost',
+      // esm 共享需要设置 window
+      // library: {name: 'microHost', type: 'window'},
+      exposes: {
+        './App': './src/App',
+      },
+      // shared: {
+      //   react: {requiredVersion: '^17.0.1'},
+      //   'react-dom': {requiredVersion: '^17.0.1'},
+      // },
+      shareLib: cdn(mode),
+    },
+    html: {title: 'Micro-Host'},
+  }
 })

@@ -1,5 +1,5 @@
 const {defineConfig} = require('@efox/emp')
-const {envLib, lib} = require('./cdn')
+const cdn = require('./cdn')
 module.exports = defineConfig(config => {
   const {mode, env} = config
   // console.log('[demo emp-config]', config)
@@ -18,10 +18,7 @@ module.exports = defineConfig(config => {
     // jsCheck: true,
     reactRuntime: 'automatic', //增加这个实现无安装依赖热更
     empShare: {
-      shareLib: {
-        ...envLib[mode],
-        ...lib,
-      },
+      shareLib: cdn(mode),
     },
     html: {
       favicon: 'public/favicon.ico',
