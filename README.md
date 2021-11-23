@@ -5,8 +5,6 @@
 + `pnpm i` && `pnpm build:pkg` 构建所有依赖包 
 + `pnpm dev` package watch 开始模式
 
-## 注意项 
-+ es5 需要项目自行安装 `regenerator-runtime` 使用 `async await`
 
 ## TODO
 ## 推进进度 : 完成 🥳 进行中 🤯 放弃 🥵 调研 😇

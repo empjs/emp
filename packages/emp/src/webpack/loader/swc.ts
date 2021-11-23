@@ -54,7 +54,7 @@ async function SWCLoader(
   swcOpt.resetType(isTypescript, isReact)
   const {parser, react} = swcOpt
 
-  const swcOptions: Options = {
+  const swcOptions: Options & any = {
     sourceFileName: this.resourcePath,
     sourceMaps: typeof build.sourcemap !== 'undefined' ? build.sourcemap : this.sourceMap,
     // env: {mode: 'usage'},
@@ -66,6 +66,10 @@ async function SWCLoader(
         legacyDecorator: true,
         decoratorMetadata: isTypescript,
         react,
+        // 默认到 emp 里面获取
+        regenerator: {
+          importPath: require.resolve('regenerator-runtime'),
+        },
       },
     },
   }
