@@ -1,11 +1,11 @@
 // import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
-import {cliOptionsType, modeType} from 'src/types'
+import {cliOptionsType, modeType, Override} from 'src/types'
 import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
-import {HtmlOptions, initHtml} from 'src/config/html'
+import {HtmlOptions, initHtml, InitHtmlType} from 'src/config/html'
 import {MFExport} from 'src/types/modulefederation'
 import {EMPShareExport} from 'src/types/empShare'
 //
@@ -129,7 +129,7 @@ export function defineConfig(config: EMPConfigExport): EMPConfigExport {
   return config
 }
 //
-type Override<What, With> = Omit<What, keyof With> & With
+
 export type ResovleConfig = Override<
   Required<EMPConfig>,
   {
@@ -142,6 +142,7 @@ export type ResovleConfig = Override<
     webpackChain?: WebpackChainType
     reactRuntime?: 'automatic' | 'classic'
     base?: string
+    html: InitHtmlType
   }
 >
 export const initConfig = (

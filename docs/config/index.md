@@ -22,14 +22,18 @@ module.exports = defineConfig({})
 ```
 ### 函数式配置 
 ```js 
-module.exports = defineConfig(({mode})=>{
+// mode 为webpack mode变量 development production
+// env 为 emp serve --env dev 的 dev 
+module.exports = defineConfig(({mode,env})=>{
   return {}
 })
 ```
 
 ### 异步函数 
 ```js
-module.exports = defineConfig(async({mode})=>{
+// mode 为webpack mode变量 development production
+// env 为 emp serve --env dev 的 dev 
+module.exports = defineConfig(async({mode,env})=>{
   return {}
 })
 ```

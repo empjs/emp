@@ -41,16 +41,9 @@ class WPEntries {
     // this.setHtmlWebpackPlugin([entryKey])
   }
   private setHtmlWebpackPlugin(chunks: string[] = ['index']) {
-    if (store.config.html.files) {
-      if (store.config.html.files.css) {
-        store.empShare.externalAssets.css = store.empShare.externalAssets.css.concat(store.config.html.files.css)
-      }
-      if (store.config.html.files.js) {
-        store.empShare.externalAssets.js = store.empShare.externalAssets.js.concat(store.config.html.files.js)
-      }
-      //避免 merge 影响全局加载
-      delete store.config.html.files
-    }
+    store.config.html.files.css = store.config.html.files.css.concat(store.empShare.externalAssets.css)
+    if (!store.isESM) store.config.html.files.js = store.config.html.files.js.concat(store.empShare.externalAssets.js)
+
     const options: HtmlWebpackPlugin.Options = {
       // title: 'EMP',
       // template,
@@ -59,10 +52,6 @@ class WPEntries {
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
       //  filename: 'index.html',
       // isESM: store.isESM,
-      files: {
-        css: store.empShare.externalAssets.css,
-        js: store.empShare.externalAssets.js,
-      },
       scriptLoading: !store.isESM ? 'defer' : 'module',
       minify: store.config.mode === 'production' && {
         removeComments: true,

@@ -1,6 +1,7 @@
 import {Options} from 'html-webpack-plugin'
 import store from 'src/helper/store'
 import fs from 'fs-extra'
+import {Override} from 'src/types'
 export type HtmlOptions = Options & {
   /**
    * 基于项目的根目录 index.html url
@@ -26,7 +27,16 @@ export type HtmlOptions = Options & {
     js?: string[]
   }
 }
-export const initHtml = (o: Options = {}): Options => {
+export type InitHtmlType = Override<
+  Options,
+  {
+    files: {
+      css: string[]
+      js: string[]
+    }
+  }
+>
+export const initHtml = (o: Options = {}): InitHtmlType => {
   let template = o.template || 'src/index.html'
   let favicon = o.favicon || 'src/favicon.ico'
 
@@ -41,5 +51,5 @@ export const initHtml = (o: Options = {}): Options => {
     }
   }
   const title = 'EMP'
-  return {template, favicon, title, ...o}
+  return {template, favicon, title, files: {css: [], js: []}, ...o}
 }

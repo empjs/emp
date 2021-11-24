@@ -346,7 +346,7 @@ importers:
 
   projects/demo:
     specifiers:
-      '@efox/emp': workspace:^2.0.0
+      '@efox/emp': workspace:*
       '@types/lodash': ^4.14.177
       '@types/react-router-dom': ^5.1.5
       axios: ^0.21.4
@@ -354,12 +354,16 @@ importers:
       mobx: ^6.3.7
       mobx-react-lite: ^3.2.2
       react: ^17.0.2
+      react-dom: ^17.0.2
+      react-router-dom: '5'
     dependencies:
       axios: 0.21.4
       lodash: 4.17.21
       mobx: 6.3.7
-      mobx-react-lite: 3.2.2_mobx@6.3.7+react@17.0.2
+      mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
       react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-router-dom: 5.3.0_react@17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
       '@types/lodash': 4.14.177
@@ -7314,10 +7318,27 @@ packages:
     hasBin: true
     dev: false
 
+  /history/4.10.1:
+    resolution: {integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==}
+    dependencies:
+      '@babel/runtime': 7.16.3
+      loose-envify: 1.4.0
+      resolve-pathname: 3.0.0
+      tiny-invariant: 1.2.0
+      tiny-warning: 1.0.3
+      value-equal: 1.0.1
+    dev: false
+
   /history/5.1.0:
     resolution: {integrity: sha512-zPuQgPacm2vH2xdORvGGz1wQMuHSIB56yNAy5FnLuwOwgSYyPKptJtcMm6Ev+hRGeS+GzhbmRacHzvlESbFwDg==}
     dependencies:
       '@babel/runtime': 7.16.3
+    dev: false
+
+  /hoist-non-react-statics/3.3.2:
+    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
+    dependencies:
+      react-is: 16.13.1
     dev: false
 
   /hosted-git-info/2.8.9:
@@ -7987,6 +8008,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-docker: 2.2.1
+
+  /isarray/0.0.1:
+    resolution: {integrity: sha1-ihis/Kmo9Bd+Cav8YDiTmwXR7t8=}
+    dev: false
 
   /isarray/1.0.0:
     resolution: {integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=}
@@ -9101,6 +9126,18 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
+  /mini-create-react-context/0.4.1_prop-types@15.7.2+react@17.0.2:
+    resolution: {integrity: sha512-YWCYEmd5CQeHGSAKrYvXgmzzkrvssZcuuQDDeqkT+PziKGMgE+0MCCtcKbROzocGBG1meBLl2FotlRwf4gAzbQ==}
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    dependencies:
+      '@babel/runtime': 7.16.3
+      prop-types: 15.7.2
+      react: 17.0.2
+      tiny-warning: 1.0.3
+    dev: false
+
   /mini-css-extract-plugin/2.4.5_webpack@5.64.2:
     resolution: {integrity: sha512-oEIhRucyn1JbT/1tU2BhnwO6ft1jjH1iCX9Gc59WFMg0n5773rQU0oyQ0zzeYFFuBfONaRbQJyGoPtuNseMxjA==}
     engines: {node: '>= 12.13.0'}
@@ -9167,23 +9204,6 @@ packages:
       mobx: 6.3.7
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /mobx-react-lite/3.2.2_mobx@6.3.7+react@17.0.2:
-    resolution: {integrity: sha512-FxJJMqmHcnQYOVVs2DdjNHioGlFsXF5/9VHztS9NAfIT3DYrxNZzVi119Zr/OmlWKkWNkAsssSNzPkqautfL4A==}
-    peerDependencies:
-      mobx: ^6.1.0
-      react: ^16.8.0 || ^17
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      mobx: 6.3.7
-      react: 17.0.2
     dev: false
 
   /mobx-react-lite/3.2.2_react-dom@17.0.2+react@17.0.2:
@@ -9755,6 +9775,12 @@ packages:
 
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=}
+    dev: false
+
+  /path-to-regexp/1.8.0:
+    resolution: {integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==}
+    dependencies:
+      isarray: 0.0.1
     dev: false
 
   /path-to-regexp/2.4.0:
@@ -10978,6 +11004,21 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /react-router-dom/5.3.0_react@17.0.2:
+    resolution: {integrity: sha512-ObVBLjUZsphUUMVycibxgMdh5jJ1e3o+KpAZBVeHcNQZ4W+uUGGWsokurzlF4YOldQYRQL4y6yFRWM4m3svmuQ==}
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': 7.16.3
+      history: 4.10.1
+      loose-envify: 1.4.0
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-router: 5.2.1_react@17.0.2
+      tiny-invariant: 1.2.0
+      tiny-warning: 1.0.3
+    dev: false
+
   /react-router-dom/6.0.1_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-fiE+PzFTrof5q8Z/+RHzuiin9/U/q5KY2adlHClwYexbY0DqJnHcC/0U9yv3Amz9em2/bcK7X8mk7+zxB+qhvg==}
     peerDependencies:
@@ -10988,6 +11029,24 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 6.0.1_react@17.0.2
+    dev: false
+
+  /react-router/5.2.1_react@17.0.2:
+    resolution: {integrity: sha512-lIboRiOtDLFdg1VTemMwud9vRVuOCZmUIT/7lUoZiSpPODiiH1UQlfXy+vPLC/7IWdFYnhRwAyNqA/+I7wnvKQ==}
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': 7.16.3
+      history: 4.10.1
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      mini-create-react-context: 0.4.1_prop-types@15.7.2+react@17.0.2
+      path-to-regexp: 1.8.0
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-is: 16.13.1
+      tiny-invariant: 1.2.0
+      tiny-warning: 1.0.3
     dev: false
 
   /react-router/6.0.1_react@17.0.2:
@@ -11226,6 +11285,10 @@ packages:
     dependencies:
       global-dirs: 0.1.1
     dev: true
+
+  /resolve-pathname/3.0.0:
+    resolution: {integrity: sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng==}
+    dev: false
 
   /resolve-url/0.2.1:
     resolution: {integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=}
@@ -12294,6 +12357,14 @@ packages:
       globrex: 0.1.2
     dev: false
 
+  /tiny-invariant/1.2.0:
+    resolution: {integrity: sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==}
+    dev: false
+
+  /tiny-warning/1.0.3:
+    resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
+    dev: false
+
   /tmp/0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -12777,6 +12848,10 @@ packages:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /value-equal/1.0.1:
+    resolution: {integrity: sha512-NOJ6JZCAWr0zlxZt+xqCHNTEKOsrks2HQd4MqhP1qy4z1SkbEP467eNx6TgDKXMvUOb+OENfJCZwM+16n7fRfw==}
+    dev: false
 
   /vary/1.1.2:
     resolution: {integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=}

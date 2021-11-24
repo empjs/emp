@@ -23,3 +23,5 @@ export type pkgType = {
   devDependencies: any
   version: string
 }
+
+export type Override<What, With> = Omit<What, keyof With> & With

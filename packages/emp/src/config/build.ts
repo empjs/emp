@@ -56,6 +56,9 @@ export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
       assetsDir: 'assets',
       minify: true,
       sourcemap: false,
+      /**
+       * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets
+       */
       useLib: false,
       emptyOutDir: true,
       chunkIds: false,
