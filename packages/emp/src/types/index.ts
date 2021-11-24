@@ -10,6 +10,7 @@ export type cliOptionsType = {[key: string]: string | number | boolean} & {
    * dotenv 先根据env做判断、否则再按照 webpack mode 做判断
    */
   env?: string
+  clearLog?: boolean
 }
 export type wpPathsType = {
   output: Configuration['output']

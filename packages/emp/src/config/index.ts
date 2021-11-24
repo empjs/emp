@@ -61,7 +61,11 @@ export type EMPConfig = {
    * @default 'info'
    */
   logLevel?: string
-
+  /**
+   * 清空日志
+   * @default true
+   */
+  clearLog?: boolean
   /**
    * webpackChain 暴露到 emp-config
    */
@@ -158,6 +162,8 @@ export const initConfig = (
   const html = initHtml(op.html)
   delete op.html
   //
+  const clearLog = typeof cliOptions.clearLog !== undefined ? cliOptions.clearLog : true
+  //
   return {
     ...{
       root: process.cwd(),
@@ -171,6 +177,7 @@ export const initConfig = (
       server,
       html,
       logLevel: 'info',
+      clearLog,
       useImportMeta: false,
       splitCss: true,
       cliOptions,

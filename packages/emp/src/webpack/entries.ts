@@ -12,6 +12,9 @@ class WPEntries {
   wpConfig: any = {entry: {}, plugin: {}}
   constructor() {}
   async setup() {
+    // 不允许 template 放到 public
+    this.checkTemplateInPublic()
+    //
     await this.singleEntry()
     wpChain.merge(this.wpConfig)
   }
@@ -36,9 +39,15 @@ class WPEntries {
     const chunk: string = entry.replace(extname, '').replace(`${store.config.appSrc}/`, '')
     //
     this.entry[chunk] = [store.resolve(entry)]
-    // console.log('this.entry', this.entry)
     this.wpConfig.entry = this.entry
-    // this.setHtmlWebpackPlugin([entryKey])
+  }
+  private checkTemplateInPublic() {
+    const {favicon, template} = store.config.html
+    const faviconAbs = path.dirname(favicon || '')
+    const templateAbs = path.dirname(template || '')
+    if (faviconAbs.includes(store.publicDir) || templateAbs.includes(store.publicDir)) {
+      throw new Error('Template 与 favicon 不能放到./public,推荐放到 ./src or ./template')
+    }
   }
   private setHtmlWebpackPlugin(chunks: string[] = ['index']) {
     store.config.html.files.css = store.config.html.files.css.concat(store.empShare.externalAssets.css)

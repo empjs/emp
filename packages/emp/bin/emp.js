@@ -17,6 +17,7 @@ program
   // .option('-rm, --remote', '在执行命令时拉取远程声明文件，远程地址首选package.json里的remoteBaseUrlList')
   .option('-ps, --progress <progress>', '显示进度 默认为 true')
   .option('-pr, --profile', '统计模块消耗')
+  .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(async o => {
     const fn = importSource('cli')
@@ -39,6 +40,7 @@ program
   // .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
   .option('-ps, --progress <progress>', '显示进度 默认为 false')
   .option('-pr, --profile', '统计模块消耗')
+  .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(o => {
     const fn = importSource('cli')
@@ -48,6 +50,7 @@ program
 program
   .command('serve')
   .description('Server 模式')
+  .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   // .option('-d, --dist <dist>', '目标 默认为 dist')
   .action(o => {
     const fn = importSource('cli')

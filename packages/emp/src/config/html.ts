@@ -51,5 +51,5 @@ export const initHtml = (o: Options = {}): InitHtmlType => {
     }
   }
   const title = 'EMP'
-  return {template, favicon, title, files: {css: [], js: []}, ...o}
+  return {title, files: {css: [], js: []}, ...o, template, favicon}
 }

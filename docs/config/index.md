@@ -148,6 +148,12 @@ module federation 配置
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
+## clearLog
++ 类型 `boolean`
++ 默认 `true`
+  - 是否清空之前的日志 
+  - 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
+
 ## 构建选项 
 ### build
  + 类型 `BuildOptions`

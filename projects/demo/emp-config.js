@@ -25,7 +25,7 @@ module.exports = defineConfig(config => {
       // shareLib,
     },
     html: {
-      favicon: 'public/favicon.ico',
+      favicon: 'src/favicon.ico',
     },
   }
 })
