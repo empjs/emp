@@ -1,6 +1,7 @@
 export * from './empShare'
 export * from './externals'
 export * from './modulefederation'
+import {HtmlOptions} from 'src/config/html'
 //
 import {Configuration} from 'webpack'
 export type modeType = 'development' | 'production' | 'none' | undefined
@@ -24,5 +25,6 @@ export type pkgType = {
   devDependencies: any
   version: string
 }
+export type EntriesType = {[entryFilename: string]: HtmlOptions}
 
 export type Override<What, With> = Omit<What, keyof With> & With

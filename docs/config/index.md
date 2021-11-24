@@ -132,6 +132,7 @@ module federation 配置
 ### html
 + 类型 `HtmlOptions` 
 > template 与 favicon 不建议 放到 public 静态文件夹 避免copy时报错
+> (*)entries 设置后 会继承这里的操作
   - template `string` html模板 默认 `src/index.html` 路径基于当前项目根目录
   - favicon `string` favicon连接 默认 `src/favicon.ico` 路径基于当前项目根目录
   - files 文件插入到html 与 `externals` 叠加 类型 `{css:string[] js:string:[]}`
@@ -140,6 +141,12 @@ module federation 配置
 
 其他可以参考 html-webpack-plugin [相关设置](https://github.com/jantimon/html-webpack-plugin)
 
+### entries
++ 类型 `EntriesType`
+  - entryFilename 为基于 src目录如 `info/index`
+  - HtmlOptions 为 html 的独立配置 `favicon` 请在 `html.favicon` 配置
+> (*)entries 设置后 会继承 html 的配置
+多页面模式
 
 ### reactRuntime
 + 类型 `automatic` | `classic`

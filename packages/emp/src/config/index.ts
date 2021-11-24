@@ -1,7 +1,7 @@
 // import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
-import {cliOptionsType, modeType, Override} from 'src/types'
+import {cliOptionsType, modeType, Override, EntriesType} from 'src/types'
 import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
@@ -22,6 +22,7 @@ export type EMPConfig = {
   appSrc?: string
   /**
    * 项目代码入口文件 如 `src/index.js`
+   * (*)entries 设置后 该选项失效
    * @default 'index.js'
    */
   appEntry?: string
@@ -100,20 +101,14 @@ export type EMPConfig = {
   splitCss?: boolean
   /**
    * html-webpack-plugin 相关操作
+   * (*)entries 设置后 会继承这里的操作
    */
   html?: HtmlOptions
   /**
    * 多页面模式
-   * chunk 为 string 基于 pages目录如 `info/index`
-   * 默认关闭
-   * @default false
+   * entryFilename 为基于 src目录如 `info/index`
    */
-  pages?: {[chunk: string]: HtmlOptions} | boolean
-  /**
-   * pagesEntry pages入口文件夹 基于项目根目录
-   * @default src/pages
-   */
-  pagesEntry?: string
+  entries?: EntriesType
   /**
    * React Runtime 手动切换jsx模式
    * 当 external react时需要设置
@@ -147,6 +142,7 @@ export type ResovleConfig = Override<
     reactRuntime?: 'automatic' | 'classic'
     base?: string
     html: InitHtmlType
+    entries?: EntriesType
   }
 >
 export const initConfig = (
