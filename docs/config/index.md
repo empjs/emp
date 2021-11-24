@@ -144,7 +144,7 @@ module federation 配置
 ### entries
 + 类型 `EntriesType`
   - entryFilename 为基于 src目录如 `info/index`
-  - HtmlOptions 为 html 的独立配置 `favicon` 请在 `html.favicon` 配置
+  - HtmlOptions 为 html 的独立配置; `favicon` 请在 `html.favicon` 配置
 > (*)entries 设置后 会继承 html 的配置
 多页面模式
 
