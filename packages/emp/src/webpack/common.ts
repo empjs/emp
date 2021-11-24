@@ -76,6 +76,7 @@ class WPCommon {
       assetModuleFilename: `${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
       environment,
       // scriptType: isESM ? 'module' : 'text/javascript',
+      pathinfo: false, //在打包数千个模块的项目中，这会导致造成垃圾回收性能压力
     }
   }
   get resolve() {

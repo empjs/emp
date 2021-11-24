@@ -31,8 +31,11 @@ class WPEntries {
       if (htmlOptions.template) {
         htmlOptions.template = store.resolve(htmlOptions.template)
       }
+      // 屏蔽子页面的favicon 防止重复操作导致报错
       if (htmlOptions.favicon) {
-        htmlOptions.favicon = store.resolve(htmlOptions.favicon)
+        // htmlOptions.favicon = store.resolve(htmlOptions.favicon)
+        console.warn('favicon只支持在 [html] 设置')
+        delete htmlOptions.favicon
       }
       //
       this.setHtmlWebpackPlugin([chunk], htmlOptions)

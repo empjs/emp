@@ -19,6 +19,23 @@ class WPProduction {
         chunkIds: store.config.build.chunkIds || 'deterministic', // deterministic 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
         minimize: store.config.build.minify,
         // runtimeChunk: 'single', // 影响 MF 执行
+        // ===[暂时观察有效性]===============
+        // splitChunks: {
+        //   cacheGroups: {
+        //     //打包公共模块
+        //     commons: {
+        //       //initial表示提取入口文件的公共部分
+        //       chunks: 'initial',
+        //       //表示提取公共部分最少的文件数
+        //       minChunks: 2,
+        //       //表示提取公共部分最小的大小
+        //       minSize: 0,
+        //       //提取出来的文件命名
+        //       name: 'commons',
+        //     },
+        //   },
+        // },
+        // =================
       },
     }
     wpChain.merge(config)
