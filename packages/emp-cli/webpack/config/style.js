@@ -180,6 +180,7 @@ module.exports = (env, config, args) => {
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
         /**
+         * 设置为false，解决打包过程中静态资源可能会出现的Invalid URL问题
           experimentalUseImportModule
           https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule
           Use an experimental webpack API to execute modules instead of child compilers.
@@ -187,7 +188,7 @@ module.exports = (env, config, args) => {
           When combined with experiments.layers, this adds a layer option to the loader options to specify the layer of the css execution.
           You need to have at least webpack 5.33.2.
          */
-        // experimentalUseImportModule: true,
+        experimentalUseImportModule: false,
       },
     ])
   }
