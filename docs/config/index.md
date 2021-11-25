@@ -85,9 +85,19 @@ module.exports = defineConfig(async({mode,env})=>{
 模式根据执行指令自动变换
 
 ### define
-+ 类型 `Record<string, string|number|boolean>`
++ 类型 `Record<string, string|number|boolean>` 
 
 全局环境替换
++ 配置
+```js
+module.exports={
+  define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
+}
+```
++ 使用 
+```js
+console.log('process.env.emp', process.env.emp)
+```
 
 ### plugins 
 + 类型 `ConfigPluginType[]`

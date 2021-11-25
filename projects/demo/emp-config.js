@@ -8,6 +8,7 @@ module.exports = defineConfig(config => {
   // const shareLib = cdnModule.getList(['react', 'react-dom', 'mobx', 'mobx-react-lite', 'react-router-dom'])
 
   return {
+    define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
     // base: '/',
     html: {title: 'Demo | EMP v2'},
     server: {

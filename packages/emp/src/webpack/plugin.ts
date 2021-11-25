@@ -30,8 +30,14 @@ class WPPlugin {
     }
   }
   private get define() {
-    const clist: cliOptionsType = store.cliOptions
+    //处理 cli 参数
+    let clist: cliOptionsType = store.cliOptions
+    // 合并 mode 参数
     clist.mode = store.config.mode
+    // 合并 store.config.define
+    if (store.config.define) {
+      clist = {...clist, ...store.config.define}
+    }
     const options: cliOptionsType = {}
     Object.keys(clist).map(key => {
       if (store.isESM && store.config.useImportMeta) options[`import.meta.env.${key}`] = JSON.stringify(clist[key])
