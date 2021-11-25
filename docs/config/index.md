@@ -1,12 +1,12 @@
 # 配置
 ## 配置文件 
-### 配置文件解析 emp-config.js
+### 解析
 EMP 会自动解析当前项目根目录的 `emp-config.js` 文件
 ```js
 
 module.exports = {}
 ```
-### 配置提示 
+### 提示 
 ```js
 /**
  * @type {import('@efox/emp').EMPConfigExport}

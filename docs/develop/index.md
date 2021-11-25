@@ -56,7 +56,8 @@ console.log(process.env.env.DOTENV)
 module.exports={
   // favicion 需要在 html里面配置 
   html: {favicon: 'src/favicon.ico'},
-  // entries 会继承 Html配置
+  // entries 会继承 Html配置 
+  // key为入口文件 基于 appSrc 默认 `src/` 的相对路径
   entries: {
     'index.ts': {title: '首页'},
     //可自定义htmlOptions参数 覆盖html
