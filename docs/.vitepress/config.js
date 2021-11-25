@@ -11,6 +11,7 @@ module.exports = {
 
     nav: [
       { text: '指引', link: '/guide/' },
+      { text: '开发', link: '/develop/' },
       { text: '配置', link: '/config/' },
       { text: '插件', link: '/plugin/' },
     ],
