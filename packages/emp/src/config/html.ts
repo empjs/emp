@@ -2,7 +2,7 @@ import {Options} from 'html-webpack-plugin'
 import store from 'src/helper/store'
 import fs from 'fs-extra'
 import {Override} from 'src/types'
-export type HtmlOptions = Options & {
+export interface HtmlOptions extends Options {
   /**
    * 基于项目的根目录 index.html url
    * @default src/index.html
