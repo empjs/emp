@@ -3,6 +3,9 @@ const cdn = require('./cdn')
 
 module.exports = defineConfig(({mode}) => {
   return {
+    build: {
+      target: 'es2020',
+    },
     server: {
       port: 8001,
     },
@@ -13,11 +16,11 @@ module.exports = defineConfig(({mode}) => {
       exposes: {
         './App': './src/App',
       },
-      // shared: {
-      //   react: {requiredVersion: '^17.0.1'},
-      //   'react-dom': {requiredVersion: '^17.0.1'},
-      // },
-      shareLib: cdn(mode),
+      shared: {
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
+      },
+      // shareLib: cdn(mode),
     },
     html: {title: 'Micro-Host'},
   }

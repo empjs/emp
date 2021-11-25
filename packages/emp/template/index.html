@@ -7,10 +7,18 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   <!-- EMP inject css -->
   <% for (let i in htmlWebpackPlugin.options.files.css) { %>
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.files.css[i] %>" /><% } %>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.files.css[i] %>" />
+    <% } %>
     <!-- EMP inject js -->
     <% for (let i in htmlWebpackPlugin.options.files.js) { %>
-    <script src="<%= htmlWebpackPlugin.options.files.js[i] %>"></script><% } %>
+    <script src="<%= htmlWebpackPlugin.options.files.js[i] %>"></script>
+    <% } %>
+    <% for (key in htmlWebpackPlugin.files.js) { %>
+      <script type="module" src="<%= htmlWebpackPlugin.files.js[key] %>"></script>
+    <% } %>  
+    <% for (key in htmlWebpackPlugin.files.css) { %>
+      <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[key] %>" />
+    <% } %>  
   </head>
 
   <body>

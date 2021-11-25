@@ -112,7 +112,7 @@ class EMPShare {
         // emp esm module
         if (!moduleFederationOpt.library && store.isESM) {
           //TODO: 实验 MF 的 ESM 模式是否正常运行
-          // moduleFederationOpt.library = {type: 'module'}
+          moduleFederationOpt.library = {type: 'module'}
           // moduleFederationOpt.library = {type: 'window', name: moduleFederationOpt.name}
         }
         this.moduleFederation = moduleFederationOpt
