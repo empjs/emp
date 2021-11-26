@@ -78,7 +78,7 @@
     "terser-webpack-plugin": "^5.2.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.64.3",
+    "webpack": "^5.64.4",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.5.0",

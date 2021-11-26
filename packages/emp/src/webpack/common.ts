@@ -23,6 +23,11 @@ class WPCommon {
       config.externalsType = 'module'
       // config.externalsType = 'import'
       //config.externalsType = 'script'
+      // es need!
+      // config.target = store.config.build.target
+      if (store.config.build.target) {
+        config.target = ['web', store.config.build.target]
+      }
     }
     wpChain.merge(config)
   }
@@ -53,8 +58,8 @@ class WPCommon {
           module: false,
         }
       : {
-          module: true,
-          dynamicImport: true,
+          // module: true,
+          // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
     return {
