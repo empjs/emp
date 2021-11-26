@@ -14,7 +14,7 @@ module.exports = defineConfig(({mode}) => {
     empShare: {
       name: 'microApp',
       remotes: {
-        '@microHost': `${isESM ? '' : 'microHost@'}http://172.29.181.115:8001/emp.js`,
+        '@microHost': `${isESM ? '' : 'microHost@'}http://localhost:8001/emp.js`,
       },
       exposes: {
         './App': './src/App',
