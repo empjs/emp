@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Content from "./components/Content";
+import Content from './components/Content'
 import logo from "./logo.svg";
 import Table from "./components/table.vue"
 export default {

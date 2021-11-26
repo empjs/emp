@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['@efox/eslint-react'],
+  extends: ['@efox/eslint-config-react'],
 }

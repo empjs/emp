@@ -1,12 +1,12 @@
 # Eslint React
  
 ## Install   
-+ `pnpm add @efox/eslint-react --dev`
++ `pnpm add @efox/eslint-config-react --dev`
 
 ## Config
 + `.eslintrc.js` 
 ```js 
 module.exports = {
-  "extends": ["@efox/eslint-react"]
+  "extends": ["@efox/eslint-config-react"]
 }
 ```

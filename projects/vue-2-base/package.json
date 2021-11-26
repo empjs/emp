@@ -5,7 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "@efox/emp": "workspace:^*",
-    "@efox/eslint-vue": "workspace:^*",
+    "@efox/eslint-config-vue": "workspace:^*",
     "@efox/plugin-vue-2": "workspace:^1.0.0"
   },
   "dependencies": {
