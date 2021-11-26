@@ -1,4 +1,10 @@
-# EMP V2.0 
+# EMP ⚡ 2.0
+![package](https://img.shields.io/npm/v/@efox/emp.svg) 
+![node](https://img.shields.io/node/v/@efox/emp.svg)
+![offical](https://img.shields.io/badge/EMP.Document-v2-blue?link=https://emp2.netlify.app/)
+
+
+> 基于下一代构建实现微前端解决方案
 + 💡 微组件化
   - 结合webpack5、Module Federation的丰富项目实战、建立三层共享模型
 + ⚡️ 快速构建重载
@@ -11,54 +17,5 @@
   - 在开发和构建之间共享 webpack chain 插件接口.
 + 🔑 TS重构项目
   - 提供灵活的api、Plugin以及完整的类型提示.
-  
-+ [官方说明文档](https://emp2.netlify.app/) 
 
 
-## TS 开发设置 
-> tsconfig.json [@efox/emp-tsconfig 已经整合到  @efox/emp]
-```json
-{
-  "extends": "@efox/emp/emp-tsconfig.json",
-  "compilerOptions": {
-    "types": ["@efox/emp/client"],
-    "baseUrl": ".",
-  },
-  "include": [
-    "src",
-  ]
-}
-
-```
-
-## 开发react 
-### 需要安装 依赖
-+ dependencies
-  - "mobx"
-  - "mobx-react-lite"
-  - "react": "^17.0.2"
-
-+ devDependencies
-  - "@efox/emp"
-  - "@types/react-router-dom"
-  - "regenerator-runtime"
-### eslint 
-```js
-module.exports = {
-  extends: ['@efox/eslint-config-react-prittier-ts'],
-}
-```
-
-# 开发vue 
-无需安装依赖 
-
-### eslint 
-```js
-module.exports = {
-  extends: ["@efox/eslint-config-vue-prettier-ts"],
-  rules: {
-    "@typescript-eslint/explicit-module-boundary-types": false
-  },
-};
-
-```
