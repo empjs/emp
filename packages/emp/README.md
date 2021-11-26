@@ -1,7 +1,7 @@
 # EMP ⚡ 2.0
 ![package](https://img.shields.io/npm/v/@efox/emp.svg) 
 ![node](https://img.shields.io/node/v/@efox/emp.svg)
-![offical](https://img.shields.io/badge/EMP.Document-v2-blue?link=https://emp2.netlify.app/)
+![offical](https://img.shields.io/badge/EMP.Document-v2-blue?link=https://emp2.netlify.app&link=https://emp2.netlify.app)
 
 
 > 基于下一代构建实现微前端解决方案
