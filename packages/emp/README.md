@@ -1,6 +1,6 @@
 # EMP ⚡ 2.0
-![package](https://img.shields.io/npm/v/@efox/emp.svg) 
-![node](https://img.shields.io/node/v/@efox/emp.svg)
+<a href="https://www.npmjs.com/package/@efox/emp"><img src="https://img.shields.io/npm/v/@efox/emp.svg" alt="npm"></a>
+<a href="https://emp2.netlify.app"><img src="https://img.shields.io/node/v/@efox/emp.svg" alt="node"></a>
 <a href="https://emp2.netlify.app"><img src="https://img.shields.io/badge/EMP.Document-v2-blue" alt="document"></a>
 
 
