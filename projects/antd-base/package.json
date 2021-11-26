@@ -12,8 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0",
-    "@efox/plugin-babel-react": "workspace:^2.0.0"
+    "@efox/emp": "workspace:^*",
+    "@efox/plugin-babel-react": "workspace:^*"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

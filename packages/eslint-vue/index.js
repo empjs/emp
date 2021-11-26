@@ -1,0 +1,35 @@
+module.exports = {
+  parser: 'vue-eslint-parser',
+  extends: ['plugin:vue/vue3-recommended', 'plugin:prettier/recommended', 'plugin:@typescript-eslint/recommended'],
+  plugins: ['@typescript-eslint'],
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+  },
+  rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-var-requires': 0,
+    'react/react-in-jsx-scope': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/no-empty-function': 0,
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/class-name-casing': 0,
+    '@typescript-eslint/triple-slash-reference': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 120,
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'all',
+        bracketSpacing: false,
+        arrowParens: 'avoid',
+        insertPragma: false,
+        tabWidth: 2,
+        useTabs: false,
+        endOfLine: 'auto',
+      },
+    ],
+  },
+}

@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0"
+    "@efox/emp": "workspace:^*"
   },
   "dependencies": {
     "axios": "^0.21.4",

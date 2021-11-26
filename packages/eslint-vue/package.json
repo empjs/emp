@@ -1,0 +1,38 @@
+{
+  "name": "@efox/eslint-vue",
+  "version": "1.0.0",
+  "description": "EMP vue eslint",
+  "files": [
+    "dist"
+  ],
+  "maintainers": ["xuhongbin@yy.com"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/eslint-vue"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MTI",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.19.1",
+    "prettier": "^2.4.1",
+    "vue-eslint-parser": "^7.11.0"
+  },
+  "peerDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
+}

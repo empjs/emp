@@ -35,6 +35,6 @@
     "rimraf": "^3.0.2",
     "ts-transform-paths": "^2.0.3",
     "ttypescript": "^1.5.12",
-    "@efox/emp": "workspace:^2.0.0"
+    "@efox/emp": "workspace:^*"
   }
 }
