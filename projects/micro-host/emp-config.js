@@ -1,5 +1,5 @@
 const {defineConfig} = require('@efox/emp')
-const cdn = require('./cdn')
+const {cdn, esm} = require('./cdn')
 
 module.exports = defineConfig(({mode}) => {
   const target = 'es2018'
@@ -26,10 +26,10 @@ module.exports = defineConfig(({mode}) => {
       shareLib: !isESM
         ? cdn(mode)
         : {
-            react: 'https://cdn.skypack.dev/react',
-            'react-dom': 'https://cdn.skypack.dev/react-dom',
-            mobx: 'https://cdn.skypack.dev/mobx',
-            'mobx-react-lite': 'https://cdn.skypack.dev/mobx-react-lite',
+            react: esm('react', mode, '17.0.2'),
+            'react-dom': esm('react-dom', mode, '17.0.2'),
+            mobx: esm('mobx', mode),
+            'mobx-react-lite': esm('mobx-react-lite', mode),
           },
       // shareLib: cdn(mode),
     },
