@@ -18,4 +18,12 @@
 + 🔑 TS重构项目
   - 提供灵活的api、Plugin以及完整的类型提示.
 
+## 项目 
+|Project|NPM|Info|
+|---|---|---|
+|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp-cli)|CLI|
+|[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|
+|[@efox/plugin-babel-react](packages/plugin-babel-react)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-react)](https://www.npmjs.com/package/@efox/plugin-babel-react)| EMP Babel for React plugin|
+|[@efox/eslint-config-react-prittier-ts](packages/eslint-config-react-prittier-ts)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react-prittier-ts.svg)](https://www.npmjs.com/package/@efox/eslint-config-react-prittier-ts)|ESLint Config|
+
 
