@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext js,ts,tsx --fix",
-    "build": "pnpm build:pkg",
+    "build": "npm build:pkg",
     "build:pkg": "pnpm run --filter=@efox/emp build && pnpm run --filter=@efox/*  --filter=!@efox/emp --parallel build",
     "dev:mf": "pnpm run --filter={micro-app,micro-host} --parallel dev",
     "docs:dev": "vitepress dev docs --host",
