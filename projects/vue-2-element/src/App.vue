@@ -16,22 +16,22 @@
 </template>
 
 <script>
-import Alert from "./components/alert.vue";
-import Step from "./components/step.vue";
-import Table from "@base/Table";
+import Alert from './components/alert.vue'
+import Step from './components/step.vue'
+import Table from '@base/Table'
 export default {
-  components: { Alert, Step, Table },
+  components: {Alert, Step, Table},
   data() {
     return {
-      activeName: "first",
-    };
+      activeName: 'first',
+    }
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      console.log(tab, event)
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss"></style>

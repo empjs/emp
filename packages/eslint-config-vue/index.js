@@ -17,7 +17,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
   rules: {
-    'prettier/prettier': 'error',
+    // 'prettier/prettier': 'error',
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'array-bracket-spacing': 2,
@@ -32,7 +32,7 @@ module.exports = {
     'vue/require-default-prop': 0,
     'comma-dangle': [2, 'always-multiline'],
     'vue/eqeqeq': [2, 'always', {null: 'ignore'}],
-    'object-curly-spacing': [2, 'always'],
+    // 'object-curly-spacing': [2, 'always'],
     'vue/singleline-html-element-content-newline': 0,
     'vue/html-closing-bracket-newline': [
       2,
@@ -59,6 +59,7 @@ module.exports = {
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
     '@typescript-eslint/camelcase': 0, // 目前埋点有部分字段无法更换
     '@typescript-eslint/no-non-null-assertion': 0, // 允许非空断言运算符
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/member-delimiter-style': [
       2,
       {
@@ -79,5 +80,21 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-explicit-any': 0, // TODO
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 120,
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'all',
+        bracketSpacing: false,
+        // jsxBracketSameLine: true,
+        arrowParens: 'avoid',
+        insertPragma: false,
+        tabWidth: 2,
+        useTabs: false,
+        endOfLine: 'auto',
+      },
+    ],
   },
 }
