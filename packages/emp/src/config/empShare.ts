@@ -4,7 +4,9 @@ import {externalAssetsType} from 'src/types'
 import {MFOptions} from 'src/types/modulefederation'
 import {EMPShareType} from 'src/types/empShare'
 import {ExternalsItemType} from 'src/types/externals'
-
+//
+const exp = /^([a-zA-Z_\s]+)@(.*)/ // 匹配库内容如 React@http://
+//
 class EMPShare {
   moduleFederation: MFOptions = {}
   externals: Configuration['externals'] | any = {}
@@ -47,7 +49,7 @@ class EMPShare {
         let externalsItem: ExternalsItemType = {}
         externalsItem.module = k
         //增加下划线 支持lodash 等特殊符号的问题 如 _@http
-        const exp = /^([a-zA-Z_\s]+)@(.*)/ // 匹配库内容如 React@http://
+
         if (typeof v === 'string') {
           const cb: any = v.match(exp)
           externalsItem.global = cb[1]
@@ -125,11 +127,22 @@ class EMPShare {
       }
       if (moduleFederationOpt.name) {
         moduleFederationOpt.filename = moduleFederationOpt.filename || 'emp.js'
-        // emp esm module
+        //TODO: emp esm module
         if (!moduleFederationOpt.library && store.isESM) {
-          //TODO: 实验 MF 的 ESM 模式是否正常运行
+          // 实验 MF 的 ESM 模式是否正常运行
           moduleFederationOpt.library = {type: 'module'}
           // moduleFederationOpt.library = {type: 'window', name: moduleFederationOpt.name}
+          // === 去除@ esm 不需要 named
+          const remotes: any = moduleFederationOpt.remotes || {}
+          for (const [k, v] of Object.entries(remotes)) {
+            if (typeof v === 'string') {
+              const cb: any = v.match(exp) || []
+              if (cb.length > 0) {
+                remotes[k] = cb[2]
+              }
+            }
+          }
+          moduleFederationOpt.remotes = remotes
         }
         this.moduleFederation = moduleFederationOpt
       }

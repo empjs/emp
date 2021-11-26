@@ -32,6 +32,11 @@
 + 😇 DTS 重写 [非commander]
 + 🤯 cliOptions 在 build 的情况下无法获取
 
+## ESM TODO 
++ 当基站正式 app测试时存在混乱问题，需要进一步提取 import 保持 lib的一致性 
++ 热更部分 基站可以热更，app不能热更 
++ 正式环境可以正常运作，考虑是否单独抽离的方式 独立 ESM的实现方案
+
 ## emp 文件分布详解 
 ```
 .
