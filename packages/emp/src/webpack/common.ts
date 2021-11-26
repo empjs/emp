@@ -26,7 +26,7 @@ class WPCommon {
       // es need!
       // config.target = store.config.build.target
       if (store.config.build.target) {
-        config.target = ['web', 'es2018']
+        config.target = ['web', store.config.build.target]
       }
     }
     wpChain.merge(config)

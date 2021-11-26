@@ -13,10 +13,26 @@ class EMPShare {
   constructor() {}
   async setup() {
     if (store.config.empShare) {
-      await this.setEmpShare()
+      if (!store.isESM) await this.setEmpShare()
+      /**
+       * 需要重写 非 esm 下的 模块管理
+       */ else await this.setESMEmpshare()
     } else {
       await Promise.all([this.setExternals(), this.setModuleFederation()])
     }
+  }
+  private async setESMEmpshare() {
+    let mf: EMPShareType = {}
+    if (typeof store.config.empShare === 'function') {
+      mf = await store.config.empShare(store.config)
+    } else if (store.config.empShare) {
+      mf = store.config.empShare
+    }
+    for (const [k, v] of Object.entries(mf.shareLib || {})) {
+      this.externals[k] = v
+    }
+    delete mf.shareLib
+    await this.setModuleFederation(mf)
   }
   private async setEmpShare() {
     let mf: EMPShareType = {}
