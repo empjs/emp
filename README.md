@@ -15,7 +15,7 @@
 ## 📦 Project
 |Project|NPM|Info|
 |---|---|---|
-|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp-cli)|Treasure chest|
+|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp)|Treasure chest|
 |[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|
 |[@efox/plugin-babel-react](packages/plugin-babel-react)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-react)](https://www.npmjs.com/package/@efox/plugin-babel-react)| EMP Babel for React plugin|
 |[@efox/eslint-config-react](packages/eslint-config-react)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react.svg)](https://www.npmjs.com/package/@efox/eslint-config-react)|ESLint React Config|

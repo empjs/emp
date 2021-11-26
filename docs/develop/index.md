@@ -1,4 +1,12 @@
 # 开发 
+<a href="https://www.npmjs.com/package/@efox/emp"><img src="https://img.shields.io/npm/v/@efox/emp.svg" alt="npm"></a>
+## 安装 
+```
+npm add @efox/emp --dev
+yarn add @efox/emp -D
+pnpm add @efox/emp -D
+```
+
 ## 指令 
 ```json
 "scripts": {
