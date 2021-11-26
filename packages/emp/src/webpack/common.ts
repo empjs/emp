@@ -115,11 +115,11 @@ class WPCommon {
   }
   get stats() {
     return {
-      colors: true,
-      preset: 'none',
-      // preset: 'minimal',
+      // colors: true,
+      // preset: 'none',
+      preset: 'errors-warnings',
       // moduleTrace: true,
-      errorDetails: true,
+      // errorDetails: true,
     }
   }
 }
