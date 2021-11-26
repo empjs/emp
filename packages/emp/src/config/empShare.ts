@@ -51,26 +51,38 @@ class EMPShare {
         //增加下划线 支持lodash 等特殊符号的问题 如 _@http
 
         if (typeof v === 'string') {
-          const cb: any = v.match(exp)
-          externalsItem.global = cb[1]
-          externalsItem.entry = cb[2]
-          externalsItem.type = 'js'
-          externals.push(externalsItem)
-          externalsItem = {}
+          const cb: any = v.match(exp) || []
+          if (cb.length > 0) {
+            externalsItem.global = cb[1]
+            externalsItem.entry = cb[2]
+            externalsItem.type = 'js'
+            externals.push(externalsItem)
+            externalsItem = {}
+          } else {
+            externalsItem.global = ''
+            externalsItem.entry = v
+            externalsItem.type = 'js'
+            externals.push(externalsItem)
+            externalsItem = {}
+          }
         } else if (Array.isArray(v)) {
           v.map(vo => {
             if (!vo) return
-            const isJS = vo.split('?')[0].endsWith('.js')
-            // const isCSS = vo.split('?')[0].endsWith('.css')
-            // if (!isJS && !isCSS) return
-            if (isJS) {
-              const cb: any = vo.match(exp)
-              externalsItem.global = cb[1]
-              externalsItem.entry = cb[2]
-              externalsItem.type = 'js'
-            } else if (vo) {
+            const isCSS = vo.split('?')[0].endsWith('.css')
+            if (isCSS) {
               externalsItem.entry = vo
               externalsItem.type = 'css'
+            } else {
+              const cb: any = vo.match(exp) || []
+              if (cb.length > 0) {
+                externalsItem.global = cb[1]
+                externalsItem.entry = cb[2]
+                externalsItem.type = 'js'
+              } else {
+                externalsItem.global = ''
+                externalsItem.entry = vo
+                externalsItem.type = 'js'
+              }
             }
             externals.push(externalsItem)
             externalsItem = {}
@@ -105,7 +117,11 @@ class EMPShare {
       list.map(v => {
         v.type = v.type || 'js'
         if (v.type === 'js' && v.module) {
-          this.externals[v.module] = v.global
+          if (v.global) {
+            this.externals[v.module] = v.global
+          } else if (store.isESM) {
+            this.externals[v.module] = v.entry
+          }
           // 可以不传入 entry 利用传统的 merge request 进行合并请求
           if (v.entry) this.externalAssets.js.push(v.entry)
         } else if (v.type === 'css' && v.entry) {

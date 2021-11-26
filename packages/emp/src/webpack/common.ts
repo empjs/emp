@@ -21,10 +21,6 @@ class WPCommon {
     }
     if (store.isESM) {
       config.externalsType = 'module'
-      // config.externalsType = 'import'
-      //config.externalsType = 'script'
-      // es need!
-      // config.target = store.config.build.target
       if (store.config.build.target) {
         config.target = ['web', store.config.build.target]
       }

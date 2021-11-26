@@ -179,9 +179,6 @@ export const initConfig = (
       cliOptions,
       appEntry: '',
       jsCheck: false,
-      //
-      pages: false,
-      pagesEntry: 'src/pages',
     },
     ...op,
   }
