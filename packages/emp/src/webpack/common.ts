@@ -23,7 +23,11 @@ class WPCommon {
       config.externalsType = 'module'
       // config.externalsType = 'import'
       //config.externalsType = 'script'
-      config.target = store.config.build.target
+      // es need!
+      // config.target = store.config.build.target
+      if (store.config.build.target) {
+        config.target = ['web', 'es2018']
+      }
     }
     wpChain.merge(config)
   }

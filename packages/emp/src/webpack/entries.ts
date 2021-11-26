@@ -116,7 +116,7 @@ class WPEntries {
       options.publicPath = store.config.base
     }
     if (store.isESM) {
-      options.inject = false
+      // options.inject = false
     }
     // wpChain.plugin(`html_plugin_${chunks}`).use(HtmlWebpackPlugin, [options])
     this.wpConfig.plugin[`html_plugin_${chunks}`] = {
