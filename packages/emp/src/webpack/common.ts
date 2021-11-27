@@ -117,7 +117,7 @@ class WPCommon {
     return {
       // colors: true,
       // preset: 'none',
-      preset: 'errors-warnings',
+      preset: store.config.logLevel === 'error' ? 'errors-only' : 'errors-warnings',
       // moduleTrace: true,
       // errorDetails: true,
     }

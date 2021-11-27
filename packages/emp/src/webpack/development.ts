@@ -4,6 +4,8 @@ import {Configuration} from 'webpack'
 class WPDevelopment {
   constructor() {}
   async setup() {
+    const overlayLoggerLv =
+      store.config.logLevel === 'error' ? {errors: true, warnings: false} : {errors: true, warnings: true}
     const config: Configuration = {
       mode: 'development',
       devtool: 'inline-source-map',
@@ -16,6 +18,11 @@ class WPDevelopment {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
           'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+        },
+        client: {
+          overlay: {
+            ...overlayLoggerLv,
+          },
         },
         ...(store.config.server as Configuration['devServer']),
       },

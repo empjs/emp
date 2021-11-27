@@ -5,6 +5,7 @@ import wpChain from 'src/helper/wpChain'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {EntriesType} from 'src/types'
 import {HtmlOptions} from 'src/config/html'
+import logger from 'src/helper/logger'
 /**
  * multi entry
  * 多入口设置
@@ -34,7 +35,7 @@ class WPEntries {
       // 屏蔽子页面的favicon 防止重复操作导致报错
       if (htmlOptions.favicon) {
         // htmlOptions.favicon = store.resolve(htmlOptions.favicon)
-        console.warn('favicon只支持在 [html] 设置')
+        logger.warn('favicon只支持在 [html] 设置')
         delete htmlOptions.favicon
       }
       //

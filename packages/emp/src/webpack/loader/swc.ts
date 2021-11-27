@@ -77,7 +77,7 @@ async function SWCLoader(
   //
   try {
     const {code, map} = build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)
-    // console.log('code', JSON.stringify(swcOptions, null, 2))
+    // logger.info('code', JSON.stringify(swcOptions, null, 2))
     done(null, code, map && JSON.parse(map))
   } catch (e) {
     done(e as Error)

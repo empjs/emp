@@ -8,6 +8,7 @@ import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml, InitHtmlType} from 'src/config/html'
 import {MFExport} from 'src/types/modulefederation'
 import {EMPShareExport} from 'src/types/empShare'
+import {LoggerType} from 'src/helper/logger'
 //
 export type EMPConfig = {
   /**
@@ -61,7 +62,7 @@ export type EMPConfig = {
    * 日志级别
    * @default 'info'
    */
-  logLevel?: string
+  logLevel?: LoggerType
   /**
    * 清空日志
    * @default true

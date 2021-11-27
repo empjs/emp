@@ -15,9 +15,9 @@ class Build {
     // await reporter.measureFileSizesBeforeBuild()
     webpack(config, (err: any, stats: any) => {
       if (err) {
-        console.error(err.stack || err)
+        logger.error(err.stack || err)
         if (err.details) {
-          console.error(err.details)
+          logger.error(err.details)
         }
         return
       }
