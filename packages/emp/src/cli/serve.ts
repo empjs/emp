@@ -33,9 +33,10 @@ class Serve {
     if (!store.config.clearLog) clearConsole()
     logTag(`server running at:`)
     const staticRoot = store.resolve(store.config.build.outDir)
-    const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
     this.app.use(express.static(staticRoot))
-    this.app.get('*', (req, res) => res.send(html))
+    //TODO: 加入SSG SSR需要
+    // const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
+    // this.app.get('*', (req, res) => res.send(html))
     const {host, port} = store.config.server
     const httpsOptions: any = store.config.server.https
     const publicPath = store.config.base
