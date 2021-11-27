@@ -24,6 +24,7 @@ export type pkgType = {
   dependencies: any
   devDependencies: any
   version: string
+  [key: string]: any
 }
 export type EntriesType = {[entryFilename: string]: HtmlOptions}
 export type Override<What, With> = Omit<What, keyof With> & With

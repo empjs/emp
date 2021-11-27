@@ -27,12 +27,16 @@ class WPCommon {
     }
     wpChain.merge(config)
   }
-  get cache() {
-    /* return {
+  get cache(): Configuration['cache'] {
+    return {
+      name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.cliOptions.env || ''}-${store.pkg.version}`,
       type: 'filesystem',
       cacheDirectory: store.cacheDir,
-    } */
-    return false
+      buildDependencies: {
+        config: [__filename, store.resolve('emp-config.js')],
+      },
+    }
+    // return false
   }
   get experiments() {
     return {
