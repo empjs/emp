@@ -6,13 +6,8 @@ export {WPChain}
 const wpChain = new WPChain()
 export const getConfig: any = () => {
   const conf = wpChain.toConfig()
-  /* if (store.cliOptions.profile) {
-    const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
-    const smp = new SpeedMeasurePlugin()
-    conf = smp.wrap(conf)
-  } */
 
-  const {wplogger} = store.cliOptions
+  const {wplogger} = store.config.debug
   if (wplogger) {
     if (typeof wplogger === 'string') {
       fs.writeFile(store.resolve(wplogger), `module.exports=${JSON.stringify(conf, null, 2)}`).catch(e =>

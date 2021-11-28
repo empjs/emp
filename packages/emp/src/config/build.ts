@@ -1,7 +1,7 @@
 import {JscConfig} from '@swc/core'
 export type BuildOptions = {
   /**
-   * swc & esbuild 是否异步构建
+   * swc 是否异步构建
    * @default false
    */
   sync?: boolean
@@ -44,6 +44,10 @@ export type BuildOptions = {
    * chunkIds
    */
   chunkIds?: false | 'natural' | 'named' | 'deterministic' | 'size' | 'total-size'
+  /**
+   * 是否生成分析报告 根据 cliOptions `--analyze` 生成
+   */
+  analyze?: boolean
 }
 
 export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
@@ -62,6 +66,7 @@ export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
       useLib: false,
       emptyOutDir: true,
       chunkIds: false,
+      analyze: false,
     },
     ...op,
   }

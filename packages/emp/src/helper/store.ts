@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import {cliOptionsType, modeType, pkgType} from 'src/types'
+import {cliOptionsType, ConfigDebugType, modeType, pkgType} from 'src/types'
 import {EMPConfigExport, initConfig, ResovleConfig} from 'src/config'
 import logger from './logger'
 import EMPShare from 'src/config/empShare'
@@ -65,7 +65,7 @@ class GlobalStore {
   /**
    * 命令行变量
    */
-  public cliOptions: cliOptionsType = {}
+  // public cliOptions: cliOptionsType = {}
   /**
    * 是否 ESM 模块
    */
@@ -86,39 +86,52 @@ class GlobalStore {
     this.pkg = require(this.resolve('package.json'))
     //
     await this.setConfig(mode, cliOptions)
+    //初始化 构建 模式 环境变量
+    this.config.mode = mode
+    this.config.env = cliOptions.env
     // check IsESM
     this.isESM = ['es3', 'es5'].indexOf(this.config.build.target) === -1
     //设置绝对路径
     this.setAbsPaths()
-    // command option 处理 优先级优于 emp-config,把 config覆盖
-    this.setCliOptions(cliOptions)
+    // 根据 cliOptions 覆盖 config
+    this.setConfigByCliPotions(cliOptions)
     // empShare 初始化
     await this.empShare.setup()
+    //show logger of config
+    if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
   }
-  setCliOptions(cliOptions: cliOptionsType) {
-    this.cliOptions = cliOptions
-    if (this.cliOptions.wplogger) logger.info('[emp-config]', this.config)
-    if (this.cliOptions.open) this.config.server.open = true
-    if (this.cliOptions.hot) this.config.server.hot = true
-  }
-  setAbsPaths() {
+  private setAbsPaths() {
     //
     this.appSrc = this.resolve(this.config.appSrc)
     this.outDir = this.resolve(this.config.build.outDir)
     this.publicDir = this.resolve(this.config.publicDir)
     this.cacheDir = this.resolve(this.config.cacheDir)
   }
-  async setConfig(mode: modeType, cliOptions: cliOptionsType) {
+  /**
+   * 覆盖 config 配置
+   */
+  private setConfigByCliPotions(cliOptions: cliOptionsType) {
+    // debug 替换配置项
+    if (cliOptions.clearLog === 'false' || cliOptions.clearLog === false) this.config.debug.clearLog = false
+    if (cliOptions.profile === true) this.config.debug.profile = true
+    if (cliOptions.wplogger === true) this.config.debug.wplogger = true
+    if (cliOptions.progress === 'false' || cliOptions.progress === false) this.config.debug.progress = false
+    // server build 替换配置项
+    if (cliOptions.open === true) this.config.server.open = true
+    if (cliOptions.hot === false) this.config.server.hot = false
+    if (cliOptions.analyze === true) this.config.build.analyze = true
+  }
+  private async setConfig(mode: modeType, cliOptions: cliOptionsType) {
     //初始化 emp-config.js
     const fp = this.resolve('emp-config.js')
     if (fs.existsSync(fp)) {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
         const conf = await configExport({mode, ...cliOptions})
-        this.config = initConfig(conf, mode, cliOptions)
+        this.config = initConfig(conf)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport
-        this.config = initConfig(conf, mode, cliOptions)
+        this.config = initConfig(conf)
       }
     }
     // reactRuntime settings

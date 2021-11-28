@@ -76,13 +76,31 @@ module.exports = defineConfig(async({mode,env})=>{
 
 缓存目录
 
+### resolve.extends 
++ 类型 `boolean`
++ 默认为 `true`
+
+是否继承系统默认设置 默认继承 
+设置 `false` 后，会按需替换 不设置则还是按照系统配置
+
+### resolve.alias
++ 类型 `{[key:string]:string}`
++ 默认为 `{src: config.appSrc}`
+
+### resolve.modules
++ 类型 `string[]`
+
+### resolve.extensions
++ 类型 `string[]`
++ 默认为 `['.js','.jsx','.mjs','.ts','.tsx','.css','.less','.scss','.sass','.json','.wasm','.vue','.svg','.svga']`
+
 ### mode
 + 类型 `string`
   - 调试模式为 development
   - 构建模式为 production
   - 正式环境为 none
 
-模式根据执行指令自动变换
+模式根据执行指令自动变换 <b>暂不支持设置</b>
 
 ### define
 + 类型 `Record<string, string|number|boolean>` 
@@ -165,15 +183,47 @@ module federation 配置
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
-## clearLog
+## 构建选项 
+### build.target
+ + 类型 `JscConfig['target']` 
+
+ 生成代码 参考 [swc#jsctarget](https://swc.rs/docs/configuration/compilation#jsctarget)
+
+### build.sync
++ 类型 `boolean`
++ 默认 `false`
+
+swc 是否异步构建
+
+### build.outDir 
++ 类型 `string`
++ 默认 `dist`
+
+生成代码目录
+
+### build.assetsDir 
++ 类型 `string`
++ 默认 `assets`
+
+生成静态目录
+
+### build.minify 
 + 类型 `boolean`
 + 默认 `true`
-  - 是否清空之前的日志 
-  - 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
 
-## 构建选项 
-### build
- + 类型 `BuildOptions`
+是否压缩、默认 development 不压缩，production 压缩
+
+### build.sourcemap 
++ 类型 `boolean`
++ 默认 `true`
+
+是否生产sourcemap、默认 development 生产，production 不生产
+
+### build.emptyOutDir 
++ 类型 `boolean`
++ 默认 `true`
+
+是否清空生成文件夹
 
 ### build.chunkIds 
 + 类型 `false` | `natural` | `named` | `deterministic` | `size` | `total-size`  
@@ -182,6 +232,38 @@ module federation 配置
 `named` 有助于定位问题 开发模式默认启动
 `deterministic` 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
 
+### build.analyze 
++ 类型 `boolean` 
++ 默认 `false`
+
+通过 cli `--analyze` 或 `-a` 生成构建分析
+
 ## 服务选项 
 ### server
 + 类型 `ServerOptions`
+
+## 调试选项 
+### debug.clearLog
++ 类型 `boolean`
++ 默认 `true`
+
+- 是否清空之前的日志 
+- 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
+
+### debug.progress
++ 类型 `boolean`
++ 默认 `true`
+
+是否显示进度条
+
+### debug.profile 
++ 类型 `boolean`
++ 默认 `false`
+
+是否显示性能分析
+
+### debug.wplogger
++ 类型 `boolean`
++ 默认 `false`
+
+是否显示配置信息

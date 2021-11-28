@@ -21,7 +21,7 @@ const LazyComponent = lazy(() => import('./LazyComponent'))
 const Nav = observer(() => {
   return (
     <>
-      <Link to="about">About!!</Link>
+      <Link to="about">About</Link>
       <p>{incStore.num}</p>
       <pre>{incStore.code}</pre>
       <button

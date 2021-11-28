@@ -1,7 +1,7 @@
 // import store from 'src/helper/store'
 import {BuildOptions, initBuild} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
-import {cliOptionsType, modeType, Override, EntriesType} from 'src/types'
+import {cliOptionsType, modeType, Override, EntriesType, ConfigResolveType, ConfigDebugType} from 'src/types'
 import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
@@ -51,12 +51,32 @@ export type EMPConfig = {
    */
   mode?: modeType
   /**
+   * 通过命令行指令 `--env` 赋值
+   */
+  env?: ConfigEnv['env']
+  /**
    * 全局环境替换
    */
   define?: Record<string, any>
+  /**
+   * resolve
+   */
+  resolve?: ConfigResolveType
+  /**
+   * emp plugins
+   */
   plugins?: ConfigPluginType[]
+  /**
+   * dev server
+   */
   server?: ServerOptions
+  /**
+   * build options
+   */
   build?: BuildOptions
+  /**
+   * library externals
+   */
   externals?: ExternalsType
   /**
    * 日志级别
@@ -64,10 +84,9 @@ export type EMPConfig = {
    */
   logLevel?: LoggerType
   /**
-   * 清空日志
-   * @default true
+   * debug 选项
    */
-  clearLog?: boolean
+  debug?: ConfigDebugType
   /**
    * webpackChain 暴露到 emp-config
    */
@@ -138,19 +157,17 @@ export type ResovleConfig = Override<
     moduleFederation?: MFExport
     externals?: ExternalsType
     empShare?: EMPShareExport
-    cliOptions: cliOptionsType
     webpackChain?: WebpackChainType
     reactRuntime?: 'automatic' | 'classic'
     base?: string
     html: InitHtmlType
     entries?: EntriesType
+    debug: ConfigDebugType
+    env?: ConfigEnv['env']
+    mode: modeType
   }
 >
-export const initConfig = (
-  op: any = {},
-  mode: modeType = 'development',
-  cliOptions: cliOptionsType = {},
-): ResovleConfig => {
+export const initConfig = (op: any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
@@ -159,12 +176,19 @@ export const initConfig = (
   const html = initHtml(op.html)
   delete op.html
   //
-  const clearLog = typeof cliOptions.clearLog !== undefined ? cliOptions.clearLog : true
+  const debug: ConfigDebugType = {
+    clearLog: true,
+    profile: false,
+    wplogger: false,
+    progress: true,
+    ...(op.debug || {}),
+  }
+  delete op.debug
   //
   return {
     ...{
       root: process.cwd(),
-      mode,
+      env: undefined,
       appSrc: 'src',
       publicDir: 'public',
       cacheDir: 'node_modules/.emp-cache',
@@ -174,10 +198,9 @@ export const initConfig = (
       server,
       html,
       logLevel: 'info',
-      clearLog,
+      debug,
       useImportMeta: false,
       splitCss: true,
-      cliOptions,
       appEntry: '',
       jsCheck: false,
     },

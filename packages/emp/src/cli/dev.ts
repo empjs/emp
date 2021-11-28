@@ -12,9 +12,10 @@ class devServer {
     this.setProcess()
   }
   async setServer() {
-    if (!store.config.clearLog) clearConsole()
-    logTag(`dev server running at:`)
     const config = getConfig()
+    if (store.config.debug.clearLog) clearConsole()
+    logTag(`dev server running at:`)
+    //
     const compiler = webpack(config)
     this.server = new WebpackDevServer(config.devServer || {}, compiler)
     this.server.start()

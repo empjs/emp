@@ -7,11 +7,9 @@ import {clearConsole} from 'src/helper/utils'
 class Build {
   constructor() {}
   async setup() {
-    if (!store.config.clearLog) clearConsole()
-    logTag(`build for production:`)
-    //
     const config = getConfig()
-    //
+    if (store.config.debug.clearLog) clearConsole()
+    logTag(`build for production:`)
     // await reporter.measureFileSizesBeforeBuild()
     webpack(config, (err: any, stats: any) => {
       if (err) {

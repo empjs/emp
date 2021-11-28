@@ -7,10 +7,8 @@ class WPCommon {
   constructor() {}
   async setup() {
     this.isDev = store.config.mode === 'development'
-    this.setCommon()
-  }
-  private setCommon() {
     const {cache, resolve, experiments, output, stats} = this
+    // init config
     const config: Configuration = {
       cache,
       resolve,
@@ -19,17 +17,19 @@ class WPCommon {
       output,
       stats,
     }
+    // ESM
     if (store.isESM) {
       config.externalsType = 'module'
       if (store.config.build.target) {
         config.target = ['web', store.config.build.target]
       }
     }
+    // Merge
     wpChain.merge(config)
   }
   get cache(): Configuration['cache'] {
     return {
-      name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.cliOptions.env || ''}-${store.pkg.version}`,
+      name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${store.pkg.version}`,
       type: 'filesystem',
       cacheDirectory: store.cacheDir,
       buildDependencies: {
@@ -38,7 +38,7 @@ class WPCommon {
     }
     // return false
   }
-  get experiments() {
+  get experiments(): Configuration['experiments'] {
     return {
       outputModule: store.isESM,
       topLevelAwait: true,
@@ -46,7 +46,7 @@ class WPCommon {
       backCompat: true,
     }
   }
-  get output() {
+  get output(): Configuration['output'] {
     const environment = !store.isESM
       ? {
           arrowFunction: false,
@@ -84,8 +84,9 @@ class WPCommon {
       pathinfo: false, //在打包数千个模块的项目中，这会导致造成垃圾回收性能压力
     }
   }
-  get resolve() {
-    return {
+  get resolve(): Configuration['resolve'] {
+    const configResolve = store.config.resolve || {}
+    const rs = {
       modules: [
         'node_modules', //默认
         store.resolve('node_modules'), // 项目
@@ -112,8 +113,19 @@ class WPCommon {
         '.svga',
       ],
     }
+    // 合并 config.resolve 配置项
+    if (configResolve.modules) {
+      rs.modules = configResolve.extends === false ? rs.modules : [...rs.modules, ...configResolve.modules]
+    }
+    if (configResolve.alias) {
+      rs.alias = configResolve.extends === false ? rs.alias : {...rs.alias, ...configResolve.alias}
+    }
+    if (configResolve.extensions) {
+      rs.extensions = configResolve.extends === false ? rs.extensions : [...rs.extensions, ...configResolve.extensions]
+    }
+    return rs
   }
-  get stats() {
+  get stats(): Configuration['stats'] {
     return {
       // colors: true,
       // preset: 'none',

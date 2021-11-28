@@ -30,7 +30,7 @@ class Serve {
     }
   }
   async setup() {
-    if (!store.config.clearLog) clearConsole()
+    if (store.config.debug.clearLog) clearConsole()
     logTag(`server running at:`)
     const staticRoot = store.resolve(store.config.build.outDir)
     this.app.use(express.static(staticRoot))
