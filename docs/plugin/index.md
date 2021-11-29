@@ -7,6 +7,20 @@ EMP v2 plugin 结合 webpack chain 提供对 webpack自定义配置，详细类�
 
 ### [@efox/emp/plugin-vue-2](https://github.com/efoxTeam/emp/tree/next/packages/plugin-vue-2) 
 + 提供 vue 2 编译支持 
+```js
+const {defineConfig} = require('@efox/emp')
+const vue = require('@efox/plugin-vue-2')
+module.exports = defineConfig({
+  plugins: [vue],
+})
+```
 
 ### [@efox/emp/plugin-babel-react](https://github.com/efoxTeam/emp/tree/next/packages/plugin-babel-react) 
-+ 提供 react bable 编译支持 
++ 提供 react babel 编译支持 
+```js
+const {defineConfig} = require('@efox/emp')
+const babelReact = require('@efox/plugin-babel-react')
+module.exports = defineConfig({
+  plugins: [babelReact],
+})
+```
