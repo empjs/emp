@@ -45,6 +45,24 @@ DOTENV='dev'
 ```js
 console.log(process.env.env.DOTENV)
 ```
+## Typescript 
+### tsconfig.json 配置 
++ `@efox/emp` 集成了 `@efox/emp-tsconfig` 与 `Css Module 提示`
++ 集成了emp内置的资源 TS类型
++ 设置方式如下:
+
+```json
+{
+  "extends": "@efox/emp/emp-tsconfig.json",
+  "compilerOptions": {
+    "types": ["@efox/emp/client"],
+    "baseUrl": ".",
+  },
+  "include": [
+    "src",
+  ]
+}
+```
 
 ## 共享模式 
 ### empshare 配置 
