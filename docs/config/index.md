@@ -131,13 +131,96 @@ console.log('process.env.emp', process.env.emp)
    - 实现3重共享模型
    - empshare 与 module federation 只能选择一个配置
 
+ 详情点击 [了解更多](/develop/#empshare-配置) 
+ 
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  empshare:{}
+  // or funciton
+  empshare(o: EMPConfig){}
+  // or async function 
+  async empshare(o: EMPConfig){}
+}
+```
+ + 配置用例如下
+ ```js
+ module.exports={
+    empShare: {
+    name: 'microApp',
+    remotes: {
+      '@microHost': `microHost@http://localhost:8001/emp.js`,
+    },
+    exposes: {
+      './App': './src/App',
+    },
+    shareLib: {
+      react: 'React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js',
+      'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js',
+    }
+    },
+ }
+ ```
+
 ###  externals
-+ 类型 `ExternalsType`
 
-### moduleFederation
-+ 类型 `MFExport`
++ module?: `string` 模块名 @example react-dom
++ global?: `string` 全局变量 @example ReactDom
++ entry?: `string` 入口地址 @example http://
+  * 入口地址
+  * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
+  * 如 http://...?react&react-dom&react-router&mobx
++ type?: `string` 类型入口 js | css
 
-module federation 配置
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  externals:{}
+  // or funciton
+  externals(o: EMPConfig){}
+  // or async function 
+  async externals(o: EMPConfig){}
+}
+```
+
+### moduleFederation 
+> module federation 配置、2.0更推荐用  empShare 替代 module federation的配置 [了解更多](/develop/#empshare-配置)
++ 类型 `MFExport` 
+  + exposes?: 导出模块
+  + filename?: 导出文件名 默认为 `emp.js`
+  + library?: 库模式
+  + name?: 导出名，amd umd cjs 
+  + remotes?: 远程引用、基站 
+  + shared?: 共享库、对象
+
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  moduleFederation:{}
+  // or funciton
+  moduleFederation(o: EMPConfig){}
+  // or async function 
+  async moduleFederation(o: EMPConfig){}
+}
+```
+使用用例：以 `micro-host` 为例
+```js
+module.exports={
+    moduleFederation:{
+      name: 'microHost',
+      exposes: {
+        './App': './src/App',
+      },
+      shared: {
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
+      },
+    }
+}
+```
 
 ### useImportMeta
 + 类型 `boolean`
