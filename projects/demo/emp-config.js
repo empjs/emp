@@ -35,5 +35,8 @@ module.exports = defineConfig(config => {
     html: {
       favicon: 'src/favicon.ico',
     },
+    debug: {
+      clearLog: false,
+    },
   }
 })
