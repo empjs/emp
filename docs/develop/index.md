@@ -75,9 +75,9 @@ console.log(process.env.env.DOTENV)
 
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
 
-## 多入口模式 
+## 多页面模式 
 ### 配置
-多入口模式配置 `emp-config.js` 如下: 
+多页面模式配置 `emp-config.js` 如下: 
 ```js
 module.exports={
   // favicion 需要在 html里面配置 

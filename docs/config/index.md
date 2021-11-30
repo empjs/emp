@@ -251,6 +251,7 @@ module.exports={
     - js `string[]` 插入 js
 
 其他可以参考 html-webpack-plugin [相关设置](https://github.com/jantimon/html-webpack-plugin)
+配置详情请 [点击查看](/develop/#多入口模式)
 
 ### entries
 + 类型 `EntriesType`
