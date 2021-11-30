@@ -35,6 +35,15 @@ class WPModule {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
                 options: {},
               },
+              dts: {
+                loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
+                options: {
+                  name: 'app2',
+                  exposes: {
+                    './Button': './src/Button',
+                  },
+                },
+              },
             },
           },
         },

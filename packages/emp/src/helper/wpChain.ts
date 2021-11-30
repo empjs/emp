@@ -5,12 +5,12 @@ import logger from './logger'
 export {WPChain}
 const wpChain = new WPChain()
 export const getConfig: any = () => {
-  const conf = wpChain.toConfig()
-  /* if (store.cliOptions.profile) {
+  let conf = wpChain.toConfig()
+  if (store.cliOptions.profile) {
     const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
     const smp = new SpeedMeasurePlugin()
     conf = smp.wrap(conf)
-  } */
+  }
 
   const {wplogger} = store.cliOptions
   if (wplogger) {
