@@ -1,0 +1,17 @@
+{
+  "name": "emp-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "stat": "emp build --analyze"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp": "workspace:^2.0.0-alpha.8"
+  }
+}

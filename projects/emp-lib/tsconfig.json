@@ -1,0 +1,10 @@
+{
+    "extends": "@efox/emp/emp-tsconfig",
+    "compilerOptions": {
+      "types": ["@efox/emp/client"],
+      "baseUrl": ".",
+    },
+    "include": [
+      "src",
+    ]
+  }

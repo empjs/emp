@@ -41,3 +41,23 @@ export type ConfigDebugType = {
   profile: boolean
   wplogger: boolean
 }
+
+export type buildLibType =
+  | 'var'
+  | 'module'
+  | 'assign'
+  | 'assign-properties'
+  | 'this'
+  | 'window'
+  | 'self'
+  | 'global'
+  | 'commonjs'
+  | 'commonjs2'
+  | 'commonjs-module'
+  | 'amd'
+  | 'amd-require'
+  | 'umd'
+  | 'umd2'
+  | 'jsonp'
+  | 'system'
+  | 'esm'

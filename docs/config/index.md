@@ -322,6 +322,11 @@ swc 是否异步构建
 
 通过 cli `--analyze` 或 `-a` 生成构建分析
 
+### build.lib 
++ 类型 `LibMod`
+
+使用库模式 具体可以点击 [查看详情](/develop/#配置)
+
 ## 服务选项 
 ### server
 + 类型 `ServerOptions`

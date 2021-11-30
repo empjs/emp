@@ -76,7 +76,7 @@ class WPCommon {
       // },
       clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
       path: store.outDir,
-      publicPath: store.config.build.useLib ? publicPath : 'auto',
+      publicPath: store.config.build.lib ? publicPath : 'auto',
       filename: 'js/[name].[contenthash:8].js',
       assetModuleFilename: `${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
       environment,

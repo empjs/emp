@@ -316,6 +316,12 @@ importers:
       '@types/lodash': 4.14.177
       '@types/react-router-dom': 5.3.2
 
+  projects/emp-lib:
+    specifiers:
+      '@efox/emp': workspace:^2.0.0-alpha.8
+    devDependencies:
+      '@efox/emp': link:../../packages/emp
+
   projects/empty-project:
     specifiers:
       '@efox/emp': workspace:^*

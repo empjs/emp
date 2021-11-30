@@ -1,4 +1,6 @@
 import {JscConfig} from '@swc/core'
+import {Override} from 'src/types'
+import LibMod from './libMod'
 export type BuildOptions = {
   /**
    * swc 是否异步构建
@@ -31,10 +33,9 @@ export type BuildOptions = {
   sourcemap?: boolean
   // sourcemap?: boolean | 'inline' | 'hidden'
   /**
-   * 是否使用 library模式
-   * @default true
+   * 使用 库模式
    */
-  useLib?: boolean
+  lib?: LibMod
   /**
    * 是否清空生成文件夹
    * @default true
@@ -49,8 +50,13 @@ export type BuildOptions = {
    */
   analyze?: boolean
 }
-
-export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
+export type RquireBuildOptions = Override<
+  Required<BuildOptions>,
+  {
+    lib?: LibMod
+  }
+>
+export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
   return {
     ...{
       sync: false,
