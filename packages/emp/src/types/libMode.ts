@@ -1,3 +1,5 @@
+import {Configuration} from 'webpack'
+
 export type buildLibType =
   | 'var'
   | 'module'
@@ -18,17 +20,24 @@ export type buildLibType =
   | 'system'
   | 'esm'
 
+type FileNameType = (format: string) => string
 export type LibModeType = {
   /**
-   * 入口文件
+   * 全局变量 用作 amd umd var window 等共享
    */
-  entry: string | string[]
+  name?: string
   /**
-   * amd umd window var ... 需要导出的名称
+   *  入口文件 可以只设置 entry.name 代替 name，但要遵循 js 变量的命名规则
    */
-  name: string
+  entry: {[name: string]: string | string[]}
+  /**
+   * fileName
+   * @default [format]/[name].js 建议 format 为目录 避免不同格式代码混淆
+   */
+  fileName?: FileNameType | string
   /**
    * 输出格式
    */
   formats: buildLibType[]
+  external?: Configuration['externals']
 }

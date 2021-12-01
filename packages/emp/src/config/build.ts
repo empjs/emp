@@ -1,6 +1,7 @@
 import {JscConfig} from '@swc/core'
 import {Override} from 'src/types'
 import {LibModeType} from 'src/types/libMode'
+import {Configuration} from 'webpack'
 export type BuildOptions = {
   /**
    * swc 是否异步构建
@@ -11,6 +12,7 @@ export type BuildOptions = {
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */
   target?: JscConfig['target']
+  wpTarget?: Configuration['target']
   /**
    * 生成代码目录
    * @default 'dist'
@@ -54,6 +56,7 @@ export type RquireBuildOptions = Override<
   Required<BuildOptions>,
   {
     lib?: LibModeType
+    wpTarget?: Configuration['target']
   }
 >
 export const initBuild = (op?: BuildOptions): RquireBuildOptions => {

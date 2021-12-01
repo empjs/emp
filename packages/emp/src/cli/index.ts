@@ -1,6 +1,7 @@
 import store from 'src/helper/store'
 import {cliOptionsType, modeType} from 'src/types'
-import wpConfig from 'src/webpack'
+// import wpConfig from 'src/webpack'
+// import wpLibMode from 'src/webpack/wpLibMode'
 import configPlugins from 'src/config/plugins'
 import configChain from 'src/config/chain'
 class EMPScript {
@@ -12,8 +13,14 @@ class EMPScript {
   async exec(name: string, mode: modeType, cliOptions: cliOptionsType, pkg: any): Promise<void> {
     // 全局变量实例化 store & config
     await store.setup(mode, cliOptions, pkg)
-    // webpack实例化
-    await wpConfig.setup()
+    if (store.config.build.lib) {
+      // 库模式实例化
+      await (await import('src/webpack/wpLibMode')).default.setup()
+      name = 'build'
+    } else {
+      // webpack实例化
+      await (await import('src/webpack')).default.setup()
+    }
     // 初始化所有 EMP Plugins
     await configPlugins.setup()
     // webpack Chain

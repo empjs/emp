@@ -9,7 +9,7 @@ class Build {
   async setup() {
     const config = getConfig()
     if (store.config.debug.clearLog) clearConsole()
-    logTag(`build for production:`)
+    logTag(`build for ${store.config.mode}:`)
     // await reporter.measureFileSizesBeforeBuild()
     webpack(config, (err: any, stats: any) => {
       if (err) {
