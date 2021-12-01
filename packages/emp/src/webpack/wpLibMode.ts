@@ -38,6 +38,7 @@ class WPLibMode {
   private async libTarget(format: buildLibType) {
     if (format === 'esm') {
       store.isESM = true
+      //TODO 当 esm 时 需要重置 target 考虑开放多 target 自定义
       store.config.build.target = !['es3', 'es5'].includes(store.config.build.target)
         ? store.config.build.target
         : 'es2018'
