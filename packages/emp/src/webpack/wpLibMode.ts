@@ -4,6 +4,7 @@ import WPCommon from './common'
 import {buildLibType, LibModeType} from 'src/types'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
+import {Configuration} from 'webpack'
 class WPLibMode {
   common = new WPCommon()
   module = new WPModule()
@@ -19,14 +20,17 @@ class WPLibMode {
     console.log(wpChain.toConfig())
   }
   private resetConfig() {
-    wpChain.merge({
+    const wp: Configuration = {
       mode: store.config.mode,
       watch: store.config.mode === 'development',
       output: {
         clean: true,
       },
-      extensions: ['.js', '.mjs', '.ts', '.json', '.wasm'],
-    })
+      resolve: {
+        extensions: ['.js', '.mjs', '.ts', '.json', '.wasm'],
+      },
+    }
+    wpChain.merge(wp)
   }
   private initBuildLib() {
     console.log(store.config.build.lib)
