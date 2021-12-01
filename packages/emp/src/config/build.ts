@@ -1,6 +1,6 @@
 import {JscConfig} from '@swc/core'
 import {Override} from 'src/types'
-import LibMod from './libMod'
+import {LibModeType} from 'src/types/libMode'
 export type BuildOptions = {
   /**
    * swc 是否异步构建
@@ -35,7 +35,7 @@ export type BuildOptions = {
   /**
    * 使用 库模式
    */
-  lib?: LibMod
+  lib?: LibModeType
   /**
    * 是否清空生成文件夹
    * @default true
@@ -53,7 +53,7 @@ export type BuildOptions = {
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
   {
-    lib?: LibMod
+    lib?: LibModeType
   }
 >
 export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
@@ -69,7 +69,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       /**
        * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets
        */
-      useLib: false,
+      // useLib: false,
       emptyOutDir: true,
       chunkIds: false,
       analyze: false,

@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "emp dev",
     "build": "emp build",
+    "start": "emp serve",
     "stat": "emp build --analyze"
   },
   "author": "",

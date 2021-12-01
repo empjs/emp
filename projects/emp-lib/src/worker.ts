@@ -4,4 +4,3 @@ self.onmessage = ({data: {question}}) => {
     answer: 42,
   })
 }
-Node

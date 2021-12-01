@@ -83,7 +83,8 @@ class GlobalStore {
     //初始化 emp pkg 暂时不获取依赖
     this.empPkg = {...this.empPkg, ...{version: empPkg.version}}
     // 项目 package.json
-    this.pkg = require(this.resolve('package.json'))
+    const pkg = require(this.resolve('package.json'))
+    this.pkg = {...this.pkg, ...pkg}
     //
     await this.setConfig(mode, cliOptions)
     //初始化 构建 模式 环境变量
@@ -95,8 +96,11 @@ class GlobalStore {
     this.setAbsPaths()
     // 根据 cliOptions 覆盖 config
     this.setConfigByCliPotions(cliOptions)
-    // empShare 初始化
-    await this.empShare.setup()
+    if (!this.config.build.lib) {
+      // lib 模式下 忽略 empShare 设置
+      // empShare 初始化
+      await this.empShare.setup()
+    }
     //show logger of config
     if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
   }
@@ -135,6 +139,9 @@ class GlobalStore {
       }
     }
     // reactRuntime settings
+    this.checkAndSetReactVersion()
+  }
+  private checkAndSetReactVersion() {
     const version = this.pkg.dependencies.react || this.pkg.devDependencies.react
     if (version) {
       this.config.reactRuntime = vCompare(version, '17') > -1 ? 'automatic' : 'classic'

@@ -1,6 +1,7 @@
 export * from './empShare'
 export * from './externals'
 export * from './modulefederation'
+export * from './libMode'
 import {HtmlOptions} from 'src/config/html'
 //
 import {Configuration, ResolveOptions} from 'webpack'
@@ -41,23 +42,3 @@ export type ConfigDebugType = {
   profile: boolean
   wplogger: boolean
 }
-
-export type buildLibType =
-  | 'var'
-  | 'module'
-  | 'assign'
-  | 'assign-properties'
-  | 'this'
-  | 'window'
-  | 'self'
-  | 'global'
-  | 'commonjs'
-  | 'commonjs2'
-  | 'commonjs-module'
-  | 'amd'
-  | 'amd-require'
-  | 'umd'
-  | 'umd2'
-  | 'jsonp'
-  | 'system'
-  | 'esm'

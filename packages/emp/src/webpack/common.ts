@@ -7,25 +7,31 @@ class WPCommon {
   constructor() {}
   async setup() {
     this.isDev = store.config.mode === 'development'
-    const {cache, resolve, experiments, output, stats} = this
+    const {cache, resolve, experiments, output, stats, externals} = this
     // init config
     const config: Configuration = {
       cache,
       resolve,
-      externals: store.empShare.externals,
+      externals,
       experiments,
       output,
       stats,
     }
     // ESM
+    this.setESM(config)
+    // Merge
+    wpChain.merge(config)
+  }
+  setESM(config: Configuration) {
     if (store.isESM) {
       config.externalsType = 'module'
       if (store.config.build.target) {
         config.target = ['web', store.config.build.target]
       }
     }
-    // Merge
-    wpChain.merge(config)
+  }
+  get externals(): Configuration['externals'] {
+    return store.empShare.externals
   }
   get cache(): Configuration['cache'] {
     return {
