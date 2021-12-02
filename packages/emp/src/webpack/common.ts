@@ -1,4 +1,5 @@
 // import path from 'path'
+import fs from 'fs'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -35,12 +36,17 @@ class WPCommon {
     return store.empShare.externals
   }
   get cache(): Configuration['cache'] {
+    const watchConfig = [__filename]
+    const empConfig = store.resolve('emp-config.js')
+    if (fs.existsSync(empConfig)) {
+      watchConfig.push(empConfig)
+    }
     return {
       name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${store.pkg.version}`,
       type: 'filesystem',
       cacheDirectory: store.cacheDir,
       buildDependencies: {
-        config: [__filename, store.resolve('emp-config.js')],
+        config: watchConfig,
       },
     }
     // return false

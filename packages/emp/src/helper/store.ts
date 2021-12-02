@@ -137,6 +137,8 @@ class GlobalStore {
         const conf: any = configExport
         this.config = initConfig(conf)
       }
+    } else {
+      this.config = initConfig()
     }
     // reactRuntime settings
     this.checkAndSetReactVersion()

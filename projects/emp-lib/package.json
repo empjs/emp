@@ -2,7 +2,8 @@
   "name": "emp-lib",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
   "private": true,
   "scripts": {
     "dev": "emp dev",

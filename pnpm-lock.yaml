@@ -322,6 +322,14 @@ importers:
     devDependencies:
       '@efox/emp': link:../../packages/emp
 
+  projects/emp-lib-demo:
+    specifiers:
+      '@efox/emp': workspace:^2.0.0-alpha.8
+      emp-lib: workspace:^1.0.0
+    dependencies:
+      '@efox/emp': link:../../packages/emp
+      emp-lib: link:../emp-lib
+
   projects/empty-project:
     specifiers:
       '@efox/emp': workspace:^*

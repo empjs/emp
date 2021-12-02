@@ -3,7 +3,6 @@ import {ResovleConfig} from 'src/config'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
 const isDev = store.config.mode === 'development'
-const {build} = store.config
 
 class SWCOpt {
   isTypescript = false
@@ -40,23 +39,27 @@ class SWCOpt {
   }
 }
 const swcOpt = new SWCOpt()
-//
+/**
+ * SWCLoader
+ * @param this
+ * @param source
+ */
 async function SWCLoader(
   this: webpack.LoaderContext<ResovleConfig>,
   source: string,
   // inputSourceMap: true,
 ) {
   const done = this.async()
-  // const options = this.getOptions()
+  const options = this.getOptions()
+  const {build} = options
   //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
   swcOpt.resetType(isTypescript, isReact)
   const {parser, react} = swcOpt
-
   const swcOptions: Options & any = {
     sourceFileName: this.resourcePath,
-    sourceMaps: typeof build.sourcemap !== 'undefined' ? build.sourcemap : this.sourceMap,
+    sourceMaps: this.sourceMap,
     // env: {mode: 'usage'},
     jsc: {
       target: build.target,
