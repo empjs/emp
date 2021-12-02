@@ -1,49 +1,92 @@
-import WPModule from './module'
-import WPPlugin from './plugin'
-import WPCommon from './common'
+import path from 'path'
 import {buildLibType, LibModeType} from 'src/types'
 import store from 'src/helper/store'
-import wpChain from 'src/helper/wpChain'
+import wpChain, {WPChain} from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
+import WPModule from './module'
 class WPLibMode {
-  common = new WPCommon()
-  module = new WPModule()
-  plugin = new WPPlugin()
   libConfig: LibModeType
+  wpconfigs: Configuration[] = []
+  isDev = false
+  module = new WPModule()
+
   constructor() {
-    this.libConfig = {entry: {ESvga: 'index.ts'}, formats: ['umd', 'esm']}
+    this.libConfig = {entry: {index: 'index.ts'}, formats: ['umd', 'esm']}
   }
   async setup() {
+    this.isDev = store.config.mode === 'development'
     this.initBuildLib()
-    this.libTarget('esm')
-    this.resetConfig()
-    console.log(wpChain.toConfig())
+    this.resetWpchain()
+    //
+    await Promise.all(
+      this.libConfig.formats.map(async format => {
+        await this.libTarget(format)
+        this.resetConfig(format)
+      }),
+    )
+    console.log('=== wpconfigs ===', this.wpconfigs)
+    return this.wpconfigs
   }
-  private resetConfig() {
-    const wp: Configuration = {
-      mode: store.config.mode,
-      watch: store.config.mode === 'development',
-      output: {
-        clean: true,
-      },
-      resolve: {
-        extensions: ['.js', '.mjs', '.ts', '.json', '.wasm'],
+  private resetWpchain() {
+    Object.keys(this.libConfig.entry).map(k => wpChain.plugins.delete('html_plugin_' + k))
+    wpChain.plugins.delete('mf')
+    if (store.config.mode === 'production') {
+      wpChain.plugins.delete('copy')
+      wpChain.devtool('source-map')
+    }
+  }
+  private resetConfig(format: buildLibType) {
+    const config: Configuration = wpChain.toConfig()
+    if (config.devServer) {
+      delete config.devServer
+    }
+
+    const wp: Configuration = {...config, ...{watch: this.isDev}}
+    const cache = wp.cache || {}
+    wp.cache = {
+      ...cache,
+      ...{
+        name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
+          store.pkg.version
+        }-${format}`,
+        type: 'filesystem',
       },
     }
-    wpChain.merge(wp)
+    wp.resolve = {...wp.resolve, ...{extensions: ['.js', '.mjs', '.ts', '.json', '.wasm']}}
+    wp.output = {
+      ...wp.output,
+      ...{
+        clean: true,
+        path: store.resolve(path.join(store.outDir, format)),
+        filename:
+          typeof this.libConfig.fileName === 'function'
+            ? this.libConfig.fileName(format)
+            : typeof this.libConfig.fileName === 'string'
+            ? this.libConfig.fileName
+            : `[name].js`,
+      },
+    }
+    wp.optimization = {...wp.optimization, ...{minimize: !this.isDev, chunkIds: 'named', emitOnErrors: true}}
+    const isESM = format === 'esm'
+    //
+    wp.target = ['web', store.config.build.target]
+    wp.experiments = {...wp.experiments, ...{outputModule: isESM}}
+    //
+    if (isESM) {
+      wp.externalsType = 'module'
+      wp.output.environment = {}
+    }
+    this.wpconfigs.push(wp)
   }
   private initBuildLib() {
-    console.log(store.config.build.lib)
+    this.libConfig = {...this.libConfig, ...store.config.build.lib}
   }
   private async libTarget(format: buildLibType) {
     if (format === 'esm') {
       store.isESM = true
-      //TODO 当 esm 时 需要重置 target 考虑开放多 target 自定义
-      store.config.build.target = !['es3', 'es5'].includes(store.config.build.target)
-        ? store.config.build.target
-        : 'es2018'
+      store.config.build.target = format === 'esm' ? 'es2018' : 'es5'
     }
-    await Promise.all([this.common.setup(), this.module.setup(), this.plugin.setup()])
+    await Promise.all([this.module.setup()])
   }
 }
 

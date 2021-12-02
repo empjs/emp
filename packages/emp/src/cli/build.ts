@@ -1,17 +1,25 @@
-import {webpack} from 'webpack'
+import {Configuration, webpack} from 'webpack'
 import {getConfig} from 'src/helper/wpChain'
 import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
 import {clearConsole} from 'src/helper/utils'
+import wpLibMode from 'src/webpack/wpLibMode'
 // import reporter from 'src/helper/reporter'//使用后增加 500ms
 class Build {
+  config: Configuration = {}
+  isLib = false
   constructor() {}
   async setup() {
-    const config = getConfig()
+    this.isLib = !!store.config.build.lib
+    if (this.isLib) {
+      this.config = (await wpLibMode.setup()) as Configuration
+    } else {
+      this.config = getConfig()
+    }
     if (store.config.debug.clearLog) clearConsole()
-    logTag(`build for ${store.config.mode}${store.config.build.lib ? ' [Library Mode] ' : ''}:`)
+    logTag(`build for ${store.config.mode}${this.isLib ? ' [Library Mode] ' : ''}:`)
     // await reporter.measureFileSizesBeforeBuild()
-    webpack(config, (err: any, stats: any) => {
+    webpack(this.config, (err: any, stats: any) => {
       if (err) {
         logger.error(err.stack || err)
         if (err.details) {
