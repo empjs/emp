@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import {RquireBuildOptions} from 'src/config/build'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
+// import logger from 'src/helper/logger'
 const isDev = store.config.mode === 'development'
 
 class SWCOpt {
@@ -53,30 +54,55 @@ async function SWCLoader(
   const options = this.getOptions()
   const build = options
   //
+  const isESM = !['es3', 'es5'].includes(build.target)
+  //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
   swcOpt.resetType(isTypescript, isReact)
   const {parser, react} = swcOpt
-  const swcOptions: Options & any = {
+  const swcOptions: Options = {
     sourceFileName: this.resourcePath,
     sourceMaps: this.sourceMap,
-    // env: {mode: 'usage'},
     jsc: {
       target: build.target,
       externalHelpers: false,
+      loose: true,
       parser,
       transform: {
         legacyDecorator: true,
         decoratorMetadata: isTypescript,
         react,
         // 默认到 emp 里面获取
-        regenerator: {
-          importPath: require.resolve('regenerator-runtime'),
-        },
+        // regenerator: {
+        //   importPath: require.resolve('regenerator-runtime'),
+        // },
       },
     },
   }
 
+  if (!isESM) {
+    /**
+     * regenerator
+     */
+    if (swcOptions.jsc) {
+      const jscTransform: any = {regenerator: {importPath: require.resolve('regenerator-runtime')}}
+      swcOptions.jsc.transform = {...swcOptions.jsc.transform, ...jscTransform}
+    }
+    /**
+     * wait update
+     * https://github.com/swc-project/swc/issues/2209
+     */
+    // swcOptions.env = {
+    //   mode: 'usage',
+    //   coreJs: '3',
+    //   debug: true,
+    //   dynamicImport: true,
+    //   targets: {
+    //     chrome: '58',
+    //     ie: '11',
+    //   },
+    // }
+  }
   //
   try {
     const {code, map} = build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)

@@ -18,13 +18,18 @@ class WPLibMode {
     this.initBuildLib()
     this.resetWpchain()
     //
-    await Promise.all(
-      this.libConfig.formats.map(async format => {
-        await this.libTarget(format)
-        this.resetConfig(format)
-      }),
-    )
-    console.log('=== wpconfigs ===', this.wpconfigs)
+    // await Promise.all(
+    //   this.libConfig.formats.map(async format => {
+    //     await this.libTarget(format)
+    //     this.resetConfig(format)
+    //   }),
+    // )
+    for (const format of this.libConfig.formats) {
+      // console.log('[libTarget format]', format)
+      await this.libTarget(format)
+      this.resetConfig(format)
+    }
+    // console.log('=== wpconfigs ===', this.wpconfigs)
     return this.wpconfigs
   }
   private resetWpchain() {

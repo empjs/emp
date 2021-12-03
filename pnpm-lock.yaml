@@ -46,6 +46,7 @@ importers:
       commander: ^8.3.0
       compression: ^1.7.4
       copy-webpack-plugin: ^9.0.1
+      core-js: ^3.19.2
       cors: ^2.8.5
       css-loader: ^6.5.1
       css-minimizer-webpack-plugin: ^3.1.4
@@ -94,6 +95,7 @@ importers:
       commander: 8.3.0
       compression: 1.7.4
       copy-webpack-plugin: 9.0.1_webpack@5.64.4
+      core-js: 3.19.2
       cors: 2.8.5
       css-loader: 6.5.1_webpack@5.64.4
       css-minimizer-webpack-plugin: 3.1.4_webpack@5.64.4
@@ -4932,6 +4934,11 @@ packages:
   /core-js/3.19.1:
     resolution: {integrity: sha512-Tnc7E9iKd/b/ff7GFbhwPVzJzPztGrChB8X8GLqoYGdEOG8IpLnK1xPyo3ZoO3HsK6TodJS58VGPOxA+hLHQMg==}
     requiresBuild: true
+
+  /core-js/3.19.2:
+    resolution: {integrity: sha512-ciYCResnLIATSsXuXnIOH4CbdfgV+H1Ltg16hJFN7/v6OxqnFr/IFGeLacaZ+fHLAm0TBbXwNK9/DNBzBUrO/g==}
+    requiresBuild: true
+    dev: false
 
   /core-util-is/1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
