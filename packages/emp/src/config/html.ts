@@ -39,7 +39,6 @@ export type InitHtmlType = Override<
 export const initHtml = (o: Options = {}): InitHtmlType => {
   let template = o.template || 'src/index.html'
   let favicon = o.favicon || 'src/favicon.ico'
-  console.log('fs.existsSync(template)', store)
   if (store) {
     template = store.resolve(template)
     if (!fs.existsSync(template)) {

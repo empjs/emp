@@ -14,7 +14,7 @@ class WPFile {
             use: {
               swc: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-                options: store.config,
+                options: store.config.build,
               },
               svgr: {
                 loader: require.resolve('@svgr/webpack'),

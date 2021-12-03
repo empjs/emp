@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import {ResovleConfig} from 'src/config'
+import {RquireBuildOptions} from 'src/config/build'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
 import store from 'src/helper/store'
 const isDev = store.config.mode === 'development'
@@ -45,13 +45,13 @@ const swcOpt = new SWCOpt()
  * @param source
  */
 async function SWCLoader(
-  this: webpack.LoaderContext<ResovleConfig>,
+  this: webpack.LoaderContext<RquireBuildOptions>,
   source: string,
   // inputSourceMap: true,
 ) {
   const done = this.async()
   const options = this.getOptions()
-  const {build} = options
+  const build = options
   //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))

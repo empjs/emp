@@ -12,6 +12,9 @@ class Build {
   async setup() {
     this.isLib = !!store.config.build.lib
     if (this.isLib) {
+      /**
+       * 切换到库模式
+       */
       this.config = (await wpLibMode.setup()) as Configuration
     } else {
       this.config = getConfig()
