@@ -31,18 +31,16 @@ class WPModule {
             test: /\.(js|jsx|ts|tsx)$/,
             exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
             use: {
-              swc: {
-                loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-                options: {},
-              },
               dts: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
                 options: {
-                  name: 'app2',
-                  exposes: {
-                    './Button': './src/Button',
-                  },
+                  name: store.empShare.moduleFederation.name,
+                  exposes: store.empShare.moduleFederation.exposes,
                 },
+              },
+              swc: {
+                loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
+                options: {},
               },
             },
           },
