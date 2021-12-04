@@ -11,7 +11,8 @@
     "emp-tsconfig.json"
   ],
   "maintainers": [
-    "xuhongbin"
+    "xuhongbin",
+    "flyyuan"
   ],
   "repository": {
     "type": "git",
