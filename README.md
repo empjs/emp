@@ -5,6 +5,10 @@
 + `pnpm i` && `pnpm build:pkg` 构建所有依赖包 
 + `pnpm dev` package watch 开始模式
 
+## Typescript 工作流
+> Typescript 项目 dev 或 build 会生成当前项目 exposes 对应的声明
++ 执行 `emp dev` 或 `emp build` 后，生成的 index.d.ts 会在 dist/types 目录
++ 执行 `emp getDts` 后，会下载 remote 对应的 d.ts 文件在 ./typings
 
 ## TODO
 ## 推进进度 : 完成 🥳 进行中 🤯 放弃 🥵 调研 😇
@@ -29,7 +33,7 @@
 + 🥳 dotenv 跟就 cli --env 做判断再跟进 mode 做判断
 + 🤯 支持https 代理 
 + 🤯 支持域名设置
-+ 😇 DTS 重写 [非commander]
++ 🥳 DTS 重写 [非commander]
 + 🤯 cliOptions 在 build 的情况下无法获取
 
 ## emp 文件分布详解 
