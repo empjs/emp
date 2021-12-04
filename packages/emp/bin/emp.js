@@ -59,8 +59,9 @@ program
 
 // 拉取 remote d.ts
 program
-  .command('getDts')
+  .command('dts')
   .description('拉取 remote 项目的 d.ts')
+  .option('-p, --typingsPath <typingsPath>', '下载目录')
   .action(o => {
     const fn = importSource('cli')
     fn.exec('getDts', 'none', o, pkg)

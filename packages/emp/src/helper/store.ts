@@ -103,6 +103,7 @@ class GlobalStore {
     }
     //show logger of config
     if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
+    if (cliOptions.typingsPath) this.config.typingsPath = cliOptions.typingsPath
   }
   private setAbsPaths() {
     //

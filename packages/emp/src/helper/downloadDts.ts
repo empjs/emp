@@ -43,11 +43,7 @@ const downloadDts = () => {
         const baseUrl = value.split('@')[1]
         const dtsUrl = baseUrl.replace('/emp.js', '/.types/index.d.ts')
         console.log(key, dtsUrl)
-        try {
-          downloadFileAsync(dtsUrl, 'typings', `${key}.d.ts`)
-        } catch (error) {
-          console.log(error)
-        }
+        downloadFileAsync(dtsUrl, store.config.typingsPath ?? 'typings', `${key}.d.ts`)
       }
     }
   }
