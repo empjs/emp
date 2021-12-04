@@ -3,11 +3,6 @@
 <a href="https://emp2.netlify.app"><img src="https://img.shields.io/node/v/@efox/emp.svg" alt="node"></a>
 <a href="https://emp2.netlify.app"><img src="https://img.shields.io/badge/EMP.Document-v2-blue" alt="document"></a>
 
-## Typescript 工作流
-> Typescript 项目 dev 或 build 会生成当前项目 exposes 对应的声明
-+ 执行 `emp dev` 或 `emp build` 后，生成的 index.d.ts 会在 dist/types 目录
-+ 执行 `emp getDts` 后，会下载 remote 对应的 d.ts 文件在 ./typings
-
 > 基于下一代构建实现微前端解决方案
 + 💡 微前端、微组件、支持ESM的共享模型
 + ⚡️ 结合SWC快速构建重载
@@ -15,6 +10,11 @@
 + 📦 “多页应用” 或 “库” 模式的预配置 webpack 构建.
 + 🔩 通用的插件、共享 webpack chain 插件接口.
 + 🔑 TS重构项目、提供灵活的api、Plugin以及完整的类型提示.
+
+## Typescript 工作流
+> Typescript 项目 dev 或 build 会生成当前项目 exposes 对应的声明
++ 执行 `emp dev` 或 `emp build` 后，生成的 index.d.ts 会在 dist/types 目录
++ 执行 `emp getDts` 后，会下载 remote 对应的 d.ts 文件在 ./typings
 
 ## 📦 Project
 |Project|NPM|Info|
