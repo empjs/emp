@@ -1,5 +1,6 @@
 import logger from './logger'
 import mod from './mod'
+console.log('import.meta.url', import.meta.url, new URL('src/worker.ts', import.meta.url))
 const worker = new Worker(new URL('src/worker.ts', import.meta.url))
 // const worker = new Worker(new URL('src/worker.ts', import.meta.url), {
 //   type: 'module',
