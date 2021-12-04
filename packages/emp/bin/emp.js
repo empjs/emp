@@ -57,5 +57,14 @@ program
     fn.exec('serve', 'none', o, pkg)
   })
 
+// 拉取 remote d.ts
+program
+  .command('getDts')
+  .description('拉取 remote 项目的 d.ts')
+  .action(o => {
+    const fn = importSource('cli')
+    fn.exec('getDts', 'none', o, pkg)
+  })
+
 // 执行命令
 program.parse(process.argv)
