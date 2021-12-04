@@ -1,6 +1,7 @@
 import store from 'src/helper/store'
 import path from 'path'
 import wpChain from 'src/helper/wpChain'
+import fs from 'fs-extra'
 type ReactRuntimeType = 'automatic' | 'classic'
 class WPModule {
   reactRuntime?: ReactRuntimeType
@@ -31,13 +32,16 @@ class WPModule {
             test: /\.(js|jsx|ts|tsx)$/,
             exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
             use: {
-              dts: {
-                loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
-                options: {
-                  name: store.empShare.moduleFederation.name,
-                  exposes: store.empShare.moduleFederation.exposes,
-                },
-              },
+              // 有 tsconfig.json 才执行 d.ts 生成
+              dts: fs.existsSync(store.resolve('tsconfig.json'))
+                ? {
+                    loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
+                    options: {
+                      name: store.empShare.moduleFederation.name,
+                      exposes: store.empShare.moduleFederation.exposes,
+                    },
+                  }
+                : {},
               swc: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
                 options: {},

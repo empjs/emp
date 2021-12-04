@@ -5,7 +5,8 @@ import {LoaderOptions} from '../index'
 import path from 'path'
 
 /**
- * 结果缓存
+ * 编译结果缓存
+ * 因为 loader 每个文件都会执行
  */
 const caches = {
   entireDts: '',
@@ -33,7 +34,8 @@ function writeDtsFile(filePath: string, fileName: string, data: string) {
  * @returns
  */
 function warpDeclareModule(name: string, module: string, text: string) {
-  return `declare module '${name}${module.replace('.', '')}' {\r\n${text}}\r\n`
+  const modifyText = text.replaceAll('declare', '')
+  return `declare module '${name}${module.replace('.', '')}' {\r\n${modifyText}}\r\n`
 }
 
 /**
@@ -73,7 +75,7 @@ function emitFile(
           }
         }
       })
-      writeDtsFile(loaderOptions.typesOutputDir, `${loaderOptions.name}.d.ts`, caches.entireDts)
+      writeDtsFile(loaderOptions.typesOutputDir, `index.d.ts`, caches.entireDts)
     }
   } catch (e) {
     console.log(`Skip ${fileName}:`, e)
