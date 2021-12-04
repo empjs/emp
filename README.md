@@ -1,64 +1,38 @@
-# 📦 EMP - Micro Frontends solution
-> Base on SWC & Webpack 5
-## 初始化 所有依赖包 
-> 根目录执行 
-+ `pnpm i` && `pnpm build:pkg` 构建所有依赖包 
-+ `pnpm dev` package watch 开始模式
+# EMP ⚡ 2.0
+<a href="https://www.npmjs.com/package/@efox/emp"><img src="https://img.shields.io/npm/v/@efox/emp.svg" alt="npm"></a>
+<a href="https://emp2.netlify.app"><img src="https://img.shields.io/node/v/@efox/emp.svg" alt="node"></a>
+<a href="https://emp2.netlify.app"><img src="https://img.shields.io/badge/EMP.Document-v2-blue" alt="document"></a>
 
 ## Typescript 工作流
 > Typescript 项目 dev 或 build 会生成当前项目 exposes 对应的声明
 + 执行 `emp dev` 或 `emp build` 后，生成的 index.d.ts 会在 dist/types 目录
 + 执行 `emp getDts` 后，会下载 remote 对应的 d.ts 文件在 ./typings
 
-## TODO
-## 推进进度 : 完成 🥳 进行中 🤯 放弃 🥵 调研 😇
-+ 🤯 ESM demo支持 `ken`
-+ 🥳 切换到 html 为入口 
-+ 🥳 指定 html 入口 目录 
-+ 利用 `fast-glob` 支持多入口
-+ 🥳 支持 热更 [js、react、module federation] `ken`
-+ 🥳 css sass less postcss 支持
-+ 🥳 react svgr 支持 
-+ 🥳 增加 插件支持 
-  + 🥳 先 适配业务 再 深度定制 SWC  支持 
-  + 🥳 `plugin-react`
-+ 😇 多入口模式支持 类似于next  `ken` `跟 externals 有相关逻辑需要考虑`
-+ 🤯 library 模式 `ken`
-+ 🥳 同时 支持 es5 与 ESM 模块 `ken`
-+ 🤯 优化日志友好度 `ken`
-+ 🥳 动态变量适配 `process.env` & `import.meta.env` 支持 es5 与 esm
-+ 😇 探讨babel环境下 的 esm实现 或者 只 支持 ES5
-+ 🥳 验证 复杂型项目在 swc 环境下的 可行性
-+ 🤯 改造 MF模型 增加多级共享
-+ 🥳 dotenv 跟就 cli --env 做判断再跟进 mode 做判断
-+ 🤯 支持https 代理 
-+ 🤯 支持域名设置
-+ 🥳 DTS 重写 [非commander]
-+ 🤯 cliOptions 在 build 的情况下无法获取
+> 基于下一代构建实现微前端解决方案
++ 💡 微前端、微组件、支持ESM的共享模型
++ ⚡️ 结合SWC快速构建重载
++ 🛠️ 多功能模块支持TypeScript、JSX、CSS、Less、Sass 等支持开箱即用。
++ 📦 “多页应用” 或 “库” 模式的预配置 webpack 构建.
++ 🔩 通用的插件、共享 webpack chain 插件接口.
++ 🔑 TS重构项目、提供灵活的api、Plugin以及完整的类型提示.
 
-## emp 文件分布详解 
-```
-.
-├── bin
-│   ├── emp.js 命令行入口
-│   └── openChrome.applescript
-├── package.json
-├── src
-│   ├── cli 命令行脚本
-│   ├── config 全局配置处理
-│   └── helper
-│       ├── logger.ts 日志全局 `未完善`
-│       ├── store.ts 全局配置、路径等变量引用
-│       └── wpChain.ts [webpack chain] 方法调用与合并 增量更新 webpack 内容
-│   ├── index.ts 全局配置类型 与 实例化方法
-│   ├── types.ts
-│   └── webpack [webpack] 相关配置内容
-└── template 全局模板
-    ├── favicon.ico
-    └── index.html
- 
-```
+## 📦 Project
+|Project|NPM|Info|
+|---|---|---|
+|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp)|Treasure chest|
+|[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|
+|[@efox/plugin-babel-react](packages/plugin-babel-react)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-react)](https://www.npmjs.com/package/@efox/plugin-babel-react)| EMP Babel for React plugin|
+|[@efox/eslint-config-react](packages/eslint-config-react)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react.svg)](https://www.npmjs.com/package/@efox/eslint-config-react)|ESLint React Config|
+|[@efox/eslint-config-vue](packages/eslint-config-vue)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-vue.svg)](https://www.npmjs.com/package/@efox/eslint-config-vue)|ESLint Vue Config|
+
 
 ## 👬 Community
-+ ![wxgroup](docs/img/contact_me_qr.png)
-+ [掘金专栏](https://juejin.cn/user/483440843559406/posts)
+<img src="docs/img/contact_me_qr.png" width="150" />
+
+## 📖 Articles & Demos
+<a href="https://juejin.cn/user/483440843559406/posts">[掘金]</a>
+<a href="https://www.zhihu.com/column/efoxteam">[知乎]</a>
+<a href="projects/antd-base">[Antd Demo]</a>
+<a href="projects/demo">[ESM Demo]</a>
+<a href="projects/multi-entries-app">[多入口 Demo]</a>
+<a href="projects/vue-2-base">[vue 2 Demo]</a>

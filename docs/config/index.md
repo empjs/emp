@@ -76,13 +76,31 @@ module.exports = defineConfig(async({mode,env})=>{
 
 缓存目录
 
+### resolve.extends 
++ 类型 `boolean`
++ 默认为 `true`
+
+是否继承系统默认设置 默认继承 
+设置 `false` 后，会按需替换 不设置则还是按照系统配置
+
+### resolve.alias
++ 类型 `{[key:string]:string}`
++ 默认为 `{src: config.appSrc}`
+
+### resolve.modules
++ 类型 `string[]`
+
+### resolve.extensions
++ 类型 `string[]`
++ 默认为 `['.js','.jsx','.mjs','.ts','.tsx','.css','.less','.scss','.sass','.json','.wasm','.vue','.svg','.svga']`
+
 ### mode
 + 类型 `string`
   - 调试模式为 development
   - 构建模式为 production
   - 正式环境为 none
 
-模式根据执行指令自动变换
+模式根据执行指令自动变换 <b>暂不支持设置</b>
 
 ### define
 + 类型 `Record<string, string|number|boolean>` 
@@ -113,13 +131,96 @@ console.log('process.env.emp', process.env.emp)
    - 实现3重共享模型
    - empshare 与 module federation 只能选择一个配置
 
+ 详情点击 [了解更多](/develop/#empshare-配置) 
+ 
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  empshare:{}
+  // or funciton
+  empshare(o: EMPConfig){}
+  // or async function 
+  async empshare(o: EMPConfig){}
+}
+```
+ + 配置用例如下
+ ```js
+ module.exports={
+    empShare: {
+    name: 'microApp',
+    remotes: {
+      '@microHost': `microHost@http://localhost:8001/emp.js`,
+    },
+    exposes: {
+      './App': './src/App',
+    },
+    shareLib: {
+      react: 'React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js',
+      'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js',
+    }
+    },
+ }
+ ```
+
 ###  externals
-+ 类型 `ExternalsType`
 
-### moduleFederation
-+ 类型 `MFExport`
++ module?: `string` 模块名 @example react-dom
++ global?: `string` 全局变量 @example ReactDom
++ entry?: `string` 入口地址 @example http://
+  * 入口地址
+  * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
+  * 如 http://...?react&react-dom&react-router&mobx
++ type?: `string` 类型入口 js | css
 
-module federation 配置
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  externals:{}
+  // or funciton
+  externals(o: EMPConfig){}
+  // or async function 
+  async externals(o: EMPConfig){}
+}
+```
+
+### moduleFederation 
+> module federation 配置、2.0更推荐用  empShare 替代 module federation的配置 [了解更多](/develop/#empshare-配置)
++ 类型 `MFExport` 
+  + exposes?: 导出模块
+  + filename?: 导出文件名 默认为 `emp.js`
+  + library?: 库模式
+  + name?: 导出名，amd umd cjs 
+  + remotes?: 远程引用、基站 
+  + shared?: 共享库、对象
+
++ 使用方法 `emp-config.js`
+```js
+module.exports={
+  // objects
+  moduleFederation:{}
+  // or funciton
+  moduleFederation(o: EMPConfig){}
+  // or async function 
+  async moduleFederation(o: EMPConfig){}
+}
+```
+使用用例：以 `micro-host` 为例
+```js
+module.exports={
+    moduleFederation:{
+      name: 'microHost',
+      exposes: {
+        './App': './src/App',
+      },
+      shared: {
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
+      },
+    }
+}
+```
 
 ### useImportMeta
 + 类型 `boolean`
@@ -150,6 +251,7 @@ module federation 配置
     - js `string[]` 插入 js
 
 其他可以参考 html-webpack-plugin [相关设置](https://github.com/jantimon/html-webpack-plugin)
+配置详情请 [点击查看](/develop/#多入口模式)
 
 ### entries
 + 类型 `EntriesType`
@@ -165,15 +267,47 @@ module federation 配置
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
-## clearLog
+## 构建选项 
+### build.target
+ + 类型 `JscConfig['target']` 
+
+ 生成代码 参考 [swc#jsctarget](https://swc.rs/docs/configuration/compilation#jsctarget)
+
+### build.sync
++ 类型 `boolean`
++ 默认 `false`
+
+swc 是否异步构建
+
+### build.outDir 
++ 类型 `string`
++ 默认 `dist`
+
+生成代码目录
+
+### build.assetsDir 
++ 类型 `string`
++ 默认 `assets`
+
+生成静态目录
+
+### build.minify 
 + 类型 `boolean`
 + 默认 `true`
-  - 是否清空之前的日志 
-  - 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
 
-## 构建选项 
-### build
- + 类型 `BuildOptions`
+是否压缩、默认 development 不压缩，production 压缩
+
+### build.sourcemap 
++ 类型 `boolean`
++ 默认 `true`
+
+是否生产sourcemap、默认 development 生产，production 不生产
+
+### build.emptyOutDir 
++ 类型 `boolean`
++ 默认 `true`
+
+是否清空生成文件夹
 
 ### build.chunkIds 
 + 类型 `false` | `natural` | `named` | `deterministic` | `size` | `total-size`  
@@ -182,6 +316,43 @@ module federation 配置
 `named` 有助于定位问题 开发模式默认启动
 `deterministic` 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
 
+### build.analyze 
++ 类型 `boolean` 
++ 默认 `false`
+
+通过 cli `--analyze` 或 `-a` 生成构建分析
+
+### build.lib 
++ 类型 `LibMod`
+
+使用库模式 具体可以点击 [查看详情](/develop/#配置)
+
 ## 服务选项 
 ### server
 + 类型 `ServerOptions`
+
+## 调试选项 
+### debug.clearLog
++ 类型 `boolean`
++ 默认 `true`
+
+- 是否清空之前的日志 
+- 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
+
+### debug.progress
++ 类型 `boolean`
++ 默认 `true`
+
+是否显示进度条
+
+### debug.profile 
++ 类型 `boolean`
++ 默认 `false`
+
+是否显示性能分析
+
+### debug.wplogger
++ 类型 `boolean`
++ 默认 `false`
+
+是否显示配置信息

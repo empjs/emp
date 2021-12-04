@@ -44,7 +44,7 @@ class WPModule {
                 : {},
               swc: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-                options: {},
+                options: store.config.build,
               },
             },
           },

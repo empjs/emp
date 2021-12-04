@@ -2,18 +2,14 @@ import WPChain from 'webpack-chain'
 import store from './store'
 import fs from 'fs-extra'
 import logger from './logger'
+import {Configuration} from 'webpack'
 export {WPChain}
 const wpChain = new WPChain()
-export const getConfig: any = () => {
-  let conf = wpChain.toConfig()
-  if (store.cliOptions.profile) {
-    const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
-    const smp = new SpeedMeasurePlugin()
-    conf = smp.wrap(conf)
-  }
+export const getConfig = (): Configuration => {
+  const conf = wpChain.toConfig()
 
-  const {wplogger} = store.cliOptions
-  if (wplogger) {
+  const {wplogger} = store.config.debug
+  if (wplogger && !store.config.build.lib) {
     if (typeof wplogger === 'string') {
       fs.writeFile(store.resolve(wplogger), `module.exports=${JSON.stringify(conf, null, 2)}`).catch(e =>
         logger.error(e),

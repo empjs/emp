@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="showTips">
-      {{ textVal || "vue2 base button" }}
+      {{ textVal || 'vue2 base button' }}
     </button>
   </div>
 </template>
@@ -14,8 +14,8 @@ export default {
   },
   methods: {
     showTips() {
-      console.log(this.textVal);
+      console.log(this.textVal)
     },
   },
-};
+}
 </script>

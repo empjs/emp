@@ -23,9 +23,13 @@ const envLib = {
 const lib = {
   'react-router-dom': 'ReactRouterDOM@https://cdn.jsdelivr.net/npm/react-router-dom@5.3.0/umd/react-router-dom.min.js',
 }
-module.exports = mode => {
-  return {
-    ...envLib[mode],
-    // ...lib,
-  }
+module.exports = {
+  cdn: mode => {
+    return {
+      ...envLib[mode],
+      // ...lib,
+    }
+  },
+  esm: (name, mode, version) =>
+    `https://esm.sh/${name}${version ? '@' + version : ''}${mode === 'development' ? '?dev' : ''}`,
 }

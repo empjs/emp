@@ -1,4 +1,12 @@
 # 开发 
+
+## 安装 
+```
+npm add @efox/emp --dev
+yarn add @efox/emp -D
+pnpm add @efox/emp -D
+```
+
 ## 指令 
 ```json
 "scripts": {
@@ -37,6 +45,24 @@ DOTENV='dev'
 ```js
 console.log(process.env.env.DOTENV)
 ```
+## Typescript 
+### tsconfig.json 配置 
++ `@efox/emp` 集成了 `@efox/emp-tsconfig` 与 `Css Module 提示`
++ 集成了emp内置的资源 TS类型
++ 设置方式如下:
+
+```json
+{
+  "extends": "@efox/emp/emp-tsconfig.json",
+  "compilerOptions": {
+    "types": ["@efox/emp/client"],
+    "baseUrl": ".",
+  },
+  "include": [
+    "src",
+  ]
+}
+```
 
 ## 共享模式 
 ### empshare 配置 
@@ -49,9 +75,9 @@ console.log(process.env.env.DOTENV)
 
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
 
-## 多入口模式 
+## 多页面模式 
 ### 配置
-多入口模式配置 `emp-config.js` 如下: 
+多页面模式配置 `emp-config.js` 如下: 
 ```js
 module.exports={
   // favicion 需要在 html里面配置 

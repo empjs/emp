@@ -1,0 +1,43 @@
+{
+  "name": "webpack-lib",
+  "version": "1.0.0",
+  "description": "high performance svga player for baidu",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "webpack build --mode=production && ttsc",
+    "dev": "npm-run-all --parallel dev:**",
+    "dev:webpack": "webpack watch --mode=development",
+    "dev:tsc": "ttsc -w",
+    "lint": "eslint ./src --ext js,ts,tsx --fix"
+  },
+  "author": "Ken",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@babel/runtime": "^7.16.0",
+    "@types/offscreencanvas": "^2019.6.4",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.19.1",
+    "npm-run-all": "^4.1.5",
+    "regenerator-runtime": "^0.13.9",
+    "terser-webpack-plugin": "^5.2.4",
+    "ttypescript": "^1.5.12",
+    "typescript": "^4.4.4",
+    "typescript-transform-paths": "^3.3.1",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1"
+  }
+}

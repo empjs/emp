@@ -38,7 +38,7 @@ program
   // .option('-m, --minify [minify]', '是否压缩 默认为 true')
   // .option('-n, --createName <createName>', '文件名 默认为 index.d.ts [* 使用默认值方便同步]')
   // .option('-p, --createPath <createPath>', '相对命令行目录 默认为 dist')
-  .option('-ps, --progress <progress>', '显示进度 默认为 false')
+  .option('-ps, --progress <progress>', '显示进度 默认为 true')
   .option('-pr, --profile', '统计模块消耗')
   .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')

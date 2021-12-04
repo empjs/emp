@@ -1,0 +1,38 @@
+{
+  "name": "@efox/eslint-config-react",
+  "version": "2.0.0",
+  "description": "EMP react eslint",
+  "files": [
+    "dist"
+  ],
+  "maintainers": ["xuhongbin@yy.com"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/eslint-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MTI",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.1.2"
+  },
+  "peerDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
+}

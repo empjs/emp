@@ -1,10 +1,10 @@
-const { defineConfig, empStore } = require('@efox/emp')
+const {defineConfig, empStore} = require('@efox/emp')
 const vue = require('@efox/plugin-vue-2')
 // console.log('empStore 处理全局方法', empStore)
 module.exports = defineConfig({
   plugins: [vue],
-  html: { title: 'EMP Vue2 element' },
-  server: { port: 9003 },
+  html: {title: 'EMP Vue2 element'},
+  server: {port: 9003},
   appEntry: 'main.js',
   externals: [
     // {module: 'vue', global: 'Vue', entry: 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js'},
@@ -27,9 +27,9 @@ module.exports = defineConfig({
     shareLib: {
       vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
       'element-ui': [
-        'ELEMENT@https://unpkg.com/element-ui/lib/index.js', 
+        'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
         `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
       ],
-    }
-  }
+    },
+  },
 })

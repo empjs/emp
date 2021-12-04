@@ -2,7 +2,7 @@
 home: true
 # heroImage: /logo.svg
 actionText: 开始使用
-actionLink: /guide/
+actionLink: /develop/
 
 # altActionText: Learn More
 # altActionLink: /guide/why
@@ -23,10 +23,10 @@ features:
 footer: MIT Licensed | Copyright © 2021 Ken Xu
 ---
 
-<!-- <div class="contact">
-  <img src="./contact_me_qr.png" />
-  <div class="footer">加入讨论</div>
-</div> -->
+<div class="contact">
+  <img src="./img/contact_me_qr.png" />
+  <div class="footer">参与讨论</div>
+</div>
 
 <script setup>
 import fetchReleaseTag from './.vitepress/theme/fetchReleaseTag.js'

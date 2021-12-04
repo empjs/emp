@@ -5,7 +5,7 @@ import StoreComp from './StoreComp'
 const App = () => {
   return (
     <>
-      <h1>Micro Host!!</h1>
+      <h1>Micro Host</h1>
       <StoreComp />
       <Button customLabel="123123" />
     </>

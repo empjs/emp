@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:*",
+    "@efox/emp": "workspace:^*",
     "@types/lodash": "^4.14.177",
     "@types/react-router-dom": "^5.1.5"
   },

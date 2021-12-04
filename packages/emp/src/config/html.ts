@@ -1,6 +1,6 @@
 import {Options} from 'html-webpack-plugin'
 import store from 'src/helper/store'
-import fs from 'fs-extra'
+import fs from 'fs'
 import {Override} from 'src/types'
 export interface HtmlOptions extends Options {
   /**
@@ -39,7 +39,6 @@ export type InitHtmlType = Override<
 export const initHtml = (o: Options = {}): InitHtmlType => {
   let template = o.template || 'src/index.html'
   let favicon = o.favicon || 'src/favicon.ico'
-
   if (store) {
     template = store.resolve(template)
     if (!fs.existsSync(template)) {

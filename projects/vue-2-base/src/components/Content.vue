@@ -11,36 +11,36 @@
 </template>
 
 <script>
-import Button from "./Button.vue";
+import Button from './Button.vue'
 export default {
   components: {
     Button,
-    DynamicButton: () => import("./Button.vue"),
+    DynamicButton: () => import('./Button.vue'),
   },
   props: {
-    dataProps: { type: Number, required: false },
-    methodProps: { type: Function, required: false },
+    dataProps: {type: Number, required: false},
+    methodProps: {type: Function, required: false},
   },
   data() {
     return {
-      title: "EMP Vue2 Component From BASE!",
-    };
+      title: 'EMP Vue2 Component From BASE!',
+    }
   },
   mounted() {
-    this.methodProps && this.methodProps();
+    this.methodProps && this.methodProps()
     // console.log(this.$props)
     // console.log(this.$attrs)
     // console.log(this.$listeners)
   },
   methods: {
     add() {
-      console.log("click event");
+      console.log('click event')
       // Vue2 使用 Vue3 传过来的自定义事件需要把函数名 kebab-case 改为 camelCase 再加前缀 on
       // 例如：调用 @my-event 需要写成 onMyEvent
-      this.$emit("onMyEvent");
+      this.$emit('onMyEvent')
     },
   },
-};
+}
 </script>
 
 <style>

@@ -31,4 +31,4 @@ class WPConfig {
   }
 }
 
-export default WPConfig
+export default new WPConfig()

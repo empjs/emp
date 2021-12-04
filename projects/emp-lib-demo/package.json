@@ -1,0 +1,18 @@
+{
+  "name": "emp-lib-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev -cl false",
+    "build": "emp build -wl",
+    "start": "emp serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@efox/emp": "workspace:^2.0.0-alpha.8",
+    "emp-lib": "workspace:^1.0.0",
+    "webpack-lib": "workspace:^1.0.0"
+  }
+}

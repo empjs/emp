@@ -1,6 +1,5 @@
 import wpChain from 'src/helper/wpChain'
 import webpack from 'webpack'
-import {cliOptionsType} from 'src/types'
 // import FederatedStatsPlugin from 'webpack-federated-stats-plugin'
 // import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import store from 'src/helper/store'
@@ -10,11 +9,12 @@ import Dotenv from 'dotenv-webpack'
 // import ESLintPlugin from 'eslint-webpack-plugin'
 import path from 'path'
 import fs from 'fs-extra'
+import {modeType} from 'src/types'
 class WPPlugin {
   isDev = true
   constructor() {}
   private get dotenv() {
-    const env = store.cliOptions.env || store.config.mode
+    const env = store.config.env || store.config.mode
     const options = {
       path: store.resolve(`.env${env ? '.' + env : ''}`),
       // path: './some.other.env', // load this now instead of the ones in '.env'
@@ -30,18 +30,21 @@ class WPPlugin {
     }
   }
   private get define() {
-    //处理 cli 参数
-    let clist: cliOptionsType = store.cliOptions
-    // 合并 mode 参数
-    clist.mode = store.config.mode
+    type optionsType = {[key: string]: string | number | boolean | modeType}
+    // 合并 mode env 参数
+    let dlist: optionsType = {mode: store.config.mode, env: store.config.env || ''}
     // 合并 store.config.define
     if (store.config.define) {
-      clist = {...clist, ...store.config.define}
+      dlist = {...dlist, ...store.config.define}
     }
-    const options: cliOptionsType = {}
-    Object.keys(clist).map(key => {
-      if (store.isESM && store.config.useImportMeta) options[`import.meta.env.${key}`] = JSON.stringify(clist[key])
-      else options[`process.env.${key}`] = JSON.stringify(clist[key])
+    //
+    const options: optionsType = {}
+    Object.keys(dlist).map(key => {
+      if (store.isESM && store.config.useImportMeta) {
+        options[`import.meta.env.${key}`] = JSON.stringify(dlist[key])
+      } else {
+        options[`process.env.${key}`] = JSON.stringify(dlist[key])
+      }
     })
     // return defines
     return {
@@ -70,14 +73,10 @@ class WPPlugin {
         args: [{filename: 'emp.json'}],
       }
     }
-    // 加了会出bug
-    if (store.cliOptions.progress !== false) {
-      /* config.plugin.progress = {
-      plugin: webpack.ProgressPlugin,
-      args: [{}],
-    } */
+
+    if (store.config.debug.progress !== false) {
       const options: any = {name: `[EMP]`}
-      if (store.cliOptions.profile) {
+      if (store.config.debug.profile) {
         options.reporters = ['fancy', 'profile']
         options.profile = true
       }
@@ -87,7 +86,7 @@ class WPPlugin {
       }
     }
     //analyzer
-    if (store.cliOptions.analyze) {
+    if (store.config.build.analyze) {
       config.plugin.analyzer = {
         plugin: require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
         args: [

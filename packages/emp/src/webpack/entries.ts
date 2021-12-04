@@ -5,6 +5,7 @@ import wpChain from 'src/helper/wpChain'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {EntriesType} from 'src/types'
 import {HtmlOptions} from 'src/config/html'
+import logger from 'src/helper/logger'
 /**
  * multi entry
  * 多入口设置
@@ -34,7 +35,7 @@ class WPEntries {
       // 屏蔽子页面的favicon 防止重复操作导致报错
       if (htmlOptions.favicon) {
         // htmlOptions.favicon = store.resolve(htmlOptions.favicon)
-        console.warn('favicon只支持在 [html] 设置')
+        logger.warn('favicon只支持在 [html] 设置')
         delete htmlOptions.favicon
       }
       //
@@ -44,8 +45,8 @@ class WPEntries {
   }
   async singleEntry() {
     await this.setIndexEntry()
-    for (const [chunk, entry] of Object.entries(this.wpConfig.entry)) {
-      this.setHtmlWebpackPlugin([chunk])
+    for (const chunk in this.wpConfig.entry) {
+      this.setHtmlWebpackPlugin([chunk], {}, 'index.html')
     }
     wpChain.merge(this.wpConfig)
   }
@@ -73,8 +74,10 @@ class WPEntries {
       throw new Error('Template 与 favicon 不能放到./public,推荐放到 ./src or ./template')
     }
   }
-  private setHtmlWebpackPlugin(chunks: string[] = ['index'], htmlOptions: HtmlOptions = {}) {
+  private setHtmlWebpackPlugin(chunks: string[] = ['index'], htmlOptions: HtmlOptions = {}, filename?: string) {
     const htmlConfig = store.config.html
+    // 单页面时 需要把 filename 设置成 index.html
+    filename = filename ? filename : `${chunks[0]}.html`
     htmlConfig.files.css = []
     htmlConfig.files.js = []
     htmlConfig.files.css = store.config.html.files.css.concat(store.empShare.externalAssets.css)
@@ -94,7 +97,7 @@ class WPEntries {
       chunks,
       // favicon,
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
-      filename: `${chunks[0]}.html`,
+      filename,
       // isESM: store.isESM,
       scriptLoading: !store.isESM ? 'defer' : 'module',
       minify: store.config.mode === 'production' && {

@@ -1,11 +1,14 @@
 import chalk from 'chalk'
 import store from './store'
+export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
 // const prefix = `[EMP]`
+
 const logger = {
-  info: (...args: any[]) => console.log(...args),
-  debug: (...args: any[]) => console.log(...args),
-  warn: (...args: any[]) => console.warn(...args),
-  error: (...args: any[]) => console.error(...args),
+  info: (...args: any[]) => ['debug', 'info'].includes(store.config.logLevel) && console.log(...args),
+  debug: (...args: any[]) => ['debug'].includes(store.config.logLevel) && console.log(...args),
+  warn: (...args: any[]) => ['debug', 'info', 'warn'].includes(store.config.logLevel) && console.warn(...args),
+  error: (...args: any[]) =>
+    ['debug', 'info', 'warn', 'error'].includes(store.config.logLevel) && console.error(...args),
 }
 /**
  * begin logger

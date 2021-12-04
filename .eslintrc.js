@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['@efox/eslint-config-react-prittier-ts'],
+  extends: ['@efox/eslint-config-react'],
 }

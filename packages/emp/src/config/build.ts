@@ -1,7 +1,10 @@
 import {JscConfig} from '@swc/core'
+import {Override} from 'src/types'
+import {LibModeType} from 'src/types/libMode'
+import {Configuration} from 'webpack'
 export type BuildOptions = {
   /**
-   * swc & esbuild 是否异步构建
+   * swc 是否异步构建
    * @default false
    */
   sync?: boolean
@@ -9,6 +12,7 @@ export type BuildOptions = {
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */
   target?: JscConfig['target']
+  wpTarget?: Configuration['target']
   /**
    * 生成代码目录
    * @default 'dist'
@@ -31,10 +35,9 @@ export type BuildOptions = {
   sourcemap?: boolean
   // sourcemap?: boolean | 'inline' | 'hidden'
   /**
-   * 是否使用 library模式
-   * @default true
+   * 使用 库模式
    */
-  useLib?: boolean
+  lib?: LibModeType
   /**
    * 是否清空生成文件夹
    * @default true
@@ -44,9 +47,19 @@ export type BuildOptions = {
    * chunkIds
    */
   chunkIds?: false | 'natural' | 'named' | 'deterministic' | 'size' | 'total-size'
+  /**
+   * 是否生成分析报告 根据 cliOptions `--analyze` 生成
+   */
+  analyze?: boolean
 }
-
-export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
+export type RquireBuildOptions = Override<
+  Required<BuildOptions>,
+  {
+    lib?: LibModeType
+    wpTarget?: Configuration['target']
+  }
+>
+export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
   return {
     ...{
       sync: false,
@@ -59,9 +72,10 @@ export const initBuild = (op?: BuildOptions): Required<BuildOptions> => {
       /**
        * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets
        */
-      useLib: false,
+      // useLib: false,
       emptyOutDir: true,
       chunkIds: false,
+      analyze: false,
     },
     ...op,
   }

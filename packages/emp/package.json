@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.9",
   "description": "",
   "license": "MIT",
   "files": [
@@ -45,7 +45,7 @@
   "dependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
     "@svgr/webpack": "^5.5.0",
-    "@swc/core": "^1.2.111",
+    "@swc/core": "^1.2.114",
     "@types/node": "^16.11.9",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
@@ -53,6 +53,7 @@
     "commander": "^8.3.0",
     "compression": "^1.7.4",
     "copy-webpack-plugin": "^9.0.1",
+    "core-js": "^3.19.2",
     "cors": "^2.8.5",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.1.4",
@@ -80,7 +81,7 @@
     "terser-webpack-plugin": "^5.2.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.64.3",
+    "webpack": "^5.64.4",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.5.0",
