@@ -69,7 +69,7 @@ class WPCommon {
       //   // type: 'module',
       //   // type: 'umd',
       // },
-      clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
+      // clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
       path: store.outDir,
       publicPath: store.config.build.useLib ? publicPath : 'auto',
       filename: 'js/[name].[contenthash:8].js',

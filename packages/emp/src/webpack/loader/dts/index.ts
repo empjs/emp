@@ -3,8 +3,6 @@ import path from 'path'
 import {getTSConfig} from './src/getTSConfig'
 import {getTSService} from './src/getTSService'
 import {emitFile} from './src/emitFile'
-import {ResovleConfig} from 'src/config'
-import store from 'src/helper/store'
 
 export interface LoaderOptions {
   name?: string
@@ -43,7 +41,7 @@ async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: str
     {
       name: options.name,
       exposes: options.exposes,
-      typesOutputDir: options.typesOutputDir ?? path.resolve('', '.types'),
+      typesOutputDir: options.typesOutputDir ?? path.resolve('dist', '.types'),
     },
     source,
   )
