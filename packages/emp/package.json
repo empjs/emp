@@ -11,7 +11,8 @@
     "emp-tsconfig.json"
   ],
   "maintainers": [
-    "xuhongbin"
+    "xuhongbin",
+    "flyyuan"
   ],
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "@types/node": "^16.11.9",
     "address": "^1.1.2",
     "chalk": "^4.1.2",
+    "clean-webpack-plugin": "^4.0.0",
     "commander": "^8.3.0",
     "compression": "^1.7.4",
     "copy-webpack-plugin": "^9.0.1",

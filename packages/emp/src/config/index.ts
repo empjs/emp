@@ -165,6 +165,7 @@ export type ResovleConfig = Override<
     debug: ConfigDebugType
     env?: ConfigEnv['env']
     mode: modeType
+    typingsPath?: string
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {

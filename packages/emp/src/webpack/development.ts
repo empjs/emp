@@ -19,10 +19,23 @@ class WPDevelopment {
     const overlayLoggerLv =
       store.config.logLevel === 'error' ? {errors: true, warnings: false} : {errors: true, warnings: true}
     return {
+      host: '0.0.0.0',
       allowedHosts: ['all'],
       historyApiFallback: true,
       // compress: true,
-      static: store.publicDir,
+      static: [
+        store.publicDir,
+        // 暴露 d.ts 文件
+        {
+          directory: store.outDir,
+          publicPath: '/',
+          staticOptions: {
+            setHeaders: function (res: any, path) {
+              if (path.toString().endsWith('.d.ts')) res?.set('Content-Type', 'application/javascript; charset=utf-8')
+            },
+          },
+        },
+      ],
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',

@@ -13,6 +13,7 @@ export type cliOptionsType = {[key: string]: string | number | boolean} & {
    */
   env?: string
   analyze?: boolean
+  typingsPath?: string
 }
 export type wpPathsType = {
   output: Configuration['output']
