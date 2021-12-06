@@ -11,7 +11,8 @@ class WPCommon {
     const {cache, resolve, experiments, output, stats, externals, target} = this
     // init config
     const config: Configuration = {
-      cache: false,
+      // cache: false,
+      cache,
       resolve,
       externals,
       target,

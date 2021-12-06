@@ -1,5 +1,5 @@
 {
-    "extends": "@efox/emp/emp-tsconfig.json",
+    "extends": "@efox/emp/emp-tsconfig",
     "compilerOptions": {
       "types": ["@efox/emp/client"],
       "baseUrl": ".",
