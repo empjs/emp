@@ -67,6 +67,7 @@ class WPLibMode {
       },
     }
     //
+    // delete wp.output.assetModuleFilename
     wp.output.library = {type: format === 'esm' ? 'module' : format}
     if (format !== 'esm') {
       wp.output.library.name = this.libConfig.name
