@@ -1,16 +1,18 @@
 {
-    "extends": "@efox/emp/emp-tsconfig",
-    "compilerOptions": {
-      "types": ["@efox/emp/client"],
-      "baseUrl": ".",
-      "lib": [
-        "DOM",
-        "DOM.Iterable",
-        "ESNext",
-        "WebWorker"
-      ],
-    },
-    "include": [
-      "src",
+  "extends": "@efox/emp/emp-tsconfig",
+  "compilerOptions": {
+    "types": [
+      "@efox/emp/client"
+    ],
+    "baseUrl": ".",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "WebWorker"
     ]
-  }
+  },
+  "include": [
+    "src"
+  ]
+}

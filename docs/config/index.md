@@ -325,7 +325,7 @@ swc 是否异步构建
 ### build.lib 
 + 类型 `LibMod`
 
-使用库模式 具体可以点击 [查看详情](/develop/#配置)
+使用库模式 具体可以点击 [查看详情](/develop/#build-lib-配置)
 
 ## 服务选项 
 ### server

@@ -11,7 +11,11 @@ class WPLibMode {
   module = new WPModule()
 
   constructor() {
-    this.libConfig = {entry: {index: 'index.ts'}, formats: ['umd', 'esm']}
+    this.libConfig = {
+      name: 'index',
+      entry: 'index.js',
+      formats: ['umd'],
+    }
   }
   async setup() {
     this.isDev = store.config.mode === 'development'
@@ -22,12 +26,20 @@ class WPLibMode {
       await this.libTarget(format)
       this.resetConfig(format)
     }
-    if (store.config.debug.wplogger) console.log('[webpack config]', this.wpconfigs)
+    if (store.config.debug.wplogger) console.log('[webpack config]', JSON.stringify(this.wpconfigs, null, 2))
     return this.wpconfigs
   }
   private resetWpchain() {
-    Object.keys(this.libConfig.entry).map(k => wpChain.plugins.delete('html_plugin_' + k))
+    // Object.keys(this.libConfig.entry).map(k => wpChain.plugins.delete('html_plugin_' + k))
+    // if (this.libConfig.name) {
+    //   wpChain.plugins.delete('html_plugin_' + this.libConfig.name)
+    // }
+    wpChain.plugins.delete('html_plugin_index')
     wpChain.plugins.delete('mf')
+    // externals
+    if (this.libConfig.external) {
+      wpChain.externals(this.libConfig.external)
+    }
     if (store.config.mode === 'production') {
       wpChain.plugins.delete('copy')
       wpChain.devtool('source-map')
@@ -40,6 +52,7 @@ class WPLibMode {
     }
 
     const wp: Configuration = {...config, ...{watch: this.isDev}}
+    wp.entry = {[this.libConfig.name || 'index']: this.libConfig.entry}
     const cache = wp.cache || {}
     wp.cache = {
       ...cache,
@@ -50,6 +63,7 @@ class WPLibMode {
         type: 'filesystem',
       },
     }
+    //
     wp.resolve = {...wp.resolve, ...{extensions: ['.js', '.mjs', '.ts', '.json', '.wasm']}}
     wp.output = {
       ...wp.output,
@@ -63,7 +77,7 @@ class WPLibMode {
             ? this.libConfig.fileName
             : `[name].js`,
         // library: {type: format === 'esm' ? 'module' : format},
-        assetModuleFilename: '[name].[ext]',
+        assetModuleFilename: '[name][ext]',
       },
     }
     //

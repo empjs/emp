@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/.types",
   "private": true,
   "scripts": {
     "dev": "emp dev",
