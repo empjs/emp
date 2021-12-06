@@ -148,7 +148,7 @@ class WPPlugin {
       const {CleanWebpackPlugin} = require('clean-webpack-plugin')
       config.plugin.clean = {
         plugin: CleanWebpackPlugin,
-        args: [{cleanOnceBeforeBuildPatterns: ['!types/**']}],
+        args: [{cleanOnceBeforeBuildPatterns: [`!${store.typesOutputDir}/**`]}],
       }
     }
 
