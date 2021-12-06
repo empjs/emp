@@ -1,4 +1,4 @@
-import HostApp from '@microHost/App'
+import HostApp from 'microHost/App'
 import StoreComp from './StoreComp'
 
 const App = () => {
