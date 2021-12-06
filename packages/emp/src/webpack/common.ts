@@ -76,6 +76,14 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
+
+    const clean =
+      store.config.build.emptyOutDir && !this.isDev
+        ? {
+            keep: new RegExp(`${store.typesOutputDir}\/`), // Keep these assets under 'ignored/dir'.
+          }
+        : false
+
     return {
       //TODO: Library 模式的处理
       // module: true,
@@ -89,6 +97,7 @@ class WPCommon {
       //   // type: 'umd',
       // },
       // clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
+      clean: clean,
       path: store.outDir,
       publicPath: store.config.build.lib ? publicPath : 'auto',
       filename: 'js/[name].[contenthash:8].js',

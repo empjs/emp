@@ -40,8 +40,8 @@ class WPModule {
                       name: store.empShare.moduleFederation.name,
                       exposes: store.empShare.moduleFederation.exposes,
                       typesOutputDir: path.resolve('dist', store.typesOutputDir),
-                      lib: true,
-                      libName: store.config.build.lib.name,
+                      lib: !!store.config.build.lib,
+                      libName: store.config.build.lib?.name,
                     },
                   }
                 : {},

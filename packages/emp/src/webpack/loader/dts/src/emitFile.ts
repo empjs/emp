@@ -58,23 +58,24 @@ function emitFile(
         if (o.name.endsWith('.d.ts')) {
           // lib模式
           if (loaderOptions.lib) {
-            caches.entireDts = caches.entireDts + warpDeclareModule(loaderOptions.libName ?? '.', '.', o.text)
-          }
-          // module federation 模式
-          if (loaderOptions.exposes && JSON.stringify(loaderOptions.exposes) !== '{}' && !!loaderOptions.name) {
-            // 遍历 exposes 的声明结果
-            for (const [key, value] of Object.entries(loaderOptions.exposes)) {
-              if (key && value) {
-                context.resolve(context.rootContext, value, (err, inputFilePath) => {
-                  if (err) {
-                    console.error(err)
-                    return
-                  }
-                  // expose 对应的文件路径和 TS 编译结果路径是否相等
-                  if (inputFilePath === fileName) {
-                    caches.entireDts = caches.entireDts + warpDeclareModule(loaderOptions.name ?? '.', key, o.text)
-                  }
-                })
+            caches.entireDts = caches.entireDts + warpDeclareModule(loaderOptions?.libName ?? '.', '.', o.text)
+          } else {
+            // module federation 模式
+            if (loaderOptions.exposes && JSON.stringify(loaderOptions.exposes) !== '{}' && !!loaderOptions.name) {
+              // 遍历 exposes 的声明结果
+              for (const [key, value] of Object.entries(loaderOptions.exposes)) {
+                if (key && value) {
+                  context.resolve(context.rootContext, value, (err, inputFilePath) => {
+                    if (err) {
+                      console.error(err)
+                      return
+                    }
+                    // expose 对应的文件路径和 TS 编译结果路径是否相等
+                    if (inputFilePath === fileName) {
+                      caches.entireDts = caches.entireDts + warpDeclareModule(loaderOptions.name ?? '.', key, o.text)
+                    }
+                  })
+                }
               }
             }
           }
