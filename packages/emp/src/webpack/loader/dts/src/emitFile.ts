@@ -56,6 +56,11 @@ function emitFile(
     if (!output.emitSkipped) {
       output.outputFiles.forEach(o => {
         if (o.name.endsWith('.d.ts')) {
+          // lib模式
+          if (loaderOptions.lib) {
+            caches.entireDts = caches.entireDts + warpDeclareModule(loaderOptions.libName ?? '.', '.', o.text)
+          }
+          // module federation 模式
           if (loaderOptions.exposes && JSON.stringify(loaderOptions.exposes) !== '{}' && !!loaderOptions.name) {
             // 遍历 exposes 的声明结果
             for (const [key, value] of Object.entries(loaderOptions.exposes)) {

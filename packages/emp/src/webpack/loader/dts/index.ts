@@ -8,6 +8,8 @@ export interface LoaderOptions {
   name?: string
   exposes?: Record<string, string>
   typesOutputDir: string
+  lib?: boolean
+  libName?: string
 }
 function main(context: webpack.LoaderContext<Partial<LoaderOptions>>, loaderOptions: LoaderOptions, content: string) {
   const tsconfig = getTSConfig(context.rootContext)
@@ -42,6 +44,8 @@ async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: str
       name: options.name,
       exposes: options.exposes,
       typesOutputDir: options.typesOutputDir ?? path.resolve('dist', 'typings'),
+      lib: options.lib,
+      libName: options.libName,
     },
     source,
   )

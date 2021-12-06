@@ -39,7 +39,9 @@ class WPModule {
                     options: {
                       name: store.empShare.moduleFederation.name,
                       exposes: store.empShare.moduleFederation.exposes,
-                      typesOutputDir: path.resolve('dist', store.typesOutputDir)
+                      typesOutputDir: path.resolve('dist', store.typesOutputDir),
+                      lib: true,
+                      libName: store.config.build.lib.name,
                     },
                   }
                 : {},
