@@ -78,6 +78,7 @@ class WPLibMode {
             : `[name].js`,
         // library: {type: format === 'esm' ? 'module' : format},
         assetModuleFilename: '[name][ext]',
+        // chunkFormat: format === 'esm' ? 'module' : 'array-push',
       },
     }
     //
@@ -86,7 +87,9 @@ class WPLibMode {
     if (format !== 'esm') {
       wp.output.library.name = this.libConfig.name
     }
-
+    if (format === 'umd') {
+      wp.output.umdNamedDefine = true
+    }
     wp.optimization = {...wp.optimization, ...{minimize: !this.isDev, chunkIds: 'named', emitOnErrors: true}}
     const isESM = format === 'esm'
     //
