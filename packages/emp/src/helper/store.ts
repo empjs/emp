@@ -62,6 +62,11 @@ class GlobalStore {
    * 缓存目录 绝对路径
    */
   public cacheDir = ''
+
+  /**
+   * 
+   */
+   public typesOutputDir = 'empShareTypes'
   /**
    * 命令行变量
    */

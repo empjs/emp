@@ -34,7 +34,7 @@ function writeDtsFile(filePath: string, fileName: string, data: string) {
  * @returns
  */
 function warpDeclareModule(name: string, module: string, text: string) {
-  const modifyText = text.replaceAll('declare', '')
+  const modifyText = text.replace(/declare/g, '')
   return `declare module '${name}${module.replace('.', '')}' {\r\n${modifyText}}\r\n`
 }
 

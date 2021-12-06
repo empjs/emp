@@ -41,7 +41,7 @@ async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: str
     {
       name: options.name,
       exposes: options.exposes,
-      typesOutputDir: options.typesOutputDir ?? path.resolve('dist', '.types'),
+      typesOutputDir: options.typesOutputDir ?? path.resolve('dist', 'typings'),
     },
     source,
   )
