@@ -14,7 +14,8 @@ function getTSConfig(cwd: string): ts.CompilerOptions | undefined {
   }
 
   try {
-    const tsconfig = require(tsconfigPath)
+    const tsconfigStr = fs.readFileSync(tsconfigPath, 'utf8')
+    const tsconfig = eval(`module.exports = ${tsconfigStr}`)
     return tsconfig
   } catch (error) {
     console.log(error)
