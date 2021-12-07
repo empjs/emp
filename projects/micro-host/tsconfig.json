@@ -1,9 +1,10 @@
 {
+  "extends": "@efox/emp/emp-tsconfig",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "strict": true,
-    "jsx": "react"
+    "types": ["@efox/emp/client"],
+    "baseUrl": "."
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src"
+  ]
 }

@@ -7,14 +7,18 @@ function getTSConfigPath(cwd: string) {
   return configPath
 }
 
-function getTSConfig(cwd: string): ts.CompilerOptions {
+function getTSConfig(cwd: string): ts.CompilerOptions | undefined {
   const tsconfigPath = getTSConfigPath(cwd)
   if (!tsconfigPath) {
     throw new Error("Could not find a valid 'tsconfig.json'.")
   }
 
-  const tsconfig = require(tsconfigPath)
-  return tsconfig
+  try {
+    const tsconfig = require(tsconfigPath)
+    return tsconfig
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 /**
