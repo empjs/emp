@@ -144,13 +144,13 @@ class WPPlugin {
       }
     }
 
-    if (store.config.build.emptyOutDir && !isDev) {
-      const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-      config.plugin.clean = {
-        plugin: CleanWebpackPlugin,
-        args: [{cleanOnceBeforeBuildPatterns: [`!${store.typesOutputDir}/**`]}],
-      }
-    }
+    // if (store.config.build.emptyOutDir && !isDev) {
+    //   const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+    //   config.plugin.clean = {
+    //     plugin: CleanWebpackPlugin,
+    //     args: [{cleanOnceBeforeBuildPatterns: [`!${store.typesOutputDir}/**`]}],
+    //   }
+    // }
 
     wpChain.merge(config)
   }

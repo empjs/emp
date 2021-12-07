@@ -76,7 +76,7 @@ console.log(process.env.env.DOTENV)
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
 
 ## 多页面模式 
-### 配置
+### entries 配置
 多页面模式配置 `emp-config.js` 如下: 
 ```js
 module.exports={
@@ -112,4 +112,33 @@ module.exports={
 ```
 
 ## 库模式 
+### build.lib 配置 
+```js
+type FileNameType = (format: string) => string
+export type LibModeType = {
+  /**
+   * 全局变量 用作 amd umd var window 等共享
+   */
+  name?: string
+  /**
+   *  入口文件 基于 AppSrc 目录 如 `src/index.js` 填写 `index.js` 即可
+   * @default `index.js`
+   */
+  entry: string | string[]
+  /**
+   * fileName
+   * @default [format]/[name].js 建议 format 为目录 避免不同格式代码混淆
+   */
+  fileName?: FileNameType | string
+  /**
+   * 输出格式 如 [umd,esm] 
+   * @default [umd]
+   */
+  formats: buildLibType[]
+  /**
+   * 提供额外的 全局变量 具体参考 https://webpack.js.org/configuration/externals/#root
+   */
+  external?: Configuration['externals']
+}
 
+```
