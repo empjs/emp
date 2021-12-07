@@ -36,7 +36,11 @@ pnpm add @efox/emp -D
 ### emp serve
 + -cl, --clearLog  清空日志 默认为 true 
 
-### dotenv 
+### emp dts 
++ 根据 `empShare.remote` 自动同步类型 
+
+## dotenv 
+### 环境变量配置
 + 根目录创建 `.env.[env]` 即可 根据以上的 `--env` 定制自己的配置环境 如: 
 ```
 DOTENV='dev'
@@ -61,6 +65,25 @@ console.log(process.env.env.DOTENV)
   "include": [
     "src",
   ]
+}
+```
+### 类型生成
+在`emp build`下 如果是ts开发，会根据 `expose` <b>自动</b>生成相应的 `d.ts` 到 `dist/empShareTypes` 里面 
+
+### 类型同步
+`emp dts` 会<b>自动</b>根据 `empShare.remote` 配置生成相应文件到 `src/empShareTypes` 如: 
+
+```js
+empShare: {
+  name: 'microApp',
+  remotes: {
+    // emp dts 会自动生成 @microHost.d.ts 到 `src/empShareTypes`
+    '@microHost': `microHost@http://localhost:8001/emp.js`,
+  },
+  exposes: {
+    // emp build 会自动生成类型到 dist/empShareTypes/index.d.ts 
+    './App': './src/App', 
+  },
 }
 ```
 
@@ -92,7 +115,7 @@ module.exports={
   },
 }
 ```
-### 共享 
+### 共享模板 
 多入口会继承 `empShare` 的所有共享 需要自定义的话可以增加自定义模板 如
 ```html
 <!DOCTYPE html>

@@ -55,6 +55,22 @@ class WPModule {
       },
     }
     wpChain.merge(config)
+    //
+    // if (fs.existsSync(store.resolve('tsconfig.json'))) {
+    //   wpChain.module
+    //     .rule('scripts')
+    //     .test(/\.(ts|tsx)$/)
+    //     .use('dts')
+    //     .before('swc')
+    //     .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')))
+    //     .options({
+    //       name: store.empShare.moduleFederation.name,
+    //       exposes: store.empShare.moduleFederation.exposes,
+    //       typesOutputDir: path.resolve('dist', store.typesOutputDir),
+    //       lib: !!store.config.build.lib,
+    //       libName: store.config.build.lib?.name,
+    //     })
+    // }
   }
 
   private setScriptReactLoader() {
