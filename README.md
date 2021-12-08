@@ -2,6 +2,7 @@
 <a href="https://www.npmjs.com/package/@efox/emp"><img src="https://img.shields.io/npm/v/@efox/emp.svg" alt="npm"></a>
 <a href="https://emp2.netlify.app"><img src="https://img.shields.io/node/v/@efox/emp.svg" alt="node"></a>
 <a href="https://emp2.netlify.app"><img src="https://img.shields.io/badge/EMP.Document-v2-blue" alt="document"></a>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bc7171f1-19e3-47df-9728-9bf50906475a/deploy-status)](https://app.netlify.com/sites/emp2/deploys)
 
 > 基于下一代构建实现微前端解决方案
 + 💡 微前端、微组件、支持ESM的共享模型
