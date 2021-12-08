@@ -33,18 +33,18 @@ class WPModule {
             exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
             use: {
               // 有 tsconfig.json 才执行 d.ts 生成
-              dts: fs.existsSync(store.resolve('tsconfig.json'))
-                ? {
-                    loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
-                    options: {
-                      name: store.empShare.moduleFederation.name,
-                      exposes: store.empShare.moduleFederation.exposes,
-                      typesOutputDir: path.resolve('dist', store.typesOutputDir),
-                      lib: !!store.config.build.lib,
-                      libName: store.config.build.lib?.name,
-                    },
-                  }
-                : {},
+              // dts: fs.existsSync(store.resolve('tsconfig.json'))
+              //   ? {
+              //       loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')),
+              //       options: {
+              //         name: store.empShare.moduleFederation.name,
+              //         exposes: store.empShare.moduleFederation.exposes,
+              //         typesOutputDir: path.resolve('dist', store.typesOutputDir),
+              //         lib: !!store.config.build.lib,
+              //         libName: store.config.build.lib?.name,
+              //       },
+              //     }
+              //   : {},
               swc: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
                 options: store.config.build,
@@ -56,21 +56,24 @@ class WPModule {
     }
     wpChain.merge(config)
     //
-    // if (fs.existsSync(store.resolve('tsconfig.json'))) {
-    //   wpChain.module
-    //     .rule('scripts')
-    //     .test(/\.(ts|tsx)$/)
-    //     .use('dts')
-    //     .before('swc')
-    //     .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')))
-    //     .options({
-    //       name: store.empShare.moduleFederation.name,
-    //       exposes: store.empShare.moduleFederation.exposes,
-    //       typesOutputDir: path.resolve('dist', store.typesOutputDir),
-    //       lib: !!store.config.build.lib,
-    //       libName: store.config.build.lib?.name,
-    //     })
-    // }
+    if (
+      fs.existsSync(store.resolve('tsconfig.json')) &&
+      store.empShare.moduleFederation.exposes &&
+      Object.keys(store.empShare.moduleFederation.exposes).length > 0
+    ) {
+      wpChain.module
+        .rule('empShareTypes')
+        .test(/\.(ts|tsx)$/)
+        .use('dts')
+        .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')))
+        .options({
+          name: store.empShare.moduleFederation.name,
+          exposes: store.empShare.moduleFederation.exposes,
+          typesOutputDir: path.resolve('dist', store.typesOutputDir),
+          lib: !!store.config.build.lib,
+          libName: store.config.build.lib?.name,
+        })
+    }
   }
 
   private setScriptReactLoader() {

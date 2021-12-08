@@ -134,7 +134,8 @@ module.exports={
 </html>
 ```
 
-## 库模式 
+## 库模式 [实验阶段]
+> 已支持 各种模块 export 支持 IE兼容，worker模式下 需要手动复制worker，inline方式需要支持
 ### build.lib 配置 
 ```js
 type FileNameType = (format: string) => string
@@ -165,3 +166,6 @@ export type LibModeType = {
 }
 
 ```
+## ESM 模式 [实验阶段] 
+> 已支持 MF的 ESM共享，热更存在bug问题 
++ [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/demo)

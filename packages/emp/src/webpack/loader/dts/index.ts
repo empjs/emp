@@ -37,6 +37,8 @@ function main(context: webpack.LoaderContext<Partial<LoaderOptions>>, loaderOpti
 async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: string) {
   const done = this.async()
   const options = this.getOptions()
+  //禁止缓存
+  this.cacheable(false)
   done(null, source)
   return main(
     this,
