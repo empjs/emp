@@ -53,16 +53,18 @@ class WPLibMode {
 
     const wp: Configuration = {...config, ...{watch: this.isDev}}
     wp.entry = {[this.libConfig.name || 'index']: this.libConfig.entry}
-    const cache = wp.cache || {}
-    wp.cache = {
-      ...cache,
-      ...{
-        name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
-          store.pkg.version
-        }-${format}`,
-        type: 'filesystem',
-      },
-    }
+    wp.cache =
+      typeof wp.cache === 'object'
+        ? {
+            ...wp.cache,
+            ...{
+              name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
+                store.pkg.version
+              }-${format}`,
+              type: 'filesystem',
+            },
+          }
+        : wp.cache
 
     wp.resolve = {...wp.resolve, ...{extensions: ['.js', '.mjs', '.ts', '.json', '.wasm']}}
     wp.output = {
