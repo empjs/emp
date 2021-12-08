@@ -11,8 +11,8 @@ class WPCommon {
     const {cache, resolve, experiments, output, stats, externals, target} = this
     // init config
     const config: Configuration = {
-      // cache: false,
-      cache,
+      cache: false,
+      // cache,
       resolve,
       externals,
       target,
@@ -76,11 +76,11 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
-
+    // const clean = false
     const clean =
       store.config.build.emptyOutDir && !this.isDev
         ? {
-            keep: new RegExp(`${store.typesOutputDir}\/`), // Keep these assets under 'ignored/dir'.
+            keep: new RegExp(`${store.config.build.typesOutDir}\/`), // Keep these assets under 'ignored/dir'.
           }
         : false
 

@@ -51,6 +51,10 @@ export type BuildOptions = {
    * 是否生成分析报告 根据 cliOptions `--analyze` 生成
    */
   analyze?: boolean
+  /**
+   * 类型生成目录
+   */
+  typesOutDir?: string
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -66,6 +70,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       // target: 'es2018',
       target: 'es5',
       outDir: 'dist',
+      typesOutDir: 'dist/empShareTypes',
       assetsDir: 'assets',
       minify: true,
       sourcemap: false,

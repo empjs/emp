@@ -3,6 +3,7 @@ import path from 'path'
 import {getTSConfig} from './src/getTSConfig'
 import {getTSService} from './src/getTSService'
 import {emitFile} from './src/emitFile'
+import store from 'src/helper/store'
 
 export interface LoaderOptions {
   name?: string
@@ -13,12 +14,14 @@ export interface LoaderOptions {
 }
 function main(context: webpack.LoaderContext<Partial<LoaderOptions>>, loaderOptions: LoaderOptions, content: string) {
   const tsconfig = getTSConfig(context.rootContext)
+  const outDir = path.resolve(context.rootContext, loaderOptions.typesOutputDir)
   const languageService = getTSService(
     {
       ...tsconfig,
       declaration: true,
       emitDeclarationOnly: true,
-      outDir: path.resolve(context.rootContext, `${loaderOptions.typesOutputDir}/${loaderOptions.name}/dts`),
+      // outDir: path.resolve(context.rootContext, `${loaderOptions.typesOutputDir}/${loaderOptions.name}/dts`),
+      outDir,
     },
     context.rootContext,
   )
@@ -35,11 +38,10 @@ function main(context: webpack.LoaderContext<Partial<LoaderOptions>>, loaderOpti
  * @returns
  */
 async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: string) {
-  const done = this.async()
+  // const done = this.async()
   const options = this.getOptions()
   //禁止缓存
   this.cacheable(false)
-  done(null, source)
   return main(
     this,
     {

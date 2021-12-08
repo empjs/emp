@@ -70,7 +70,7 @@ class WPLibMode {
     wp.output = {
       ...wp.output,
       ...{
-        clean: true,
+        clean: wp.output?.clean,
         path: store.resolve(path.join(store.outDir, format)),
         filename:
           typeof this.libConfig.fileName === 'function'

@@ -57,19 +57,21 @@ class WPModule {
     wpChain.merge(config)
     //
     if (
-      fs.existsSync(store.resolve('tsconfig.json')) &&
-      store.empShare.moduleFederation.exposes &&
-      Object.keys(store.empShare.moduleFederation.exposes).length > 0
+      fs.existsSync(store.resolve('tsconfig.json'))
+      //&&
+      // store.empShare.moduleFederation.exposes &&
+      // Object.keys(store.empShare.moduleFederation.exposes).length > 0
     ) {
       wpChain.module
         .rule('empShareTypes')
+        .after('scripts')
         .test(/\.(ts|tsx)$/)
         .use('dts')
         .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')))
         .options({
           name: store.empShare.moduleFederation.name,
           exposes: store.empShare.moduleFederation.exposes,
-          typesOutputDir: path.resolve('dist', store.typesOutputDir),
+          typesOutputDir: store.config.build.typesOutDir,
           lib: !!store.config.build.lib,
           libName: store.config.build.lib?.name,
         })
