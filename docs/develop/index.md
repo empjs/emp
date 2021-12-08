@@ -88,15 +88,41 @@ empShare: {
 ```
 
 ## 共享模式 
-### empshare 配置 
+### empshare 介绍
 * 实现3重共享模型
-* empshare 与 module federation 只能选择一个配置
+  - [基础库] -> [基站] -> [引用]
+* `empshare` 与 `moduleFederation` 配置可以 `config.empShare` 里面进行配置
 * shareLib 基于库共享模式
   - 可以进行 cdn 加载
-  - ES import [开发中]
+  - ES import [DEMO](https://github.com/efoxTeam/emp/blob/f54a9a2475c197ef935cde8cb8dcb2458f963d1e/projects/demo/emp-config.js#L24)
   - DLL方式构建共享 [需自行实现]
 
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
+
+### empshare 配置 
+```js
+module.exports={
+   empShare: {
+   name: 'microApp',
+   remotes: {
+     '@microHost': `microHost@http://localhost:8001/emp.js`,
+   },
+   exposes: {
+     './App': './src/App',
+   },
+   // 实现 MODULE Feration 与 shareLib 只能保留一个
+   shared: {
+     react: {requiredVersion: '^17.0.1'},
+     'react-dom': {requiredVersion: '^17.0.1'},
+   },
+   // 实现 emp share 的 三级共享模式 与 shared 只能保留一个
+   shareLib: {
+     react: 'React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js',
+     'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js',
+   }
+   },
+}
+```
 
 ## 多页面模式 
 ### entries 配置
