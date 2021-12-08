@@ -115,7 +115,7 @@ module.exports={
      react: {requiredVersion: '^17.0.1'},
      'react-dom': {requiredVersion: '^17.0.1'},
    },
-   // 实现 emp share 的 三级共享模式 与 shared 只能保留一个
+   // 实现 emp share 的 三级共享模式 与 shared 只能保留一个,地址可以自行判断
    shareLib: {
      react: 'React@https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js',
      'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js',
