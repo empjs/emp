@@ -19,7 +19,7 @@ class DTSPlugin {
         dtslist.map(d => {
           dts.emit(d)
         })
-        dts.createFile()
+        const outFilename = dts.createFile()
       }
     })
   }

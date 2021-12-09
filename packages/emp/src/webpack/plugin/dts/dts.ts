@@ -27,15 +27,14 @@ class DTSEmitFile {
   constructor() {
     this.tsconfig = getTSConfig(store.root) || {}
     this.outDir = path.resolve(store.root, 'dist/empShareTypes')
-    this.languageService = getTSService(
-      {
-        ...this.tsconfig,
-        declaration: true,
-        emitDeclarationOnly: true,
-        outDir: this.outDir,
-      },
-      store.root,
-    )
+    this.tsconfig = {
+      ...this.tsconfig,
+      declaration: true,
+      emitDeclarationOnly: true,
+      outDir: this.outDir,
+      rootDir: store.config.appSrc,
+    }
+    this.languageService = getTSService(this.tsconfig, store.root)
   }
   setup({build, mf}: DTSTLoadertype) {
     this.build = build
@@ -43,25 +42,41 @@ class DTSEmitFile {
     const outDir = path.resolve(store.root, build.typesOutDir)
     if (outDir != this.outDir) {
       this.outDir = outDir
-      this.languageService = getTSService(
-        {
-          ...this.tsconfig,
-          declaration: true,
-          emitDeclarationOnly: true,
-          outDir: this.outDir,
-        },
-        store.root,
-      )
+      this.tsconfig.outDir = outDir
+      this.languageService = getTSService(this.tsconfig, store.root)
     }
+    console.log('this.tsconfig', this.tsconfig)
     fs.removeSync(this.outDir)
   }
   emit(filename: string) {
+    console.log(this.build?.lib)
     const output = this.languageService.getEmitOutput(filename)
     try {
       if (!output.emitSkipped) {
         output.outputFiles.forEach(o => {
           if (o.name.endsWith('.d.ts')) {
+            // console.log('o', o)
             this.libCode(o)
+            //
+            // fs.ensureDirSync(path.dirname(o.name))
+            // fs.writeFileSync(o.name, o.text)
+            // if (this.mf?.exposes) {
+            //   for (const [key, value] of Object.entries(this.mf.exposes)) {
+            //     const inputFilename = path.resolve(store.root, value)
+            //     console.log('[inputFilename]', inputFilename, filename)
+            //     if (inputFilename === filename.replace('.tsx', '').replace('.ts', '')) {
+            //       const moduleFilename = `${key}.d.ts`
+            //       const modulePath = path.resolve(store.root, `${this.build?.typesOutDir}/${this.mf.name}`)
+            //       const dtsEntryPath = path.resolve(modulePath, moduleFilename)
+            //       const relativePathToOutput = path.relative(path.dirname(dtsEntryPath), o.name.replace('.d.ts', ''))
+            //       fs.ensureFileSync(dtsEntryPath)
+            //       fs.writeFileSync(
+            //         dtsEntryPath,
+            //         `export * from './${relativePathToOutput}';\nexport { default } from './${relativePathToOutput}';`,
+            //       )
+            //     }
+            //   }
+            // }
           }
         })
       }
@@ -76,9 +91,12 @@ class DTSEmitFile {
     const outFilename = path.resolve(this.outDir, `${this.build.typesAppName}.d.ts`)
     fs.writeFileSync(outFilename, this.lib.code, 'utf8')
     this.destroy()
+    return outFilename
   }
+
   libCode(o: ts.OutputFile) {
     if (!this.lib.key.includes(o.name)) {
+      const libName = this.build?.lib?.name || store.pkg.name
       const mod = o.name.replace(`${this.outDir}/`, '').replace('.d.ts', '')
       this.lib.code = this.lib.code + this.warpDeclareModule(mod, o.text)
       this.lib.key.push(o.name)
