@@ -56,7 +56,7 @@ class WPModule {
     }
     wpChain.merge(config)
     //
-    if (
+    /* if (
       fs.existsSync(store.resolve('tsconfig.json'))
       //&&
       // store.empShare.moduleFederation.exposes &&
@@ -69,13 +69,15 @@ class WPModule {
         .use('dts')
         .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/dts')))
         .options({
-          name: store.empShare.moduleFederation.name,
-          exposes: store.empShare.moduleFederation.exposes,
-          typesOutputDir: store.config.build.typesOutDir,
-          lib: !!store.config.build.lib,
-          libName: store.config.build.lib?.name,
+          build: store.config.build,
+          moduleFederation: store.config.moduleFederation,
+          // name: store.empShare.moduleFederation.name,
+          // exposes: store.empShare.moduleFederation.exposes,
+          // typesOutputDir: store.config.build.typesOutDir,
+          // lib: !!store.config.build.lib,
+          // libName: store.config.build.lib?.name,
         })
-    }
+    } */
   }
 
   private setScriptReactLoader() {

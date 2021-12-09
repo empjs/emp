@@ -55,6 +55,16 @@ export type BuildOptions = {
    * 类型生成目录
    */
   typesOutDir?: string
+  /**
+   * empShare d.ts 入口 [index.d.ts]
+   * @default index
+   */
+  typesEmpName?: string
+  /**
+   * project d.ts 入口 [types.d.ts]
+   * @default types
+   */
+  typesAppName?: string
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -71,6 +81,8 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       target: 'es5',
       outDir: 'dist',
       typesOutDir: 'dist/empShareTypes',
+      typesAppName: 'types',
+      typesEmpName: 'index',
       assetsDir: 'assets',
       minify: true,
       sourcemap: false,

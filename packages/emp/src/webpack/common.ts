@@ -76,13 +76,13 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
-    // const clean = false
-    const clean =
+    const clean = true
+    /* const clean =
       store.config.build.emptyOutDir && !this.isDev
         ? {
             keep: new RegExp(`${store.config.build.typesOutDir}\/`), // Keep these assets under 'ignored/dir'.
           }
-        : false
+        : false */
 
     return {
       //TODO: Library 模式的处理

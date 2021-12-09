@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/umd/emp-lib.js",
   "module": "dist/esm/emp-lib.js",
-  "types": "dist/empShareTypes",
+  "types": "dist/empShareTypes/types.d.ts",
   "private": true,
   "scripts": {
     "dev": "emp dev",

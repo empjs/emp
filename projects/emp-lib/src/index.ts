@@ -1,7 +1,7 @@
-import logger from './logger'
-import mod from './mod'
-console.log('import.meta.url', import.meta.url, new URL('src/worker.ts', import.meta.url))
-const worker = new Worker(new URL('src/worker.ts', import.meta.url))
+import logger from './helper/logger'
+import mod from 'src/mod'
+console.log('import.meta.url', import.meta.url, new URL('src/worker/index.ts', import.meta.url))
+const worker = new Worker(new URL('src/worker/index.ts', import.meta.url))
 // const worker = new Worker(new URL('src/worker.ts', import.meta.url), {
 //   type: 'module',
 // })
@@ -15,4 +15,5 @@ const App = () => {
     logger.info('[main thead]', answer)
   }
 }
+export {mod, logger}
 export default App

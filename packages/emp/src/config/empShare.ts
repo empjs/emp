@@ -162,6 +162,8 @@ class EMPShare {
         }
         this.moduleFederation = moduleFederationOpt
       }
+      // 同步回config 让 store.config 使用
+      store.config.moduleFederation = this.moduleFederation
     }
   }
 }

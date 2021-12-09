@@ -1,58 +1,13 @@
 import webpack from 'webpack'
-import path from 'path'
-import {getTSConfig} from './src/getTSConfig'
-import {getTSService} from './src/getTSService'
-import {emitFile} from './src/emitFile'
-import store from 'src/helper/store'
-
-export interface LoaderOptions {
-  name?: string
-  exposes?: Record<string, string>
-  typesOutputDir: string
-  lib?: boolean
-  libName?: string
-}
-function main(context: webpack.LoaderContext<Partial<LoaderOptions>>, loaderOptions: LoaderOptions, content: string) {
-  const tsconfig = getTSConfig(context.rootContext)
-  const outDir = path.resolve(context.rootContext, loaderOptions.typesOutputDir)
-  const languageService = getTSService(
-    {
-      ...tsconfig,
-      declaration: true,
-      emitDeclarationOnly: true,
-      // outDir: path.resolve(context.rootContext, `${loaderOptions.typesOutputDir}/${loaderOptions.name}/dts`),
-      outDir,
-    },
-    context.rootContext,
-  )
-  emitFile(context, languageService, loaderOptions)
-
-  return content
-}
-
-/**
- * DTSLoader
- * 生成 EMP MF Typescript 声明文件
- * @param this
- * @param source
- * @returns
- */
-async function DTSloader(this: webpack.LoaderContext<LoaderOptions>, source: string) {
+import dts, {DTSTLoadertype} from './dtsEmitFile'
+async function DTSloader(this: webpack.LoaderContext<DTSTLoadertype>, source: string) {
   // const done = this.async()
   const options = this.getOptions()
+  dts.setup(this, options)
   //禁止缓存
   this.cacheable(false)
-  return main(
-    this,
-    {
-      name: options.name,
-      exposes: options.exposes,
-      typesOutputDir: options.typesOutputDir ?? path.resolve('dist', 'typings'),
-      lib: options.lib,
-      libName: options.libName,
-    },
-    source,
-  )
+  dts.emit()
+  return source
 }
 
 export default DTSloader

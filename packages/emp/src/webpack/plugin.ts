@@ -10,6 +10,7 @@ import Dotenv from 'dotenv-webpack'
 import path from 'path'
 import fs from 'fs-extra'
 import {modeType} from 'src/types'
+import DTSPlugin from './plugin/dts'
 class WPPlugin {
   isDev = true
   constructor() {}
@@ -73,7 +74,7 @@ class WPPlugin {
         args: [{filename: 'emp.json'}],
       }
     }
-
+    // progress
     if (store.config.debug.progress !== false) {
       const options: any = {name: `[EMP]`}
       if (store.config.debug.profile) {
@@ -98,12 +99,21 @@ class WPPlugin {
         ],
       }
     }
+    //
+    const tsconfigJsonPath = store.resolve('tsconfig.json')
+    const isTS = fs.existsSync(tsconfigJsonPath)
+    // dts
+    if (isTS) {
+      config.plugin.dts = {
+        plugin: DTSPlugin,
+        args: [{build: store.config.build, mf: store.config.moduleFederation}],
+      }
+    }
     if (store.config.jsCheck) {
       // ts check
-      const tsconfigJson = store.resolve('tsconfig.json')
-      if (fs.existsSync(tsconfigJson)) {
+      if (isTS) {
         config.plugin.tsCheck = {
-          plugin: require('fork-ts-checker-webpack-plugin'),
+          plugin: require.resolve('fork-ts-checker-webpack-plugin'),
           args: [
             {
               async: isDev, // true dev环境下部分错误验证通过
@@ -112,7 +122,7 @@ class WPPlugin {
                 files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
               },
               typescript: {
-                configFile: tsconfigJson,
+                configFile: tsconfigJsonPath,
                 profile: false,
                 typescriptPath: 'typescript',
                 // configOverwrite: {
@@ -125,7 +135,7 @@ class WPPlugin {
         }
       } else {
         config.plugin.eslint = {
-          plugin: require('eslint-webpack-plugin'),
+          plugin: require.resolve('eslint-webpack-plugin'),
           args: [
             {
               extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
@@ -151,7 +161,6 @@ class WPPlugin {
     //     args: [{cleanOnceBeforeBuildPatterns: [`!${store.typesOutputDir}/**`]}],
     //   }
     // }
-
     wpChain.merge(config)
   }
 }
