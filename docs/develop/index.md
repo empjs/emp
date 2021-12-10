@@ -12,7 +12,7 @@ pnpm add @efox/emp -D
 "scripts": {
   "dev": "emp dev --env dev",
   "build": "emp build --env prod",
-	"build:ts": "emp build --env prod -t",
+  "build:ts": "emp build --env prod -t",
   "start": "emp serve",
   "analyze": "emp build --analyze"
 },
@@ -215,7 +215,8 @@ export type LibModeType = {
 
 ## Browser 兼容
 ### IE浏览器
-#### babel-polyfill
++ babel-polyfill
+
 如果在编译产物时没有做额外的兼容处理，又想要在`IE`上运行时。
 需要在核心代码执行前加载额外的`polyfill`
 ```html
@@ -233,8 +234,9 @@ export type LibModeType = {
 某些特性，如Proxy。babel-polyfill并不会兼容，需要业务侧自己做处理。
 babel-polyfill 兼容特性见 <a href="https://kangax.github.io/compat-table/es6/#ie11">[文档]</a>
 
-#### import EMP模块链接出错
-+ EMP沿用了webpack的打包机制
-+ 当你没有指定打包 `publicPath ` 时, 会根据`import.meta.url`,`currentScript`等规则拼接子js的url
-+ 由于在IE上不支持`currentScript`，所以需要打进兼容js，否则有可能会出现子js url错误问题
-+ 参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
+
++ import EMP模块链接出错
+	+ EMP沿用了webpack的打包机制
+	+ 当你没有指定打包 `publicPath ` 时, 会根据`import.meta.url`,`currentScript`等规则拼接子js的url
+	+ 由于在IE上不支持`currentScript`，所以需要打进兼容js，否则有可能会出现子js url错误问题
+	+ 参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
