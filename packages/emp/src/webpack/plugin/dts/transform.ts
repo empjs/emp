@@ -29,6 +29,9 @@ export function transformPathImport(o: ts.OutputFile, libname?: string) {
             rs = path.join(v, rs)
             rs = rs.replace(store.appSrc, '.').replace('\\', '/')
             break
+          } else {
+            // 第三方库忽略
+            return str
           }
         }
       }

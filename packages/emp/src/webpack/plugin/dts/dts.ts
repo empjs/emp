@@ -33,8 +33,10 @@ class DTSEmitFile {
       declaration: true,
       emitDeclarationOnly: true,
       outDir: this.outDir,
-      // rootDir: store.config.appSrc,
+      rootDir: store.root,
+      // baseUrl: store.config.appSrc,
     }
+    console.log('[constructor tsconfig]', this.tsconfig, store.root)
     this.languageService = getTSService(this.tsconfig, store.root)
   }
   setup({build, mf}: DTSTLoadertype) {
@@ -44,6 +46,7 @@ class DTSEmitFile {
     if (outDir != this.outDir) {
       this.outDir = outDir
       this.tsconfig.outDir = outDir
+      console.log('[setup tsconfig]', this.tsconfig, store.root)
       this.languageService = getTSService(this.tsconfig, store.root)
     }
     fs.removeSync(this.outDir)
@@ -53,6 +56,7 @@ class DTSEmitFile {
     try {
       if (!output.emitSkipped) {
         output.outputFiles.forEach(o => {
+          console.log(filename, o)
           if (o.name.endsWith('.d.ts')) {
             this.libCode(o)
             //
