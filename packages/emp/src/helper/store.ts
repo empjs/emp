@@ -103,7 +103,6 @@ class GlobalStore {
     }
     //show logger of config
     if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
-    if (cliOptions.typingsPath) this.config.typingsPath = cliOptions.typingsPath
   }
   private setAbsPaths() {
     //
@@ -125,6 +124,8 @@ class GlobalStore {
     if (cliOptions.open === true) this.config.server.open = true
     if (cliOptions.hot === false) this.config.server.hot = false
     if (cliOptions.analyze === true) this.config.build.analyze = true
+    // dts 配置
+    if (cliOptions.typingsPath) this.config.typingsPath = cliOptions.typingsPath
   }
   private async setConfig(mode: modeType, cliOptions: cliOptionsType) {
     //初始化 emp-config.js

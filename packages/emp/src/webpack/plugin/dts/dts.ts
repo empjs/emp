@@ -7,7 +7,7 @@ import ts from 'typescript'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import fs from 'fs-extra'
-import {transformPathImport} from './transform'
+import {transformLibName, transformPathImport} from './transform'
 //
 export type DTSTLoadertype = {
   build: RquireBuildOptions
@@ -68,18 +68,20 @@ class DTSEmitFile {
   createFile() {
     if (!this.build) return
     fs.ensureDirSync(this.outDir)
-    console.log('[this.lib.code]', this.lib.code)
+
     if (this.build.lib) {
       const libModName = this.build.lib.name || store.pkg.name
+      let libCode = this.lib.code
+      libCode = transformLibName(libModName, libCode)
       this.libFilename = path.resolve(this.outDir, `${this.build.typesLibName}.d.ts`)
-      const libCode = this.lib.code
-
-      fs.writeFileSync(this.libFilename, this.lib.code, 'utf8')
+      fs.writeFileSync(this.libFilename, libCode, 'utf8')
     }
     if (this.mf?.exposes) {
-      const empModName = this.mf.name
+      const empModName = this.mf.name || ''
+      let empCode = this.lib.code
+      empCode = transformLibName(empModName, empCode)
       this.empFilename = path.resolve(this.outDir, `${this.build.typesEmpName}.d.ts`)
-      fs.writeFileSync(this.empFilename, this.lib.code, 'utf8')
+      fs.writeFileSync(this.empFilename, empCode, 'utf8')
     }
     this.destroy()
   }

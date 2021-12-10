@@ -53,6 +53,7 @@ export type BuildOptions = {
   analyze?: boolean
   /**
    * 类型生成目录
+   * @default dist/empShareTypes
    */
   typesOutDir?: string
   /**
@@ -61,8 +62,8 @@ export type BuildOptions = {
    */
   typesEmpName?: string
   /**
-   * project d.ts 入口 [types.d.ts]
-   * @default types
+   * project d.ts 入口 [lib.d.ts]
+   * @default lib
    */
   typesLibName?: string
 }

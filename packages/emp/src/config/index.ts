@@ -9,6 +9,7 @@ import {HtmlOptions, initHtml, InitHtmlType} from 'src/config/html'
 import {MFExport} from 'src/types/modulefederation'
 import {EMPShareExport} from 'src/types/empShare'
 import {LoggerType} from 'src/helper/logger'
+import path from 'path'
 //
 export type EMPConfig = {
   /**
@@ -136,6 +137,12 @@ export type EMPConfig = {
    * @default undefined
    */
   reactRuntime?: 'automatic' | 'classic'
+  /**
+   * typingsPath
+   * @default ./src/empShareType
+   * emp dts 类型同步
+   */
+  typingsPath?: string
 }
 export interface ConfigEnv {
   mode: modeType
@@ -165,7 +172,6 @@ export type ResovleConfig = Override<
     debug: ConfigDebugType
     env?: ConfigEnv['env']
     mode: modeType
-    typingsPath?: string
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
@@ -204,6 +210,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       splitCss: true,
       appEntry: '',
       jsCheck: false,
+      typingsPath: path.resolve('src', 'empShareTypes'),
     },
     ...op,
   }
