@@ -10,11 +10,11 @@ class GlobalStore {
    * EMP Version
    * @default package version
    */
-  public empPkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0'}
+  public empPkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0', name: ''}
   /**
    * 项目pkg信息
    */
-  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '0.0.0'}
+  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '0.0.0', name: ''}
   /**
    * 项目根目录绝对路径
    * @default process.cwd()

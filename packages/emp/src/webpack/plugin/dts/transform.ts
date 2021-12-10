@@ -8,7 +8,7 @@ const dynamicImportRE = /import\(['"]([^;\n]+?)['"]\)/
 const simpleStaticImportRE = /((?:import|export).+from\s?)['"](.+)['"]/
 const simpleDynamicImportRE = /(import\()['"](.+)['"]\)/
 
-export function transformPathImport(o: ts.OutputFile) {
+export function transformPathImport(o: ts.OutputFile, libname?: string) {
   return o.text.replace(globalImportRE, str => {
     let matchResult = str.match(staticImportRE)
     let isDynamic = false
@@ -34,9 +34,11 @@ export function transformPathImport(o: ts.OutputFile) {
       }
       // 统一相对路径处理
       let filename = path.resolve(path.dirname(o.name), rs)
-      console.log('[filename]', filename)
       filename = filename.split('\\').join('/').split(`/${store.config.build.typesOutDir}/`)[1]
       console.log(filename, rs)
+      if (libname) {
+        filename = filename.replace('src/', `${libname}/`)
+      }
       return str.replace(matchResult[1], filename)
     }
     return str

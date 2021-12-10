@@ -33,6 +33,7 @@ export type pkgType = {
   dependencies: any
   devDependencies: any
   version: string
+  name: string
   [key: string]: any
 }
 export type EntriesType = {[entryFilename: string]: HtmlOptions}
