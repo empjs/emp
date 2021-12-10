@@ -12,13 +12,14 @@ pnpm add @efox/emp -D
 "scripts": {
   "dev": "emp dev --env dev",
   "build": "emp build --env prod",
+	"build:ts": "emp build --env prod -t",
   "start": "emp serve",
   "analyze": "emp build --analyze"
 },
 ```
 ### emp dev
 + -e, --env 部署环境 dev、test、prod 默认为 dev
-+ -a, --analyze 生成分析报告 默认为 false
++ -t, --ts 生成 dts文件 默认为 false
 + -ps, --progress  显示进度 默认为 true
 + -pr, --profile 统计模块消耗
 + -cl, --clearLog  清空日志 默认为 true
@@ -26,6 +27,8 @@ pnpm add @efox/emp -D
 
 ### emp build
 + -e, --env 部署环境 dev、test、prod 默认为 dev
++ -t, --ts 生成 dts文件 默认为 false
++ -a, --analyze 生成分析报告 默认为 false
 + -h, --hot 是否使用热更新 默认启动
 + -o, --open 是否打开调试页面 默认不打开
 + -ps, --progress  显示进度 默认为 true
@@ -37,7 +40,9 @@ pnpm add @efox/emp -D
 + -cl, --clearLog  清空日志 默认为 true
 
 ### emp dts
-+ 根据 `empShare.remote` 自动同步类型
+> 根据 `config.empShare.remote` 自动同步所需类型
++ -p, --typingsPath 下载目录 默认为 `src/empShareType`
+
 
 ## dotenv
 ### 环境变量配置

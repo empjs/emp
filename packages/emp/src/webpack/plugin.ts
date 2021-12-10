@@ -103,7 +103,7 @@ class WPPlugin {
     const tsconfigJsonPath = store.resolve('tsconfig.json')
     const isTS = fs.existsSync(tsconfigJsonPath)
     // dts
-    if (isTS) {
+    if (isTS && store.config.build.createTs) {
       config.plugin.dts = {
         plugin: DTSPlugin,
         args: [{build: store.config.build, mf: store.config.moduleFederation}],

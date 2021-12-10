@@ -2,6 +2,7 @@ import {Compiler, Compilation} from 'webpack'
 import dts, {DTSTLoadertype} from './dts'
 import glob from 'fast-glob'
 import store from 'src/helper/store'
+import {logTag} from 'src/helper/logger'
 //
 const PLUGIN_NAME = 'DTSPlugin'
 //
@@ -15,11 +16,12 @@ class DTSPlugin {
     compiler.hooks.afterEmit.tap(PLUGIN_NAME, async compilation => {
       if (options) {
         dts.setup(options)
+        logTag('dts build:', 'yellow')
         const dtslist = await glob([`${store.config.appSrc}/**/*.(ts|tsx)`])
         dtslist.map(d => {
           dts.emit(d)
         })
-        const outFilename = dts.createFile()
+        dts.createFile()
       }
     })
   }

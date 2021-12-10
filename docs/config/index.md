@@ -271,6 +271,11 @@ module.exports={
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
+### typingsPath
++ 类型 `string`
++ 默认 `src/empShareType`
+
+`emp dts` 指令 同步基站 d.ts 目录
 ## 构建选项
 ### build.target
  + 类型 `JscConfig['target']`
@@ -346,7 +351,13 @@ swc 是否异步构建
 
 生成库 类型文件 默认为 `lib.d.ts` 可以在package.json types 设置 `./dist/lib.d.ts`
 
+### build.createTs
++ 类型 `boolean`
++ 默认 `false`
+
+是否生成 d.ts
 ## 服务选项
+> 继承 webpack dev server 所有配置
 ### server
 + 类型 `ServerOptions`
 
