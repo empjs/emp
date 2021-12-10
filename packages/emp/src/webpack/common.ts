@@ -136,7 +136,7 @@ class WPCommon {
         '.svga',
       ],
     }
-    console.log('configResolve', configResolve)
+
     // 合并 config.resolve 配置项
     if (configResolve.modules) {
       rs.modules = configResolve.extends === false ? configResolve.modules : [...rs.modules, ...configResolve.modules]

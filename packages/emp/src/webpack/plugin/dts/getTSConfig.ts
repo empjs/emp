@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import fs from 'fs-extra'
 import path from 'path'
+import logger from 'src/helper/logger'
 
 function getTSConfigPath(cwd: string) {
   const configPath = ts.findConfigFile(cwd, ts.sys.fileExists, 'tsconfig.json')
@@ -23,7 +24,7 @@ function getTSConfig(cwd: string): ts.CompilerOptions | undefined {
     const tsconfig = eval(`module.exports = ${tsconfigStr}`)
     return tsconfig.compilerOptions
   } catch (error) {
-    console.log(error)
+    logger.error(error)
   }
 }
 
