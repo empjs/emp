@@ -19,28 +19,28 @@ export function transformPathImport(o: ts.OutputFile, libname?: string) {
     }
     if (matchResult && matchResult[1]) {
       let rs = matchResult[1]
-      // alias 路径处理
+      // alias
       if (!rs.startsWith('.')) {
         const alias = store.config.resolve.alias
-        console.log('[alias]', alias)
+        let isInAlias = false
         for (const [k, v] of Object.entries(alias)) {
-          console.log(k, rs, rs.indexOf(k))
-          if (rs.indexOf(`${k}/`) === 0) {
+          if (rs.startsWith(`${k}/`)) {
             rs = rs.replace(`${k}/`, '')
             rs = path.join(v, rs)
-            console.log('[rs]', rs)
+            // change to relative path
             rs = rs.replace(store.appSrc, '.').replace('\\', '/')
+            isInAlias = true
             break
-          } else {
-            // 第三方库忽略
-            return str
           }
         }
+        // deps
+        if (!isInAlias) {
+          return str
+        }
       }
-      // 统一相对路径处理
+      // relative path
       let filename = path.resolve(path.dirname(o.name), rs)
       filename = filename.split('\\').join('/').split(`/${store.config.build.typesOutDir}/`)[1]
-      console.log(filename, rs)
       if (libname) {
         filename = filename.replace('src/', `${libname}/`)
       }
