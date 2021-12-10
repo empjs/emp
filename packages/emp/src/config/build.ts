@@ -45,12 +45,34 @@ export type BuildOptions = {
   emptyOutDir?: boolean
   /**
    * chunkIds
+   * @default named|deterministic
    */
   chunkIds?: false | 'natural' | 'named' | 'deterministic' | 'size' | 'total-size'
   /**
-   * 是否生成分析报告 根据 cliOptions `--analyze` 生成
+   * analyze 是否生成分析报告 根据 cliOptions `--analyze` 生成
+   * @default false
    */
   analyze?: boolean
+  /**
+   * typesOutDir 类型生成目录
+   * @default dist/empShareTypes
+   */
+  typesOutDir?: string
+  /**
+   * typesEmpName empShare d.ts 入口 [index.d.ts]
+   * @default index
+   */
+  typesEmpName?: string
+  /**
+   * typesLibName project d.ts 入口 [lib.d.ts]
+   * @default lib
+   */
+  typesLibName?: string
+  /**
+   * createTs
+   * @default false
+   */
+  createTs?: boolean
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -66,6 +88,9 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       // target: 'es2018',
       target: 'es5',
       outDir: 'dist',
+      typesOutDir: 'dist/empShareTypes',
+      typesLibName: 'lib',
+      typesEmpName: 'index',
       assetsDir: 'assets',
       minify: true,
       sourcemap: false,
@@ -76,6 +101,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       emptyOutDir: true,
       chunkIds: false,
       analyze: false,
+      createTs: false,
     },
     ...op,
   }

@@ -10,11 +10,11 @@ class GlobalStore {
    * EMP Version
    * @default package version
    */
-  public empPkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0'}
+  public empPkg: pkgType = {dependencies: {}, devDependencies: {}, version: '2.0.0', name: ''}
   /**
    * 项目pkg信息
    */
-  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '0.0.0'}
+  public pkg: pkgType = {dependencies: {}, devDependencies: {}, version: '0.0.0', name: ''}
   /**
    * 项目根目录绝对路径
    * @default process.cwd()
@@ -62,11 +62,6 @@ class GlobalStore {
    * 缓存目录 绝对路径
    */
   public cacheDir = ''
-
-  /**
-   * 
-   */
-   public typesOutputDir = 'empShareTypes'
   /**
    * 命令行变量
    */
@@ -108,7 +103,6 @@ class GlobalStore {
     }
     //show logger of config
     if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
-    if (cliOptions.typingsPath) this.config.typingsPath = cliOptions.typingsPath
   }
   private setAbsPaths() {
     //
@@ -128,8 +122,11 @@ class GlobalStore {
     if (cliOptions.progress === 'false' || cliOptions.progress === false) this.config.debug.progress = false
     // server build 替换配置项
     if (cliOptions.open === true) this.config.server.open = true
-    if (cliOptions.hot === false) this.config.server.hot = false
+    if (cliOptions.hot === 'false') this.config.server.hot = false
     if (cliOptions.analyze === true) this.config.build.analyze = true
+    // dts 配置
+    if (cliOptions.typingsPath) this.config.typingsPath = cliOptions.typingsPath
+    if (cliOptions.ts === true) this.config.build.createTs = true
   }
   private async setConfig(mode: modeType, cliOptions: cliOptionsType) {
     //初始化 emp-config.js

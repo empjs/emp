@@ -1,7 +1,7 @@
 // import emp from 'emp-lib'
 // emp()
 
-import App from 'emp-lib'
+import App, {mod} from 'emp-lib'
 
 // import wp from 'webpack-lib'
 // wp()

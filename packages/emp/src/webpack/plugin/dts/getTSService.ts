@@ -9,7 +9,8 @@ const cache: {
   program?: ts.Program
   languageService?: ts.LanguageService
   fileNameMapping: Record<string, string>
-} = {fileNameMapping: {}}
+  cwd: string
+} = {fileNameMapping: {}, cwd: ''}
 
 /**
  * 创建 TS 服务,并且根据 .ts & .tsx 文件编译出 d.ts
@@ -20,10 +21,10 @@ const cache: {
  * @returns
  */
 function getTSService(options: ts.CompilerOptions, cwd: string) {
-  if (cache.languageService) {
+  if (cache.languageService && cache.cwd === cwd) {
     return cache.languageService
   }
-
+  cache.cwd = cwd
   const rootFileNames = getFileNames(cwd)
 
   const files: ts.MapLike<{version: number}> = {}

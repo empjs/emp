@@ -20,7 +20,7 @@ class Build {
       this.config = getConfig()
     }
     if (store.config.debug.clearLog) clearConsole()
-    logTag(`build for ${store.config.mode}${this.isLib ? ' [Library Mode] ' : ''}:`)
+    logTag(`build mode ${store.config.mode}${this.isLib ? ' in [Library Mode] ' : ''}:`)
     // await reporter.measureFileSizesBeforeBuild()
     webpack(this.config, (err: any, stats: any) => {
       if (err) {

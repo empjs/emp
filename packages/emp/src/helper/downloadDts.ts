@@ -14,7 +14,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
       fs.ensureDirSync(filePath)
       const fullPath = path.resolve(filePath, fileName)
       const file = fs.createWriteStream(fullPath)
-      res.on('end', () => { })
+      res.on('end', () => {})
       // 进度、超时等
       file
         .on('finish', () => {
@@ -27,7 +27,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
           })
           reject(err.message)
         })
-      res.setEncoding('utf8');
+      res.setEncoding('utf8')
       res.on('data', function (data) {
         let newData = ''
         // 替换 remote 别名
@@ -36,7 +36,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
         newData = data.replace(regSingleQuote, `'${alias}`)
         newData = newData.replace(regDoubleQuote, `"${alias}`)
         fs.writeFileSync(fullPath, newData, 'utf8')
-      });
+      })
     })
   })
 }
@@ -51,11 +51,12 @@ const downloadDts = () => {
       if (key && value) {
         const baseName = value.split('@')[0]
         const baseUrl = value.split('@')[1]
-        const dtsUrl = baseUrl.replace('/emp.js', `/${store.typesOutputDir}/index.d.ts`)
-        console.log(key, dtsUrl)
-        downloadFileAsync(dtsUrl, store.config.typingsPath ?? path.resolve('src', 'empShareTypes'), `${key}.d.ts`, key, baseName)
+        const {outDir, typesOutDir} = store.config.build
+        // typesOutDir 可以独立设置 但是必须在outDir里，否则影响DTS同步
+        const dtsUrl = baseUrl.replace('/emp.js', `/${typesOutDir.replace(outDir, '')}/index.d.ts`)
+        downloadFileAsync(dtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
       }
     }
   }
 }
-export { downloadDts }
+export {downloadDts}

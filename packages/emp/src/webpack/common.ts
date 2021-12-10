@@ -76,13 +76,13 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
-
-    const clean =
+    const clean = true
+    /* const clean =
       store.config.build.emptyOutDir && !this.isDev
         ? {
-            keep: new RegExp(`${store.typesOutputDir}\/`), // Keep these assets under 'ignored/dir'.
+            keep: new RegExp(`${store.config.build.typesOutDir}\/`), // Keep these assets under 'ignored/dir'.
           }
-        : false
+        : false */
 
     return {
       //TODO: Library 模式的处理
@@ -108,7 +108,7 @@ class WPCommon {
     }
   }
   get resolve(): Configuration['resolve'] {
-    const configResolve = store.config.resolve || {}
+    const configResolve = {...{extends: true}, ...store.config.resolve}
     const rs = {
       modules: [
         'node_modules', //默认
@@ -117,7 +117,7 @@ class WPCommon {
         store.resolve('src'), // 项目src
       ],
       alias: {
-        src: store.appSrc,
+        [store.config.appSrc]: store.appSrc,
       },
       extensions: [
         '.js',
@@ -136,16 +136,19 @@ class WPCommon {
         '.svga',
       ],
     }
+
     // 合并 config.resolve 配置项
     if (configResolve.modules) {
-      rs.modules = configResolve.extends === false ? rs.modules : [...rs.modules, ...configResolve.modules]
+      rs.modules = configResolve.extends === false ? configResolve.modules : [...rs.modules, ...configResolve.modules]
     }
     if (configResolve.alias) {
-      rs.alias = configResolve.extends === false ? rs.alias : {...rs.alias, ...configResolve.alias}
+      rs.alias = configResolve.extends === false ? configResolve.alias : {...rs.alias, ...configResolve.alias}
     }
     if (configResolve.extensions) {
-      rs.extensions = configResolve.extends === false ? rs.extensions : [...rs.extensions, ...configResolve.extensions]
+      rs.extensions =
+        configResolve.extends === false ? configResolve.extensions : [...rs.extensions, ...configResolve.extensions]
     }
+    store.config.resolve = {...{extends: configResolve.extends}, ...rs}
     return rs
   }
   get stats(): Configuration['stats'] {
