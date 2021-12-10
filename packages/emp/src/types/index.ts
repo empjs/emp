@@ -18,9 +18,10 @@ export type cliOptionsType = {[key: string]: string | number | boolean} & {
 export type wpPathsType = {
   output: Configuration['output']
 }
+export type ConfigResolveAliasType = {[index: string]: string}
 export type ConfigResolveType = {
   modules: ResolveOptions['modules']
-  alias: ResolveOptions['alias']
+  alias: ConfigResolveAliasType
   extensions: ResolveOptions['extensions']
   extends: boolean
 }

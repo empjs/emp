@@ -7,6 +7,7 @@ import ts from 'typescript'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import fs from 'fs-extra'
+import {transformPathImport} from './transform'
 //
 export type DTSTLoadertype = {
   build: RquireBuildOptions
@@ -32,7 +33,7 @@ class DTSEmitFile {
       declaration: true,
       emitDeclarationOnly: true,
       outDir: this.outDir,
-      rootDir: store.config.appSrc,
+      // rootDir: store.config.appSrc,
     }
     this.languageService = getTSService(this.tsconfig, store.root)
   }
@@ -45,17 +46,14 @@ class DTSEmitFile {
       this.tsconfig.outDir = outDir
       this.languageService = getTSService(this.tsconfig, store.root)
     }
-    console.log('this.tsconfig', this.tsconfig)
     fs.removeSync(this.outDir)
   }
   emit(filename: string) {
-    console.log(this.build?.lib)
     const output = this.languageService.getEmitOutput(filename)
     try {
       if (!output.emitSkipped) {
         output.outputFiles.forEach(o => {
           if (o.name.endsWith('.d.ts')) {
-            // console.log('o', o)
             this.libCode(o)
             //
             // fs.ensureDirSync(path.dirname(o.name))
@@ -86,7 +84,6 @@ class DTSEmitFile {
   }
   createFile() {
     if (!this.build) return
-    // console.log('[this.lib.code]', this.lib.code)
     fs.ensureDirSync(this.outDir)
     const outFilename = path.resolve(this.outDir, `${this.build.typesAppName}.d.ts`)
     fs.writeFileSync(outFilename, this.lib.code, 'utf8')
@@ -95,9 +92,16 @@ class DTSEmitFile {
   }
 
   libCode(o: ts.OutputFile) {
+    if (!this.build) return
     if (!this.lib.key.includes(o.name)) {
-      const libName = this.build?.lib?.name || store.pkg.name
-      const mod = o.name.replace(`${this.outDir}/`, '').replace('.d.ts', '')
+      const libName = this.build.lib?.name || store.pkg.name
+      // const mod = o.name.replace(`${this.outDir}/`, '').replace('.d.ts', '')
+      let mod = o.name.split(`/${this.build.typesOutDir}/`)[1].replace('.d.ts', '')
+      if (mod.endsWith('/index')) {
+        mod = mod.replace('/index', '')
+      }
+      o.text = transformPathImport(o)
+      console.log(o)
       this.lib.code = this.lib.code + this.warpDeclareModule(mod, o.text)
       this.lib.key.push(o.name)
     }
