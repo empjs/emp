@@ -64,7 +64,7 @@ export type BuildOptions = {
    * project d.ts 入口 [types.d.ts]
    * @default types
    */
-  typesAppName?: string
+  typesLibName?: string
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -81,7 +81,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       target: 'es5',
       outDir: 'dist',
       typesOutDir: 'dist/empShareTypes',
-      typesAppName: 'types',
+      typesLibName: 'lib',
       typesEmpName: 'index',
       assetsDir: 'assets',
       minify: true,

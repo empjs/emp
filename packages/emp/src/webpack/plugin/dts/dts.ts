@@ -89,7 +89,7 @@ class DTSEmitFile {
   createFile() {
     if (!this.build) return
     fs.ensureDirSync(this.outDir)
-    const outFilename = path.resolve(this.outDir, `${this.build.typesAppName}.d.ts`)
+    const outFilename = path.resolve(this.outDir, `${this.build.typesLibName}.d.ts`)
     fs.writeFileSync(outFilename, this.lib.code, 'utf8')
     this.destroy()
     return outFilename
