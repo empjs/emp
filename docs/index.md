@@ -1,11 +1,11 @@
 ---
 home: true
 # heroImage: /logo.svg
-actionText: 开始使用
+actionText: Get Started
 actionLink: /develop/
 
-# altActionText: Learn More
-# altActionLink: /guide/why
+altActionText: Learn More
+altActionLink: /guide/
 
 features:
   - title: 💡 微组件化

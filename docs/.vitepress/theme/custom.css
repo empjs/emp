@@ -1,17 +1,18 @@
 
 *{
-    /* font-family: '微软雅黑'; */
+    font-family: '微软雅黑';
 }
 :root {
---c-brand: #d35400;
---c-brand-light: #e67e22;
+--c-brand: #3700b3;
+--c-brand-light: #6200ee;
 }
 #main-title{
       font-size: 5rem!important;
   }
-  
+
 .tagline{
     font-size: 1rem!important;
+
 }
 
 

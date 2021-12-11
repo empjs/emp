@@ -143,7 +143,6 @@ class EMPShare {
       }
       if (moduleFederationOpt.name) {
         moduleFederationOpt.filename = moduleFederationOpt.filename || 'emp.js'
-        //TODO: emp esm module
         if (!moduleFederationOpt.library && store.isESM) {
           // 实验 MF 的 ESM 模式是否正常运行
           moduleFederationOpt.library = {type: 'module'}
