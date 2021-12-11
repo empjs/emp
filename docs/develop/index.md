@@ -115,7 +115,7 @@ module.exports={
    exposes: {
      './App': './src/App',
    },
-   // 实现 MODULE Feration 与 shareLib 只能保留一个
+   // 实现 Module Feration 与 shareLib 只能保留一个
    shared: {
      react: {requiredVersion: '^17.0.1'},
      'react-dom': {requiredVersion: '^17.0.1'},
