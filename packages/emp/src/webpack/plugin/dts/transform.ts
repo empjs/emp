@@ -10,8 +10,10 @@ const dynamicImportRE = /import\(['"]([^;\n]+?)['"]\)/
 export const transformLibName = (name: string, code: string) => {
   //
   code = code.replace(`declare module '${store.config.appSrc}'`, `declare module '${name}'`)
-  //
-  return code.replaceAll(`${store.config.appSrc}/`, `${name}/`)
+  // 兼容 不支持 replace all 的情况
+  const reg = new RegExp(`${store.config.appSrc}/`, 'g')
+  return code.replace(reg, `${name}/`)
+  // return code.replaceAll(`${store.config.appSrc}/`, `${name}/`)
 }
 export const transformPathImport = (o: ts.OutputFile) => {
   return o.text.replace(globalImportRE, str => {
