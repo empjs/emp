@@ -1,11 +1,14 @@
 import store from './store'
 import http from 'http'
+import https from 'https'
 import fs from 'fs-extra'
 import path from 'path'
 
 function downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
+  const url = new URL(uri)
+  const client = url.protocol == 'https:' ? https : http
   return new Promise((resolve, reject) => {
-    http.get(uri, res => {
+    client.get(uri, res => {
       if (res.statusCode !== 200) {
         reject(res.statusCode)
         return
@@ -14,7 +17,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
       fs.ensureDirSync(filePath)
       const fullPath = path.resolve(filePath, fileName)
       const file = fs.createWriteStream(fullPath)
-      res.on('end', () => { })
+      res.on('end', () => {})
       // 进度、超时等
       file
         .on('finish', () => {
@@ -27,7 +30,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
           })
           reject(err.message)
         })
-      res.setEncoding('utf8');
+      res.setEncoding('utf8')
       res.on('data', function (data) {
         let newData = ''
         // 替换 remote 别名
@@ -36,7 +39,7 @@ function downloadFileAsync(uri: string, filePath: string, fileName: string, alia
         newData = data.replace(regSingleQuote, `'${alias}`)
         newData = newData.replace(regDoubleQuote, `"${alias}`)
         fs.writeFileSync(fullPath, newData, 'utf8')
-      });
+      })
     })
   })
 }
@@ -53,9 +56,15 @@ const downloadDts = () => {
         const baseUrl = value.split('@')[1]
         const dtsUrl = baseUrl.replace('/emp.js', `/${store.typesOutputDir}/index.d.ts`)
         console.log(key, dtsUrl)
-        downloadFileAsync(dtsUrl, store.config.typingsPath ?? path.resolve('src', 'empShareTypes'), `${key}.d.ts`, key, baseName)
+        downloadFileAsync(
+          dtsUrl,
+          store.config.typingsPath ?? path.resolve('src', 'empShareTypes'),
+          `${key}.d.ts`,
+          key,
+          baseName,
+        )
       }
     }
   }
 }
-export { downloadDts }
+export {downloadDts}
