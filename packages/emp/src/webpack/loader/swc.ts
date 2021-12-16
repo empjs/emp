@@ -32,7 +32,7 @@ class SWCOpt {
     return this.isReact
       ? {
           runtime: store.config.reactRuntime || 'classic',
-          refresh: isDev, //TODO 增加 react-refresh 支持
+          refresh: isDev,
           development: isDev,
           useBuiltins: false,
         }

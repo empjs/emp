@@ -1,12 +1,12 @@
 # 配置
-## 配置文件 
+## 配置文件
 ### 解析
 EMP 会自动解析当前项目根目录的 `emp-config.js` 文件
 ```js
 
 module.exports = {}
 ```
-### 提示 
+### 提示
 ```js
 /**
  * @type {import('@efox/emp').EMPConfigExport}
@@ -20,19 +20,19 @@ const {defineConfig} = require('@efox/emp')
 module.exports = defineConfig({})
 
 ```
-### 函数式配置 
-```js 
+### 函数式配置
+```js
 // mode 为webpack mode变量 development production
-// env 为 emp serve --env dev 的 dev 
+// env 为 emp serve --env dev 的 dev
 module.exports = defineConfig(({mode,env})=>{
   return {}
 })
 ```
 
-### 异步函数 
+### 异步函数
 ```js
 // mode 为webpack mode变量 development production
-// env 为 emp serve --env dev 的 dev 
+// env 为 emp serve --env dev 的 dev
 module.exports = defineConfig(async({mode,env})=>{
   return {}
 })
@@ -60,27 +60,31 @@ module.exports = defineConfig(async({mode,env})=>{
 
 ### base
 + 类型 `string`
-  - 绝对 URL 路径名，例如 /
-  - 完整的 URL，例如 https://baidu.com/
++ 默认 app 模式下为 `auto`,lib 模式下 为 `空` 屏蔽import auto 模式
+
+相关介绍
+- 绝对 URL 路径名，例如 /
+- 完整的 URL，例如 https://baidu.com/
+- 替代 webpack `publicPath` 的设置，并做了统一化处理
 
 ### publicDir
 + 类型 `string`
-+ 默认 `public` 
++ 默认 `public`
 
 静态文件路径
 
 
 ### cacheDir
 + 类型 `string`
-+ 默认 `node_modules/.emp-cache` 
++ 默认 `node_modules/.emp-cache`
 
 缓存目录
 
-### resolve.extends 
+### resolve.extends
 + 类型 `boolean`
 + 默认为 `true`
 
-是否继承系统默认设置 默认继承 
+是否继承系统默认设置 默认继承
 设置 `false` 后，会按需替换 不设置则还是按照系统配置
 
 ### resolve.alias
@@ -103,7 +107,7 @@ module.exports = defineConfig(async({mode,env})=>{
 模式根据执行指令自动变换 <b>暂不支持设置</b>
 
 ### define
-+ 类型 `Record<string, string|number|boolean>` 
++ 类型 `Record<string, string|number|boolean>`
 
 全局环境替换
 + 配置
@@ -112,17 +116,17 @@ module.exports={
   define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
 }
 ```
-+ 使用 
++ 使用
 ```js
 console.log('process.env.emp', process.env.emp)
 ```
 
-### plugins 
+### plugins
 + 类型 `ConfigPluginType[]`
 
-### webpackChain 
+### webpackChain
 + 类型 `WebpackChainType`
- 
+
 暴露到 emp-config.js 可以自定义 webpack 配置
 
 ### empshare
@@ -131,8 +135,8 @@ console.log('process.env.emp', process.env.emp)
    - 实现3重共享模型
    - empshare 与 module federation 只能选择一个配置
 
- 详情点击 [了解更多](/develop/#empshare-配置) 
- 
+ 详情点击 [了解更多](/develop/#empshare-配置)
+
 + 使用方法 `emp-config.js`
 ```js
 module.exports={
@@ -140,7 +144,7 @@ module.exports={
   empshare:{}
   // or funciton
   empshare(o: EMPConfig){}
-  // or async function 
+  // or async function
   async empshare(o: EMPConfig){}
 }
 ```
@@ -180,19 +184,19 @@ module.exports={
   externals:{}
   // or funciton
   externals(o: EMPConfig){}
-  // or async function 
+  // or async function
   async externals(o: EMPConfig){}
 }
 ```
 
-### moduleFederation 
+### moduleFederation
 > module federation 配置、2.0更推荐用  empShare 替代 module federation的配置 [了解更多](/develop/#empshare-配置)
-+ 类型 `MFExport` 
++ 类型 `MFExport`
   + exposes?: 导出模块
   + filename?: 导出文件名 默认为 `emp.js`
   + library?: 库模式
-  + name?: 导出名，amd umd cjs 
-  + remotes?: 远程引用、基站 
+  + name?: 导出名，amd umd cjs
+  + remotes?: 远程引用、基站
   + shared?: 共享库、对象
 
 + 使用方法 `emp-config.js`
@@ -202,7 +206,7 @@ module.exports={
   moduleFederation:{}
   // or funciton
   moduleFederation(o: EMPConfig){}
-  // or async function 
+  // or async function
   async moduleFederation(o: EMPConfig){}
 }
 ```
@@ -224,24 +228,24 @@ module.exports={
 
 ### useImportMeta
 + 类型 `boolean`
-+ 默认 `false` 
++ 默认 `false`
   - 启用 import.meta
   - 需要在 script type=module 才可以执行
 
 ### jsCheck
 + 类型 `boolean`
-+ 默认 `false` 
++ 默认 `false`
 
 启用 ForkTsChecker or Eslint
 
-### splitCss 
+### splitCss
 + 类型 `boolean`
-+ 默认 `true` 
++ 默认 `true`
   - 启动 mini-css-extract-plugin
   - 分离 js里的css
 
 ### html
-+ 类型 `HtmlOptions` 
++ 类型 `HtmlOptions`
 > template 与 favicon 不建议 放到 public 静态文件夹 避免copy时报错
 > (*)entries 设置后 会继承这里的操作
   - template `string` html模板 默认 `src/index.html` 路径基于当前项目根目录
@@ -262,14 +266,19 @@ module.exports={
 
 ### reactRuntime
 + 类型 `automatic` | `classic`
-+ 默认 `undefined` 
++ 默认 `undefined`
   - React Runtime 手动切换jsx模式
   - 当 external react时需要设置
   - 本地安装时会自动判断 不需要设置
 
-## 构建选项 
+### typingsPath
++ 类型 `string`
++ 默认 `src/empShareType`
+
+`emp dts` 指令 同步基站 d.ts 目录
+## 构建选项
 ### build.target
- + 类型 `JscConfig['target']` 
+ + 类型 `JscConfig['target']`
 
  生成代码 参考 [swc#jsctarget](https://swc.rs/docs/configuration/compilation#jsctarget)
 
@@ -279,65 +288,86 @@ module.exports={
 
 swc 是否异步构建
 
-### build.outDir 
+### build.outDir
 + 类型 `string`
 + 默认 `dist`
 
 生成代码目录
 
-### build.assetsDir 
+### build.assetsDir
 + 类型 `string`
 + 默认 `assets`
 
 生成静态目录
 
-### build.minify 
+### build.minify
 + 类型 `boolean`
 + 默认 `true`
 
 是否压缩、默认 development 不压缩，production 压缩
 
-### build.sourcemap 
+### build.sourcemap
 + 类型 `boolean`
 + 默认 `true`
 
 是否生产sourcemap、默认 development 生产，production 不生产
 
-### build.emptyOutDir 
+### build.emptyOutDir
 + 类型 `boolean`
 + 默认 `true`
 
 是否清空生成文件夹
 
-### build.chunkIds 
-+ 类型 `false` | `natural` | `named` | `deterministic` | `size` | `total-size`  
-+ 默认 `named` | `deterministic` 
+### build.chunkIds
++ 类型 `false` | `natural` | `named` | `deterministic` | `size` | `total-size`
++ 默认 `named` | `deterministic`
 
 `named` 有助于定位问题 开发模式默认启动
 `deterministic` 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
 
-### build.analyze 
-+ 类型 `boolean` 
+### build.analyze
++ 类型 `boolean`
 + 默认 `false`
 
 通过 cli `--analyze` 或 `-a` 生成构建分析
 
-### build.lib 
+### build.lib
 + 类型 `LibMod`
 
 使用库模式 具体可以点击 [查看详情](/develop/#build-lib-配置)
+## Dts 生成与同步
+### buld.typesOutDir
++ 类型 `string`
++ 默认 `dist/empShareTypes`
 
-## 服务选项 
+### build.typesEmpName
++ 类型 `string`
++ 默认 `index` 生成 与 同步相同
+
+生成EMP基站类型文件 默认为 `index.d.ts`
+### build.typesLibName
++ 类型 `string`
++ 默认 `lib`
+
+生成库 类型文件 默认为 `lib.d.ts` 可以在package.json types 设置 `./dist/lib.d.ts`
+
+### build.createTs
++ 类型 `boolean`
++ 默认 `false`
+
+是否生成 d.ts
+## 服务选项
+> 继承 webpack dev server 所有配置
 ### server
 + 类型 `ServerOptions`
 
-## 调试选项 
+## 调试选项
 ### debug.clearLog
 + 类型 `boolean`
 + 默认 `true`
 
-- 是否清空之前的日志 
-- 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响  
+- 是否清空之前的日志
+- 对于开发阶段比较有用，可以全链路看到整体日志输出，不受影响
 
 ### debug.progress
 + 类型 `boolean`
@@ -345,7 +375,7 @@ swc 是否异步构建
 
 是否显示进度条
 
-### debug.profile 
+### debug.profile
 + 类型 `boolean`
 + 默认 `false`
 

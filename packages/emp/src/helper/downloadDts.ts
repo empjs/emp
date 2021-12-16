@@ -54,15 +54,10 @@ const downloadDts = () => {
       if (key && value) {
         const baseName = value.split('@')[0]
         const baseUrl = value.split('@')[1]
-        const dtsUrl = baseUrl.replace('/emp.js', `/${store.typesOutputDir}/index.d.ts`)
-        console.log(key, dtsUrl)
-        downloadFileAsync(
-          dtsUrl,
-          store.config.typingsPath ?? path.resolve('src', 'empShareTypes'),
-          `${key}.d.ts`,
-          key,
-          baseName,
-        )
+        const {outDir, typesOutDir} = store.config.build
+        // typesOutDir 可以独立设置 但是必须在outDir里，否则影响DTS同步
+        const dtsUrl = baseUrl.replace('/emp.js', `/${typesOutDir.replace(outDir, '')}/index.d.ts`)
+        downloadFileAsync(dtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
       }
     }
   }

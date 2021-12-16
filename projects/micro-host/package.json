@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "emp dev -cl false",
     "build": "emp build",
+		"build:ts":"emp build -t",
     "start": "emp serve",
     "stat": "emp build --analyze"
   },

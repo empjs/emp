@@ -1,24 +1,25 @@
-# 开发 
+# 开发
 
-## 安装 
+## 安装
 ```
 npm add @efox/emp --dev
 yarn add @efox/emp -D
 pnpm add @efox/emp -D
 ```
 
-## 指令 
+## 指令
 ```json
 "scripts": {
   "dev": "emp dev --env dev",
   "build": "emp build --env prod",
+  "build:ts": "emp build --env prod -t",
   "start": "emp serve",
   "analyze": "emp build --analyze"
 },
 ```
 ### emp dev
 + -e, --env 部署环境 dev、test、prod 默认为 dev
-+ -a, --analyze 生成分析报告 默认为 false
++ -t, --ts 生成 dts文件 默认为 false
 + -ps, --progress  显示进度 默认为 true
 + -pr, --profile 统计模块消耗
 + -cl, --clearLog  清空日志 默认为 true
@@ -26,6 +27,8 @@ pnpm add @efox/emp -D
 
 ### emp build
 + -e, --env 部署环境 dev、test、prod 默认为 dev
++ -t, --ts 生成 dts文件 默认为 false
++ -a, --analyze 生成分析报告 默认为 false
 + -h, --hot 是否使用热更新 默认启动
 + -o, --open 是否打开调试页面 默认不打开
 + -ps, --progress  显示进度 默认为 true
@@ -34,23 +37,25 @@ pnpm add @efox/emp -D
 + -wl, --wplogger  打印webpack配置 默认为 false,filename 为 输出webpack配置文件
 
 ### emp serve
-+ -cl, --clearLog  清空日志 默认为 true 
++ -cl, --clearLog  清空日志 默认为 true
 
-### emp dts 
-+ 根据 `empShare.remote` 自动同步类型 
+### emp dts
+> 根据 `config.empShare.remote` 自动同步所需类型
++ -p, --typingsPath 下载目录 默认为 `src/empShareType`
 
-## dotenv 
+
+## dotenv
 ### 环境变量配置
-+ 根目录创建 `.env.[env]` 即可 根据以上的 `--env` 定制自己的配置环境 如: 
++ 根目录创建 `.env.[env]` 即可 根据以上的 `--env` 定制自己的配置环境 如:
 ```
 DOTENV='dev'
 ```
-+ 使用配置 内容 `process.env.env` or esnext `import.meta.env.env` 如: 
++ 使用配置 内容 `process.env.env` or esnext `import.meta.env.env` 如:
 ```js
 console.log(process.env.env.DOTENV)
 ```
-## Typescript 
-### tsconfig.json 配置 
+## Typescript
+### tsconfig.json 配置
 + `@efox/emp` 集成了 `@efox/emp-tsconfig` 与 `Css Module 提示`
 + 集成了emp内置的资源 TS类型
 + 设置方式如下:
@@ -68,10 +73,10 @@ console.log(process.env.env.DOTENV)
 }
 ```
 ### 类型生成
-在`emp build`下 如果是ts开发，会根据 `expose` <b>自动</b>生成相应的 `d.ts` 到 `dist/empShareTypes` 里面 
+在`emp build`下 如果是ts开发，会根据 `expose` <b>自动</b>生成相应的 `d.ts` 到 `dist/empShareTypes` 里面
 
 ### 类型同步
-`emp dts` 会<b>自动</b>根据 `empShare.remote` 配置生成相应文件到 `src/empShareTypes` 如: 
+`emp dts` 会<b>自动</b>根据 `empShare.remote` 配置生成相应文件到 `src/empShareTypes` 如:
 
 ```js
 empShare: {
@@ -81,13 +86,13 @@ empShare: {
     '@microHost': `microHost@http://localhost:8001/emp.js`,
   },
   exposes: {
-    // emp build 会自动生成类型到 dist/empShareTypes/index.d.ts 
-    './App': './src/App', 
+    // emp build 会自动生成类型到 dist/empShareTypes/index.d.ts
+    './App': './src/App',
   },
 }
 ```
 
-## 共享模式 
+## 共享模式
 ### empshare 介绍
 * 实现3重共享模型
   - [基础库] -> [基站] -> [引用]
@@ -99,7 +104,7 @@ empShare: {
 
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
 
-### empshare 配置 
+### empshare 配置
 ```js
 module.exports={
    empShare: {
@@ -110,7 +115,7 @@ module.exports={
    exposes: {
      './App': './src/App',
    },
-   // 实现 MODULE Feration 与 shareLib 只能保留一个
+   // 实现 Module Feration 与 shareLib 只能保留一个
    shared: {
      react: {requiredVersion: '^17.0.1'},
      'react-dom': {requiredVersion: '^17.0.1'},
@@ -124,14 +129,14 @@ module.exports={
 }
 ```
 
-## 多页面模式 
+## 多页面模式
 ### entries 配置
-多页面模式配置 `emp-config.js` 如下: 
+多页面模式配置 `emp-config.js` 如下:
 ```js
 module.exports={
-  // favicion 需要在 html里面配置 
+  // favicion 需要在 html里面配置
   html: {favicon: 'src/favicon.ico'},
-  // entries 会继承 Html配置 
+  // entries 会继承 Html配置
   // key为入口文件 基于 appSrc 默认 `src/` 的相对路径
   entries: {
     'index.ts': {title: '首页'},
@@ -141,7 +146,7 @@ module.exports={
   },
 }
 ```
-### 共享模板 
+### 共享模板
 多入口会继承 `empShare` 的所有共享 需要自定义的话可以增加自定义模板 如
 ```html
 <!DOCTYPE html>
@@ -160,9 +165,9 @@ module.exports={
 </html>
 ```
 
-## 库模式 [实验阶段]
+## 库模式 [Beta]
 > 已支持 各种模块 export 支持 IE兼容，worker模式下 需要手动复制worker，inline方式需要支持
-### build.lib 配置 
+### build.lib 配置
 ```js
 type FileNameType = (format: string) => string
 export type LibModeType = {
@@ -181,7 +186,7 @@ export type LibModeType = {
    */
   fileName?: FileNameType | string
   /**
-   * 输出格式 如 [umd,esm] 
+   * 输出格式 如 [umd,esm]
    * @default [umd]
    */
   formats: buildLibType[]
@@ -192,15 +197,26 @@ export type LibModeType = {
 }
 
 ```
-## ESM 模式 [实验阶段] 
-> 已支持 MF的 ESM共享，热更存在bug问题 
+### package.json 配置
+```json
+{
+  "name": "emp-lib", // 没设置 build.lib.name 的情况下 默认生成类型名称 为 name
+  "main": "dist/umd/emp-lib.js", // umd 入口
+  "module": "dist/esm/emp-lib.js", // esm 入口
+  "types": "dist/empShareTypes/lib.d.ts", // 类型文件入口
+}
+
+```
+## ESM 模式 [Beta]
+> 已支持 MF的 ESM共享，热更存在bug问题
 + [DEMO](https://github.com/efoxTeam/emp/tree/next/projects/demo)
 
 
 
-## 浏览器兼容
+## Browser 兼容
 ### IE浏览器
-#### babel-polyfill
++ babel-polyfill
+
 如果在编译产物时没有做额外的兼容处理，又想要在`IE`上运行时。
 需要在核心代码执行前加载额外的`polyfill`
 ```html
@@ -215,11 +231,12 @@ export type LibModeType = {
     </body>
   </html>
 ```
-某些特性，如Proxy。babel-polyfill并不会兼容，需要业务侧自己做处理。  
+某些特性，如Proxy。babel-polyfill并不会兼容，需要业务侧自己做处理。
 babel-polyfill 兼容特性见 <a href="https://kangax.github.io/compat-table/es6/#ie11">[文档]</a>
 
-#### import EMP模块链接出错
-EMP沿用了webpack的打包机制；  
-当你没有指定打包 `publicPath ` 时, 会根据`import.meta.url`,`currentScript`等规则拼接子js的url；  
-由于在IE上不支持`currentScript`，所以需要打进兼容js，否则有可能会出现子js url错误问题。  
-参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
+
++ import EMP模块链接出错
+	+ EMP沿用了webpack的打包机制
+	+ 当你没有指定打包 `publicPath ` 时, 会根据`import.meta.url`,`currentScript`等规则拼接子js的url
+	+ 由于在IE上不支持`currentScript`，所以需要打进兼容js，否则有可能会出现子js url错误问题
+	+ 参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
