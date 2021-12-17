@@ -4,6 +4,7 @@ import https from 'https'
 import fs from 'fs-extra'
 import path from 'path'
 import axios from 'axios'
+import logger from './logger'
 
 async function downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
   const httpsAgent = new https.Agent({
@@ -18,12 +19,13 @@ async function downloadFileAsync(uri: string, filePath: string, fileName: string
     const regDoubleQuote = new RegExp(`"${baseName}`, 'g')
     newData = data.replace(regSingleQuote, `'${alias}`)
     newData = newData.replace(regDoubleQuote, `"${alias}`)
+    await fs.ensureDir(filePath)
     const fullPath = path.resolve(filePath, fileName)
-    console.log(`${uri} --> ${fullPath}`)
+    // logger.info(`${uri} --> ${fullPath}`)
     fs.writeFileSync(fullPath, newData, 'utf8')
   } catch (error) {
-    console.log(error)
-    console.log(`${uri} --> network error`)
+    logger.error(error)
+    // logger.info(`${uri} --> network error`)
   }
 }
 
@@ -44,7 +46,7 @@ const downloadDts = async () => {
       }
     }
   } else {
-    console.log('No found remotes')
+    logger.warn('No found remotes')
   }
 }
 export {downloadDts}
