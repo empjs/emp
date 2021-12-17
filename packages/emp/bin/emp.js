@@ -10,7 +10,7 @@ program
   .description('Dev 模式')
   // .option('-s, --src <src>', '目标文件 默认为 src/index.ts')
   // .option('-pc, --public <public>', '目标 默认为 public/')
-  .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 dev')
+  .option('-e, --env <env>', '部署环境 dev、test、prod')
   .option('-h, --hot', '是否使用热更新 默认启动')
   .option('-o, --open', '是否打开调试页面 默认不打开')
   .option('-t, --ts', '生成类型文件 默认为 false')
@@ -31,7 +31,7 @@ program
   // .option('-d, --dist <dist>', '目标 默认为 dist/')
   // .option('-pc, --public <public>', '目标 默认为 public/')
   // .option('-dc, --doc <doc>', '目标 默认为 doc/')
-  .option('-e, --env <env>', '部署环境 dev、test、prod 默认为 prod')
+  .option('-e, --env <env>', '部署环境 dev、test、prod')
   .option('-a, --analyze', '生成分析报告 默认为 false')
   .option('-t, --ts', '生成类型文件 默认为 false')
   // .option('-w, --watch', '构建调试模式 默认为 false')
@@ -62,9 +62,10 @@ program
   .command('dts')
   .description('拉取 remote 项目的 d.ts')
   .option('-p, --typingsPath <typingsPath>', '下载目录')
+  .option('-e, --env <env>', '部署环境 dev、test、prod')
   .action(o => {
     const fn = importSource('cli')
-    fn.exec('getDts', 'none', o, pkg)
+    fn.exec('dts', 'none', o, pkg)
   })
 
 // 执行命令

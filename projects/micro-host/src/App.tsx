@@ -7,7 +7,7 @@ const App = () => {
     <>
       <h1>Micro Host</h1>
       <StoreComp />
-      <Button customLabel="123123" />
+      <Button customLabel="HOST" />
     </>
   )
 }
