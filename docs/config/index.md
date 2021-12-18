@@ -306,6 +306,12 @@ swc 是否异步构建
 
 是否压缩、默认 development 不压缩，production 压缩
 
+### build.minOptions
++ 类型 `TerserOptions`
++ 默认 `{compress:false}`
+
+具体配置可以参考 [链接](https://github.com/terser/terser#minify-options)
+
 ### build.sourcemap
 + 类型 `boolean`
 + 默认 `true`

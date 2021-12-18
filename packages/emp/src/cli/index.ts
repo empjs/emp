@@ -5,7 +5,7 @@ import configPlugins from 'src/config/plugins'
 import configChain from 'src/config/chain'
 class EMPScript {
   // 执行文件名称
-  name = ''
+  // name: any = ''
   constructor() {}
   /**
    * 执行命令相关脚本
@@ -21,9 +21,9 @@ class EMPScript {
     // webpack Chain
     await configChain.setup()
     // 执行cli脚本
-    this.name = !!store.config.build.lib ? 'build' : name
-    const cilScript = await import(`./${this.name}`)
-    await cilScript.default.setup()
+    name = !!store.config.build.lib ? 'build' : name
+    const cilScript = await import(`./${name}`)
+    await cilScript.default.setup(cliOptions)
   }
 }
 

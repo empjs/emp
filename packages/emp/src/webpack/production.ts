@@ -66,12 +66,18 @@ class WPProduction {
     wpChain.merge(wpcConfig)
   }
   setMinify() {
+    console.log('[store.config.build.minify]', store.config.build.minify)
     if (store.config.build.minify === true) {
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
         {
-          minify: TerserPlugin.swcMinify,
+          /**
+           * ::TODO 压缩后出现bug 暂时屏蔽 待修复
+           * 启动 SWCMINIFY 后 需要统一用 TerserOptions 类型
+           */
+          // minify: TerserPlugin.swcMinify,
           terserOptions: {
             compress: false,
+            ...(store.config.build.minOptions || {}),
           },
         },
       ] as any)

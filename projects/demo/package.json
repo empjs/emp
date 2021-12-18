@@ -7,7 +7,8 @@
     "dev": "emp dev --env dev",
     "build": "emp build --env prod",
     "start": "emp serve",
-    "stat": "emp build --analyze"
+    "stat": "emp build --analyze",
+		"emp":"emp"
   },
   "author": "",
   "license": "ISC",

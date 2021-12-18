@@ -1,6 +1,7 @@
 import {JscConfig} from '@swc/core'
 import {Override} from 'src/types'
 import {LibModeType} from 'src/types/libMode'
+import {TerserOptions} from 'terser-webpack-plugin/types/utils'
 import {Configuration} from 'webpack'
 export type BuildOptions = {
   /**
@@ -28,6 +29,11 @@ export type BuildOptions = {
    * @default true
    */
   minify?: boolean
+  /**
+   * 压缩选项?
+   * @default {compress:false}
+   */
+  minOptions?: TerserOptions
   /**
    * 是否生成 source map
    * @default false
@@ -79,6 +85,7 @@ export type RquireBuildOptions = Override<
   {
     lib?: LibModeType
     wpTarget?: Configuration['target']
+    minOptions?: TerserOptions
   }
 >
 export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
