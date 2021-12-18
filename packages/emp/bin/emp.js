@@ -3,8 +3,11 @@
 const program = require('commander')
 const pkg = require('../package.json')
 const importSource = (path = 'index.js') => require(`../dist/${path}`).default
-
+const {exec} = importSource('cli')
 program.version(pkg.version, '-v, --version').usage('<command> [options]')
+/**
+ * 调试
+ */
 program
   .command('dev')
   .description('Dev 模式')
@@ -20,10 +23,11 @@ program
   .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(async o => {
-    const fn = importSource('cli')
-    fn.exec('dev', 'development', o, pkg)
+    exec('dev', 'development', o, pkg)
   })
-// // 构建
+/**
+ * 构建编译
+ */
 program
   .command('build')
   .description('Build 模式')
@@ -43,30 +47,41 @@ program
   .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   .option('-wl, --wplogger [filename]', '打印webpack配置 默认为 false,filename 为 输出webpack配置文件')
   .action(o => {
-    const fn = importSource('cli')
-    fn.exec('build', 'production', o, pkg)
+    exec('build', 'production', o, pkg)
   })
-// // 正式环境
+/**
+ * Production 环境调试
+ */
 program
   .command('serve')
   .description('Server 模式')
   .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
   // .option('-d, --dist <dist>', '目标 默认为 dist')
   .action(o => {
-    const fn = importSource('cli')
-    fn.exec('serve', 'none', o, pkg)
+    exec('serve', 'none', o, pkg)
   })
 
-// 拉取 remote d.ts
+/**
+ * 拉取 remote d.ts
+ */
 program
   .command('dts')
   .description('拉取 remote 项目的 d.ts')
   .option('-p, --typingsPath <typingsPath>', '下载目录')
   .option('-e, --env <env>', '部署环境 dev、test、prod')
   .action(o => {
-    const fn = importSource('cli')
-    fn.exec('dts', 'none', o, pkg)
+    exec('dts', 'none', o, pkg)
   })
 
+/**
+ * 初始化项目
+ */
+program
+  .command('init')
+  .description('初始化 emp 项目')
+  .option('-t, --template <template>', '模版文件URL')
+  .action(o => {
+    exec('init', 'none', o, pkg)
+  })
 // 执行命令
 program.parse(process.argv)

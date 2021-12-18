@@ -1,8 +1,8 @@
 import {downloadDts} from 'src/helper/downloadDts'
 
-class GetDts {
+class Dts {
   async setup() {
     downloadDts()
   }
 }
-export default new GetDts()
+export default new Dts()
