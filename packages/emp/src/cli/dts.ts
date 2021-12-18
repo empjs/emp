@@ -4,8 +4,10 @@ import path from 'path'
 import axios from 'axios'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
+import {spinner} from 'src/helper/spinner'
 class Dts {
   async downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
+    spinner.start({text: `[download ${fileName}]:${uri}\n`})
     const httpsAgent = new https.Agent({
       rejectUnauthorized: false,
     })
@@ -20,7 +22,7 @@ class Dts {
       newData = newData.replace(regDoubleQuote, `"${alias}`)
       await fs.ensureDir(filePath)
       const fullPath = path.resolve(filePath, fileName)
-      logger.info(`[remote]:${uri}\n[target-dir]:${fullPath}\n`)
+      spinner.success({text: `[${fileName}]:${fullPath}\n`})
       fs.writeFileSync(fullPath, newData, 'utf8')
     } catch (error) {
       // logger.error(error)
@@ -49,7 +51,7 @@ class Dts {
   }
 
   async setup() {
-    this.downloadDts()
+    await this.downloadDts()
   }
 }
 export default new Dts()

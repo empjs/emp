@@ -6,6 +6,7 @@ import fs from 'fs-extra'
 // import ora from 'ora'
 import store from 'src/helper/store'
 import {cliOptionsType, modeType} from 'src/types'
+import {spinner} from 'src/helper/spinner'
 class Init {
   templates: any = {
     react: 'https://github.com/efoxTeam/emp-react-template.git',
@@ -13,6 +14,9 @@ class Init {
   }
   async setup(cliOptions: cliOptionsType) {
     console.log('[init]', cliOptions)
+    setTimeout(() => {
+      spinner.success({text: 'Successful!', mark: ':)'})
+    }, 1000)
     // await this.selectTemplate()
   }
   /**
