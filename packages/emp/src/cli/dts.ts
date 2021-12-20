@@ -37,8 +37,10 @@ class Dts {
     if (remotes) {
       for (const [key, value] of Object.entries(remotes)) {
         if (key && value) {
-          const baseName = value.split('@')[0]
-          const baseUrl = value.split('@')[1]
+          const splitIndex = value.indexOf('@')
+          if (splitIndex === -1) throw Error(`[emp dts] invaild remotes url: ${value}`)
+          const baseName = value.substr(0, splitIndex)
+          const baseUrl = value.substr(splitIndex + 1)
           const {outDir, typesOutDir} = store.config.build
           // typesOutDir 可以独立设置 但是必须在outDir里，否则影响DTS同步
           const dtsUrl = baseUrl.replace('/emp.js', `${typesOutDir.replace(outDir, '')}/index.d.ts`)
