@@ -241,6 +241,6 @@ babel-polyfill 兼容特性见 <a href="https://kangax.github.io/compat-table/es
 	+ 由于在IE上不支持`currentScript`，所以需要打进兼容js，否则有可能会出现子js url错误问题
 	+ 参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
 
-### Q&A
-+ Q: 使用 Windows 开发，编译过程中报错提示出现 "Access is denied" 应该怎么处理？
- A: 右键“以管理员身份打开”，重新执行命令即可。
+## Q&A
+### Windows 编译报 "Access is denied"
+  + 右键“以管理员身份打开”，重新执行命令即可。
