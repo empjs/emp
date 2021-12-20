@@ -1,5 +1,5 @@
 import {Compiler, Compilation} from 'webpack'
-import dts, {DTSTLoadertype} from './dts'
+import DTSEmitFile, {DTSTLoadertype} from './dts'
 import glob from 'fast-glob'
 import store from 'src/helper/store'
 import {logTag} from 'src/helper/logger'
@@ -12,6 +12,7 @@ class DTSPlugin {
     this.options = options
   }
   apply(compiler: Compiler) {
+    const dts = new DTSEmitFile()
     const options = this.options
     compiler.hooks.afterEmit.tap(PLUGIN_NAME, async compilation => {
       if (options) {

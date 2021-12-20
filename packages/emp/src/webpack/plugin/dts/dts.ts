@@ -106,4 +106,4 @@ class DTSEmitFile {
     this.lib = {code: '', key: []}
   }
 }
-export default new DTSEmitFile()
+export default DTSEmitFile
