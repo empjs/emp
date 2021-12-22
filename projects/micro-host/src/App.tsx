@@ -1,7 +1,8 @@
 import React from 'react'
 import {Button} from 'src/Button'
 import StoreComp from './StoreComp'
-export {Button, StoreComp}
+import incStore from './store/incStore'
+export {Button, StoreComp, incStore}
 const App = () => {
   return (
     <>

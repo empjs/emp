@@ -18,6 +18,8 @@ module.exports = defineConfig(({mode}) => {
       // library: {name: 'microHost', type: 'window'},
       exposes: {
         './App': './src/App',
+        // './Button': './src/Button',
+        './importExport/incStore': './src/store/incStore',
       },
       // shared: {
       //   react: {requiredVersion: '^17.0.1'},

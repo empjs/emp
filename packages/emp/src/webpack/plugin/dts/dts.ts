@@ -7,7 +7,7 @@ import ts from 'typescript'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import fs from 'fs-extra'
-import {transformLibName, transformPathImport} from './transform'
+import {transformExposesPath, transformImportExposesPath, transformLibName, transformPathImport} from './transform'
 //
 export type DTSTLoadertype = {
   build: RquireBuildOptions
@@ -94,13 +94,19 @@ class DTSEmitFile {
         mod = mod.replace('/index', '')
       }
       o.text = transformPathImport(o)
-      this.lib.code = this.lib.code + this.warpDeclareModule(mod, o.text)
+      const warpDeclareModuleResult = this.warpDeclareModule(mod, o.text)
+      this.lib.code = this.lib.code + warpDeclareModuleResult.code
+      this.lib.code = transformImportExposesPath(this.lib.code, mod, warpDeclareModuleResult.exposeName)
       this.lib.key.push(o.name)
     }
   }
   warpDeclareModule(module: string, code: string) {
     code = code.replace(/declare/g, '')
-    return `declare module '${module}' {\r\n${code}}\r\n`
+    const {newModule, isExpose} = transformExposesPath(module, this.mf)
+    return {
+      code: `declare module '${newModule}' {\r\n${code}}\r\n`,
+      exposeName: isExpose ? newModule : '',
+    }
   }
   destroy() {
     this.lib = {code: '', key: []}

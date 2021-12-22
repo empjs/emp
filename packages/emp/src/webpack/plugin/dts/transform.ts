@@ -1,6 +1,8 @@
 import ts from 'typescript'
 import path from 'path'
 import store from 'src/helper/store'
+import {MFOptions} from 'src/types/modulefederation'
+
 const globalImportRE =
   /(?:(?:import|export)\s?(?:type)?\s?(?:(?:\{[^;\n]+\})|(?:[^;\n]+))\s?from\s?['"][^;\n]+['"])|(?:import\(['"][^;\n]+?['"]\))/g
 const staticImportRE = /(?:import|export)\s?(?:type)?\s?\{?.+\}?\s?from\s?['"](.+)['"]/
@@ -50,4 +52,42 @@ export const transformPathImport = (o: ts.OutputFile) => {
     }
     return str
   })
+}
+
+/**
+ * 转换模块路径成 expose 路径
+ * @param module
+ * @returns
+ */
+export const transformExposesPath = (module: string, mf: MFOptions | undefined) => {
+  if (mf?.exposes) {
+    // 遍历 exposes 的声明结果
+    for (const [key, value] of Object.entries(mf?.exposes)) {
+      if (key && value) {
+        // expose 对应的文件路径和 TS 编译结果路径是否相等
+        if (module === value.replace('./', '')) {
+          // 将当前本地相对路径替换成 expose 的路径
+          return {newModule: key.replace('./', `${store.config.appSrc}/`), isExpose: true}
+        }
+      }
+    }
+  }
+  // 没有配置到 expose 返回原路径
+  return {newModule: module, isExpose: false}
+}
+
+/**
+ * 转换内部 import 模块路径成 expose 路径
+ * @param module
+ * @returns
+ */
+export const transformImportExposesPath = (entirety: string, mod: string, exposeName: string) => {
+  if (!!exposeName) {
+    const reg = new RegExp(`${mod}'`, 'g')
+    const regDouble = new RegExp(`${mod}"`, 'g')
+    entirety = entirety.replace(reg, `${exposeName}'`)
+    entirety = entirety.replace(regDouble, `${exposeName}"`)
+    return entirety
+  }
+  return entirety
 }
