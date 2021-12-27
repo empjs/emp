@@ -342,7 +342,7 @@ swc 是否异步构建
 
 使用库模式 具体可以点击 [查看详情](/develop/#build-lib-配置)
 ## Dts 生成与同步
-### buld.typesOutDir
+### build.typesOutDir
 + 类型 `string`
 + 默认 `dist/empShareTypes`
 
