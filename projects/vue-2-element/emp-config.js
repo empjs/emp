@@ -6,6 +6,7 @@ module.exports = defineConfig({
   html: {title: 'EMP Vue2 element'},
   server: {port: 9003},
   appEntry: 'main.js',
+  resolve: {alias: {'@': empStore.resolve('src')}},
   externals: [
     // {module: 'vue', global: 'Vue', entry: 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js'},
     // {module: 'element-ui', global: 'ELEMENT', entry: 'https://unpkg.com/element-ui/lib/index.js'},

@@ -8,7 +8,7 @@ const PluginVue2 = async ({wpChain}: ConfigPluginOptions) => {
     .test(/\.vue$/)
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
-  wpChain.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
+  // wpChain.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
   //
   const svgRule = wpChain.module.rule('svg')
   svgRule.uses.clear()
