@@ -16,14 +16,14 @@ class SWCOpt {
     if (this.isTypescript) {
       return {
         syntax: 'typescript',
-        tsx: this.isReact,
+        tsx: store.config.build.jsToJsx || this.isReact,
         decorators: true,
         dynamicImport: true, //
       }
     }
     return {
       syntax: 'ecmascript',
-      jsx: this.isReact,
+      jsx: store.config.build.jsToJsx || this.isReact,
       decorators: true,
       decoratorsBeforeExport: false,
     }

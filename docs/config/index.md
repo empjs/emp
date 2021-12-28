@@ -368,6 +368,13 @@ swc 是否异步构建
 + 默认 `false`
 
 是否生成 d.ts
+
+### build.jsToJsx
++ 类型 `boolean`
++ 默认 `false`
+
+是否支持在 js 中使用 jsx
+
 ## 服务选项
 > 继承 webpack dev server 所有配置
 ### server

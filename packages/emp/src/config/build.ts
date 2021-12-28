@@ -84,6 +84,11 @@ export type BuildOptions = {
    * @default false
    */
   createTs?: boolean
+  /**
+   * 支持在 js 中使用 jsx
+   * @default false
+   */
+  jsToJsx?: boolean
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -115,6 +120,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       chunkIds: false,
       analyze: false,
       createTs: false,
+      jsToJsx: false,
     },
     ...op,
   }
