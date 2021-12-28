@@ -79,11 +79,14 @@ class WPCss {
           },
         ])
       }
+
+      const staticDir = store.config.build.staticDir ? `${store.config.build.staticDir}/` : ''
+
       wpChain.plugin('MiniCssExtractPlugin').use(MiniCssExtractPlugin, [
         {
           ignoreOrder: true,
-          filename: 'css/[name].[contenthash:8].css',
-          chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+          filename: `${staticDir}css/[name].[contenthash:8].css`,
+          chunkFilename: `${staticDir}css/[name].[contenthash:8].chunk.css`,
           /**
             experimentalUseImportModule
             https://github.com/webpack-contrib/mini-css-extract-plugin#experimentalUseImportModule

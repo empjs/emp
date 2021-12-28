@@ -84,6 +84,8 @@ class WPCommon {
           }
         : false */
 
+    const staticDir = store.config.build.staticDir ? `${store.config.build.staticDir}/` : ''
+
     return {
       //TODO: Library 模式的处理
       // module: true,
@@ -100,8 +102,8 @@ class WPCommon {
       clean: clean,
       path: store.outDir,
       publicPath: store.config.build.lib ? publicPath : 'auto',
-      filename: 'js/[name].[contenthash:8].js',
-      assetModuleFilename: `${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
+      filename: `${staticDir}js/[name].[contenthash:8].js`,
+      assetModuleFilename: `${staticDir}${store.config.build.assetsDir}/[name].[contenthash:8][ext][query]`,
       environment,
       // scriptType: isESM ? 'module' : 'text/javascript',
       pathinfo: false, //在打包数千个模块的项目中，这会导致造成垃圾回收性能压力

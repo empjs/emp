@@ -300,6 +300,12 @@ swc 是否异步构建
 
 生成静态目录
 
+### build.staticDir
++ 类型 `string`
++ 默认 ``
+
+生成包含 js,css,asset 合集目录
+
 ### build.minify
 + 类型 `boolean`
 + 默认 `true`

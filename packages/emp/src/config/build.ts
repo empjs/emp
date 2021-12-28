@@ -25,6 +25,11 @@ export type BuildOptions = {
    */
   assetsDir?: string
   /**
+   * 生成包含 js,css,asset 合集目录
+   * @default ''
+   */
+  staticDir?: string
+  /**
    * 是否压缩
    * @default true
    */
@@ -99,6 +104,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       typesLibName: 'lib',
       typesEmpName: 'index',
       assetsDir: 'assets',
+      staticDir: '',
       minify: true,
       sourcemap: false,
       /**
