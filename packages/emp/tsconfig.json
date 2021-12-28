@@ -10,6 +10,7 @@
         "./src/*"
       ],
     },
+    "target": "es2018"
   },
   "include": [
     "src",
