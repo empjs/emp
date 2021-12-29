@@ -72,7 +72,6 @@ class Plugin {
   }
   apply(compiler: Compiler) {
     compiler.hooks.environment.tap(PluginName, async () => {
-      console.log(compiler.options.optimization)
       if (this.options.polyfill && this.options.polyfill.length) {
         const polyfillList = this.options.polyfill.filter(
           i => (i.browser || i.uaReg) && Array.isArray(i.polyfills) && i.polyfills.length,
