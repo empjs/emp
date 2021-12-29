@@ -1,0 +1,22 @@
+{
+  "name": "polyfill-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "emp dev -cl false",
+    "build": "emp build",
+    "start": "emp serve",
+    "dts": "emp dts",
+    "stat": "emp build --analyze"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp": "workspace:^*",
+    "@efox/plugin-polyfill": "workspace:^*"
+  },
+  "dependencies": {
+    "commander": "^8.3.0"
+  }
+}

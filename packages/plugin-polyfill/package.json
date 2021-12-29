@@ -1,0 +1,25 @@
+{
+  "name": "@efox/plugin-polyfill",
+  "version": "1.0.0",
+  "description": "EMP browser polyfill",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rimraf dist && ttsc -w",
+    "build": "rimraf dist && ttsc"
+  },
+  "dependencies": {
+    "@efox/emp": "workspace:^*",
+    "webpack": "^5.65.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/ejs": "^3.1.0",
+    "ejs": "^3.1.6",
+    "html-webpack-plugin": "^5.5.0",
+    "rimraf": "^3.0.2",
+    "ts-transform-paths": "^2.0.3",
+    "ttypescript": "^1.5.12"
+  }
+}

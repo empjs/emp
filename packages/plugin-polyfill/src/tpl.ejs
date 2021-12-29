@@ -1,0 +1,8 @@
+!(function(){
+  var ua = navigator.userAgent;
+  <% for(var item of locals.list) { %>
+    if (<%- item.rule %>) {
+      document.writeln('<% for(var js of item.js) { %><script src="<%- js %>"><\/script><% } %>')
+    }
+  <% } %>
+})()
