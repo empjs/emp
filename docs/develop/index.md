@@ -104,6 +104,7 @@ empShare: {
 
 * shareLib 代替了MF里面的 shared 可以更好实现重型项目，大型团队的共享灵活性问题
 
+* 注意!!! 在 `moduleFederation` 配置中,如果项目需要导出模块供其它项目使用,除了在 empShare.exposes 中配置外,还需要在项目根目录中添加 `bootstrap.js` 或 `bootstrap.ts` 文件作为 webpack 导出模块的引导文件 [为什么?](https://webpack.docschina.org/concepts/module-federation/#troubleshooting) [如何配置?](https://github.com/efoxTeam/emp/blob/next/projects/vue-2-base/src/main.js)
 ### empshare 配置
 ```js
 module.exports={
