@@ -9,6 +9,7 @@
     "@efox/plugin-vue-2": "workspace:^1.0.0"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.4.3",
     "vue": "^2.6.12"
   },
   "scripts": {

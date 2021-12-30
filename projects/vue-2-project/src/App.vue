@@ -2,6 +2,7 @@
   <div class="main">
     <h1>Project App ! vue 2 project</h1>
     <Content />
+    <CompositionApi />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 export default {
   components: {
     Content: () => import('@v2b/Content'),
+    CompositionApi: () => import('@v2b/CompositionApi'),
   },
 }
 </script>

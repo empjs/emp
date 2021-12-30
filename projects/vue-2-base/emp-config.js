@@ -17,6 +17,7 @@ module.exports = defineConfig(({mode, env}) => {
       exposes: {
         './Content': './src/components/Content',
         './Table': './src/components/table',
+        './CompositionApi': './src/components/CompositionApi',
       },
       shareLib: !isESM
         ? {

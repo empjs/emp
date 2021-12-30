@@ -5,6 +5,7 @@
     <img :src="require('./logo.png')" alt="logo" />
     <Content />
     <Table />
+    <CompositionApi />
   </div>
 </template>
 
@@ -12,11 +13,13 @@
 import Content from './components/Content'
 import Logo from './logo.svg'
 import Table from './components/table.vue'
+import CompositionApi from './components/CompositionApi.vue'
 export default {
   components: {
     Content,
     Logo,
     Table,
+    CompositionApi,
   },
 }
 </script>
