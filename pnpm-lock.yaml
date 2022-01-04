@@ -505,8 +505,10 @@ importers:
       '@efox/emp': workspace:^*
       '@efox/eslint-config-vue': workspace:^*
       '@efox/plugin-vue-2': workspace:^1.0.0
+      '@vue/composition-api': ^1.4.3
       vue: ^2.6.12
     dependencies:
+      '@vue/composition-api': 1.4.3_vue@2.6.14
       vue: 2.6.14
     devDependencies:
       '@efox/emp': link:../../packages/emp
@@ -3668,6 +3670,15 @@ packages:
       vue-template-es2015-compiler: 1.9.1
     optionalDependencies:
       prettier: 2.4.1
+    dev: false
+
+  /@vue/composition-api/1.4.3_vue@2.6.14:
+    resolution: {integrity: sha512-Qp4rMbESO05/7/Imck027X5lPhbmMX/mtYSDvIMJ14PS4KHY/4GllnQbPEfsBEe1LECFE6HWx2k7HYgcuYNvpg==}
+    peerDependencies:
+      vue: '>= 2.5 < 3'
+    dependencies:
+      tslib: 2.3.1
+      vue: 2.6.14
     dev: false
 
   /@vue/reactivity/3.2.22:
