@@ -1,5 +1,5 @@
 import {Compiler, Compilation} from 'webpack'
-import HtmlWebpackPlugin, {createHtmlTagObject} from 'html-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import Ejs from 'ejs'
 import path from 'path'
 // import fs from 'fs'
@@ -64,10 +64,15 @@ const getEjsOptions = (opts: PolyfillOption[], polyfillMap: {[key: string]: stri
   }
 }
 
-class Plugin {
-  options: {polyfill: PolyfillOption[]}
+interface OptionsProps {
+  polyfill: PolyfillOption[]
+  publicPath?: string
+}
 
-  constructor(opts: {polyfill: PolyfillOption[]}) {
+class Plugin {
+  options: OptionsProps
+
+  constructor(opts: OptionsProps) {
     this.options = Object.assign({}, opts)
   }
   apply(compiler: Compiler) {
@@ -95,7 +100,7 @@ class Plugin {
         polyfillName.forEach(name => {
           const files = compilation?.entrypoints?.get(name)?.getFiles()
           if (files && files.length) {
-            polyfileJS[name] = files[0]
+            polyfileJS[name] = `${this.options.publicPath}${files[0]}`
           }
         })
 
@@ -107,18 +112,30 @@ class Plugin {
         const message = "Error! are you sure you have html-webpack-plugin before it in your config's plugins?"
         throw new Error(message)
       }
-      hooks.alterAssetTags.tapAsync(PluginName, async (htmlPluginData, callback) => {
+      // hooks.alterAssetTags.tapAsync(PluginName, async (htmlPluginData, callback) => {
+      //   const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
+      //   const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
+      //   const script = createHtmlTagObject('script', {type: 'text/javascript'}, resultString)
+      //   htmlPluginData.assetTags.scripts.unshift(script)
+      //   if (callback) {
+      //     callback(null, htmlPluginData)
+      //   } else {
+      //     return Promise.resolve(htmlPluginData)
+      //   }
+      // })
+      hooks.afterTemplateExecution.tapAsync(PluginName, async (opts, callback) => {
         const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
         const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
-        const script = createHtmlTagObject('script', {type: 'text/javascript'}, resultString)
-        htmlPluginData.assetTags.scripts.unshift(script)
-
-        if (callback) {
-          callback(null, htmlPluginData)
-        } else {
-          return Promise.resolve(htmlPluginData)
-        }
+        opts.html = opts.html.replace('<!-- EMP inject polyfill -->', resultString)
+        callback && callback(null, opts)
       })
+
+      // hooks.beforeAssetTagGeneration.tapAsync(PluginName, async (opts, callback) => {
+      //   const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
+      //   const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
+      //   opts.assets.polyfillScript = [resultString]
+      //   callback && callback(null, opts)
+      // })
     })
   }
 }

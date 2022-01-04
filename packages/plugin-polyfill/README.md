@@ -11,7 +11,7 @@ module.exports = defineConfig(() => {
     plugins: [
     	pluginPolyfill([
         {
-        	 	browser: 'IE', // IE浏览器下会加载
+            browser: 'IE', // IE浏览器下会加载
            	js: [
               '//yourcdnhost/babel-polyfill.7.2.5.min.js',
            	],
@@ -59,3 +59,5 @@ module.exports = defineConfig(() => {
 - 废除document.writeln插入js方式，改用其他
 - 支持多入口动态加载
 - 支持targets属性 支持browserslist
+- 去除Ejs
+- 支持定制插入位置、标签属性
