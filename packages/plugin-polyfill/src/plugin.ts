@@ -19,11 +19,17 @@ import path from 'path'
 // }
 
 export interface PolyfillOption {
+  entries?: string[]
   browser?: string
   uaReg?: string
   js?: string[]
   polyfills?: string[]
   name?: string
+}
+
+interface TplOption {
+  rule: string
+  js: string[]
 }
 
 const PluginName = 'polyfill-plugin'
@@ -39,12 +45,32 @@ const commonBrowserRule: {[key: string]: string} = {
 
 const polyfillName: string[] = []
 
-const getPolyfillName = (opt: PolyfillOption) => `${EntryName}_${opt?.browser || nameIndex++}`
+const filterRepeat = (opts: TplOption[]) => {
+  const map: {[key: string]: string[]} = {}
+  opts.forEach(i => {
+    if (!map[i.rule]) {
+      map[i.rule] = i.js
+    } else {
+      map[i.rule] = map[i.rule].concat(i.js)
+    }
+  })
+  const list = Object.entries(map).map(([k, v]) => ({rule: k, js: Array.from(new Set(v))}))
+  return list
+}
 
-const getEjsOptions = (opts: PolyfillOption[], polyfillMap: {[key: string]: string}) => {
-  const list: {rule: string; js: string[]}[] = []
+const getPolyfillName = (opt: PolyfillOption) => `${EntryName}_${opt?.browser}_${nameIndex++}`
+
+const getEjsOptions = (opts: PolyfillOption[], polyfillMap: {[key: string]: string}, matchName: string) => {
+  const list: TplOption[] = []
   opts.forEach(opt => {
     if (!opt.name) return
+    if (
+      opt.entries &&
+      opt.entries.length &&
+      opt.entries.indexOf(matchName) === -1 &&
+      opt.entries.indexOf(matchName.replace('.html', '')) === -1
+    )
+      return
     const pf = polyfillMap[opt.name]
     const js = (pf ? [pf].concat(opt.js || []) : opt.js) || []
     if (opt.browser && commonBrowserRule[opt.browser.toUpperCase()]) {
@@ -60,7 +86,7 @@ const getEjsOptions = (opts: PolyfillOption[], polyfillMap: {[key: string]: stri
     }
   })
   return {
-    list,
+    list: filterRepeat(list),
   }
 }
 
@@ -79,16 +105,18 @@ class Plugin {
     compiler.hooks.environment.tap(PluginName, async () => {
       if (this.options.polyfill && this.options.polyfill.length) {
         const polyfillList = this.options.polyfill.filter(
-          i => (i.browser || i.uaReg) && Array.isArray(i.polyfills) && i.polyfills.length,
+          i => (i.browser || i.uaReg) && ((Array.isArray(i.polyfills) && i.polyfills.length) || (i.js && i.js.length)),
         )
         polyfillList.forEach(i => {
           const name = i.name || getPolyfillName(i)
           i.name = name
           polyfillName.push(name)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          compiler.options.entry[name] = {
-            import: i.polyfills,
+          if (i.polyfills && i.polyfills.length) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            compiler.options.entry[name] = {
+              import: i.polyfills,
+            }
           }
         })
       }
@@ -124,7 +152,7 @@ class Plugin {
       //   }
       // })
       hooks.afterTemplateExecution.tapAsync(PluginName, async (opts, callback) => {
-        const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
+        const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS, opts.outputName)
         const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
         opts.html = opts.html.replace('<!-- EMP inject polyfill -->', resultString)
         callback && callback(null, opts)

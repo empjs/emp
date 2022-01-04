@@ -8,19 +8,7 @@ module.exports = defineConfig(({mode}) => {
       pluginPolyfill([
         {
           browser: 'IE',
-          js: [
-            '//static.bdgamelive.com/public/assets/js/babel-polyfill.7.2.5.min.js',
-            '//unpkg.bdgamelive.com/webupload/currentScript-polyfill@1.0.0/currentScript.js',
-          ],
-          polyfills: ['core-js/modules/es.promise', 'core-js/modules/es.array.iterator'],
-        },
-        {
-          browser: 'Android',
-          polyfills: ['core-js/modules/es.promise'],
-        },
-        {
-          uaReg: '/Safari/',
-          polyfills: ['core-js/modules/es.array.iterator'],
+          js: ['//static.bdgamelive.com/public/assets/js/babel-polyfill.7.2.5.min.js'],
         },
       ]),
     ],
