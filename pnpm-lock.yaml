@@ -403,6 +403,17 @@ importers:
       typescript: 4.5.2
       typescript-plugin-css-modules: 3.4.0_typescript@4.5.2
 
+  projects/https-demo:
+    specifiers:
+      '@efox/emp': workspace:^2.0.0-beta.17
+      react: ^17.0.2
+      react-dom: ^17.0.2
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    devDependencies:
+      '@efox/emp': link:../../packages/emp
+
   projects/mf-app:
     specifiers:
       '@efox/emp': workspace:^*
