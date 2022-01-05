@@ -9,8 +9,10 @@ import {cliOptionsType, modeType} from 'src/types'
 import {createSpinner} from 'nanospinner'
 class Init {
   templates: any = {
-    react: 'https://github.com/efoxTeam/emp-react-template.git',
-    vue2: 'https://github.com/efoxTeam/emp-vue2-template.git',
+    vue2_base: 'https://github.com/efoxTeam/emp2-vue2-base.git',
+    vue2_project: 'https://github.com/efoxTeam/emp2-vue2-project.git',
+    react_base: 'https://github.com/efoxTeam/emp2-react-base.git',
+    react_project: 'https://github.com/efoxTeam/emp2-react-project.git',
   }
   async setup(cliOptions: cliOptionsType) {
     await this.selectTemplate()
