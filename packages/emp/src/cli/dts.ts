@@ -4,9 +4,10 @@ import path from 'path'
 import axios from 'axios'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
-import {spinner} from 'src/helper/spinner'
+import {createSpinner} from 'nanospinner'
 class Dts {
   async downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
+    const spinner = createSpinner().start()
     spinner.start({text: `[download ${fileName}]:${uri}\n`})
     const httpsAgent = new https.Agent({
       rejectUnauthorized: false,
