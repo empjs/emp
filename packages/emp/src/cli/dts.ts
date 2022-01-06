@@ -15,7 +15,7 @@ class Dts {
     const arr = filePath.split(path.sep)
     let dir = arr[0]
     for (let i = 1; i < arr.length; i++) {
-      if (!this.dirCache[dir] && !fs.existsSync(dir)) {
+      if (!this.dirCache[dir] && !fs.existsSync(dir) && dir !== '') {
         this.dirCache[dir] = true
         fs.mkdirSync(dir)
       }
