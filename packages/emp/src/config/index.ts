@@ -172,6 +172,7 @@ export type ResovleConfig = Override<
     debug: ConfigDebugType
     env?: ConfigEnv['env']
     mode: modeType
+    dtsPath: {[key: string]: string}
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
@@ -182,6 +183,8 @@ export const initConfig = (op: any = {}): ResovleConfig => {
   delete op.server
   const html = initHtml(op.html)
   delete op.html
+  const dtsPath = op.dtsPath ?? []
+  delete op.dtsPath
   //
   const debug: ConfigDebugType = {
     clearLog: true,
@@ -211,6 +214,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       appEntry: '',
       jsCheck: false,
       typingsPath: path.resolve('src', 'empShareTypes'),
+      dtsPath,
     },
     ...op,
   }

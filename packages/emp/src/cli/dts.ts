@@ -54,6 +54,7 @@ class Dts {
    */
   async downloadDts() {
     const remotes = store.empShare.moduleFederation.remotes
+    const dtsPath = store.config.dtsPath
     if (remotes) {
       for (const [key, value] of Object.entries(remotes)) {
         if (key && value) {
@@ -62,8 +63,9 @@ class Dts {
           const baseName = value.substr(0, splitIndex)
           const baseUrl = value.substr(splitIndex + 1)
           const {outDir, typesOutDir} = store.config.build
-          // typesOutDir 可以独立设置 但是必须在outDir里，否则影响DTS同步
-          const dtsUrl = baseUrl.replace('/emp.js', `${typesOutDir.replace(outDir, '')}/index.d.ts`)
+          //可以独立设置 dtsPath，默认路径是 typesOutDir
+          const dtsFilePath = dtsPath[key] ? dtsPath[key] : `${typesOutDir.replace(outDir, '')}/index.d.ts`
+          const dtsUrl = baseUrl.replace('/emp.js', dtsFilePath)
           await this.downloadFileAsync(dtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
         }
       }
