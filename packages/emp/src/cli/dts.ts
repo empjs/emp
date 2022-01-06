@@ -6,6 +6,24 @@ import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import {createSpinner} from 'nanospinner'
 class Dts {
+  /**
+   * 创建目录
+   * @param {*} filePath
+   */
+  dirCache: any = {}
+  mkdir(filePath: string) {
+    const arr = filePath.split(path.sep)
+    let dir = arr[0]
+    for (let i = 1; i < arr.length; i++) {
+      if (!this.dirCache[dir] && !fs.existsSync(dir)) {
+        this.dirCache[dir] = true
+        fs.mkdirSync(dir)
+      }
+      dir = dir + '/' + arr[i]
+    }
+    fs.writeFileSync(filePath, '')
+  }
+
   async downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
     const spinner = createSpinner().start()
     spinner.start({text: `[download ${fileName}]:${uri}\n`})
@@ -23,11 +41,12 @@ class Dts {
       newData = newData.replace(regDoubleQuote, `"${alias}`)
       await fs.ensureDir(filePath)
       const fullPath = path.resolve(filePath, fileName)
-      spinner.success({text: `[${fileName}]:${fullPath}\n`})
+      this.mkdir(fullPath)
       fs.writeFileSync(fullPath, newData, 'utf8')
+      spinner.success({text: `[${fileName}]:${fullPath}\n`})
     } catch (error) {
-      // logger.error(error)
-      logger.error(`${uri} --> network error`)
+      logger.error(error)
+      // logger.error(`${uri} --> network error`)
     }
   }
   /**
