@@ -10,6 +10,10 @@ module.exports = defineConfig(({mode}) => {
           browser: 'IE',
           js: ['//static.bdgamelive.com/public/assets/js/babel-polyfill.7.2.5.min.js'],
         },
+        {
+          browser: 'Android',
+          polyfills: ['core-js/modules/es.array.unscopables.flat'],
+        },
       ]),
     ],
     build: {

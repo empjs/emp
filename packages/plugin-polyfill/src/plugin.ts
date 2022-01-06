@@ -1,29 +1,18 @@
 import {Compiler, Compilation} from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import Ejs from 'ejs'
-import path from 'path'
-// import fs from 'fs'
-
-// const writeIfModified = function (filename: string, newContent: string) {
-//   try {
-//     const oldContent = fs.readFileSync(filename, 'utf8')
-//     if (oldContent == newContent) {
-//       console.warn(`* Skipping file '${filename}' because it is up-to-date`)
-//       return
-//     }
-//   } catch (err) {}
-//   if (['0', 'false'].indexOf(process.env.DRY_RUN || '0') !== -1) {
-//     fs.writeFileSync(filename, newContent)
-//   }
-//   console.warn(`* Updating outdated file '${filename}'`)
-// }
 
 export interface PolyfillOption {
+  // 指定哪些入口需要增加此项polyfill, 不填则默认所有入口
   entries?: string[]
+  // 内置浏览器判断。可选值：IE|ANDROID|IPHONE|MOBILE; 拓展中...
   browser?: string
+  // 自定义判断条件。命中uaReg.test(ua)会架加载polyfills
   uaReg?: string
+  // 插入的 js 地址
   js?: string[]
+  // 单独打入corejs某项依赖。如'core-js/modules/es.array.unscopables.flat'
   polyfills?: string[]
+  // key值。与打出的polyfills文件名有关
   name?: string
 }
 
@@ -41,6 +30,7 @@ const commonBrowserRule: {[key: string]: string} = {
   IE: 'window.document.documentMode',
   ANDROID: '/(?:Android)/.test(ua)',
   MOBILE: '/(?:Android)/.test(ua) || /(?:iPhone)/.test(ua)',
+  IPHONE: '/(?:iPhone)/.test(ua)',
 }
 
 const polyfillName: string[] = []
@@ -88,6 +78,17 @@ const getEjsOptions = (opts: PolyfillOption[], polyfillMap: {[key: string]: stri
   return {
     list: filterRepeat(list),
   }
+}
+
+const getPolyfillHtml = (opts: {list: TplOption[]}): string => {
+  const {list} = opts
+  const startStr = `<script type="text/javascript">!(function(){var ua = navigator.userAgent;`
+  const endStr = `})()<\/script>`
+  let contentStr = ''
+  list.forEach(i => {
+    contentStr += `if(${i.rule}){document.writeln('${i.js.map(js => `<script src="${js}"><\\/script>`).join('')}')}`
+  })
+  return `${startStr}${contentStr}${endStr}`
 }
 
 interface OptionsProps {
@@ -140,30 +141,13 @@ class Plugin {
         const message = "Error! are you sure you have html-webpack-plugin before it in your config's plugins?"
         throw new Error(message)
       }
-      // hooks.alterAssetTags.tapAsync(PluginName, async (htmlPluginData, callback) => {
-      //   const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
-      //   const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
-      //   const script = createHtmlTagObject('script', {type: 'text/javascript'}, resultString)
-      //   htmlPluginData.assetTags.scripts.unshift(script)
-      //   if (callback) {
-      //     callback(null, htmlPluginData)
-      //   } else {
-      //     return Promise.resolve(htmlPluginData)
-      //   }
-      // })
+
       hooks.afterTemplateExecution.tapAsync(PluginName, async (opts, callback) => {
         const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS, opts.outputName)
-        const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
+        const resultString = getPolyfillHtml(ejsOptions)
         opts.html = opts.html.replace('<!-- EMP inject polyfill -->', resultString)
         callback && callback(null, opts)
       })
-
-      // hooks.beforeAssetTagGeneration.tapAsync(PluginName, async (opts, callback) => {
-      //   const ejsOptions = getEjsOptions(this.options.polyfill, polyfileJS)
-      //   const resultString = await Ejs.renderFile(path.resolve(__dirname, '../src/tpl.ejs'), ejsOptions, {})
-      //   opts.assets.polyfillScript = [resultString]
-      //   callback && callback(null, opts)
-      // })
     })
   }
 }
