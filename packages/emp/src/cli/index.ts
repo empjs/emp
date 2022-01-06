@@ -12,6 +12,11 @@ class EMPScript {
    * @param name
    */
   async exec(name: string, mode: modeType, cliOptions: cliOptionsType, pkg: any): Promise<void> {
+    if (name === 'init') {
+      const cilScript = await import(`./${name}`)
+      await cilScript.default.setup(cliOptions)
+      return
+    }
     // 全局变量实例化 store & config
     await store.setup(mode, cliOptions, pkg)
     //webpack 实例化
