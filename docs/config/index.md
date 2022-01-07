@@ -352,6 +352,8 @@ swc 是否异步构建
 + 类型 `string`
 + 默认 `dist/empShareTypes`
 
+当前项目声明文件输出目录
+
 ### build.typesEmpName
 + 类型 `string`
 + 默认 `index` 生成 与 同步相同
@@ -414,3 +416,15 @@ swc 是否异步构建
 + 默认 `false`
 
 是否显示配置信息
+
+## dts 声明文件下载路径配置
+dtsPath
++ 类型 `{[key: string]: string}`
++ 默认 `empShareTypes/index.d.ts`
++ 配置例子:
+```js
+   dtsPath: {
+    //  '对应 remotes 里的项目名' : '.dts 文件的相对路径'
+      '@microHost': '/dist/index.d.ts',
+    },
+```

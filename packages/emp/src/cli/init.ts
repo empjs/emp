@@ -21,7 +21,6 @@ class Init {
    * 选择模板
    */
   async selectTemplate() {
-    console.log(this.templates)
     const templateNameList = []
     for (const item in this.templates) {
       templateNameList.push(item)

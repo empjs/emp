@@ -12,6 +12,9 @@ module.exports = defineConfig(({mode, env}) => {
     server: {
       port: 8002,
     },
+    dtsPath: {
+      '@microHost': '/dist/index.d.ts',
+    },
     empShare: {
       name: 'microApp',
       remotes: {

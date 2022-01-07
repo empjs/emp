@@ -6,6 +6,24 @@ import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import {createSpinner} from 'nanospinner'
 class Dts {
+  /**
+   * 创建目录
+   * @param {*} filePath
+   */
+  dirCache: any = {}
+  mkdir(filePath: string) {
+    const arr = filePath.split(path.sep)
+    let dir = arr[0]
+    for (let i = 1; i < arr.length; i++) {
+      if (!this.dirCache[dir] && !fs.existsSync(dir) && dir !== '') {
+        this.dirCache[dir] = true
+        fs.mkdirSync(dir)
+      }
+      dir = dir + '/' + arr[i]
+    }
+    fs.writeFileSync(filePath, '')
+  }
+
   async downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
     const spinner = createSpinner().start()
     spinner.start({text: `[download ${fileName}]:${uri}\n`})
@@ -23,11 +41,12 @@ class Dts {
       newData = newData.replace(regDoubleQuote, `"${alias}`)
       await fs.ensureDir(filePath)
       const fullPath = path.resolve(filePath, fileName)
-      spinner.success({text: `[${fileName}]:${fullPath}\n`})
+      this.mkdir(fullPath)
       fs.writeFileSync(fullPath, newData, 'utf8')
+      spinner.success({text: `[${fileName}]:${fullPath}\n`})
     } catch (error) {
-      // logger.error(error)
-      logger.error(`${uri} --> network error`)
+      logger.error(error)
+      // logger.error(`${uri} --> network error`)
     }
   }
   /**
@@ -35,6 +54,7 @@ class Dts {
    */
   async downloadDts() {
     const remotes = store.empShare.moduleFederation.remotes
+    const dtsPath = store.config.dtsPath
     if (remotes) {
       for (const [key, value] of Object.entries(remotes)) {
         if (key && value) {
@@ -43,8 +63,9 @@ class Dts {
           const baseName = value.substr(0, splitIndex)
           const baseUrl = value.substr(splitIndex + 1)
           const {outDir, typesOutDir} = store.config.build
-          // typesOutDir 可以独立设置 但是必须在outDir里，否则影响DTS同步
-          const dtsUrl = baseUrl.replace('/emp.js', `${typesOutDir.replace(outDir, '')}/index.d.ts`)
+          //可以独立设置 dtsPath，默认路径是 typesOutDir
+          const dtsFilePath = dtsPath[key] ? dtsPath[key] : `${typesOutDir.replace(outDir, '')}/index.d.ts`
+          const dtsUrl = baseUrl.replace('/emp.js', dtsFilePath)
           await this.downloadFileAsync(dtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
         }
       }
