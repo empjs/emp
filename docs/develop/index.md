@@ -10,6 +10,7 @@ pnpm add @efox/emp -D
 ## 指令
 ```json
 "scripts": {
+  "init": "emp init",
   "dev": "emp dev --env dev",
   "build": "emp build --env prod",
   "build:ts": "emp build --env prod -t",
@@ -17,6 +18,17 @@ pnpm add @efox/emp -D
   "analyze": "emp build --analyze"
 },
 ```
+
+### emp init
+创建 emp 模板项目
+目前可选模板:
+  1. vue2_base
+  2. vue2_project
+  3. react_base
+  4. react_project
+
+<img src="../img/init_example.png" />
+
 ### emp dev
 + -e, --env 部署环境 dev、test、prod 默认为 dev
 + -t, --ts 生成 dts文件 默认为 false
