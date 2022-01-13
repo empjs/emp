@@ -128,6 +128,19 @@ console.log('process.env.emp', process.env.emp)
 + 类型 `WebpackChainType`
 
 暴露到 emp-config.js 可以自定义 webpack 配置
+例如:
+```js
+const {defineConfig} = require('@efox/emp')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
+module.exports = defineConfig(({mode, env}) => {
+  return {
+    webpackChain: (chain, config) => {
+      // 创建 assets-manifest.json -> 所有资源文件路径
+      chain.plugin('WebpackAssetsManifest').use(WebpackAssetsManifest)
+    },
+  }
+})
+```
 
 ### empshare
 + 类型 `EMPShareExport`
