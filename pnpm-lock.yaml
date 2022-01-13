@@ -155,21 +155,6 @@ importers:
       ts-transform-paths: 2.0.3
       ttypescript: 1.5.12_typescript@4.4.4
 
-  packages/emp/aaaa:
-    specifiers:
-      '@efox/emp': ^2.0.0-beta.16
-      '@efox/eslint-config-vue': ^2.0.0
-      '@efox/plugin-vue-2': ^1.0.2
-      '@vue/composition-api': ^1.4.3
-      vue: ^2.6.12
-    dependencies:
-      '@vue/composition-api': 1.4.3_vue@2.6.14
-      vue: 2.6.14
-    devDependencies:
-      '@efox/emp': link:..
-      '@efox/eslint-config-vue': link:../../eslint-config-vue
-      '@efox/plugin-vue-2': link:../../plugin-vue-2
-
   packages/eslint-config-react:
     specifiers:
       '@typescript-eslint/eslint-plugin': ^4.6.1
