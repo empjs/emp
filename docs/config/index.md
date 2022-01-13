@@ -128,6 +128,7 @@ console.log('process.env.emp', process.env.emp)
 + 类型 `WebpackChainType`
 
 暴露到 emp-config.js 可以自定义 webpack 配置
+深入了解 Webpack Chain 使用，请看详细文档: https://github.com/neutrinojs/webpack-chain#getting-started
 例如:
 ```js
 const {defineConfig} = require('@efox/emp')
