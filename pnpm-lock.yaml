@@ -28,7 +28,7 @@ importers:
     specifiers:
       '@pmmmwh/react-refresh-webpack-plugin': ^0.5.3
       '@svgr/webpack': ^5.5.0
-      '@swc/core': 1.2.114
+      '@swc/core': ^1.2.114
       '@types/compression': ^1.7.2
       '@types/copy-webpack-plugin': ^8.0.1
       '@types/cors': ^2.8.12
