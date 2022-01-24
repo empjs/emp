@@ -23,6 +23,20 @@ features:
 footer: MIT Licensed | Copyright © 2021 Ken Xu
 ---
 
+<div class="companiesWarp">
+  <div class="companies">使用 EMP 的公司</div>
+  <div class="logoWarp">
+  <img class="baidu logo"  src="./img/logo/baidu.png"/>
+  <img class="logo yy"  src="./img/logo/yylive.png"/>
+  <img class="logo joyy"  src="./img/logo/joyy.png"/>
+  <img class="logo shopline"  src="./img/logo/shopline.png"/>
+  <img class="logo wanke"  src="./img/logo/wanke.png"/>
+  <img class="logo"  src="./img/logo/zuoyebang.jpeg"/>
+  <img class="logo weride"  src="./img/logo/weride.jpeg"/>
+  <img class="logo zhuiwan"  src="./img/logo/zhuiwan.png"/>
+  </div>
+</div>
+
 <div class="contact">
   <img src="./img/contact_me_qr.png" />
   <div class="footer">参与讨论</div>
