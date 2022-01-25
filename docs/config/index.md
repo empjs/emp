@@ -391,6 +391,17 @@ swc 是否异步构建
 
 是否支持在 js 中使用 jsx
 
+### dtsPath
++ 类型 `{[key: string]: string}`
++ 默认 `empShareTypes/index.d.ts`
++ 配置例子:
+```js
+   dtsPath: {
+    //  '对应 remotes 里的项目名' : '.dts 文件的相对路径'
+      '@microHost': '/dist/index.d.ts',
+    },
+```
+
 ## Server 服务选项
 > 继承 webpack dev server 所有配置
 + 类型 `ServerOptions`
@@ -430,15 +441,3 @@ swc 是否异步构建
 + 默认 `false`
 
 是否显示配置信息
-
-## dts 声明文件下载路径配置
-### dtsPath
-+ 类型 `{[key: string]: string}`
-+ 默认 `empShareTypes/index.d.ts`
-+ 配置例子:
-```js
-   dtsPath: {
-    //  '对应 remotes 里的项目名' : '.dts 文件的相对路径'
-      '@microHost': '/dist/index.d.ts',
-    },
-```
