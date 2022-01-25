@@ -432,7 +432,7 @@ swc 是否异步构建
 是否显示配置信息
 
 ## dts 声明文件下载路径配置
-dtsPath
+### dtsPath
 + 类型 `{[key: string]: string}`
 + 默认 `empShareTypes/index.d.ts`
 + 配置例子:
