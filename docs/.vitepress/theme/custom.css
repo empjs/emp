@@ -52,35 +52,39 @@
 	color: #425066;
 }
 .logoWarp {
-  margin: -20px auto 30px auto;
+	margin: -20px auto 30px auto;
 }
 
-.logo{
-  height: 65px;
-  margin: 10px 10px;
+.logo {
+	height: 65px;
+	margin: 10px 25px;
 }
 
-.baidu{
-  height: 100px;
+.bdgamelive {
+	margin: 15px 10px;
+	height: 40px;
 }
 
-.yy{
-  height: 50px;
+.yy {
+	height: 50px;
 }
 
-.joyy{
-  margin: 5px 10px;
+.joyy {
+	margin: 20px 10px;
+	height: 35px;
 }
 
-.shopline{
-  margin: 10px -25px;
+.shopline {
+	padding-top: 5px;
+	margin: 10px 5px;
 }
 
-.wanke{
-  margin: 15px 10px;
+.wanke {
+	margin: 15px 10px;
 }
 
-.weride,.zhuiwan{
-  height: 40px;
-  margin:30px 10px;
+.weride,
+.zhuiwan {
+	height: 40px;
+	margin: 30px 10px;
 }

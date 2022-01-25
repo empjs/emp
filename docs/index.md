@@ -26,7 +26,7 @@ footer: MIT Licensed | Copyright © 2021 Ken Xu
 <div class="companiesWarp">
   <div class="companies">使用 EMP 的公司</div>
   <div class="logoWarp">
-  <img class="baidu logo"  src="./img/logo/baidu.png"/>
+  <img class="bdgamelive logo"  src="./img/logo/bdgamelive.png"/>
   <img class="logo yy"  src="./img/logo/yylive.png"/>
   <img class="logo joyy"  src="./img/logo/joyy.png"/>
   <img class="logo shopline"  src="./img/logo/shopline.png"/>
