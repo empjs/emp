@@ -40,7 +40,7 @@ class Build {
           }),
         )
         logTag('Failed to compile.', 'red')
-        process.exit(1)
+        if (!this.isLib) process.exit(1)
       }
 
       if (stats.hasWarnings()) {

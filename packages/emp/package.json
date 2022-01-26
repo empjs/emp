@@ -91,7 +91,8 @@
     "webpack-dev-server": "^4.5.0",
     "webpack-federated-stats-plugin": "^2.0.8",
     "webpack-manifest-plugin": "^4.0.2",
-    "webpackbar": "^5.0.2"
+    "webpackbar": "^5.0.2",
+    "worker-loader": "^3.0.8"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",

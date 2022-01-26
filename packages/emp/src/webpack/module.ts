@@ -9,6 +9,7 @@ class WPModule {
   async setup() {
     this.setConfig()
     this.setScriptReactLoader()
+    this.setWebworker()
   }
   private setConfig() {
     const config = {
@@ -38,12 +39,30 @@ class WPModule {
               },
             },
           },
+          // webworker: this.webworker,
         },
       },
     }
     wpChain.merge(config)
   }
-
+  private setWebworker() {
+    wpChain.module
+      .rule('webworker')
+      .oneOf('workerInline')
+      .resourceQuery(/worker/)
+      // .use('swc')
+      // .before('workerLoader')
+      // .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')))
+      // .options(store.config.build)
+      // .end()
+      .use('workerLoader')
+      .loader(require.resolve('worker-loader'))
+      .options({
+        inline: 'no-fallback',
+        filename: '[name].[contenthash].worker.js',
+      })
+      .end()
+  }
   private setScriptReactLoader() {
     const isDev = store.config.mode === 'development'
     //const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false

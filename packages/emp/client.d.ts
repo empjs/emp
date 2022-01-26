@@ -78,6 +78,14 @@ declare module '*.module.styl' {
   export default classes
 }
 
+// web worker
+declare module '*?worker' {
+  const workerConstructor: {
+    new (): Worker
+  }
+  export default workerConstructor
+}
+
 // import.meta
 
 interface ImportMetaEnv {
