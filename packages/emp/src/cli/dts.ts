@@ -24,28 +24,56 @@ class Dts {
     fs.writeFileSync(filePath, '')
   }
 
-  async downloadFileAsync(uri: string, filePath: string, fileName: string, alias: string, baseName: string) {
+  async downloadFileAsync(
+    uri: string,
+    backupUri: string,
+    filePath: string,
+    fileName: string,
+    alias: string,
+    baseName: string,
+  ) {
     const spinner = createSpinner().start()
-    spinner.start({text: `[download ${fileName}]:${uri}\n`})
     const httpsAgent = new https.Agent({
       rejectUnauthorized: false,
     })
     axios.defaults.httpsAgent = httpsAgent
     try {
-      const {data} = await axios.get(uri)
+      let useBackup = false
+      let originData = ''
+      spinner.start({text: `[download ${fileName}]:${uri}\n`})
+      const res = await axios.get(uri)
+      originData = res?.data
+
+      if (originData.indexOf('declare') === -1) {
+        const backupRes = await axios.get(backupUri)
+        if (backupRes?.data.indexOf('declare') != -1) {
+          originData = backupRes?.data
+          useBackup = true
+        }
+      }
+
+      if (originData.indexOf('declare') === -1) {
+        spinner.error({text: `${fileName} not found .d.ts`})
+        return
+      }
+
       let newData = ''
       // 替换 remote 别名
       const regSingleQuote = new RegExp(`'${baseName}`, 'g')
       const regDoubleQuote = new RegExp(`"${baseName}`, 'g')
-      newData = data.replace(regSingleQuote, `'${alias}`)
+      newData = originData.replace(regSingleQuote, `'${alias}`)
       newData = newData.replace(regDoubleQuote, `"${alias}`)
       await fs.ensureDir(filePath)
       const fullPath = path.resolve(filePath, fileName)
       this.mkdir(fullPath)
       fs.writeFileSync(fullPath, newData, 'utf8')
-      spinner.success({text: `[${fileName}]:${fullPath}\n`})
+      spinner.success({text: `[${fileName}]:\n     ${fullPath}\n`})
+      if (useBackup) {
+        logger.warn(`[You are using emp 1.x declaration file ${fileName}]:${backupUri}\n`)
+      }
     } catch (error) {
       logger.error(error)
+      spinner.error({text: `${fileName} not found .d.ts`})
       // logger.error(`${uri} --> network error`)
     }
   }
@@ -66,7 +94,9 @@ class Dts {
           //可以独立设置 dtsPath，默认路径是 typesOutDir
           const dtsFilePath = dtsPath[key] ? dtsPath[key] : `${typesOutDir.replace(outDir, '')}/index.d.ts`
           const dtsUrl = baseUrl.replace('/emp.js', dtsFilePath)
-          await this.downloadFileAsync(dtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
+          // 用于兼容 EMP 1.x 类型下载
+          const backupDtsUrl = baseUrl.replace('/emp.js', '/index.d.ts')
+          await this.downloadFileAsync(dtsUrl, backupDtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
         }
       }
     } else {
