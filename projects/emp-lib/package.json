@@ -14,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^2.0.0-alpha.8"
+    "@efox/emp": "workspace:*"
   }
 }

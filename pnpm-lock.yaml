@@ -349,15 +349,36 @@ importers:
       '@types/lodash': 4.14.177
       '@types/react-router-dom': 5.3.2
 
+  projects/e-svga:
+    specifiers:
+      '@efox/emp': '*'
+      '@types/offscreencanvas': ^2019.6.4
+      pbf: ^3.2.1
+      typescript: ^4.5.5
+    dependencies:
+      pbf: 3.2.1
+    devDependencies:
+      '@efox/emp': link:../../packages/emp
+      '@types/offscreencanvas': 2019.6.4
+      typescript: 4.5.5
+
+  projects/e-svga-demo:
+    specifiers:
+      '@efox/emp': workspace:*
+      '@friend/e-svga-emp': workspace:^1.4.5
+    dependencies:
+      '@efox/emp': link:../../packages/emp
+      '@friend/e-svga-emp': link:../e-svga
+
   projects/emp-lib:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-alpha.8
+      '@efox/emp': workspace:*
     devDependencies:
       '@efox/emp': link:../../packages/emp
 
   projects/emp-lib-demo:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-alpha.8
+      '@efox/emp': workspace:*
       emp-lib: workspace:^1.0.0
       webpack-lib: workspace:^1.0.0
     dependencies:
@@ -392,7 +413,7 @@ importers:
 
   projects/https-demo:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-beta.17
+      '@efox/emp': workspace:*
       react: ^17.0.2
       react-dom: ^17.0.2
     dependencies:
@@ -9561,6 +9582,14 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  /pbf/3.2.1:
+    resolution: {integrity: sha512-ClrV7pNOn7rtmoQVF4TS1vyU0WhYRnP92fzbfF75jAIwpnzdJXf8iTd4CMEqO4yUenH6NDqLiwjqlh6QgZzgLQ==}
+    hasBin: true
+    dependencies:
+      ieee754: 1.2.1
+      resolve-protobuf-schema: 2.1.0
+    dev: false
+
   /performance-now/2.1.0:
     resolution: {integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=}
     dev: false
@@ -10161,6 +10190,10 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
+    dev: false
+
+  /protocol-buffers-schema/3.6.0:
+    resolution: {integrity: sha512-TdDRD+/QNdrCGCE7v8340QyuXd4kIWIgapsE2+n/SaGiSSbomYl4TjHlvIoCWRpE7wFt02EpB35VVA2ImcBVqw==}
     dev: false
 
   /proxy-addr/2.0.7:
@@ -11084,6 +11117,12 @@ packages:
 
   /resolve-pathname/3.0.0:
     resolution: {integrity: sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng==}
+    dev: false
+
+  /resolve-protobuf-schema/2.1.0:
+    resolution: {integrity: sha512-kI5ffTiZWmJaS/huM8wZfEMer1eRd7oJQhDuxeCLe3t7N7mX3z94CN0xPxBQxFYQTSNz9T0i+v6inKqSdK8xrQ==}
+    dependencies:
+      protocol-buffers-schema: 3.6.0
     dev: false
 
   /resolve-url/0.2.1:
@@ -12408,6 +12447,12 @@ packages:
 
   /typescript/4.5.2:
     resolution: {integrity: sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.5.5:
+    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

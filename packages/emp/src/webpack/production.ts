@@ -66,7 +66,8 @@ class WPProduction {
     wpChain.merge(wpcConfig)
   }
   setMinify() {
-    console.log('[store.config.build.minify]', store.config.build.minify)
+    const minOptions = store.config.build.minOptions || {}
+    // console.log('[store.config.build.minify]:', store.config.build.minify, store.config.build.minOptions)
     if (store.config.build.minify === true) {
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
         {
@@ -75,9 +76,13 @@ class WPProduction {
            * 启动 SWCMINIFY 后 需要统一用 TerserOptions 类型
            */
           // minify: TerserPlugin.swcMinify,
+          extractComments: false,
           terserOptions: {
-            compress: false,
-            ...(store.config.build.minOptions || {}),
+            // compress: false,
+            format: {
+              comments: false,
+            },
+            ...minOptions,
           },
         },
       ] as any)

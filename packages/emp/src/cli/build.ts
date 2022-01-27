@@ -34,9 +34,9 @@ class Build {
       if (stats.hasErrors()) {
         logger.error(
           stats.toString({
-            all: false,
+            // all: false,
             colors: true,
-            errors: true,
+            // errors: true,
           }),
         )
         logTag('Failed to compile.', 'red')
@@ -47,9 +47,9 @@ class Build {
         logTag(`Compiled with warnings.`, 'yellow')
         logger.warn(
           stats.toString({
-            all: false,
+            // all: false,
             colors: true,
-            warnings: true,
+            // warnings: true,
           }),
         )
       }
@@ -57,9 +57,10 @@ class Build {
       logger.info(
         stats.toString({
           colors: true,
-          all: false,
-          assets: true,
-          // // chunks: true,
+          // all: false,
+          // assets: true,
+          // children: true,
+          // chunks: true,
           // timings: true,
           // version: true,
         }) + '\n',

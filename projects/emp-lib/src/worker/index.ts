@@ -1,5 +1,5 @@
 import logger from 'src/helper/logger'
-self.onmessage = async ({data: {question}}) => {
+self.onmessage = async ({data: {question}}: any) => {
   logger.info('[worker]', question)
   // const mod = await import('src/mod')
   // mod.default('abc')

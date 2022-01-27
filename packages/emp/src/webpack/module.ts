@@ -50,17 +50,17 @@ class WPModule {
       .rule('webworker')
       .oneOf('workerInline')
       .resourceQuery(/worker/)
-      // .use('swc')
-      // .before('workerLoader')
-      // .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')))
-      // .options(store.config.build)
-      // .end()
       .use('workerLoader')
       .loader(require.resolve('worker-loader'))
       .options({
         inline: 'no-fallback',
         filename: '[name].[contenthash].worker.js',
       })
+      .end()
+      // 解决ts 不能正常构建的问题
+      .use('swc')
+      .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')))
+      .options(store.config.build)
       .end()
   }
   private setScriptReactLoader() {
