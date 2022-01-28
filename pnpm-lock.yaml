@@ -373,8 +373,12 @@ importers:
   projects/emp-lib:
     specifiers:
       '@efox/emp': workspace:*
+      ttypescript: ^1.5.12
+      typescript-transform-paths: ^3.3.1
     devDependencies:
       '@efox/emp': link:../../packages/emp
+      ttypescript: 1.5.12_typescript@4.4.4
+      typescript-transform-paths: 3.3.1_typescript@4.4.4
 
   projects/emp-lib-demo:
     specifiers:
@@ -12429,6 +12433,15 @@ packages:
       typescript: 4.5.2
     transitivePeerDependencies:
       - ts-node
+    dev: true
+
+  /typescript-transform-paths/3.3.1_typescript@4.4.4:
+    resolution: {integrity: sha512-c+8Cqd2rsRtTU68rJI0NX/OtqgBDddNs1fIxm1nCNyhn0WpoyqtpUxc1w9Ke5c5kgE4/OT5xYbKf2cf694RYEg==}
+    peerDependencies:
+      typescript: '>=3.6.5'
+    dependencies:
+      minimatch: 3.0.4
+      typescript: 4.4.4
     dev: true
 
   /typescript-transform-paths/3.3.1_typescript@4.5.2:

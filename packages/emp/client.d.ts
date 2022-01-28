@@ -86,6 +86,11 @@ declare module '*?worker' {
   export default workerConstructor
 }
 
+declare module '*?inline' {
+  const inlineStr: string
+  export default inlineStr
+}
+
 // import.meta
 
 interface ImportMetaEnv {

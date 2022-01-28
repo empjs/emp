@@ -29,7 +29,7 @@ export type LibModeType = {
   /**
    *  入口文件 可以只设置 entry.name 代替 name，但要遵循 js 变量的命名规则
    */
-  // entry: string | string[]
+  // entry: webpack.entry
   entry: Configuration['entry']
   /**
    * fileName

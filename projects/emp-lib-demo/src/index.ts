@@ -2,12 +2,15 @@
 // emp()
 
 import App, {mod} from 'emp-lib'
-
+// import logger from 'emp-lib/helper/logger'
 // import wp from 'webpack-lib'
 // wp()
 // import('emp-lib').then(fn => fn.default())
 // import('webpack-lib').then(fn => fn.default())
 // console.log(App)
+import('emp-lib/helper/logger').then(logger => {
+  logger.default.warnning('[emp lib logger]', Math.random())
+})
 App()
 const div = document.createElement('div')
 const h1 = document.createElement('h1')

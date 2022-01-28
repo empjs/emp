@@ -4,7 +4,10 @@ module.exports = defineConfig({
   build: {
     lib: {
       name: 'emp-lib',
-      entry: ['./src/index.ts'],
+      entry: {
+        index: './src/index.ts',
+        'helper/logger': './src/helper/logger.ts',
+      },
       formats: ['umd', 'esm'],
     },
   },
