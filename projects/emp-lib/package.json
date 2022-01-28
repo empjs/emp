@@ -5,7 +5,12 @@
   "files": [
     "dist"
   ],
-  "types": "dist/types/index.d.ts",
+	"typesVersions": {
+		"*": {
+			".": [ "./dist/types/index.d.ts" ],
+			"*": [ "./dist/types/*" ]
+		}
+	},
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",

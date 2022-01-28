@@ -214,17 +214,22 @@ export type LibModeType = {
 > 库模式多入口配置方案 利用 `exports` 代替 `main` `module`
 ```json
 {
-	"types": "dist/types/index.d.ts",
-	"exports":{
-		".": {
-			"import": "./dist/esm/index.js",
-			"require": "./dist/umd/index.js"
-		},
-		"./":{
-			"import":"./dist/esm/",
-			"require":"./dist/umd/"
+	"typesVersions": {
+		"*": {
+			".": [ "dist/types/index.d.ts" ],
+			"*": [ "dist/types/*" ]
 		}
 	},
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/umd/index.js"
+    },
+    "./": {
+      "import": "./dist/esm/",
+      "require": "./dist/umd/"
+    }
+  },
 }
 ```
 ### package.json 配置

@@ -1,7 +1,7 @@
 import logger from './helper/logger'
 import mod from '@src/mod'
 import {b, logger as modLogger} from 'src/mod'
-import ClientWorker from './worker/index?worker'
+import ClientWorker from 'src/worker/index?worker'
 import mfImage from 'src/assets/mf.png?inline'
 // console.log('import.meta.url', import.meta.url, new URL('src/worker/index.ts', import.meta.url))
 // const worker = new Worker(new URL('src/worker/index.ts', import.meta.url), {type: 'module'})
