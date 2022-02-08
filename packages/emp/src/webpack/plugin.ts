@@ -10,7 +10,9 @@ import Dotenv from 'dotenv-webpack'
 import path from 'path'
 import fs from 'fs-extra'
 import {modeType} from 'src/types'
-import DTSPlugin from './plugin/dts'
+// import DTSPlugin from './plugin/dts'
+// 多线程 dts
+import DTSPlugin from '../dts'
 class WPPlugin {
   isDev = true
   constructor() {}

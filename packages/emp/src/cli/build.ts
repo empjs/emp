@@ -4,12 +4,15 @@ import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
 import {clearConsole} from 'src/helper/utils'
 import wpLibMode from 'src/webpack/wpLibMode'
+import {emitDts} from 'src/dts'
+
 // import reporter from 'src/helper/reporter'//使用后增加 500ms
 class Build {
   config: Configuration = {}
   isLib = false
   constructor() {}
   async setup() {
+    emitDts()
     this.isLib = !!store.config.build.lib
     if (this.isLib) {
       /**
@@ -19,6 +22,7 @@ class Build {
     } else {
       this.config = getConfig()
     }
+
     if (store.config.debug.clearLog) clearConsole()
     logTag(`build mode ${store.config.mode}${this.isLib ? ' in [Library Mode] ' : ''}:`)
     // await reporter.measureFileSizesBeforeBuild()
