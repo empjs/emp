@@ -9,6 +9,7 @@ module.exports = defineConfig(({mode}) => {
     build: {
       target,
       staticDir: 'static',
+      createTs: true,
     },
     server: {
       port: 8001,
