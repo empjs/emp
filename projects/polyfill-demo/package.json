@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "emp dev -cl false",
     "build": "emp build",
+    "build:test": "emp build --env=test",
     "start": "emp serve",
     "dts": "emp dts",
     "stat": "emp build --analyze"

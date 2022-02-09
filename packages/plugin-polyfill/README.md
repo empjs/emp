@@ -1,6 +1,6 @@
 ## EMP2.0 Polyfill 插件
 ### 功能
--  根据浏览器对应加载特定polyfill
+-  根据浏览器ua对应加载特定polyfill
 ### Example
 #### Emp-config
 ```javascript
@@ -11,7 +11,8 @@ module.exports = defineConfig(() => {
     plugins: [
     	pluginPolyfill([
         {
-        	 	browser: 'IE', // IE浏览器下会加载
+            entries: ['index'], // 指定entry加载这个配置, 没有此项则默认全部入口都增加
+            browser: 'IE', // IE浏览器下会加载
            	js: [
               '//yourcdnhost/babel-polyfill.7.2.5.min.js',
            	],
@@ -57,5 +58,8 @@ module.exports = defineConfig(() => {
 
 ### TODO
 - 废除document.writeln插入js方式，改用其他
-- 支持多入口动态加载
+- 支持多入口动态加载 `done`
 - 支持targets属性 支持browserslist
+- 去除Ejs `done`
+- 支持定制插入位置、标签属性
+- polyfills 缓存
