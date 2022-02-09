@@ -192,7 +192,7 @@ export type LibModeType = {
    *  入口文件 基于 AppSrc 目录 如 `src/index.js` 填写 `index.js` 即可
    * @default `index.js`
    */
-  entry: string | string[]
+  entry: webpack entry
   /**
    * fileName
    * @default [format]/[name].js 建议 format 为目录 避免不同格式代码混淆
@@ -209,6 +209,35 @@ export type LibModeType = {
   external?: Configuration['externals']
 }
 
+```
+### build.lib.entry
++ 类型 [webpack.entry](https://webpack.js.org/configuration/entry-context/#entry)
+
+### build.lib.formats
++ 类型 `buildLibType[]`
++ 默认值 `[umd,esm]`
+
+### typescript 多入口 package.json 配置
+> 库模式多入口配置方案 利用 `exports` 代替 `main` `module`
+```json
+{
+	"typesVersions": {
+		"*": {
+			".": [ "./dist/types/index.d.ts" ],
+			"*": [ "./dist/types/*" ]
+		}
+	},
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/umd/index.js"
+    },
+    "./": {
+      "import": "./dist/esm/",
+      "require": "./dist/umd/"
+    }
+  },
+}
 ```
 ### package.json 配置
 ```json

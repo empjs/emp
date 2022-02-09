@@ -38,6 +38,10 @@ class WPFile {
             test: /\.(|otf|ttf|eot|woff|woff2)$/i,
             type: 'asset/resource',
           },
+          inline: {
+            resourceQuery: /inline/,
+            type: 'asset/inline',
+          },
           //解决 svga 解析失败问题
           svga: {
             test: /\.(svga)$/i,

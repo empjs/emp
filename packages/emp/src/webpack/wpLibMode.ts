@@ -42,8 +42,10 @@ class WPLibMode {
     }
     if (store.config.mode === 'production') {
       wpChain.plugins.delete('copy')
-      wpChain.devtool('source-map')
+      // wpChain.devtool('source-map')
     }
+    //{minimize: !this.isDev, chunkIds: 'named', emitOnErrors: true}
+    // wpChain.optimization.splitChunks({chunks: 'all'})
   }
   private resetConfig(format: buildLibType) {
     const config: Configuration = wpChain.toConfig()
@@ -52,7 +54,8 @@ class WPLibMode {
     }
 
     const wp: Configuration = {...config, ...{watch: this.isDev}}
-    wp.entry = {[this.libConfig.name || 'index']: this.libConfig.entry}
+    // wp.entry = {[this.libConfig.name || 'index']: this.libConfig.entry}
+    wp.entry = this.libConfig.entry
     wp.cache =
       typeof wp.cache === 'object'
         ? {
@@ -92,7 +95,7 @@ class WPLibMode {
     if (format === 'umd') {
       wp.output.umdNamedDefine = true
     }
-    wp.optimization = {...wp.optimization, ...{minimize: !this.isDev, chunkIds: 'named', emitOnErrors: true}}
+    wp.optimization = {...wp.optimization, ...{chunkIds: 'named', emitOnErrors: true}}
     const isESM = format === 'esm'
     //
     wp.target = ['web', store.config.build.target]

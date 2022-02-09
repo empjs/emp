@@ -89,6 +89,7 @@ importers:
       webpack-federated-stats-plugin: ^2.0.8
       webpack-manifest-plugin: ^4.0.2
       webpackbar: ^5.0.2
+      worker-loader: ^3.0.8
     dependencies:
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.3_ee6cd5cea18ac49e61c07439cf1ed150
       '@svgr/webpack': 5.5.0
@@ -139,6 +140,7 @@ importers:
       webpack-federated-stats-plugin: 2.0.8_webpack@5.65.0
       webpack-manifest-plugin: 4.0.2_webpack@5.65.0
       webpackbar: 5.0.2_webpack@5.65.0
+      worker-loader: 3.0.8_webpack@5.65.0
     devDependencies:
       '@types/compression': 1.7.2
       '@types/copy-webpack-plugin': 8.0.1_@swc+core@1.2.114
@@ -236,7 +238,6 @@ importers:
     specifiers:
       '@efox/emp': workspace:^*
       '@types/ejs': ^3.1.0
-      ejs: ^3.1.6
       html-webpack-plugin: ^5.5.0
       rimraf: ^3.0.2
       ts-transform-paths: ^2.0.3
@@ -247,7 +248,6 @@ importers:
       webpack: 5.65.0
     devDependencies:
       '@types/ejs': 3.1.0
-      ejs: 3.1.6
       html-webpack-plugin: 5.5.0_webpack@5.65.0
       rimraf: 3.0.2
       ts-transform-paths: 2.0.3
@@ -347,15 +347,40 @@ importers:
       '@types/lodash': 4.14.177
       '@types/react-router-dom': 5.3.2
 
-  projects/emp-lib:
+  projects/e-svga:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-alpha.8
+      '@efox/emp': '*'
+      '@types/offscreencanvas': ^2019.6.4
+      pbf: ^3.2.1
+      typescript: ^4.5.5
+    dependencies:
+      pbf: 3.2.1
     devDependencies:
       '@efox/emp': link:../../packages/emp
+      '@types/offscreencanvas': 2019.6.4
+      typescript: 4.5.5
+
+  projects/e-svga-demo:
+    specifiers:
+      '@efox/emp': workspace:*
+      '@friend/e-svga-emp': workspace:^1.4.5
+    dependencies:
+      '@efox/emp': link:../../packages/emp
+      '@friend/e-svga-emp': link:../e-svga
+
+  projects/emp-lib:
+    specifiers:
+      '@efox/emp': workspace:*
+      ttypescript: ^1.5.12
+      typescript-transform-paths: ^3.3.1
+    devDependencies:
+      '@efox/emp': link:../../packages/emp
+      ttypescript: 1.5.12_typescript@4.4.4
+      typescript-transform-paths: 3.3.1_typescript@4.4.4
 
   projects/emp-lib-demo:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-alpha.8
+      '@efox/emp': workspace:*
       emp-lib: workspace:^1.0.0
       webpack-lib: workspace:^1.0.0
     dependencies:
@@ -390,7 +415,7 @@ importers:
 
   projects/https-demo:
     specifiers:
-      '@efox/emp': workspace:^2.0.0-beta.17
+      '@efox/emp': workspace:*
       react: ^17.0.2
       react-dom: ^17.0.2
     dependencies:
@@ -4236,10 +4261,6 @@ packages:
     resolution: {integrity: sha512-8eLCg00W9pIRZSB781UUX/H6Oskmm8xloZfr09lz5bikRpBVDlJ3hRVuxxP1SxcwsEYfJ4IU8Q19Y8/893r3rQ==}
     dev: false
 
-  /async/0.9.2:
-    resolution: {integrity: sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0=}
-    dev: true
-
   /async/2.6.3:
     resolution: {integrity: sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==}
     dependencies:
@@ -5714,14 +5735,6 @@ packages:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
     dev: false
 
-  /ejs/3.1.6:
-    resolution: {integrity: sha512-9lt9Zse4hPucPkoP7FHDF0LQAlGyF9JVpnClFLFH3aSSbxmyoqINRpp/9wePWJTUl4KOQwRL72Iw3InHPDkoGw==}
-    engines: {node: '>=0.10.0'}
-    hasBin: true
-    dependencies:
-      jake: 10.8.2
-    dev: true
-
   /electron-to-chromium/1.3.850:
     resolution: {integrity: sha512-ZzkDcdzePeF4dhoGZQT77V2CyJOpwfTZEOg4h0x6R/jQhGt/rIRpbRyVreWLtD7B/WsVxo91URm2WxMKR9JQZA==}
     dev: true
@@ -6583,12 +6596,6 @@ packages:
     dependencies:
       flat-cache: 3.0.4
     dev: false
-
-  /filelist/1.0.2:
-    resolution: {integrity: sha512-z7O0IS8Plc39rTCq6i6iHxk43duYOn8uFJiWSewIq0Bww1RNybVHSCjahmcC87ZqAm4OTvFzlzeGu3XAzG1ctQ==}
-    dependencies:
-      minimatch: 3.0.4
-    dev: true
 
   /filesize/8.0.6:
     resolution: {integrity: sha512-sHvRqTiwdmcuzqet7iVwsbwF6UrV3wIgDf2SHNdY1Hgl8PC45HZg/0xtdw6U2izIV4lccnrY9ftl6wZFNdjYMg==}
@@ -7820,16 +7827,6 @@ packages:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
-    dev: true
-
-  /jake/10.8.2:
-    resolution: {integrity: sha512-eLpKyrfG3mzvGE2Du8VoPbeSkRry093+tyNjdYaBbJS9v17knImYGNXQCUV0gLxQtF82m3E8iRb/wdSQZLoq7A==}
-    hasBin: true
-    dependencies:
-      async: 0.9.2
-      chalk: 2.4.2
-      filelist: 1.0.2
-      minimatch: 3.0.4
     dev: true
 
   /javascript-stringify/2.1.0:
@@ -9559,6 +9556,14 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  /pbf/3.2.1:
+    resolution: {integrity: sha512-ClrV7pNOn7rtmoQVF4TS1vyU0WhYRnP92fzbfF75jAIwpnzdJXf8iTd4CMEqO4yUenH6NDqLiwjqlh6QgZzgLQ==}
+    hasBin: true
+    dependencies:
+      ieee754: 1.2.1
+      resolve-protobuf-schema: 2.1.0
+    dev: false
+
   /performance-now/2.1.0:
     resolution: {integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=}
     dev: false
@@ -10159,6 +10164,10 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
+    dev: false
+
+  /protocol-buffers-schema/3.6.0:
+    resolution: {integrity: sha512-TdDRD+/QNdrCGCE7v8340QyuXd4kIWIgapsE2+n/SaGiSSbomYl4TjHlvIoCWRpE7wFt02EpB35VVA2ImcBVqw==}
     dev: false
 
   /proxy-addr/2.0.7:
@@ -11082,6 +11091,12 @@ packages:
 
   /resolve-pathname/3.0.0:
     resolution: {integrity: sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng==}
+    dev: false
+
+  /resolve-protobuf-schema/2.1.0:
+    resolution: {integrity: sha512-kI5ffTiZWmJaS/huM8wZfEMer1eRd7oJQhDuxeCLe3t7N7mX3z94CN0xPxBQxFYQTSNz9T0i+v6inKqSdK8xrQ==}
+    dependencies:
+      protocol-buffers-schema: 3.6.0
     dev: false
 
   /resolve-url/0.2.1:
@@ -12390,6 +12405,15 @@ packages:
       - ts-node
     dev: true
 
+  /typescript-transform-paths/3.3.1_typescript@4.4.4:
+    resolution: {integrity: sha512-c+8Cqd2rsRtTU68rJI0NX/OtqgBDddNs1fIxm1nCNyhn0WpoyqtpUxc1w9Ke5c5kgE4/OT5xYbKf2cf694RYEg==}
+    peerDependencies:
+      typescript: '>=3.6.5'
+    dependencies:
+      minimatch: 3.0.4
+      typescript: 4.4.4
+    dev: true
+
   /typescript-transform-paths/3.3.1_typescript@4.5.2:
     resolution: {integrity: sha512-c+8Cqd2rsRtTU68rJI0NX/OtqgBDddNs1fIxm1nCNyhn0WpoyqtpUxc1w9Ke5c5kgE4/OT5xYbKf2cf694RYEg==}
     peerDependencies:
@@ -12406,6 +12430,12 @@ packages:
 
   /typescript/4.5.2:
     resolution: {integrity: sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.5.5:
+    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
@@ -13155,6 +13185,17 @@ packages:
   /word-wrap/1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
+
+  /worker-loader/3.0.8_webpack@5.65.0:
+    resolution: {integrity: sha512-XQyQkIFeRVC7f7uRhFdNMe/iJOdO6zxAaR3EWbDp45v3mDhrTi+++oswKNxShUNjPC/1xUp5DB29YKLhFo129g==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
+    dependencies:
+      loader-utils: 2.0.2
+      schema-utils: 3.1.1
+      webpack: 5.65.0_@swc+core@1.2.114
+    dev: false
 
   /wrap-ansi/6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
