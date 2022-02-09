@@ -4,7 +4,8 @@
       "types": ["@efox/emp/client"],
       "baseUrl": ".",
 			"paths": {
-				"@src/*":["./src/*"]
+				"@src/*":["./src/*"],
+				"src/*":["./src/*"]
 			},
 			//
 			"declaration": true,
