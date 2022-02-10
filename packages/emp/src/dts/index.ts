@@ -4,8 +4,10 @@ import glob from 'fast-glob'
 import store from 'src/helper/store'
 import {logTag} from 'src/helper/logger'
 import {Worker} from 'worker_threads'
-//
-const PLUGIN_NAME = 'DTSPlugin'
+
+const plugin = {
+  name: 'DTSPlugin',
+}
 
 class DTSPlugin {
   options?: DTSTLoadertype
@@ -18,9 +20,13 @@ class DTSPlugin {
       if (!this.dtsThread) {
         this.dtsThread = createDtsEmitThread()
       }
-
       emitDts(this.dtsThread)
     })
+    const isTypeForOutDir = store.config.build.outDir === store.config.build.typesOutDir
+    isTypeForOutDir &&
+      compiler.hooks.afterEmit.tap(plugin, compilation => {
+        createDtsEmitThreadForBuild()
+      })
   }
 }
 
@@ -47,6 +53,7 @@ export function emitDts(dtsThread: Worker) {
       mf: store.config.moduleFederation,
       alias: store.config.resolve.alias,
       typesOutDir: store.config.build.typesOutDir,
+      needClear: !(store.config.build.outDir === store.config.build.typesOutDir),
     }),
   )
 }

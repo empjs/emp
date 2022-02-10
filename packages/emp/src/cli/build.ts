@@ -12,7 +12,12 @@ class Build {
   isLib = false
   constructor() {}
   async setup() {
-    if (store.config.build.createTs) {
+    /**
+     * 兼容输出到 outDir ，为了避开 clear，
+     * 所以在 plugin (src\dts\index.ts) 的 afterEmit 期间执行 emit 声明类型文件
+     **/
+    const isTypeForOutDir = store.config.build.outDir === store.config.build.typesOutDir
+    if (store.config.build.createTs && !isTypeForOutDir) {
       createDtsEmitThreadForBuild()
     }
     this.isLib = !!store.config.build.lib

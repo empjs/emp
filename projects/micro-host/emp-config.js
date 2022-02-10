@@ -15,7 +15,7 @@ module.exports = defineConfig(({mode}) => {
        '@microHost': 'http://127.0.0.1:8001/types/index.d.ts',
 			 不包含 dist/ 目录
 			*/
-      // typesOutDir: 'dist/types',
+      // typesOutDir: 'dist',
     },
     server: {
       port: 8001,
