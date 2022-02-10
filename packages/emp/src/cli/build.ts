@@ -61,8 +61,8 @@ class Build {
       logger.info(
         stats.toString({
           colors: true,
-          // all: false,
-          // assets: true,
+          all: false,
+          assets: true,
           // children: true,
           // chunks: true,
           // timings: true,

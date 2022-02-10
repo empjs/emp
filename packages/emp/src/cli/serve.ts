@@ -35,8 +35,10 @@ class Serve {
     const staticRoot = store.resolve(store.config.build.outDir)
     this.app.use(express.static(staticRoot))
     //TODO: 加入SSG SSR需要
-    // const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
-    // this.app.get('*', (req, res) => res.send(html))
+    // 默认入口 适配 single spa
+    const html = await fs.readFile(path.join(staticRoot, 'index.html'), 'utf8')
+    this.app.get('*', (req, res) => res.send(html))
+    //
     const {host, port} = store.config.server
     const httpsOptions: any = store.config.server.https
     const publicPath = store.config.base

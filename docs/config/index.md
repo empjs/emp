@@ -370,12 +370,12 @@ swc 是否异步构建
 
 ### build.typesEmpName
 + 类型 `string`
-+ 默认 `index` 生成 与 同步相同
++ 默认 `index.d.ts` 生成 与 同步相同
 
 生成EMP基站类型文件 默认为 `index.d.ts`
 ### build.typesLibName
 + 类型 `string`
-+ 默认 `lib`
++ 默认 `lib.d.ts`
 
 生成库 类型文件 默认为 `lib.d.ts` 可以在package.json types 设置 `./dist/lib.d.ts`
 
@@ -393,12 +393,12 @@ swc 是否异步构建
 
 ### dtsPath
 + 类型 `{[key: string]: string}`
-+ 默认 `empShareTypes/index.d.ts`
++ 默认 `<remoteHost>/empShareTypes/index.d.ts`
 + 配置例子:
 ```js
    dtsPath: {
-    //  '对应 remotes 里的项目名' : '.dts 文件的相对路径'
-      '@microHost': '/dist/index.d.ts',
+    //  '对应 remotes 里的项目名' : '.dts 文件的远程路径'
+      '@microHost': 'http://127.0.0.1:8001/types/index.d.ts',
     },
 ```
 

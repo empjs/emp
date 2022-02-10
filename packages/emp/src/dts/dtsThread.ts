@@ -11,7 +11,7 @@ parentPort.on('message', async (payload: any) => {
   if (options) {
     const dts = new DTSEmitFile()
     dts.setup(options)
-    logTag('dts build', 'yellow')
+    logTag('DTS build')
     const dtslist = await glob([`${store.config.appSrc}/**/*.(ts|tsx)`])
     dtslist.map(d => {
       dts.emit(d, options.alias, options.typesOutDir)

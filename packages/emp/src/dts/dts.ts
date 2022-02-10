@@ -74,14 +74,14 @@ class DTSEmitFile {
       const libModName = this.build.lib.name || store.pkg.name
       let libCode = this.lib.code
       libCode = transformLibName(libModName, libCode)
-      this.libFilename = path.resolve(this.outDir, `${this.build.typesLibName}.d.ts`)
+      this.libFilename = path.resolve(this.outDir, this.build.typesLibName)
       fs.writeFileSync(this.libFilename, libCode, 'utf8')
     }
     if (this.mf?.exposes) {
       const empModName = this.mf.name || ''
       let empCode = this.lib.code
       empCode = transformLibName(empModName, empCode)
-      this.empFilename = path.resolve(this.outDir, `${this.build.typesEmpName}.d.ts`)
+      this.empFilename = path.resolve(this.outDir, this.build.typesEmpName)
       fs.writeFileSync(this.empFilename, empCode, 'utf8')
     }
     this.destroy()
