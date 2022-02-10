@@ -12,7 +12,9 @@ class Build {
   isLib = false
   constructor() {}
   async setup() {
-    emitDts()
+    if (store.config.build.createTs) {
+      emitDts()
+    }
     this.isLib = !!store.config.build.lib
     if (this.isLib) {
       /**

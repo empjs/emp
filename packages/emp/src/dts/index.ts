@@ -6,7 +6,7 @@ import {logTag} from 'src/helper/logger'
 import {Worker} from 'worker_threads'
 //
 const PLUGIN_NAME = 'DTSPlugin'
-const dtsThread = new Worker(__dirname + '/dtsThread.js')
+
 //
 class DTSPlugin {
   options?: DTSTLoadertype
@@ -21,6 +21,7 @@ class DTSPlugin {
 }
 
 export function emitDts(status?: string) {
+  const dtsThread = new Worker(__dirname + '/dtsThread.js')
   dtsThread.postMessage(
     JSON.stringify({
       build: store.config.build,
