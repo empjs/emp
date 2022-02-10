@@ -4,7 +4,7 @@ import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
 import {clearConsole} from 'src/helper/utils'
 import wpLibMode from 'src/webpack/wpLibMode'
-import {emitDts} from 'src/dts'
+import {createDtsEmitThreadForBuild, emitDts} from 'src/dts'
 
 // import reporter from 'src/helper/reporter'//使用后增加 500ms
 class Build {
@@ -13,7 +13,7 @@ class Build {
   constructor() {}
   async setup() {
     if (store.config.build.createTs) {
-      emitDts()
+      createDtsEmitThreadForBuild()
     }
     this.isLib = !!store.config.build.lib
     if (this.isLib) {

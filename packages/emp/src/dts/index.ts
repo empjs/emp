@@ -7,21 +7,40 @@ import {Worker} from 'worker_threads'
 //
 const PLUGIN_NAME = 'DTSPlugin'
 
-//
 class DTSPlugin {
   options?: DTSTLoadertype
   constructor(options: DTSTLoadertype) {
     this.options = options
   }
+  dtsThread: Worker | undefined = undefined
   apply(compiler: Compiler) {
     compiler.hooks.watchRun.tap('WatchRun', comp => {
-      emitDts('watch')
+      if (!this.dtsThread) {
+        this.dtsThread = createDtsEmitThread()
+      }
+
+      emitDts(this.dtsThread)
     })
   }
 }
 
-export function emitDts(status?: string) {
-  const dtsThread = new Worker(__dirname + '/dtsThread.js')
+export function createDtsEmitThread() {
+  return new Worker(__dirname + '/dtsThread.js')
+}
+
+/**
+ * build 期间用的dts
+ */
+export function createDtsEmitThreadForBuild() {
+  const dtsThread = createDtsEmitThread()
+  emitDts(dtsThread)
+  dtsThread.on('message', res => {
+    dtsThread.terminate()
+    if (res === 'finish') dtsThread.terminate()
+  })
+}
+
+export function emitDts(dtsThread: Worker) {
   dtsThread.postMessage(
     JSON.stringify({
       build: store.config.build,
@@ -30,9 +49,6 @@ export function emitDts(status?: string) {
       typesOutDir: store.config.build.typesOutDir,
     }),
   )
-  dtsThread.on('message', res => {
-    if (res === 'finish' && status !== 'watch') dtsThread.terminate()
-  })
 }
 
 export default DTSPlugin
