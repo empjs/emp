@@ -1,0 +1,3 @@
+{
+  "extends": "@efox/emp/emp-tsconfig.json",
+}

@@ -1,0 +1,13 @@
+{
+  "extends": "@efox/emp/emp-tsconfig.json",
+	"compilerOptions": {
+		"types": [
+			"webpack-env"
+		],
+	},
+  "include": [
+    "components.d.ts",
+    "src"
+  ],
+  "exclude": ["node_modules"]
+}
