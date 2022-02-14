@@ -143,6 +143,11 @@ export type EMPConfig = {
    * emp dts 类型同步
    */
   typingsPath?: string
+  /**
+   * TODO
+   * node_modules 模块 加入编译
+   */
+  // transformModules?: string[]
 }
 export interface ConfigEnv {
   mode: modeType
