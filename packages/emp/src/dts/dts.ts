@@ -13,6 +13,7 @@ import {ConfigResolveAliasType} from 'src/types'
 export type DTSTLoadertype = {
   build: RquireBuildOptions
   mf?: MFOptions
+  needClear?: boolean
 }
 type CodeObjType = {
   code: string
@@ -41,7 +42,7 @@ class DTSEmitFile {
     }
     this.languageService = getTSService(this.tsconfig, store.root)
   }
-  setup({build, mf}: DTSTLoadertype) {
+  setup({build, mf, needClear}: DTSTLoadertype) {
     this.build = build
     this.mf = mf
     const outDir = path.resolve(store.root, build.typesOutDir)
@@ -50,7 +51,7 @@ class DTSEmitFile {
       this.tsconfig.outDir = outDir
       this.languageService = getTSService(this.tsconfig, store.root)
     }
-    fs.removeSync(this.outDir)
+    needClear && fs.removeSync(this.outDir)
   }
   emit(filename: string, alias: ConfigResolveAliasType, typesOutDir: string) {
     const output = this.languageService.getEmitOutput(filename)
