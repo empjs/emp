@@ -217,8 +217,20 @@ export type LibModeType = {
 + 类型 `buildLibType[]`
 + 默认值 `[umd,esm]`
 
-### typescript 多入口 package.json 配置
-> 库模式多入口配置方案 利用 `exports` 代替 `main` `module`
+### package.json 配置
+
+### package.json.单入口
+```json
+{
+  "name": "emp-lib", // 没设置 build.lib.name 的情况下 默认生成类型名称 为 name
+  "main": "dist/umd/emp-lib.js", // umd 入口
+  "module": "dist/esm/emp-lib.js", // esm 入口
+  "types": "dist/empShareTypes/lib.d.ts", // 类型文件入口
+}
+
+```
+### package.json.多入口
+`typescript` `package.json` 库模式多入口配置方案 利用 `exports` 代替 `main` `module`
 ```json
 {
 	"typesVersions": {
@@ -238,16 +250,6 @@ export type LibModeType = {
     }
   },
 }
-```
-### package.json 配置
-```json
-{
-  "name": "emp-lib", // 没设置 build.lib.name 的情况下 默认生成类型名称 为 name
-  "main": "dist/umd/emp-lib.js", // umd 入口
-  "module": "dist/esm/emp-lib.js", // esm 入口
-  "types": "dist/empShareTypes/lib.d.ts", // 类型文件入口
-}
-
 ```
 ## ESM 模式 [Beta]
 > 已支持 MF的 ESM共享，热更存在bug问题
@@ -284,5 +286,6 @@ babel-polyfill 兼容特性见 <a href="https://kangax.github.io/compat-table/es
 	+ 参考链接：<a href="https://webpack.docschina.org/guides/public-path/#Automatic-publicPath-automaticpublicPath">[介绍]</a>
 
 ## Q&A
-### 使用 Windows 开发，编译过程中报错提示 "Access is denied"
+### window 相关
+> 使用 Windows 开发，编译过程中报错提示 "Access is denied"
   + A: 右键“以管理员身份打开”，重新执行命令即可。

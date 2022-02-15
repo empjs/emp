@@ -1,5 +1,6 @@
 // import path from 'path'
 import fs from 'fs'
+import path from 'path/posix'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -76,7 +77,14 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
-    const clean = true
+    // const clean = true
+    const clean = {
+      keep(asset: string) {
+        const typesOutDir = store.config.build.typesOutDir.replace(`${store.config.build.outDir}/`, '')
+        // logger.debug('typesOutDir', typesOutDir)
+        return asset.includes(typesOutDir)
+      },
+    }
     /* const clean =
       store.config.build.emptyOutDir && !this.isDev
         ? {

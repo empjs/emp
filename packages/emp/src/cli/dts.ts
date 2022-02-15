@@ -40,6 +40,7 @@ class Dts {
     try {
       let useBackup = false
       let originData = ''
+      // logger.info(`[download ${fileName}]:${uri}`)
       spinner.start({text: `[download ${fileName}]:${uri}\n`})
       const res = await axios.get(uri)
       originData = res?.data
@@ -53,7 +54,7 @@ class Dts {
       }
 
       if (originData.indexOf('declare') === -1) {
-        spinner.error({text: `${fileName} not found .d.ts`})
+        spinner.error({text: `[download ${fileName}]:${uri} not found`})
         return
       }
 
@@ -71,10 +72,12 @@ class Dts {
       if (useBackup) {
         logger.warn(`[You are using emp 1.x declaration file ${fileName}]:${backupUri}\n`)
       }
+      process.exit()
     } catch (error) {
-      logger.error(error)
-      spinner.error({text: `${fileName} not found .d.ts`})
+      // logger.error(error)
+      spinner.error({text: `[download ${fileName}]:${uri} not found`})
       // logger.error(`${uri} --> network error`)
+      process.exit()
     }
   }
   /**
@@ -89,13 +92,14 @@ class Dts {
           const splitIndex = value.indexOf('@')
           if (splitIndex === -1) throw Error(`[emp dts] invaild remotes url: ${value}`)
           const baseName = value.substr(0, splitIndex)
-          const baseUrl = value.substr(splitIndex + 1)
-          const {outDir, typesOutDir} = store.config.build
+          let baseUrl = value.substr(splitIndex + 1)
+          baseUrl = baseUrl.substr(0, baseUrl.lastIndexOf('/'))
+          const {outDir, typesOutDir, typesEmpName} = store.config.build
+          const defaultDtsUrl = `${baseUrl}/${typesOutDir.replace(`${outDir}/`, '')}/${typesEmpName}`
           //可以独立设置 dtsPath，默认路径是 typesOutDir
-          const dtsFilePath = dtsPath[key] ? dtsPath[key] : `${typesOutDir.replace(outDir, '')}/index.d.ts`
-          const dtsUrl = baseUrl.replace('/emp.js', dtsFilePath)
-          // 用于兼容 EMP 1.x 类型下载
-          const backupDtsUrl = baseUrl.replace('/emp.js', '/index.d.ts')
+          const dtsUrl = dtsPath[key] ? dtsPath[key] : defaultDtsUrl
+          //==================== 用于兼容 EMP 1.x 类型下载
+          const backupDtsUrl = baseUrl.replace('emp.js', 'index.d.ts')
           await this.downloadFileAsync(dtsUrl, backupDtsUrl, store.config.typingsPath, `${key}.d.ts`, key, baseName)
         }
       }

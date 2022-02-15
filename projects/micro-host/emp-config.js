@@ -9,6 +9,13 @@ module.exports = defineConfig(({mode}) => {
     build: {
       target,
       staticDir: 'static',
+      createTs: true,
+      /*
+       设置类型文件夹 相应的远程 dtsPath 需要设置 如:
+       '@microHost': 'http://127.0.0.1:8001/types/index.d.ts',
+			 不包含 dist/ 目录
+			*/
+      // typesOutDir: 'dist',
     },
     server: {
       port: 8001,
