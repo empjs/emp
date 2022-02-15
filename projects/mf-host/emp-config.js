@@ -15,5 +15,6 @@ module.exports = defineConfig(() => {
         'react-dom': {requiredVersion: '^17.0.1'},
       },
     },
+    createTs: true,
   }
 })

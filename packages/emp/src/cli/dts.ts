@@ -5,6 +5,8 @@ import axios from 'axios'
 import store from 'src/helper/store'
 import logger from 'src/helper/logger'
 import {createSpinner} from 'nanospinner'
+
+const spinner = createSpinner().start()
 class Dts {
   /**
    * 创建目录
@@ -32,7 +34,6 @@ class Dts {
     alias: string,
     baseName: string,
   ) {
-    const spinner = createSpinner().start()
     const httpsAgent = new https.Agent({
       rejectUnauthorized: false,
     })
@@ -68,16 +69,16 @@ class Dts {
       const fullPath = path.resolve(filePath, fileName)
       this.mkdir(fullPath)
       fs.writeFileSync(fullPath, newData, 'utf8')
-      spinner.success({text: `[${fileName}]:\n     ${fullPath}\n`})
       if (useBackup) {
         logger.warn(`[You are using emp 1.x declaration file ${fileName}]:${backupUri}\n`)
       }
-      process.exit()
+      spinner.success({text: `[download ${fileName}]:${uri} finish`})
+      // process.exit()
     } catch (error) {
       // logger.error(error)
       spinner.error({text: `[download ${fileName}]:${uri} not found`})
       // logger.error(`${uri} --> network error`)
-      process.exit()
+      // process.exit()
     }
   }
   /**

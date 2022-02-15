@@ -19,6 +19,9 @@ module.exports = defineConfig(({mode, env}) => {
       name: 'microApp',
       remotes: {
         '@microHost': `microHost@http://localhost:8001/emp.js`,
+        '@microHostaaa': `microHost@http://localhost:8001/emp.js`,
+        '@microHostB': `microHost@http://localhost:/emp.js`,
+        '@microHostCCC': `microHost@http://localhost:8001/emp.js`,
       },
       exposes: {
         './App': './src/App',
@@ -33,5 +36,6 @@ module.exports = defineConfig(({mode, env}) => {
           },
     },
     html: {title: 'Micro-App'},
+    createTs: true,
   }
 })

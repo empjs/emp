@@ -1,21 +1,21 @@
-declare module '@microHost/App' {
-import { Button } from '@microHost/.D:/emp/projects/micro-host/microHost/Button';
-import StoreComp from '@microHost/StoreComp';
-import incStore from '@microHost/importExport/incStore';
+declare module '@microHostB/App' {
+import { Button } from '@microHostB/.D:/emp/projects/micro-host/microHost/Button';
+import StoreComp from '@microHostB/StoreComp';
+import incStore from '@microHostB/importExport/incStore';
 export { Button, StoreComp, incStore };
  const App: () => JSX.Element;
 export default App;
 }
-declare module '@microHost/bootstrap' {
+declare module '@microHostB/bootstrap' {
 export {};
 }
-declare module '@microHost' {
+declare module '@microHostB' {
 }
-declare module '@microHost/StoreComp' {
+declare module '@microHostB/StoreComp' {
  const StoreComp: () => JSX.Element;
 export default StoreComp;
 }
-declare module '@microHost/Button' {
+declare module '@microHostB/Button' {
 import * as React from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     customLabel: string;
@@ -23,7 +23,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export  const Button: ({ customLabel, ...rest }: ButtonProps) => JSX.Element;
 export {};
 }
-declare module '@microHost/importExport/incStore' {
+declare module '@microHostB/importExport/incStore' {
  class IncStore {
     num: number;
     code: any;
