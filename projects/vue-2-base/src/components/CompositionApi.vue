@@ -10,7 +10,7 @@ import {ref, reactive} from '@vue/composition-api'
 export default {
   setup() {
     let count = ref(0) // { value: 0 }
-    let state = reactive({number: 0})
+    let state = reactive({count: 0})
     const increase = () => {
       count.value++
       state.count++
