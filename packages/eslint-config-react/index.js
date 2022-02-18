@@ -40,6 +40,7 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 0,
     'react-hooks/rules-of-hooks': 'warn',
     'react-hooks/exhaustive-deps': 'off',
+    'proposal/class-property-no-initialized':true,
     'prettier/prettier': [
       'error',
       {
