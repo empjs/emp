@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App'
+import App from '@/App'
 // composition-api shareLib 可以不操作
 import VueCompositionAPI from '@vue/composition-api'
 Vue.use(VueCompositionAPI)

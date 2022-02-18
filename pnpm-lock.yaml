@@ -622,8 +622,10 @@ importers:
       '@efox/emp': workspace:^*
       '@efox/eslint-config-vue': workspace:^*
       '@efox/plugin-vue-2': workspace:^1.0.0
+      element-ui: ^2.15.6
       vue: ^2.6.12
     dependencies:
+      element-ui: 2.15.6_vue@2.6.14
       vue: 2.6.14
     devDependencies:
       '@efox/emp': link:../../packages/emp

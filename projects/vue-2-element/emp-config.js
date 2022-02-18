@@ -1,7 +1,10 @@
 const {defineConfig, empStore} = require('@efox/emp')
 const vue = require('@efox/plugin-vue-2')
 // console.log('empStore 处理全局方法', empStore)
+const target = 'es2018'
+const isESM = !['es3', 'es5'].includes(target)
 module.exports = defineConfig({
+  build: {target},
   plugins: [vue],
   html: {title: 'EMP Vue2 element'},
   server: {port: 9003},
@@ -25,12 +28,13 @@ module.exports = defineConfig({
     remotes: {
       '@base': 'vue2Base@http://localhost:9001/emp.js',
     },
-    shareLib: {
-      vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
-      'element-ui': [
-        'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
-        `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
-      ],
-    },
+    shared: ['vue/dist/vue.esm.js', 'element-ui'],
+    // shareLib: {
+    //   vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
+    //   'element-ui': [
+    //     'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
+    //     `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
+    //   ],
+    // },
   },
 })

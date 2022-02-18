@@ -4,7 +4,7 @@ const target = 'es2018'
 const isESM = !['es3', 'es5'].includes(target)
 module.exports = defineConfig({
   plugins: [vue],
-  build: {target: 'es2018'},
+  build: {target},
   html: {title: 'EMP Vue2 project'},
   server: {port: 9002},
   appEntry: 'main.js',
