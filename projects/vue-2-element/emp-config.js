@@ -4,7 +4,7 @@ const vue = require('@efox/plugin-vue-2')
 const target = 'es2018'
 const isESM = !['es3', 'es5'].includes(target)
 module.exports = defineConfig({
-  build: {target},
+  // build: {target},
   plugins: [vue],
   html: {title: 'EMP Vue2 element'},
   server: {port: 9003},

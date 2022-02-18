@@ -4,7 +4,7 @@
     <h2>Content</h2>
     <Content />
     <h2>CompositionApi</h2>
-    <CompositionApi />
+    <!-- <CompositionApi /> -->
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 export default {
   components: {
     Content: () => import('@v2b/Content'),
-    CompositionApi: () => import('@v2b/CompositionApi'),
+    // CompositionApi: () => import('@v2b/CompositionApi'),
   },
 }
 </script>

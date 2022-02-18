@@ -405,31 +405,6 @@ importers:
       '@types/lodash': 4.14.177
       '@types/react-router-dom': 5.3.2
 
-  projects/e-svga:
-    specifiers:
-      '@efox/emp': '*'
-      '@types/offscreencanvas': ^2019.6.4
-      pbf: ^3.2.1
-      ttypescript: ^1.5.12
-      typescript: ^4.5.5
-      typescript-transform-paths: ^3.3.1
-    dependencies:
-      pbf: 3.2.1
-    devDependencies:
-      '@efox/emp': link:../../packages/emp
-      '@types/offscreencanvas': 2019.6.4
-      ttypescript: 1.5.12_typescript@4.5.5
-      typescript: 4.5.5
-      typescript-transform-paths: 3.3.1_typescript@4.5.5
-
-  projects/e-svga-demo:
-    specifiers:
-      '@efox/emp': workspace:*
-      '@friend/e-svga-emp': workspace:^1.4.5
-    dependencies:
-      '@efox/emp': link:../../packages/emp
-      '@friend/e-svga-emp': link:../e-svga
-
   projects/emp-lib:
     specifiers:
       '@efox/emp': workspace:*
@@ -654,13 +629,11 @@ importers:
       '@efox/emp': workspace:^*
       '@efox/eslint-config-vue': workspace:^*
       '@efox/plugin-babel-vue-3': workspace:^*
-      '@efox/plugin-vue-3': workspace:^1.0.0
       ant-design-vue: ^3.0.0-beta.9
       dayjs: ^1.10.7
       unplugin-vue-components: ^0.17.18
       vue: ^3.2.30
     dependencies:
-      '@efox/plugin-vue-3': link:../../packages/plugin-vue-3
       ant-design-vue: 3.0.0-beta.9_vue@3.2.30
       dayjs: 1.10.7
       vue: 3.2.30
@@ -11359,14 +11332,6 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  /pbf/3.2.1:
-    resolution: {integrity: sha512-ClrV7pNOn7rtmoQVF4TS1vyU0WhYRnP92fzbfF75jAIwpnzdJXf8iTd4CMEqO4yUenH6NDqLiwjqlh6QgZzgLQ==}
-    hasBin: true
-    dependencies:
-      ieee754: 1.2.1
-      resolve-protobuf-schema: 2.1.0
-    dev: false
-
   /performance-now/2.1.0:
     resolution: {integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=}
     dev: false
@@ -11967,10 +11932,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: false
-
-  /protocol-buffers-schema/3.6.0:
-    resolution: {integrity: sha512-TdDRD+/QNdrCGCE7v8340QyuXd4kIWIgapsE2+n/SaGiSSbomYl4TjHlvIoCWRpE7wFt02EpB35VVA2ImcBVqw==}
     dev: false
 
   /proxy-addr/2.0.7:
@@ -12927,12 +12888,6 @@ packages:
 
   /resolve-pathname/3.0.0:
     resolution: {integrity: sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng==}
-    dev: false
-
-  /resolve-protobuf-schema/2.1.0:
-    resolution: {integrity: sha512-kI5ffTiZWmJaS/huM8wZfEMer1eRd7oJQhDuxeCLe3t7N7mX3z94CN0xPxBQxFYQTSNz9T0i+v6inKqSdK8xrQ==}
-    dependencies:
-      protocol-buffers-schema: 3.6.0
     dev: false
 
   /resolve-url/0.2.1:
@@ -14141,17 +14096,6 @@ packages:
       typescript: 4.5.2
     dev: true
 
-  /ttypescript/1.5.12_typescript@4.5.5:
-    resolution: {integrity: sha512-1ojRyJvpnmgN9kIHmUnQPlEV1gq+VVsxVYjk/NfvMlHSmYxjK5hEvOOU2MQASrbekTUiUM7pR/nXeCc8bzvMOQ==}
-    hasBin: true
-    peerDependencies:
-      ts-node: '>=8.0.2'
-      typescript: '>=3.2.2'
-    dependencies:
-      resolve: 1.20.0
-      typescript: 4.5.5
-    dev: true
-
   /type-check/0.3.2:
     resolution: {integrity: sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=}
     engines: {node: '>= 0.8.0'}
@@ -14292,15 +14236,6 @@ packages:
       typescript: 4.5.2
     dev: true
 
-  /typescript-transform-paths/3.3.1_typescript@4.5.5:
-    resolution: {integrity: sha512-c+8Cqd2rsRtTU68rJI0NX/OtqgBDddNs1fIxm1nCNyhn0WpoyqtpUxc1w9Ke5c5kgE4/OT5xYbKf2cf694RYEg==}
-    peerDependencies:
-      typescript: '>=3.6.5'
-    dependencies:
-      minimatch: 3.0.4
-      typescript: 4.5.5
-    dev: true
-
   /typescript/4.4.4:
     resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==}
     engines: {node: '>=4.2.0'}
@@ -14308,12 +14243,6 @@ packages:
 
   /typescript/4.5.2:
     resolution: {integrity: sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
-  /typescript/4.5.5:
-    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

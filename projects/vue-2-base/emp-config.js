@@ -11,7 +11,7 @@ module.exports = defineConfig(({mode, env}) => {
     appEntry: 'main.js',
     server: {port: 9001},
     html: {title: 'EMP Vue2 Base'},
-    build: {target},
+    // build: {target},
     resolve: {
       alias: {'@': empStore.resolve('src')},
     },
