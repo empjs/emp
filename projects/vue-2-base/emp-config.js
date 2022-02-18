@@ -22,7 +22,12 @@ module.exports = defineConfig(({mode, env}) => {
         './Table': './src/components/table',
         './CompositionApi': './src/components/CompositionApi',
       },
-      shared: ['vue/dist/vue.esm.js', 'element-ui'],
+      // shared: ['vue', 'element-ui', 'vue-router'],
+      shared: {
+        vue: {requiredVersion: '^2.0.0'},
+        'element-ui': {requiredVersion: '^2.0.0'},
+        'vue-router': {requiredVersion: '^3.0.0'},
+      },
       // shareLib: !isESM
       //   ? {
       //       vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
