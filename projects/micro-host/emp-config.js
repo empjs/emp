@@ -2,8 +2,8 @@ const {defineConfig} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
 
 module.exports = defineConfig(({mode}) => {
-  // const target = 'es2018'
-  const target = 'es5'
+  const target = 'es2018'
+  // const target = 'es5'
   const isESM = !['es3', 'es5'].includes(target)
   return {
     build: {

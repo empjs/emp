@@ -3,8 +3,8 @@ const {defineConfig, empStore} = require('@efox/emp')
 const esm = (name, mode, version) =>
   `https://esm.sh/${name}${version ? '@' + version : ''}${mode === 'development' ? '?dev' : ''}`
 module.exports = defineConfig(({mode, env}) => {
-  // const target = 'es2018'
-  const target = 'es5'
+  const target = 'es2018'
+  // const target = 'es5'
   const isESM = !['es3', 'es5'].includes(target)
   return {
     plugins: [vue2],
@@ -22,7 +22,7 @@ module.exports = defineConfig(({mode, env}) => {
         './Table': './src/components/table',
         './CompositionApi': './src/components/CompositionApi',
       },
-      shared: ['vue/dist/vue.esm.js', '@vue/composition-api'],
+      shared: ['vue/dist/vue.esm.js', 'element-ui'],
       // shareLib: !isESM
       //   ? {
       //       vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',

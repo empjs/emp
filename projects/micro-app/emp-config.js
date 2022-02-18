@@ -2,8 +2,8 @@ const {defineConfig} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
 module.exports = defineConfig(({mode, env}) => {
   // console.log('mode env', mode, env)
-  // const target = 'es2018'
-  const target = 'es5'
+  const target = 'es2018'
+  // const target = 'es5'
   const isESM = !['es3', 'es5'].includes(target)
   return {
     build: {
@@ -19,9 +19,9 @@ module.exports = defineConfig(({mode, env}) => {
       name: 'microApp',
       remotes: {
         '@microHost': `microHost@http://localhost:8001/emp.js`,
-        '@microHostaaa': `microHost@http://localhost:8001/emp.js`,
-        '@microHostB': `microHost@http://localhost:/emp.js`,
-        '@microHostCCC': `microHost@http://localhost:8001/emp.js`,
+        // '@microHostaaa': `microHost@http://localhost:8001/emp.js`,
+        // '@microHostB': `microHost@http://localhost:/emp.js`,
+        // '@microHostCCC': `microHost@http://localhost:8001/emp.js`,
       },
       exposes: {
         './App': './src/App',

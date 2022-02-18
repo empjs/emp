@@ -292,16 +292,7 @@ importers:
 
   packages/plugin-vue-2:
     specifiers:
-      '@babel/core': ^7.17.2
-      '@babel/plugin-proposal-class-properties': ^7.16.7
-      '@babel/plugin-proposal-decorators': ^7.17.2
-      '@babel/plugin-transform-runtime': ^7.17.0
-      '@babel/preset-env': ^7.16.11
-      '@babel/preset-typescript': ^7.16.7
-      '@babel/runtime': ^7.17.0
       '@efox/emp': workspace:^*
-      '@vue/babel-plugin-jsx': ^1.1.1
-      babel-loader: ^8.2.3
       rimraf: ^3.0.2
       ts-transform-paths: ^2.0.3
       ttypescript: ^1.5.12
@@ -310,21 +301,33 @@ importers:
       vue-svg-loader: ^0.16.0
       vue-template-compiler: ^2.6.14
     dependencies:
-      '@babel/core': 7.17.2
-      '@babel/plugin-proposal-class-properties': 7.16.7_@babel+core@7.17.2
-      '@babel/plugin-proposal-decorators': 7.17.2_@babel+core@7.17.2
-      '@babel/plugin-transform-runtime': 7.17.0_@babel+core@7.17.2
-      '@babel/preset-env': 7.16.11_@babel+core@7.17.2
-      '@babel/preset-typescript': 7.16.7_@babel+core@7.17.2
-      '@babel/runtime': 7.17.2
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.17.2
-      babel-loader: 8.2.3_@babel+core@7.17.2
       vue: 2.6.14
       vue-loader: 15.9.8_vue-template-compiler@2.6.14
       vue-svg-loader: 0.16.0_vue-template-compiler@2.6.14
       vue-template-compiler: 2.6.14
     devDependencies:
       '@efox/emp': link:../emp
+      rimraf: 3.0.2
+      ts-transform-paths: 2.0.3
+      ttypescript: 1.5.12_typescript@4.4.4
+
+  packages/plugin-vue-3:
+    specifiers:
+      '@efox/emp': workspace:^2.0.6
+      '@vue/compiler-sfc': ^3.2.31
+      rimraf: ^3.0.2
+      ts-transform-paths: ^2.0.3
+      ttypescript: ^1.5.12
+      vue-loader: ^17.0.0
+      vue-svg-loader: ^0.16.0
+      vue-template-compiler: ^2.6.14
+    dependencies:
+      '@efox/emp': link:../emp
+      '@vue/compiler-sfc': 3.2.31
+      vue-loader: 17.0.0
+      vue-svg-loader: 0.16.0_vue-template-compiler@2.6.14
+      vue-template-compiler: 2.6.14
+    devDependencies:
       rimraf: 3.0.2
       ts-transform-paths: 2.0.3
       ttypescript: 1.5.12_typescript@4.4.4
@@ -649,11 +652,13 @@ importers:
       '@efox/emp': workspace:^*
       '@efox/eslint-config-vue': workspace:^*
       '@efox/plugin-babel-vue-3': workspace:^*
+      '@efox/plugin-vue-3': workspace:^1.0.0
       ant-design-vue: ^3.0.0-beta.9
       dayjs: ^1.10.7
       unplugin-vue-components: ^0.17.18
       vue: ^3.2.30
     dependencies:
+      '@efox/plugin-vue-3': link:../../packages/plugin-vue-3
       ant-design-vue: 3.0.0-beta.9_vue@3.2.30
       dayjs: 1.10.7
       vue: 3.2.30
@@ -5101,6 +5106,15 @@ packages:
       source-map: 0.6.1
     dev: false
 
+  /@vue/compiler-core/3.2.31:
+    resolution: {integrity: sha512-aKno00qoA4o+V/kR6i/pE+aP+esng5siNAVQ422TkBNM6qA4veXiZbSe8OTXHXquEi/f6Akc+nLfB4JGfe4/WQ==}
+    dependencies:
+      '@babel/parser': 7.17.0
+      '@vue/shared': 3.2.31
+      estree-walker: 2.0.2
+      source-map: 0.6.1
+    dev: false
+
   /@vue/compiler-dom/3.2.22:
     resolution: {integrity: sha512-VZdsw/VuO1ODs8K7NQwnMQzKITDkIFlYYC03SVnunuf6eNRxBPEonSyqbWNoo6qNaHAEBTG6VVcZC5xC9bAx1g==}
     dependencies:
@@ -5113,6 +5127,13 @@ packages:
     dependencies:
       '@vue/compiler-core': 3.2.30
       '@vue/shared': 3.2.30
+    dev: false
+
+  /@vue/compiler-dom/3.2.31:
+    resolution: {integrity: sha512-60zIlFfzIDf3u91cqfqy9KhCKIJgPeqxgveH2L+87RcGU/alT6BRrk5JtUso0OibH3O7NXuNOQ0cDc9beT0wrg==}
+    dependencies:
+      '@vue/compiler-core': 3.2.31
+      '@vue/shared': 3.2.31
     dev: false
 
   /@vue/compiler-sfc/3.2.22:
@@ -5145,6 +5166,21 @@ packages:
       source-map: 0.6.1
     dev: false
 
+  /@vue/compiler-sfc/3.2.31:
+    resolution: {integrity: sha512-748adc9msSPGzXgibHiO6T7RWgfnDcVQD+VVwYgSsyyY8Ans64tALHZANrKtOzvkwznV/F4H7OAod/jIlp/dkQ==}
+    dependencies:
+      '@babel/parser': 7.17.0
+      '@vue/compiler-core': 3.2.31
+      '@vue/compiler-dom': 3.2.31
+      '@vue/compiler-ssr': 3.2.31
+      '@vue/reactivity-transform': 3.2.31
+      '@vue/shared': 3.2.31
+      estree-walker: 2.0.2
+      magic-string: 0.25.7
+      postcss: 8.3.11
+      source-map: 0.6.1
+    dev: false
+
   /@vue/compiler-ssr/3.2.22:
     resolution: {integrity: sha512-Cl6aoLJtXzzBkk1sKod8S0WBJLts3+ugVC91d22gGpbkw/64WnF12tOZi7Rg54PPLi1NovqyNWPsLH/SAFcu+w==}
     dependencies:
@@ -5157,6 +5193,13 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.2.30
       '@vue/shared': 3.2.30
+    dev: false
+
+  /@vue/compiler-ssr/3.2.31:
+    resolution: {integrity: sha512-mjN0rqig+A8TVDnsGPYJM5dpbjlXeHUm2oZHZwGyMYiGT/F4fhJf/cXy8QpjnLQK4Y9Et4GWzHn9PS8AHUnSkw==}
+    dependencies:
+      '@vue/compiler-dom': 3.2.31
+      '@vue/shared': 3.2.31
     dev: false
 
   /@vue/component-compiler-utils/3.3.0:
@@ -5193,6 +5236,16 @@ packages:
       '@babel/parser': 7.17.0
       '@vue/compiler-core': 3.2.30
       '@vue/shared': 3.2.30
+      estree-walker: 2.0.2
+      magic-string: 0.25.7
+    dev: false
+
+  /@vue/reactivity-transform/3.2.31:
+    resolution: {integrity: sha512-uS4l4z/W7wXdI+Va5pgVxBJ345wyGFKvpPYtdSgvfJfX/x2Ymm6ophQlXXB6acqGHtXuBqNyyO3zVp9b1r0MOA==}
+    dependencies:
+      '@babel/parser': 7.17.0
+      '@vue/compiler-core': 3.2.31
+      '@vue/shared': 3.2.31
       estree-walker: 2.0.2
       magic-string: 0.25.7
     dev: false
@@ -5275,6 +5328,10 @@ packages:
 
   /@vue/shared/3.2.30:
     resolution: {integrity: sha512-B3HouBtUxcfu2w2d+VhdLcVBXKYYhXiFMAfQ+hoe8NUhKkPRkWDIqhpuehCZxVQ3S2dN1P1WfKGlxGC+pfmxGg==}
+    dev: false
+
+  /@vue/shared/3.2.31:
+    resolution: {integrity: sha512-ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==}
     dev: false
 
   /@webassemblyjs/ast/1.11.1:
@@ -14588,6 +14645,16 @@ packages:
 
   /vue-loader/16.8.3:
     resolution: {integrity: sha512-7vKN45IxsKxe5GcVCbc2qFU5aWzyiLrYJyUuMz4BQLKctCj/fmCa0w6fGiiQ2cLFetNcek1ppGJQDCup0c1hpA==}
+    peerDependencies:
+      webpack: ^4.1.0 || ^5.0.0-0
+    dependencies:
+      chalk: 4.1.2
+      hash-sum: 2.0.0
+      loader-utils: 2.0.2
+    dev: false
+
+  /vue-loader/17.0.0:
+    resolution: {integrity: sha512-OWSXjrzIvbF2LtOUmxT3HYgwwubbfFelN8PAP9R9dwpIkj48TVioHhWWSx7W7fk+iF5cgg3CBJRxwTdtLU4Ecg==}
     peerDependencies:
       webpack: ^4.1.0 || ^5.0.0-0
     dependencies:
