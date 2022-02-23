@@ -10,6 +10,7 @@ import {MFExport} from 'src/types/modulefederation'
 import {EMPShareExport} from 'src/types/empShare'
 import {LoggerType} from 'src/helper/logger'
 import path from 'path'
+import { RuleSetRule } from 'webpack'
 //
 export type EMPConfig = {
   /**
@@ -144,15 +145,19 @@ export type EMPConfig = {
    */
   typingsPath?: string
   /**
-   * TODO
-   * node_modules 模块 加入编译
+   * 模块编译
+   * 如 node_modules 模块 是否加入编译
    */
-  // transformModules?: string[]
+   moduleTransform?: ModuleTransform
 }
 export interface ConfigEnv {
   mode: modeType
   env?: string
   [key: string]: any
+}
+export interface ModuleTransform {
+	exclude?:RuleSetRule['exclude'][]
+	include?:RuleSetRule['include'][]
 }
 export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | EMPConfigFn
@@ -178,16 +183,21 @@ export type ResovleConfig = Override<
     env?: ConfigEnv['env']
     mode: modeType
     dtsPath: {[key: string]: string}
+		moduleTransform: ModuleTransform
+		moduleTransformExclude:RuleSetRule['exclude']
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
+	//
   const server = initServer(op.server)
   delete op.server
+	//
   const html = initHtml(op.html)
   delete op.html
+	//
   const dtsPath = op.dtsPath ?? []
   delete op.dtsPath
   //
@@ -199,6 +209,16 @@ export const initConfig = (op: any = {}): ResovleConfig => {
     ...(op.debug || {}),
   }
   delete op.debug
+	//
+	const moduleTransformExclude:RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
+	op.moduleTransform = op.moduleTransform||{}
+	if(op.moduleTransform.exclude){
+		moduleTransformExclude.and = op.moduleTransform.exclude
+	}
+	if(op.moduleTransform.include){
+		moduleTransformExclude.or = op.moduleTransform.include
+	}
+	// delete op.moduleTransform
   //
   return {
     ...{
@@ -220,6 +240,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       jsCheck: false,
       typingsPath: path.resolve('src', 'empShareTypes'),
       dtsPath,
+			moduleTransformExclude
     },
     ...op,
   }

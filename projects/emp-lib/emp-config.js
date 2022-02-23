@@ -11,6 +11,9 @@ module.exports = defineConfig({
       formats: ['umd', 'esm'],
     },
   },
+	moduleTransform:{
+		include:[/@yy/]
+	},
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, 'src'),

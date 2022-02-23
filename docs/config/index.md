@@ -290,6 +290,27 @@ module.exports={
 + 默认 `src/empShareType`
 
 `emp dts` 指令 同步基站 d.ts 目录
+
+## 编译选项
+### moduleTransform.include
++ 类型 `(string | RegExp | ((value: string) => boolean) | RuleSetLogicalConditionsAbsolute | RuleSetConditionAbsolute[] | undefined)[]`
++ 默认 `null`
+
+指定编译 `node_modules` 库 如 `@baidu`
+```js
+moduleTransform.include = [path.resolve(__dirname, 'node_modules/@baidu')]
+```
+
+### moduleTransform.exclude
++ 类型 `(string | RegExp | ((value: string) => boolean) | RuleSetLogicalConditionsAbsolute | RuleSetConditionAbsolute[] | undefined)[]`
++ 默认 `[/(node_modules|bower_components)/]`
+
+
+指定不编译 `node_modules` 里的库 如 `@baidu` `@yy`
+```js
+moduleTransform.exclude = [/@baidu/,path.resolve(__dirname, 'node_modules/@yy')]
+```
+
 ## 构建选项
 ### build.target
  + 类型 `JscConfig['target']`
