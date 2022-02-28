@@ -1,6 +1,6 @@
 {
   "name": "@efox/plugin-babel-react",
-  "version": "1.0.1",
+  "version": "1.0.2-beta.1",
   "description": "EMP babel React plugin",
   "files": [
     "dist",
@@ -38,6 +38,7 @@
     "@efox/emp": "workspace:^*",
     "babel-loader": "^8.2.3",
     "babel-plugin-import": "^1.13.3",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
     "core-js": "^3.19.1"
   },
   "devDependencies": {

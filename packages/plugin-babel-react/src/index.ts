@@ -19,6 +19,7 @@ const babelOptions = {
   ],
   plugins: [
     [require('@babel/plugin-syntax-top-level-await').default], //观察是否支持 toplvawait 的 es5支持
+    [require("@babel/plugin-transform-arrow-functions").default],
     [
       require.resolve('@babel/plugin-transform-runtime'),
       {
@@ -34,6 +35,7 @@ const babelOptions = {
     [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
   ],
 }
+console.log()
 const root = process.cwd()
 const projectResolve = (rpath: string) => path.resolve(root, rpath)
 const pkg = require(projectResolve('package.json'))
@@ -70,9 +72,9 @@ const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
   wpChain.module
     .rule('scripts')
     .test(/\.(js|jsx|ts|tsx)$/)
-    .exclude.add(projectResolve('node_modules'))
-    .add(projectResolve('bower_components'))
-    .end()
+    // .exclude.add(projectResolve('node_modules'))
+    // .add(projectResolve('bower_components'))
+    // .end()
     .use('babel')
     .loader(require.resolve('babel-loader'))
     .options(babelOptions)

@@ -211,6 +211,7 @@ importers:
       '@efox/emp': workspace:^*
       babel-loader: ^8.2.3
       babel-plugin-import: ^1.13.3
+      babel-plugin-transform-es2015-arrow-functions: ^6.22.0
       core-js: ^3.19.1
       rimraf: ^3.0.2
       ts-transform-paths: ^2.0.3
@@ -228,6 +229,7 @@ importers:
       '@efox/emp': link:../emp
       babel-loader: 8.2.3_@babel+core@7.16.0
       babel-plugin-import: 1.13.3
+      babel-plugin-transform-es2015-arrow-functions: 6.22.0
       core-js: 3.19.1
     devDependencies:
       rimraf: 3.0.2
@@ -6040,6 +6042,12 @@ packages:
       '@babel/helper-define-polyfill-provider': 0.3.1_@babel+core@7.17.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /babel-plugin-transform-es2015-arrow-functions/6.22.0:
+    resolution: {integrity: sha1-RSaSy3EdX3ncf4XkQM5BufJE0iE=}
+    dependencies:
+      babel-runtime: 6.26.0
     dev: false
 
   /babel-preset-current-node-syntax/1.0.1_@babel+core@7.15.5:
