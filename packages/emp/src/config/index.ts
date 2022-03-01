@@ -8,9 +8,9 @@ import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml, InitHtmlType} from 'src/config/html'
 import {MFExport} from 'src/types/modulefederation'
 import {EMPShareExport} from 'src/types/empShare'
-import {LoggerType} from 'src/helper/logger'
+// import {LoggerType} from 'src/helper/logger'
 import path from 'path'
-import { RuleSetRule } from 'webpack'
+import {RuleSetRule} from 'webpack'
 //
 export type EMPConfig = {
   /**
@@ -81,11 +81,6 @@ export type EMPConfig = {
    */
   externals?: ExternalsType
   /**
-   * 日志级别
-   * @default 'info'
-   */
-  logLevel?: LoggerType
-  /**
    * debug 选项
    */
   debug?: ConfigDebugType
@@ -148,7 +143,7 @@ export type EMPConfig = {
    * 模块编译
    * 如 node_modules 模块 是否加入编译
    */
-   moduleTransform?: ModuleTransform
+  moduleTransform?: ModuleTransform
 }
 export interface ConfigEnv {
   mode: modeType
@@ -156,8 +151,8 @@ export interface ConfigEnv {
   [key: string]: any
 }
 export interface ModuleTransform {
-	exclude?:RuleSetRule['exclude'][]
-	include?:RuleSetRule['include'][]
+  exclude?: RuleSetRule['exclude'][]
+  include?: RuleSetRule['include'][]
 }
 export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | EMPConfigFn
@@ -183,21 +178,21 @@ export type ResovleConfig = Override<
     env?: ConfigEnv['env']
     mode: modeType
     dtsPath: {[key: string]: string}
-		moduleTransform: ModuleTransform
-		moduleTransformExclude:RuleSetRule['exclude']
+    moduleTransform: ModuleTransform
+    moduleTransformExclude: RuleSetRule['exclude']
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
-	//
+  //
   const server = initServer(op.server)
   delete op.server
-	//
+  //
   const html = initHtml(op.html)
   delete op.html
-	//
+  //
   const dtsPath = op.dtsPath ?? []
   delete op.dtsPath
   //
@@ -206,19 +201,20 @@ export const initConfig = (op: any = {}): ResovleConfig => {
     profile: false,
     wplogger: false,
     progress: true,
+    level: 'info',
     ...(op.debug || {}),
   }
   delete op.debug
-	//
-	const moduleTransformExclude:RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
-	op.moduleTransform = op.moduleTransform||{}
-	if(op.moduleTransform.exclude){
-		moduleTransformExclude.and = op.moduleTransform.exclude
-	}
-	if(op.moduleTransform.include){
-		moduleTransformExclude.or = op.moduleTransform.include
-	}
-	// delete op.moduleTransform
+  //
+  const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
+  op.moduleTransform = op.moduleTransform || {}
+  if (op.moduleTransform.exclude) {
+    moduleTransformExclude.and = op.moduleTransform.exclude
+  }
+  if (op.moduleTransform.include) {
+    moduleTransformExclude.or = op.moduleTransform.include
+  }
+  // delete op.moduleTransform
   //
   return {
     ...{
@@ -232,7 +228,6 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       plugins: [],
       server,
       html,
-      logLevel: 'info',
       debug,
       useImportMeta: false,
       splitCss: true,
@@ -240,7 +235,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       jsCheck: false,
       typingsPath: path.resolve('src', 'empShareTypes'),
       dtsPath,
-			moduleTransformExclude
+      moduleTransformExclude,
     },
     ...op,
   }

@@ -28,7 +28,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@efox/emp": "workspace:^2.0.6",
     "@vue/compiler-sfc": "^3.2.31",
     "vue-loader": "^17.0.0",
     "vue-svg-loader": "^0.16.0",

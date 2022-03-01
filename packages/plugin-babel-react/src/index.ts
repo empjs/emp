@@ -19,7 +19,7 @@ const babelOptions = {
   ],
   plugins: [
     [require('@babel/plugin-syntax-top-level-await').default], //观察是否支持 toplvawait 的 es5支持
-    [require("@babel/plugin-transform-arrow-functions").default],
+    [require('@babel/plugin-transform-arrow-functions').default],
     [
       require.resolve('@babel/plugin-transform-runtime'),
       {

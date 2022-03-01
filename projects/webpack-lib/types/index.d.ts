@@ -1,2 +1,2 @@
-declare const App: () => void;
-export default App;
+declare const App: () => void
+export default App

@@ -4,10 +4,12 @@ import config from './config'
 import Svgacase from 'src/components/svgacase'
 import logourl, {ReactComponent as Logo} from 'src/assets/logo.svg'
 import {ReactComponent as TipIcon} from 'src/assets/tongzhi.svg'
+import TreasureInfoStore from './InterfaceTest'
 import mf from 'src/assets/logo.svg'
 const mf2 = require('src/assets/logo.svg')
 const mf3 = require('src/assets/logo.svg').default
 console.log('logo:', 'import', mf, 'require', mf2, 'require default', mf3, 'import url', logourl)
+console.log('[=== TreasureInfoStore ===]', new TreasureInfoStore())
 
 const ButtonEvent = () => <button className={css.btn}>Button Click Event!</button>
 class Democlass {

@@ -3,6 +3,7 @@ export * from './externals'
 export * from './modulefederation'
 export * from './libMode'
 import {HtmlOptions} from 'src/config/html'
+import {LoggerType} from 'src/helper/logger'
 //
 import {Configuration, ResolveOptions} from 'webpack'
 export type modeType = 'development' | 'production' | 'none' | undefined
@@ -44,4 +45,8 @@ export type ConfigDebugType = {
   progress: boolean
   profile: boolean
   wplogger: boolean
+  /**
+   * 日志级别
+   */
+  level: LoggerType
 }

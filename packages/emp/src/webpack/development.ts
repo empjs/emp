@@ -17,7 +17,7 @@ class WPDevelopment {
    */
   get devServer(): Configuration['devServer'] {
     const overlayLoggerLv =
-      store.config.logLevel === 'error' ? {errors: true, warnings: false} : {errors: true, warnings: true}
+      store.config.debug.level === 'error' ? {errors: true, warnings: false} : {errors: true, warnings: true}
     return {
       host: '0.0.0.0',
       allowedHosts: ['all'],
