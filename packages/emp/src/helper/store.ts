@@ -102,7 +102,7 @@ class GlobalStore {
       await this.empShare.setup()
     }
     //show logger of config
-    if (this.config.debug.wplogger) logger.info('[emp-config]', this.config)
+    if (this.config.debug.wplogger === true) logger.info('[emp-config]', this.config)
   }
   private setAbsPaths() {
     //
@@ -119,6 +119,8 @@ class GlobalStore {
     if (cliOptions.clearLog === 'false' || cliOptions.clearLog === false) this.config.debug.clearLog = false
     if (cliOptions.profile === true) this.config.debug.profile = true
     if (cliOptions.wplogger === true) this.config.debug.wplogger = true
+    if (typeof cliOptions.wplogger === 'string' && cliOptions.wplogger.length > 0)
+      this.config.debug.wplogger = cliOptions.wplogger
     if (cliOptions.progress === 'false' || cliOptions.progress === false) this.config.debug.progress = false
     // server build 替换配置项
     if (cliOptions.open === true) this.config.server.open = true

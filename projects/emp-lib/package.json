@@ -24,7 +24,7 @@
   "private": true,
   "scripts": {
     "dev": "emp dev",
-    "build": "emp build",
+    "build": "emp build -wl config.js",
     "stat": "emp build --analyze",
 		"dts:build": "ttsc",
 		"dts": "ttsc -w"

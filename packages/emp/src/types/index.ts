@@ -44,7 +44,7 @@ export type ConfigDebugType = {
   clearLog: boolean
   progress: boolean
   profile: boolean
-  wplogger: boolean
+  wplogger: boolean | string // --wplogger [filename] 可以为 string
   /**
    * 日志级别
    */
