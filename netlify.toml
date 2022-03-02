@@ -7,4 +7,4 @@
   NPM_FLAGS="--prefix=/dev/null"
 
 [[plugins]]
-  package = "./plugins/pnpm-preinstaller"
+	package = "./plugins/pnpm-preinstaller"
