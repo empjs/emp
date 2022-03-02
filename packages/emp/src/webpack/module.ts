@@ -32,7 +32,7 @@ class WPModule {
           scripts: {
             test: /\.(js|jsx|ts|tsx)$/,
             // exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
-						exclude:store.config.moduleTransformExclude,
+            exclude: store.config.moduleTransformExclude,
             use: {
               swc: {
                 loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),

@@ -4,11 +4,11 @@ export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
 // const prefix = `[EMP]`
 
 const logger = {
-  info: (...args: any[]) => ['debug', 'info'].includes(store.config.logLevel) && console.log(...args),
-  debug: (...args: any[]) => ['debug'].includes(store.config.logLevel) && console.log(...args),
-  warn: (...args: any[]) => ['debug', 'info', 'warn'].includes(store.config.logLevel) && console.warn(...args),
+  info: (...args: any[]) => ['debug', 'info'].includes(store.config.debug.level) && console.log(...args),
+  debug: (...args: any[]) => ['debug'].includes(store.config.debug.level) && console.log(...args),
+  warn: (...args: any[]) => ['debug', 'info', 'warn'].includes(store.config.debug.level) && console.warn(...args),
   error: (...args: any[]) =>
-    ['debug', 'info', 'warn', 'error'].includes(store.config.logLevel) && console.error(...args),
+    ['debug', 'info', 'warn', 'error'].includes(store.config.debug.level) && console.error(...args),
 }
 /**
  * begin logger

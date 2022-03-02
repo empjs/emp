@@ -19,7 +19,6 @@ const babelOptions = {
   ],
   plugins: [
     [require('@babel/plugin-syntax-top-level-await').default], //观察是否支持 toplvawait 的 es5支持
-    [require("@babel/plugin-transform-arrow-functions").default],
     [
       require.resolve('@babel/plugin-transform-runtime'),
       {
@@ -47,41 +46,13 @@ const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
 const PluginBabelReact = async ({wpChain, config}: ConfigPluginOptions) => {
   // 增加 node_modules 搜寻依赖
   wpChain.resolve.modules.prepend(path.resolve(__dirname, '../node_modules'))
-  // remove swc
-  wpChain.module.rules.delete('scripts')
-  // wpChain.module.rule('svg').oneOfs.delete('swc').end().use('babel').loader(require.resolve('babel-loader'))
-
-  /*  wpChain.module
-    .rule('svg')
-    .use('babel')
-    .before('swc')
-    .loader(require.resolve('babel-loader'))
-    .options({
-      presets: [
-        require.resolve('@babel/preset-env'),
-        require.resolve('@babel/preset-typescript'),
-        [require.resolve('@babel/preset-react'), reactRumtime],
-      ],
-      plugins: [require.resolve('@babel/plugin-transform-runtime')],
-    })
-    .end()
-    .use('swc')
-    .clear() */
 
   // babel config
   wpChain.module
     .rule('scripts')
-    .test(/\.(js|jsx|ts|tsx)$/)
-    // .exclude.add(projectResolve('node_modules'))
-    // .add(projectResolve('bower_components'))
-    // .end()
-    .use('babel')
+    .use('swc')
     .loader(require.resolve('babel-loader'))
     .options(babelOptions)
-  // react config
-  wpChain.module
-    .rule('scripts')
-    .use('babel')
     .tap(o => {
       // react
       reactVersion && o.presets.push([require.resolve('@babel/preset-react'), reactRumtime])

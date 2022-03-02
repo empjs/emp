@@ -4,6 +4,7 @@ import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
+import logger from 'src/helper/logger'
 class WPProduction {
   constructor() {}
   private setCommon() {
@@ -17,7 +18,7 @@ class WPProduction {
       },
       optimization: {
         chunkIds: store.config.build.chunkIds || 'deterministic', // deterministic 在不同的编译中不变的短数字 id。有益于长期缓存。在生产模式中会默认开启。
-        minimize: store.config.build.minify,
+        minimize: store.config.build.minify ? true : false,
         // runtimeChunk: 'single', // 影响 MF 执行
         // ===[暂时观察有效性]===============
         // splitChunks: {
@@ -68,14 +69,15 @@ class WPProduction {
   setMinify() {
     const minOptions = store.config.build.minOptions || {}
     // console.log('[store.config.build.minify]:', store.config.build.minify, store.config.build.minOptions)
-    if (store.config.build.minify === true) {
+    if (store.config.build.minify) {
+      const minify = store.config.build.minify === 'swc' ? TerserPlugin.swcMinify : TerserPlugin.terserMinify
+      logger.debug('store.config.build.minify', store.config.build.minify, store.config.debug)
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
         {
           /**
-           * ::TODO 压缩后出现bug 暂时屏蔽 待修复
            * 启动 SWCMINIFY 后 需要统一用 TerserOptions 类型
            */
-          // minify: TerserPlugin.swcMinify,
+          minify,
           extractComments: false,
           terserOptions: {
             // compress: false,

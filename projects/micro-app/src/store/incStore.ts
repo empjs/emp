@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 class IncStore {
   num = 0
+  code = ''
   constructor() {
     makeAutoObservable(this)
   }

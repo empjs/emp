@@ -18,6 +18,7 @@ module.exports = defineConfig(config => {
       target,
       sourcemap: false,
       // outDir: 'build',
+      minify: 'swc',
       minOptions: {
         compress: {
           // warnings: false,
@@ -47,6 +48,7 @@ module.exports = defineConfig(config => {
     },
     debug: {
       clearLog: false,
+      // level: 'debug',
     },
   }
 })

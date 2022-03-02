@@ -30,10 +30,10 @@ export type BuildOptions = {
    */
   staticDir?: string
   /**
-   * 是否压缩
+   * 是否压缩 或者利用 swc 压缩
    * @default true
    */
-  minify?: boolean
+  minify?: boolean | 'swc'
   /**
    * 压缩选项?
    * @default {compress:false}

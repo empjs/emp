@@ -342,10 +342,11 @@ swc 是否异步构建
 生成包含 js,css,asset 合集目录
 
 ### build.minify
-+ 类型 `boolean`
++ 类型 `boolean` | `swc`
 + 默认 `true`
 
 是否压缩、默认 development 不压缩，production 压缩
+当设置为 `swc` 时 默认使用 swc压缩 [点击参考配置](https://github.com/mishoo/UglifyJS#minify-options)
 
 ### build.minOptions
 + 类型 `TerserOptions`
@@ -462,3 +463,7 @@ swc 是否异步构建
 + 默认 `false`
 
 是否显示配置信息
+
+### debug.level
++ 类型 `debug` `info` `warn` `error`
++ 默认 `info`
