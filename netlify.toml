@@ -1,9 +1,12 @@
 [build]
-  command = "pnpm docs:build"
+  command = "npx pnpm@6 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@6 docs:build"
   publish = "docs/.vitepress/dist"
 
 [build.environment]
-  NPM_FLAGS="--prefix=/dev/null"
+  NPM_FLAGS="--version"
 
 [[plugins]]
-	package = "./plugins/pnpm-preinstaller"
+	package = "/netlify-plugin-cache"
+
+  [plugins.inputs]
+  	paths = [".pnpm"]
