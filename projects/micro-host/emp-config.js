@@ -27,7 +27,7 @@ module.exports = defineConfig(({mode}) => {
       exposes: {
         './App': './src/App',
         // './Button': './src/Button',
-        './importExport/incStore': './src/store/incStore',
+        './incStore': './src/store/incStore',
       },
       // shared: {
       //   react: {requiredVersion: '^17.0.1'},

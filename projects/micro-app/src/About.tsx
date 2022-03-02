@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import incStore from './store/incStore'
+import incStore from '@microHost/incStore'
 import {observer} from 'mobx-react'
 
 const About = observer(() => (

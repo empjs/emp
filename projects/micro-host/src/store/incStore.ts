@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 class IncStore {
   num = 0
   code: any = ''
@@ -12,7 +12,9 @@ class IncStore {
     const d = await fetch(
       'https://unpkg.bdgamelive.com/webupload/gfe/mobx-react-lite@3.2.2/umd/mobxreactlite.umd.production.min.js',
     ).then(res => res.text())
-    this.code = d
+    runInAction(() => {
+      this.code = d
+    })
   }
 }
 

@@ -33,3 +33,15 @@ declare module '@microHost/importExport/incStore' {
   const _default: IncStore
   export default _default
 }
+
+declare module '@microHost/incStore' {
+  class IncStore {
+    num: number
+    code: any
+    constructor()
+    inc(): void
+    loadData(): Promise<void>
+  }
+  const _default: IncStore
+  export default _default
+}
