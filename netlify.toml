@@ -6,7 +6,7 @@
   NPM_FLAGS="--version"
 
 [[plugins]]
-	package = "/netlify-plugin-cache"
+	package = "netlify-plugin-cache"
 
   [plugins.inputs]
   	paths = [".pnpm"]
