@@ -1,0 +1,10 @@
+[build]
+  command = "pnpm docs:build"
+	base = "docs/"
+  publish = ".vitepress/dist/"
+
+[build.environment]
+  NPM_FLAGS="--prefix=/dev/null"
+
+[[plugins]]
+  package = "/.netlify/netlify-plugin-pnpm"

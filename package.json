@@ -14,7 +14,8 @@
     "dev:mf": "pnpm run --filter={micro-app,micro-host} --parallel dev",
     "docs:dev": "vitepress dev docs --host",
     "docs:build": "vitepress build docs",
-    "docs:start": "vitepress serve docs --host"
+    "docs:start": "vitepress serve docs --host",
+		"prebuild": "test \"$CI\" = true && npx pnpm install -r --store=node_modules/.pnpm-store || echo skipping pnpm install"
   },
   "husky": {
     "hooks": {
