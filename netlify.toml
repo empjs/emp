@@ -1,7 +1,7 @@
 [build]
-  command = "pnpm docs:build"
+  command = "npx pnpm@6 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@6 docs:build"
   publish = "docs/.vitepress/dist"
 
 [build.environment]
-  NPM_FLAGS="--prefix=/"
+  NPM_FLAGS="--version"
 
