@@ -212,7 +212,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
     moduleTransformExclude.and = op.moduleTransform.exclude
   }
   if (op.moduleTransform.include) {
-    moduleTransformExclude.or = op.moduleTransform.include
+    moduleTransformExclude.not = op.moduleTransform.include
   }
   // delete op.moduleTransform
   //
