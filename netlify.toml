@@ -1,8 +1,10 @@
 [build]
-  command = "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm docs:build"
+  command = "pnpm docs:build"
 	base = "docs/"
   publish = ".vitepress/dist/"
 
 [build.environment]
   NPM_FLAGS="--prefix=/dev/null"
 
+[[plugins]]
+  package = "./plugins/pnpm-preinstaller"
