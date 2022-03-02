@@ -1,7 +1,6 @@
 [build]
   command = "pnpm docs:build"
-	base = "./"
-  publish = "docs/.vitepress/dist/"
+  publish = "docs/.vitepress/dist"
 
 [build.environment]
   NPM_FLAGS="--prefix=/dev/null"
