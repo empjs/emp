@@ -32,7 +32,7 @@ class WPFile {
           },
           image: {
             test: /\.(png|jpe?g|gif|webp|ico)$/i,
-            type: 'asset',
+            type: 'asset/resource',
           },
           fonts: {
             test: /\.(|otf|ttf|eot|woff|woff2)$/i,
