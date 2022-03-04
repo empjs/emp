@@ -12,7 +12,7 @@ class WPProduction {
       mode: 'production',
       devtool: store.config.build.sourcemap ? 'source-map' : false, //Recommended
       performance: {
-        hints: false,
+        hints: 'warning',
         maxEntrypointSize: 512000,
         maxAssetSize: 512000,
       },
