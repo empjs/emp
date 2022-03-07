@@ -1,6 +1,6 @@
 {
   "name": "@efox/plugin-babel-react",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "EMP babel React plugin",
   "files": [
     "dist",
@@ -35,7 +35,6 @@
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "@babel/runtime": "^7.16.3",
-    "@efox/emp": "workspace:^*",
     "babel-loader": "^8.2.3",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
@@ -44,6 +43,7 @@
   "devDependencies": {
     "rimraf": "^3.0.2",
     "ts-transform-paths": "^2.0.3",
-    "ttypescript": "^1.5.12"
-  }
+    "ttypescript": "^1.5.12",
+		"@efox/emp": "^2.0.7"
+	}
 }
