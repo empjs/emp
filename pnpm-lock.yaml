@@ -208,7 +208,7 @@ importers:
       '@babel/preset-react': ^7.16.0
       '@babel/preset-typescript': ^7.16.0
       '@babel/runtime': ^7.16.3
-      '@efox/emp': workspace:^*
+      '@efox/emp': ^2.0.7
       babel-loader: ^8.2.3
       babel-plugin-import: ^1.13.3
       babel-plugin-transform-es2015-arrow-functions: ^6.22.0
@@ -226,12 +226,12 @@ importers:
       '@babel/preset-react': 7.16.0_@babel+core@7.16.0
       '@babel/preset-typescript': 7.16.0_@babel+core@7.16.0
       '@babel/runtime': 7.16.3
-      '@efox/emp': link:../emp
       babel-loader: 8.2.3_@babel+core@7.16.0
       babel-plugin-import: 1.13.3
       babel-plugin-transform-es2015-arrow-functions: 6.22.0
       core-js: 3.19.1
     devDependencies:
+      '@efox/emp': link:../emp
       rimraf: 3.0.2
       ts-transform-paths: 2.0.3
       ttypescript: 1.5.12_typescript@4.4.4
