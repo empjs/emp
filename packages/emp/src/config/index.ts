@@ -6,11 +6,12 @@ import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
 import {HtmlOptions, initHtml, InitHtmlType} from 'src/config/html'
-import {MFExport} from 'src/types/modulefederation'
+import {MFExport} from 'src/types/moduleFederation'
 import {EMPShareExport} from 'src/types/empShare'
 // import {LoggerType} from 'src/helper/logger'
 import path from 'path'
 import {RuleSetRule} from 'webpack'
+import templates from './templates'
 //
 export type EMPConfig = {
   /**
@@ -144,6 +145,10 @@ export type EMPConfig = {
    * 如 node_modules 模块 是否加入编译
    */
   moduleTransform?: ModuleTransform
+  /**
+   * initTemplates
+   */
+  initTemplates?: {[key: string]: string | boolean}
 }
 export interface ConfigEnv {
   mode: modeType
@@ -180,6 +185,7 @@ export type ResovleConfig = Override<
     dtsPath: {[key: string]: string}
     moduleTransform: ModuleTransform
     moduleTransformExclude: RuleSetRule['exclude']
+    initTemplates: {[key: string]: string | boolean}
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
@@ -205,6 +211,9 @@ export const initConfig = (op: any = {}): ResovleConfig => {
     ...(op.debug || {}),
   }
   delete op.debug
+  //
+  const initTemplates = op.initTemplates ? op.initTemplates : templates
+  if (op.initTemplates) delete op.initTemplates
   //
   const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
   op.moduleTransform = op.moduleTransform || {}
@@ -236,6 +245,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       typingsPath: path.resolve('src', 'empShareTypes'),
       dtsPath,
       moduleTransformExclude,
+      initTemplates,
     },
     ...op,
   }

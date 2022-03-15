@@ -79,7 +79,8 @@ program
 program
   .command('init')
   .description('初始化 emp 项目')
-  .option('-t, --template <template>', '模版文件URL')
+  // .option('-t, --template <template>', '模版文件URL')
+  .option('-d, --data [data]', 'JSON数据 http地址 或者 文件路径相对、绝对路径')
   .action(o => {
     exec('init', 'none', o, pkg)
   })

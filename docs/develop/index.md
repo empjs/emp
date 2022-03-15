@@ -27,7 +27,10 @@ pnpm add @efox/emp -D
   3. react_base
   4. react_project
 
-<img src="../img/init_example.png" />
+::: tip v2.1.0 可指定安装业务模板
++ `npx @efox/emp init -d http://localhost:8000/data.json` 指定url
++ `npx @efox/emp init -d ./data.json` 指定本地文件
+:::
 
 ### emp dev
 + -e, --env 部署环境 dev、test、prod 默认为 dev
