@@ -9,8 +9,10 @@ import {cliOptionsType, modeType} from 'src/types'
 import {createSpinner} from 'nanospinner'
 import path from 'path'
 import logger from 'src/helper/logger'
+import templates from 'src/config/templates'
 class Init {
-  templates: any = store.config.initTemplates
+  // templates: any = store.config.initTemplates
+  templates: any = templates
   private checkScriptRun() {
     if (process.env.npm_execpath?.includes('pnpm')) return 'pnpm'
     else if (process.env.npm_execpath?.includes('yarn')) return 'yarn'

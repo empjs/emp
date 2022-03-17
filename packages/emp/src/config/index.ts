@@ -147,8 +147,9 @@ export type EMPConfig = {
   moduleTransform?: ModuleTransform
   /**
    * initTemplates
+   * 暂无场景 弃置
    */
-  initTemplates?: {[key: string]: string | boolean}
+  // initTemplates?: {[key: string]: string | boolean}
 }
 export interface ConfigEnv {
   mode: modeType
@@ -185,7 +186,7 @@ export type ResovleConfig = Override<
     dtsPath: {[key: string]: string}
     moduleTransform: ModuleTransform
     moduleTransformExclude: RuleSetRule['exclude']
-    initTemplates: {[key: string]: string | boolean}
+    // initTemplates: {[key: string]: string | boolean}
   }
 >
 export const initConfig = (op: any = {}): ResovleConfig => {
@@ -212,8 +213,8 @@ export const initConfig = (op: any = {}): ResovleConfig => {
   }
   delete op.debug
   //
-  const initTemplates = op.initTemplates ? op.initTemplates : templates
-  if (op.initTemplates) delete op.initTemplates
+  // const initTemplates = op.initTemplates ? op.initTemplates : templates
+  // if (op.initTemplates) delete op.initTemplates
   //
   const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
   op.moduleTransform = op.moduleTransform || {}
@@ -245,7 +246,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       typingsPath: path.resolve('src', 'empShareTypes'),
       dtsPath,
       moduleTransformExclude,
-      initTemplates,
+      // initTemplates,
     },
     ...op,
   }
