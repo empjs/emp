@@ -1,6 +1,6 @@
 {
   "name": "@efox/eslint-config-react",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "EMP react eslint",
   "files": [
     "dist"
