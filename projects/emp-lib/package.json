@@ -5,12 +5,7 @@
   "files": [
     "dist"
   ],
-	"typesVersions": {
-		"*": {
-			".": [ "./dist/types/index.d.ts" ],
-			"*": [ "./dist/types/*" ]
-		}
-	},
+	"types": "./dist/empShareTypes/lib.d.ts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -23,11 +18,9 @@
   },
   "private": true,
   "scripts": {
-    "dev": "emp dev",
-    "build": "emp build -wl config.js",
-    "stat": "emp build --analyze",
-		"dts:build": "ttsc",
-		"dts": "ttsc -w"
+    "dev": "emp dev -t",
+    "build": "emp build -t",
+    "stat": "emp build --analyze"
   },
   "author": "",
   "license": "ISC",
