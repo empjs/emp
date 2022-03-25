@@ -242,7 +242,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       useImportMeta: false,
       splitCss: true,
       appEntry: '',
-      jsCheck: false,
+      jsCheck: true,
       typingsPath: path.resolve('src', 'empShareTypes'),
       dtsPath,
       moduleTransformExclude,

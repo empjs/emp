@@ -7,7 +7,7 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ], //使用推荐的React代码检测规范
-  plugins: ['@typescript-eslint', 'proposal'],
+  plugins: ['@typescript-eslint'],
   env: {
     browser: true,
     node: true,
@@ -41,7 +41,6 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 0,
     'react-hooks/rules-of-hooks': 'warn',
     'react-hooks/exhaustive-deps': 'off',
-    'proposal/class-property-no-initialized': 'error',
     'prettier/prettier': [
       'error',
       {

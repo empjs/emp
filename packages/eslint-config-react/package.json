@@ -1,6 +1,6 @@
 {
   "name": "@efox/eslint-config-react",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "EMP react eslint",
   "files": [
     "dist"
@@ -29,7 +29,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-proposal":"^2.3.3",
     "prettier": "^2.1.2"
   },
   "peerDependencies": {
