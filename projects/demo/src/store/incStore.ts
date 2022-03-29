@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, observable, action, makeObservable} from 'mobx'
 import axios from 'axios'
 class IncStore {
   num = 0
@@ -18,3 +18,19 @@ class IncStore {
 }
 
 export default new IncStore()
+
+class Todo {
+  id = Math.random()
+  @observable title = ''
+  @observable finished = false
+
+  constructor() {
+    makeObservable(this)
+  }
+
+  @action
+  toggle() {
+    this.finished = !this.finished
+  }
+}
+export const TodoStore = new Todo()

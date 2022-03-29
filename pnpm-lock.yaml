@@ -390,6 +390,7 @@ importers:
       axios: ^0.21.4
       lodash: ^4.17.21
       mobx: ^6.3.7
+      mobx-react: ^7.2.1
       mobx-react-lite: ^3.2.2
       react: ^17.0.2
       react-dom: ^17.0.2
@@ -398,6 +399,7 @@ importers:
       axios: 0.21.4
       lodash: 4.17.21
       mobx: 6.3.7
+      mobx-react: 7.2.1_17a9a2b9737f188c3f2d8ece9728da86
       mobx-react-lite: 3.2.2_17a9a2b9737f188c3f2d8ece9728da86
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2

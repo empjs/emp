@@ -3,6 +3,7 @@
     "compilerOptions": {
       "types": ["@efox/emp/client"],
       "baseUrl": ".",
+			"experimentalDecorators": true
     },
     "include": [
       "src",
