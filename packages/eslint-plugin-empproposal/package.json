@@ -1,0 +1,51 @@
+{
+  "name": "eslint-plugin-empproposal",
+  "version": "0.0.3",
+  "private": false,
+  "description": "some rules for ECMAScript proposal",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "proposal",
+    "ecmascript",
+    "class",
+    "class-property",
+    "decorator"
+  ],
+  "maintainers": [
+    {
+      "name": "doerme",
+      "email": "398921432@qq.com"
+    }
+  ],
+  "main": "index.js",
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "publishConfig": {
+    "registry": "https://npm-registry.yy.com"
+  },
+  "scripts": {
+    "test": "mocha tests --recursive",
+    "prepublishOnly": "npm run test"
+  },
+  "peerDependencies": {
+    "eslint": ">= 4.19.1"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "requireindex": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "4.19.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,11 +1,13 @@
 {
   "name": "@efox/eslint-config-react",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "EMP react eslint",
   "files": [
     "dist"
   ],
-  "maintainers": ["xuhongbin@yy.com"],
+  "maintainers": [
+    "xuhongbin@yy.com"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efoxTeam/emp.git",
@@ -34,5 +36,8 @@
   "peerDependencies": {
     "eslint": "^7.12.1",
     "eslint-plugin-prettier": "^3.1.4"
+  },
+  "devDependencies": {
+    "eslint-plugin-empproposal": "workspace:^*"
   }
 }
