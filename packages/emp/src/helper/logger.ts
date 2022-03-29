@@ -22,7 +22,7 @@ export const logTitle = (title: string) =>
  * @param msg
  * @param tag
  */
-type tagType = 'green' | 'blue' | 'yellow' | 'red'
+type tagType = 'green' | 'blue' | 'yellow' | 'red' | 'purple' | 'black'
 const logTagStyle = (msg: any, c1: string, c2: string, w = '#ecf0f1') =>
   console.log(`${chalk.bgHex(w).hex(c1)(` EMP v${store.empPkg.version} `)}${chalk.hex(w).bgHex(c2)(` ${msg} `)}\n`)
 export const logTag = (msg: string, tag: tagType = 'blue') => {
@@ -39,6 +39,12 @@ export const logTag = (msg: string, tag: tagType = 'blue') => {
       break
     case 'yellow':
       logTagStyle(msg, '#f39c12', '#f1c40f')
+      break
+    case 'purple':
+      logTagStyle(msg, '#8e44ad', '#9b59b6')
+      break
+    case 'black':
+      logTagStyle(msg, '#2c3e50', '#34495e')
       break
   }
 }

@@ -2,7 +2,7 @@ import {Compiler, Compilation} from 'webpack'
 import DTSEmitFile, {DTSTLoadertype} from './dts'
 import glob from 'fast-glob'
 import store from 'src/helper/store'
-import {logTag} from 'src/helper/logger'
+import logger, {logTag} from 'src/helper/logger'
 import {Worker} from 'worker_threads'
 
 const plugin = {
@@ -25,12 +25,14 @@ class DTSPlugin {
     const isTypeForOutDir = store.config.build.outDir === store.config.build.typesOutDir
     isTypeForOutDir &&
       compiler.hooks.afterEmit.tap(plugin, compilation => {
+        logger.debug('[afterEmit] createDtsEmitThreadForBuild')
         createDtsEmitThreadForBuild()
       })
   }
 }
 
 export function createDtsEmitThread() {
+  logTag('dts building in worker thread.', 'black')
   return new Worker(__dirname + '/dtsThread.js')
 }
 
