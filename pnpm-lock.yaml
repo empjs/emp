@@ -164,7 +164,6 @@ importers:
       eslint: ^7.12.1
       eslint-config-prettier: ^6.11.0
       eslint-plugin-prettier: ^3.1.4
-      eslint-plugin-proposal: ^2.3.3
       eslint-plugin-react: 7.25.1
       eslint-plugin-react-hooks: ^4.2.0
       prettier: ^2.1.2
@@ -174,7 +173,6 @@ importers:
       eslint: 7.32.0
       eslint-config-prettier: 6.15.0_eslint@7.32.0
       eslint-plugin-prettier: 3.4.1_ca8e637aa0f5ceb017cb468fd17797de
-      eslint-plugin-proposal: 2.3.3_eslint@7.32.0
       eslint-plugin-react: 7.25.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       prettier: 2.4.1
@@ -5922,24 +5920,6 @@ packages:
       - debug
     dev: false
 
-  /babel-eslint/10.1.0_eslint@7.32.0:
-    resolution: {integrity: sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==}
-    engines: {node: '>=6'}
-    deprecated: babel-eslint is now @babel/eslint-parser. This package will no longer receive updates.
-    peerDependencies:
-      eslint: '>= 4.12.1'
-    dependencies:
-      '@babel/code-frame': 7.16.7
-      '@babel/parser': 7.17.0
-      '@babel/traverse': 7.17.0
-      '@babel/types': 7.17.0
-      eslint: 7.32.0
-      eslint-visitor-keys: 1.3.0
-      resolve: 1.22.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /babel-helper-vue-jsx-merge-props/2.0.3:
     resolution: {integrity: sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==}
     dev: false
@@ -7883,19 +7863,6 @@ packages:
       eslint-config-prettier: 6.15.0_eslint@7.32.0
       prettier: 2.4.1
       prettier-linter-helpers: 1.0.0
-    dev: false
-
-  /eslint-plugin-proposal/2.3.3_eslint@7.32.0:
-    resolution: {integrity: sha512-MFFZhtkWIdOIGbcoRIFa1AE2kvD7QtxvF5rh2jAv8HHMj8sqofMAgFw1Ani3oGjxUbBkUDwnXbwRjUANYj2U5g==}
-    engines: {node: '>=6.0.0'}
-    peerDependencies:
-      eslint: '>= 4.19.1'
-    dependencies:
-      babel-eslint: 10.1.0_eslint@7.32.0
-      eslint: 7.32.0
-      requireindex: 1.2.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /eslint-plugin-react-hooks/4.2.0_eslint@7.32.0:
@@ -12946,11 +12913,6 @@ packages:
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
     dev: true
-
-  /requireindex/1.2.0:
-    resolution: {integrity: sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==}
-    engines: {node: '>=0.10.5'}
-    dev: false
 
   /requires-port/1.0.0:
     resolution: {integrity: sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=}
