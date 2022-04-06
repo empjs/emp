@@ -8,7 +8,8 @@ module.exports = defineConfig({
         index: './src/index.ts',
         'helper/logger': './src/helper/logger.ts',
       },
-      formats: ['umd', 'esm'],
+      // formats: ['umd', 'esm'],
+      formats: ['esm'],
     },
   },
   moduleTransform: {

@@ -18,24 +18,32 @@ export const transformLibName = (name: string, code: string) => {
   return code.replace(reg, `${name}/`)
   // return code.replaceAll(`${store.config.appSrc}/`, `${name}/`)
 }
-export const transformPathImport = (o: ts.OutputFile, alias: ConfigResolveAliasType, typesOutDir: string) => {
+export const transformPathImport = (
+  o: ts.OutputFile,
+  alias: ConfigResolveAliasType,
+  typesOutDir: string,
+  appSrc?: string,
+) => {
   return o.text.replace(globalImportRE, str => {
     let matchResult = str.match(staticImportRE)
-
+    appSrc = appSrc || store.appSrc
     if (!matchResult) {
       matchResult = str.match(dynamicImportRE)
     }
     if (matchResult && matchResult[1]) {
       let rs = matchResult[1]
+      // console.log('rs', rs)
       // alias
       if (!rs.startsWith('.')) {
         let isInAlias = false
         for (const [k, v] of Object.entries(alias)) {
+          // console.log('isInAlias', k, v)
           if (rs.startsWith(`${k}/`)) {
             rs = rs.replace(`${k}/`, '')
             rs = path.join(v, rs)
             // change to relative path
-            rs = rs.replace(store.appSrc, '.').replace('\\', '/')
+            rs = rs.replace(appSrc, '.').replace('\\', '/')
+            // console.log('after isInAlias', rs, 'appSrc', appSrc)
             isInAlias = true
             break
           }
@@ -47,7 +55,9 @@ export const transformPathImport = (o: ts.OutputFile, alias: ConfigResolveAliasT
       }
       // relative path
       let filename = path.resolve(path.dirname(o.name), rs)
+      // console.log('before replace filename', filename, 'typesOutDir')
       filename = filename.split('\\').join('/').split(`/${typesOutDir}/`)[1]
+      // console.log('after filename', filename)
       return str.replace(matchResult[1], filename)
     }
     return str

@@ -14,20 +14,22 @@ export type DTSTLoadertype = {
   build: RquireBuildOptions
   mf?: MFOptions
   needClear?: boolean
+  appSrc?: string
 }
 type CodeObjType = {
   code: string
   key: string[]
 }
 class DTSEmitFile {
-  build?: RquireBuildOptions
-  mf?: MFOptions
+  build?: RquireBuildOptions = undefined
+  mf?: MFOptions = undefined
   outDir: string
   languageService: ts.LanguageService
   lib: CodeObjType = {code: '', key: []}
   tsconfig: ts.CompilerOptions
   empFilename = ''
   libFilename = ''
+  appSrc?: string = undefined
   constructor() {
     this.tsconfig = getTSConfig(store.root) || {}
     this.outDir = path.resolve(store.root, 'dist/empShareTypes')
@@ -42,9 +44,10 @@ class DTSEmitFile {
     }
     this.languageService = getTSService(this.tsconfig, store.root)
   }
-  setup({build, mf, needClear}: DTSTLoadertype) {
+  setup({build, mf, needClear, appSrc}: DTSTLoadertype) {
     this.build = build
     this.mf = mf
+    this.appSrc = appSrc
     const outDir = path.resolve(store.root, build.typesOutDir)
     if (outDir != this.outDir) {
       this.outDir = outDir
@@ -81,8 +84,10 @@ class DTSEmitFile {
     if (this.mf?.exposes) {
       const empModName = this.mf.name || ''
       let empCode = this.lib.code
+      // console.log(this.build.typesEmpName, empModName, empCode)
       empCode = transformLibName(empModName, empCode)
       this.empFilename = path.resolve(this.outDir, this.build.typesEmpName)
+      // console.log('this.empFilename', this.empFilename)
       fs.writeFileSync(this.empFilename, empCode, 'utf8')
     }
     this.destroy()
@@ -95,7 +100,8 @@ class DTSEmitFile {
       if (mod.endsWith('/index')) {
         mod = mod.replace('/index', '')
       }
-      o.text = transformPathImport(o, alias, typesOutDir)
+      //切换 alias路径
+      o.text = transformPathImport(o, alias, typesOutDir, this.appSrc)
       const warpDeclareModuleResult = this.warpDeclareModule(mod, o.text)
       this.lib.code = this.lib.code + warpDeclareModuleResult.code
       this.lib.code = transformImportExposesPath(this.lib.code, mod, warpDeclareModuleResult.exposeName)

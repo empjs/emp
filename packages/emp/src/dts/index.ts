@@ -51,6 +51,7 @@ export function createDtsEmitThreadForBuild() {
 export function emitDts(dtsThread: Worker) {
   dtsThread.postMessage(
     JSON.stringify({
+      appSrc: store.appSrc,
       build: store.config.build,
       mf: store.config.moduleFederation,
       alias: store.config.resolve.alias,
