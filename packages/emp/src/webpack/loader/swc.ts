@@ -56,13 +56,13 @@ async function SWCLoader(
   //
   const isESM = !['es3', 'es5'].includes(build.target)
   //
-  const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
-  const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
-  // const isVue = this.resourcePath.endsWith('.vue')
-  // if (isVue) {
-  //   isTypescript = true
-  //   isReact = false
-  // }
+  let isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
+  let isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
+  const isVue = this.resourcePath.endsWith('.vue')
+  if (isVue) {
+    isTypescript = /lang=ts/.test(this.resourceQuery)
+    isReact = false
+  }
   swcOpt.resetType(isTypescript, isReact)
   const {parser, react} = swcOpt
   const swcOptions: Options = {
