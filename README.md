@@ -21,12 +21,12 @@
 ## 📦 Project
 |Project|NPM|Info|Author|
 |---|---|---|---|
-|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp)|Treasure chest|Ken|
-|[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|Ken|
-|[@efox/plugin-babel-react](packages/plugin-babel-react)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-react)](https://www.npmjs.com/package/@efox/plugin-babel-react)| EMP Babel for React plugin|Ken|
-|[@efox/plugin-babel-vue-3](packages/plugin-babel-vue-3)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-vue-3)](https://www.npmjs.com/package/@efox/plugin-babel-vue-3)| EMP Babel for Vue 3 plugin|MAXLZ1|
-|[@efox/eslint-config-react](packages/eslint-config-react)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react.svg)](https://www.npmjs.com/package/@efox/eslint-config-react)|ESLint React Config|Ken|
-|[@efox/eslint-config-vue](packages/eslint-config-vue)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-vue.svg)](https://www.npmjs.com/package/@efox/eslint-config-vue)|ESLint Vue Config|Ken|
+|[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp)|Treasure chest|[Ken](https://github.com/ckken)|
+|[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|[Ken](https://github.com/ckken)|
+|[@efox/plugin-babel-react](packages/plugin-babel-react)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-react)](https://www.npmjs.com/package/@efox/plugin-babel-react)| EMP Babel for React plugin|[Ken](https://github.com/ckken)|
+|[@efox/plugin-babel-vue-3](packages/plugin-babel-vue-3)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-vue-3)](https://www.npmjs.com/package/@efox/plugin-babel-vue-3)| EMP Babel for Vue 3 plugin|[MAXLZ1](https://github.com/MAXLZ1)|
+|[@efox/eslint-config-react](packages/eslint-config-react)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react.svg)](https://www.npmjs.com/package/@efox/eslint-config-react)|ESLint React Config|[Ken](https://github.com/ckken)|
+|[@efox/eslint-config-vue](packages/eslint-config-vue)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-vue.svg)](https://www.npmjs.com/package/@efox/eslint-config-vue)|ESLint Vue Config|[Ken](https://github.com/ckken)|
 
 
 ## 👬 Community
