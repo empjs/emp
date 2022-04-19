@@ -32,7 +32,7 @@ footer: MIT Licensed | Copyright © 2021 Ken Xu
   <img class="logo shopline"  src="./img/logo/shopline.png"/>
   <img class="logo wanke"  src="./img/logo/wanke.png"/>
   <img class="logo"  src="./img/logo/zuoyebang.jpeg"/>
-  <img class="logo weride"  src="./img/logo/weride.jpeg"/>
+  <!-- <img class="logo weride"  src="./img/logo/weride.jpeg"/> -->
   <img class="logo zhuiwan"  src="./img/logo/zhuiwan.png"/>
   </div>
 </div>

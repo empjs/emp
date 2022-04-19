@@ -1,6 +1,13 @@
 # 开发
+## 全局安装
+> 支持 emp init 等初始化项目的指令
+```
+npm i -g @efox/emp
+yarn add -g @efox/emp
+pnpm add -g @efox/emp
+```
 
-## 安装
+## 项目安装依赖
 ```
 npm add @efox/emp --dev
 yarn add @efox/emp -D
@@ -10,7 +17,6 @@ pnpm add @efox/emp -D
 ## 指令
 ```json
 "scripts": {
-  "init": "emp init",
   "dev": "emp dev --env dev",
   "build": "emp build --env prod",
   "build:ts": "emp build --env prod -t",
@@ -27,7 +33,16 @@ pnpm add @efox/emp -D
   3. react_base
   4. react_project
 
-<img src="../img/init_example.png" />
+::: tip v2.1.1 可指定安装业务模板
++ `npx @efox/emp init -d http://localhost:8000/data.json` 指定url
++ `npx @efox/emp init -d ./data.json` 指定本地文件
++ `data.json` 数据结构解析
+```json
+{
+	"模板名称":"git地址"
+}
+```
+:::
 
 ### emp dev
 + -e, --env 部署环境 dev、test、prod 默认为 dev

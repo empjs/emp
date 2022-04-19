@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import incStore from './store/incStore'
 import {observer} from 'mobx-react-lite'
 import partition from 'lodash/partition'
+import Decorators from './Decorators'
 //
 // import css from './App.module.less'
 import css from './App.module.scss'
@@ -32,6 +33,7 @@ const Nav = observer(() => {
       >
         +1
       </button>
+      <Decorators />
     </>
   )
 })

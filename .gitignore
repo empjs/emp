@@ -6,3 +6,4 @@ yarn.lock
 yarn-debug.lock
 .pnpm-debug.log
 projects/e-svga*
+.idea

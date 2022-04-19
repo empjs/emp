@@ -7,7 +7,7 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ], //使用推荐的React代码检测规范
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'empproposal'],
   env: {
     browser: true,
     node: true,
@@ -16,7 +16,8 @@ module.exports = {
     //自动发现React的版本，从而进行规范react代码
     react: {
       pragma: 'React',
-      version: 'detect',
+      // version: 'detect',
+      version: '999.999.999',
     },
   },
   parserOptions: {
@@ -40,7 +41,7 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 0,
     'react-hooks/rules-of-hooks': 'warn',
     'react-hooks/exhaustive-deps': 'off',
-    'proposal/class-property-no-initialized': 'off',
+    'empproposal/class-property-no-initialized': 'error',
     'prettier/prettier': [
       'error',
       {

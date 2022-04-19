@@ -9,7 +9,7 @@ module.exports = defineConfig(({mode}) => {
     build: {
       target,
       staticDir: 'static',
-      createTs: true,
+      // createTs: true,
       /*
        设置类型文件夹 相应的远程 dtsPath 需要设置 如:
        '@microHost': 'http://127.0.0.1:8001/types/index.d.ts',
@@ -27,20 +27,22 @@ module.exports = defineConfig(({mode}) => {
       exposes: {
         './App': './src/App',
         // './Button': './src/Button',
-        './importExport/incStore': './src/store/incStore',
+        './incStore': './src/store/incStore',
       },
-      // shared: {
-      //   react: {requiredVersion: '^17.0.1'},
-      //   'react-dom': {requiredVersion: '^17.0.1'},
-      // },
-      shareLib: !isESM
-        ? cdn(mode)
-        : {
-            react: esm('react', mode, '17.0.2'),
-            'react-dom': esm('react-dom', mode, '17.0.2'),
-            mobx: esm('mobx', mode),
-            'mobx-react-lite': esm('mobx-react-lite', mode),
-          },
+      shared: {
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
+        mobx: {requiredVersion: '^6'},
+        'mobx-react': {requiredVersion: '^7'},
+      },
+      // shareLib: !isESM
+      //   ? cdn(mode)
+      //   : {
+      //       react: esm('react', mode, '17.0.2'),
+      //       'react-dom': esm('react-dom', mode, '17.0.2'),
+      //       mobx: esm('mobx', mode),
+      //       'mobx-react-lite': esm('mobx-react-lite', mode),
+      //     },
       // shareLib: cdn(mode),
     },
     html: {title: 'Micro-Host'},

@@ -9,6 +9,7 @@ module.exports = defineConfig(() => {
       name: 'mfHost',
       exposes: {
         './App': './src/App',
+        './incStore': './src/store/incStore',
       },
       shared: {
         react: {requiredVersion: '^17.0.1'},

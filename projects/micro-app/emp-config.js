@@ -26,14 +26,20 @@ module.exports = defineConfig(({mode, env}) => {
       exposes: {
         './App': './src/App',
       },
-      shareLib: !isESM
-        ? cdn(mode)
-        : {
-            react: esm('react', mode, '17.0.2'),
-            'react-dom': esm('react-dom', mode, '17.0.2'),
-            mobx: esm('mobx', mode),
-            'mobx-react-lite': esm('mobx-react-lite', mode),
-          },
+      shared: {
+        react: {requiredVersion: '^17.0.1'},
+        'react-dom': {requiredVersion: '^17.0.1'},
+        mobx: {requiredVersion: '^6'},
+        'mobx-react': {requiredVersion: '^7'},
+      },
+      // shareLib: !isESM
+      //   ? cdn(mode)
+      //   : {
+      //       react: esm('react', mode, '17.0.2'),
+      //       'react-dom': esm('react-dom', mode, '17.0.2'),
+      //       mobx: esm('mobx', mode),
+      //       'mobx-react-lite': esm('mobx-react-lite', mode),
+      //     },
     },
     html: {title: 'Micro-App'},
     createTs: true,

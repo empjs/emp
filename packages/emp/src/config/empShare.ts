@@ -141,6 +141,7 @@ class EMPShare {
       if (typeof moduleFederationOpt === 'function') {
         moduleFederationOpt = await moduleFederationOpt(store.config)
       }
+      const empConfigRemotes = {...moduleFederationOpt.remotes}
       if (moduleFederationOpt.name) {
         moduleFederationOpt.filename = moduleFederationOpt.filename || 'emp.js'
         if (!moduleFederationOpt.library && store.isESM) {
@@ -152,7 +153,7 @@ class EMPShare {
 
           for (const [k, v] of Object.entries(remotes)) {
             if (typeof v === 'string') {
-              console.log('v.match(exp)', v.match(exp), v)
+              // console.log('v.match(exp)', v.match(exp), v)
               const cb: any = v.match(exp) || []
               if (cb.length > 0) {
                 remotes[k] = cb[2]
@@ -165,6 +166,9 @@ class EMPShare {
       }
       // 同步回config 让 store.config 使用
       store.config.moduleFederation = this.moduleFederation
+      if (store.isESM) {
+        store.config.moduleFederation.remotes = empConfigRemotes
+      }
     }
   }
 }

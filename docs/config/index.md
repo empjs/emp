@@ -346,6 +346,11 @@ swc 是否异步构建
 + 默认 `true`
 
 是否压缩、默认 development 不压缩，production 压缩
+
+::: tip v2.1.0
+启用 `swc` 进行压缩 比 `terser` 速度提升 7倍,目前处于 `RC` 阶段，可以正常使用
+:::
+
 当设置为 `swc` 时 默认使用 swc压缩 [点击参考配置](https://github.com/mishoo/UglifyJS#minify-options)
 
 ### build.minOptions

@@ -23,7 +23,7 @@ function getTSConfig(cwd: string): ts.CompilerOptions | undefined {
     const tsconfigStr = fs.readFileSync(tsconfigPath, 'utf8')
     const tsconfig = eval(`module.exports = ${tsconfigStr}`)
     // return tsconfig.compilerOptions
-    console.log('tsconfig', tsconfig)
+    // console.log('tsconfig', tsconfig)
     return tsconfig
   } catch (error) {
     logger.error(error)
