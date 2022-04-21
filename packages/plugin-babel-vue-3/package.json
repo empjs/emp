@@ -1,6 +1,6 @@
 {
 	"name": "@efox/plugin-babel-vue-3",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "EMP babel Vue3 plugin",
 	"files": [
 		"dist",
@@ -23,6 +23,7 @@
 	"devDependencies": {
 		"rimraf": "^3.0.2",
 		"ts-transform-paths": "^2.0.3",
+		"@efox/emp": "workspace:^*",
 		"ttypescript": "^1.5.12"
 	},
 	"dependencies": {
@@ -33,7 +34,6 @@
 		"@babel/plugin-transform-runtime": "^7.17.0",
 		"@babel/preset-env": "^7.16.11",
 		"@babel/preset-typescript": "^7.16.7",
-		"@efox/emp": "workspace:^*",
 		"@vue/babel-plugin-jsx": "^1.1.1",
 		"babel-loader": "^8.2.3",
 		"core-js": "3.21.0",
