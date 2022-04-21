@@ -436,25 +436,21 @@ importers:
       '@efox/emp': '*'
       '@types/offscreencanvas': ^2019.6.4
       pbf: ^3.2.1
-      ttypescript: ^1.5.12
       typescript: ^4.5.5
-      typescript-transform-paths: ^3.3.1
     dependencies:
       pbf: 3.2.1
     devDependencies:
       '@efox/emp': link:../../packages/emp
       '@types/offscreencanvas': 2019.6.4
-      ttypescript: 1.5.12_typescript@4.6.2
       typescript: 4.6.2
-      typescript-transform-paths: 3.3.1_typescript@4.6.2
 
   projects/e-svga-demo:
     specifiers:
       '@efox/emp': workspace:*
-      '@friend/e-svga-emp': workspace:^1.4.5
+      '@friend/e-svga': workspace:*
     dependencies:
       '@efox/emp': link:../../packages/emp
-      '@friend/e-svga-emp': link:../e-svga
+      '@friend/e-svga': link:../e-svga
 
   projects/emp-lib:
     specifiers:
@@ -14752,17 +14748,6 @@ packages:
       typescript: 4.5.2
     dev: true
 
-  /ttypescript/1.5.12_typescript@4.6.2:
-    resolution: {integrity: sha512-1ojRyJvpnmgN9kIHmUnQPlEV1gq+VVsxVYjk/NfvMlHSmYxjK5hEvOOU2MQASrbekTUiUM7pR/nXeCc8bzvMOQ==}
-    hasBin: true
-    peerDependencies:
-      ts-node: '>=8.0.2'
-      typescript: '>=3.2.2'
-    dependencies:
-      resolve: 1.22.0
-      typescript: 4.6.2
-    dev: true
-
   /type-check/0.3.2:
     resolution: {integrity: sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=}
     engines: {node: '>= 0.8.0'}
@@ -14896,15 +14881,6 @@ packages:
     dependencies:
       minimatch: 3.0.4
       typescript: 4.5.2
-    dev: true
-
-  /typescript-transform-paths/3.3.1_typescript@4.6.2:
-    resolution: {integrity: sha512-c+8Cqd2rsRtTU68rJI0NX/OtqgBDddNs1fIxm1nCNyhn0WpoyqtpUxc1w9Ke5c5kgE4/OT5xYbKf2cf694RYEg==}
-    peerDependencies:
-      typescript: '>=3.6.5'
-    dependencies:
-      minimatch: 3.0.4
-      typescript: 4.6.2
     dev: true
 
   /typescript/4.4.4:
