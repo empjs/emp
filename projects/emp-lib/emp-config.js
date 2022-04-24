@@ -2,6 +2,7 @@ const {defineConfig} = require('@efox/emp')
 const path = require('path')
 module.exports = defineConfig({
   build: {
+    sourcemap: true,
     lib: {
       name: 'emp-lib',
       entry: {
