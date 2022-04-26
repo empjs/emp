@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.1.8",
+  "version": "2.2.0-beta.0",
   "description": "",
   "license": "MIT",
   "files": [
@@ -43,6 +43,17 @@
   },
   "author": "Ken",
   "dependencies": {
+		"@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-import": "^1.13.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@swc/core": "^1.2.171",

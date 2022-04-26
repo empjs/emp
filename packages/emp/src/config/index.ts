@@ -159,6 +159,11 @@ export interface ConfigEnv {
 export interface ModuleTransform {
   exclude?: RuleSetRule['exclude'][]
   include?: RuleSetRule['include'][]
+  /**
+   * 构建方式 esbuild 还没解决
+   * @default babel
+   */
+  parser?: 'babel' | 'swc'
 }
 export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | EMPConfigFn
@@ -218,6 +223,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
   //
   const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
   op.moduleTransform = op.moduleTransform || {}
+  op.moduleTransform.parser = op.moduleTransform.parser || 'babel'
   if (op.moduleTransform.exclude) {
     moduleTransformExclude.and = op.moduleTransform.exclude
   }

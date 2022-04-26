@@ -1,6 +1,7 @@
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import path from 'path'
+import loader from 'src/webpack/loader'
 class WPFile {
   constructor() {}
   async setup() {
@@ -12,10 +13,11 @@ class WPFile {
             test: /\.svg$/,
             // exclude: /(node_modules|bower_components)/,
             use: {
-              swc: {
-                loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-                options: store.config.build,
-              },
+              // swc: {
+              //   loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
+              //   options: store.config.build,
+              // },
+              ...loader(),
               svgr: {
                 loader: require.resolve('@svgr/webpack'),
                 options: {

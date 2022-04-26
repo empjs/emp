@@ -292,6 +292,10 @@ module.exports={
 `emp dts` 指令 同步基站 d.ts 目录
 
 ## 编译选项
+### moduleTransform.parser
++ 类型 `babel` `swc` `esbuild [暂未提供使用]`
++ 默认 `babel`
+
 ### moduleTransform.include
 + 类型 `(string | RegExp | ((value: string) => boolean) | RuleSetLogicalConditionsAbsolute | RuleSetConditionAbsolute[] | undefined)[]`
 + 默认 `null`
