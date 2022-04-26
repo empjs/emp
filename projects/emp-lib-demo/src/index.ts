@@ -17,3 +17,5 @@ const div = document.createElement('div')
 const h1 = document.createElement('h1')
 h1.innerText = 'emp v2 library demo'
 document.body.appendChild(h1)
+
+console.log('process.env.DOTENV', process.env.DOTENV, 'mode', process.env.mode, 'env', process.env.env)
