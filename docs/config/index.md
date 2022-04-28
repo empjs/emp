@@ -292,7 +292,10 @@ module.exports={
 `emp dts` 指令 同步基站 d.ts 目录
 
 ## 编译选项
-### moduleTransform.parser `v2.2.0`
+### moduleTransform.parser
+::: tip
+v2.2.0 之前默认使用 `swc`,因为各种构建问题，暂时切换回 `babel` 详细讨论可以[点击参与](https://github.com/efoxTeam/emp/discussions/281)
+:::
 + 类型 `babel` `swc` `esbuild [暂未提供使用]`
 + 默认 `babel`
 
