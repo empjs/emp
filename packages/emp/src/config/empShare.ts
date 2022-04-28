@@ -165,10 +165,11 @@ class EMPShare {
         this.moduleFederation = moduleFederationOpt
       }
       // 同步回config 让 store.config 使用
-      store.config.moduleFederation = this.moduleFederation
+      store.config.moduleFederation = {...this.moduleFederation}
       if (store.isESM) {
         store.config.moduleFederation.remotes = empConfigRemotes
       }
+      // console.log('store.config.moduleFederation', this.moduleFederation, store.config.moduleFederation)
     }
   }
 }
