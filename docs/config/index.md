@@ -292,7 +292,7 @@ module.exports={
 `emp dts` 指令 同步基站 d.ts 目录
 
 ## 编译选项
-### moduleTransform.parser
+### moduleTransform.parser `v2.2.0`
 + 类型 `babel` `swc` `esbuild [暂未提供使用]`
 + 默认 `babel`
 
