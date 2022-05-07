@@ -1,7 +1,7 @@
 {
   "name": "@efox/emp",
   "version": "2.2.1",
-  "description": "",
+  "description": "emp",
   "license": "MIT",
   "files": [
     "dist",
