@@ -1,6 +1,7 @@
 {
   "name": "emp-workspace",
   "version": "1.0.0",
+	"description": "emp workspace",
   "main": "index.js",
   "repository": "https://github.com/efoxTeam/emp.git",
   "author": "ken <ckken@qq.com>",
