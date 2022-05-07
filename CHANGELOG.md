@@ -1,3 +1,11 @@
+# 2.2.1
+## Features
++ 升级 `@efox/eslint-config-vue` 到 `2.0.1` 升级 `eslint` 到 v7
++ 升级 `@efox/eslint-config-react` 到 `2.1.0` 移除 `empproposal`
+## Bugfixes
++ 修正 `@babel/runtime` 无法引用问题
++ babel支持ts4.5 import type语法 [#285](https://github.com/efoxTeam/emp/pull/285)
+
 # 2.2.0
 ## Features
 + 切换到 `babel` 编译

@@ -11,6 +11,9 @@ const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
 const isReact17 = vCompare(reactVersion, '17')
 const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
 //
+const absoluteRuntimePath = path.dirname(require.resolve('@babel/runtime/package.json'))
+const babelRuntimeVersion = require('@babel/runtime/package.json').version
+//
 type BabelLoaderTypes = {
   loader: any
   options: {
@@ -45,10 +48,9 @@ const babelLoader = () => {
           {
             corejs: false,
             helpers: true,
-            version: require('@babel/runtime/package.json').version,
+            version: babelRuntimeVersion,
             regenerator: true,
-            useESModules: false,
-            // absoluteRuntime: true,
+            absoluteRuntime: absoluteRuntimePath,
           },
         ],
         [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
