@@ -20,6 +20,11 @@
     "docs:start": "vitepress serve docs --host",
     "prebuild": "[[ $CI = true ]] && npx pnpm@6 install -r --store=node_modules/.pnpm-store || echo skiping pnpm install"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^8.3.4",
