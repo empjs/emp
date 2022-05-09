@@ -65,19 +65,19 @@ class WPCss {
     //[css minify]
     if (this.isMiniCss) {
       if (store.config.build.minify === true) {
-        wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [
-          {
-            parallel: true,
-            minimizerOptions: {
-              preset: [
-                'default',
-                {
-                  discardComments: {removeAll: true},
-                },
-              ],
-            },
+        //::TODO	暂时适配老版本 后续观察变化
+        const op: any = {
+          parallel: true,
+          minimizerOptions: {
+            preset: [
+              'default',
+              {
+                discardComments: {removeAll: true},
+              },
+            ],
           },
-        ])
+        }
+        wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [op])
       }
 
       const staticDir = store.config.build.staticDir ? `${store.config.build.staticDir}/` : ''

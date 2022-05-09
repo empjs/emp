@@ -15,10 +15,14 @@ class EMPShare {
   constructor() {}
   async setup() {
     if (store.config.empShare) {
-      if (!store.isESM) await this.setEmpShare()
-      /**
-       * 需要重写 非 esm 下的 模块管理
-       */ else await this.setESMEmpshare()
+      if (!store.isESM) {
+        await this.setEmpShare()
+      } else {
+        /**
+         * 需要重写 非 esm 下的 模块管理
+         */
+        await this.setESMEmpshare()
+      }
     } else {
       await Promise.all([this.setExternals(), this.setModuleFederation()])
     }
@@ -170,6 +174,7 @@ class EMPShare {
         store.config.moduleFederation.remotes = empConfigRemotes
       }
       // console.log('store.config.moduleFederation', this.moduleFederation, store.config.moduleFederation)
+      console.log('this.externals', this.externals)
     }
   }
 }

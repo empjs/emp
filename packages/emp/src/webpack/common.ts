@@ -1,6 +1,6 @@
 // import path from 'path'
 import fs from 'fs'
-import path from 'path/posix'
+// import path from 'path/posix'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
