@@ -3,8 +3,8 @@ const {cdn, esm} = require('./cdn')
 
 module.exports = defineConfig(config => {
   const {mode, env} = config
-  const target = 'es2018'
-  // const target = 'es5'
+  // const target = 'es2018'
+  const target = 'es5'
   const isESM = !['es3', 'es5'].includes(target)
   return {
     define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},

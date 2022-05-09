@@ -1,8 +1,7 @@
-import {createRoot} from 'react-dom/client'
+import {render} from 'react-dom'
 import RouterComp from 'src/RouterComp'
-const container: any = document.getElementById('emp-root')
-const root = createRoot(container)
-root.render(<RouterComp />)
+
+render(<RouterComp />, document.getElementById('emp-root'))
 
 class TreasureInfoStore {
   awardDuration = 2000 // 中奖动画世界
