@@ -81,7 +81,9 @@ class WPEntries {
     htmlConfig.files.css = []
     htmlConfig.files.js = []
     htmlConfig.files.css = store.config.html.files.css.concat(store.empShare.externalAssets.css)
-    if (!store.isESM) htmlConfig.files.js = store.config.html.files.js.concat(store.empShare.externalAssets.js)
+    if (!store.isESM && !store.config.useExternalsReplaceScript) {
+      htmlConfig.files.js = store.config.html.files.js.concat(store.empShare.externalAssets.js)
+    }
     //
     if (htmlOptions.files) {
       if (htmlOptions.files.css) {

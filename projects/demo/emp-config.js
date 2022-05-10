@@ -13,7 +13,9 @@ module.exports = defineConfig(config => {
     server: {
       port: 8000,
       // hot: 'only',
+      https: true,
     },
+    // useExternalsReplaceScript: false,
     build: {
       target,
       sourcemap: false,

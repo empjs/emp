@@ -82,6 +82,12 @@ export type EMPConfig = {
    */
   externals?: ExternalsType
   /**
+   * TODO 还不支持 mf,esm下不起作用
+   * 利用 externalsType=script 替代 script src 可以减少对 head 插入 script操作
+   * @default false
+   */
+  useExternalsReplaceScript?: boolean
+  /**
    * debug 选项
    */
   debug?: ConfigDebugType
@@ -179,6 +185,7 @@ export type ResovleConfig = Override<
     server: Required<ServerOptions>
     moduleFederation?: MFExport
     externals?: ExternalsType
+    useExternalsReplaceScript: boolean
     empShare?: EMPShareExport
     webpackChain?: WebpackChainType
     reactRuntime?: 'automatic' | 'classic'
@@ -253,6 +260,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       dtsPath,
       moduleTransformExclude,
       // initTemplates,
+      useExternalsReplaceScript: false,
     },
     ...op,
   }

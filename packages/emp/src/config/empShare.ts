@@ -122,7 +122,11 @@ class EMPShare {
         v.type = v.type || 'js'
         if (v.type === 'js' && v.module) {
           if (v.global) {
-            this.externals[v.module] = v.global
+            if (!store.config.useExternalsReplaceScript) {
+              this.externals[v.module] = v.global
+            } else {
+              this.externals[v.module] = `${v.global}${v.entry ? `@${v.entry}` : ''}`
+            }
           } else if (store.isESM) {
             this.externals[v.module] = v.entry
           }
@@ -174,7 +178,7 @@ class EMPShare {
         store.config.moduleFederation.remotes = empConfigRemotes
       }
       // console.log('store.config.moduleFederation', this.moduleFederation, store.config.moduleFederation)
-      console.log('this.externals', this.externals)
+      // console.log('this.externals', this.externals)
     }
   }
 }

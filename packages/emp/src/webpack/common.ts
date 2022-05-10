@@ -29,6 +29,8 @@ class WPCommon {
   setESM(config: Configuration) {
     if (store.isESM) {
       config.externalsType = 'module'
+    } else if (store.config.useExternalsReplaceScript) {
+      config.externalsType = 'script'
     }
   }
   get target(): Configuration['target'] {
