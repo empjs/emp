@@ -79,23 +79,8 @@ class WPCommon {
           // dynamicImport: true,
         }
     const publicPath = store.config.base || ''
-    // const clean = true
-    const clean = {
-      keep(asset: string) {
-        const typesOutDir = store.config.build.typesOutDir.replace(`${store.config.build.outDir}/`, '')
-        // logger.debug('typesOutDir', typesOutDir)
-        return asset.includes(typesOutDir)
-      },
-    }
-    /* const clean =
-      store.config.build.emptyOutDir && !this.isDev
-        ? {
-            keep: new RegExp(`${store.config.build.typesOutDir}\/`), // Keep these assets under 'ignored/dir'.
-          }
-        : false */
-
     const staticDir = store.config.build.staticDir ? `${store.config.build.staticDir}/` : ''
-
+    //
     return {
       //TODO: Library 模式的处理
       // module: true,
@@ -109,7 +94,15 @@ class WPCommon {
       //   // type: 'umd',
       // },
       // clean: store.config.build.emptyOutDir && !this.isDev, //替代 clean-webpack-plugin
-      clean: clean,
+      clean: store.config.build.emptyOutDir
+        ? {
+            keep(asset: string) {
+              const typesOutDir = store.config.build.typesOutDir.replace(`${store.config.build.outDir}/`, '')
+              console.log('typesOutDir', typesOutDir, 'store.config.build.emptyOutDir', store.config.build.emptyOutDir)
+              return asset.includes(typesOutDir)
+            },
+          }
+        : false,
       path: store.outDir,
       publicPath: store.config.build.lib ? publicPath : 'auto',
       filename: `${staticDir}js/[name].[contenthash:8].js`,

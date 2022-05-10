@@ -9,6 +9,11 @@ export interface HtmlOptions extends Options {
    */
   template?: string
   /**
+   * 当前文件路径名 基于 src 如 `pc/index` `index-pc` 不填为匹配路径
+   * @default [folder]/[filename]
+   */
+  chunk?: string
+  /**
    * 基于项目的根目录 favicon url
    * @default src/favicon.ico
    */

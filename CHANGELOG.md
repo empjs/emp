@@ -1,3 +1,18 @@
+# 2.2.2
+## Features
++ 增加 `chunk` 自定义支持 如 `pc/index.html` => `info-pc.html` 修改 `chunk` 即可实现 [demo](projects/multi-entries-app/emp-config.js)
+```js
+    entries: {
+      'pc/index.tsx': {title: 'PC介绍', chunk: 'info-pc'},
+    },
+```
++ 升级 webpack5 最新 `https` & `http2` 设置 保持与emp 配置一致，用户不需要手动配置新的方法
+
+## Bugfixes
++ 修复 正式环境的 `https` 无法访问问题
++ 修复 `emptyOutDir` 不生效问题
+
+
 # 2.2.1
 ## Features
 + 升级 `@efox/eslint-config-vue` 到 `2.0.1` 升级 `eslint` 到 v7

@@ -11,11 +11,13 @@ import https from 'https'
 import {clearConsole} from 'src/helper/utils'
 class Serve {
   public app: Express
+  public resourcePath = ''
   constructor() {
     const app = express()
     app.use(compression())
     app.use(cors())
     this.app = app
+    this.resourcePath = path.join(store.empRoot, 'resource')
   }
   startLogger({httpsOptions, host, port, publicPath}: any) {
     if (publicPath && (publicPath.indexOf('http://') > -1 || publicPath.indexOf('https://') > -1)) {
@@ -40,10 +42,19 @@ class Serve {
     this.app.get('*', (req, res) => res.send(html))
     //
     const {host, port} = store.config.server
-    const httpsOptions: any = store.config.server.https
+    const httpsOptions = store.config.server.https
     const publicPath = store.config.base
+    //
     if (httpsOptions) {
-      const httpsServer = https.createServer(httpsOptions, this.app)
+      const httpsServer = https.createServer(
+        typeof httpsOptions !== 'boolean'
+          ? httpsOptions
+          : {
+              key: fs.readFileSync(path.join(this.resourcePath, 'emp.key')),
+              cert: fs.readFileSync(path.join(this.resourcePath, 'emp.cert')),
+            },
+        this.app,
+      )
       httpsServer.listen(port, () => {
         this.startLogger({httpsOptions, host, port, publicPath})
       })

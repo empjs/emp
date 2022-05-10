@@ -26,7 +26,7 @@ class WPEntries {
   async multiEntry(entries: EntriesType = {}) {
     for (const [filename, htmlOptions] of Object.entries(entries)) {
       const entry = store.resolve(`${store.config.appSrc}/${filename}`)
-      const chunk = filename.replace(path.extname(entry), '')
+      const chunk = htmlOptions.chunk ? htmlOptions.chunk : filename.replace(path.extname(entry), '')
       this.wpConfig.entry[chunk] = [store.resolve(entry)]
       //处理路径问题
       if (htmlOptions.template) {

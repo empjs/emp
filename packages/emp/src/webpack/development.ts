@@ -18,8 +18,31 @@ class WPDevelopment {
   get devServer(): Configuration['devServer'] {
     const overlayLoggerLv =
       store.config.debug.level === 'error' ? {errors: true, warnings: false} : {errors: true, warnings: true}
+    const storeServer: any = store.config.server
+    if (storeServer.https && !storeServer.http2) {
+      if (typeof storeServer.https === 'boolean') {
+        storeServer.server = 'https'
+      } else {
+        storeServer.server = {
+          type: 'https',
+          options: storeServer.https,
+        }
+      }
+      delete storeServer.https
+    } else if (storeServer.http2) {
+      if (typeof storeServer.http2 === 'boolean') {
+        storeServer.server = 'spdy'
+      } else {
+        storeServer.server = {
+          type: 'spdy',
+          options: storeServer.http2,
+        }
+      }
+      delete storeServer.http2
+    }
+    // console.log('storeServer', storeServer)
     return {
-      host: '0.0.0.0',
+      // host: '0.0.0.0',
       allowedHosts: ['all'],
       historyApiFallback: true,
       // compress: true,
@@ -46,7 +69,7 @@ class WPDevelopment {
           ...overlayLoggerLv,
         },
       },
-      ...(store.config.server as Configuration['devServer']),
+      ...storeServer,
     }
   }
 }
