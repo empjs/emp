@@ -11,19 +11,10 @@ class WPFile {
           // 解决svgr ReactComponent 无法获取的问题
           svg: {
             test: /\.svg$/,
-            // exclude: /(node_modules|bower_components)/,
             use: {
-              // swc: {
-              //   loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-              //   options: store.config.build,
-              // },
-              ...loader(),
-              svgr: {
-                loader: require.resolve('@svgr/webpack'),
-                options: {
-                  babel: false,
-                },
-              },
+							svgo: {
+								loader: require.resolve('svgo-loader'),
+							},
               url: {
                 loader: require.resolve('url-loader'), //解决 ReactComponent 无法获取问题
                 options: {
