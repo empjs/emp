@@ -8,7 +8,8 @@
     "build": "emp build --env prod",
     "start": "emp serve",
     "stat": "emp build --analyze",
-    "emp": "emp"
+    "emp": "emp",
+		"lint": "eslint ./src --ext js,ts,tsx"
   },
   "author": "",
   "license": "ISC",
