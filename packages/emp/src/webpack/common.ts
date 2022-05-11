@@ -98,7 +98,7 @@ class WPCommon {
         ? {
             keep(asset: string) {
               const typesOutDir = store.config.build.typesOutDir.replace(`${store.config.build.outDir}/`, '')
-              console.log('typesOutDir', typesOutDir, 'store.config.build.emptyOutDir', store.config.build.emptyOutDir)
+              // logger.debug('typesOutDir', typesOutDir, 'store.config.build.emptyOutDir', store.config.build.emptyOutDir)
               return asset.includes(typesOutDir)
             },
           }

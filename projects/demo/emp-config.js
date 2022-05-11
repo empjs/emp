@@ -13,9 +13,12 @@ module.exports = defineConfig(config => {
     server: {
       port: 8000,
       // hot: 'only',
-      https: true,
+      // https: true,
     },
     // useExternalsReplaceScript: false,
+    moduleTransform: {
+      parser: 'swc',
+    },
     build: {
       target,
       sourcemap: false,
