@@ -14,6 +14,7 @@ module.exports = defineConfig({
     },
   },
   moduleTransform: {
+    parser: 'swc',
     include: [/@yy/],
   },
   resolve: {
