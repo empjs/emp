@@ -53,8 +53,21 @@ const babelLoader = () => {
             absoluteRuntime: absoluteRuntimePath,
           },
         ],
+        /**
+         * This option enables support for the "legacy" decorator proposal.
+         * You can enable it in Babel using the @babel/plugin-proposal-decorators plugin,
+         * but please be aware, there are some minor differences.
+         */
         [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
-        [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
+        /**
+         * 切换到稳定版本
+         */
+        // [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
+        [require.resolve('@babel/plugin-proposal-class-properties')],
+        /**
+         * When set to true, the transform will only remove type-only imports (introduced in TypeScript 3.8).
+         * This should only be used if you are using TypeScript >= 3.8.
+         */
         [require.resolve('@babel/plugin-transform-typescript'), {onlyRemoveTypeImports: true}],
       ],
     },
