@@ -7,7 +7,7 @@
     "dist",
     "bin",
     "template",
-		"resource",
+    "resource",
     "client.d.ts",
     "emp-tsconfig.json"
   ],
@@ -57,6 +57,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@swc/core": "^1.2.181",
+    "@types/express": "^4.17.13",
     "@types/node": "^16.11.9",
     "address": "^1.1.2",
     "axios": "^0.21.4",
