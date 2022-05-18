@@ -38,7 +38,7 @@ footer: MIT Licensed | Copyright © 2021 Ken Xu
 </div>
 
 <div class="contact">
-  <img src="./img/contact_me_qr.png" />
+  <img src="./img/qq_channel.jpg" />
   <div class="footer">参与讨论</div>
 </div>
 
