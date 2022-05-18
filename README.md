@@ -32,7 +32,7 @@
 ## 👬 Community QQ频道
 > 鉴于企业微信的人数限制以及无法做信息下沉、故切换到QQ频道
 
-<img src="docs/img/qq_channel.jpg" width="150" />
+<img src="docs/img/qq_channel.jpg" width="500" />
 
 ## 📖 Articles & Demos
 <a href="https://juejin.cn/user/483440843559406/posts">[掘金]</a>
