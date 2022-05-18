@@ -29,8 +29,10 @@
 |[@efox/eslint-config-vue](packages/eslint-config-vue)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-vue.svg)](https://www.npmjs.com/package/@efox/eslint-config-vue)|ESLint Vue Config|[Ken](https://github.com/ckken)|
 
 
-## 👬 Community
-<img src="docs/img/contact_me_qr.png" width="150" />
+## 👬 Community QQ频道
+> 鉴于企业微信的人数限制以及无法做信息下沉、故切换到QQ频道
+
+<img src="docs/img/qq_channel.jpg" width="150" />
 
 ## 📖 Articles & Demos
 <a href="https://juejin.cn/user/483440843559406/posts">[掘金]</a>
