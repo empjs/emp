@@ -1,7 +1,7 @@
 import path from 'path'
 import {RquireBuildOptions} from 'src/config/build'
 import store from 'src/helper/store'
-import TramsformImport from 'swc-plugin-transform-import'
+import TramsformImport from './swc-plugin-transform-import'
 
 export default () => {
   const pkg = store.pkg

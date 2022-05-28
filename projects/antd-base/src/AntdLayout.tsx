@@ -1,5 +1,5 @@
-import {Table, Tag, Space} from 'antd'
-
+import {Table, Tag, Space, ConfigProvider, DatePicker} from 'antd'
+import enUS from 'antd/lib/locale/en_US'
 const {Column, ColumnGroup} = Table
 
 const data = [
@@ -31,38 +31,41 @@ const data = [
 
 const AntdLayout = () => {
   return (
-    <Table dataSource={data}>
-      <ColumnGroup title="Name">
-        <Column title="First Name" dataIndex="firstName" key="firstName" />
-        <Column title="Last Name" dataIndex="lastName" key="lastName" />
-      </ColumnGroup>
-      <Column title="Age" dataIndex="age" key="age" />
-      <Column title="Address" dataIndex="address" key="address" />
-      <Column
-        title="Tags"
-        dataIndex="tags"
-        key="tags"
-        render={tags => (
-          <>
-            {tags.map(tag => (
-              <Tag color="blue" key={tag}>
-                {tag}
-              </Tag>
-            ))}
-          </>
-        )}
-      />
-      <Column
-        title="Action"
-        key="action"
-        render={(text, record: any) => (
-          <Space size="middle">
-            <a>Invite {record.lastName}</a>
-            <a>Delete</a>
-          </Space>
-        )}
-      />
-    </Table>
+    <ConfigProvider locale={enUS}>
+      <DatePicker />
+      <Table dataSource={data}>
+        <ColumnGroup title="Name">
+          <Column title="First Name" dataIndex="firstName" key="firstName" />
+          <Column title="Last Name" dataIndex="lastName" key="lastName" />
+        </ColumnGroup>
+        <Column title="Age" dataIndex="age" key="age" />
+        <Column title="Address" dataIndex="address" key="address" />
+        <Column
+          title="Tags"
+          dataIndex="tags"
+          key="tags"
+          render={tags => (
+            <>
+              {tags.map(tag => (
+                <Tag color="blue" key={tag}>
+                  {tag}
+                </Tag>
+              ))}
+            </>
+          )}
+        />
+        <Column
+          title="Action"
+          key="action"
+          render={(text, record: any) => (
+            <Space size="middle">
+              <a>Invite {record.lastName}</a>
+              <a>Delete</a>
+            </Space>
+          )}
+        />
+      </Table>
+    </ConfigProvider>
   )
 }
 export default AntdLayout
