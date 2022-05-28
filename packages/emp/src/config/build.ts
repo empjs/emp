@@ -96,6 +96,8 @@ export type RquireBuildOptions = Override<
     lib?: LibModeType
     wpTarget?: Configuration['target']
     minOptions?: TerserOptions
+    /**swc plugin */
+    plugin?: any
   }
 >
 export const initBuild = (op?: BuildOptions): RquireBuildOptions => {

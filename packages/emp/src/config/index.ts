@@ -170,6 +170,12 @@ export interface ModuleTransform {
    * @default babel
    */
   parser?: 'babel' | 'swc'
+  /**
+   * 是否按需加载antd 后续考虑开放所有配置选项
+   * swc 与 Babel 有所不同
+   * @default true
+   */
+  antdTransformImport?: boolean
 }
 export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | EMPConfigFn
@@ -231,6 +237,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
   const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
   op.moduleTransform = op.moduleTransform || {}
   op.moduleTransform.parser = op.moduleTransform.parser || 'babel'
+  op.moduleTransform.antdTransformImport = op.moduleTransform.antdTransformImport === false ? false : true
   if (op.moduleTransform.exclude) {
     moduleTransformExclude.and = op.moduleTransform.exclude
   }

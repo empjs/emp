@@ -35,7 +35,7 @@ const babelLoader = () => {
             // debug: false,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
-            loose: true,
+            // loose: true,
           },
         ],
         require.resolve('@babel/preset-typescript'),
@@ -81,7 +81,8 @@ const babelLoader = () => {
       o.options.plugins.unshift(require.resolve('react-refresh/babel'))
   }
   // antd
-  isAntd && o.options.plugins.unshift([require.resolve('babel-plugin-import'), {libraryName: 'antd', style: true}])
+  if (isAntd && store.config.moduleTransform.antdTransformImport)
+    o.options.plugins.unshift([require.resolve('babel-plugin-import'), {libraryName: 'antd', style: true}])
   return {babel: o}
 }
 

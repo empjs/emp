@@ -318,6 +318,15 @@ moduleTransform.include = [path.resolve(__dirname, 'node_modules/@baidu')]
 moduleTransform.exclude = [/@baidu/,path.resolve(__dirname, 'node_modules/@yy')]
 ```
 
+### moduleTransform.antdTransformImport
+::: tip
+v2.2.4
+:::
++ 类型 `boolean`
++ 默认 `true`
+
+是否开启 `antd` 按需加载，基于`swc`与`babel`实现不同，后续考虑开放所有 按需加载选项
+
 ## 构建选项
 ### build.target
  + 类型 `JscConfig['target']`

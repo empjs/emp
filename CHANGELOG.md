@@ -1,3 +1,8 @@
+# 2.2.4
+## Features
++ 增加 `swc` 对 `antd` 的 `transform-import` 支持
++ 增加选项 `moduleTransform.antdTransformImport` 是否按需加载
+
 # 2.2.2
 ## Features
 + 增加 `chunk` 自定义支持 如 `pc/index.html` => `info-pc.html` 修改 `chunk` 即可实现 [demo](projects/multi-entries-app/emp-config.js)

@@ -18,6 +18,7 @@ const content = (
   </Descriptions>
 )
 
+// eslint-disable-next-line react/display-name
 export default () => {
   const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({fixSiderbar: true})
   const [pathname, setPathname] = useState('/welcome')

@@ -84,6 +84,7 @@ async function SWCLoader(
       },
     },
   }
+  if (build.plugin) swcOptions.plugin = build.plugin
 
   if (!isESM) {
     /**
