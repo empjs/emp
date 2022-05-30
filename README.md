@@ -22,6 +22,7 @@
 |Project|NPM|Info|Author|
 |---|---|---|---|
 |[@efox/emp](packages/emp)|[![release](https://img.shields.io/npm/v/@efox/emp.svg)](https://www.npmjs.com/package/@efox/emp)|Treasure chest|[Ken](https://github.com/ckken)|
+|[@efox/emp-compile-swc](packages/compile-swc)|[![release](https://img.shields.io/npm/v/@efox/emp-compile-swc.svg)](https://www.npmjs.com/package/@efox/emp-compile-swc)|use swc replace babel|[Ken](https://github.com/ckken)|
 |[@efox/plugin-vue-2](packages/plugin-vue-2)|[![release](https://img.shields.io/npm/v/@efox/plugin-vue-2)](https://www.npmjs.com/package/@efox/plugin-vue-2)| EMP Vue v2 plugin|[Ken](https://github.com/ckken)|
 |[@efox/plugin-babel-vue-3](packages/plugin-babel-vue-3)|[![release](https://img.shields.io/npm/v/@efox/plugin-babel-vue-3)](https://www.npmjs.com/package/@efox/plugin-babel-vue-3)| EMP Babel for Vue 3 plugin|[MAXLZ1](https://github.com/MAXLZ1)|
 |[@efox/eslint-config-react](packages/eslint-config-react)|[![release](https://img.shields.io/npm/v/@efox/eslint-config-react.svg)](https://www.npmjs.com/package/@efox/eslint-config-react)|ESLint React Config|[Ken](https://github.com/ckken)|
