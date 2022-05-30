@@ -15,13 +15,13 @@ module.exports = defineConfig({
 })
 ```
 
-### [@efox/plugin-babel-react](https://github.com/efoxTeam/emp/tree/next/packages/plugin-babel-react)
-+ 提供 react babel 编译支持
+### [@efox/emp-compile-swc](https://github.com/efoxTeam/emp/tree/next/packages/compile-swc)
++ 提供 swc 编译支持
 ```js
 const {defineConfig} = require('@efox/emp')
-const babelReact = require('@efox/plugin-babel-react')
+const compile = require('@efox/emp-compile-swc')
 module.exports = defineConfig({
-  plugins: [babelReact],
+  compile,
 })
 ```
 
