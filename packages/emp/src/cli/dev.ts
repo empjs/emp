@@ -15,6 +15,7 @@ class devServer {
     const config = getConfig()
     if (store.config.debug.clearLog) clearConsole()
     logTag(`dev server running at:`)
+    if (store.config.compile.compileType !== 'babel') logTag(`use ${store.config.compile.compileType}`, 'purple')
     //
     const compiler = webpack(config)
     this.server = new WebpackDevServer(config.devServer || {}, compiler)

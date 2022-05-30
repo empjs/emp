@@ -1,6 +1,6 @@
-import path from 'path'
+// import path from 'path'
 import {empStore as store, ResovleConfig} from '@efox/emp'
-import TramsformImport from 'src/swc-plugin-transform-import'
+import TramsformImport from './swc-plugin-transform-import'
 
 export default () => {
   const pkg = store.pkg
@@ -18,7 +18,7 @@ export default () => {
     }
   }
   return {
-    loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
+    loader: require.resolve('./swc'),
     options,
   }
 }

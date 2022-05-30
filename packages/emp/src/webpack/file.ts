@@ -15,12 +15,12 @@ class WPFile {
               //   loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
               //   options: store.config.build,
               // },
-              ...loader().config,
+              // ...loader().config,
               svgr: {
                 loader: require.resolve('@svgr/webpack'),
-                options: {
-                  babel: false,
-                },
+                // options: {
+                //   babel: false,
+                // },
               },
               url: {
                 loader: require.resolve('url-loader'), //解决 ReactComponent 无法获取问题

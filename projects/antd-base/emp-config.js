@@ -1,10 +1,10 @@
 const {defineConfig} = require('@efox/emp')
-// const pluginBabelReact = require('@efox/plugin-babel-react')
+// const compile = require('@efox/emp-compile-swc')
 module.exports = defineConfig({
   //   splitCss: false,
   // plugins: [pluginBabelReact],
+  // compile,
   moduleTransform: {
-    parser: 'swc',
     // antdTransformImport: false,
   },
   build: {

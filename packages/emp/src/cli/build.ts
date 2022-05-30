@@ -32,6 +32,7 @@ class Build {
 
     if (store.config.debug.clearLog) clearConsole()
     logTag(`build mode ${store.config.mode}${this.isLib ? ' in [Library Mode] ' : ''}:`)
+    if (store.config.compile.compileType !== 'babel') logTag(`use ${store.config.compile.compileType}`, 'purple')
     // await reporter.measureFileSizesBeforeBuild()
     webpack(this.config, (err: any, stats: any) => {
       if (err) {
