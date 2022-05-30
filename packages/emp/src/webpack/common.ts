@@ -1,5 +1,6 @@
 // import path from 'path'
 import fs from 'fs'
+import logger from 'src/helper/logger'
 // import path from 'path/posix'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
@@ -45,9 +46,13 @@ class WPCommon {
     if (fs.existsSync(empConfig)) {
       watchConfig.push(empConfig)
     }
+    const cacheName = `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
+      store.pkg.version
+    }`
     return {
-      name: `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${store.pkg.version}`,
+      name: cacheName,
       type: 'filesystem',
+      profile: true, // cache work in windows need profile true
       cacheDirectory: store.cacheDir,
       buildDependencies: {
         config: watchConfig,
