@@ -1,3 +1,13 @@
+# 2.3.0
+## Features
++ 分离 `swc` 为独立插件 [@efox/emp-compile-swc](packages/compile-swc/README.md) 加速依赖安装速度
++ 重构编译配置为 `compile` 后续可以通过 修改 `config.compile` 改实现 编译的切换 如 `esbuild` `bun` 等
+## bugfixes
++ 修复 windows下缓存失效问题，2次构建速度与老版本提升 10x 以上
++ 文件插入 从 `head` 改成 `body`
++ 修正 `svg` 编译问题
++ 修复配置项 加载两次的问题
+
 # 2.2.4
 ## Features
 + 增加 `swc` 对 `antd` 的 `transform-import` 支持

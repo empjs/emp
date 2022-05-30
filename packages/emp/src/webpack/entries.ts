@@ -99,6 +99,7 @@ class WPEntries {
       chunks,
       // favicon,
       // inject: false, //避免插入两个同样 js ::TODO 延展增加 node_modules
+      inject: 'body',
       filename,
       // isESM: store.isESM,
       scriptLoading: !store.isESM ? 'defer' : 'module',
