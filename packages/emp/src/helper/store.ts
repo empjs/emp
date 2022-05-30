@@ -32,7 +32,7 @@ class GlobalStore {
   /**
    * 项目配置
    */
-  public config: ResovleConfig = initConfig()
+  public config!: ResovleConfig
   /**
    * 获取项目 根目录绝对路径
    * @param relativePath
@@ -137,13 +137,13 @@ class GlobalStore {
       const configExport: EMPConfigExport = require(fp)
       if (typeof configExport === 'function') {
         const conf = await configExport({mode, ...cliOptions})
-        this.config = initConfig(conf)
+        this.config = await initConfig(conf)
       } else if (typeof configExport === 'object') {
         const conf: any = configExport
-        this.config = initConfig(conf)
+        this.config = await initConfig(conf)
       }
     } else {
-      this.config = initConfig()
+      this.config = await initConfig()
     }
     // reactRuntime settings
     this.checkAndSetReactVersion()

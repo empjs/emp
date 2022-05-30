@@ -52,7 +52,7 @@ class WPCommon {
     return {
       name: cacheName,
       type: 'filesystem',
-      profile: true, // cache work in windows need profile true
+      profile: true,
       cacheDirectory: store.cacheDir,
       buildDependencies: {
         config: watchConfig,

@@ -1,7 +1,17 @@
 // import store from 'src/helper/store'
-import {BuildOptions, initBuild} from 'src/config/build'
+import {BuildOptions, initBuild, RquireBuildOptions} from 'src/config/build'
 import {ServerOptions, initServer} from 'src/config/server'
-import {cliOptionsType, modeType, Override, EntriesType, ConfigResolveType, ConfigDebugType} from 'src/types'
+import {
+  cliOptionsType,
+  modeType,
+  Override,
+  EntriesType,
+  ConfigResolveType,
+  ConfigDebugType,
+  CompileType,
+  CompileLoaderType,
+  CompileLoaderNameType,
+} from 'src/types'
 import {ExternalsType} from 'src/types/externals'
 import {ConfigPluginType} from 'src/config/plugins'
 import {WebpackChainType} from './chain'
@@ -152,6 +162,10 @@ export type EMPConfig = {
    */
   moduleTransform?: ModuleTransform
   /**
+   * 是否 使用 swc or esbuild 构建
+   */
+  compile?: CompileType
+  /**
    * initTemplates
    * 暂无场景 弃置
    */
@@ -169,7 +183,7 @@ export interface ModuleTransform {
    * 构建方式 esbuild 还没解决
    * @default babel
    */
-  parser?: 'babel' | 'swc'
+  // parser?: 'babel' | 'swc'
   /**
    * 是否按需加载antd 后续考虑开放所有配置选项
    * swc 与 Babel 有所不同
@@ -187,7 +201,8 @@ export function defineConfig(config: EMPConfigExport): EMPConfigExport {
 export type ResovleConfig = Override<
   Required<EMPConfig>,
   {
-    build: Required<BuildOptions>
+    // build: Required<BuildOptions>
+    build: RquireBuildOptions
     server: Required<ServerOptions>
     moduleFederation?: MFExport
     externals?: ExternalsType
@@ -205,9 +220,15 @@ export type ResovleConfig = Override<
     moduleTransform: ModuleTransform
     moduleTransformExclude: RuleSetRule['exclude']
     // initTemplates: {[key: string]: string | boolean}
+    compile: {
+      loader: CompileLoaderType
+      compileType: CompileLoaderNameType
+      minify: boolean
+      cssminify: boolean
+    }
   }
 >
-export const initConfig = (op: any = {}): ResovleConfig => {
+export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
   //解决深度拷贝被替代问题
   const build = initBuild(op.build)
   delete op.build
@@ -236,13 +257,30 @@ export const initConfig = (op: any = {}): ResovleConfig => {
   //
   const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
   op.moduleTransform = op.moduleTransform || {}
-  op.moduleTransform.parser = op.moduleTransform.parser || 'babel'
+  // op.moduleTransform.parser = op.moduleTransform.parser || 'babel'
   op.moduleTransform.antdTransformImport = op.moduleTransform.antdTransformImport === false ? false : true
   if (op.moduleTransform.exclude) {
     moduleTransformExclude.and = op.moduleTransform.exclude
   }
   if (op.moduleTransform.include) {
     moduleTransformExclude.not = op.moduleTransform.include
+  }
+  //
+  let compile!: ResovleConfig['compile']
+  if (op.compile) {
+    compile = {
+      minify: false,
+      cssminify: false,
+      ...op.compile,
+    }
+  } else {
+    const {compileType, loader} = await import('src/webpack/loader/babel-loader')
+    compile = {
+      minify: false,
+      cssminify: false,
+      compileType: compileType,
+      loader,
+    }
   }
   // delete op.moduleTransform
   //
@@ -268,6 +306,7 @@ export const initConfig = (op: any = {}): ResovleConfig => {
       moduleTransformExclude,
       // initTemplates,
       useExternalsReplaceScript: false,
+      compile,
     },
     ...op,
   }

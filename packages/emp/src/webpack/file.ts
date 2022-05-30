@@ -1,6 +1,4 @@
-import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
-import path from 'path'
 import loader from 'src/webpack/loader'
 class WPFile {
   constructor() {}
@@ -17,7 +15,7 @@ class WPFile {
               //   loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
               //   options: store.config.build,
               // },
-              ...loader(),
+              ...loader().config,
               svgr: {
                 loader: require.resolve('@svgr/webpack'),
                 options: {

@@ -83,7 +83,9 @@ const babelLoader = () => {
   // antd
   if (isAntd && store.config.moduleTransform.antdTransformImport)
     o.options.plugins.unshift([require.resolve('babel-plugin-import'), {libraryName: 'antd', style: true}])
-  return {babel: o}
+  return o
 }
 
 export default babelLoader
+export const compileType = 'babel'
+export const loader = babelLoader

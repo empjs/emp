@@ -68,11 +68,10 @@ class WPProduction {
   }
   setMinify() {
     const minOptions = store.config.build.minOptions || {}
-    // console.log('[store.config.build.minify]:', store.config.build.minify, store.config.build.minOptions)
+
     if (store.config.build.minify) {
-      // const minify = store.config.build.minify === 'swc' ? TerserPlugin.swcMinify : TerserPlugin.terserMinify
       const minify =
-        store.config.build.minify === 'swc' && store.config.moduleTransform.parser === 'swc'
+        store.config.build.minify === 'swc' && store.config.compile.compileType === 'swc'
           ? TerserPlugin.swcMinify
           : TerserPlugin.terserMinify
       logger.debug('store.config.build.minify', store.config.build.minify, store.config.debug)

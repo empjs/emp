@@ -1,5 +1,4 @@
-import {JscConfig} from '@swc/core'
-import {Override} from 'src/types'
+import {Override, JscTarget} from 'src/types'
 import {LibModeType} from 'src/types/libMode'
 import {TerserOptions} from 'terser-webpack-plugin/types/utils'
 import {Configuration} from 'webpack'
@@ -12,7 +11,7 @@ export type BuildOptions = {
   /**
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */
-  target?: JscConfig['target']
+  target?: JscTarget
   wpTarget?: Configuration['target']
   /**
    * 生成代码目录
@@ -33,7 +32,7 @@ export type BuildOptions = {
    * 是否压缩 或者利用 swc 压缩
    * @default true
    */
-  minify?: boolean | 'swc'
+  minify?: boolean | 'swc' | 'esbuild'
   /**
    * 压缩选项?
    * @default {compress:false}

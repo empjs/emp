@@ -1,0 +1,47 @@
+{
+  "name": "@efox/emp-compile-swc",
+  "version": "1.0.0",
+  "description": "swc compile loader",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoxTeam/emp.git",
+    "directory": "packages/compile-swc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "keywords": [
+    "react",
+    "module federation",
+    "antd",
+    "webpack5",
+    "typescript"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rimraf dist && ttsc -w",
+    "build": "rimraf dist && ttsc"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "@swc/core": "^1.2.181"
+  },
+  "devDependencies": {
+    "@efox/emp": "workspace:*",
+    "@types/webpack": "^5.28.0",
+    "rimraf": "^3.0.2",
+    "ts-transform-paths": "^2.0.3",
+    "ttypescript": "^1.5.12"
+  }
+}

@@ -1,7 +1,6 @@
-import webpack from 'webpack'
-import {RquireBuildOptions} from 'src/config/build'
+import type webpack from 'webpack'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
-import store from 'src/helper/store'
+import {empStore as store, ResovleConfig} from '@efox/emp'
 // import logger from 'src/helper/logger'
 const isDev = store.config.mode === 'development'
 
@@ -46,7 +45,7 @@ const swcOpt = new SWCOpt()
  * @param source
  */
 async function SWCLoader(
-  this: webpack.LoaderContext<RquireBuildOptions>,
+  this: webpack.LoaderContext<ResovleConfig['build']>,
   source: string,
   // inputSourceMap: true,
 ) {

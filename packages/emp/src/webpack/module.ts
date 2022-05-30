@@ -1,10 +1,6 @@
 import store from 'src/helper/store'
-import path from 'path'
 import wpChain from 'src/helper/wpChain'
-import loader, {parserType} from 'src/webpack/loader'
-import babelLoader from './loader/babel-loader'
-import swcLoader from './loader/swc-loader'
-// import fs from 'fs-extra'
+import loader from 'src/webpack/loader'
 type ReactRuntimeType = 'automatic' | 'classic'
 class WPModule {
   reactRuntime?: ReactRuntimeType = undefined
@@ -37,11 +33,7 @@ class WPModule {
             // exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
             exclude: store.config.moduleTransformExclude,
             use: {
-              // swc: {
-              //   loader: store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')),
-              //   options: store.config.build,
-              // },
-              ...loader(),
+              ...loader().config,
             },
           },
           // webworker: this.webworker,
@@ -65,17 +57,8 @@ class WPModule {
       })
       .end()
     // 解决ts 不能正常构建的问题
-    // .use('swc')
-    // .loader(store.empResolve(path.resolve(store.empSource, 'webpack/loader/swc')))
-    // .options(store.config.build)
-    // .end()
-    // 解决ts 不能正常构建的问题
-    const type = parserType()
-    if (type === 'swc' || type === 'babel') {
-      let parserLoader: any = loader()
-      parserLoader = parserLoader[type]
-      workerInline.use(type).loader(parserLoader.loader).options(parserLoader.options).end()
-    }
+    const loaderConfig = loader()
+    workerInline.use(loaderConfig.type).loader(loaderConfig.loader.loader).options(loaderConfig.loader.options).end()
   }
   private setScriptReactLoader() {
     const isDev = store.config.mode === 'development'
