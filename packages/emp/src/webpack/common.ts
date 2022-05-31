@@ -1,7 +1,6 @@
-// import path from 'path'
+import path from 'path'
 import fs from 'fs'
 import logger from 'src/helper/logger'
-// import path from 'path/posix'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
@@ -10,11 +9,12 @@ class WPCommon {
   constructor() {}
   async setup() {
     this.isDev = store.config.mode === 'development'
-    const {cache, resolve, experiments, output, stats, externals, target} = this
+    const {cache, resolve, experiments, output, stats, externals, target, snapshot} = this
     // init config
     const config: Configuration = {
       // cache: false,
       cache,
+      // snapshot, //评估是否有效再加入到配置
       resolve,
       externals,
       target,
@@ -40,6 +40,36 @@ class WPCommon {
   get externals(): Configuration['externals'] {
     return store.empShare.externals
   }
+  get snapshot(): Configuration['snapshot'] {
+    const conf = {
+      // 由包管理器管理的路径数组，可以信任它不会被修改。
+      managedPaths: [path.resolve(store.root, 'node_modules')],
+      // 由包管理器管理的路径数组，在其路径中包含一个版本或哈希，以便所有文件都是不可变的
+      immutablePaths: [],
+      // 对于 buildDependencies snapshot 的创建方式
+      buildDependencies: {
+        // hash: true
+        timestamp: true,
+      },
+      // 针对 module build 创建 snapshot 的方式
+      module: {
+        // hash: true
+        timestamp: true,
+      },
+      // 在 resolve request 的时候创建 snapshot 的方式
+      resolve: {
+        // hash: true
+        timestamp: true,
+      },
+      // 在 resolve buildDependencies 的时候创建 snapshot 的方式
+      resolveBuildDependencies: {
+        // hash: true
+        timestamp: true,
+      },
+    }
+    // console.log(conf)
+    return conf
+  }
   get cache(): Configuration['cache'] {
     const watchConfig = [__filename]
     const empConfig = store.resolve('emp-config.js')
@@ -49,10 +79,12 @@ class WPCommon {
     const cacheName = `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
       store.pkg.version
     }`
+    // console.log('cacheName', cacheName, store.empPkg.version)
     return {
       name: cacheName,
       type: 'filesystem',
-      profile: true,
+      version: store.empPkg.version,
+      profile: true, //暂时保留
       cacheDirectory: store.cacheDir,
       buildDependencies: {
         config: watchConfig,

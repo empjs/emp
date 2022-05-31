@@ -35,7 +35,7 @@ const babelLoader = () => {
             // debug: false,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
-            // loose: true,
+            loose: true,
           },
         ],
         require.resolve('@babel/preset-typescript'),
@@ -59,11 +59,7 @@ const babelLoader = () => {
          * but please be aware, there are some minor differences.
          */
         [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
-        /**
-         * 切换到稳定版本
-         */
-        // [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
-        [require.resolve('@babel/plugin-proposal-class-properties')],
+        [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
         /**
          * When set to true, the transform will only remove type-only imports (introduced in TypeScript 3.8).
          * This should only be used if you are using TypeScript >= 3.8.
