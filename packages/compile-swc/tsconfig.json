@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "declarationDir": "dist",
+    // "declarationDir": "dist/types",
 		"declaration": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
@@ -13,7 +13,6 @@
         "./src/*"
       ]
     },
-		"plugins": []
   },
   "include": [
     "src",

@@ -15,6 +15,16 @@ module.exports = defineConfig({
 })
 ```
 
+### [@efox/plugin-vue-3](https://github.com/efoxTeam/emp/tree/next/packages/plugin-vue-3)
++ 提供 vue 3 编译支持
+```js
+const {defineConfig} = require('@efox/emp')
+const vue = require('@efox/plugin-vue-3')
+module.exports = defineConfig({
+  plugins: [vue],
+})
+```
+
 ### [@efox/emp-compile-swc](https://github.com/efoxTeam/emp/tree/next/packages/compile-swc)
 + 提供 swc 编译支持
 ```js
