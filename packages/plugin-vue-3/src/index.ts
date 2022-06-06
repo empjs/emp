@@ -1,19 +1,41 @@
 import type {ConfigPluginOptions} from '@efox/emp'
 
-const PluginVue3 = async ({wpChain}: ConfigPluginOptions) => {
+const PluginBabelVue3 = ({wpChain}: ConfigPluginOptions): void => {
   wpChain.resolve.alias.set('vue', '@vue/runtime-dom')
-  wpChain.plugin('vue-loader-plugin').use(require('vue-loader').VueLoaderPlugin, [])
+  wpChain.resolve.alias.set('vue$', 'vue/dist/vue.esm-bundler.js')
+  //
+  wpChain.module
+    .rule('scripts')
+    .use('babel')
+    .tap(o => {
+      // console.log(o)
+      o.plugins.push([require.resolve('@vue/babel-plugin-jsx'), {optimize: true}])
+      return o
+    })
+
   wpChain.module
     .rule('vue-loader')
     .test(/\.vue$/)
     .use('vue-loader')
     .loader(require.resolve('vue-loader'))
-  // wpChain.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').clear()
-  //
+
+  wpChain.plugin('vue-loader-plugin').use(require('vue-loader').VueLoaderPlugin, [])
+
   const svgRule = wpChain.module.rule('svg')
   svgRule.uses.clear()
-  svgRule.use('vue-svg-loader').loader(require.resolve('vue-svg-loader'))
+  svgRule
+    .oneOf('component')
+    .resourceQuery(/component/)
+    .use('vue-loader')
+    .loader(require.resolve('vue-loader'))
+    .end()
+    .use('vue-svg-loader')
+    .loader(require.resolve('vue-svg-loader'))
+    .end()
+    .end()
+    .oneOf('external')
+    .set('type', 'asset/resource')
 }
 
-export default PluginVue3
-module.exports = PluginVue3
+export default PluginBabelVue3
+module.exports = PluginBabelVue3

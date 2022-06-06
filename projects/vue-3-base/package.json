@@ -6,7 +6,7 @@
   "devDependencies": {
     "@efox/emp": "workspace:^*",
     "@efox/eslint-config-vue": "workspace:^*",
-    "@efox/plugin-babel-vue-3": "workspace:^*",
+    "@efox/plugin-vue-3": "workspace:^*",
     "unplugin-vue-components": "^0.17.18"
   },
   "dependencies": {

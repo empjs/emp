@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es2015",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "lib": ["es2018"],
+    "declaration": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "rootDir": "./src",
+    "inlineSources": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "pretty": true,
+    "newLine": "lf"
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/tests",
+    "**/dist",
+    "**/projects",
+    "node_modules"
+  ],
+  "include": ["**/*.ts", "**/package.json"]
+}

@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>SVGA COMPONENT LOGO:</h1>
     <Logo style="width: 100px" />
+    <h2>Img SRC:</h2>
     <img :src="require('./logo.png')" alt="logo" />
+    <img :src="require('./logo.svg')" alt="logo" />
     <Content />
     <Table />
     <CompositionApi />

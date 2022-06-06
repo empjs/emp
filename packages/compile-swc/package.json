@@ -30,8 +30,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist && tsc -w",
-    "build": "rimraf dist && tsc"
+    "dev": "npm-run-all --parallel clean dev:*",
+    "clean": "rimraf dist",
+    "dev:tsc": "tsc -w",
+    "dev:alias": "tsc-alias -w",
+    "build": "rimraf dist && tsc && tsc-alias"
   },
   "author": "Ken",
   "dependencies": {
@@ -41,8 +44,9 @@
   "devDependencies": {
     "@efox/emp": "workspace:*",
     "@types/webpack": "^5.28.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "tsup": "^6.0.1",
-    "typescript": "^4.7.2"
+    "tsc-alias": "workspace:*",
+    "typescript": "^4.7.3"
   }
 }
