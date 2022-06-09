@@ -1,6 +1,6 @@
 {
   "name": "@efox/plugin-vue-2",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "EMP vue 2 plugin",
   "files": [
     "dist"
