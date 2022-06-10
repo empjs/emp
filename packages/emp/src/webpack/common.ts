@@ -76,15 +76,14 @@ class WPCommon {
     if (fs.existsSync(empConfig)) {
       watchConfig.push(empConfig)
     }
-    const cacheName = `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}-${
-      store.pkg.version
-    }`
-    // console.log('cacheName', cacheName, store.empPkg.version)
+    const cacheName = `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}`
+    console.log('cacheName', cacheName, store.empPkg.version)
     return {
       name: cacheName,
       type: 'filesystem',
       version: store.empPkg.version,
       profile: true, //暂时保留
+      store: 'pack',
       cacheDirectory: store.cacheDir,
       buildDependencies: {
         config: watchConfig,
