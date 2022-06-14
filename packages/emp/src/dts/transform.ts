@@ -1,32 +1,24 @@
 import ts from 'typescript'
 import path from 'path'
-import store from 'src/helper/store'
-import {MFOptions} from 'src/types/modulefederation'
-import {ConfigResolveAliasType} from 'src/types'
-
+import type {DTSOptionsType} from './dts'
 const globalImportRE =
   /(?:(?:import|export)\s?(?:type)?\s?(?:(?:\{[^;\n]+\})|(?:[^;\n]+))\s?from\s?['"][^;\n]+['"])|(?:import\(['"][^;\n]+?['"]\))/g
 const staticImportRE = /(?:import|export)\s?(?:type)?\s?\{?.+\}?\s?from\s?['"](.+)['"]/
 const dynamicImportRE = /import\(['"]([^;\n]+?)['"]\)/
 // const simpleStaticImportRE = /((?:import|export).+from\s?)['"](.+)['"]/
 // const simpleDynamicImportRE = /(import\()['"](.+)['"]\)/
-export const transformLibName = (name: string, code: string) => {
+export const transformLibName = (name: string, code: string, op: DTSOptionsType) => {
   //
-  code = code.replace(`declare module '${store.config.appSrc}'`, `declare module '${name}'`)
+  // console.log(name, op.appSrc, code)
+  code = code.replace(`declare module '${op.appSrc}'`, `declare module '${name}'`)
   // 兼容 不支持 replace all 的情况
-  const reg = new RegExp(`${store.config.appSrc}/`, 'g')
+  const reg = new RegExp(`${op.appSrc}/`, 'g')
   return code.replace(reg, `${name}/`)
   // return code.replaceAll(`${store.config.appSrc}/`, `${name}/`)
 }
-export const transformPathImport = (
-  o: ts.OutputFile,
-  alias: ConfigResolveAliasType,
-  typesOutDir: string,
-  appSrc?: string,
-) => {
+export const transformPathImport = (o: ts.OutputFile, op: DTSOptionsType) => {
   return o.text.replace(globalImportRE, str => {
     let matchResult = str.match(staticImportRE)
-    appSrc = appSrc || store.appSrc
     if (!matchResult) {
       matchResult = str.match(dynamicImportRE)
     }
@@ -36,13 +28,13 @@ export const transformPathImport = (
       // alias
       if (!rs.startsWith('.')) {
         let isInAlias = false
-        for (const [k, v] of Object.entries(alias)) {
+        for (const [k, v] of Object.entries(op.alias)) {
           // console.log('isInAlias', k, v)
           if (rs.startsWith(`${k}/`)) {
             rs = rs.replace(`${k}/`, '')
             rs = path.join(v, rs)
             // change to relative path
-            rs = rs.replace(appSrc, '.').replace('\\', '/')
+            rs = rs.replace(op.appAbsSrc, '.').replace('\\', '/')
             // console.log('after isInAlias', rs, 'appSrc', appSrc)
             isInAlias = true
             break
@@ -56,7 +48,7 @@ export const transformPathImport = (
       // relative path
       let filename = path.resolve(path.dirname(o.name), rs)
       // console.log('before replace filename', filename, 'typesOutDir')
-      filename = filename.split('\\').join('/').split(`/${typesOutDir}/`)[1]
+      filename = filename.split('\\').join('/').split(`/${op.typesOutDir}/`)[1]
       // console.log('after filename', filename)
       return str.replace(matchResult[1], filename)
     }
@@ -69,15 +61,15 @@ export const transformPathImport = (
  * @param module
  * @returns
  */
-export const transformExposesPath = (module: string, mf: MFOptions | undefined) => {
-  if (mf?.exposes) {
+export const transformExposesPath = (module: string, op: DTSOptionsType) => {
+  if (op.mf?.exposes) {
     // 遍历 exposes 的声明结果
-    for (const [key, value] of Object.entries(mf?.exposes)) {
+    for (const [key, value] of Object.entries(op.mf.exposes)) {
       if (key && value) {
         // expose 对应的文件路径和 TS 编译结果路径是否相等
         if (module === value.replace('./', '')) {
           // 将当前本地相对路径替换成 expose 的路径
-          return {newModule: key.replace('./', `${store.config.appSrc}/`), isExpose: true}
+          return {newModule: key.replace('./', `${op.appSrc}/`), isExpose: true}
         }
       }
     }

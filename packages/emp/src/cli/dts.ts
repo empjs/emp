@@ -85,7 +85,7 @@ class Dts {
    * 下载 remote 的 d.ts
    */
   async downloadDts() {
-    const remotes = store.empShare.moduleFederation.remotes
+    const remotes = store.empShare.downloadRemote
     const dtsPath = store.config.dtsPath
     if (remotes) {
       for (const [key, value] of Object.entries(remotes)) {

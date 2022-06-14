@@ -12,6 +12,7 @@ class EMPShare {
   externals: Configuration['externals'] | any = {}
   externalAssets: externalAssetsType = {js: [], css: []}
   // empShare: EMPShareType = {}
+  downloadRemote: MFOptions['remotes'] = {}
   constructor() {}
   async setup() {
     if (store.config.empShare) {
@@ -149,7 +150,7 @@ class EMPShare {
       if (typeof moduleFederationOpt === 'function') {
         moduleFederationOpt = await moduleFederationOpt(store.config)
       }
-      const empConfigRemotes = {...moduleFederationOpt.remotes}
+      this.downloadRemote = {...moduleFederationOpt.remotes}
       if (moduleFederationOpt.name) {
         moduleFederationOpt.filename = moduleFederationOpt.filename || 'emp.js'
         if (!moduleFederationOpt.library && store.isESM) {
@@ -172,13 +173,6 @@ class EMPShare {
         }
         this.moduleFederation = moduleFederationOpt
       }
-      // 同步回config 让 store.config 使用
-      store.config.moduleFederation = {...this.moduleFederation}
-      if (store.isESM) {
-        store.config.moduleFederation.remotes = empConfigRemotes
-      }
-      // console.log('store.config.moduleFederation', this.moduleFederation, store.config.moduleFederation)
-      // console.log('this.externals', this.externals)
     }
   }
 }

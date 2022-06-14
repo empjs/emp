@@ -239,7 +239,7 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
   const html = initHtml(op.html)
   delete op.html
   //
-  const dtsPath = op.dtsPath ?? []
+  const dtsPath = op.dtsPath ?? {}
   delete op.dtsPath
   //
   const debug: ConfigDebugType = {

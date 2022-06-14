@@ -1,3 +1,11 @@
+# 2.3.3
+## Features
++ 重构 worker 层的传参方式 让 dts 更加符合逻辑
++ 重构 empShare 的赋值方案 增加 remotes 独立字段提供下载
+## bugfixes
++ 修正 windows下无法生成 dts 问题
++ 修正类型同步问题
+
 # 2.3.0
 ## Features
 + 分离 `swc` 为独立插件 [@efox/emp-compile-swc](packages/compile-swc/README.md) 加速依赖安装速度

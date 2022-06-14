@@ -1,9 +1,10 @@
 import {Compiler, Compilation} from 'webpack'
-import DTSEmitFile, {DTSTLoadertype} from './dts'
+import DTSEmitFile, {DTSOptionsType, DTSTLoadertype} from './dts'
 import glob from 'fast-glob'
 import store from 'src/helper/store'
 import logger, {logTag} from 'src/helper/logger'
 import {Worker} from 'worker_threads'
+import {MFOptions} from 'src/types'
 
 const plugin = {
   name: 'DTSPlugin',
@@ -49,16 +50,17 @@ export function createDtsEmitThreadForBuild() {
 }
 
 export function emitDts(dtsThread: Worker) {
-  dtsThread.postMessage(
-    JSON.stringify({
-      appSrc: store.appSrc,
-      build: store.config.build,
-      mf: store.config.moduleFederation,
-      alias: store.config.resolve.alias,
-      typesOutDir: store.config.build.typesOutDir,
-      needClear: !(store.config.build.outDir === store.config.build.typesOutDir),
-    }),
-  )
+  const op: DTSOptionsType = {
+    appSrc: store.config.appSrc,
+    appAbsSrc: store.appSrc,
+    build: store.config.build,
+    mf: store.empShare.moduleFederation,
+    alias: store.config.resolve.alias,
+    typesOutDir: store.config.build.typesOutDir,
+    needClear: !(store.config.build.outDir === store.config.build.typesOutDir),
+    pkgName: store.pkg.name,
+  }
+  dtsThread.postMessage(JSON.stringify(op))
 }
 
 export default DTSPlugin

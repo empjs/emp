@@ -77,7 +77,7 @@ class WPCommon {
       watchConfig.push(empConfig)
     }
     const cacheName = `${store.pkg.name || 'emp'}-${store.config.mode}-${store.config.env || 'local'}`
-    console.log('cacheName', cacheName, store.empPkg.version)
+    // console.log('cacheName', cacheName, store.empPkg.version)
     return {
       name: cacheName,
       type: 'filesystem',
