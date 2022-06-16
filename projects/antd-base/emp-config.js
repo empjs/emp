@@ -8,6 +8,7 @@ module.exports = defineConfig({
     // antdTransformImport: false,
   },
   build: {
+    minify: 'swc',
     // target: 'es2021',
   },
 })

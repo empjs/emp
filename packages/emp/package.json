@@ -119,8 +119,9 @@
     "@types/recursive-readdir": "^2.2.0",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.3.1",
+    "@zerollup/ts-transform-paths": "^1.7.18",
     "rimraf": "^3.0.2",
-		"@zerollup/ts-transform-paths": "^1.7.18",
-    "ttypescript": "^1.5.13"
+    "ttypescript": "^1.5.13",
+    "typescript-transform-paths": "^3.3.1"
   }
 }

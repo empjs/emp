@@ -82,7 +82,7 @@ class WPCommon {
       name: cacheName,
       type: 'filesystem',
       version: store.empPkg.version,
-      profile: true, //暂时保留
+      profile: store.config.debug.profile, //暂时保留
       store: 'pack',
       cacheDirectory: store.cacheDir,
       buildDependencies: {

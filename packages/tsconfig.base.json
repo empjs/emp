@@ -1,31 +1,37 @@
-
-
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "strict": true,
-    "declaration": true,
-    "noImplicitOverride": true,
-    "noUnusedLocals": false,
-    "esModuleInterop": true,
-    // "useUnknownInCatchVariables": false,
-    // "checkJs": false,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "resolveJsonModule": true,
-    //
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }],
-    // "types": ["./emp/typings/index"]
-  },
-  "exclude": [
-    "node_modules",
-    "./node_modules",
-    "./node_modules/*",
-    ".pnpm",
-  ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"strict": true,
+		"declaration": true,
+		"noImplicitOverride": true,
+		"noUnusedLocals": false,
+		"esModuleInterop": true,
+		// "useUnknownInCatchVariables": false,
+		// "checkJs": false,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"resolveJsonModule": true,
+		//
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"plugins": [
+			{
+				"transform": "typescript-transform-paths"
+			},
+			{
+				"transform": "typescript-transform-paths",
+				"afterDeclarations": true
+			}
+		],
+		// "types": ["./emp/typings/index"]
+	},
+	"exclude": [
+		"node_modules",
+		"./node_modules",
+		"./node_modules/*",
+		".pnpm",
+	]
 }

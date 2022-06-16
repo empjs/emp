@@ -37,7 +37,7 @@
   "devDependencies": {
     "@efox/emp": "workspace:^2.3.1",
 		"rimraf": "^3.0.2",
-		"@zerollup/ts-transform-paths": "^1.7.18",
+		"typescript-transform-paths": "^3.3.1",
     "ttypescript": "^1.5.13"
   }
 }
