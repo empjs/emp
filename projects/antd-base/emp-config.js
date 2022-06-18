@@ -1,5 +1,5 @@
 const {defineConfig} = require('@efox/emp')
-const compile = require('@efox/emp-compile-swc')
+const compile = require('@efox/emp-compile-esbuild')
 module.exports = defineConfig({
   //   splitCss: false,
   // plugins: [pluginBabelReact],

@@ -1,3 +1,4 @@
+import React from 'react'
 import {render} from 'react-dom'
 // import Layout from './AntdLayout'
 import Layout from './Layout'

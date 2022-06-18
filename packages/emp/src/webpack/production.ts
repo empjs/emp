@@ -70,17 +70,21 @@ class WPProduction {
     const minOptions = store.config.build.minOptions || {}
 
     if (store.config.build.minify) {
-      const minify =
-        store.config.build.minify === 'swc' && store.config.compile.compileType === 'swc'
-          ? TerserPlugin.swcMinify
-          : TerserPlugin.terserMinify
-      logger.debug('store.config.build.minify', store.config.build.minify, store.config.debug)
-      wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [
-        {
-          /**
-           * 启动 SWCMINIFY 后 需要统一用 TerserOptions 类型
-           */
-          minify,
+      let options: any = {
+        minify: TerserPlugin.terserMinify,
+        extractComments: false,
+        terserOptions: {
+          // compress: false,
+          format: {
+            comments: false,
+          },
+          ...minOptions,
+        },
+      }
+
+      if (store.config.build.minify === 'swc' && store.config.compile.compileType === 'swc') {
+        options = {
+          minify: TerserPlugin.swcMinify,
           extractComments: false,
           terserOptions: {
             // compress: false,
@@ -89,8 +93,19 @@ class WPProduction {
             },
             ...minOptions,
           },
-        },
-      ] as any)
+        }
+      } else if (store.config.compile.compileType === 'esbuild') {
+        options = {
+          minify: TerserPlugin.esbuildMinify,
+          extractComments: false,
+          terserOptions: {
+            format: 'esm',
+            ...minOptions,
+          },
+        }
+      }
+      logger.debug('store.config.build.minify', store.config.build.minify, store.config.debug)
+      wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [options] as any)
     }
   }
   setManifest() {

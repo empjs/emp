@@ -1,4 +1,5 @@
 import {Table, Tag, Space, ConfigProvider, DatePicker} from 'antd'
+import React from 'react'
 import enUS from 'antd/lib/locale/en_US'
 const {Column, ColumnGroup} = Table
 

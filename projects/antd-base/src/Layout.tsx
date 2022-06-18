@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import React from 'react'
 import {Button, Descriptions, Result, Avatar, Space, Statistic} from 'antd'
 import {LikeOutlined, UserOutlined} from '@ant-design/icons'
 

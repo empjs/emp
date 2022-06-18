@@ -9,12 +9,13 @@
     "start": "emp serve",
     "stat": "emp build --analyze",
     "emp": "emp",
-		"lint": "eslint ./src --ext js,ts,tsx"
+    "lint": "eslint ./src --ext js,ts,tsx"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@efox/emp": "workspace:^*",
+    "@efox/emp-compile-esbuild": "workspace:^1.0.0",
     "@types/lodash": "^4.14.177",
     "@types/react": "18",
     "@types/react-dom": "18",

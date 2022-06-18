@@ -1,5 +1,5 @@
 import {SmileOutlined, CrownOutlined, TabletOutlined, AntDesignOutlined} from '@ant-design/icons'
-
+import React from 'react'
 export default {
   route: {
     path: '/',
