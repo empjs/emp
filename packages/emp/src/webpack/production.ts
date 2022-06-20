@@ -4,6 +4,7 @@ import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import logger from 'src/helper/logger'
 class WPProduction {
   constructor() {}
@@ -108,6 +109,37 @@ class WPProduction {
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [options] as any)
     }
   }
+  setImageMin() {
+    if (store.config.build.imageMin) {
+      wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
+        {
+          minimizer: {
+            implementation: ImageMinimizerPlugin.squooshMinify,
+            options: {
+              encodeOptions: {
+                // mozjpeg: {
+                //   // That setting might be close to lossless, but it’s not guaranteed
+                //   // https://github.com/GoogleChromeLabs/squoosh/issues/85
+                //   quality: 90,
+                // },
+                // oxipng: {
+                //   level: 3,
+                //   interlace: false,
+                // },
+                // webp: {
+                //   lossless: 1,
+                // },
+                // avif: {
+                //   // https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
+                //   cqLevel: 0,
+                // },
+              },
+            },
+          },
+        },
+      ])
+    }
+  }
   setManifest() {
     const options = store.config.base ? {publicPath: store.config.base} : {}
     wpChain.plugin('WebpackManifestPlugin').use(WebpackManifestPlugin, [options])
@@ -119,6 +151,7 @@ class WPProduction {
     this.setCopy()
     // minify
     this.setMinify()
+    this.setImageMin()
     // manifest 比较耗时 TODO 增加 config.build.manifest
     // this.setManifest()
   }

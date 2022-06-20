@@ -24,6 +24,7 @@ module.exports = defineConfig(config => {
       target,
       sourcemap: false,
       // outDir: 'build',
+      imageMin: true,
       minify: 'swc',
       minOptions: {
         compress: {

@@ -34,6 +34,11 @@ export type BuildOptions = {
    */
   minify?: boolean | 'swc' | 'esbuild'
   /**
+   * 是否开启图片压缩
+   * @default false
+   */
+  imageMin?: boolean
+  /**
    * 压缩选项?
    * @default {compress:false}
    */
@@ -112,6 +117,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       assetsDir: 'assets',
       staticDir: '',
       minify: true,
+      imageMin: false,
       sourcemap: false,
       /**
        * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets

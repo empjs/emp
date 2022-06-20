@@ -370,6 +370,12 @@ swc 是否异步构建
 
 当设置为 `swc` 时 默认使用 swc压缩 [点击参考配置](https://github.com/mishoo/UglifyJS#minify-options)
 
+### build.imageMin
++ 类型 `boolean`
++ 默认 `false`
+
+是否图片压缩、 development 无论 imageMin 怎么设置都不生效，production 生效
+
 ### build.minOptions
 + 类型 `TerserOptions`
 + 默认 `{compress:false}`
