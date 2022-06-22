@@ -23,7 +23,7 @@
 	"devDependencies": {
 		"rimraf": "^3.0.2",
 		"typescript-transform-paths": "^3.3.1",
-		"@efox/emp": "workspace:^*",
+		"@efox/emp": "workspace:*",
 		"ttypescript": "^1.5.12"
 	},
 	"dependencies": {

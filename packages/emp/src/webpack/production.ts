@@ -111,30 +111,31 @@ class WPProduction {
   }
   setImageMin() {
     if (store.config.build.imageMin) {
+      const options = {
+        encodeOptions: {
+          // mozjpeg: {
+          //   // That setting might be close to lossless, but it’s not guaranteed
+          //   // https://github.com/GoogleChromeLabs/squoosh/issues/85
+          //   quality: 90,
+          // },
+          // oxipng: {
+          //   level: 3,
+          //   interlace: false,
+          // },
+          // webp: {
+          //   lossless: 1,
+          // },
+          // avif: {
+          //   // https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
+          //   cqLevel: 0,
+          // },
+        },
+      }
       wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
         {
           minimizer: {
             implementation: ImageMinimizerPlugin.squooshMinify,
-            options: {
-              encodeOptions: {
-                // mozjpeg: {
-                //   // That setting might be close to lossless, but it’s not guaranteed
-                //   // https://github.com/GoogleChromeLabs/squoosh/issues/85
-                //   quality: 90,
-                // },
-                // oxipng: {
-                //   level: 3,
-                //   interlace: false,
-                // },
-                // webp: {
-                //   lossless: 1,
-                // },
-                // avif: {
-                //   // https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
-                //   cqLevel: 0,
-                // },
-              },
-            },
+            options,
           },
         },
       ])
