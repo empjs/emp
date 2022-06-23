@@ -7,3 +7,17 @@
     background-repeat: no-repeat;
     background-position: right top;
   }
+	.imglist{
+		display: flex;
+		max-width: 800px;
+		flex-flow: row wrap;
+		justify-content:space-between;
+		align-items: center;
+		li{
+			flex: 1;
+
+			img{
+				max-width: 200px;
+			}
+		}
+	}

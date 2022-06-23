@@ -6,6 +6,7 @@ import {Configuration} from 'webpack'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import logger from 'src/helper/logger'
+// import type {SquooshOptionType} from 'src/types/squoosh'
 class WPProduction {
   constructor() {}
   private setCommon() {
@@ -111,26 +112,7 @@ class WPProduction {
   }
   setImageMin() {
     if (store.config.build.imageMin) {
-      const options = {
-        encodeOptions: {
-          // mozjpeg: {
-          //   // That setting might be close to lossless, but it’s not guaranteed
-          //   // https://github.com/GoogleChromeLabs/squoosh/issues/85
-          //   quality: 90,
-          // },
-          // oxipng: {
-          //   level: 3,
-          //   interlace: false,
-          // },
-          // webp: {
-          //   lossless: 1,
-          // },
-          // avif: {
-          //   // https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
-          //   cqLevel: 0,
-          // },
-        },
-      }
+      const options = {}
       wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
         {
           minimizer: {

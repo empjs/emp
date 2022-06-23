@@ -12,6 +12,7 @@ import Decorators from './Decorators'
 //
 // import css from './App.module.less'
 import css from './App.module.scss'
+import Files from './Files'
 
 console.log('css', css, process.env.env)
 console.log(
@@ -43,13 +44,7 @@ const App = () => {
       <Nav />
       <div>
         <h3>[SRC] From PublicPath ENV:{process.env.env}</h3>
-
-        <img src="/logo.jpg" />
-        <h3>src from require</h3>
-        <img src={require('./assets/logo.jpg')} />
-        <h3>background</h3>
-        <div className={css.bg}>bg</div>
-
+        <Files />
         <ClassDefault />
         <ClassNamed />
         <FunctionDefault />
