@@ -112,11 +112,14 @@ class WPProduction {
   }
   setImageMin() {
     if (store.config.build.imageMin) {
-      const options = {}
+      // const {extendDefaultPlugins} = require('svgo')
+      const options = {
+        plugins: ['imagemin-gifsicle', 'imagemin-mozjpeg', 'imagemin-pngquant', 'imagemin-svgo'],
+      }
       wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
         {
           minimizer: {
-            implementation: ImageMinimizerPlugin.squooshMinify,
+            implementation: ImageMinimizerPlugin.imageminMinify,
             options,
           },
         },

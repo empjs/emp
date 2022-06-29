@@ -54,8 +54,9 @@ module.exports = defineConfig(config => {
       favicon: 'src/favicon.ico',
     },
     debug: {
-      clearLog: false,
+      // clearLog: false,
       // level: 'debug',
+      // wplogger: true,
     },
   }
 })
