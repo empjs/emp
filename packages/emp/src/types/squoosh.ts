@@ -109,12 +109,25 @@ export interface WP2EncodeOptions {
 }
 
 export type SquooshOptionType = {
-  encodeOptions: {
-    mozjpeg?: Partial<MozJPEGEncodeOptions>
-    oxipng?: Partial<OxiPngEncodeOptions>
-    webp?: Partial<WebPEncodeOptions>
-    webp2?: Partial<WP2EncodeOptions>
-    avif?: Partial<AvifEncodeOptions>
-    jxl?: Partial<JxlEncodeOptions>
+  quant?: {
+    maxNumColors?: number
+    dither?: number
+    zx?: number
   }
+  resize?: {
+    width?: number
+    height?: number
+  }
+  rotate?: {
+    numRotations: number
+  }
+  encodeOptions: {
+    mozjpeg?: Partial<MozJPEGEncodeOptions> | string
+    oxipng?: Partial<OxiPngEncodeOptions> | string
+    webp?: Partial<WebPEncodeOptions> | string
+    webp2?: Partial<WP2EncodeOptions> | string
+    avif?: Partial<AvifEncodeOptions> | string
+    jxl?: Partial<JxlEncodeOptions> | string
+  }
+  // [key: string]: any
 }
