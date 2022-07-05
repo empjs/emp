@@ -4,9 +4,9 @@ import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
-import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
+// import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import logger from 'src/helper/logger'
-import type {SquooshOptionType} from 'src/types/squoosh'
+// import type {SquooshOptionType} from 'src/types/squoosh'
 class WPProduction {
   constructor() {}
   private setCommon() {
@@ -110,35 +110,35 @@ class WPProduction {
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [options] as any)
     }
   }
-  setImageMin() {
-    if (store.config.build.imageMin) {
-      const options: SquooshOptionType = {
-        encodeOptions: {
-          oxipng: {
-            level: 3,
-          },
-        },
-      }
-      wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
-        {
-          minimizer: {
-            filter: (source, sourcePath) => {
-              // console.log('sourcePath', sourcePath)
-              if (/.png/.test(sourcePath)) {
-                options.quant = {
-                  maxNumColors: 256,
-                  dither: 1,
-                }
-              }
-              return true
-            },
-            implementation: ImageMinimizerPlugin.squooshMinify,
-            options,
-          },
-        },
-      ])
-    }
-  }
+  // setImageMin() {
+  //   if (store.config.build.imageMin) {
+  //     const options: SquooshOptionType = {
+  //       encodeOptions: {
+  //         oxipng: {
+  //           level: 3,
+  //         },
+  //       },
+  //     }
+  //     wpChain.optimization.minimizer('ImageMinimizerPlugin').use(ImageMinimizerPlugin, [
+  //       {
+  //         minimizer: {
+  //           filter: (source, sourcePath) => {
+  //             // console.log('sourcePath', sourcePath)
+  //             if (/.png/.test(sourcePath)) {
+  //               options.quant = {
+  //                 maxNumColors: 256,
+  //                 dither: 1,
+  //               }
+  //             }
+  //             return true
+  //           },
+  //           implementation: ImageMinimizerPlugin.squooshMinify,
+  //           options,
+  //         },
+  //       },
+  //     ])
+  //   }
+  // }
   setManifest() {
     const options = store.config.base ? {publicPath: store.config.base} : {}
     wpChain.plugin('WebpackManifestPlugin').use(WebpackManifestPlugin, [options])
@@ -150,7 +150,7 @@ class WPProduction {
     this.setCopy()
     // minify
     this.setMinify()
-    this.setImageMin()
+    // this.setImageMin()
     // manifest 比较耗时 TODO 增加 config.build.manifest
     // this.setManifest()
   }

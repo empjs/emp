@@ -37,7 +37,7 @@ export type BuildOptions = {
    * 是否开启图片压缩
    * @default false
    */
-  imageMin?: boolean
+  // imageMin?: boolean
   /**
    * 压缩选项?
    * @default {compress:false}
