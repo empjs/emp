@@ -1,4 +1,4 @@
-const PluginBabelVue3 = require('@efox/plugin-babel-vue-3')
+const PluginVue3 = require('@efox/plugin-vue-3')
 const {defineConfig} = require('@efox/emp')
 const Components = require('unplugin-vue-components/webpack')
 const {AntDesignVueResolver} = require('unplugin-vue-components/resolvers')
@@ -6,7 +6,7 @@ const {AntDesignVueResolver} = require('unplugin-vue-components/resolvers')
 module.exports = defineConfig(({mode, env}) => {
   const target = 'es5'
   return {
-    plugins: [PluginBabelVue3],
+    plugins: [PluginVue3],
     appEntry: 'main.ts',
     server: {port: 9002},
     html: {title: 'EMP Vue3 Project'},

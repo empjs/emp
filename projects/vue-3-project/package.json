@@ -6,7 +6,7 @@
   "devDependencies": {
     "@efox/emp": "workspace:^*",
     "@efox/eslint-config-vue": "workspace:^*",
-    "@efox/plugin-babel-vue-3": "workspace:^*",
+    "@efox/plugin-vue-3": "workspace:^1.0.2",
     "unplugin-vue-components": "^0.17.18"
   },
   "dependencies": {
@@ -20,7 +20,7 @@
     "start": "emp serve",
     "stat": "emp build --analyze",
     "emp": "emp",
-		"pull-types": "emp dts"
+    "pull-types": "emp dts"
   },
   "author": "",
   "license": "ISC"
