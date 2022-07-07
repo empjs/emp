@@ -19,6 +19,8 @@ console.log(
   'partition',
   partition([1, 2, 3, 4], n => n % 2),
 )
+console.log('navigator', navigator.userAgent)
+console.log('incStore', incStore.data)
 const LazyComponent = lazy(() => import('./LazyComponent'))
 const Nav = observer(() => {
   return (

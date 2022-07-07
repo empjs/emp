@@ -50,9 +50,6 @@ module.exports = defineConfig(config => {
             'react-router-dom': esm('react-router-dom', '', '5', `react@18.1.0`),
           },
     },
-    html: {
-      favicon: 'src/favicon.ico',
-    },
     debug: {
       // clearLog: false,
       // level: 'debug',

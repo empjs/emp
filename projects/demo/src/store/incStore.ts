@@ -3,6 +3,7 @@ import axios from 'axios'
 class IncStore {
   num = 0
   code: any = ''
+  data = {a: 1, b: 2}
   constructor() {
     makeAutoObservable(this)
   }
