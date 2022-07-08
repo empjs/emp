@@ -10,6 +10,9 @@ const App = observer(() => {
       <br />
       <button onClick={changeData}>change data</button>
       <p>{JSON.stringify(store.data)}</p>
+      <pre>
+        <p>{store.s}</p>
+      </pre>
     </>
   )
 })
