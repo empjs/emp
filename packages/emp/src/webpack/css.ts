@@ -154,14 +154,44 @@ class WPCss {
         }
   }
   get postcss() {
-    return {
+    const o: any = {
       loader: require.resolve('postcss-loader'),
       options: {
         postcssOptions: {
+          ident: 'postcss',
           hideNothingWarning: true,
+          config: false,
+          plugins: [
+            require.resolve('postcss-flexbugs-fixes'),
+            [
+              require.resolve('postcss-preset-env'),
+              {
+                autoprefixer: {
+                  flexbox: 'no-2009',
+                },
+                stage: 3,
+              },
+            ],
+            require.resolve('postcss-normalize'),
+          ],
         },
       },
     }
+    o.options.postcssOptions.plugins.push([
+      require.resolve('./plugin/postcss/postcss-px-to-viewport'),
+      {
+        viewportWidth: 720,
+        unitPrecision: 3,
+        viewportUnit: 'vw',
+        selectorBlackList: ['.ignore', '.hairlines'],
+        minPixelValue: 1,
+        mediaQuery: false,
+        include: [],
+        // exclude: [/reset\.scss/], //验证 postcss是否正常
+      },
+    ])
+    //
+    return o
   }
   loaders(isModules = false, parser?: 'sass' | 'less') {
     this.isModules = isModules

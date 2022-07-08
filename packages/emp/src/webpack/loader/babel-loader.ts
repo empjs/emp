@@ -8,7 +8,7 @@ pkg.dependencies = pkg.dependencies || {}
 pkg.devDependencies = pkg.devDependencies || {}
 const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
 const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
-const isReact17 = vCompare(reactVersion, '17')
+const isReact17 = reactVersion.split('.').length === 3 ? vCompare(reactVersion, '17') : parseInt(reactVersion) >= 17
 const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
 //
 const absoluteRuntimePath = path.dirname(require.resolve('@babel/runtime/package.json'))
