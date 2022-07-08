@@ -1,0 +1,30 @@
+{
+  "name": "low-brower-version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "lint": "eslint ./src --ext js,ts,tsx"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp": "workspace:^*",
+    "@types/react": "17",
+    "@types/react-dom": "17",
+    "@types/react-router-dom": "5"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "mobx": "4",
+    "mobx-react": "5",
+    "mobx-react-lite": "^3.2.2",
+    "react": "17",
+    "react-dom": "17",
+    "react-router-dom": "5"
+  }
+}
