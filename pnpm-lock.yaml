@@ -121,6 +121,7 @@ importers:
       postcss-loader: ^7.0.0
       postcss-normalize: ^10.0.1
       postcss-preset-env: ^7.7.2
+      postcss-rem: ^2.0.2
       react-refresh: ^0.13.0
       recursive-readdir: ^2.2.2
       regenerator-runtime: ^0.13.9
@@ -191,6 +192,7 @@ importers:
       postcss-loader: 7.0.0_postcss@8.4.14+webpack@5.73.0
       postcss-normalize: 10.0.1_ac1b38e48e1855962a70bd4c84c66657
       postcss-preset-env: 7.7.2_postcss@8.4.14
+      postcss-rem: 2.0.2
       react-refresh: 0.13.0
       recursive-readdir: 2.2.2
       regenerator-runtime: 0.13.9
@@ -407,6 +409,12 @@ importers:
       rimraf: 3.0.2
       ttypescript: 1.5.13_ts-node@10.8.2+typescript@4.7.3
       typescript-transform-paths: 3.3.1_typescript@4.7.3
+
+  packages/postcss-px-to-viewport:
+    specifiers:
+      postcss: ^8.4.14
+    dependencies:
+      postcss: 8.4.14
 
   projects/antd-base:
     specifiers:
@@ -11261,7 +11269,7 @@ packages:
     resolution: {integrity: sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==}
     dependencies:
       object-assign: 4.1.1
-      postcss: 8.4.13
+      postcss: 8.4.14
     dev: true
 
   /postcss-reduce-initial/5.1.0_postcss@8.4.14:
@@ -11282,6 +11290,13 @@ packages:
     dependencies:
       postcss: 8.4.14
       postcss-value-parser: 4.2.0
+
+  /postcss-rem/2.0.2:
+    resolution: {integrity: sha512-rhREfkcljKJtCY7adt5e+sRkPkj4z4GEW8utwiqsDgC6xF4U3guQZ08Dlu7XQDrwtUD4PGXwoh/qyD+RJpJq7g==}
+    dependencies:
+      postcss: 8.4.14
+      startijenn-rem: 1.0.2
+    dev: false
 
   /postcss-replace-overflow-wrap/4.0.0_postcss@8.4.14:
     resolution: {integrity: sha512-KmF7SBPphT4gPPcKZc7aDkweHiKEEO8cla/GjcBK+ckKxiZslIu3C4GCRW3DNfL0o7yW7kMQu9xlZ1kXRXLXtw==}
@@ -13030,6 +13045,10 @@ packages:
 
   /stackframe/1.2.1:
     resolution: {integrity: sha512-h88QkzREN/hy8eRdyNhhsO7RSJ5oyTqxxmmn0dzBIMUclZsjpfmrsg81vp8mjjAs2vAZ72nyWxRUwSwmh0e4xg==}
+
+  /startijenn-rem/1.0.2:
+    resolution: {integrity: sha512-A4A/f+KTkoxaKyTC8oITP4OIMC1IdnlcIi1quv+qTS6uvAk35EX7uZVN9UEIXgreveFWiMJhmEuGGkfM/Aw9wQ==}
+    dev: false
 
   /static-extend/0.1.2:
     resolution: {integrity: sha1-YICcOcv/VTNyJv1eC1IPNB8ftcY=}

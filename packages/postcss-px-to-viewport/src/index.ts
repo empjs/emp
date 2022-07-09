@@ -1,8 +1,3 @@
-export interface CSSOptions {
-  unit?: 'vw' | 'rem'
-  vw?: PostcssViewPortOptions
-  rem?: PostcssREMOptions
-}
 export type PostcssViewPortOptions = {
   /**
    * @default 'px'
@@ -65,28 +60,6 @@ export type PostcssViewPortOptions = {
   include?: any[]
   exclude?: any[]
 }
-export type PostcssREMOptions = {
-  /**
-   * @default 'rem'
-   */
-  name: string
-  /**
-   * @default false
-   */
-  fallback: boolean
-  /**
-   * @default 'rem'
-   */
-  convert: string
-  /**
-   * @default 16
-   */
-  baseline: number
-  /**
-   * @default 5
-   */
-  precision: number
-}
 const getVwConfig = {
   viewportWidth: 720,
   unitPrecision: 3,
@@ -94,14 +67,4 @@ const getVwConfig = {
   selectorBlackList: ['.ignore', '.hairlines'],
   minPixelValue: 1,
   mediaQuery: false,
-}
-const getRemConfig = {
-  name: 'rem',
-  fallback: false,
-  convert: 'rem',
-  baseline: 16,
-  precision: 5,
-}
-export const initCSS = (o: CSSOptions = {}): CSSOptions => {
-  return {}
 }

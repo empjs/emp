@@ -160,7 +160,7 @@ class WPCss {
         postcssOptions: {
           ident: 'postcss',
           hideNothingWarning: true,
-          config: false,
+          // config: false,
           plugins: [
             require.resolve('postcss-flexbugs-fixes'),
             [
@@ -190,7 +190,6 @@ class WPCss {
         // exclude: [/reset\.scss/], //验证 postcss是否正常
       },
     ])
-    //
     return o
   }
   loaders(isModules = false, parser?: 'sass' | 'less') {
