@@ -170,9 +170,12 @@ class WPCss {
                   flexbox: 'no-2009',
                 },
                 stage: 3,
+                features: {
+                  'custom-properties': false,
+                },
               },
             ],
-            require.resolve('postcss-normalize'), //允许您使用 normalize.css or sanitize.css. 从 browserslist 适配。
+            // require.resolve('postcss-normalize'), //允许您使用 normalize.css or sanitize.css. 从 browserslist 适配。
           ],
         },
       },
