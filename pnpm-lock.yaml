@@ -121,6 +121,7 @@ importers:
       postcss-loader: ^7.0.0
       postcss-normalize: ^10.0.1
       postcss-preset-env: ^7.7.2
+      postcss-pxtorem: ^6.0.0
       postcss-rem: ^2.0.2
       react-refresh: ^0.13.0
       recursive-readdir: ^2.2.2
@@ -192,6 +193,7 @@ importers:
       postcss-loader: 7.0.0_postcss@8.4.14+webpack@5.73.0
       postcss-normalize: 10.0.1_ac1b38e48e1855962a70bd4c84c66657
       postcss-preset-env: 7.7.2_postcss@8.4.14
+      postcss-pxtorem: 6.0.0_postcss@8.4.14
       postcss-rem: 2.0.2
       react-refresh: 0.13.0
       recursive-readdir: 2.2.2
@@ -11271,6 +11273,14 @@ packages:
       object-assign: 4.1.1
       postcss: 8.4.14
     dev: true
+
+  /postcss-pxtorem/6.0.0_postcss@8.4.14:
+    resolution: {integrity: sha512-ZRXrD7MLLjLk2RNGV6UA4f5Y7gy+a/j1EqjAfp9NdcNYVjUMvg5HTYduTjSkKBkRkfqbg/iKrjMO70V4g1LZeg==}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.14
+    dev: false
 
   /postcss-reduce-initial/5.1.0_postcss@8.4.14:
     resolution: {integrity: sha512-5OgTUviz0aeH6MtBjHfbr57tml13PuedK/Ecg8szzd4XRMbYxH4572JFG067z+FqBIf6Zp/d+0581glkvvWMFw==}

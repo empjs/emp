@@ -17,15 +17,14 @@ module.exports = defineConfig(config => {
       // https: true,
     },
     // useExternalsReplaceScript: false,
-    moduleTransform: {
+    /* moduleTransform: {
       parser: 'swc',
-    },
+    }, */
     build: {
       target,
-      sourcemap: false,
+      // sourcemap: false,
       // outDir: 'build',
-      imageMin: true,
-      minify: 'swc',
+      // minify: 'swc',
       minOptions: {
         compress: {
           // warnings: false,
@@ -38,7 +37,7 @@ module.exports = defineConfig(config => {
       },
     },
     // jsCheck: true,
-    reactRuntime: 'automatic', //增加这个实现无安装依赖热更
+    // reactRuntime: 'automatic', //增加这个实现无安装依赖热更
     empShare: {
       shareLib: !isESM
         ? cdn(mode)
@@ -54,6 +53,22 @@ module.exports = defineConfig(config => {
       // clearLog: false,
       // level: 'debug',
       // wplogger: true,
+    },
+    css: {
+      unit: 'vw',
+      rem: {
+        rootValue: 100,
+        propList: ['*'],
+        unitPrecision: 3,
+        minPixelValue: 0.5,
+      },
+      vw: {
+        viewportWidth: 720,
+        unitPrecision: 3,
+        viewportUnit: 'vw',
+        minPixelValue: 1,
+        mediaQuery: false,
+      },
     },
   }
 })

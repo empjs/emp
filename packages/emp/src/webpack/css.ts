@@ -162,9 +162,9 @@ class WPCss {
           hideNothingWarning: true,
           // config: false,
           plugins: [
-            require.resolve('postcss-flexbugs-fixes'),
+            require.resolve('postcss-flexbugs-fixes'), //修复 flex bug
             [
-              require.resolve('postcss-preset-env'),
+              require.resolve('postcss-preset-env'), //允许你使用未来的 CSS 特性。
               {
                 autoprefixer: {
                   flexbox: 'no-2009',
@@ -172,24 +172,20 @@ class WPCss {
                 stage: 3,
               },
             ],
-            require.resolve('postcss-normalize'),
+            require.resolve('postcss-normalize'), //允许您使用 normalize.css or sanitize.css. 从 browserslist 适配。
           ],
         },
       },
     }
-    o.options.postcssOptions.plugins.push([
-      require.resolve('./plugin/postcss/postcss-px-to-viewport'),
-      {
-        viewportWidth: 720,
-        unitPrecision: 3,
-        viewportUnit: 'vw',
-        selectorBlackList: ['.ignore', '.hairlines'],
-        minPixelValue: 1,
-        mediaQuery: false,
-        include: [],
-        // exclude: [/reset\.scss/], //验证 postcss是否正常
-      },
-    ])
+    if (store.config.css.unit === 'vw') {
+      o.options.postcssOptions.plugins.push([
+        require.resolve('./plugin/postcss/postcss-px-to-viewport'),
+        store.config.css.vw,
+      ])
+    }
+    if (store.config.css.unit === 'rem') {
+      o.options.postcssOptions.plugins.push([require.resolve('postcss-pxtorem'), store.config.css.rem])
+    }
     return o
   }
   loaders(isModules = false, parser?: 'sass' | 'less') {

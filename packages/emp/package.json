@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.3.4-beta.4",
+  "version": "2.3.5",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -91,6 +91,7 @@
     "postcss-loader": "^7.0.0",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.7.2",
+    "postcss-pxtorem": "^6.0.0",
     "postcss-rem": "^2.0.2",
     "react-refresh": "^0.13.0",
     "recursive-readdir": "^2.2.2",

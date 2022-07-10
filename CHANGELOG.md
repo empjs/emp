@@ -1,3 +1,15 @@
+# 2.3.5
+## Features
++ 增加 `postcss-rem` 支持 
++ 增加 `postcss-vw` 支持
++ 增加 默认 `postcss-flexbugs-fixes`
++ 增加 默认 `postcss-preset-env`
++ 增加 默认 `postcss-normalize`
+
+## bugfixes
++ 修复 `postcss-px-to-viewport` postcss8 兼容问题
++ 修复 手动修改 `package.json` 版本号 导致的react 版本识别问题
+
 # 2.3.3
 ## Features
 + 重构 worker 层的传参方式 让 dts 更加符合逻辑

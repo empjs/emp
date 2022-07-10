@@ -21,7 +21,8 @@ import {EMPShareExport} from 'src/types/empShare'
 // import {LoggerType} from 'src/helper/logger'
 import path from 'path'
 import {RuleSetRule} from 'webpack'
-import templates from './templates'
+import {CSSOptions, initCSS} from './css'
+// import templates from './templates'
 //
 export type EMPConfig = {
   /**
@@ -170,6 +171,10 @@ export type EMPConfig = {
    * 暂无场景 弃置
    */
   // initTemplates?: {[key: string]: string | boolean}
+  /**
+   * css 相关设置
+   */
+  css?: CSSOptions
 }
 export interface ConfigEnv {
   mode: modeType
@@ -226,6 +231,7 @@ export type ResovleConfig = Override<
       minify: boolean
       cssminify: boolean
     }
+    css: CSSOptions
   }
 >
 export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
@@ -241,6 +247,9 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
   //
   const dtsPath = op.dtsPath ?? {}
   delete op.dtsPath
+  //
+  const css = initCSS(op.css)
+  delete op.css
   //
   const debug: ConfigDebugType = {
     clearLog: true,
@@ -307,6 +316,7 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
       // initTemplates,
       useExternalsReplaceScript: false,
       compile,
+      css,
     },
     ...op,
   }
