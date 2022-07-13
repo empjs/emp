@@ -195,6 +195,12 @@ export interface ModuleTransform {
    * @default true
    */
   antdTransformImport?: boolean
+  /**
+   * useBuiltIns
+   * 在老版本兼容的时候需要切换到 usage 把引用库 适配到当前配置
+   * @default 'entry'
+   */
+  useBuiltIns?: 'usage' | 'entry' | false
 }
 export type EMPConfigFn = (configEnv: ConfigEnv) => EMPConfig | Promise<EMPConfig>
 export type EMPConfigExport = EMPConfig | EMPConfigFn
@@ -268,6 +274,8 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
   op.moduleTransform = op.moduleTransform || {}
   // op.moduleTransform.parser = op.moduleTransform.parser || 'babel'
   op.moduleTransform.antdTransformImport = op.moduleTransform.antdTransformImport === false ? false : true
+  op.moduleTransform.useBuiltIns =
+    typeof op.moduleTransform.useBuiltIns !== 'undefined' ? op.moduleTransform.useBuiltIns : 'entry'
   if (op.moduleTransform.exclude) {
     moduleTransformExclude.and = op.moduleTransform.exclude
   }

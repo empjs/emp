@@ -291,17 +291,17 @@ module.exports={
 
 `emp dts` 指令 同步基站 d.ts 目录
 
-## CSS 
+## CSS
 ### css.unit
 + 类型 `vw` | `rem` | `undefined`
 + 默认 `undefined`
   - 单位转换 同时设置 vw 与 rem 默认切换到 vw
-### css.vw 
+### css.vw
 + [`PostcssViewPortOptions`](https://github.com/efoxTeam/emp/blob/next/packages/emp/src/config/css.ts#L6)
 + 默认 `null`
   - `postcss-px-to-viewport` 设置
 
-### css.rem 
+### css.rem
 + [`PostcssREMOptions`](https://github.com/efoxTeam/emp/blob/next/packages/emp/src/config/css.ts#L86)
 + 默认 `null`
   - `postcss-rem` 设置
@@ -343,6 +343,15 @@ v2.2.4
 + 默认 `true`
 
 是否开启 `antd` 按需加载，基于`swc`与`babel`实现不同，后续考虑开放所有 按需加载选项
+
+### moduleTransform.useBuiltIns
+::: tip
+v2.3.8
+:::
++ 类型 `usage` | `entry` | false
++ 默认 `entry`
+
+在老版本兼容的时候需要切换到 usage 把引用库 适配到当前配置 [体积会随之增大]
 
 ## 构建选项
 ### build.target

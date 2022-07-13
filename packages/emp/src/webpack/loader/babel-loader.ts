@@ -30,9 +30,9 @@ const babelLoader = () => {
         [
           require.resolve('@babel/preset-env'),
           {
-            useBuiltIns: 'entry',
+            // useBuiltIns: 'entry',
             // debug: true,
-            // debug: false,
+            useBuiltIns: store.config.moduleTransform.useBuiltIns,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
             loose: true,

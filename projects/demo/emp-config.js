@@ -12,14 +12,15 @@ module.exports = defineConfig(config => {
     // base: '/',
     html: {title: 'Demo | EMP v2'},
     server: {
-      port: 8000,
+      port: 8001,
       // hot: 'only',
       // https: true,
     },
     // useExternalsReplaceScript: false,
-    /* moduleTransform: {
-      parser: 'swc',
-    }, */
+    moduleTransform: {
+      // parser: 'swc',
+      // useBuiltIns: 'usage',
+    },
     build: {
       target,
       // sourcemap: false,
