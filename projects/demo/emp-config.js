@@ -1,6 +1,7 @@
-const {defineConfig} = require('@efox/emp')
+const {defineConfig, webpack, webpackVersion} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
 // const compile = require('@efox/emp-compile-esbuild')
+console.log('webpack', webpack, webpackVersion)
 module.exports = defineConfig(config => {
   const {mode, env} = config
   // const target = 'es2018'
