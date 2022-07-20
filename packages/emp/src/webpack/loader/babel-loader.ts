@@ -31,8 +31,9 @@ const babelLoader = () => {
           require.resolve('@babel/preset-env'),
           {
             // useBuiltIns: 'entry',
-            // debug: true,
-            useBuiltIns: store.config.moduleTransform.useBuiltIns,
+            debug: true,
+            // useBuiltIns: store.config.moduleTransform.useBuiltIns,
+            useBuiltIns: 'usage',
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
             loose: true,
@@ -59,7 +60,14 @@ const babelLoader = () => {
          * but please be aware, there are some minor differences.
          */
         [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}],
+        // 'loose' mode configuration must be the same for
+        // * @babel/plugin-proposal-class-properties
+        // * @babel/plugin-proposal-private-methods
+        // * @babel/plugin-proposal-private-property-in-object
+        // (when they are enabled)
         [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}],
+        [require.resolve('@babel/plugin-proposal-private-methods'), {loose: true}],
+        [require.resolve('@babel/plugin-proposal-private-property-in-object'), {loose: true}],
         /**
          * When set to true, the transform will only remove type-only imports (introduced in TypeScript 3.8).
          * This should only be used if you are using TypeScript >= 3.8.
