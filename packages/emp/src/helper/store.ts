@@ -145,7 +145,6 @@ class GlobalStore {
     } else {
       this.config = await initConfig()
     }
-    // reactRuntime settings
     this.checkAndSetReactVersion()
   }
   private checkAndSetReactVersion() {

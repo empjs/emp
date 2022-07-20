@@ -1,15 +1,11 @@
 import path from 'path'
-import {vCompare} from 'src/helper/utils'
 import store from 'src/helper/store'
 const root = process.cwd()
 const projectResolve = (rpath: string) => path.resolve(root, rpath)
 const pkg = require(projectResolve('package.json'))
 pkg.dependencies = pkg.dependencies || {}
 pkg.devDependencies = pkg.devDependencies || {}
-const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
 const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
-const isReact17 = reactVersion?.split('.').length === 3 ? vCompare(reactVersion, '17') : parseInt(reactVersion) >= 17
-const reactRumtime = isReact17 ? {runtime: 'automatic'} : {}
 //
 const absoluteRuntimePath = path.dirname(require.resolve('@babel/runtime/package.json'))
 const babelRuntimeVersion = require('@babel/runtime/package.json').version
@@ -22,6 +18,7 @@ type BabelLoaderTypes = {
   }
 }
 const babelLoader = () => {
+  // console.log(`store.config.reactRuntime`, store.config.reactRuntime)
   const config = store.config
   const o: BabelLoaderTypes = {
     loader: require.resolve('babel-loader'),
@@ -31,9 +28,9 @@ const babelLoader = () => {
           require.resolve('@babel/preset-env'),
           {
             // useBuiltIns: 'entry',
-            debug: true,
-            // useBuiltIns: store.config.moduleTransform.useBuiltIns,
-            useBuiltIns: 'usage',
+            // useBuiltIns: 'usage',
+            // debug: true,
+            useBuiltIns: store.config.moduleTransform.useBuiltIns,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
             loose: true,
@@ -77,8 +74,15 @@ const babelLoader = () => {
     },
   }
   // react
-  if (reactVersion) {
-    o.options.presets.push([require.resolve('@babel/preset-react'), reactRumtime])
+  if (store.config.reactRuntime) {
+    const reactPersets: any = {
+      runtime: store.config.reactRuntime,
+      development: config.mode === 'development',
+    }
+    if (store.config.reactRuntime !== 'automatic') {
+      reactPersets.useBuiltIns = true
+    }
+    o.options.presets.push([require.resolve('@babel/preset-react'), reactPersets])
     // fast refresh
     config.mode === 'development' &&
       config.server.hot &&

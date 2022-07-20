@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.3.11-beta.1",
+  "version": "2.4.0-beta.1",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -43,9 +43,6 @@
     "build": "rimraf dist && ttsc"
   },
   "author": "Ken",
-  "peerDependencies": {
-    "core-js": "^3.19.2"
-  },
   "dependencies": {
     "@babel/core": "^7.17.10",
     "@babel/plugin-proposal-class-properties": "^7.16.7",

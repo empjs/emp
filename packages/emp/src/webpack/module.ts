@@ -1,9 +1,7 @@
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import loader from 'src/webpack/loader'
-type ReactRuntimeType = 'automatic' | 'classic'
 class WPModule {
-  reactRuntime?: ReactRuntimeType = undefined
   constructor() {}
   async setup() {
     this.setConfig()
@@ -11,8 +9,10 @@ class WPModule {
     this.setWebworker()
   }
   private setConfig() {
+    const {parser} = this
     const config = {
       module: {
+        parser,
         // mini-css-extract-plugin 编译不过！
         /* generator: {
           asset: {
@@ -21,17 +21,19 @@ class WPModule {
         }, */
         rule: {
           // 解决 mjs 加载失败问题
-          mjs: {
+          /* mjs: {
             test: /\.m?js/,
             resolve: {
               fullySpecified: false,
             },
-          },
+          }, */
           //
           scripts: {
-            test: /\.(js|jsx|ts|tsx)$/,
+            // test: /\.(js|jsx|ts|tsx)$/,
             // exclude: /(node_modules|bower_components)/, //不能加 exclude 否则会专程 arrow
-            exclude: store.config.moduleTransformExclude,
+            // exclude: store.config.moduleTransformExclude,
+            test: /\.(js|mjs|jsx|ts|tsx)$/,
+            include: store.appSrc,
             use: {
               ...loader().config,
             },
@@ -41,6 +43,14 @@ class WPModule {
       },
     }
     wpChain.merge(config)
+  }
+  private get parser() {
+    return {
+      javascript: {
+        exportsPresence: 'error',
+        importExportsPresence: 'error',
+      },
+    }
   }
   private setWebworker() {
     const workerInline = wpChain.module
@@ -66,9 +76,7 @@ class WPModule {
     pkg.dependencies = pkg.dependencies || {}
     pkg.devDependencies = pkg.devDependencies || {}
     const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
-    //const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
     // 增加插件支持
-    // if (isDev && store.config.server.hot && !!store.config.reactRuntime)
     if (isDev && store.config.server.hot && !!store.config.reactRuntime && reactVersion) {
       wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'), [
         {

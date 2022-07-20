@@ -4,6 +4,7 @@ import logger from 'src/helper/logger'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import {Configuration} from 'webpack'
+import ModuleScopePlugin from './plugin/moduleScope'
 class WPCommon {
   isDev = true
   constructor() {}
@@ -150,6 +151,8 @@ class WPCommon {
   }
   get resolve(): Configuration['resolve'] {
     const configResolve = {...{extends: true}, ...store.config.resolve}
+    //
+    const appPackageJson = store.resolve('package.json')
     const rs = {
       modules: [
         'node_modules', //默认
@@ -176,6 +179,7 @@ class WPCommon {
         '.svg',
         '.svga',
       ],
+      plugins: [new ModuleScopePlugin(store.appSrc, [appPackageJson])],
     }
 
     // 合并 config.resolve 配置项
