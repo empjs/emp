@@ -12,7 +12,9 @@ const babelRuntimeVersion = require('@babel/runtime/package.json').version
 //
 type BabelLoaderTypes = {
   loader: any
+
   options: {
+    sourceType?: string
     presets: any[]
     plugins: any[]
   }
@@ -23,24 +25,28 @@ const babelLoader = () => {
   const o: BabelLoaderTypes = {
     loader: require.resolve('babel-loader'),
     options: {
+      // Fixes "TypeError: __webpack_require__(...) is not a function"
+      // https://github.com/webpack/webpack/issues/9379#issuecomment-509628205
+      // https://babeljs.io/docs/en/options#sourcetype
+      sourceType: 'unambiguous',
       presets: [
         [
           require.resolve('@babel/preset-env'),
           {
             // useBuiltIns: 'entry',
             // useBuiltIns: 'usage',
-            // debug: true,
+            debug: store.config.debug.babelDebug,
             useBuiltIns: store.config.moduleTransform.useBuiltIns,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
-            loose: true,
+            // loose: true,
           },
         ],
         require.resolve('@babel/preset-typescript'),
         // [require.resolve('@babel/preset-react'), reactRumtime],
       ],
       plugins: [
-        [require('@babel/plugin-syntax-top-level-await').default], //观察是否支持 toplvawait 的 es5支持
+        [require.resolve('@babel/plugin-syntax-top-level-await'), {}], //观察是否支持 toplvawait 的 es5支持
         [
           require.resolve('@babel/plugin-transform-runtime'),
           {

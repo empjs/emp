@@ -18,10 +18,10 @@
     "react": "17",
     "react-dom": "17",
     "react-router-dom": "^6.3.0",
-    "zustand": "^4.0.0-rc.1"
+    "zustand": "^4.0.0-rc.4"
   },
   "devDependencies": {
-    "@efox/emp": "^2.3.10",
+    "@efox/emp": "workspace:*",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",

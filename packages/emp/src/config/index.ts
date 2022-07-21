@@ -262,6 +262,8 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
     profile: false,
     wplogger: false,
     progress: true,
+    webpackCache: true,
+    babelDebug: false,
     level: 'info',
     ...(op.debug || {}),
   }

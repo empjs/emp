@@ -1,27 +1,21 @@
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-import chalk from 'chalk'
 import path from 'path'
 import os from 'os'
 
+import chalk from 'chalk'
+
 export default class ModuleScopePlugin {
-  appSrcs: string[]
-  allowedFiles: any
-  allowedPaths: string[]
-  constructor(appSrc: string[] | string, allowedFiles: string[]) {
-    this.appSrcs = Array.isArray(appSrc) ? appSrc : [appSrc]
+  private readonly appSources: string[]
+
+  private readonly allowedFiles: Set<string>
+
+  constructor(appSrc: string, allowedFiles: string[] = []) {
+    this.appSources = Array.isArray(appSrc) ? appSrc : [appSrc]
     this.allowedFiles = new Set(allowedFiles)
-    this.allowedPaths = [...allowedFiles].map(path.dirname).filter(p => path.relative(p, process.cwd()) !== '')
   }
 
-  apply(resolver: any) {
-    const {appSrcs} = this
-    resolver.hooks.file.tapAsync('ModuleScopePlugin', (request: any, contextResolver: any, callback: any) => {
+  apply(compiler: any): void {
+    const {appSources} = this
+    compiler.hooks.file.tapAsync('ModuleScopePlugin', (request: any, contextResolver: any, callback: any) => {
       // Unknown issuer, probably webpack internals
       if (!request.context.issuer) {
         return callback()
@@ -35,10 +29,12 @@ export default class ModuleScopePlugin {
       ) {
         return callback()
       }
-      // Resolve the issuer from our appSrc and make sure it's one of our files
-      // Maybe an indexOf === 0 would be better?
+      /*
+       * Resolve the issuer from our appSrc and make sure it's one of our files
+       * Maybe an indexOf === 0 would be better?
+       */
       if (
-        appSrcs.every(appSrc => {
+        appSources.every(appSrc => {
           const relative = path.relative(appSrc, request.context.issuer)
           // If it's not in one of our app src or a subdirectory, not our request!
           return relative.startsWith('../') || relative.startsWith('..\\')
@@ -50,42 +46,36 @@ export default class ModuleScopePlugin {
       if (this.allowedFiles.has(requestFullPath)) {
         return callback()
       }
+      /*
+       * Find path from src to the requested file
+       * Error if in a parent directory of all given appSources
+       */
       if (
-        this.allowedPaths.some(allowedFile => {
-          return requestFullPath.startsWith(allowedFile)
-        })
-      ) {
-        return callback()
-      }
-      // Find path from src to the requested file
-      // Error if in a parent directory of all given appSrcs
-      if (
-        appSrcs.every(appSrc => {
+        appSources.every(appSrc => {
           const requestRelative = path.relative(appSrc, requestFullPath)
           return requestRelative.startsWith('../') || requestRelative.startsWith('..\\')
         })
       ) {
         const scopeError = new Error(
-          `You attempted to import ${chalk.cyan(
-            request.__innerRequest_request,
-          )} which falls outside of the project ${chalk.cyan('src/')} directory. ` +
-            `Relative imports outside of ${chalk.cyan('src/')} are not supported.` +
-            os.EOL +
-            `You can either move it inside ${chalk.cyan('src/')}, or add a symlink to it from project's ${chalk.cyan(
-              'node_modules/',
-            )}.`,
+          `${
+            `You attempted to import ${chalk.cyan(
+              request.__innerRequest_request,
+            )} which falls outside of the project ${chalk.cyan('src/')} directory. ` +
+            `Relative imports outside of ${chalk.cyan('src/')} are not supported.`
+          }${os.EOL}You can either move it inside ${chalk.cyan(
+            'src/',
+          )}, or add a symlink to it from project's ${chalk.cyan('node_modules/')}.`,
         )
         Object.defineProperty(scopeError, '__module_scope_plugin', {
           value: true,
           writable: false,
           enumerable: false,
         })
-        callback(scopeError, request)
-      } else {
-        callback()
+        console.log(request.context.issuer, request.relativePath)
+        return callback(scopeError, request)
       }
+
+      return callback()
     })
   }
 }
-
-module.exports = ModuleScopePlugin

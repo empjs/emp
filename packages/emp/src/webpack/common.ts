@@ -14,7 +14,7 @@ class WPCommon {
     // init config
     const config: Configuration = {
       // cache: false,
-      cache,
+      cache: store.config.debug.webpackCache === true ? cache : false,
       // snapshot, //评估是否有效再加入到配置
       resolve,
       externals,
@@ -27,6 +27,10 @@ class WPCommon {
     this.setESM(config)
     // Merge
     wpChain.merge(config)
+    // console.log('store.config.debug.webpackCache', store.config.debug.webpackCache, config)
+    //
+    // const appPackageJson = store.resolve('package.json')
+    // wpChain.resolve.plugin('ModuleScopePlugin').use(ModuleScopePlugin, [store.appSrc, [appPackageJson]])
   }
   setESM(config: Configuration) {
     if (store.isESM) {
@@ -152,7 +156,6 @@ class WPCommon {
   get resolve(): Configuration['resolve'] {
     const configResolve = {...{extends: true}, ...store.config.resolve}
     //
-    const appPackageJson = store.resolve('package.json')
     const rs = {
       modules: [
         'node_modules', //默认
@@ -179,7 +182,6 @@ class WPCommon {
         '.svg',
         '.svga',
       ],
-      plugins: [new ModuleScopePlugin(store.appSrc, [appPackageJson])],
     }
 
     // 合并 config.resolve 配置项

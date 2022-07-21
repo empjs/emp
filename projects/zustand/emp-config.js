@@ -3,13 +3,19 @@ module.exports = defineConfig(() => {
   return {
     server: {
       port: 2001,
+      https: true,
     },
     moduleTransform: {
-      useBuiltIns: 'usage',
-      include: [/zustand/],
+      include: [/zustand/, /react\-router/],
     },
     html: {
       title: 'EMP Zustand',
+    },
+    debug: {
+      // clearLog: false,
+      // wplogger: true,
+      webpackCache: false,
+      // babelDebug: true,
     },
   }
 })

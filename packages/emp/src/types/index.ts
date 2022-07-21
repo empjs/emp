@@ -46,6 +46,16 @@ export type ConfigDebugType = {
   profile: boolean
   wplogger: boolean | string // --wplogger [filename] 可以为 string
   /**
+   * 是否开启webpack cache
+   * @default false
+   */
+  webpackCache: boolean
+  /**
+   * 是否开启 babel debug
+   * @default false
+   */
+  babelDebug: boolean
+  /**
    * 日志级别
    */
   level: LoggerType

@@ -100,3 +100,22 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+/**
+ * polyfill all `core-js` features, including early-stage proposals:
+ */
+declare module 'core-js/full'
+/**
+ * polyfill all actual features - stable ES, web standards and stage 3 ES proposals:
+ */
+declare module 'core-js/actual'
+
+/**
+ * polyfill only stable features - ES and web standards:
+ */
+declare module 'core-js/stable'
+
+/**
+ * polyfill only stable ES features:
+ */
+declare module 'core-js/es'

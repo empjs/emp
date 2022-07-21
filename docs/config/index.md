@@ -520,3 +520,15 @@ swc 是否异步构建
 ### debug.level
 + 类型 `debug` `info` `warn` `error`
 + 默认 `info`
+
+### debug.webpackCache
++ 类型 `boolean`
++ 默认 `false`
+
+是否开启 webpack 缓存
+
+### debug.babelDebug
++ 类型 `boolean`
++ 默认 `false`
+
+是否开启 babel debug
