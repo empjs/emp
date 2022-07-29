@@ -1,6 +1,11 @@
+# 2.4.x
+## Features
++ 增加低版本兼容性的选项
++ 增加 缓存等项目级别目录的定义，以便ci 等功能的定制
+
 # 2.3.5
 ## Features
-+ 增加 `postcss-rem` 支持 
++ 增加 `postcss-rem` 支持
 + 增加 `postcss-vw` 支持
 + 增加 默认 `postcss-flexbugs-fixes`
 + 增加 默认 `postcss-preset-env`

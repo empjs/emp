@@ -1,5 +1,6 @@
 const {defineConfig, webpack} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
+const path = require('path')
 // const compile = require('@efox/emp-compile-esbuild')
 console.log('webpack', webpack.version)
 module.exports = defineConfig(config => {
@@ -12,6 +13,10 @@ module.exports = defineConfig(config => {
     define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
     // base: '/',
     html: {title: 'Demo | EMP v2'},
+    cacheDir: path.resolve('../../.emp-cache'),
+    debug: {
+      profile: true,
+    },
     server: {
       port: 8001,
       // hot: 'only',

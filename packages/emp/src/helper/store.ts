@@ -35,10 +35,12 @@ class GlobalStore {
   public config!: ResovleConfig
   /**
    * 获取项目 根目录绝对路径
+   * (*) relativePath 可以是绝对路径
    * @param relativePath
    * @returns
    */
-  public resolve = (relativePath: string) => path.resolve(this.root, relativePath)
+  public resolve = (relativePath: string) =>
+    path.isAbsolute(relativePath) ? relativePath : path.resolve(this.root, relativePath)
   /**
    * 获取项目 emp内部根目录绝对路径
    * @param relativePath
