@@ -119,10 +119,10 @@ class WPPlugin {
           args: [
             {
               async: isDev, // true dev环境下部分错误验证通过
-              eslint: {
-                enabled: true,
-                files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
-              },
+              // eslint: {
+              //   enabled: true,
+              //   files: `${store.appSrc}/**/*.{ts,tsx,js,jsx}`,
+              // },
               typescript: {
                 configFile: tsconfigJsonPath,
                 profile: false,
@@ -135,25 +135,26 @@ class WPPlugin {
             },
           ],
         }
-      } else {
-        config.plugin.eslint = {
-          plugin: require.resolve('eslint-webpack-plugin'),
-          args: [
-            {
-              extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-              context: store.root,
-              // overrideConfigFile: resolveApp('.eslintrc.js'),
-              files: ['src/**/*.{ts,tsx,js,jsx}'],
-              // eslintPath: require.resolve('eslint'),
-              cache: true,
-              cacheLocation: path.resolve(store.config.cacheDir, 'eslint'),
-              fix: true,
-              threads: true,
-              lintDirtyModulesOnly: false,
-            },
-          ],
-        }
+      } //
+      // else {
+      config.plugin.eslint = {
+        plugin: require.resolve('eslint-webpack-plugin'),
+        args: [
+          {
+            extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+            context: store.root,
+            // overrideConfigFile: resolveApp('.eslintrc.js'),
+            files: ['src/**/*.{ts,tsx,js,jsx}'],
+            // eslintPath: require.resolve('eslint'),
+            cache: true,
+            cacheLocation: path.resolve(store.config.cacheDir, 'eslint'),
+            fix: true,
+            threads: true,
+            lintDirtyModulesOnly: false,
+          },
+        ],
       }
+      // }
     }
 
     // if (store.config.build.emptyOutDir && !isDev) {

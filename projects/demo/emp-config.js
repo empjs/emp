@@ -13,6 +13,7 @@ module.exports = defineConfig(config => {
     define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
     // base: '/',
     html: {title: 'Demo | EMP v2'},
+    jsCheck: true,
     cacheDir: path.resolve('../../.emp-cache'),
     debug: {
       profile: true,
