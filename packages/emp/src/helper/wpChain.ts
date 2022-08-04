@@ -6,6 +6,9 @@ import {Configuration} from 'webpack'
 export {WPChain}
 const wpChain = new WPChain()
 export const getConfig = (): Configuration => {
+  if (store.config.webpack) {
+    wpChain.merge(store.config.webpack)
+  }
   const conf = wpChain.toConfig()
 
   const {wplogger} = store.config.debug

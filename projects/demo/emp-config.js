@@ -18,9 +18,9 @@ module.exports = defineConfig(config => {
     html: {title: 'Demo | EMP v2'},
     jsCheck: true,
     cacheDir: path.resolve('../../.emp-cache'),
-    debug: {
-      profile: true,
-    },
+    // debug: {
+    //   profile: true,
+    // },
     server: {
       port: 8001,
       // hot: 'only',
@@ -60,11 +60,18 @@ module.exports = defineConfig(config => {
             'react-router-dom': esm('react-router-dom', '', '5', `react@18.1.0`),
           },
     },
-    // debug: {
-    //   // clearLog: false,
-    //   // level: 'debug',
-    //   // wplogger: true,
-    // },
+    webpack: {
+      devServer: {
+        onBeforeSetupMiddleware(...args) {
+          console.log('onBeforeSetupMiddleware')
+        },
+      },
+    },
+    debug: {
+      clearLog: false,
+      // level: 'debug',
+      // wplogger: true,
+    },
     // css: {
     //   unit: 'vw',
     //   rem: {

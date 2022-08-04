@@ -20,7 +20,8 @@ import {MFExport} from 'src/types/moduleFederation'
 import {EMPShareExport} from 'src/types/empShare'
 // import {LoggerType} from 'src/helper/logger'
 import path from 'path'
-import {RuleSetRule} from 'webpack'
+import {Configuration as WebpackConfiguration, RuleSetRule} from 'webpack'
+// import {Configuration as WebpackDevServerConfiguration} from 'webpack-dev-server'
 import {CSSOptions, initCSS} from './css'
 // import templates from './templates'
 //
@@ -106,7 +107,7 @@ export type EMPConfig = {
    * webpackChain 暴露到 emp-config
    */
   webpackChain?: WebpackChainType
-
+  webpack?: WebpackConfiguration
   /**
    * module federation 配置
    */
