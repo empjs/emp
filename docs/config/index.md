@@ -145,6 +145,7 @@ module.exports = defineConfig(({mode, env}) => {
 ### webpack
 + 类型 `WebpackConfiguration`
 + 默认 `undefined`
+
 跟进 `webpack config` 覆盖之前的内容或者 webpack-chain 没有提供的属性
 ### empshare
 + 类型 `EMPShareExport`
