@@ -2,7 +2,10 @@ const {defineConfig, webpack} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
 const path = require('path')
 // const compile = require('@efox/emp-compile-esbuild')
-console.log('webpack', webpack.version)
+const pkg = require('./package.json')
+// console.log('webpack', webpack.version)
+const version = pkg.version
+//.replace(/\./g, '_')
 module.exports = defineConfig(config => {
   const {mode, env} = config
   // const target = 'es2018'
@@ -31,18 +34,18 @@ module.exports = defineConfig(config => {
     build: {
       target,
       // sourcemap: false,
-      // outDir: 'build',
+      outDir: `dist/${version}`,
       // minify: 'swc',
-      minOptions: {
-        compress: {
-          // warnings: false,
-          // drop_console: true,
-          // drop_debugger: true,
-          // pure_funcs: ['console.log'],
-          // unused: true,
-        },
-        // mangle: true,
-      },
+      // minOptions: {
+      //   compress: {
+      //     // warnings: false,
+      //     // drop_console: true,
+      //     // drop_debugger: true,
+      //     // pure_funcs: ['console.log'],
+      //     // unused: true,
+      //   },
+      //   // mangle: true,
+      // },
     },
     // jsCheck: true,
     // reactRuntime: 'automatic', //增加这个实现无安装依赖热更
@@ -57,26 +60,26 @@ module.exports = defineConfig(config => {
             'react-router-dom': esm('react-router-dom', '', '5', `react@18.1.0`),
           },
     },
-    debug: {
-      // clearLog: false,
-      // level: 'debug',
-      // wplogger: true,
-    },
-    css: {
-      unit: 'vw',
-      rem: {
-        rootValue: 100,
-        propList: ['*'],
-        unitPrecision: 3,
-        minPixelValue: 0.5,
-      },
-      vw: {
-        viewportWidth: 720,
-        unitPrecision: 3,
-        viewportUnit: 'vw',
-        minPixelValue: 1,
-        mediaQuery: false,
-      },
-    },
+    // debug: {
+    //   // clearLog: false,
+    //   // level: 'debug',
+    //   // wplogger: true,
+    // },
+    // css: {
+    //   unit: 'vw',
+    //   rem: {
+    //     rootValue: 100,
+    //     propList: ['*'],
+    //     unitPrecision: 3,
+    //     minPixelValue: 0.5,
+    //   },
+    //   vw: {
+    //     viewportWidth: 720,
+    //     unitPrecision: 3,
+    //     viewportUnit: 'vw',
+    //     minPixelValue: 1,
+    //     mediaQuery: false,
+    //   },
+    // },
   }
 })

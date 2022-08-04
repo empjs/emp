@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -68,7 +68,7 @@
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "compression": "^1.7.4",
-    "copy-webpack-plugin": "^9.0.1",
+    "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.23.5",
     "cors": "^2.8.5",
     "css-loader": "^6.7.1",

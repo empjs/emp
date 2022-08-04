@@ -6,6 +6,7 @@ import {Configuration} from 'webpack'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 // import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import logger from 'src/helper/logger'
+import path from 'path'
 // import type {SquooshOptionType} from 'src/types/squoosh'
 class WPProduction {
   constructor() {}
@@ -52,8 +53,8 @@ class WPProduction {
             {
               patterns: [
                 {
-                  from: store.publicDir.replace(/\\/g, '/'),
-                  to: store.outDir.replace(/\\/g, '/'),
+                  from: path.join(store.publicDir.replace(/\\/g, '/'), path.sep),
+                  to: path.join(store.outDir.replace(/\\/g, '/'), path.sep),
                   globOptions: {
                     // 加入 paths.template 避免被重置
                     ignore: ['*.DS_Store'],
