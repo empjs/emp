@@ -6,6 +6,7 @@
 ## bugfixes
 + 修正 `jscheck` 不支持兼容 eslint 使用的问题
 + 修正 babel 版本告知问题
++ 修复版本号文件夹问题
 
 # 2.3.5
 ## Features
