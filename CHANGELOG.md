@@ -2,6 +2,7 @@
 ## Features
 + 增加低版本兼容性的选项
 + 增加 缓存等项目级别目录的定义，以便ci 等功能的定制
++ 增加 `webpack` 选项
 
 ## bugfixes
 + 修正 `jscheck` 不支持兼容 eslint 使用的问题
