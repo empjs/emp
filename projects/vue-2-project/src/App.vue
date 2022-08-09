@@ -3,8 +3,10 @@
     <h1>Project App ! vue 2 project</h1>
     <h2>Content</h2>
     <Content />
-    <h2>CompositionApi</h2>
+    <!-- <h2>CompositionApi</h2> -->
     <!-- <CompositionApi /> -->
+    <h2>Table</h2>
+    <Table />
   </div>
 </template>
 
@@ -13,6 +15,7 @@
 export default {
   components: {
     Content: () => import('@v2b/Content'),
+    Table: () => import('@v2b/Table'),
     // CompositionApi: () => import('@v2b/CompositionApi'),
   },
 }

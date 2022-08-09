@@ -1,5 +1,9 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import store from '@/store'
 import App from '@/App'
+
 // composition-api shareLib 可以不操作
 import VueCompositionAPI from '@vue/composition-api'
 Vue.use(VueCompositionAPI)
@@ -18,5 +22,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#emp-root')

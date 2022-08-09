@@ -1,12 +1,23 @@
 <template>
   <div>
-    <div class="v2box">{{ title }}</div>
-    <button class="button" @click="add">Vue2 Add Button</button>
-    <div class="v2box">Prop: {{ dataProps }}</div>
-    <p>============ button component start =============</p>
-    <Button text-val="button components in content from import" />
-    <DynamicButton text-val="dynamic import" />
-    <p>============ button component end =============</p>
+    <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button>
+    <p @click="showMore">More...</p>
+    <div class="more">
+      <ul v-if="isMore === true">
+        <li>
+          <button class="button" @click="increment">Vuex Store : {{ $store.state.count }}</button>
+        </li>
+        <li>
+          <h2>{{ title }}</h2>
+          <button class="button" @click="add">Vue2 Add Button</button>
+        </li>
+        <li>
+          <h2>prop: {{ dataProps }}</h2>
+          <Button text-val="button components in content from import" />
+          <DynamicButton text-val="dynamic import" />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -23,6 +34,7 @@ export default {
   },
   data() {
     return {
+      isMore: false,
       title: 'EMP Vue2 Component From BASE!',
     }
   },
@@ -33,6 +45,13 @@ export default {
     // console.log(this.$listeners)
   },
   methods: {
+    showMore() {
+      this.isMore = !this.isMore
+    },
+    increment() {
+      this.$store.commit('increment')
+      // console.log(this.$store.state.count)
+    },
     add() {
       console.log('click event')
       // Vue2 使用 Vue3 传过来的自定义事件需要把函数名 kebab-case 改为 camelCase 再加前缀 on
@@ -43,7 +62,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.button.bigSize {
+  font-size: 30px;
+  width: auto;
+  padding: 3px 8px;
+}
+.more {
+  ul,
+  li {
+    list-style: none;
+    button {
+      width: auto;
+      padding: 3px 8px;
+    }
+  }
+  h2 {
+    font-size: 14px;
+  }
+}
 .v2box {
   font-size: 38px;
   color: green;
