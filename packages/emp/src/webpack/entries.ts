@@ -78,8 +78,8 @@ class WPEntries {
     const htmlConfig = store.config.html
     // 单页面时 需要把 filename 设置成 index.html
     filename = filename ? filename : `${chunks[0]}.html`
-    htmlConfig.files.css = []
-    htmlConfig.files.js = []
+    htmlConfig.files.css = htmlConfig.files.css || []
+    htmlConfig.files.js = htmlConfig.files.js || []
     htmlConfig.files.css = store.config.html.files.css.concat(store.empShare.externalAssets.css)
     if (!store.isESM && !store.config.useExternalsReplaceScript) {
       htmlConfig.files.js = store.config.html.files.js.concat(store.empShare.externalAssets.js)

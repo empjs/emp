@@ -15,7 +15,13 @@ module.exports = defineConfig(config => {
     // compile,
     define: {emp: {name: 'empName', value: ['a', 'b', 'c']}},
     // base: '/',
-    html: {title: 'Demo | EMP v2'},
+    html: {
+      title: 'Demo | EMP v2',
+      files: {
+        js: [`//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js`],
+        css: [`//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css`],
+      },
+    },
     jsCheck: true,
     cacheDir: path.resolve('../../.emp-cache'),
     // debug: {
@@ -62,9 +68,9 @@ module.exports = defineConfig(config => {
     },
     webpack: {
       devServer: {
-        onBeforeSetupMiddleware(...args) {
-          console.log('onBeforeSetupMiddleware')
-        },
+        // onBeforeSetupMiddleware(...args) {
+        //   console.log('onBeforeSetupMiddleware')
+        // },
       },
     },
     debug: {
