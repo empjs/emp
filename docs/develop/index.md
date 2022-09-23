@@ -9,7 +9,7 @@ pnpm add -g @efox/emp
 
 ## 项目安装依赖
 ```
-npm add @efox/emp --dev
+npm i @efox/emp --dev
 yarn add @efox/emp -D
 pnpm add @efox/emp -D
 ```
