@@ -30,6 +30,8 @@ module.exports = {
       // ...lib,
     }
   },
-  esm: (name, mode, version) =>
-    `https://esm.sh/${name}${version ? '@' + version : ''}${mode === 'development' ? '?dev' : ''}`,
+  esm: (name, mode, version, esmVersion, deps) =>
+    `https://esm.sh/${name}${version ? '@' + version : ''}?${
+      mode === 'development' ? 'dev' : ''
+    }&target=${esmVersion}&${deps ? 'deps=' + deps : ''}`,
 }

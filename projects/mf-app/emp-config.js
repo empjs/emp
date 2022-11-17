@@ -13,8 +13,8 @@ module.exports = defineConfig(() => {
         './App': './src/App',
       },
       shared: {
-        react: {requiredVersion: '^17.0.1'},
-        'react-dom': {requiredVersion: '^17.0.1'},
+        react: {requiredVersion: '^17.0.1', singleton: true},
+        'react-dom': {requiredVersion: '^17.0.1', singleton: true},
       },
     },
   }

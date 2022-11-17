@@ -1,6 +1,7 @@
 import {observer} from 'mobx-react'
-import incStore from './store/incStore'
+import useIncStore from './store/incStore'
 const StoreComp = observer(() => {
+  const incStore = useIncStore(state => state)
   return (
     <>
       <p>{incStore.num}</p>

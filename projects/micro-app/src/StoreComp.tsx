@@ -1,6 +1,6 @@
-import {observer} from 'mobx-react-lite'
-import incStore from '@microHost/incStore'
-const StoreComp = observer(() => {
+import useIncStore from '@microHost/incStore'
+const StoreComp = () => {
+  const incStore = useIncStore(state => state)
   return (
     <>
       <h1>@microHost incStore</h1>
@@ -16,5 +16,5 @@ const StoreComp = observer(() => {
       </button>
     </>
   )
-})
+}
 export default StoreComp

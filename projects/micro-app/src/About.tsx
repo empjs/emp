@@ -1,11 +1,13 @@
 import {Link} from 'react-router-dom'
-import incStore from '@microHost/incStore'
-import {observer} from 'mobx-react'
+import useIncStore from '@microHost/incStore'
 
-const About = observer(() => (
-  <>
-    about <Link to="/">Home</Link>
-    <p>incStore num {incStore.num}</p>
-  </>
-))
+const About = () => {
+  const incStore = useIncStore(state => state)
+  return (
+    <>
+      about <Link to="/">Home</Link>
+      <p>incStore num {incStore.num}</p>
+    </>
+  )
+}
 export default About

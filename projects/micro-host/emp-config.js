@@ -1,8 +1,9 @@
 const {defineConfig} = require('@efox/emp')
 const {cdn, esm} = require('./cdn')
-
+const reactVersion = '17.0.2'
+const esmVersion = 'es2018'
 module.exports = defineConfig(({mode}) => {
-  const target = 'es2018'
+  const target = esmVersion
   // const target = 'es5'
   const isESM = !['es3', 'es5'].includes(target)
   return {
@@ -29,20 +30,19 @@ module.exports = defineConfig(({mode}) => {
         // './Button': './src/Button',
         './incStore': './src/store/incStore',
       },
-      shared: {
+      /*   shared: {
         react: {requiredVersion: '^17.0.1'},
         'react-dom': {requiredVersion: '^17.0.1'},
         mobx: {requiredVersion: '^6'},
         'mobx-react': {requiredVersion: '^7'},
-      },
-      // shareLib: !isESM
-      //   ? cdn(mode)
-      //   : {
-      //       react: esm('react', mode, '17.0.2'),
-      //       'react-dom': esm('react-dom', mode, '17.0.2'),
-      //       mobx: esm('mobx', mode),
-      //       'mobx-react-lite': esm('mobx-react-lite', mode),
-      //     },
+      }, */
+      shareLib: !isESM
+        ? cdn(mode)
+        : {
+            react: esm('react', mode, reactVersion, esmVersion),
+            'react-dom': esm('react-dom', mode, reactVersion, esmVersion),
+            zustand: esm('zustand', mode, '4', esmVersion, `react@${reactVersion},react-dom@${reactVersion}`),
+          },
       // shareLib: cdn(mode),
     },
     html: {title: 'Micro-Host'},
