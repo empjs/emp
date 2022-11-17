@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -57,7 +57,7 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "^7.18.9",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.9",
     "@svgr/webpack": "^6.3.0",
     "@types/express": "^4.17.13",
     "@types/node": "^16.11.9",
@@ -107,7 +107,7 @@
     "typescript": "^4.7.3",
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.74.0",
+    "webpack": "^5.75.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.9.3",
