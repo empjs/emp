@@ -1,3 +1,13 @@
+# 2.5.x
+> 全面支持 ESM 版本，深度基于ESM 的模型进行定制
+## Features
++ 升级 webpack 修复部分性能问题
++ 增加 importMap 支持，实现ESM 模型下 开发与正式环境的切换
++ 支持 esm 远程基站的引用 不受环境影响的问题
++ 增加 html tags 注入 方面进行更多定制内容
+
+## Bugfixes
+
 # 2.4.x
 ## Features
 + 增加低版本兼容性的选项
@@ -18,7 +28,7 @@
 + 增加 默认 `postcss-preset-env`
 + 增加 默认 `postcss-normalize`
 
-## bugfixes
+## Bugfixes
 + 修复 `postcss-px-to-viewport` postcss8 兼容问题
 + 修复 手动修改 `package.json` 版本号 导致的react 版本识别问题
 

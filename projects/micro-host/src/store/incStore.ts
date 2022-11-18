@@ -21,12 +21,18 @@
 // export default new IncStore()
 
 import create from 'zustand'
+import {combine} from 'zustand/middleware'
 interface IncType {
   num: number
   code: string
   inc: () => void
   loadData: () => void
 }
+export const useBearStore = create(
+  combine({bears: 0}, set => ({
+    increase: (by: number) => set(state => ({bears: state.bears + by})),
+  })),
+)
 const useIncStore = create<IncType>()(set => ({
   num: 0,
   code: '',

@@ -31,6 +31,18 @@ declare module '@microHost/incStore' {
     inc: () => void
     loadData: () => void
   }
+  export const useBearStore: import('zustand').UseBoundStore<
+    import('zustand').StoreApi<
+      Omit<
+        {
+          bears: number
+        },
+        'increase'
+      > & {
+        increase: (by: number) => void
+      }
+    >
+  >
   const useIncStore: import('zustand').UseBoundStore<import('zustand').StoreApi<IncType>>
   export default useIncStore
 }

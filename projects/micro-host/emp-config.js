@@ -46,5 +46,9 @@ module.exports = defineConfig(({mode}) => {
       // shareLib: cdn(mode),
     },
     html: {title: 'Micro-Host'},
+    /* debug: {
+      webpackCache: false,
+      clearLog: false,
+    }, */
   }
 })

@@ -14,6 +14,7 @@ module.exports = defineConfig(({mode, env}) => {
     server: {
       port: 8002,
     },
+
     // dtsPath: {
     //   '@microHost': 'http://127.0.0.1:8001/types/index.d.ts',
     // },

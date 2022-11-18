@@ -11,6 +11,7 @@ class EMPShare {
   moduleFederation: MFOptions = {}
   externals: Configuration['externals'] | any = {}
   externalAssets: externalAssetsType = {js: [], css: []}
+  importMap: any = {imports: {}}
   // empShare: EMPShareType = {}
   downloadRemote: MFOptions['remotes'] = {}
   constructor() {}
@@ -36,9 +37,12 @@ class EMPShare {
       mf = store.config.empShare
     }
     for (const [k, v] of Object.entries(mf.shareLib || {})) {
-      this.externals[k] = v
+      // this.externals[k] = v
+      this.externals[k] = k
+      this.importMap.imports[k] = v
     }
     delete mf.shareLib
+    //console.log(`this.externals esm`, this.externals, JSON.stringify(this.importMap))
     await this.setModuleFederation(mf)
   }
   private async setEmpShare() {

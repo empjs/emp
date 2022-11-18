@@ -93,6 +93,12 @@ class WPEntries {
         htmlConfig.files.js = htmlConfig.files.js.concat(htmlOptions.files.js)
       }
     }
+    const headTags: HtmlWebpackPlugin.Options = {tags: {}}
+    if (Object.keys(store.empShare.importMap.imports).length > 0) {
+      headTags.tags.headTags = [
+        `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`,
+      ]
+    }
     const options: HtmlWebpackPlugin.Options = {
       // title: 'EMP',
       // template,
@@ -117,6 +123,7 @@ class WPEntries {
       },
       ...htmlConfig,
       ...htmlOptions,
+      ...headTags,
     }
     if (store.config.base && !options.publicPath) {
       options.publicPath = store.config.base
