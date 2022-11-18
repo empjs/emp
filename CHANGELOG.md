@@ -6,6 +6,10 @@
 + 支持 esm 远程基站的引用 不受环境影响的问题
 + 增加 html tags 注入 方面进行更多定制内容
 
+### ESM Demo
++ [基站](https://github.com/efoxTeam/emp/tree/next/projects/micro-host)
++ [应用](https://github.com/efoxTeam/emp/tree/next/projects/micro-app)
+
 ## Bugfixes
 
 # 2.4.x
