@@ -27,7 +27,6 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "packageManager": "^pnpm@7.0.0",
   "engines": {
     "node": ">=14",
     "pnpm": ">=7"
