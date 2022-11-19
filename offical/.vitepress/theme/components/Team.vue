@@ -76,6 +76,12 @@ const members = [
 				<div class="item">
 					<div class="box"><img class="logo zhuiwan" src="/img/logo/zhuiwan.png" /></div>
 				</div>
+				<div class="item">
+					<div class="box"><img class="logo yomi" src="/img/logo/yomi.png" /></div>
+				</div>
+				<div class="item">
+					<div class="box"><img class="logo yokaihei" src="/img/logo/yokaihei.png" /></div>
+				</div>
 			</div>
 
 		</template>
