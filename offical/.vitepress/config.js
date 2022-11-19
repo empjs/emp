@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { version } from '../../packages/emp/package.json'
-export default defineConfig({
+export default defineConfig(() => ({
 	lang: 'zh-CN',
 	title: 'EMP',
 	description: '下一代微前端构建方案',
@@ -76,4 +76,4 @@ export default defineConfig({
 			copyright: 'Copyright © 2022 Ken Xu'
 		}
 	}
-})
+}))
