@@ -9,7 +9,7 @@ export default defineConfig(() => ({
 	// cleanUrls: 'without-subfolders',
 	//
 	head: [
-		['link', { rel: 'icon', type: 'image/svg+xml', href: '/img/logo.png' }],
+		['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo/logo.png' }],
 		['meta', { name: 'theme-color', content: '#3700b3' }],
 	],
 
