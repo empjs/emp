@@ -93,9 +93,9 @@ class WPEntries {
         htmlConfig.files.js = htmlConfig.files.js.concat(htmlOptions.files.js)
       }
     }
-    const headTags: HtmlWebpackPlugin.Options = {tags: {}}
+    const tagsOptions: HtmlWebpackPlugin.Options = {tags: {headTags: [], bodyTags: []}}
     if (Object.keys(store.empShare.importMap.imports).length > 0) {
-      headTags.tags.headTags = [
+      tagsOptions.tags.headTags = [
         `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`,
       ]
     }
@@ -123,7 +123,7 @@ class WPEntries {
       },
       ...htmlConfig,
       ...htmlOptions,
-      ...headTags,
+      ...tagsOptions,
     }
     if (store.config.base && !options.publicPath) {
       options.publicPath = store.config.base
