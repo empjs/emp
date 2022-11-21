@@ -1,6 +1,7 @@
 <script setup>
 import { VPTeamMembers, VPTeamPageSection, VPHomeSponsors } from 'vitepress/theme'
 import {members,links} from '../../config/index'
+import { withBase } from 'vitepress'
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import {members,links} from '../../config/index'
 
 			<div class="logos">
 				<div class="item" v-for="(item,index) in links">
-					<div class="box"><img class="logo" :class="item.name" :src="item.img" /></div>
+					<div class="box"><img class="logo" :class="item.name" :src="withBase(item.img)" /></div>
 				</div>
 			</div>
 

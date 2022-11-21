@@ -37,14 +37,15 @@ export const members = [
 		]
 	},
 ]
+const host = window?(window.location.protocol + "//" + window.location.host):'';
 export const links = [
-{ name: 'bdgamelive', img: '/img/logo/bdgamelive.png' },
-{ name: 'yy', img: '/img/logo/yylive.png' },
-{ name: 'joyy', img: '/img/logo/joyy.png' },
-{ name: 'shopline', img: '/img/logo/shopline.png' },
-{ name: 'wanke', img: '/img/logo/wanke.png' },
-{ name: 'zuoyebang', img: '/img/logo/zuoyebang.jpeg' },
-{ name: 'yomi', img: '/img/logo/yomi.png' },
-{ name: 'yokaihei', img: '/img/logo/yokaihei.png' },
-{ name: 'zhuiwan', img: '/img/logo/zhuiwan.png' },
+{ name: 'bdgamelive', img:`/logo/bdgamelive.png` },
+{ name: 'yy', img:`/logo/yylive.png` },
+{ name: 'joyy', img:`/logo/joyy.png` },
+{ name: 'shopline', img:`/logo/shopline.png` },
+{ name: 'wanke', img:`/logo/wanke.png` },
+{ name: 'zuoyebang', img:`/logo/zuoyebang.jpeg` },
+{ name: 'yomi', img:`/logo/yomi.png` },
+{ name: 'yokaihei', img:`/logo/yokaihei.png` },
+{ name: 'zhuiwan', img:`/logo/zhuiwan.png` },
 ]

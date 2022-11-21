@@ -16,9 +16,9 @@
     "start:esm": "pnpm run --filter micro-* --parallel build && pnpm run --filter micro-* --parallel start",
     "dev:mf": "pnpm run --filter mf-* --parallel dev",
     "start:mf": "pnpm run --filter mf-* --parallel build && pnpm run --filter mf-* --parallel start",
-    "docs:dev": "vitepress dev offical --host",
+    "docs:dev": "vitepress dev offical --host --port 3000",
     "docs:build": "vitepress build offical",
-    "docs:start": "vitepress serve offical --host",
+    "docs:start": "vitepress serve offical --host --port 3000",
     "prebuild": "[[ $CI = true ]] && npx pnpm@6 install -r --store=node_modules/.pnpm-store || echo skiping pnpm install",
     "prepare": "husky install"
   },
