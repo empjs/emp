@@ -8,7 +8,10 @@ export default defineConfig(() => ({
 	// lastUpdated: true,
 	// cleanUrls: 'without-subfolders',
 	//
-	head: [['meta', { name: 'theme-color', content: '#3700b3' }]],
+	head: [
+		['link', { rel: 'icon', type: 'image/svg+xml', href: '/img/logo.png' }],
+		['meta', { name: 'theme-color', content: '#3700b3' }],
+	],
 
 	markdown: {
 		headers: {

@@ -8,6 +8,7 @@ const members = [
 		title: 'Creator',
 		links: [
 			{ icon: 'github', link: 'https://github.com/ckken' },
+			{icon:'twitter',link:'https://juejin.cn/column/7019658827918213157'}
 
 		]
 	},
@@ -30,14 +31,25 @@ const members = [
 		]
 	},
 	{
-		avatar: 'https://avatars.githubusercontent.com/u/38980823?v=4',
-		name: 'movins',
+		avatar: 'https://avatars.githubusercontent.com/u/20643950?v=4',
+		name: 'Ron0115',
 		title: 'Developer',
 		links: [
-			{ icon: 'github', link: 'https://github.com/movins' },
+			{ icon: 'github', link: 'https://github.com/ron0115' },
 
 		]
 	},
+]
+const links = [
+{ name: 'bdgamelive', img: '/img/logo/bdgamelive.png' },
+{ name: 'yy', img: '/img/logo/yylive.png' },
+{ name: 'joyy', img: '/img/logo/joyy.png' },
+{ name: 'shopline', img: '/img/logo/shopline.png' },
+{ name: 'wanke', img: '/img/logo/wanke.png' },
+{ name: 'zuoyebang', img: '/img/logo/zuoyebang.jpeg' },
+{ name: 'yomi', img: '/img/logo/yomi.png' },
+{ name: 'yokaihei', img: '/img/logo/yokaihei.png' },
+{ name: 'zhuiwan', img: '/img/logo/zhuiwan.png' },
 ]
 </script>
 
@@ -55,32 +67,8 @@ const members = [
 		<template #members>
 
 			<div class="logos">
-				<div class="item">
-					<div class="box"><img class="logo bdgamelive" src="/img/logo/bdgamelive.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo yy" src="/img/logo/yylive.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo joyy" src="/img/logo/joyy.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo shopline" src="/img/logo/shopline.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo wanke" src="/img/logo/wanke.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo" src="/img/logo/zuoyebang.jpeg" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo zhuiwan" src="/img/logo/zhuiwan.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo yomi" src="/img/logo/yomi.png" /></div>
-				</div>
-				<div class="item">
-					<div class="box"><img class="logo yokaihei" src="/img/logo/yokaihei.png" /></div>
+				<div class="item" v-for="(item,index) in links">
+					<div class="box"><img class="logo" :class="item.name" :src="item.img" /></div>
 				</div>
 			</div>
 
