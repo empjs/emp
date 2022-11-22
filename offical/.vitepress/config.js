@@ -11,6 +11,13 @@ export default defineConfig(() => ({
 	head: [
 		['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo/logo.png' }],
 		['meta', { name: 'theme-color', content: '#3700b3' }],
+		['script',{},`var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?467209d2ca945747528b2be4c124f5c1";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();`]
 	],
 
 	markdown: {
