@@ -8,6 +8,9 @@ hero:
   name: EMP
   text: 下一代微前端构建方案
   tagline: 聚焦 ESM 微前端生态闭环建设
+  image:
+    src: /hero.avif
+    alt: Vite
   actions:
     - theme: brand
       text: Get Started

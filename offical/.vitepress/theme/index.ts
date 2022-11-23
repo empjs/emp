@@ -3,6 +3,7 @@ import Theme from 'vitepress/theme'
 import { h } from 'vue'
 import Team from './components/Team.vue'
 import './styles/vars.css'
+import './styles/index.css'
 export default {
 	...Theme,
 	Layout() {
