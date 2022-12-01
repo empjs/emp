@@ -19,6 +19,7 @@
     "docs:dev": "vitepress dev offical --host --port 3000",
     "docs:build": "vitepress build offical",
     "docs:start": "vitepress serve offical --host --port 3000",
+		"react:umd": "pnpm run --filter mf-* --parallel dev",
     "prebuild": "[[ $CI = true ]] && npx pnpm@6 install -r --store=node_modules/.pnpm-store || echo skiping pnpm install",
     "prepare": "husky install"
   },

@@ -9,9 +9,7 @@ class IncStore {
     this.num += 1
   }
   async loadData() {
-    const d = await fetch(
-      'https://unpkg.bdgamelive.com/webupload/gfe/mobx-react-lite@3.2.2/umd/mobxreactlite.umd.production.min.js',
-    ).then(res => res.text())
+    const d = await fetch('https://unpkg.com/mobx-react-lite@3.2.2').then(res => res.text())
     this.code = d
   }
 }

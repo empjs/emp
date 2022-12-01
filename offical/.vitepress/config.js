@@ -35,6 +35,7 @@ export default defineConfig(() => ({
 		//
 		nav: [
 			{ text: '开发', link: '/develop/', activeMatch: '/develop/' },
+			{ text: '用例', link: '/demo/react-umd', activeMatch: '/demo/' },
 			{ text: '配置', link: '/config/', activeMatch: '/config/' },
 			{ text: '插件', link: '/plugin/', activeMatch: '/plugin/' },
 			{ text: `v${version}`, link: 'https://github.com/efoxTeam/emp' },
@@ -52,6 +53,14 @@ export default defineConfig(() => ({
 						{ text: 'dotenv', link: '/develop/dotenv' },
 						{ text: 'Typescript', link: '/develop/typescript' },
 						{ text: '库模式', link: '/develop/lib' },
+					]
+				}
+			],
+			'/demo/react-umd': [
+				{
+					text: '用例',
+					items: [
+						{ text: 'React umd', link: '/demo/react-umd' },
 					]
 				}
 			],

@@ -596,6 +596,8 @@ importers:
   projects/mf-app:
     specifiers:
       '@efox/emp': workspace:^*
+      '@types/react-dom': ^18.0.9
+      '@types/react-router-dom': ^5.3.3
       axios: ^0.21.4
       mobx: ^6.3.7
       mobx-react: ^7.2.1
@@ -613,10 +615,13 @@ importers:
       react-router-dom: 5.3.1_react@17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
+      '@types/react-dom': 18.0.9
+      '@types/react-router-dom': 5.3.3
 
   projects/mf-host:
     specifiers:
       '@efox/emp': workspace:^*
+      '@types/react-dom': ^18.0.9
       axios: ^0.21.4
       mobx: ^6.3.7
       mobx-react: ^7.2.1
@@ -634,6 +639,7 @@ importers:
       react-router-dom: 5.3.1_react@17.0.2
     devDependencies:
       '@efox/emp': link:../../packages/emp
+      '@types/react-dom': 18.0.9
 
   projects/micro-app:
     specifiers:
@@ -5998,11 +6004,17 @@ packages:
       '@types/react': 18.0.9
     dev: true
 
+  /@types/react-dom/18.0.9:
+    resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
+    dependencies:
+      '@types/react': 18.0.15
+    dev: true
+
   /@types/react-router-dom/5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.0.9
+      '@types/react': 18.0.15
       '@types/react-router': 5.1.18
     dev: true
 
@@ -6010,7 +6022,7 @@ packages:
     resolution: {integrity: sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.0.9
+      '@types/react': 18.0.15
     dev: true
 
   /@types/react/16.14.26:

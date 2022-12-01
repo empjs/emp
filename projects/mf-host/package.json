@@ -6,14 +6,15 @@
   "scripts": {
     "dev": "emp dev -cl false",
     "build": "emp build",
-		"build:ts":"emp build -t",
+    "build:ts": "emp build -t",
     "start": "emp serve",
     "stat": "emp build --analyze"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/emp": "workspace:^*"
+    "@efox/emp": "workspace:^*",
+    "@types/react-dom": "^18.0.9"
   },
   "dependencies": {
     "axios": "^0.21.4",

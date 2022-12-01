@@ -1,17 +1,21 @@
 import {observer} from 'mobx-react-lite'
 import incStore from './store/incStore'
+import css from '@mfHost/css'
 const StoreComp = observer(() => {
   return (
     <>
-      <p>{incStore.num}</p>
+      <p>
+        App Store <b>{incStore.num}</b>
+      </p>
       <pre>{incStore.code}</pre>
       <button
+        className={css.primary}
         onClick={() => {
           incStore.inc()
           incStore.loadData()
         }}
       >
-        +1
+        App 组件 & Host 样式 +1
       </button>
     </>
   )
