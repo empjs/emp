@@ -93,12 +93,12 @@ class WPEntries {
         htmlConfig.files.js = htmlConfig.files.js.concat(htmlOptions.files.js)
       }
     }
-    const tagsOptions: HtmlWebpackPlugin.Options = {tags: {headTags: [], bodyTags: []}}
-    if (Object.keys(store.empShare.importMap.imports).length > 0) {
-      tagsOptions.tags.headTags = [
-        `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`,
-      ]
-    }
+    // const tagsOptions: HtmlWebpackPlugin.Options = {tags: {headTags: [], bodyTags: []}}
+    // if (Object.keys(store.empShare.importMap.imports).length > 0) {
+    //   tagsOptions.tags.headTags = [
+    //     `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`,
+    //   ]
+    // }
     const options: HtmlWebpackPlugin.Options = {
       // title: 'EMP',
       // template,
@@ -121,10 +121,19 @@ class WPEntries {
         minifyCSS: true,
         minifyURLs: true,
       },
+      tags: {},
       ...htmlConfig,
       ...htmlOptions,
-      ...tagsOptions,
+      // ...tagsOptions,
     }
+
+    if (Object.keys(Object.keys(store.empShare.importMap.imports).length > 0)) {
+      options.tags.headTags = [
+        ...(options.tags.headTags || []),
+        `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`,
+      ]
+    }
+
     if (store.config.base && !options.publicPath) {
       options.publicPath = store.config.base
     }
