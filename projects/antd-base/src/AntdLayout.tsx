@@ -33,7 +33,7 @@ const data = [
 const AntdLayout = () => {
   return (
     <ConfigProvider locale={enUS}>
-      <DatePicker />
+      {/* <DatePicker /> */}
       <Table dataSource={data}>
         <ColumnGroup title="Name">
           <Column title="First Name" dataIndex="firstName" key="firstName" />
