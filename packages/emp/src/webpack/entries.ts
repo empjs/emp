@@ -127,7 +127,7 @@ class WPEntries {
       // ...tagsOptions,
     }
 
-    if (Object.keys(Object.keys(store.empShare.importMap.imports).length > 0)) {
+    if (Object.keys(store.empShare.importMap.imports).length > 0) {
       options.tags.headTags = [
         `<script type="importmap">${JSON.stringify(store.empShare.importMap, null, 2)}</script>`, //优先 sourceMaps 在加载执行代码
         ...(options.tags.headTags || []),
