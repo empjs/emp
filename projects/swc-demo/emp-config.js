@@ -8,6 +8,7 @@ module.exports = defineConfig(() => {
     },
     build: {
       sourcemap: true,
+      minify: 'swc',
     },
   }
 })
