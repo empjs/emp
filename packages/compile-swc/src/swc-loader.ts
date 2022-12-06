@@ -1,12 +1,22 @@
 // import path from 'path'
 import {empStore as store, ResovleConfig} from '@efox/emp'
 import TramsformImport from './swc-plugin-transform-import'
-
+let isAntd = false
+try {
+  const antd = require('antd')
+  if (antd && antd.version) {
+    const v = antd.version.split('.')[0]
+    if (v && parseInt(v) <= 4) {
+      isAntd = true
+    }
+  }
+} catch (e) {
+  // console.warn(e)
+}
 export default () => {
-  const pkg = store.pkg
-  const isAntd = pkg.dependencies.antd || pkg.devDependencies.antd ? true : false
+  // const pkg = store.pkg
   const options = store.config.build as ResovleConfig['build']
-  if (!options.plugin && isAntd && store.config.moduleTransform.antdTransformImport) {
+  if (isAntd && !options.plugin && store.config.moduleTransform.antdTransformImport) {
     options.plugin = (m: any) => {
       const rs = new TramsformImport({
         antd: {
