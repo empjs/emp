@@ -1,6 +1,7 @@
 // import path from 'path'
 import {empStore as store, ResovleConfig} from '@efox/emp'
-import TramsformImport from './swc-plugin-transform-import'
+// antd5 后切换到 css in js 不需要继续使用该特性
+/* import TramsformImport from './swc-plugin-transform-import'
 let isAntd = false
 try {
   const antd = require('antd')
@@ -12,11 +13,11 @@ try {
   }
 } catch (e) {
   // console.warn(e)
-}
+} */
 export default () => {
   // const pkg = store.pkg
   const options = store.config.build as ResovleConfig['build']
-  if (isAntd && !options.plugin && store.config.moduleTransform.antdTransformImport) {
+  /* if (isAntd && !options.plugin && store.config.moduleTransform.antdTransformImport) {
     options.plugin = (m: any) => {
       const rs = new TramsformImport({
         antd: {
@@ -26,7 +27,7 @@ export default () => {
       }).visitProgram(m)
       return rs
     }
-  }
+  } */
   return {
     loader: require.resolve('./swc'),
     options,
