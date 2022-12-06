@@ -61,6 +61,7 @@ export default defineConfig(() => ({
 					text: '用例',
 					items: [
 						{ text: 'React umd', link: '/demo/react-umd' },
+						{ text: 'Swc React', link: '/demo/react-swc' },
 					]
 				}
 			],
