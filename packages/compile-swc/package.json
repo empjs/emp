@@ -35,8 +35,8 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@swc/core": "^1.2.203",
-    "regenerator-runtime": "^0.13.9"
+    "@swc/core": "^1.3.21",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "@efox/emp": "workspace:*",

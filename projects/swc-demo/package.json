@@ -1,0 +1,24 @@
+{
+  "name": "swc-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@efox/emp": "workspace:^2.5.3",
+    "@efox/emp-compile-swc": "workspace:^1.0.0",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9"
+  }
+}
