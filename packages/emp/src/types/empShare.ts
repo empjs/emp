@@ -15,6 +15,10 @@ export type EMPShareType = MFOptions & {
    * emp 基于库共享模块
    */
   shareLib?: EMPshareLibItemType
+  /**
+   * 是否使用 importMap
+   */
+  useImportMap?: boolean
 }
 export type EMPShareFunc = (config: ResovleConfig) => EMPShareType | Promise<EMPShareType>
 export type EMPShareExport = EMPShareType | EMPShareFunc

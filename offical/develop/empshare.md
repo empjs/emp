@@ -35,3 +35,6 @@ module.exports={
    },
 }
 ```
+
+## empshare.useImportMap 配置
+开启 useImportMap `实验特征` 可以实现 ImportMap 功能，ESM 可以平滑切换开发和生产环境

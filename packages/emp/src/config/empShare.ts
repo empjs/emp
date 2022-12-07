@@ -37,9 +37,12 @@ class EMPShare {
       mf = store.config.empShare
     }
     for (const [k, v] of Object.entries(mf.shareLib || {})) {
-      // this.externals[k] = v
-      this.externals[k] = k
-      this.importMap.imports[k] = v
+      if (!mf.useImportMap) {
+        this.externals[k] = v
+      } else {
+        this.externals[k] = k
+        this.importMap.imports[k] = v
+      }
     }
     delete mf.shareLib
     //console.log(`this.externals esm`, this.externals, JSON.stringify(this.importMap))
