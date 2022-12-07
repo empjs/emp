@@ -21,6 +21,9 @@ module.exports = defineConfig(config => {
         js: [`//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js`],
         css: [`//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css`],
       },
+      tags: {
+        headTags: [`<script>console.log('tags.headTags')</script>`],
+      },
     },
     jsCheck: true,
     cacheDir: path.resolve('../../.emp-cache'),

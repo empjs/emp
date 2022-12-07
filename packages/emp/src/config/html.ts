@@ -2,6 +2,10 @@ import {Options} from 'html-webpack-plugin'
 import store from 'src/helper/store'
 import fs from 'fs'
 import {Override} from 'src/types'
+export type HtmlTagsType = {
+  headTags: any[]
+  bodyTags: any[]
+}
 export interface HtmlOptions extends Options {
   /**
    * 基于项目的根目录 index.html url
@@ -31,6 +35,14 @@ export interface HtmlOptions extends Options {
      */
     js?: string[]
   }
+  /**
+   * 自定义 头部脚步内容 headTags[] bodyTags[]
+   */
+  tags?: HtmlTagsType
+  /**
+   * 网站语言
+   */
+  lang?: string
 }
 export type InitHtmlType = Override<
   Options,
@@ -54,6 +66,5 @@ export const initHtml = (o: Options = {}): InitHtmlType => {
       favicon = store.empResolve('template/favicon.ico')
     }
   }
-  const title = 'EMP'
-  return {title, files: {css: [], js: []}, ...o, template, favicon}
+  return {lang: 'zh-CN', title: 'EMP', files: {css: [], js: []}, ...o, template, favicon}
 }
