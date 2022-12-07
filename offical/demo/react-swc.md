@@ -1,4 +1,4 @@
-# SWC 编译 - 替代 Babel
+# ⚡️ SWC 编译 - 替代 Babel
 ## 安装
 :::tip 提示
 + @efox/emp-compile-swc `1.1.2`后屏蔽 `babel-plugin-import` 支持，可以 import 样式解决
