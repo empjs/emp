@@ -6,10 +6,6 @@ module.exports = defineConfig(() => {
     server: {
       port: 8887,
     },
-    build: {
-      sourcemap: true,
-      minify: 'swc',
-    },
     debug: {
       clearLog: false,
     },

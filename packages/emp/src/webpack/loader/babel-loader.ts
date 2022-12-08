@@ -1,5 +1,5 @@
 import path from 'path'
-import store from 'src/helper/store'
+import type {ResovleConfig} from 'src/index'
 const root = process.cwd()
 const projectResolve = (rpath: string) => path.resolve(root, rpath)
 const pkg = require(projectResolve('package.json'))
@@ -19,9 +19,7 @@ type BabelLoaderTypes = {
     plugins: any[]
   }
 }
-const babelLoader = () => {
-  // console.log(`store.config.reactRuntime`, store.config.reactRuntime)
-  const config = store.config
+const babelLoader = (config: ResovleConfig) => {
   const o: BabelLoaderTypes = {
     loader: require.resolve('babel-loader'),
     options: {
@@ -35,8 +33,8 @@ const babelLoader = () => {
           {
             // useBuiltIns: 'entry',
             // useBuiltIns: 'usage',
-            debug: store.config.debug.babelDebug,
-            useBuiltIns: store.config.moduleTransform.useBuiltIns,
+            debug: config.debug.babelDebug,
+            useBuiltIns: config.moduleTransform.useBuiltIns,
             corejs: 3,
             exclude: ['transform-typeof-symbol'],
             // loose: true,
@@ -80,12 +78,12 @@ const babelLoader = () => {
     },
   }
   // react
-  if (store.config.reactRuntime) {
+  if (config.reactRuntime) {
     const reactPersets: any = {
-      runtime: store.config.reactRuntime,
+      runtime: config.reactRuntime,
       development: config.mode === 'development',
     }
-    if (store.config.reactRuntime !== 'automatic') {
+    if (config.reactRuntime !== 'automatic') {
       reactPersets.useBuiltIns = true
     }
     o.options.presets.push([require.resolve('@babel/preset-react'), reactPersets])
@@ -95,7 +93,7 @@ const babelLoader = () => {
       o.options.plugins.unshift(require.resolve('react-refresh/babel'))
   }
   // antd
-  if (isAntd && store.config.moduleTransform.antdTransformImport)
+  if (isAntd && config.moduleTransform.antdTransformImport)
     o.options.plugins.unshift([require.resolve('babel-plugin-import'), {libraryName: 'antd', style: true}])
   return o
 }

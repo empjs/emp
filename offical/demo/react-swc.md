@@ -15,10 +15,6 @@ const compile = require('@efox/emp-compile-swc')//使用 swc进行 js、ts 编�
 module.exports = defineConfig(() => {
   return {
     compile,
-    build: {
-      sourcemap: true,
-      minify: 'swc',//使用 swc进行压缩，效果明显
-    },
   }
 })
 

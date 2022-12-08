@@ -45,7 +45,7 @@ export type BuildOptions = {
   minOptions?: TerserOptions
   /**
    * 是否生成 source map
-   * @default false
+   * @default true
    */
   sourcemap?: boolean
   // sourcemap?: boolean | 'inline' | 'hidden'
@@ -118,7 +118,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       staticDir: '',
       minify: true,
       imageMin: false,
-      sourcemap: false,
+      sourcemap: true,
       /**
        * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets
        */

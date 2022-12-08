@@ -5,12 +5,15 @@
 + 增加 importMap 支持，实现ESM 模型下 开发与正式环境的切换
 + 支持 esm 远程基站的引用 不受环境影响的问题
 + 增加 html tags 注入 方面进行更多定制内容
++ 优化 swc 接入选项，一步到位
 
 ### ESM Demo
 + [基站](https://github.com/efoxTeam/emp/tree/next/projects/micro-host)
 + [应用](https://github.com/efoxTeam/emp/tree/next/projects/micro-app)
 
 ## Bugfixes
++ 解决 pnpm 安装问题
++ 优化 `store.config` 配置传参问题
 
 # 2.4.x
 ## Features

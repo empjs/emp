@@ -1,10 +1,9 @@
-import {empStore as store} from '@efox/emp'
-export const loader = () => {
-  // console.log('store.config.build.target', store.config.build.target)
-  if (store.config.build.target === 'es5' || store.config.build.target === 'es3') {
-    store.config.build.target = 'es2015'
+import type {ResovleConfig} from '@efox/emp'
+export const loader = (config: ResovleConfig) => {
+  if (config.build.target === 'es5' || config.build.target === 'es3') {
+    config.build.target = 'es2015'
   }
-  const target = store.config.build.target
+  const target = config.build.target
   const options = {
     loader: 'tsx',
     target,

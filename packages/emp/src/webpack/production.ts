@@ -85,7 +85,10 @@ class WPProduction {
         },
       }
 
-      if (store.config.build.minify === 'swc' && store.config.compile.compileType === 'swc') {
+      if (
+        (!store.config.build.minify || store.config.build.minify === 'swc') &&
+        store.config.compile.compileType === 'swc'
+      ) {
         options = {
           minify: TerserPlugin.swcMinify,
           extractComments: false,

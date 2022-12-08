@@ -1,9 +1,11 @@
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
-import loader from 'src/webpack/loader'
+import loader, {LoaderType} from 'src/webpack/loader'
 class WPModule {
+  loader!: LoaderType
   constructor() {}
   async setup() {
+    this.loader = loader()
     this.setConfig()
     this.setScriptReactLoader()
     this.setWebworker()
@@ -35,7 +37,7 @@ class WPModule {
             // test: /\.(js|mjs|jsx|ts|tsx)$/,
             // include: [store.appSrc],
             use: {
-              ...loader().config,
+              ...this.loader.config,
             },
           },
           // webworker: this.webworker,
@@ -67,8 +69,7 @@ class WPModule {
       })
       .end()
     // 解决ts 不能正常构建的问题
-    const loaderConfig = loader()
-    workerInline.use(loaderConfig.type).loader(loaderConfig.loader.loader).options(loaderConfig.loader.options).end()
+    workerInline.use(this.loader.type).loader(this.loader.loader.loader).options(this.loader.loader.options).end()
   }
   private setScriptReactLoader() {
     const isDev = store.config.mode === 'development'

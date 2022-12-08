@@ -1,12 +1,14 @@
 import type webpack from 'webpack'
 import {TransformConfig, Options, JscConfig, transformSync, transform} from '@swc/core'
-import {empStore as store, ResovleConfig} from '@efox/emp'
-// import logger from 'src/helper/logger'
-const isDev = store.config.mode === 'development'
+import {ResovleConfig} from '@efox/emp'
 
 class SWCOpt {
   isTypescript = false
   isReact = false
+  config: ResovleConfig
+  constructor(options: ResovleConfig) {
+    this.config = options
+  }
   resetType(isTypescript: boolean, isReact: boolean) {
     this.isReact = isReact
     this.isTypescript = isTypescript
@@ -15,22 +17,23 @@ class SWCOpt {
     if (this.isTypescript) {
       return {
         syntax: 'typescript',
-        tsx: store.config.build.jsToJsx || this.isReact,
+        tsx: this.config.build.jsToJsx || this.isReact,
         decorators: true,
         dynamicImport: true, //
       }
     }
     return {
       syntax: 'ecmascript',
-      jsx: store.config.build.jsToJsx || this.isReact,
+      jsx: this.config.build.jsToJsx || this.isReact,
       decorators: true,
       decoratorsBeforeExport: false,
     }
   }
   get react(): TransformConfig['react'] {
+    const isDev = this.config.mode === 'development'
     return this.isReact
       ? {
-          runtime: store.config.reactRuntime || 'classic',
+          runtime: this.config.reactRuntime || 'classic',
           refresh: isDev,
           development: isDev,
           useBuiltins: false,
@@ -38,22 +41,21 @@ class SWCOpt {
       : undefined
   }
 }
-const swcOpt = new SWCOpt()
 /**
  * SWCLoader
  * @param this
  * @param source
  */
 async function SWCLoader(
-  this: webpack.LoaderContext<ResovleConfig['build']>,
+  this: webpack.LoaderContext<ResovleConfig>,
   source: string,
   // inputSourceMap: true,
 ) {
   const done = this.async()
-  const options = this.getOptions()
-  const build = options
+  const config = this.getOptions()
+  const swcOpt = new SWCOpt(config)
   //
-  const isESM = !['es3', 'es5'].includes(build.target)
+  const isESM = !['es3', 'es5'].includes(config.build.target)
   //
   const isTypescript = ['.ts', '.tsx'].some(p => this.resourcePath.endsWith(p))
   const isReact = ['.jsx', '.tsx', '.svg'].some(p => this.resourcePath.endsWith(p))
@@ -68,7 +70,7 @@ async function SWCLoader(
     sourceFileName: this.resourcePath,
     sourceMaps: this.sourceMap,
     jsc: {
-      target: build.target,
+      target: config.build.target,
       externalHelpers: false,
       loose: true,
       parser,
@@ -83,7 +85,7 @@ async function SWCLoader(
       },
     },
   }
-  if (build.plugin) swcOptions.plugin = build.plugin
+  if (config.build.plugin) swcOptions.plugin = config.build.plugin
 
   if (!isESM) {
     /**
@@ -110,7 +112,7 @@ async function SWCLoader(
   }
   //
   try {
-    const {code, map} = build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)
+    const {code, map} = config.build.sync ? transformSync(source, swcOptions) : await transform(source, swcOptions)
     // logger.info('code', JSON.stringify(swcOptions, null, 2))
     done(null, code, map && JSON.parse(map))
   } catch (e) {
