@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>Vue 3 Project</h1>
+    <h2>vue3Base/TableComponent</h2>
     <TableComponent />
+    <h2>vue3Base/JSXComponent</h2>
     <JSXComponent />
   </div>
 </template>

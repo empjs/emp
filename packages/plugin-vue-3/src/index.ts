@@ -1,5 +1,10 @@
 import type {ConfigPluginOptions} from '@efox/emp'
-
+/**
+ * EMP vue3 babel Plugin
+ * PluginBabelVue3
+ * TODO
+ * 支持SWC https://github.com/g-plane/swc-plugin-vue-jsx
+ */
 const PluginBabelVue3 = ({wpChain}: ConfigPluginOptions): void => {
   wpChain.resolve.alias.set('vue', '@vue/runtime-dom')
   wpChain.resolve.alias.set('vue$', 'vue/dist/vue.esm-bundler.js')
