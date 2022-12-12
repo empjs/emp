@@ -231,6 +231,9 @@ module.exports={
   - files 文件插入到html 与 `externals` 叠加 类型 `{css:string[] js:string:[]}`
     - css `string[]` 插入 css
     - js `string[]` 插入 js
+	- tags 自定义 头部脚步内容
+	  - headTags `string[]` 插入顶部代码 如 `['<script>console.log('headTags1')</script>','<script>console.log('headTags2')</script>']`
+		- bodyTags `string[]` 插入 body代码  `['<script>console.log('bodyTags1')</script>','<script>console.log('bodyTags2')</script>']`
 
 其他可以参考 html-webpack-plugin [相关设置](https://github.com/jantimon/html-webpack-plugin)
 配置详情请 [点击查看](/develop/#多入口模式)
