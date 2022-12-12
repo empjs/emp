@@ -68,8 +68,7 @@ class WPLibMode {
             },
           }
         : wp.cache
-
-    wp.resolve = {...wp.resolve, ...{extensions: ['.js', '.mjs', '.ts', '.json', '.wasm']}}
+    wp.resolve = {...wp.resolve}
     wp.output = {
       ...wp.output,
       ...{

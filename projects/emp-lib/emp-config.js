@@ -22,4 +22,7 @@ module.exports = defineConfig({
       '@src': path.resolve(__dirname, 'src'),
     },
   },
+  debug: {
+    clearLog: false,
+  },
 })
