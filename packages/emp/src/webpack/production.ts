@@ -110,7 +110,7 @@ class WPProduction {
           },
         }
       }
-      logger.debug('store.config.build.minify', store.config.build.minify, store.config.debug)
+      logger.debug(`[js min in ${store.config.compile.compileType || 'babel'}]`, options)
       wpChain.optimization.minimizer('TerserPlugin').use(TerserPlugin, [options] as any)
     }
   }

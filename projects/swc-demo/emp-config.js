@@ -8,6 +8,7 @@ module.exports = defineConfig(() => {
     },
     debug: {
       clearLog: false,
+      level: 'debug',
     },
   }
 })

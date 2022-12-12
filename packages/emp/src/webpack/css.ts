@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
+import logger from 'src/helper/logger'
 //
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
@@ -77,6 +78,10 @@ class WPCss {
             ],
           },
         }
+        if (store.config.compile.compileType === 'swc') {
+          op.minify = CssMinimizerPlugin.swcMinify
+        }
+        logger.debug(`[css min in ${store.config.compile.compileType || 'babel'}]`, op)
         wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [op])
       }
 

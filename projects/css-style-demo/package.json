@@ -13,9 +13,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@efox/plugin-babel-react": "workspace:^*",
     "@efox/emp": "workspace:^*",
     "@efox/emp-tsconfig": "^1.0.0",
+    "@efox/plugin-babel-react": "workspace:^*",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",

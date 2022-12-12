@@ -1,3 +1,4 @@
+import logger from 'src/helper/logger'
 import store from 'src/helper/store'
 import wpChain from 'src/helper/wpChain'
 import loader, {LoaderType} from 'src/webpack/loader'
@@ -6,6 +7,7 @@ class WPModule {
   constructor() {}
   async setup() {
     this.loader = loader()
+    logger.debug(`[js compile in ${this.loader.type || 'babel'}]`, this.loader.loader.options.build)
     this.setConfig()
     this.setScriptReactLoader()
     this.setWebworker()

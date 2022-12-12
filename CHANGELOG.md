@@ -6,6 +6,8 @@
 + 支持 esm 远程基站的引用 不受环境影响的问题
 + 增加 html tags 注入 方面进行更多定制内容
 + 优化 swc 接入选项，一步到位
++ 增加 css minify 的 swc 选项
++ (*) 2.5.11 后 `js 编译` `css 压缩` `js 压缩` 安装 `@efox/emp-compile-swc` 均可统一切换到 `swc`
 
 ### ESM Demo
 + [基站](https://github.com/efoxTeam/emp/tree/next/projects/micro-host)
@@ -14,6 +16,7 @@
 ## Bugfixes
 + 解决 pnpm 安装问题
 + 优化 `store.config` 配置传参问题
++ 修正 库模式 extension 的问题
 
 # 2.4.x
 ## Features
