@@ -78,10 +78,10 @@ class WPCss {
             ],
           },
         }
-        if (store.config.compile.compileType === 'swc') {
-          op.minify = CssMinimizerPlugin.swcMinify
-        }
-        logger.debug(`[css min in ${store.config.compile.compileType || 'babel'}]`, op)
+        // if (store.config.compile.compileType === 'swc') {
+        //   op.minify = CssMinimizerPlugin.swcMinify
+        // }
+        // logger.debug(`[css min in ${store.config.compile.compileType || 'babel'}]`, op)
         wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [op])
       }
 
