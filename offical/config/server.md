@@ -11,3 +11,8 @@
 + 类型 `https.ServerOptions` [新版本将弃置]
 ## server.http2
 + 类型 `boolean` [新版本将弃置]
+
+## server.port
++ 默认 `8000`
++ 类型 `number`
++ `v2.6` 端口占用 会自动切换
