@@ -15,6 +15,7 @@
     <TableComponent />
     <ButtonComponent />
     <JSXComponent />
+    <Count />
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import LogoImage from './logo.svg'
 import TableComponent from './components/TableComponent.vue'
 import ButtonComponent from './components/ButtonComponent.vue'
 import JSXComponent from './components/JSXComponent'
+import Count from './components/Count.vue'
 </script>
 
 <style lang="less">
