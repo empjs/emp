@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.5.11",
+  "version": "2.6.0",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -110,7 +110,7 @@
     "webpack": "^5.75.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
-    "webpack-dev-server": "^4.9.3",
+    "webpack-dev-server": "^4.11.1",
     "webpack-federated-stats-plugin": "^2.0.9",
     "webpack-manifest-plugin": "^5.0.0",
     "webpackbar": "^5.0.2",

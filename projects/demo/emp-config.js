@@ -31,7 +31,7 @@ module.exports = defineConfig(config => {
     //   profile: true,
     // },
     server: {
-      port: 8001,
+      // port: 8001,
       // hot: 'only',
       // https: true,
     },

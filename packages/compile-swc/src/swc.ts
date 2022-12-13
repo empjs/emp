@@ -72,7 +72,7 @@ async function SWCLoader(
     jsc: {
       target: config.build.target,
       externalHelpers: false,
-      loose: true,
+      loose: false,
       parser,
       transform: {
         legacyDecorator: true,

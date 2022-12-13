@@ -1,3 +1,9 @@
+# 2.6.x
+## Features
++ 支持自动切换 port功能，不需要手动设置
+
+## Bugfixes
+
 # 2.5.x
 > 全面支持 ESM 版本，深度基于ESM 的模型进行定制
 ## Features

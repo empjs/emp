@@ -9,6 +9,7 @@ import logger, {logTag} from 'src/helper/logger'
 import prepareURLs from 'src/helper/prepareURLs'
 import https from 'https'
 import {clearConsole} from 'src/helper/utils'
+import {getPorts} from './getPort'
 class Serve {
   public app: Express
   public resourcePath = ''
@@ -44,6 +45,8 @@ class Serve {
     const {host, port} = store.config.server
     const httpsOptions = store.config.server.https
     const publicPath = store.config.base
+    const serverPort = await getPorts(port, host)
+
     //
     if (httpsOptions) {
       const httpsServer = https.createServer(
@@ -55,12 +58,12 @@ class Serve {
             },
         this.app,
       )
-      httpsServer.listen(port, () => {
-        this.startLogger({httpsOptions, host, port, publicPath})
+      httpsServer.listen(serverPort, () => {
+        this.startLogger({httpsOptions, host, port: serverPort, publicPath})
       })
     } else {
-      this.app.listen(port, () => {
-        this.startLogger({httpsOptions, host, port, publicPath})
+      this.app.listen(serverPort, () => {
+        this.startLogger({httpsOptions, host, port: serverPort, publicPath})
       })
     }
   }

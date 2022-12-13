@@ -3,7 +3,7 @@ const {defineConfig} = require('@efox/emp')
 module.exports = defineConfig(() => {
   return {
     server: {
-      port: 8881,
+      // port: 8881,
     },
     empShare: {
       name: 'mfHost',
