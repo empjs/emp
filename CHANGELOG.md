@@ -3,6 +3,7 @@
 + 支持自动切换 port功能，不需要手动设置
 
 ## Bugfixes
++ swc 取消 `loose`，解决语法使用的差异问题 如 [link](https://github.com/swc-project/swc/issues/6627),问题清单持续修复 [link](https://github.com/efoxTeam/emp/discussions/327)
 
 # 2.5.x
 > 全面支持 ESM 版本，深度基于ESM 的模型进行定制
