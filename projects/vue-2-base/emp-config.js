@@ -44,5 +44,8 @@ module.exports = defineConfig(({mode, env}) => {
             'element-ui': esm('element-ui'),
           },
     },
+    debug: {
+      clearLog: false,
+    },
   }
 })

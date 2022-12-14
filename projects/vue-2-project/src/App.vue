@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <h1>Project App ! vue 2 project</h1>
-    <h2>Content</h2>
+    <h2>=== @v2b/Content ===</h2>
     <Content />
     <!-- <h2>CompositionApi</h2> -->
     <!-- <CompositionApi /> -->
-    <h2>Table</h2>
+    <h2>=== @v2b/Table ===</h2>
     <Table />
   </div>
 </template>

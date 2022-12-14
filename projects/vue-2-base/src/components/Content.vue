@@ -18,14 +18,18 @@
         </li>
       </ul>
     </div>
+    <h2>JSX Dynamic Component</h2>
+    <Hello />
   </div>
 </template>
 
 <script>
 import Button from './Button.vue'
+import Hello from './Hello'
 export default {
   components: {
     Button,
+    Hello: () => import('./Hello'),
     DynamicButton: () => import('./Button.vue'),
   },
   props: {
