@@ -56,7 +56,7 @@ export default defineConfig(() => ({
 					]
 				}
 			],
-			'/demo/react-umd': [
+			'/demo/': [
 				{
 					text: '用例',
 					items: [
