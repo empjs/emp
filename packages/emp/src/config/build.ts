@@ -118,7 +118,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       staticDir: '',
       minify: true,
       imageMin: false,
-      sourcemap: true,
+      sourcemap: false,
       /**
        * 开发模式参考 https://webpack.js.org/concepts/targets/#multiple-targets
        */
