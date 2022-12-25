@@ -13,7 +13,17 @@ const PluginBabelVue3 = ({wpChain}: ConfigPluginOptions): void => {
     .rule('scripts')
     .use('babel')
     .tap(o => {
-      // console.log(o)
+      const typescriptIndex = o.presets.findIndex((plugin: string) => {
+        return plugin === require.resolve('@babel/preset-typescript')
+      })
+      o.presets[typescriptIndex] = [
+        require.resolve('@babel/preset-typescript'),
+        {
+          isTSX: true, // allExtensions依赖isTSX  https://babeljs.io/docs/en/babel-preset-typescript#allextensions
+          allExtensions: true, // 支持所有文件扩展名
+        },
+      ]
+
       o.plugins.push([require.resolve('@vue/babel-plugin-jsx'), {optimize: true}])
       return o
     })

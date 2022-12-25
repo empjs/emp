@@ -16,6 +16,7 @@
     <ButtonComponent />
     <JSXComponent />
     <Count />
+    <TsxScript />
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import TableComponent from './components/TableComponent.vue'
 import ButtonComponent from './components/ButtonComponent.vue'
 import JSXComponent from './components/JSXComponent'
 import Count from './components/Count.vue'
+import TsxScript from './components/TsxScript.vue'
 </script>
 
 <style lang="less">
