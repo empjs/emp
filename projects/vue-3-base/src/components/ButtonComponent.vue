@@ -2,6 +2,9 @@
   <div>
     <AButton type="primary" @click="add">add</AButton>
     <span class="value">value: {{ value }}</span>
+    <p>
+      {{JSON.stringify(props)}}
+    </p>
   </div>
 </template>
 
@@ -19,6 +22,10 @@ const value = ref(0)
 function add() {
   value.value++
 }
+const props = defineProps({
+  attr1: String,
+  attr2: Boolean
+})
 </script>
 
 <style lang="less" scoped>

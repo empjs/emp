@@ -9,6 +9,7 @@ declare module 'vue' {
     ButtonComponent: typeof import('./src/components/ButtonComponent.vue')['default']
     Count: typeof import('./src/components/Count.vue')['default']
     TableComponent: typeof import('./src/components/TableComponent.vue')['default']
+    TsxScript: typeof import('./src/components/TsxScript.vue')['default']
   }
 }
 

@@ -17,6 +17,7 @@ module.exports = defineConfig(({mode, env}) => {
         './ButtonComponent': './src/components/ButtonComponent',
         './TableComponent': './src/components/TableComponent',
         './JSXComponent': './src/components/JSXComponent',
+        './TsxScript': './src/components/TsxScript',
       },
       shareLib: {
         vue: 'Vue@https://cdn.jsdelivr.net/npm/vue@3.2.30/dist/vue.global.js',
