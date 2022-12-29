@@ -1,9 +1,11 @@
 # 2.6.x
 ## Features
 + 支持自动切换 port功能，不需要手动设置
++ @efox/emp@2.6.2 支持 vue 的 dts 类型生成 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/334)
 
 ## Bugfixes
 + swc 取消 `loose`，解决语法使用的差异问题 如 [link](https://github.com/swc-project/swc/issues/6627),问题清单持续修复 [link](https://github.com/efoxTeam/emp/discussions/327)
++ @efox/plugin-vue-3@1.2.0 修复vue3中使用lang=tsx时的报错问题 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/333)
 
 # 2.5.x
 > 全面支持 ESM 版本，深度基于ESM 的模型进行定制

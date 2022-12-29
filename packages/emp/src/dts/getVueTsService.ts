@@ -1,6 +1,6 @@
-import {createProgram}  from 'vue-tsc'
+import {createProgram} from 'vue-tsc'
 import ts from 'typescript'
-import { getFileNames } from './getTSConfig'
+import {getFileNames} from './getTSConfig'
 
 const cache: {
   languageService?: ts.LanguageService
@@ -14,13 +14,13 @@ function getVueTsService(options: ts.CompilerOptions, cwd: string) {
   cache.cwd = cwd
 
   const rootFileNames = getFileNames(cwd).filter(fileName => fileName.endsWith('.vue'))
-  
+
   const host = ts.createCompilerHost(options, undefined)
 
   const program = createProgram({
     rootNames: rootFileNames,
     options,
-    host
+    host,
   })
 
   const service = program.__vue.languageService.__internal__.languageService

@@ -72,9 +72,9 @@ class DTSEmitFile {
     if (filename.endsWith('.vue')) {
       const content = await fs.promises.readFile(filename, 'utf-8')
       const sfc = parse(content)
-      const { script, scriptSetup } = sfc.descriptor
+      const {script, scriptSetup} = sfc.descriptor
       if (script || scriptSetup) {
-        let lang = scriptSetup?.lang || script?.lang || 'js'
+        const lang = scriptSetup?.lang || script?.lang || 'js'
         if (/jsx?/.test(lang)) {
           return
         }
