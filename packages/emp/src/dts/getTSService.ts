@@ -25,7 +25,7 @@ function getTSService(options: ts.CompilerOptions, cwd: string) {
     return cache.languageService
   }
   cache.cwd = cwd
-  const rootFileNames = getFileNames(cwd)
+  const rootFileNames = getFileNames(cwd).filter(fileName => !fileName.endsWith('.vue'))
 
   const files: ts.MapLike<{version: number}> = {}
 
