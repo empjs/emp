@@ -43,7 +43,5 @@
 
 ## 👬 Contributors
 <a href="https://github.com/efoxTeam/emp/graphs/contributors">
-	<p align="center">
-  <img width="720" src="https://contrib.rocks/image?repo=efoxTeam/emp" alt="A table of avatars from the project's contributors" />
-		</p>
+  <img src="https://contrib.rocks/image?repo=efoxTeam/emp" alt="EMP's contributors" />
 </a>
