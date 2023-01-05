@@ -52,7 +52,21 @@ function getFileNames(cwd: string) {
   const tsconfig = getTSConfig(cwd)
 
   if (tsconfigPath) {
-    const parsed = ts.parseJsonConfigFileContent(tsconfig, parseConfigHost, path.dirname(tsconfigPath))
+    const parsed = ts.parseJsonConfigFileContent(
+      tsconfig,
+      parseConfigHost,
+      path.dirname(tsconfigPath),
+      undefined,
+      undefined,
+      undefined,
+      [
+        {
+          extension: '.vue',
+          isMixedContent: true,
+          scriptKind: ts.ScriptKind.Deferred,
+        },
+      ],
+    )
     return parsed.fileNames
   }
   return []

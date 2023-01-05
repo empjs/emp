@@ -9,6 +9,9 @@ import store from 'src/helper/store'
 import fs from 'fs-extra'
 import {transformExposesPath, transformImportExposesPath, transformLibName, transformPathImport} from './transform'
 import {ConfigResolveAliasType} from 'src/types'
+import {getVueTsService} from './getVueTsService'
+import {parse} from '@vue/compiler-sfc'
+
 //
 export type DTSTLoadertype = {
   build: RquireBuildOptions
@@ -33,6 +36,7 @@ type CodeObjType = {
 class DTSEmitFile {
   outDir: string
   languageService: ts.LanguageService
+  vueLanguageService: ts.LanguageService
   lib: CodeObjType = {code: '', key: []}
   tsconfig: ts.CompilerOptions
   empFilename = ''
@@ -51,6 +55,7 @@ class DTSEmitFile {
       // baseUrl: store.config.appSrc,
     }
     this.languageService = getTSService(this.tsconfig, store.root)
+    this.vueLanguageService = getVueTsService(this.tsconfig, store.root)
   }
   setup(op: DTSOptionsType) {
     this.op = op
@@ -62,8 +67,25 @@ class DTSEmitFile {
     }
     this.op.needClear && fs.removeSync(this.outDir)
   }
-  emit(filename: string) {
-    const output = this.languageService.getEmitOutput(filename)
+  async emit(filename: string) {
+    let output: ts.EmitOutput
+    if (filename.endsWith('.vue')) {
+      const content = await fs.promises.readFile(filename, 'utf-8')
+      const sfc = parse(content)
+      const {script, scriptSetup} = sfc.descriptor
+      if (script || scriptSetup) {
+        const lang = scriptSetup?.lang || script?.lang || 'js'
+        if (/jsx?/.test(lang)) {
+          return
+        }
+        output = this.vueLanguageService.getEmitOutput(`${filename}.${lang}`)
+      } else {
+        return
+      }
+    } else {
+      output = this.languageService.getEmitOutput(filename)
+    }
+
     try {
       if (!output.emitSkipped) {
         output.outputFiles.forEach(o => {
@@ -103,7 +125,7 @@ class DTSEmitFile {
   genCode(o: ts.OutputFile) {
     if (!this.op.build) return
     if (!this.lib.key.includes(o.name)) {
-      let mod = o.name.split(`/${this.op.build.typesOutDir}/`)[1].replace('.d.ts', '')
+      let mod = o.name.split(`/${this.op.build.typesOutDir}/`)[1].replace(/(\.vue)?\.d\.ts/, '')
       if (mod.endsWith('/index')) {
         mod = mod.replace('/index', '')
       }
