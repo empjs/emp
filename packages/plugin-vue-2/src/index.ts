@@ -21,15 +21,22 @@ const PluginVue2 = async ({wpChain}: ConfigPluginOptions) => {
         presets: [o.presets[0], [require('@vue/babel-preset-jsx'), {compositionAPI: true}]],
         plugins: [o.plugins[0], o.plugins[1]], //部分插件引起报错
       }
-
       // console.log(o, 'config', config)
       return config
     })
+  // wpChain.module.rules.delete('svg')
   // svg rules
   const svgRule = wpChain.module.rule('svg')
   svgRule.uses.clear()
+  svgRule
+    // .test(/\.(svg)(\?.*)?$/)
+    // .use('vue-loader')
+    // .loader(require.resolve('vue-loader'))
+    // .end()
+    .use('vue-svg-loader')
+    .loader(require.resolve('vue-svg-loader'))
 
-  wpChain.module.rule('image').test(/\.(png|jpe?g|gif|webp|ico|svg)$/i)
+  // wpChain.module.rule('image').test(/\.(png|jpe?g|gif|webp|ico|svg)$/i)
 }
 
 export default PluginVue2

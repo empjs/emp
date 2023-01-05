@@ -1,12 +1,20 @@
 <template>
   <div>
     <h1>SVGA COMPONENT LOGO:</h1>
-    <Logo style="width: 100px" />
+    <Logo class="svg-logo" />
     <h2>JSX</h2>
     <Hello />
-    <h2>Img SRC:</h2>
-    <img :src="require('./logo.png')" alt="logo" />
-    <img :src="require('./logo.svg')" alt="logo" />
+    <h2>Img Example in src</h2>
+    <ul class="imgbox">
+      <li>
+        <h2>PNG</h2>
+        <img class="svg-logo" :src="require('./logo.png')" alt="logo" />
+      </li>
+      <li>
+        <h2>SVG</h2>
+        <img class="svg-logo" svg-inline src="./logo.svg" alt="logo" />
+      </li>
+    </ul>
     <Content />
     <Table />
     <CompositionApi />
@@ -31,6 +39,21 @@ export default {
 <style scoped>
 img {
   width: 200px;
+}
+.imgbox {
+  display: flex;
+}
+.imgbox h2 {
+  text-align: center;
+}
+.imgbox li {
+  flex: 1;
+  list-style: none;
+  text-align: center;
+}
+.svg-logo {
+  width: 200px;
+  margin: auto;
 }
 
 h1 {
