@@ -4,6 +4,7 @@ export interface CSSOptions {
   unit?: 'vw' | 'rem'
   vw?: PostcssViewPortOptions
   rem?: PostcssREMOptions
+  minType?: 'swc' | 'nano'
 }
 export type PostcssViewPortOptions = {
   /**
@@ -151,6 +152,7 @@ const defaultRemConfig = {
   // exclude: /node_modules/i, //这里表示不处理node_modules文件夹下的内容
 }
 export const initCSS = (o: CSSOptions = {}): CSSOptions => {
+  o.minType = o.minType || 'nano'
   if (o.rem && o.vw) {
     if (!o.unit) {
       logger.warn('单位处理 vw 与 rem 不能同时存在，已切换到 vw')

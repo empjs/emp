@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.6.2",
+  "version": "2.6.4",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -59,8 +59,6 @@
     "@babel/runtime": "^7.18.9",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^6.3.0",
-    "@types/express": "^4.17.13",
-    "@types/node": "^16.11.9",
     "@vue/compiler-sfc": "^3.2.45",
     "address": "^1.1.2",
     "axios": "^0.27.2",
@@ -130,6 +128,8 @@
     "@types/recursive-readdir": "^2.2.0",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.3.1",
+		"@types/express": "^4.17.13",
+    "@types/node": "^16.11.9",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "rimraf": "^3.0.2",
     "ttypescript": "^1.5.13",

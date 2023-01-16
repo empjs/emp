@@ -32,9 +32,9 @@ class Build {
 
     if (store.config.debug.clearLog) clearConsole()
     logTag(
-      `build mode ${store.config.mode}${this.isLib ? ' in [Library Mode] ' : ''} - ${
+      `build mode ${store.config.mode}${this.isLib ? ' in [Library Mode] ' : ''} use ${
         store.config.compile.compileType
-      } compile`,
+      }${store.config.css.minType === 'swc' ? ' & cssmin in swc' : ''}`,
       store.config.compile.compileType !== 'babel' ? 'orange' : 'blue',
     )
     // if (store.config.compile.compileType !== 'babel') logTag(`use ${store.config.compile.compileType}`, 'purple')

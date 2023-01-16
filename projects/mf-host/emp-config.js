@@ -6,6 +6,9 @@ module.exports = defineConfig(() => {
     server: {
       port: 8881,
     },
+    css: {
+      minType: 'swc',
+    },
     empShare: {
       name: 'mfHost',
       exposes: {

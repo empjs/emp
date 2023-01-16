@@ -16,7 +16,7 @@ class devServer {
     const config = getConfig()
     if (store.config.debug.clearLog) clearConsole()
     logTag(
-      `dev server running - ${store.config.compile.compileType} compile`,
+      `dev server running use ${store.config.compile.compileType}`,
       store.config.compile.compileType !== 'babel' ? 'orange' : 'blue',
     )
     // if (store.config.compile.compileType !== 'babel') logTag(`use ${store.config.compile.compileType}`, 'purple')

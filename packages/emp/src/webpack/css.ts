@@ -78,10 +78,13 @@ class WPCss {
             ],
           },
         }
-        // if (store.config.compile.compileType === 'swc') {
-        //   op.minify = CssMinimizerPlugin.swcMinify
-        // }
-        // logger.debug(`[css min in ${store.config.compile.compileType || 'babel'}]`, op)
+        //default CssMinimizerPlugin.cssnanoMinify
+        //TODO SWC css 压缩后会出现报错问题
+        if (store.config.compile.compileType === 'swc' && store.config.css.minType === 'swc') {
+          op.minify = CssMinimizerPlugin.swcMinify
+          logger.debug(`[css min in ${store.config.css.minType || 'babel'}]`, op)
+        }
+
         wpChain.optimization.minimizer('CssMinimizerPlugin').use(CssMinimizerPlugin, [op])
       }
 

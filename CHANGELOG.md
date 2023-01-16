@@ -2,6 +2,8 @@
 ## Features
 + 支持自动切换 port功能，不需要手动设置
 + @efox/emp@2.6.2 支持 vue 的 dts 类型生成 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/334)
++ @efox/emp@2.6.4 增加 `css.minType` 当为 `swc` 时会使用 swc进行压缩
++ @efox/emp-compile-swc@1.3.0 修复 `swc` 编译问题
 
 ## Bugfixes
 + swc 取消 `loose`，解决语法使用的差异问题 如 [link](https://github.com/swc-project/swc/issues/6627),问题清单持续修复 [link](https://github.com/efoxTeam/emp/discussions/327)

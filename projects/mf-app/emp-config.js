@@ -3,6 +3,9 @@ const compile = require('@efox/emp-compile-swc')
 module.exports = defineConfig(() => {
   return {
     compile,
+    css: {
+      minType: 'swc',
+    },
     server: {
       port: 8882,
     },

@@ -13,3 +13,8 @@
 + 默认 `null`
   - `postcss-rem` 设置
 
+## css.minType `beta`
++ 类型 `nano` | `swc`
++ 默认 `nano`
+  - 当使用 `swc` 编译时可以开启 `css.minType` 为 `swc`
+	- 目前部分 代码会产生报错 正在观察中
