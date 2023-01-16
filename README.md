@@ -12,7 +12,7 @@
 + 🔩 通用的插件、共享 webpack chain 插件接口.
 + 🔑 TS重构项目、提供灵活的api、Plugin以及完整的类型提示.
 
-## Typescript 工作流
+## 🛠️ Typescript 工作流
 > Typescript 项目 dev 或 build 会生成当前项目 exposes 对应的声明
 + 执行 `emp dev` 或 `emp build` 后，生成的 index.d.ts 会在 dist/types 目录
 + 执行 `emp dts` 后，会下载 remote 对应的 d.ts 文件到 ./src/empShareTypes
@@ -40,3 +40,8 @@
 <a href="projects/demo">[ESM Demo]</a>
 <a href="projects/multi-entries-app">[多入口 Demo]</a>
 <a href="projects/vue-2-base">[vue 2 Demo]</a>
+
+## 👬 Contributors
+<a href="https://github.com/efoxTeam/emp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=efoxTeam/emp" alt="EMP's contributors" />
+</a>
