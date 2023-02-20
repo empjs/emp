@@ -14,7 +14,7 @@ export const transformLibName = (name: string, code: string) => {
   code = code.replace(`declare module '${store.config.appSrc}'`, `declare module '${name}'`)
   // 兼容 不支持 replace all 的情况
   const reg = new RegExp(`${store.config.appSrc}/`, 'g')
-  return code.replace(reg, `${name}/`)
+  return code.replace(reg, store.config.build.dtsRemoveSrcPrefix ? `${name}/` : `${name}/${store.config.appSrc}/`)
   // return code.replaceAll(`${store.config.appSrc}/`, `${name}/`)
 }
 export const transformPathImport = (o: ts.OutputFile) => {

@@ -93,6 +93,11 @@ export type BuildOptions = {
    * @default false
    */
   jsToJsx?: boolean
+  /**
+   * dts时映射appSrc到根目录
+   * @default true
+   */
+  dtsRemoveSrcPrefix?: boolean
 }
 export type RquireBuildOptions = Override<
   Required<BuildOptions>,
@@ -128,6 +133,7 @@ export const initBuild = (op?: BuildOptions): RquireBuildOptions => {
       analyze: false,
       createTs: false,
       jsToJsx: false,
+      dtsRemoveSrcPrefix: true,
     },
     ...op,
   }
