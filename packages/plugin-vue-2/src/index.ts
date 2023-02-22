@@ -24,19 +24,16 @@ const PluginVue2 = async ({wpChain}: ConfigPluginOptions) => {
       // console.log(o, 'config', config)
       return config
     })
-  // wpChain.module.rules.delete('svg')
+
   // svg rules
   const svgRule = wpChain.module.rule('svg')
   svgRule.uses.clear()
   svgRule
-    // .test(/\.(svg)(\?.*)?$/)
-    // .use('vue-loader')
-    // .loader(require.resolve('vue-loader'))
-    // .end()
-    .use('vue-svg-loader')
-    .loader(require.resolve('vue-svg-loader'))
-
-  // wpChain.module.rule('image').test(/\.(png|jpe?g|gif|webp|ico|svg)$/i)
+    .use('vue')
+    .loader('vue-loader')
+    .end()
+    .use('svg-to-vue-component')
+    .loader('svg-to-vue-component/loader')
 }
 
 export default PluginVue2
