@@ -6,6 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {EntriesType} from 'src/types'
 import {HtmlOptions} from 'src/config/html'
 import logger from 'src/helper/logger'
+import {cloneDeep} from 'lodash'
 /**
  * multi entry
  * 多入口设置
@@ -75,7 +76,7 @@ class WPEntries {
     }
   }
   private setHtmlWebpackPlugin(chunks: string[] = ['index'], htmlOptions: HtmlOptions = {}, filename?: string) {
-    const htmlConfig = store.config.html
+    const htmlConfig = cloneDeep(store.config.html)
     // 单页面时 需要把 filename 设置成 index.html
     filename = filename ? filename : `${chunks[0]}.html`
     htmlConfig.files.css = htmlConfig.files.css || []
