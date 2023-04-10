@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp-compile-swc",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "swc compile loader",
   "license": "MIT",
   "files": [
@@ -35,8 +35,8 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@swc/core": "^1.3.26",
-    "@swc/css": "^0.0.18",
+    "@swc/core": "^1.3.46",
+    "@swc/css": "^0.0.20",
     "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {

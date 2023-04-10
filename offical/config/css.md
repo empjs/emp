@@ -17,4 +17,4 @@
 + 类型 `nano` | `swc`
 + 默认 `nano`
   - 当使用 `swc` 编译时可以开启 `css.minType` 为 `swc`
-	- 目前部分 代码会产生报错 正在观察中
+	- 目前部分 代码会产生报错 [@efox/emp-compile-swc@1.3.1](https://github.com/efoxTeam/emp/tree/main/packages/compile-swc) 观察已经修复 有问题可以提交到 [issue](https://github.com/efoxTeam/emp/issues)

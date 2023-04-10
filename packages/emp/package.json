@@ -1,6 +1,6 @@
 {
   "name": "@efox/emp",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "description": "emp",
   "license": "MIT",
   "files": [
@@ -109,7 +109,7 @@
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1",
     "vue-tsc": "^1.0.18",
-    "webpack": "^5.75.0",
+    "webpack": "^5.78.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.11.1",

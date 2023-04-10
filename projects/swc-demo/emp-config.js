@@ -6,9 +6,12 @@ module.exports = defineConfig(() => {
     css: {
       minType: 'swc',
     },
+		build:{
+			sourcemap:true
+		},
     debug: {
       clearLog: false,
-      level: 'debug',
+      // level: 'debug',
       webpackCache: false,
     },
   }

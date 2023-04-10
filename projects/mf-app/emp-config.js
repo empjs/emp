@@ -22,5 +22,10 @@ module.exports = defineConfig(() => {
         'react-dom': {requiredVersion: '^17.0.1', singleton: true},
       },
     },
+		debug: {
+      clearLog: false,
+      // level: 'debug',
+      webpackCache: false,
+    },
   }
 })

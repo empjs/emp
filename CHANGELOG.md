@@ -1,14 +1,19 @@
+# 2.7.x
+> 预告：将会全面切换到 swc 取代 babel 的编译方案
 # 2.6.x
 ## Features
-+ 支持自动切换 port功能，不需要手动设置
-+ @efox/emp@2.6.2 支持 vue 的 dts 类型生成 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/334)
++ @efox/emp@2.6.6 升级 `webpack@5.78.0` 带来的bugfix 以及性能提升 [详情](https://github.com/webpack/webpack/releases/tag/v5.78.0)
++ @efox/emp@2.6.5 修复多入口的 `externals` 引起的重复引入问题
 + @efox/emp@2.6.4 增加 `css.minType` 当为 `swc` 时会使用 swc进行压缩
-+ @efox/emp-compile-swc@1.3.0 修复 `swc` 编译问题
++ @efox/emp@2.6.2 支持 vue 的 dts 类型生成 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/334)
++ 支持自动切换 port功能，不需要手动设置
 
 ## Bugfixes
-+ swc 取消 `loose`，解决语法使用的差异问题 如 [link](https://github.com/swc-project/swc/issues/6627),问题清单持续修复 [link](https://github.com/efoxTeam/emp/discussions/327)
-+ @efox/plugin-vue-3@1.2.0 修复vue3中使用lang=tsx时的报错问题 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/333)
++ @efox/emp-compile-swc@1.3.1 修复 `swc` 的 `cssmin` 压缩问题 `初步测试通过，待观察`
++ @efox/emp-compile-swc@1.3.0 修复 `swc` 编译问题
 + @efox/plugin-vue-2@1.2.2 同时支持 vue Component 与 src inline [DEMO](https://github.com/efoxTeam/emp/blob/main/projects/vue-2-base/src/views/Home.vue#L15)
++ @efox/plugin-vue-3@1.2.0 修复vue3中使用lang=tsx时的报错问题 by [MAXLZ1](https://github.com/efoxTeam/emp/pull/333)
++ swc 取消 `loose`，解决语法使用的差异问题 如 [link](https://github.com/swc-project/swc/issues/6627),问题清单持续修复 [link](https://github.com/efoxTeam/emp/discussions/327)
 
 # 2.5.x
 > 全面支持 ESM 版本，深度基于ESM 的模型进行定制
