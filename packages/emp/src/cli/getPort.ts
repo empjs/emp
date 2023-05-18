@@ -3,6 +3,7 @@ import os from 'os'
 
 const minPort = 1024
 const maxPort = 65_535
+const httpsPort = 443
 
 /**
  * @return {Set<string|undefined>}
@@ -78,7 +79,7 @@ const getAvailablePort = async (port: number, hosts: any) => {
  * @return {Promise<number>}
  */
 export async function getPorts(basePort: number, host: string) {
-  if (basePort < minPort || basePort > maxPort) {
+  if (basePort !== httpsPort && (basePort < minPort || basePort > maxPort)) {
     throw new Error(`Port number must lie between ${minPort} and ${maxPort}`)
   }
 
