@@ -5,7 +5,7 @@ import incStore from './store/incStore'
 const App = () => {
   return (
     <>
-      <h1>Micro Host #1</h1>
+      <h1>Micro Host #2</h1>
       <StoreComp />
       <Button customLabel="HOST" />
     </>

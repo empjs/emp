@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>Project App ! vue 2 project</h1>
+    <h1>Project App ! vue 2 project!</h1>
     <h2>=== @v2b/Content ===</h2>
     <Content />
     <!-- <h2>CompositionApi</h2> -->

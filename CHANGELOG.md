@@ -1,5 +1,8 @@
 # 2.7.x
 > 预告：将会全面切换到 swc 取代 babel 的编译方案
+# Bugfixed
++ 解决 react 三级共享 热更问题
++ 解决 react 二级共享 热更问题
 # 2.6.x
 ## Features
 + @efox/emp@2.6.6 升级 `webpack@5.78.0` 带来的bugfix 以及性能提升 [详情](https://github.com/webpack/webpack/releases/tag/v5.78.0)

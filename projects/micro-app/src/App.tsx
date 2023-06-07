@@ -6,7 +6,7 @@ const App = () => {
     <>
       <StoreComp />
       <HostApp />
-      <h1>Micro app #2</h1>
+      <h1>Micro app #1</h1>
     </>
   )
 }
