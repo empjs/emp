@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button>
-    <p @click="showMore">More...</p>
+    <p @click="showMore">More... update from base</p>
     <div class="more">
       <ul v-if="isMore === true">
         <li>

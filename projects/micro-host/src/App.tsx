@@ -6,6 +6,7 @@ const App = () => {
   return (
     <>
       <h1>Micro Host #2</h1>
+      <p>update from remote host</p>
       <StoreComp />
       <Button customLabel="HOST" />
     </>
