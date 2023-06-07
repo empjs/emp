@@ -7,7 +7,7 @@ titleTemplate: 下一代微前端构建方案
 hero:
   name: EMP
   text: 下一代微前端构建方案
-  tagline: 聚焦 ESM 微前端生态闭环建设
+  tagline: 聚焦微前端生态闭环建设 v2.7全面支持模块共享热更
   image:
     src: /hero.avif
     alt: Vite

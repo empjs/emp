@@ -43,8 +43,8 @@
     "lint-staged": "^13.0.3",
     "markdown-it": "^13.0.1",
     "typescript": "^4.7.3",
-    "vite": "^3.2.4",
-    "vitepress": "^1.0.0-alpha.29",
-    "vitepress-plugin-search": "1.0.4-alpha.15"
+    "vite": "^4.3.9",
+    "vitepress": "^1.0.0-beta.1",
+    "vitepress-plugin-search": "1.0.4-alpha.20 "
   }
 }
