@@ -122,7 +122,7 @@ class WPCommon {
     const publicPath = store.config.base || ''
     const staticDir = store.config.build.staticDir ? `${store.config.build.staticDir}/` : ''
     //
-    return {
+    const o: Configuration['output'] = {
       //TODO: Library 模式的处理
       // module: true,
       // iife: false,
@@ -152,6 +152,19 @@ class WPCommon {
       // scriptType: isESM ? 'module' : 'text/javascript',
       pathinfo: false, //在打包数千个模块的项目中，这会导致造成垃圾回收性能压力
     }
+    if (store.empShare.moduleFederation.name) {
+      /**
+       * output.uniqueName用于为输出的每个chunk生成唯一的名称。这个选项可以在多个入口点的情况下防止名称冲突。
+       * 在生成的输出文件中，每个chunk都会以其独特的名称命名，这样可以确保在运行时没有命名冲突。
+       */
+      // o.uniqueName = store.empShare.moduleFederation.name
+      /**
+       * output.library用于将输出的代码封装为一个可复用的库。它允许你在其他项目中使用这个库。
+       * 当你设置output.library时，Webpack将会为你创建一个全局变量，这个变量将是你的库的入口点。
+       */
+      // o.library = store.empShare.moduleFederation.name
+    }
+    return o
   }
   get resolve(): Configuration['resolve'] {
     const configResolve = {...{extends: true}, ...store.config.resolve}

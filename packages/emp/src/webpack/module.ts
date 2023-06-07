@@ -81,11 +81,14 @@ class WPModule {
     const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
     // 增加插件支持
     if (isDev && store.config.server.hot && !!store.config.reactRuntime && reactVersion) {
-      wpChain.plugin('reactRefresh').use(require('@pmmmwh/react-refresh-webpack-plugin'), [
-        {
-          overlay: false, // 切换到默认overlay
-        },
-      ])
+      const op: any = {
+        overlay: false, // 切换到默认overlay
+      }
+      if (store.empShare.moduleFederation.name) {
+        op.library = store.empShare.moduleFederation.name
+      }
+      const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+      wpChain.plugin('reactRefresh').use(ReactRefreshPlugin, [op])
     }
   }
 }

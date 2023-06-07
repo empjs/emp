@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   customLabel: string
 }

@@ -17,6 +17,8 @@
     "@efox/emp": "workspace:^*"
   },
   "dependencies": {
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
     "axios": "^0.21.4",
     "mobx": "^6.3.7",
     "mobx-react": "^7.2.1",

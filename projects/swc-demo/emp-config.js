@@ -6,9 +6,9 @@ module.exports = defineConfig(() => {
     css: {
       minType: 'swc',
     },
-		build:{
-			sourcemap:true
-		},
+    build: {
+      sourcemap: true,
+    },
     debug: {
       clearLog: false,
       // level: 'debug',

@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-		"@ant-design/cssinjs": "^1.8.1",
-    "@ant-design/icons": "^5.0.1",
-    "@ant-design/pro-components": "^2.4.4",
-    "antd": "^5.4.0",
+		"@ant-design/cssinjs": "^1.10.1",
+    "@ant-design/icons": "^5.1.4",
+    "@ant-design/pro-components": "^2.5.5",
+    "antd": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
