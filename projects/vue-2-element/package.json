@@ -6,6 +6,7 @@
   "private": true,
   "devDependencies": {
     "@efox/emp": "workspace:^*",
+    "@efox/emp-compile-swc": "workspace:^",
     "@efox/eslint-config-vue": "workspace:^*",
     "@efox/plugin-vue-2": "workspace:^1.0.0"
   },

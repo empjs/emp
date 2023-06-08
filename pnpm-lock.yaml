@@ -1091,6 +1091,9 @@ importers:
       '@efox/emp':
         specifier: workspace:^*
         version: link:../../packages/emp
+      '@efox/emp-compile-swc':
+        specifier: workspace:^
+        version: link:../../packages/compile-swc
       '@efox/eslint-config-vue':
         specifier: workspace:^*
         version: link:../../packages/eslint-config-vue
