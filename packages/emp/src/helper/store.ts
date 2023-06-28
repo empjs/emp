@@ -153,6 +153,7 @@ class GlobalStore {
     const version = this.pkg.dependencies.react || this.pkg.devDependencies.react
     if (version) {
       this.config.reactRuntime = vCompare(version, '17') > -1 ? 'automatic' : 'classic'
+      this.config.reactVersion = version
     }
   }
 }

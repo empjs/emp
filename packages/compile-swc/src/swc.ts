@@ -10,7 +10,7 @@ class SWCOpt {
     this.config = options
   }
   resetType(isTypescript: boolean, isReact: boolean) {
-    this.isReact = isReact
+    this.isReact = isReact && !!this.config.reactVersion
     this.isTypescript = isTypescript
   }
   get parser(): JscConfig['parser'] {

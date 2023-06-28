@@ -152,6 +152,7 @@ export type EMPConfig = {
    * @default undefined
    */
   reactRuntime?: 'automatic' | 'classic'
+  reactVersion?: string
   /**
    * typingsPath
    * @default ./src/empShareType
@@ -222,6 +223,7 @@ export type ResovleConfig = Override<
     empShare?: EMPShareExport
     webpackChain?: WebpackChainType
     reactRuntime?: 'automatic' | 'classic'
+    reactVersion?: string
     base?: string
     html: InitHtmlType
     entries?: EntriesType

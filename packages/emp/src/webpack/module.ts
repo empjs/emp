@@ -75,12 +75,9 @@ class WPModule {
   }
   private setScriptReactLoader() {
     const isDev = store.config.mode === 'development'
-    const pkg = store.pkg
-    pkg.dependencies = pkg.dependencies || {}
-    pkg.devDependencies = pkg.devDependencies || {}
-    const reactVersion = pkg.dependencies.react || pkg.devDependencies.react
+
     // 增加插件支持
-    if (isDev && store.config.server.hot && !!store.config.reactRuntime && reactVersion) {
+    if (isDev && store.config.server.hot && !!store.config.reactRuntime && store.config.reactVersion) {
       const op: any = {
         overlay: false, // 切换到默认overlay
       }
