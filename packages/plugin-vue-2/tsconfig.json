@@ -3,11 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    // "declarationDir": "dist/types",
-		"declaration": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"esModuleInterop": true,
     "paths": {
       "src/*": [
         "./src/*"
