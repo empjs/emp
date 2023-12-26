@@ -34,3 +34,5 @@ declare module '@mfHost/incStore' {
   const _default: IncStore
   export default _default
 }
+
+declare module '@mfHost/store'

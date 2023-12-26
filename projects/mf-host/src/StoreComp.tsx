@@ -1,8 +1,10 @@
 import {observer} from 'mobx-react'
-import incStore from './store/incStore'
+// import incStore from './store/incStore'
+import {useStore} from './store'
 import css from 'src/Button/Button.module.css'
 import {Button} from 'src/Button'
 const StoreComp = observer(() => {
+  const {incStore} = useStore()
   return (
     <>
       <p>

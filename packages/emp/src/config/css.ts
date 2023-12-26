@@ -1,4 +1,5 @@
 import logger from 'src/helper/logger'
+import {CompileLoaderNameType} from 'src/types'
 
 export interface CSSOptions {
   unit?: 'vw' | 'rem'
@@ -151,8 +152,9 @@ const defaultRemConfig = {
   minPixelValue: 0,
   // exclude: /node_modules/i, //这里表示不处理node_modules文件夹下的内容
 }
-export const initCSS = (o: CSSOptions = {}): CSSOptions => {
-  o.minType = o.minType || 'nano'
+export const initCSS = (o: CSSOptions = {}, compileType: CompileLoaderNameType): CSSOptions => {
+  o.minType = o.minType ? o.minType : compileType === 'swc' ? 'swc' : 'nano'
+
   if (o.rem && o.vw) {
     if (!o.unit) {
       logger.warn('单位处理 vw 与 rem 不能同时存在，已切换到 vw')

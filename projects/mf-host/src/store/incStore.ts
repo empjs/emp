@@ -1,5 +1,5 @@
 import {makeAutoObservable} from 'mobx'
-class IncStore {
+export class IncStore {
   num = 0
   code: any = ''
   constructor() {

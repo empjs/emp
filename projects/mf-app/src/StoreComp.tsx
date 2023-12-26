@@ -1,7 +1,9 @@
-import {observer} from 'mobx-react-lite'
+import {observer} from 'mobx-react'
 import incStore from './store/incStore'
+// import {useStore, StoreProvider} from '@mfHost/store'
 import css from '@mfHost/css'
 const StoreComp = observer(() => {
+  // const {incStore} = useStore()
   return (
     <>
       <p>

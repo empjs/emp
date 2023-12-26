@@ -257,9 +257,6 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
   const dtsPath = op.dtsPath ?? {}
   delete op.dtsPath
   //
-  const css = initCSS(op.css)
-  delete op.css
-  //
   const debug: ConfigDebugType = {
     clearLog: true,
     profile: false,
@@ -304,6 +301,10 @@ export const initConfig = async (op: any = {}): Promise<ResovleConfig> => {
       loader,
     }
   }
+  //
+  //
+  const css = initCSS(op.css, compile.compileType)
+  delete op.css
   // delete op.moduleTransform
   //
   return {

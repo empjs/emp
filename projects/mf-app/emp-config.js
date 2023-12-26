@@ -1,25 +1,36 @@
 const {defineConfig} = require('@efox/emp')
 const compile = require('@efox/emp-compile-swc')
+const deps = require('./package.json').dependencies
 module.exports = defineConfig(() => {
   return {
     compile,
-    css: {
-      minType: 'swc',
-    },
+    // css: {
+    //   minType: 'swc',
+    // },
     server: {
       port: 8882,
     },
     empShare: {
       name: 'mfApp',
       remotes: {
-        '@mfHost': `mfHost@http://127.0.0.1:8881/emp.js`,
+        '@mfHost': `mfHost@http://localhost:8881/emp.js`,
       },
       exposes: {
         './App': './src/App',
       },
       shared: {
-        react: {requiredVersion: '^17.0.1', singleton: true},
-        'react-dom': {requiredVersion: '^17.0.1', singleton: true},
+        react: {
+          requiredVersion: deps.react,
+          singleton: true,
+          // eager: true,
+        },
+        'react-dom': {
+          requiredVersion: deps['react-dom'],
+          singleton: true,
+          // eager: true,
+        },
+        mobx: deps.mobx,
+        'mobx-react': deps['mobx-react'],
       },
     },
     debug: {

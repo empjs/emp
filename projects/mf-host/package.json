@@ -15,13 +15,13 @@
   "devDependencies": {
     "@efox/emp": "workspace:^*",
     "@efox/emp-compile-swc": "workspace:^1.2.2",
-    "@types/react-dom": "^18.0.9"
+    "@types/react-dom": "17",
+		"@types/react": "17"
   },
   "dependencies": {
     "axios": "^0.21.4",
     "mobx": "^6.3.7",
     "mobx-react": "^7.2.1",
-    "mobx-react-lite": "^3.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "5"
