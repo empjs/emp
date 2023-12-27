@@ -1,7 +1,6 @@
 import inquirer from 'inquirer'
 import axios from 'axios'
 import git from 'git-promise'
-import chalk from 'chalk'
 import fs from 'fs-extra'
 // import ora from 'ora'
 import store from 'src/helper/store'
