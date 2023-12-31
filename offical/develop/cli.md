@@ -18,8 +18,8 @@
   4. react_project
 
 ::: tip v2.1.1 可指定安装业务模板
-+ `npx @efox/emp init -d http://localhost:8000/data.json` 指定url
-+ `npx @efox/emp init -d ./data.json` 指定本地文件
++ `npx @efox/emp init -t http://localhost:8000/data.json` 指定url
++ `npx @efox/emp init -t ./data.json` 指定本地文件
 + `data.json` 数据结构解析
 ```json
 {
