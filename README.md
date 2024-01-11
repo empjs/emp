@@ -18,4 +18,4 @@
 |            |               |
 
 ## QQ交流群 
-<img width="500" src="docs/assets/qq.png" />
+<img width="300" src="docs/assets/qq.png" />
