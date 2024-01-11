@@ -1,6 +1,6 @@
 {
   "name": "@empjs/eslint-config-react",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "maintainers": [
     "ckken@qq.com"
@@ -12,7 +12,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "@ckken:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com/empjs"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.5",
