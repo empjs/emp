@@ -13,7 +13,7 @@
 
 | Package                                         | Version (click for changelogs)                                                                                                    |
 | ----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
-| [@emp/cli](packages/cli)                           |                                     |
+| [@emp/cli](packages/cli)                           | [![@empjs/cli version](https://img.shields.io/npm/v/@empjs/cli.svg?label=%20)](packages/cli/CHANGELOG.md)                                    |
 | [@empjs/eslint-config-react](packages/eslint-config-react) | [![@empjs/eslint-config-react version](https://img.shields.io/npm/v/@empjs/eslint-config-react.svg?label=%20)](packages/eslint-config-react/CHANGELOG.md) |
 |            |               |
 
