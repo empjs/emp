@@ -1,0 +1,33 @@
+{
+  "name": "@empjs/postcss-px-to-viewport",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "ckken@qq.com"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/eslint-config-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.8.7"
+  },
+  "dependencies": {
+    "postcss": "^8.4.33"
+  }
+}
