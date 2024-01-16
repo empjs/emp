@@ -10,7 +10,7 @@
 
 # EMP ⚡ 3.0
 > 下一代构建实现微前端 高性能解决方案、力争配置尽可能保持一致，开箱即用。
-+ 🔑 基于Rspack + MF + Typescript、聚焦高性能 & 微前端
++ 🔑 基于Rspack + Module Federation + Typescript、聚焦高性能 & 微前端
 + 🛠️ 多种开发需求、支持开箱即用。
 + 🔩 通用的插件、共享 webpackChain 插件接口.
 
