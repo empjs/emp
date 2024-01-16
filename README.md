@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="docs/assets/emp.png" alt="emp">
+  </a>
+</p>
+<br/>
+<p align="center">
+  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli.svg" alt="npm package"></a>
+  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli.svg" alt="node compatibility"></a>
+</p>
+<br/>
+
 # EMP ⚡ 3.0
 > 下一代构建实现微前端 高性能解决方案、力争配置尽可能保持一致，开箱即用。
 + 🔑 基于Rspack + MF + Typescript、聚焦高性能 & 微前端
