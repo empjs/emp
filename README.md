@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
+  <a href="https://emp2.netlify.app/" target="_blank" rel="noopener noreferrer">
     <img width="240" src="docs/assets/emp.png" alt="emp">
   </a>
 </p>
