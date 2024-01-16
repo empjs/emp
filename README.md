@@ -34,4 +34,4 @@
 + 关于 v3 想法的相关讨论 可以在 [v3讨论区](https://github.com/empjs/emp/discussions/364) 进行讨论。
 
 ## QQ交流群 
-<img width="300" src="docs/assets/qq.png" />
+<img width="300" src="docs/assets/qq.jpeg" />
