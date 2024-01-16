@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="docs/assets/emp.png" alt="emp">
+    <img width="240" src="docs/assets/emp.png" alt="emp">
   </a>
 </p>
 <br/>
