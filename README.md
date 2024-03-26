@@ -18,7 +18,8 @@
 
 | Package                                         | Version (click for changelogs)                                                                                                    |
 | ----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
-| [@empjs/cli](packages/cli)                           | [![@empjs/cli version](https://img.shields.io/npm/v/@empjs/cli.svg?label=%20)](packages/cli/CHANGELOG.md)                                    |
+| [@empjs/cli](packages/cli)                      | [![@empjs/cli version](https://img.shields.io/npm/v/@empjs/cli.svg?label=%20)](packages/cli/CHANGELOG.md)                                    |
+| [@empjs/plugin-lightningcss](packages/plugin-lightningcss) | [![@empjs/plugin-lightningcss version](https://img.shields.io/npm/v/@empjs/plugin-lightningcss.svg?label=%20)](packages/plugin-lightningcss/CHANGELOG.md)                                    |
 | [@empjs/eslint-config-react](packages/eslint-config-react) | [![@empjs/eslint-config-react version](https://img.shields.io/npm/v/@empjs/eslint-config-react.svg?label=%20)](packages/eslint-config-react/CHANGELOG.md) |
 | [@empjs/postcss-px-to-viewport](packages/postcss-px-to-viewport) | [![@empjs/postcss-px-to-viewport version](https://img.shields.io/npm/v/@empjs/postcss-px-to-viewport.svg?label=%20)](packages/postcss-px-to-viewport/CHANGELOG.md) |
 | [@empjs/plugin-vue2](packages/plugin-vue2) | [![@empjs/plugin-vue2 version](https://img.shields.io/npm/v/@empjs/plugin-vue2.svg?label=%20)](packages/plugin-vue2/README.md) |
