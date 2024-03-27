@@ -22,8 +22,10 @@
 | [@empjs/plugin-lightningcss](packages/plugin-lightningcss) | [![@empjs/plugin-lightningcss version](https://img.shields.io/npm/v/@empjs/plugin-lightningcss.svg?label=%20)](packages/plugin-lightningcss/README.md.md)                                    |
 | [@empjs/eslint-config-react](packages/eslint-config-react) | [![@empjs/eslint-config-react version](https://img.shields.io/npm/v/@empjs/eslint-config-react.svg?label=%20)](packages/eslint-config-react/CHANGELOG.md) |
 | [@empjs/postcss-px-to-viewport](packages/postcss-px-to-viewport) | [![@empjs/postcss-px-to-viewport version](https://img.shields.io/npm/v/@empjs/postcss-px-to-viewport.svg?label=%20)](packages/postcss-px-to-viewport/CHANGELOG.md) |
+| [@empjs/plugin-vue3](packages/plugin-vue3) | [![@empjs/plugin-vue3 version](https://img.shields.io/npm/v/@empjs/plugin-vue3.svg?label=%20)](packages/plugin-vue3/README.md) |
 | [@empjs/plugin-vue2](packages/plugin-vue2) | [![@empjs/plugin-vue2 version](https://img.shields.io/npm/v/@empjs/plugin-vue2.svg?label=%20)](packages/plugin-vue2/README.md) |
 |            |               |
+
 
 ## 提示 
 + 目前 v3 属于内测阶段，需要测试的可以使用 `npm i @empjs/cli` 安装，问题报障请加上 `v3` 的tag.
