@@ -17,9 +17,9 @@ export default defineConfig(() => ({
 			hm.src = "https://hm.baidu.com/hm.js?467209d2ca945747528b2be4c124f5c1";
 			var s = document.getElementsByTagName("script")[0];
 			s.parentNode.insertBefore(hm, s);
-		})();`]
+		})();`],
+		['script', {id: 'to302'}, `window.location.href="https://empjs.dev"`]
 	],
-
 	markdown: {
 		headers: {
 			level: [0, 0]
