@@ -18,7 +18,7 @@ export default defineConfig(() => ({
 			var s = document.getElementsByTagName("script")[0];
 			s.parentNode.insertBefore(hm, s);
 		})();`],
-		['script', {id: 'to302'}, `window.location.href="https://empjs.dev"`]
+		// ['script', {id: 'to302'}, `window.location.href="https://empjs.dev"`]
 	],
 	markdown: {
 		headers: {

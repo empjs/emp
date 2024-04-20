@@ -4,8 +4,3 @@
 
 [build.environment]
   NPM_FLAGS="--version"
-
-[[redirects]]
-from = "/"
-to = "https://empjs.dev/"
-status = 302
