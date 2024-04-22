@@ -18,6 +18,9 @@ hero:
     - theme: alt
       text: GitHub
       link: https://github.com/efoxTeam/emp
+    - theme: brand
+      text: EMP v3
+      link: https://empjs.dev/
 
 features:
   - title: 💡 微组件化
