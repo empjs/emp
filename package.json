@@ -7,6 +7,7 @@
 	"author": "ken <ckken@qq.com>",
 	"license": "MIT",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"test": "jest",
 		"lint": "eslint . --ext js,ts,tsx --fix",
@@ -30,7 +31,7 @@
 	},
 	"engines": {
 		"node": ">=14",
-		"pnpm": ">=7"
+		"pnpm": ">=8"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^11.0.0",
