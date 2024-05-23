@@ -14,17 +14,8 @@
 + 🛠️ 多种开发需求、支持开箱即用。
 + 🔩 通用的插件、共享 webpackChain 插件接口.
 
-## 📦 依赖包
-
-| Package                                         | Version (click for changelogs)                                                                                                    |
-| ----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
-| [@empjs/cli](packages/cli)                      | [![@empjs/cli version](https://img.shields.io/npm/v/@empjs/cli.svg?label=%20)](packages/cli/CHANGELOG.md)                                    |
-| [@empjs/plugin-lightningcss](packages/plugin-lightningcss) | [![@empjs/plugin-lightningcss version](https://img.shields.io/npm/v/@empjs/plugin-lightningcss.svg?label=%20)](packages/plugin-lightningcss/README.md.md)                                    |
-| [@empjs/eslint-config-react](packages/eslint-config-react) | [![@empjs/eslint-config-react version](https://img.shields.io/npm/v/@empjs/eslint-config-react.svg?label=%20)](packages/eslint-config-react/CHANGELOG.md) |
-| [@empjs/postcss-px-to-viewport](packages/postcss-px-to-viewport) | [![@empjs/postcss-px-to-viewport version](https://img.shields.io/npm/v/@empjs/postcss-px-to-viewport.svg?label=%20)](packages/postcss-px-to-viewport/CHANGELOG.md) |
-| [@empjs/plugin-vue3](packages/plugin-vue3) | [![@empjs/plugin-vue3 version](https://img.shields.io/npm/v/@empjs/plugin-vue3.svg?label=%20)](packages/plugin-vue3/README.md) |
-| [@empjs/plugin-vue2](packages/plugin-vue2) | [![@empjs/plugin-vue2 version](https://img.shields.io/npm/v/@empjs/plugin-vue2.svg?label=%20)](packages/plugin-vue2/README.md) |
-|            |               |
+## 📦 插件总览
+[点击查看](https://empjs.dev/plugin/)
 
 
 ## 提示 
