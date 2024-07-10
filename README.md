@@ -20,7 +20,7 @@
 + 📦 [插件总览](https://empjs.dev/plugin/)
 + 📚 [交流区](https://github.com/empjs/emp/discussions/364)
 + 🎨 [官网Github](https://github.com/empjs/official)
-+ 🎯 [初始化项目](https://github.com/empjs/create-emp)
++ 🎯 [工程初始化](https://github.com/empjs/create-emp)
 
 
 ## QQ 交流群 
