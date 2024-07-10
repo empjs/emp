@@ -1,0 +1,26 @@
+{
+  "name": "vue-2-element",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "3.0.0",
+    "@empjs/plugin-vue2": "*"
+  },
+  "dependencies": {
+    "element-ui": "^2.15.6",
+    "vue": "^2.7.14",
+    "vue-router": "3",
+    "vuex": "3"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp",
+    "lint": "eslint . --ext js,ts,tsx --fix"
+  }
+}

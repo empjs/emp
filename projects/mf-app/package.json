@@ -1,0 +1,27 @@
+{
+  "name": "mf-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev -ev aa=1 -ev bb=2 -ev cc=3",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "3.0.0",
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.14"
+  },
+  "dependencies": {
+    "core-js": "^3.36.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

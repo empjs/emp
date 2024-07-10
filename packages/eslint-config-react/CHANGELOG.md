@@ -1,1 +1,0 @@
-# @empjs/eslint-config-react

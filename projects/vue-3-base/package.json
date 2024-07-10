@@ -1,0 +1,24 @@
+{
+  "name": "vue-3-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "3.0.0",
+    "@empjs/plugin-vue3": "*"
+  },
+  "dependencies": {
+    "ant-design-vue": "^4.1.2",
+    "vue": "^3.4.20"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "author": "",
+  "license": "ISC"
+}

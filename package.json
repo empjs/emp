@@ -1,45 +1,31 @@
 {
-  "name": "emp-workspace",
-  "version": "1.0.0",
-  "description": "emp workspace",
-  "main": "index.js",
-  "type": "module",
-  "repository": "https://github.com/empjs/emp.git",
-  "author": "ken <ckken@qq.com>",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "prepare": "husky install",
-    "mfdev":"pnpm --filter mf-host --filter mf-app dev",
-    "mfbuild":"pnpm --filter mf-host --filter mf-app build",
-    "mfstat":"pnpm --filter mf-host --filter mf-app stat",
-    "mfstart":"pnpm --filter mf-host --filter mf-app start"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "pnpm": ">=8"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.8.0",
-    "@commitlint/config-conventional": "^17.8.0",
-    "@empjs/eslint-config-react": "workspace:^",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
-    "typescript": "^5.3.3"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@empjs/eslint-config-react"
-    ]
-  },
-  "eslintIgnore": [
-    "node_modules",
-    "dist"
-  ]
+	"name": "emp-workspace",
+	"version": "1.0.0",
+	"description": "emp workspace",
+	"main": "index.js",
+	"type": "module",
+	"repository": "https://github.com/empjs/emp.git",
+	"author": "ken <ckken@qq.com>",
+	"license": "MIT",
+	"private": true,
+	"scripts": {},
+	"engines": {
+		"node": ">=20.0.0",
+		"pnpm": ">=8"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.8.0",
+		"@commitlint/config-conventional": "^17.8.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^15.0.2",
+		"typescript": "^5.3.3"
+	},
+	"commitlint": {
+		"extends": ["@commitlint/config-conventional"]
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": ["@empjs/eslint-config-react"]
+	},
+	"eslintIgnore": ["node_modules", "dist"]
 }

@@ -1,0 +1,12 @@
+// @import '~@/css/mixin';
+
+.wrap2 {
+  @include clearfix();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  font-size: 16px;
+  background: yellow;
+}
