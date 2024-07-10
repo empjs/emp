@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="240" src="docs/assets/emp-logo.png" alt="emp">
+    <img width="100%" src="docs/assets/banner.jpg" alt="emp">
 </p>
 
 # EMP ⚡ 3.0
