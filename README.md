@@ -18,8 +18,9 @@
 + 🚀 [快速开始](https://empjs.dev/guide/start/quick-start.html)
 + 🍭 [配置总览](https://empjs.dev/config/index.html)
 + 📦 [插件总览](https://empjs.dev/plugin/)
-+ 📚 [v3讨论区](https://github.com/empjs/emp/discussions/364)
-+ ⚡ [官网Github](https://github.com/empjs/official)
++ 📚 [交流区](https://github.com/empjs/emp/discussions/364)
++ 🎨 [官网Github](https://github.com/empjs/official)
++ 🎯 [初始化项目](https://github.com/empjs/create-emp)
 
 
 ## QQ 交流群 
