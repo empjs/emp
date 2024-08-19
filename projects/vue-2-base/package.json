@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.0.0",
+    "@empjs/cli": "3.0.1",
     "@empjs/plugin-vue2": "*"
   },
   "dependencies": {

@@ -32,7 +32,7 @@
     "mobx-react": "^9.1.1"
   },
   "devDependencies": {
-    "@empjs/cli": "3.0.0",
+    "@empjs/cli": "3.0.1",
     "@empjs/plugin-react": "3.0.0",
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.9"

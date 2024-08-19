@@ -4,7 +4,7 @@ import pluginReact from '@empjs/plugin-react'
 
 const defaultFn = defineConfig(store => {
   const ip = store.getLanIp()
-  const runtimeHost = `http://${ip}:3011`
+  // const runtimeHost = `http://${ip}:3011`
   return {
     plugins: [pluginReact()],
     html: {
@@ -25,11 +25,11 @@ const defaultFn = defineConfig(store => {
     empShare: {
       name: 'mfHost',
       dts: true,
-      fastMode: {
-        runtimeHost,
-        //不同版本react 不能设置 防止被篡改
-        framework: '',
-      },
+      // fastMode: {
+      //   runtimeHost,
+      //   //不同版本react 不能设置 防止被篡改
+      //   framework: '',
+      // },
       shared: {
         react: {
           requiredVersion: '^18.2.0',

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.0.0",
+    "@empjs/cli": "3.0.1",
     "@empjs/plugin-vue3": "^3.0.0-beta.3",
     "tailwindcss": "^3.4.3"
   },
