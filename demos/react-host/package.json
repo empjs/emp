@@ -1,0 +1,31 @@
+{
+    "name": "react-host",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+      "dev": "emp dev",
+      "build": "emp build",
+      "start": "emp serve",
+      "stat": "emp build --analyze",
+      "emp": "emp"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@empjs/cli": "3.1.1",
+      "@empjs/plugin-react": "3.1.1",
+      "@types/react": "^18.2.30",
+      "@types/react-dom": "^18.2.14"
+    },
+    "dependencies": {
+      "@empjs/share": "3.1.2",
+      "core-js": "^3.36.1",
+      "mobx": "^6.12.3",
+      "mobx-react": "^9.1.1",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    }
+  }

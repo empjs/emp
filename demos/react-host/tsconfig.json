@@ -1,0 +1,24 @@
+{
+  "extends": "@empjs/cli/emp-tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "~@/*": ["src/*"]
+    },
+    //解决 scss 的 css module 提示问题
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "additionalData": "@import '~@/css/mixin';",
+          "allowUnknownClassnames": true
+        },
+        "postcssOptions": {
+          "useConfig": true
+        }
+      }
+    ]
+  },
+  "include": ["src"]
+}
