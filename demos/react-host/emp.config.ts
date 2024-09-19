@@ -24,7 +24,7 @@ export default defineConfig(store => {
         },
         empRuntime: {
           runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.2/dist/index.js",
-          frameworkLib: "https://unpkg.yy.com/@empjs/libs-18@0.0.1/dist/runtime.umd.js",
+          frameworkLib: "https://unpkg.yy.com/@empjs/libs-18@0.0.1/dist/",
           frameworkGlobal: 'EMP_ADAPTER_REACT',
           framework: 'react',
         },
