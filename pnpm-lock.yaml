@@ -24,6 +24,74 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  demos/react17/react-app:
+    dependencies:
+      '@empjs/share':
+        specifier: 3.1.2
+        version: 3.1.2(typescript@5.3.3)(webpack@5.90.3)
+      core-js:
+        specifier: ^3.36.1
+        version: 3.38.1
+      mobx:
+        specifier: ^6.12.3
+        version: 6.13.0
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.1.1(mobx@6.13.0)(react-dom@17.0.2)(react@17.0.2)
+      react:
+        specifier: ^17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: ^17.0.2
+        version: 17.0.2(react@17.0.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.1.1
+        version: 3.1.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-react':
+        specifier: 3.1.1
+        version: 3.1.1(typescript@5.3.3)
+      '@types/react':
+        specifier: ^17.0.2
+        version: 17.0.82
+      '@types/react-dom':
+        specifier: ^17.0.2
+        version: 17.0.25
+
+  demos/react17/react-host:
+    dependencies:
+      '@empjs/share':
+        specifier: 3.1.2
+        version: 3.1.2(typescript@5.3.3)(webpack@5.90.3)
+      core-js:
+        specifier: ^3.36.1
+        version: 3.38.1
+      mobx:
+        specifier: ^6.12.3
+        version: 6.13.0
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.1.1(mobx@6.13.0)(react-dom@17.0.2)(react@17.0.2)
+      react:
+        specifier: ^17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: ^17.0.2
+        version: 17.0.2(react@17.0.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.1.1
+        version: 3.1.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-react':
+        specifier: 3.1.1
+        version: 3.1.1(typescript@5.3.3)
+      '@types/react':
+        specifier: ^17.0.2
+        version: 17.0.82
+      '@types/react-dom':
+        specifier: ^17.0.2
+        version: 17.0.25
+
   demos/react18/react-app:
     dependencies:
       '@empjs/share':
@@ -3906,6 +3974,12 @@ packages:
       '@types/react': 16.14.60
     dev: true
 
+  /@types/react-dom@17.0.25:
+    resolution: {integrity: sha512-urx7A7UxkZQmThYA4So0NelOVjx3V4rNFVJwp0WZlbIK5eM4rNJDiN3R/E9ix0MBh6kAEojk/9YL+Te6D9zHNA==}
+    dependencies:
+      '@types/react': 17.0.82
+    dev: true
+
   /@types/react-dom@18.3.0:
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
     dependencies:
@@ -3914,6 +3988,14 @@ packages:
 
   /@types/react@16.14.60:
     resolution: {integrity: sha512-wIFmnczGsTcgwCBeIYOuy2mdXEiKZ5znU/jNOnMZPQyCcIxauMGWlX0TNG4lZ7NxRKj7YUIZRneJQSSdB2jKgg==}
+    dependencies:
+      '@types/prop-types': 15.7.12
+      '@types/scheduler': 0.16.8
+      csstype: 3.1.3
+    dev: true
+
+  /@types/react@17.0.82:
+    resolution: {integrity: sha512-wTW8Lu/PARGPFE8tOZqCvprOKg5sen/2uS03yKn2xbCDFP9oLncm7vMDQ2+dEQXHVIXrOpW6u72xUXEXO0ypSw==}
     dependencies:
       '@types/prop-types': 15.7.12
       '@types/scheduler': 0.16.8
@@ -8356,6 +8438,25 @@ packages:
       use-sync-external-store: 1.2.2(react@16.14.0)
     dev: false
 
+  /mobx-react-lite@4.0.7(mobx@6.13.0)(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-RjwdseshK9Mg8On5tyJZHtGD+J78ZnCnRaxeQDSiciKVQDUbfZcXhmld0VMxAwvcTnPEHZySGGewm467Fcpreg==}
+    peerDependencies:
+      mobx: ^6.9.0
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: 6.13.0
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      use-sync-external-store: 1.2.2(react@17.0.2)
+    dev: false
+
   /mobx-react-lite@4.0.7(mobx@6.13.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-RjwdseshK9Mg8On5tyJZHtGD+J78ZnCnRaxeQDSiciKVQDUbfZcXhmld0VMxAwvcTnPEHZySGGewm467Fcpreg==}
     peerDependencies:
@@ -8411,6 +8512,25 @@ packages:
       mobx-react-lite: 4.0.7(mobx@6.13.0)(react-dom@16.14.0)(react@16.14.0)
       react: 16.14.0
       react-dom: 16.14.0(react@16.14.0)
+    dev: false
+
+  /mobx-react@9.1.1(mobx@6.13.0)(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-gVV7AdSrAAxqXOJ2bAbGa5TkPqvITSzaPiiEkzpW4rRsMhSec7C2NBCJYILADHKp2tzOAIETGRsIY0UaCV5aEw==}
+    peerDependencies:
+      mobx: ^6.9.0
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: 6.13.0
+      mobx-react-lite: 4.0.7(mobx@6.13.0)(react-dom@17.0.2)(react@17.0.2)
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
     dev: false
 
   /mobx-react@9.1.1(mobx@6.13.0)(react-dom@18.2.0)(react@18.2.0):
@@ -9208,6 +9328,17 @@ packages:
       scheduler: 0.19.1
     dev: false
 
+  /react-dom@17.0.2(react@17.0.2):
+    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+    peerDependencies:
+      react: 17.0.2
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react: 17.0.2
+      scheduler: 0.20.2
+    dev: false
+
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -9244,6 +9375,14 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.8.1
+    dev: false
+
+  /react@17.0.2:
+    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
     dev: false
 
   /react@18.2.0:
@@ -10072,6 +10211,13 @@ packages:
 
   /scheduler@0.19.1:
     resolution: {integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+
+  /scheduler@0.20.2:
+    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
@@ -11170,6 +11316,14 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 16.14.0
+    dev: false
+
+  /use-sync-external-store@1.2.2(react@17.0.2):
+    resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /use-sync-external-store@1.2.2(react@18.2.0):
