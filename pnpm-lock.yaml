@@ -24,14 +24,48 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  demos/react-host:
+  demos/react18/react-app:
     dependencies:
       '@empjs/share':
         specifier: 3.1.2
         version: 3.1.2(typescript@5.3.3)(webpack@5.90.3)
       core-js:
         specifier: ^3.36.1
-        version: 3.37.1
+        version: 3.38.1
+      mobx:
+        specifier: ^6.12.3
+        version: 6.13.0
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.1.1(mobx@6.13.0)(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.1.1
+        version: 3.1.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-react':
+        specifier: 3.1.1
+        version: 3.1.1(typescript@5.3.3)
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.0
+
+  demos/react18/react-host:
+    dependencies:
+      '@empjs/share':
+        specifier: 3.1.2
+        version: 3.1.2(typescript@5.3.3)(webpack@5.90.3)
+      core-js:
+        specifier: ^3.36.1
+        version: 3.38.1
       mobx:
         specifier: ^6.12.3
         version: 6.13.0
@@ -2149,7 +2183,7 @@ packages:
       chalk: 5.3.0
       commander: 11.1.0
       compression: 1.7.4
-      core-js: 3.37.1
+      core-js: 3.38.1
       cors: 2.8.5
       default-gateway: 7.2.2
       express: 4.19.2
@@ -2234,7 +2268,7 @@ packages:
     dependencies:
       '@module-federation/runtime': 0.1.21
       '@module-federation/sdk': 0.1.21
-      core-js: 3.37.1
+      core-js: 3.38.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -2361,7 +2395,7 @@ packages:
     dependencies:
       '@module-federation/enhanced': 0.6.3(typescript@5.3.3)(webpack@5.90.3)
       '@module-federation/sdk': 0.6.3
-      core-js: 3.37.1
+      core-js: 3.38.1
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2920,7 +2954,7 @@ packages:
       '@rsdoctor/sdk': 0.4.2(@rspack/core@1.0.5)(webpack@5.90.3)
       '@rsdoctor/types': 0.4.2(@rspack/core@1.0.5)(webpack@5.90.3)
       '@rsdoctor/utils': 0.4.2(@rspack/core@1.0.5)(webpack@5.90.3)
-      axios: 1.7.2
+      axios: 1.7.7
       enhanced-resolve: 5.12.0
       filesize: 10.1.6
       fs-extra: 11.2.0
@@ -3026,8 +3060,8 @@ packages:
       '@babel/code-frame': 7.24.7
       '@rsdoctor/types': 0.4.2(@rspack/core@1.0.5)(webpack@5.90.3)
       '@types/estree': 1.0.5
-      acorn: 8.10.0
-      acorn-import-assertions: 1.9.0(acorn@8.10.0)
+      acorn: 8.12.1
+      acorn-import-assertions: 1.9.0(acorn@8.12.1)
       acorn-walk: 8.3.3
       chalk: 4.1.2
       connect: 3.7.0
@@ -3528,7 +3562,7 @@ packages:
   /@simonwep/pickr@1.8.2:
     resolution: {integrity: sha512-/l5w8BIkrpP6n1xsetx9MWPWlU6OblN5YgZZphxan0Tq4BByTCETL6lyIeY8lagalS2Nbt4F2W034KHLIiunKA==}
     dependencies:
-      core-js: 3.37.1
+      core-js: 3.38.1
       nanopop: 2.4.2
     dev: false
 
@@ -4395,6 +4429,14 @@ packages:
     dependencies:
       acorn: 8.10.0
 
+  /acorn-import-assertions@1.9.0(acorn@8.12.1):
+    resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
+    peerDependencies:
+      acorn: ^8
+    dependencies:
+      acorn: 8.12.1
+    dev: true
+
   /acorn-walk@8.2.0:
     resolution: {integrity: sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==}
     engines: {node: '>=0.4.0'}
@@ -4709,7 +4751,6 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
-    dev: false
 
   /babel-helper-vue-jsx-merge-props@2.0.3:
     resolution: {integrity: sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==}
@@ -5520,11 +5561,11 @@ packages:
   /core-js@3.37.1:
     resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
     requiresBuild: true
+    dev: false
 
   /core-js@3.38.1:
     resolution: {integrity: sha512-OP35aUorbU3Zvlx7pjsFdu1rGNnD4pgw/CWoYzRY3t2EzoVT7shKHY1dlAy3f41cGIO7ZDPQimhGFTlEYkG/Hw==}
     requiresBuild: true
-    dev: true
 
   /core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -11412,8 +11453,8 @@ packages:
     hasBin: true
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      acorn: 8.10.0
-      acorn-walk: 8.2.0
+      acorn: 8.12.1
+      acorn-walk: 8.3.3
       commander: 7.2.0
       debounce: 1.2.1
       escape-string-regexp: 4.0.0
