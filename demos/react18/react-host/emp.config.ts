@@ -19,6 +19,7 @@ export default defineConfig(store => {
       }),
     ],
     build: {
+      
       polyfill: {
         entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
       },
