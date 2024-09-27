@@ -1,0 +1,12 @@
+{
+    "name": "emp3-react18-demo",
+    "ignored": true,
+    "version": "0.0.1",
+    "scripts": {
+      "dev": "pnpm --filter runtime-18-* --parallel dev",
+      "build": "pnpm --filter runtime-18-* --parallel build",
+      "serve": "pnpm --filter runtime-18-* --parallel serve",
+      "stat": "pnpm --filter runtime-18-* --parallel stat"
+    }
+  }
+  
