@@ -11,8 +11,8 @@ export default defineConfig(store => {
           './App': './src/App',
         },
         empRuntime: {
-          runtimeLib: `https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js`,
-          frameworkLib: `https://unpkg.yy.com/@empjs/libs-18@0.0.1/dist`,
+          runtimeLib: `https://unpkg.com/@empjs/share@3.1.5/output/sdk.js`,
+          frameworkLib: `https://unpkg.com/@empjs/libs-18@0.0.1/dist`,
           frameworkGlobal: 'EMP_ADAPTER_REACT',
           framework: 'react',
         },
@@ -21,7 +21,7 @@ export default defineConfig(store => {
     build: {
       
       polyfill: {
-        entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
       },
     },
     server: {

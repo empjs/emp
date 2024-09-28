@@ -23,8 +23,8 @@ export default defineConfig(store => {
           './CountComp': './src/CountComp',
         },
         empRuntime: {
-          runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.2/output/full.js",
-          frameworkLib: "https://unpkg.yy.com/@empjs/libs-17@0.0.1/dist",
+          runtimeLib: "https://unpkg.com/@empjs/share@3.1.2/output/full.js",
+          frameworkLib: "https://unpkg.com/@empjs/libs-17@0.0.1/dist",
           frameworkGlobal: 'EMP_ADAPTER_REACT_17',
           framework: 'react',
         },
