@@ -24,6 +24,37 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  demos/react16_18/react-16-app:
+    dependencies:
+      '@empjs/share':
+        specifier: 3.1.10
+        version: 3.1.10(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
+      mobx:
+        specifier: ^6.12.3
+        version: 6.13.0
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.1.1(mobx@6.13.0)(react-dom@16.14.0)(react@16.14.0)
+      react:
+        specifier: '16'
+        version: 16.14.0
+      react-dom:
+        specifier: '16'
+        version: 16.14.0(react@16.14.0)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.1.11
+        version: 3.1.11(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-react':
+        specifier: 3.1.4
+        version: 3.1.4(typescript@5.3.3)
+      '@types/react':
+        specifier: ^16.9.9
+        version: 16.14.60
+      '@types/react-dom':
+        specifier: ^16.9.9
+        version: 16.9.24
+
   demos/react17/react-app:
     dependencies:
       '@empjs/share':
@@ -2439,6 +2470,25 @@ packages:
       - webpack
     dev: true
 
+  /@empjs/share@3.1.10(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-PJCKhd4BkG1K8lAnEnpMRJfbSDGGdNi6GryR010ObRxE4qWr4jXI7vnSgZZACPp3lE2SG25LlHjaJ2yoAdS6qQ==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@module-federation/enhanced': 0.6.7(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
+      '@module-federation/sdk': 0.6.7
+      core-js: 3.38.1
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - react
+      - react-dom
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - vue-tsc
+      - webpack
+    dev: false
+
   /@empjs/share@3.1.10(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
     resolution: {integrity: sha512-PJCKhd4BkG1K8lAnEnpMRJfbSDGGdNi6GryR010ObRxE4qWr4jXI7vnSgZZACPp3lE2SG25LlHjaJ2yoAdS6qQ==}
     engines: {node: '>=16.0.0'}
@@ -2569,6 +2619,19 @@ packages:
       semver: 7.6.3
     dev: false
 
+  /@module-federation/data-prefetch@0.6.7(react-dom@16.14.0)(react@16.14.0):
+    resolution: {integrity: sha512-JjehCpSYQrpk11CVy3dxxRki7JWEI7GpkW+1X5CetQ/6l/UpbnQ6bReBFXPKY1MYiM6glJkUvxfTUA+9wcGZJg==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@module-federation/runtime': 0.6.7
+      '@module-federation/sdk': 0.6.7
+      fs-extra: 9.1.0
+      react: 16.14.0
+      react-dom: 16.14.0(react@16.14.0)
+    dev: false
+
   /@module-federation/data-prefetch@0.6.7(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-JjehCpSYQrpk11CVy3dxxRki7JWEI7GpkW+1X5CetQ/6l/UpbnQ6bReBFXPKY1MYiM6glJkUvxfTUA+9wcGZJg==}
     peerDependencies:
@@ -2696,6 +2759,41 @@ packages:
       - utf-8-validate
       - vue-tsc
     dev: true
+
+  /@module-federation/enhanced@0.6.7(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-GAKVr4RIbzAT+L+MLRot/VOxDjPLcW56i5zO0gxUbC/LHqNNhN6pGBoGRehs3q7HCKiwNdk+r8bFBNTmRSTRGQ==}
+    peerDependencies:
+      typescript: ^4.9.0 || ^5.0.0
+      vue-tsc: '>=1.0.24'
+      webpack: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue-tsc:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      '@module-federation/bridge-react-webpack-plugin': 0.6.7
+      '@module-federation/data-prefetch': 0.6.7(react-dom@16.14.0)(react@16.14.0)
+      '@module-federation/dts-plugin': 0.6.7(typescript@5.3.3)
+      '@module-federation/managers': 0.6.7
+      '@module-federation/manifest': 0.6.7(typescript@5.3.3)
+      '@module-federation/rspack': 0.6.7(typescript@5.3.3)
+      '@module-federation/runtime-tools': 0.6.7
+      '@module-federation/sdk': 0.6.7
+      btoa: 1.2.1
+      typescript: 5.3.3
+      upath: 2.0.1
+      webpack: 5.90.3(webpack-cli@4.10.0)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - react
+      - react-dom
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /@module-federation/enhanced@0.6.7(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
     resolution: {integrity: sha512-GAKVr4RIbzAT+L+MLRot/VOxDjPLcW56i5zO0gxUbC/LHqNNhN6pGBoGRehs3q7HCKiwNdk+r8bFBNTmRSTRGQ==}

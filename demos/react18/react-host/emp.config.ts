@@ -9,6 +9,7 @@ export default defineConfig(store => {
         name: `runtimeHost`,
         exposes: {
           './App': './src/App',
+          './CountComp': './src/CountComp',
         },
         empRuntime: {
           runtimeLib: `https://unpkg.com/@empjs/share@3.1.5/output/sdk.js`,
