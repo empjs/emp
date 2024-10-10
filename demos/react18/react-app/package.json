@@ -13,13 +13,12 @@
     "stat": "emp build --analyze"
   },
   "dependencies": {
-    "@empjs/share": "3.1.5",
-    "@module-federation/runtime": "^0.3.3",
+    "@empjs/share": "3.1.10",
     "react": "18",
     "react-dom": "18"
   },
   "devDependencies": {
-    "@empjs/cli": "3.1.5",
+    "@empjs/cli": "3.1.11",
     "@empjs/plugin-react": "3.1.4",
     "@types/react": "18",
     "@types/react-dom": "18"
