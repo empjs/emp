@@ -27,8 +27,8 @@ importers:
   demos/react16_18/react-16-app:
     dependencies:
       '@empjs/share':
-        specifier: 3.1.12
-        version: 3.1.12(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
       mobx:
         specifier: ^6.12.3
         version: 6.13.0
@@ -43,8 +43,8 @@ importers:
         version: 16.14.0(react@16.14.0)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.1.12
-        version: 3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
         specifier: 3.1.4
         version: 3.1.4(typescript@5.3.3)
@@ -58,8 +58,8 @@ importers:
   demos/react17/react-app:
     dependencies:
       '@empjs/share':
-        specifier: 3.1.12
-        version: 3.1.12(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
       core-js:
         specifier: ^3.36.1
         version: 3.38.1
@@ -77,8 +77,8 @@ importers:
         version: 17.0.2(react@17.0.2)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.1.12
-        version: 3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
         specifier: 3.1.4
         version: 3.1.4(typescript@5.3.3)
@@ -92,8 +92,8 @@ importers:
   demos/react17/react-host:
     dependencies:
       '@empjs/share':
-        specifier: 3.1.12
-        version: 3.1.12(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
       core-js:
         specifier: ^3.36.1
         version: 3.38.1
@@ -111,8 +111,8 @@ importers:
         version: 17.0.2(react@17.0.2)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.1.12
-        version: 3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
         specifier: 3.1.4
         version: 3.1.4(typescript@5.3.3)
@@ -128,8 +128,8 @@ importers:
   demos/react18/react-app:
     dependencies:
       '@empjs/share':
-        specifier: 3.1.12
-        version: 3.1.12(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -138,8 +138,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.1.12
-        version: 3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
         specifier: 3.1.4
         version: 3.1.4(typescript@5.3.3)
@@ -153,8 +153,8 @@ importers:
   demos/react18/react-host:
     dependencies:
       '@empjs/share':
-        specifier: 3.1.12
-        version: 3.1.12(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -163,8 +163,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.1.12
-        version: 3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.1.13
+        version: 3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
         specifier: 3.1.4
         version: 3.1.4(typescript@5.3.3)
@@ -2300,8 +2300,8 @@ packages:
       - webpack-cli
     dev: true
 
-  /@empjs/cli@3.1.12(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-nc3URFNHR+LdNKerQNgTP2tl1YrBwxRfhWIkvmS9AeJEWhkMWKwALgGngX0YC4rv05CaaCsvvrFJY8b68CAO8g==}
+  /@empjs/cli@3.1.13(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-mImxdBFiaioPerUAIdwUG2Df93pXkeP80BW6OtFnlF0+/UuwAXViKOpHK4lcNLFSOetKm1UsLh2UcViS6SYrsg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
@@ -2470,8 +2470,8 @@ packages:
       - webpack
     dev: true
 
-  /@empjs/share@3.1.12(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-63008GxRp7J4YEF0uDbD81C6tlEGLoXcAQKn+/dIDLOH/LI9OM5tfZCxjMnd7P3Q3DJZ0Tb1wME53lyPHbV69A==}
+  /@empjs/share@3.1.13(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-bDwwktjT5CGqWvFHDI+q4z5Fgr77Q7N1lVrpwtQF75XEvk8k1wccjysPWy83B/iFmU7wZ8tuHk4jXjzAuWc/OQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@module-federation/enhanced': 0.6.10(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
@@ -2489,8 +2489,8 @@ packages:
       - webpack
     dev: false
 
-  /@empjs/share@3.1.12(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-63008GxRp7J4YEF0uDbD81C6tlEGLoXcAQKn+/dIDLOH/LI9OM5tfZCxjMnd7P3Q3DJZ0Tb1wME53lyPHbV69A==}
+  /@empjs/share@3.1.13(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-bDwwktjT5CGqWvFHDI+q4z5Fgr77Q7N1lVrpwtQF75XEvk8k1wccjysPWy83B/iFmU7wZ8tuHk4jXjzAuWc/OQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@module-federation/enhanced': 0.6.10(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
@@ -2508,8 +2508,8 @@ packages:
       - webpack
     dev: false
 
-  /@empjs/share@3.1.12(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-63008GxRp7J4YEF0uDbD81C6tlEGLoXcAQKn+/dIDLOH/LI9OM5tfZCxjMnd7P3Q3DJZ0Tb1wME53lyPHbV69A==}
+  /@empjs/share@3.1.13(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-bDwwktjT5CGqWvFHDI+q4z5Fgr77Q7N1lVrpwtQF75XEvk8k1wccjysPWy83B/iFmU7wZ8tuHk4jXjzAuWc/OQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@module-federation/enhanced': 0.6.10(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
