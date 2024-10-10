@@ -1,15 +1,15 @@
 import {CountComp} from './CountComp'
 type HostType = {
   name?: string
-  component?: React.ElementType
+  children?: React.ReactNode
 }
-const App = ({name, component}: HostType) => {
+const App = ({name, children}: HostType) => {
   return (
-    <>
+    <div>
       <h1>React 18 Runtime Host: {name ? name : ''}</h1>
-      {component && <component />}
       <CountComp />
-    </>
+      {children}
+    </div>
   )
 }
 export default App

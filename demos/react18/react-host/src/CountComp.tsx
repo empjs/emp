@@ -4,7 +4,7 @@ export const CountComp = () => {
   return (
     <div>
       <h3>
-        CountComp React Version: {version}
+        CountCompWrap React Version: {version}
       </h3>
     </div>
   )

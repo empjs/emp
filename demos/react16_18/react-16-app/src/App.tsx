@@ -18,27 +18,21 @@ empRuntime.init({
   name: 'federationRuntimeDemo',
 })
 // 封装 React 18的组件 以便插入到 React 16
-const MfApp = reactAdapter.adapter(empRuntime.load('runtimeHost/App'))
+const React18App = reactAdapter.adapter(empRuntime.load('runtimeHost/App'))
 const CountComp = reactAdapter.adapter(empRuntime.load('runtimeHost/CountComp'), 'CountComp')
 
-// 创建 React 16 组件
-const ParentComponent = () => {
-  return (
-    <Card title={() => <>App Inject mfHost</>}>
-      <CountComp name="a" />
-      <CountComp16 />
-    </Card>
-  )
-}
 // 封装 React 16的组件 以便插入到 React 18
-const ParentComponentAdepter = reactAdapter.adapter(ParentComponent, 'default', React, ReactDOM)
+const ParentComponentAdepter = reactAdapter.adapter(CountComp16, 'default', React, ReactDOM)
+
 const App = () => {
   return (
     <>
       <h1>App React Version {version}</h1>
       <ShowCountComp16 />
       <Card title="EMP From mfhost">
-        <MfApp component={ParentComponentAdepter} />
+        <React18App>
+          <ParentComponentAdepter />
+        </React18App>
       </Card>
     </>
   )
