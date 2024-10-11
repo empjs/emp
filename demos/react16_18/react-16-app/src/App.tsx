@@ -1,7 +1,7 @@
 import React, { useEffect, useState, version } from 'react'
 import ReactDOM from 'react-dom'
 import { Card, CountComp as CountComp16, ShowCountComp as ShowCountComp16 } from './CountComp'
-import './index.scss'
+import './index.css'
 import './normalize.css'
 import { reactAdapter } from '@empjs/share/adapter'
 import empRuntime from '@empjs/share/runtime'

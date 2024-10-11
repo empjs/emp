@@ -15,6 +15,13 @@ export default defineConfig((store) => {
         mode: 'default',
       }
     },
+    build: {
+      css: {
+        sass: {
+          mode: 'default'
+        }
+      }
+    },
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
@@ -27,6 +34,6 @@ export default defineConfig((store) => {
     ],
     server: {port: 4002},
     define: {mfhost},
-    debug: {clearLog: false, showRsconfig: false},
+    debug: {clearLog: false, showRsconfig: 'x.json'},
   }
 })
