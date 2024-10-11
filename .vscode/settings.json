@@ -1,6 +1,6 @@
 {
 	"eslint.enable": false,
-	"biome.enabled": false,
+	"biome.enabled": true,
 	"css.lint.unknownAtRules": "ignore",
 	"editor.codeActionsOnSave": {
 		"quickfix.biome": "explicit",
