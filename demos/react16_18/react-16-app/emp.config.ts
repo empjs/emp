@@ -10,6 +10,11 @@ export default defineConfig((store) => {
     // html: {
     //   title: pkg.name,
     // },
+    css: {
+      sass: {
+        mode: 'default',
+      }
+    },
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
