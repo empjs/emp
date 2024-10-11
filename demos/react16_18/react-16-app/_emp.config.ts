@@ -2,7 +2,7 @@ import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {pluginRspackEmpShare} from '@empjs/share'
 //
-export default defineConfig(store => {
+export default defineConfig((store) => {
   const mfhost = `https://emp-demo-react18-host.pages.dev/demos/react18/react-host/dist/emp.js`
   // const mfhost = `http://localhost:1802/emp.js`
   const frameworkLib = `https://unpkg.com/@empjs/libs-18@0.0.1/dist`
@@ -22,9 +22,9 @@ export default defineConfig(store => {
     ],
     server: {port: 4002},
     define: {mfhost},
-    debug: {clearLog: false, showRsconfig: true, showScriptDebug: true},
+    debug: {clearLog: false, showRsconfig: false, showScriptDebug: true},
     lifeCycle:{
-      beforeBuild(){
+      async beforeBuild(){
         console.log('== beforeBuild ==')
       }
     }
