@@ -13,6 +13,7 @@ export default defineConfig((store) => {
         empRuntime: {
           frameworkLib,
           frameworkGlobal: 'EMP_ADAPTER_REACT',
+          framework: undefined,
           runtimeLib: "https://unpkg.com/@empjs/share@3.1.2/output/full.js",
         },
       }),
