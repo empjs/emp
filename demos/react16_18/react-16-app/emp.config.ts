@@ -7,21 +7,6 @@ export default defineConfig((store) => {
   // const mfhost = `http://localhost:1802/emp.js`
   const frameworkLib = "https://unpkg.com/@empjs/libs-18@0.0.1/dist"
   return {
-    // html: {
-    //   title: pkg.name,
-    // },
-    css: {
-      sass: {
-        mode: 'default',
-      }
-    },
-    build: {
-      css: {
-        sass: {
-          mode: 'default'
-        }
-      }
-    },
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
@@ -34,6 +19,6 @@ export default defineConfig((store) => {
     ],
     server: {port: 4002},
     define: {mfhost},
-    debug: {clearLog: false, showRsconfig: 'x.json'},
+    debug: {clearLog: false, showRsconfig: false},
   }
 })

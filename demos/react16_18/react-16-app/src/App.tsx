@@ -19,7 +19,6 @@ empRuntime.init({
 })
 // 封装 React 18的组件 以便插入到 React 16
 const React18App = reactAdapter.adapter(empRuntime.load('runtimeHost/App'))
-const CountComp = reactAdapter.adapter(empRuntime.load('runtimeHost/CountComp'), 'CountComp')
 
 // 封装 React 16的组件 以便插入到 React 18
 const ParentComponentAdepter = reactAdapter.adapter(CountComp16, 'default', React, ReactDOM)
