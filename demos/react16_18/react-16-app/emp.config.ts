@@ -22,7 +22,7 @@ export default defineConfig((store) => {
     ],
     server: {port: 4002},
     define: {mfhost},
-    debug: {clearLog: false, showRsconfig: false, showScriptDebug: true},
+    debug: {clearLog: false, showRsconfig: false},
     lifeCycle:{
       async beforeBuild(){
         console.log('== beforeBuild ==')
