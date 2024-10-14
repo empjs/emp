@@ -14,15 +14,15 @@
     "emp": "emp"
   },
   "dependencies": {
-    "@empjs/share": "3.1.13",
+    "@empjs/share": "3.2.0",
     "mobx": "^6.12.3",
     "mobx-react": "^9.1.1",
     "react": "16",
     "react-dom": "16"
   },
   "devDependencies": {
-    "@empjs/cli": "3.1.13",
-    "@empjs/plugin-react": "3.1.4",
+    "@empjs/cli": "3.2.4",
+    "@empjs/plugin-react": "3.2.0",
     "@types/react": "16",
     "@types/react-dom": "16"
   }
