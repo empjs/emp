@@ -26,7 +26,7 @@ const ParentComponentAdepter = reactAdapter.adapter(CountComp16, 'default', Reac
 const App = () => {
   return (
     <>
-      <h1>App React Version {version}</h1>
+      <h1>App React Version {version} {process.env.oooop}</h1>
       <ShowCountComp16 />
       <Card title="EMP From mfhost">
         <React18App>

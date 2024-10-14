@@ -1,0 +1,28 @@
+{
+  "name": "vue-2-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "3.2.4",
+    "@empjs/plugin-vue2": "3.2.0",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "stylus": "^0.63.0",
+    "stylus-loader": "^8.1.1"
+  },
+  "dependencies": {
+    "vue": "^2.7.14",
+    "vue-router": "3",
+    "vuex": "3"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  }
+}
