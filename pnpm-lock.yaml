@@ -190,21 +190,12 @@ importers:
       '@empjs/cli':
         specifier: 3.2.4
         version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-stylus':
+        specifier: ^3.1.1
+        version: 3.1.1(@rspack/core@1.0.10)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
-      css-loader:
-        specifier: ^7.1.2
-        version: 7.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
-      style-loader:
-        specifier: ^4.0.0
-        version: 4.0.0(webpack@5.90.3)
-      stylus:
-        specifier: ^0.63.0
-        version: 0.63.0
-      stylus-loader:
-        specifier: ^8.1.1
-        version: 8.1.1(@rspack/core@1.0.10)(stylus@0.63.0)(webpack@5.90.3)
 
   projects/emp-runtime-react-16-app:
     dependencies:
@@ -2416,6 +2407,20 @@ packages:
       - typescript
     dev: true
 
+  /@empjs/plugin-stylus@3.1.1(@rspack/core@1.0.10)(webpack@5.90.3):
+    resolution: {integrity: sha512-l8DjsvBTKvSvDykkdCzy2v9+o35oHCVxLgfioZubjy7N+HYtTso6yXgoX6OrAIj1o8kLU1Szxqln2aQeO2lOHA==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      css-loader: 7.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
+      style-loader: 4.0.0(webpack@5.90.3)
+      stylus: 0.63.0
+      stylus-loader: 8.1.1(@rspack/core@1.0.10)(stylus@0.63.0)(webpack@5.90.3)
+    transitivePeerDependencies:
+      - '@rspack/core'
+      - supports-color
+      - webpack
+    dev: true
+
   /@empjs/plugin-vue2@3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3):
     resolution: {integrity: sha512-WictabwUk91xjOd92/7FGFwkIyjs3N00JE1S/uFZtW0toxSE/yUByozhHFdXETGtIlmjXCuYh5aQfMiNqPWu9g==}
     engines: {node: '>=16.0.0'}
@@ -4212,7 +4217,6 @@ packages:
 
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
-    dev: true
 
   /@types/normalize-package-data@2.4.3:
     resolution: {integrity: sha512-ehPtgRgaULsFG8x0NeYJvmyH1hmlfsNLujHe9dQEia/7MAJYdzMSi19JtchUHjmBA6XC/75dK55mzZH+RyieSg==}
@@ -8081,7 +8085,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.18.101
+      '@types/node': 20.5.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 

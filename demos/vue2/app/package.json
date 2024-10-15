@@ -7,11 +7,8 @@
   "type": "module",
   "devDependencies": {
     "@empjs/cli": "3.2.4",
-    "@empjs/plugin-vue2": "3.2.0",
-    "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0",
-    "stylus": "^0.63.0",
-    "stylus-loader": "^8.1.1"
+    "@empjs/plugin-stylus": "^3.1.1",
+    "@empjs/plugin-vue2": "3.2.0"
   },
   "dependencies": {
     "vue": "^2.7.14",
