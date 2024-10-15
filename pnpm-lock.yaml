@@ -191,8 +191,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-stylus':
-        specifier: ^3.1.1
-        version: 3.1.1(@rspack/core@1.0.10)(webpack@5.90.3)
+        specifier: ^3.1.2
+        version: 3.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
@@ -2407,8 +2407,8 @@ packages:
       - typescript
     dev: true
 
-  /@empjs/plugin-stylus@3.1.1(@rspack/core@1.0.10)(webpack@5.90.3):
-    resolution: {integrity: sha512-l8DjsvBTKvSvDykkdCzy2v9+o35oHCVxLgfioZubjy7N+HYtTso6yXgoX6OrAIj1o8kLU1Szxqln2aQeO2lOHA==}
+  /@empjs/plugin-stylus@3.1.2(@rspack/core@1.0.10)(webpack@5.90.3):
+    resolution: {integrity: sha512-5586vqz7Glp96nDWh9MRZ2IAbQKGd9LNBKHKmq+vPBXQm9TqbJQUxN9l5v4si8hCWTF4sut653Zd2dJ8ldYH9Q==}
     engines: {node: '>=16.0.0'}
     dependencies:
       css-loader: 7.1.2(@rspack/core@1.0.10)(webpack@5.90.3)

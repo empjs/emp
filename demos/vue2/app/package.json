@@ -7,7 +7,7 @@
   "type": "module",
   "devDependencies": {
     "@empjs/cli": "3.2.4",
-    "@empjs/plugin-stylus": "^3.1.1",
+    "@empjs/plugin-stylus": "^3.1.2",
     "@empjs/plugin-vue2": "3.2.0"
   },
   "dependencies": {
