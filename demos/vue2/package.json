@@ -3,10 +3,10 @@
     "ignored": true,
     "version": "0.0.1",
     "scripts": {
-      "dev": "pnpm --filter vue-2-* --parallel dev",
-      "build": "pnpm --filter vue-2-* --parallel build",
-      "serve": "pnpm --filter vue-2-* --parallel serve",
-      "stat": "pnpm --filter vue-2-* --parallel stat"
+      "dev": "pnpm --filter 'vue2-*' --parallel dev",
+      "build": "pnpm --filter vue2-* --parallel build",
+      "serve": "pnpm --filter vue2-* --parallel serve",
+      "stat": "pnpm --filter vue2-* --parallel stat"
     }
   }
   
