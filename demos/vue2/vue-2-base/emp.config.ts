@@ -33,12 +33,9 @@ export default defineConfig(store => {
     server: {
       port: 9001,
       open: false,
-      // https: true
     },
     appEntry: 'main.js',
     debug: {
-      // showRsconfig: true,
-      // showPerformance: true,
       clearLog: false,
     },
   }
