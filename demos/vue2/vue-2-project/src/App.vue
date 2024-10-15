@@ -1,23 +1,22 @@
 <template>
   <div class="main">
-    <h1>Project App ! vue 2 project!</h1>
+    <h1>Project App vue 2 project</h1>
     <h2>=== @v2b/Content ===</h2>
-    <!-- <Content /> -->
+    <Content />
     <h2>CompositionApi</h2>
-  <!-- <CompositionApi /> -->
+  <CompositionApi />
     <h2>=== @v2b/Table ===</h2>
-    <!-- <Table /> -->
+    <Table />
   </div>
 </template>
 
 <script>
-import './app.styl'
 //import Content from "@v2b/Content"
 export default {
   components: {
-    // Content: () => import('@v2b/Content'),
-    // Table: () => import('@v2b/Table'),
-    // CompositionApi: () => import('@v2b/CompositionApi'),
+    Content: () => import('@v2b/Content'),
+    Table: () => import('@v2b/Table'),
+    CompositionApi: () => import('@v2b/CompositionApi'),
   },
 }
 </script>

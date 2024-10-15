@@ -175,8 +175,14 @@ importers:
         specifier: '18'
         version: 18.3.0
 
-  demos/vue2/app:
+  demos/vue2/vue-2-base:
     dependencies:
+      '@empjs/share':
+        specifier: 3.2.0
+        version: 3.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
       vue:
         specifier: ^2.7.14
         version: 2.7.16
@@ -190,12 +196,53 @@ importers:
       '@empjs/cli':
         specifier: 3.2.4
         version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
-      '@empjs/plugin-stylus':
-        specifier: ^3.1.2
-        version: 3.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
-        version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
+        version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
+
+  demos/vue2/vue-2-element:
+    dependencies:
+      element-ui:
+        specifier: ^2.15.6
+        version: 2.15.14(vue@2.7.16)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.2.4
+        version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-vue2':
+        specifier: 3.2.0
+        version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
+
+  demos/vue2/vue-2-project:
+    dependencies:
+      '@empjs/share':
+        specifier: 3.2.0
+        version: 3.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: 3.2.4
+        version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+      '@empjs/plugin-vue2':
+        specifier: 3.2.0
+        version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
 
   projects/emp-runtime-react-16-app:
     dependencies:
@@ -686,7 +733,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     dev: true
 
   /@babel/compat-data@7.24.7:
@@ -2407,20 +2454,6 @@ packages:
       - typescript
     dev: true
 
-  /@empjs/plugin-stylus@3.1.2(@rspack/core@1.0.10)(webpack@5.90.3):
-    resolution: {integrity: sha512-5586vqz7Glp96nDWh9MRZ2IAbQKGd9LNBKHKmq+vPBXQm9TqbJQUxN9l5v4si8hCWTF4sut653Zd2dJ8ldYH9Q==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      css-loader: 7.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
-      style-loader: 4.0.0(webpack@5.90.3)
-      stylus: 0.63.0
-      stylus-loader: 8.1.1(@rspack/core@1.0.10)(stylus@0.63.0)(webpack@5.90.3)
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - supports-color
-      - webpack
-    dev: true
-
   /@empjs/plugin-vue2@3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3):
     resolution: {integrity: sha512-WictabwUk91xjOd92/7FGFwkIyjs3N00JE1S/uFZtW0toxSE/yUByozhHFdXETGtIlmjXCuYh5aQfMiNqPWu9g==}
     engines: {node: '>=16.0.0'}
@@ -2428,7 +2461,7 @@ packages:
       '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.24.0)(vue@2.7.14)
       babel-loader: 9.1.3(@babel/core@7.24.0)(webpack@5.90.3)
       vue: 2.7.14
-      vue-loader: 15.11.1(css-loader@7.1.2)(webpack@5.90.3)
+      vue-loader: 15.11.1(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
       vue-svg-inline-loader: 2.1.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -2494,14 +2527,14 @@ packages:
       - whiskers
     dev: true
 
-  /@empjs/plugin-vue2@3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3):
+  /@empjs/plugin-vue2@3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3):
     resolution: {integrity: sha512-OGC/Tn87H9b1U/BjHBxh36K5V90MEdrGy63jMh9jqZW8ij8lyAitQLbPOl5Zl5Bw8XiIyxOZJbSXJ1LC/sQ8RQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.24.0)(vue@2.7.14)
       babel-loader: 9.1.3(@babel/core@7.24.0)(webpack@5.90.3)
       vue: 2.7.14
-      vue-loader: 15.11.1(css-loader@7.1.2)(webpack@5.90.3)
+      vue-loader: 15.11.1(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
       vue-svg-inline-loader: 2.1.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -4539,10 +4572,10 @@ packages:
       '@vue/compiler-dom': 3.4.31
       '@vue/shared': 3.4.31
 
-  /@vue/component-compiler-utils@3.3.0:
+  /@vue/component-compiler-utils@3.3.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-97sfH2mYNU+2PzGrmK2haqffDpVASuib9/w2/noxiFi31Z54hW+q3izKQXXQZSNhtiUpAI36uSuYepeBe4wpHQ==}
     dependencies:
-      consolidate: 0.15.1
+      consolidate: 0.15.1(react-dom@18.2.0)(react@18.2.0)
       hash-sum: 1.0.2
       lru-cache: 4.1.5
       merge-source-map: 1.1.0
@@ -5676,7 +5709,7 @@ packages:
       - supports-color
     dev: true
 
-  /consolidate@0.15.1:
+  /consolidate@0.15.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-DW46nrsMJgy9kqAbPt5rKaCr7uFtpo4mSUvLHIUbJEjm0vo+aY5QLwBUq3FK4tRnJr/X0Psc0C4jf/h+HtXSMw==}
     engines: {node: '>= 0.10.0'}
     deprecated: Please upgrade to consolidate v1.0.0+ as it has been modernized with several long-awaited fixes implemented. Maintenance is supported by Forward Email at https://forwardemail.net ; follow/watch https://github.com/ladjs/consolidate for updates and release changelog
@@ -5843,6 +5876,8 @@ packages:
         optional: true
     dependencies:
       bluebird: 3.7.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: true
 
   /content-disposition@0.5.2:
@@ -6947,17 +6982,6 @@ packages:
 
   /fast-glob@3.3.1:
     resolution: {integrity: sha512-kNFPyjhh5cKjrUltxs+wFx+ZkbRaxxmZ+X0ZU31SOsxCEtP9VPgtq2teZw1DebupL5GmDaNQ6yKMMVcM41iqDg==}
-    engines: {node: '>=8.6.0'}
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      '@nodelib/fs.walk': 1.2.8
-      glob-parent: 5.1.2
-      merge2: 1.4.1
-      micromatch: 4.0.5
-    dev: true
-
-  /fast-glob@3.3.2:
-    resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
     engines: {node: '>=8.6.0'}
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -8511,7 +8535,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
@@ -9642,7 +9665,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.2
-    dev: false
 
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -9685,7 +9707,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -10522,7 +10543,6 @@ packages:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /schema-utils@2.7.1:
     resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}
@@ -11109,54 +11129,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /style-loader@4.0.0(webpack@5.90.3):
-    resolution: {integrity: sha512-1V4WqhhZZgjVAVJyt7TdDPZoPBPNHbekX4fWnCJL1yQukhCeZhJySUL+gL9y6sNdN95uEOS83Y55SqHcP7MzLA==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      webpack: ^5.27.0
-    dependencies:
-      webpack: 5.90.3(webpack-cli@4.10.0)
-    dev: true
-
   /stylis@4.3.2:
     resolution: {integrity: sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg==}
     dev: false
 
-  /stylus-loader@8.1.1(@rspack/core@1.0.10)(stylus@0.63.0)(webpack@5.90.3):
-    resolution: {integrity: sha512-Ohe29p3gwJiu1kxq16P80g1qq0FxGtwQevKctLE4su8KUq+Ea06Q6lp7SpcJjaKNrWIuEZQGvESUPt8JpukKVw==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      '@rspack/core': 0.x || 1.x
-      stylus: '>=0.52.4'
-      webpack: ^5.0.0
-    peerDependenciesMeta:
-      '@rspack/core':
-        optional: true
-      webpack:
-        optional: true
-    dependencies:
-      '@rspack/core': 1.0.10(@swc/helpers@0.5.13)
-      fast-glob: 3.3.2
-      normalize-path: 3.0.0
-      stylus: 0.63.0
-      webpack: 5.90.3(webpack-cli@4.10.0)
-    dev: true
-
   /stylus@0.62.0:
     resolution: {integrity: sha512-v3YCf31atbwJQIMtPNX8hcQ+okD4NQaTuKGUWfII8eaqn+3otrbttGL1zSMZAAtiPsBztQnujVBugg/cXFUpyg==}
-    hasBin: true
-    dependencies:
-      '@adobe/css-tools': 4.3.3
-      debug: 4.3.4
-      glob: 7.2.3
-      sax: 1.3.0
-      source-map: 0.7.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /stylus@0.63.0:
-    resolution: {integrity: sha512-OMlgrTCPzE/ibtRMoeLVhOY0RcNuNWh0rhAVqeKnk/QwcuUKQbnqhZ1kg2vzD8VU/6h3FoPTq4RJPHgLBvX6Bw==}
     hasBin: true
     dependencies:
       '@adobe/css-tools': 4.3.3
@@ -11761,7 +11739,7 @@ packages:
     resolution: {integrity: sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==}
     dev: true
 
-  /vue-loader@15.11.1(css-loader@7.1.2)(webpack@5.90.3):
+  /vue-loader@15.11.1(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3):
     resolution: {integrity: sha512-0iw4VchYLePqJfJu9s62ACWUXeSqM30SQqlIftbYWM3C+jpPcEHKSPUZBLjSF9au4HTHQ/naF6OGnO3Q/qGR3Q==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.0.8
@@ -11780,7 +11758,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@vue/component-compiler-utils': 3.3.0
+      '@vue/component-compiler-utils': 3.3.0(react-dom@18.2.0)(react@18.2.0)
       css-loader: 7.1.2(@rspack/core@1.0.10)(webpack@5.90.3)
       hash-sum: 1.0.2
       loader-utils: 1.4.2
