@@ -196,36 +196,11 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.2.4
-        version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.2.6-beta.1
+        version: 3.2.6-beta.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
-
-  demos/vue2/vue-2-element:
-    dependencies:
-      element-ui:
-        specifier: ^2.15.6
-        version: 2.15.14(vue@2.7.16)
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: 3.2.4
-        version: 3.2.4(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
-      '@empjs/plugin-vue2':
-        specifier: 3.2.0
-        version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
-      '@empjs/share':
-        specifier: 3.2.0
-        version: 3.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
 
   demos/vue2/vue-2-project:
     dependencies:
@@ -2418,10 +2393,55 @@ packages:
       - webpack-cli
     dev: true
 
+  /@empjs/cli@3.2.6-beta.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-ABqcPR5p/mbWkpK1gr98N+/MNl0HH/aJ0vRogC0/acGRKpgYue1rnfzhZt3uoM3oJfH4kSSlfJSgp/cuq/3RgQ==}
+    engines: {node: '>=16.0.0'}
+    hasBin: true
+    dependencies:
+      '@rsdoctor/rspack-plugin': 0.4.6(@rspack/core@1.0.10)(webpack@5.90.3)
+      '@rspack/core': 1.0.10(@swc/helpers@0.5.13)
+      '@rspack/dev-server': 1.0.9(@rspack/core@1.0.10)(webpack@5.90.3)
+      '@swc/helpers': 0.5.13
+      address: 2.0.3
+      chalk: 5.3.0
+      commander: 11.1.0
+      compression: 1.7.4
+      core-js: 3.38.1
+      cors: 2.8.5
+      default-gateway: 7.2.2
+      express: 4.19.2
+      fs-extra: 11.2.0
+      glob: 10.4.5
+      gzip-size: 7.0.0
+      html-webpack-plugin: 5.6.0(@rspack/core@1.0.10)(webpack@5.90.3)
+      jiti: 2.0.0
+      less-loader: 12.2.0(@rspack/core@1.0.10)(less@4.2.0)(webpack@5.90.3)
+      open: 10.1.0
+      sass-embedded: 1.79.5
+      sass-loader: 16.0.2(@rspack/core@1.0.10)(sass-embedded@1.79.5)(webpack@5.90.3)
+      typescript-plugin-css-modules: 5.1.0(ts-node@10.9.1)(typescript@5.3.3)
+      webpack-bundle-analyzer: 4.10.2
+      webpack-chain: 6.5.1
+    transitivePeerDependencies:
+      - '@types/express'
+      - bufferutil
+      - debug
+      - less
+      - node-sass
+      - sass
+      - supports-color
+      - ts-node
+      - typescript
+      - utf-8-validate
+      - webpack
+      - webpack-cli
+    dev: true
+
   /@empjs/module-federation-runtime@0.6.10:
     resolution: {integrity: sha512-VQhWLnXhlp4PkeKSp3lgGZiBWmzTsRDwjPTmv1CZThu5lH9PyG/mWSWgFQBzRlhaJH0/Aa2sGklq0L2KpmCeOA==}
     dependencies:
       '@module-federation/sdk': 0.6.10
+    dev: false
 
   /@empjs/plugin-emp-runtime@0.0.3:
     resolution: {integrity: sha512-JyjUR3PAr9+QD8WuUUeUI4hMLYwcaa8/ls9ugcTZx+pLuNtTh0u4WaMFvmAl9gFVXSxX0upWloV3kjFQLjybTQ==}
@@ -2681,6 +2701,7 @@ packages:
       - utf-8-validate
       - vue-tsc
       - webpack
+    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2772,6 +2793,7 @@ packages:
       '@module-federation/sdk': 0.6.10
       '@types/semver': 7.5.8
       semver: 7.6.3
+    dev: false
 
   /@module-federation/data-prefetch@0.6.10(react-dom@16.14.0)(react@16.14.0):
     resolution: {integrity: sha512-yu9sU89mYtH8MtczL5lTBqxAfrBX+kG0936Xfc7ZEbCU5pFcK7n7hrz5pVSpx5ZaYRQfrXUC+HP6nrevExnUXA==}
@@ -2810,6 +2832,7 @@ packages:
       fs-extra: 9.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@module-federation/dts-plugin@0.1.19(typescript@5.3.3):
     resolution: {integrity: sha512-NlrpjBX+qkpraYZm1lMMmkdKvQ7X6z3uWPQOk70PVTPxrRVHwxATXC+yt3oxTdwFSkAM06o5B/nJiy+EBbrVeQ==}
@@ -2873,6 +2896,7 @@ packages:
       - debug
       - supports-color
       - utf-8-validate
+    dev: false
 
   /@module-federation/enhanced@0.0.17(webpack@5.90.3):
     resolution: {integrity: sha512-7RRHe+MxS/e9N9+DLO39uVK+GP69UF5wivAp4zJXuRHKDN6fSDLqtWkIe1KXobuVHEVO2qnxqKXahcYTx8/W3w==}
@@ -3015,6 +3039,7 @@ packages:
       - react-dom
       - supports-color
       - utf-8-validate
+    dev: false
 
   /@module-federation/managers@0.0.17:
     resolution: {integrity: sha512-Itft13t0/XgWUvhPTuUDmm3hUnw0AwZOmVRk/J2AR2vLYBnibgtgNWYVZf6+k0/w4LwdM6htminDFQwiC/6VHA==}
@@ -3038,6 +3063,7 @@ packages:
       '@module-federation/sdk': 0.6.10
       find-pkg: 2.0.0
       fs-extra: 9.1.0
+    dev: false
 
   /@module-federation/manifest@0.0.17:
     resolution: {integrity: sha512-fmby2NsZkH8NGRNtT86Nk0a/MSuwq5VTiTx0nQJsYWKW5/FGynIQYwm7wtoxi00I1csY3ORq511PXU/ifHpBLw==}
@@ -3080,6 +3106,7 @@ packages:
       - typescript
       - utf-8-validate
       - vue-tsc
+    dev: false
 
   /@module-federation/rspack@0.1.19(typescript@5.3.3):
     resolution: {integrity: sha512-OdYUH7xxP6uw1xC7NsIx02jwumfRHVl+ZStLKFSTMNI+ilU5LjTrYpWO7khyAuWCKKw/hFtHUaIhOHJQJ0CMWw==}
@@ -3121,6 +3148,7 @@ packages:
       - debug
       - supports-color
       - utf-8-validate
+    dev: false
 
   /@module-federation/runtime-tools@0.0.17:
     resolution: {integrity: sha512-4nrQDlPJ045EOA4xpR/gcqpv7Q9cX58tKuYqHz/g1C3ggjkwBSbhIUAlMsVM+DqfR+X0VkxUxZUrNNY6Zeafzg==}
@@ -3162,6 +3190,7 @@ packages:
     dependencies:
       '@module-federation/runtime': 0.6.10
       '@module-federation/webpack-bundler-runtime': 0.6.10
+    dev: false
 
   /@module-federation/runtime@0.0.17:
     resolution: {integrity: sha512-HooFbBDYs7Q0xumdoOEzULM4JJg9/ZjhDv9oXpSMU9yzRNXzRGcmDmEMF2DuQ7+oWOauEceNTKSZj41Nwl22Ng==}
@@ -3203,6 +3232,7 @@ packages:
     resolution: {integrity: sha512-mm/iUn5TdOHM1Zq0iB87fGx8cRp+j7g0/ndgokjbDaEbsYcS3pmQpZ5V+wiqB1fxuBtc+7NgNFWhp3Gwgaxoeg==}
     dependencies:
       '@module-federation/sdk': 0.6.10
+    dev: false
 
   /@module-federation/sdk@0.0.17:
     resolution: {integrity: sha512-nq3LNJt5GKVxnXRx+e7Too4lDRfL/mWVlP8zA62zFCV11fYUNV1G+1pKhLLTppdwL7d89rdfYZB4IvDcNhgQGg==}
@@ -3230,6 +3260,7 @@ packages:
 
   /@module-federation/sdk@0.6.10:
     resolution: {integrity: sha512-i6ofHnImB4zCn/bt7Ft0zh9o/PxvsJj8Wc88EAeJg4IrY6+bzwwo1G2h44w1Yt3go4skZZFQCK0UxoaV6l/t/A==}
+    dev: false
 
   /@module-federation/third-party-dts-extractor@0.1.19:
     resolution: {integrity: sha512-hvSB8nsxL58WesW9R0dxMiGe31nD7Fzq7sikFd8YWcwwdV56/rZZu8tluvcr50rBU6KVbHFB5dOcu1tTp1O3zQ==}
@@ -3245,6 +3276,7 @@ packages:
       find-pkg: 2.0.0
       fs-extra: 9.1.0
       resolve: 1.22.8
+    dev: false
 
   /@module-federation/webpack-bundler-runtime@0.0.17:
     resolution: {integrity: sha512-4uLGI69df0KG+oEZlYEr8XTOK/dSRX7eVOtonHAGODj+EeOJGC4IKUdOanS0ypP3A0r0hdY2TJ+OdMjKPM0jCw==}
@@ -3286,6 +3318,7 @@ packages:
     dependencies:
       '@module-federation/runtime': 0.6.10
       '@module-federation/sdk': 0.6.10
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -4326,6 +4359,7 @@ packages:
 
   /@types/semver@7.5.8:
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
+    dev: false
 
   /@types/send@0.17.4:
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -5350,6 +5384,7 @@ packages:
     resolution: {integrity: sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==}
     engines: {node: '>= 0.4.0'}
     hasBin: true
+    dev: false
 
   /buffer-builder@0.2.0:
     resolution: {integrity: sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg==}
@@ -5944,6 +5979,7 @@ packages:
     dependencies:
       depd: 2.0.0
       keygrip: 1.1.0
+    dev: false
 
   /copy-anything@2.0.6:
     resolution: {integrity: sha512-1j20GZTsvKNkc4BY3NpMOM8tt///wY3FpIzozTOFO2ffuZcV61nojHXVKIy3WM+7ADCy5FVhdZYHYDdgTU0yJw==}
@@ -8102,6 +8138,7 @@ packages:
       ws: '*'
     dependencies:
       ws: 8.18.0
+    dev: false
 
   /jackspeak@3.4.2:
     resolution: {integrity: sha512-qH3nOSj8q/8+Eg8LUPOq3C+6HWkpUioIjDsq1+D4zY91oZvpPttw8GwtF1nReRYKXl+1AORyFqtm2f5Q1SB6/Q==}
@@ -8244,6 +8281,7 @@ packages:
     dependencies:
       co: 4.6.0
       koa-compose: 4.1.0
+    dev: false
 
   /koa@2.11.0:
     resolution: {integrity: sha512-EpR9dElBTDlaDgyhDMiLkXrPwp6ZqgAIBvhhmxQ9XN4TFgW+gEz6tkcsNI6BnUbUftrKDjVFj4lW2/J2aNBMMA==}
@@ -8306,6 +8344,7 @@ packages:
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /launch-editor@2.8.0:
     resolution: {integrity: sha512-vJranOAJrI/llyWGRQqiDM+adrw+k83fvmmx3+nV47g3+36xM15jE+zyZ6Ffel02+xSvuM0b2GDRosXZkbb6wA==}
@@ -10064,6 +10103,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-android-arm64@1.79.5:
+    resolution: {integrity: sha512-pq1RJTENkRmEUMLiVuSGYwuLk8zXovWzrjQxlWZTF/Jn5F7Ypi/3v5huMmgJF5n+etsxjio1PN1idaQ5tPLBmg==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-android-arm@1.77.5:
     resolution: {integrity: sha512-/DfNYoykqwMFduecqa8n0NH+cS6oLdCPFjwhe92efsOOt5WDYEOlolnhoOENZxqdzvSV+8axL+mHQ1Ypl4MLtg==}
     engines: {node: '>=14.0.0'}
@@ -10076,6 +10124,15 @@ packages:
 
   /sass-embedded-android-arm@1.79.4:
     resolution: {integrity: sha512-YOVpDGDcwWUQvktpJhYo4zOkknDpdX6ALpaeHDTX6GBUvnZfx+Widh76v+QFUhiJQ/I/hndXg1jv/PKilOHRrw==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-android-arm@1.79.5:
+    resolution: {integrity: sha512-gYtpQAE2uNFa5IBKBIzUq5ETDS6gnVRmhP5j+N5JGrOThYaGPcG4KrjlU9R3BfCmc7zP5WvlHFZsxSz+2JRT2w==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [android]
@@ -10102,8 +10159,26 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-android-ia32@1.79.5:
+    resolution: {integrity: sha512-CgJZjLxYRkgjTP/76WumLlF7+1aW0LA+DSEJhkVaCxe5avndRCmPrNcX0PrtYSDvUgeQDvY7xF+fT9QXN1+NgQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [ia32]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-android-riscv64@1.79.4:
     resolution: {integrity: sha512-uOT8nXmKxSwuIdcqvElVWBFcm/+YcIvmwfoKbpuuSOSxUe9eqFzxo+fk7ILhynzf6FBlvRUH5DcjGj+sXtCc3w==}
+    engines: {node: '>=14.0.0'}
+    cpu: [riscv64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-android-riscv64@1.79.5:
+    resolution: {integrity: sha512-OLbdmDSM/eOjO01PUYbS54BQOCM/HHHHWk/4M8HHdxwF3ojy5eqQaA63R1YQ3IJvLEE7dnudofOXmL01B5+yvQ==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [android]
@@ -10130,6 +10205,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-android-x64@1.79.5:
+    resolution: {integrity: sha512-UbXxk/rdR3aVBkB7Fh/eAUL7oUADWgQrYpLe9Xu5A0gmthw0/zo/pu7kweBSrbgHnPfWIt/uxwmW4eEAmqqZWQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [x64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-darwin-arm64@1.77.5:
     resolution: {integrity: sha512-J3yP6w+xqPrGQE0+sO4Gam6kBDJL5ivgkFNxR0fVlvKeN5qVFYhymp/xGRRMxBrKjohEQtBGP431EzrtvUMFow==}
     engines: {node: '>=14.0.0'}
@@ -10142,6 +10226,15 @@ packages:
 
   /sass-embedded-darwin-arm64@1.79.4:
     resolution: {integrity: sha512-pcYtbN1VUAAcfgyHeX8ySndDWGjIvcq6rldduktPbGGuAlEWFDfnwjTbv0hS945ggdzZ6TFnaFlLEDr0SjKzBA==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-darwin-arm64@1.79.5:
+    resolution: {integrity: sha512-qeEl9XhYetZSY1j4nqvh3hB8tfYOAGsOQyVOCaxyX1bubMRSGPvPNIyftm14QzK7EDrE/K/0+FwCvflarOV4NQ==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [darwin]
@@ -10168,6 +10261,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-darwin-x64@1.79.5:
+    resolution: {integrity: sha512-y4pvkYCQhgruxlncub/2j+cZSmlpsZX9Rp1aTRIKvlNagqFStYzFZ6kX3CErlfCEAMYwRVEhP8z/OOoDqnjaZA==}
+    engines: {node: '>=14.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-linux-arm64@1.77.5:
     resolution: {integrity: sha512-LoN804X7QsyvT/h8UGcgBMfV1SdT4JRRNV+slBICxoXPKBLXbZm9KyLRCBQcMLLdlXSZdOfZilxUN1Bd2az6OA==}
     engines: {node: '>=14.0.0'}
@@ -10180,6 +10282,15 @@ packages:
 
   /sass-embedded-linux-arm64@1.79.4:
     resolution: {integrity: sha512-XIVn2mCuA422SR2kmKjF6jhjMs1Vrt1DbZ/ktSp+eR0sU4ugu2htg45GajiUFSKKRj7Sc+cBdThq1zPPsDLf1w==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-linux-arm64@1.79.5:
+    resolution: {integrity: sha512-kiUbrLiNAA7vOe6kpdukRhCad1u7ebwhB0ZE63+IgF5HFZ/Qo6GkhHIrVM9AfeLxUT3N6Z4BNtgdcRa9na4Pwg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
@@ -10206,6 +10317,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-linux-arm@1.79.5:
+    resolution: {integrity: sha512-rX6qAR8pE1pevYhGzbCpGFexdH4z6QMnw3IeiCNmkpJ4zMXNEN336xl6SZN0xaPiGuNDhUFcq0wgSq3RDKS5vQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-linux-ia32@1.77.5:
     resolution: {integrity: sha512-KHNJymlEmjyJbhGfB34zowohjgMvv/qKVsDX5hPlar+qMh+cxJwfgPln1Zl9bfe9qLObmEV2zFA1rpVBWy4xGQ==}
     engines: {node: '>=14.0.0'}
@@ -10218,6 +10338,15 @@ packages:
 
   /sass-embedded-linux-ia32@1.79.4:
     resolution: {integrity: sha512-3nqZxV4nuUTb1ahLexVl4hsnx1KKwiGdHEf1xHWTZai6fYFMcwyNPrHySCQzFHqb5xiqSpPzzrKjuDhF6+guuQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [ia32]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-linux-ia32@1.79.5:
+    resolution: {integrity: sha512-12pj3fBV0+VAX/RI6uYFxi/MoUoihRKP7iVpo9MaT/m+EtvN6mYsDpi/T4pTq2dKQYljoaFq8Rb6tR+FinS1zg==}
     engines: {node: '>=14.0.0'}
     cpu: [ia32]
     os: [linux]
@@ -10243,6 +10372,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-linux-musl-arm64@1.79.5:
+    resolution: {integrity: sha512-Qg1HuQ+ebz3wfPT7xty2G8BpDLXdyfMk7WqKd+X1DlFEcY/kcNapwMVFXS2fCYTTR3gcbIZ4p7eUiQySlkj93A==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-linux-musl-arm@1.77.5:
     resolution: {integrity: sha512-TLhJzd1TJ0oX1oULobkWLMDLeErD27WbhdZqxtFvIqzyO+1TZPMwojhRX4YNWmHdmmYhIuXTR9foWxwL3Xjgsg==}
     engines: {node: '>=14.0.0'}
@@ -10254,6 +10392,15 @@ packages:
 
   /sass-embedded-linux-musl-arm@1.79.4:
     resolution: {integrity: sha512-HnbU1DEiQdUayioNzxh2WlbTEgQRBPTgIIvof8J63QLmVItUqE7EkWYkSUy4RhO+8NsuN9wzGmGTzFBvTImU7g==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-linux-musl-arm@1.79.5:
+    resolution: {integrity: sha512-EHFrbTgRymEFTf3JnjHzC24PO0WHFjLUEWUJqSuWKZw0+BCL7120MvYIrfkYymPp5UYk+STIjj+Fd9dYSWBrAg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [linux]
@@ -10279,8 +10426,26 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-linux-musl-ia32@1.79.5:
+    resolution: {integrity: sha512-2qdsGIcdCnpsw8Ijuq8uk4RifxV/lTd1mqjrfge7AfFBtQIExbxZoYBtbSrcY63ONa+UWEf9Z1p6rZ3QySKWlg==}
+    engines: {node: '>=14.0.0'}
+    cpu: [ia32]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-linux-musl-riscv64@1.79.4:
     resolution: {integrity: sha512-G2M5ADMV9SqnkwpM0S+UzDz7xR2njCOhofku/sDMZABzAjQQWTsAykKoGmzlT98fTw2HbNhb6u74umf2WLhCfw==}
+    engines: {node: '>=14.0.0'}
+    cpu: [riscv64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-linux-musl-riscv64@1.79.5:
+    resolution: {integrity: sha512-wrc6s8YQt95koSkaLoP5HtvAAKxTPWqYZVxnoqp2bHgkKWlr4ymJll9vMcdU3//VxTgJbuH83U5ajzNCtHd0NQ==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
@@ -10306,8 +10471,26 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-linux-musl-x64@1.79.5:
+    resolution: {integrity: sha512-1J6JrGpVp07GsBEzEGj/9u6UkVUuga2U7kpfkQxIdYOLmXmXmni6zNx89VehaP7X5OSscwJc/Zufh++6VcRQHw==}
+    engines: {node: '>=14.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-linux-riscv64@1.79.4:
     resolution: {integrity: sha512-GaTI/mXYWYSzG5wxtM4H2cozLpATyh+4l+rO9FFKOL8e1sUOLAzTeRdU2nSBYCuRqsxRuTZIwCXhSz9Q3NRuNA==}
+    engines: {node: '>=14.0.0'}
+    cpu: [riscv64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-linux-riscv64@1.79.5:
+    resolution: {integrity: sha512-G45UKRAUgvxXhLROowTgVmyIVyGtRZoCMVH1vPi0EG5SePy43AkhjQVaUb6Ol6lfRRNpQqBFKw3UabxaMCM0Ow==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
@@ -10334,6 +10517,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-linux-x64@1.79.5:
+    resolution: {integrity: sha512-EOk6pULzxM9b5B8uuuZbQXqfg2BQheAovQeYAw4ueHikaFoESOfaA8OG4kl0v1m5v5tKqAHOjy7xFhtpbEpqEw==}
+    engines: {node: '>=14.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-win32-arm64@1.77.5:
     resolution: {integrity: sha512-dwVFOqkyfCRQgQB8CByH+MG93fp7IsfFaPDDCQVzVFAT00+HXk/dWFPMnv65XDDndGwsUE1KlZnjg8iOBDlRdw==}
     engines: {node: '>=14.0.0'}
@@ -10346,6 +10538,15 @@ packages:
 
   /sass-embedded-win32-arm64@1.79.4:
     resolution: {integrity: sha512-cidBvtaA2cJ6dNlwQEa8qak+ezypurzKs0h0QAHLH324+j/6Jum7LCnQhZRPYJBFjHl+WYd7KwzPnJ2X5USWnQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-win32-arm64@1.79.5:
+    resolution: {integrity: sha512-KdkJOmJSe5lhR4Kxn522GbZo4jRUnQ+V4JQSaIbyxKndBpD81NGPYhDs0ikpJciqrwbmiBxVD5Qqeim6B1gdxA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [win32]
@@ -10372,6 +10573,15 @@ packages:
     dev: true
     optional: true
 
+  /sass-embedded-win32-ia32@1.79.5:
+    resolution: {integrity: sha512-1YX4TVw6j3eqxRyPK3t45V5WSyAzql6EgKIEtjPQ0+ByRyqLRuHXlotHPX6KOcc0rA3LMUHmdskN1o08sRIDhA==}
+    engines: {node: '>=14.0.0'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /sass-embedded-win32-x64@1.77.5:
     resolution: {integrity: sha512-Pn6j0jDGeEAhuuVY0CaZaBa7yNkqimEsbUDYYuQ9xh+XdGvZ86SZf6HXHUVIyQUjHORLwQ5f0XoKYYzKfC0y9w==}
     engines: {node: '>=14.0.0'}
@@ -10384,6 +10594,15 @@ packages:
 
   /sass-embedded-win32-x64@1.79.4:
     resolution: {integrity: sha512-73yrpiWIbti6DkxhWURklkgSLYKfU9itDmvHxB+oYSb4vQveIApqTwSyTOuIUb/6Da/EsgEpdJ4Lbj4sLaMZWA==}
+    engines: {node: '>=14.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sass-embedded-win32-x64@1.79.5:
+    resolution: {integrity: sha512-8Tj9hBpOd6e+j23uTDecFb1ezQhvjQ+jvgKdVg9VlvwKUWmEStnHKA0x1uIQTThIM3dLCsYe63b/wX43gP8tBA==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [win32]
@@ -10456,6 +10675,41 @@ packages:
       sass-embedded-win32-x64: 1.79.4
     dev: true
 
+  /sass-embedded@1.79.5:
+    resolution: {integrity: sha512-QFdalnjGFkbNvb6/uQGmP4OIN+GQ5/R77eu0PsXduDB1YP5JW5DSWFVDAyK6l6C54P+3J3eXkjuPYC0mcwX+AA==}
+    engines: {node: '>=16.0.0'}
+    hasBin: true
+    dependencies:
+      '@bufbuild/protobuf': 2.2.0
+      buffer-builder: 0.2.0
+      colorjs.io: 0.5.2
+      immutable: 4.3.6
+      rxjs: 7.8.1
+      supports-color: 8.1.1
+      varint: 6.0.0
+    optionalDependencies:
+      sass-embedded-android-arm: 1.79.5
+      sass-embedded-android-arm64: 1.79.5
+      sass-embedded-android-ia32: 1.79.5
+      sass-embedded-android-riscv64: 1.79.5
+      sass-embedded-android-x64: 1.79.5
+      sass-embedded-darwin-arm64: 1.79.5
+      sass-embedded-darwin-x64: 1.79.5
+      sass-embedded-linux-arm: 1.79.5
+      sass-embedded-linux-arm64: 1.79.5
+      sass-embedded-linux-ia32: 1.79.5
+      sass-embedded-linux-musl-arm: 1.79.5
+      sass-embedded-linux-musl-arm64: 1.79.5
+      sass-embedded-linux-musl-ia32: 1.79.5
+      sass-embedded-linux-musl-riscv64: 1.79.5
+      sass-embedded-linux-musl-x64: 1.79.5
+      sass-embedded-linux-riscv64: 1.79.5
+      sass-embedded-linux-x64: 1.79.5
+      sass-embedded-win32-arm64: 1.79.5
+      sass-embedded-win32-ia32: 1.79.5
+      sass-embedded-win32-x64: 1.79.5
+    dev: true
+
   /sass-loader@14.2.1(@rspack/core@0.7.0)(sass-embedded@1.77.5)(webpack@5.90.3):
     resolution: {integrity: sha512-G0VcnMYU18a4N7VoNDegg2OuMjYtxnqzQWARVWCIVSZwJeiL9kg8QMsuIZOplsJgTzZLF6jGxI3AClj8I9nRdQ==}
     engines: {node: '>= 18.12.0'}
@@ -10507,6 +10761,33 @@ packages:
       '@rspack/core': 1.0.10(@swc/helpers@0.5.13)
       neo-async: 2.6.2
       sass-embedded: 1.79.4
+      webpack: 5.90.3(webpack-cli@4.10.0)
+    dev: true
+
+  /sass-loader@16.0.2(@rspack/core@1.0.10)(sass-embedded@1.79.5)(webpack@5.90.3):
+    resolution: {integrity: sha512-Ll6iXZ1EYwYT19SqW4mSBb76vSSi8JgzElmzIerhEGgzB5hRjDQIWsPmuk1UrAXkR16KJHqVY0eH+5/uw9Tmfw==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      '@rspack/core': 0.x || 1.x
+      node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+      sass: ^1.3.0
+      sass-embedded: '*'
+      webpack: ^5.0.0
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      node-sass:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      '@rspack/core': 1.0.10(@swc/helpers@0.5.13)
+      neo-async: 2.6.2
+      sass-embedded: 1.79.5
       webpack: 5.90.3(webpack-cli@4.10.0)
     dev: true
 
