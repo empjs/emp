@@ -196,8 +196,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: 3.2.6-beta.1
-        version: 3.2.6-beta.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: 3.2.6-beta.2
+        version: 3.2.6-beta.2(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(webpack@5.90.3)
@@ -2393,8 +2393,8 @@ packages:
       - webpack-cli
     dev: true
 
-  /@empjs/cli@3.2.6-beta.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-ABqcPR5p/mbWkpK1gr98N+/MNl0HH/aJ0vRogC0/acGRKpgYue1rnfzhZt3uoM3oJfH4kSSlfJSgp/cuq/3RgQ==}
+  /@empjs/cli@3.2.6-beta.2(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-6DJogTud8s1Bg/lb0LYMG1NkQCcTKf9RvVexL4sjqbj4w4iniUlHWSuih2ZBs4krPpvmkGVHqhbeopm/Odv1ew==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
