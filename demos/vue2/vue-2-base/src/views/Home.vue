@@ -39,34 +39,3 @@ export default {
   },
 }
 </script>
-<style scoped lang="scss">
-$black: #000;
-
-img {
-  width: 200px;
-  // background-color: $black;
-}
-
-.imgbox {
-  display: flex;
-}
-
-.imgbox h2 {
-  text-align: center;
-}
-
-.imgbox li {
-  flex: 1;
-  list-style: none;
-  text-align: center;
-}
-
-.svg-logo {
-  width: 200px;
-  margin: auto;
-}
-
-h1 {
-  font-family: Arial, Helvetica, sans-serif;
-}
-</style>
