@@ -22,32 +22,5 @@ export default defineConfig((store) => {
 		server: { port: 4002 },
 		define: { mfhost },
 		debug: { clearLog: false, showRsconfig: "x.config.json" },
-		chain(config) {
-			// config.plugin('definePlugin').tap(o => {
-			//   o["process.env.helllo"] = `"123"`
-			//   return o
-			// })
-			const defineMap = {};
-			defineMap["process.env.oooop"] = "ooooo";
-			// config.plugin("define").use(rspack.DefinePlugin, [
-			// 	defineMap
-			// ]);
-			// 查找 DefinePlugin 并添加内容到 _args
-			config.plugin("define").tap((args) => {
-				const existingDefinePlugin = args.find(
-					(plugin) => plugin instanceof rspack.DefinePlugin,
-				);
-				// if (existingDefinePlugin) {
-				// 	// 假设要添加的内容
-
-				// 	existingDefinePlugin[1] = {
-				// 		...existingDefinePlugin[1],
-				// 		...newDefineContent,
-				// 	};
-				// }
-        // args = defineMap
-				return defineMap;
-			});
-		},
 	};
 });

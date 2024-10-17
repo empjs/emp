@@ -2,6 +2,7 @@
   "experiments": {
     "outputModule": false,
     "topLevelAwait": true,
+    "asyncWebAssembly": true,
     "css": true
   },
   "target": [
@@ -271,9 +272,9 @@
         "type": "css/auto",
         "use": [
           {
-            "loader": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/sass-loader@16.0.2_@rspack+core@1.0.10_sass-embedded@1.79.4_webpack@5.90.3/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/sass-loader@16.0.2_@rspack+core@1.0.13_sass-embedded@1.79.5_webpack@5.90.3/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "implementation": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/sass-embedded@1.79.4/node_modules/sass-embedded/dist/lib/index.js",
+              "implementation": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/sass-embedded@1.79.5/node_modules/sass-embedded/dist/lib/index.js",
               "api": "modern-compiler",
               "sourceMap": true,
               "warnRuleAsWarning": false
@@ -286,7 +287,7 @@
         "type": "css/auto",
         "use": [
           {
-            "loader": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/less-loader@12.2.0_@rspack+core@1.0.10_less@4.2.0_webpack@5.90.3/node_modules/less-loader/dist/cjs.js",
+            "loader": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/less-loader@12.2.0_@rspack+core@1.0.13_less@4.2.0_webpack@5.90.3/node_modules/less-loader/dist/cjs.js",
             "options": {
               "lessOptions": {
                 "javascriptEnabled": true
@@ -341,7 +342,7 @@
       "_args": [
         {
           "template": "{bar:25.green/white}{spinner:.green}{percent}% {wide_msg:.dim}",
-          "progressChars": "▒▒"
+          "progressChars": "▩▩"
         }
       ]
     },
@@ -376,8 +377,8 @@
             "description": ""
           }
         },
-        "template": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.4_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/index.html",
-        "favicon": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.4_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/favicon.ico",
+        "template": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.7_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/index.html",
+        "favicon": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.7_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/favicon.ico",
         "chunks": [
           "index"
         ],
@@ -385,7 +386,7 @@
       },
       "version": 5,
       "options": {
-        "template": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.4_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/index.html",
+        "template": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.7_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/index.html",
         "templateContent": false,
         "filename": "index.html",
         "publicPath": "auto",
@@ -393,7 +394,7 @@
         "inject": "body",
         "scriptLoading": "defer",
         "compile": true,
-        "favicon": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.4_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/favicon.ico",
+        "favicon": "/Users/liangxiaoming/Documents/baidu/emp/node_modules/.pnpm/@empjs+cli@3.2.7_less@4.2.0_ts-node@10.9.1_typescript@5.3.3_webpack@5.90.3/node_modules/@empjs/cli/template/favicon.ico",
         "minify": false,
         "cache": true,
         "showErrors": true,
@@ -458,15 +459,6 @@
           "attributes": {
             "src": "https://unpkg.com/@empjs/share@3.1.2/output/full.js"
           }
-        }
-      ]
-    },
-    {
-      "name": "DefinePlugin",
-      "affectedHooks": "compilation",
-      "_args": [
-        {
-          "process.env.oooop": "ooooo"
         }
       ]
     }
