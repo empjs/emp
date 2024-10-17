@@ -6,7 +6,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.2.4",
+    "@empjs/cli": "3.2.7",
     "@empjs/plugin-vue2": "3.2.0"
   },
   "dependencies": {
