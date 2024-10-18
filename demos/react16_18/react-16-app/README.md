@@ -1,5 +1,11 @@
 # react-16-app
 
-## test
+# 运行
+```shell
+pnpm i
 
-ci 6
+pnpm dev
+```
+
+
+[文档说明](https://empjs.dev/guide/empShare/react-diff.html)
