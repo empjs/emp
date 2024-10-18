@@ -1,0 +1,12 @@
+{
+    "name": "vue3-demo",
+    "ignored": true,
+    "version": "0.0.1",
+    "scripts": {
+      "dev": "pnpm --filter vue3-* --parallel dev",
+      "build": "pnpm --filter vue3-* --parallel build",
+      "serve": "pnpm --filter vue3-* --parallel serve",
+      "stat": "pnpm --filter vue3-* --parallel stat"
+    }
+  }
+  
