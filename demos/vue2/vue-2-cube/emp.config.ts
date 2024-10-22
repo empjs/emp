@@ -32,8 +32,8 @@ export default defineConfig(store => {
     html: {
       title: 'EMP3 vue2 base',
       tags: [
-        {tagName: 'link', attributes: {rel: 'stylesheet', href: 'https://unpkg.com/cube-ui/lib/cube.min.css'}},
-        {tagName: 'script', attributes: {src: 'https://unpkg.com/cube-ui/lib/cube.min.js'}},
+        {tagName: 'link', attributes: {rel: 'stylesheet', href: 'https://unpkg.com/cube-ui@1.12.54/lib/cube.min.css'}},
+        {tagName: 'script', attributes: {src: 'https://unpkg.com/cube-ui@1.12.54/lib/cube.min.js'}},
       ]
     },
     server: {
