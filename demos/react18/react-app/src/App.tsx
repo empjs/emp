@@ -17,7 +17,7 @@ rt.register([
   {
     name: 'runtimeHost',
     // entry: 'http://localhost:1802/mf-manifest.json',
-    entry: 'https://e8e7be5c.emp-demo-react18-host.pages.dev/emp.js'
+    entry: 'https://emp-demo-react18-host.pages.dev/demos/react18/react-host/dist/mf-manifest.json'
   },
 ])
 const RemoteApp = lazy(() => rt.load('runtimeHost/App'))
