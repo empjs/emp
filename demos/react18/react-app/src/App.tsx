@@ -16,7 +16,7 @@ rt.init({
 rt.register([
   {
     name: 'runtimeHost',
-    // entry: 'http://localhost:1802/emp.js',
+    // entry: 'http://localhost:1802/mf-manifest.json',
     entry: 'https://e8e7be5c.emp-demo-react18-host.pages.dev/emp.js'
   },
 ])
