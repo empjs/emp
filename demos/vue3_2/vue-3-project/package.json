@@ -1,0 +1,26 @@
+{
+  "name": "vue3-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "3.2.7",
+    "@empjs/plugin-vue3": "3.2.0"
+  },
+  "dependencies": {
+    "@empjs/share": "3.2.0",
+    "ant-design-vue": "^4.1.2",
+    "vue": "^3.4.20",
+    "vue-router": "4"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "author": "",
+  "license": "ISC"
+}
