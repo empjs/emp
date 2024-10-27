@@ -10,12 +10,15 @@ pnpm i
 pnpm dev
 ```
 
+## 发现问题
 访问`http://localhost:1801/`可在控制台看到以下报错:
 
 ```
 GET http://localhost:1801/output/emp.js net::ERR_ABORTED 404
 ```
 实际上正确的`host`地址应该是 `http://localhost:1802/output/emp.js`。
+
+## 分析原因
 
 查看`host`项目的`emp.config.ts`
 
@@ -36,9 +39,10 @@ export default defineConfig(store => {
 
 但配置了`base`项后，影响了消费者(`react-app`)加载基站资源的地址策略，从原来使用基站的Host，改为使用`base`配置项的值作为资源前缀。
 
-为了解决这个问题，需要在基站项目`pluginRspackEmpShare`项中，额外添加`getPublicPath`配置项。
+## 解决问题
 
-        ...
+为了`修正消费者加载基站其他资源的前缀问题`，需要在基站项目`pluginRspackEmpShare`项中，额外添加`getPublicPath`配置项。
+
 修改`host`项目的`emp.config.ts`，添加`pluginRspackEmpShare` 的 `getPublicPath`配置。
 
 `react-host-with-base-config` / `emp.config.ts`:
@@ -61,7 +65,7 @@ export default defineConfig(store => {
 })
 ```
 
-## 再次运行
+## 查看结果
 ```
 pnpm i
 pnpm dev
