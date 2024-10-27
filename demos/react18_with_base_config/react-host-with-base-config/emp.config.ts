@@ -11,6 +11,7 @@ export default defineConfig(store => {
           './App': './src/App',
           './CountComp': './src/CountComp',
         },
+        // getPublicPath: `return "http://localhost:1802/output/"`,
         empRuntime: {
           runtimeLib: "https://unpkg.com/@empjs/share@3.1.5/output/sdk.js",
           frameworkLib: "https://unpkg.com/@empjs/libs-18@0.0.1/dist",
