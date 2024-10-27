@@ -1,6 +1,6 @@
 # EMP3 React18 DEMO with base config
 
-本`demo`主要展示，`EMP3.0`在部署到非根目录地址时候，解决获取远程模块`host`异常的问题。
+本`demo`主要展示，`EMP3.0`基站项目部署在非根目录环境时候，作为消费者的应用获取远程模块资源地址`前缀`异常的问题。
 
 [官网相关配置说明](https://empjs.dev/plugin/tool/share.html#getpublicpath)
 
