@@ -3,10 +3,10 @@
     "ignored": true,
     "version": "0.0.1",
     "scripts": {
-      "dev": "pnpm --filter runtime-18-* --parallel dev",
-      "build": "pnpm --filter runtime-18-* --parallel build",
-      "serve": "pnpm --filter runtime-18-* --parallel serve",
-      "stat": "pnpm --filter runtime-18-* --parallel stat"
+      "dev": "pnpm --filter runtime-with-base-config-* --parallel dev",
+      "build": "pnpm --filter runtime-with-base-config-* --parallel build",
+      "serve": "pnpm --filter runtime-with-base-config-* --parallel serve",
+      "stat": "pnpm --filter runtime-with-base-config-* --parallel stat"
     }
   }
   

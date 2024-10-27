@@ -1,5 +1,5 @@
 {
-  "name": "runtime-18-app",
+  "name": "runtime-with-base-config-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
