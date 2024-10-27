@@ -1,6 +1,6 @@
 # EMP3 React18 DEMO with base config
 
-本`demo`主要展示，`EMP3.0`基站项目部署在非根目录环境时候，作为消费者的应用获取远程模块资源地址`前缀`异常的问题。
+本`demo`主要展示，`EMP3.0`基站项目部署在非根目录环境时，作为消费者的应用获取远程模块资源地址`前缀`异常的问题。
 
 [官网相关配置说明](https://empjs.dev/plugin/tool/share.html#getpublicpath)
 
@@ -37,7 +37,7 @@ export default defineConfig(store => {
 ```
 由于项目需要，基站的访问地址需要在二级目录`/output/`，使用了[base配置项](https://empjs.dev/config/base/base.html)。
 
-但配置了`base`项后，影响了消费者(`react-app`)加载基站资源的地址策略，从原来使用基站的Host，改为使用`base`配置项的值作为资源前缀。
+但配置了`base`项后，影响了消费者(`react-app`)加载基站资源的地址策略，从原来使用基站的Host，改为使用`base`配置项的值作为资源前缀，则`/output/`的相对目录。
 
 ## 解决问题
 
