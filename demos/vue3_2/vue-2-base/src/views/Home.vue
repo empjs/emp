@@ -16,10 +16,10 @@
     </ul>
     <h2>Content Component</h2>
     <Content />
-    <h2>Element Table</h2>
-    <Table />
-    <h2>CompositionApi</h2>
-    <CompositionApi />
+    <!-- <h2>Element Table</h2>
+    <Table /> -->
+    <!-- <h2>CompositionApi</h2>
+    <CompositionApi /> -->
   </div>
 </template>
 <script>

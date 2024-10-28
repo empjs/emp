@@ -22,14 +22,11 @@ export default defineConfig(store => {
           '@v2b': `vue2Base@${vue2Base}`,
         },
         empRuntime: {
-          runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js",
-          frameworkLib: "https://unpkg.com/@empjs/lib-vue-2@0.0.2/dist",
-          // shareLib: {
-          //   'element-ui': [
-          //     'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
-          //     "https://unpkg.com/element-ui/lib/theme-chalk/index.css",
-          //   ],
-          // },
+          runtimeLib: "https://unpkg.com/@empjs/share@3.3.1-beta.1/output/sdk.js",
+          frameworkLib: "https://unpkg.com/@empjs/lib-vue-2@0.0.5/dist",
+          shareLib: {
+            'vue': 'Vue@https://unpkg.com/vue@3.5.12/dist/vue.global.js'
+          },
           framework: undefined,
         },
       }),

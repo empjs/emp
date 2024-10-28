@@ -12,6 +12,7 @@ export default defineConfig(store => {
           './Table': './src/components/table',
           './CompositionApi': './src/components/CompositionApi',
           './store': './src/store',
+          './Home': './src/views/Home',
         },
         empRuntime: {
           runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js",

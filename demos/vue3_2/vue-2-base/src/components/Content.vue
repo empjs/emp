@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button> -->
-    <p @click="showMore">More... update from base</p>
+    <button @click="showMore">More... update from base</button>
     <div class="more">
       <ul v-if="isMore === true">
         <li>
@@ -14,11 +14,11 @@
         <li>
           <h2>prop: {{ dataProps }}</h2>
           <Button text-val="button components in content from import" />
-          <DynamicButton text-val="dynamic import" />
         </li>
       </ul>
     </div>
     <h2>JSX Dynamic Component</h2>
+    <DynamicButton text-val="dynamic import" />
     <!-- <Hello /> -->
   </div>
 </template>

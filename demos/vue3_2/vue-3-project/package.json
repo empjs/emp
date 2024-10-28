@@ -9,10 +9,9 @@
     "@empjs/plugin-vue3": "3.2.0"
   },
   "dependencies": {
-    "@empjs/share": "3.2.0",
+    "@empjs/share": "3.3.1-beta.1",
     "ant-design-vue": "^4.1.2",
-    "vue": "^3.4.20",
-    "vue-router": "4"
+    "vue": "^3.4.20"
   },
   "scripts": {
     "dev": "emp dev",

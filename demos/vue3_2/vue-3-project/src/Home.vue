@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>Vue 3 Project</h1>
-    <h2>=== @v2b/Content ===</h2>
-    <Vue2InVue3Adapter :mfComponent="() => import('@v2b/Content')" />  
-    <h2>=== @v2b/compositionApi ===</h2>
-    <Vue2InVue3Adapter :mfComponent="() => import('@v2b/CompositionApi')" />  
-    
     <div @click="countData++">{{countData}}</div>
+    <h1>Vue 3 Project</h1>
+    <h2>vue2 Component: === @v2b/Content ===</h2>
+    <Vue2InVue3Adapter :mfComponent="() => import('@v2b/Content')" />  
+    <h2>vue2 Component: === @v2b/Home ===</h2>
+    <Vue2InVue3Adapter :mfComponent="() => import('@v2b/Home')" />  
   </div>
 </template>
 
 <script>
-import {ref} from 'vue'
-import Vue2InVue3Adapter, {vue2ToVue3} from './util'
+import { vueAdapter } from '@empjs/share/adapter'
+import vue, { ref } from 'vue'
+const {Vue2InVue3Adapter} = vueAdapter
 export default {
   components: {
     Vue2InVue3Adapter,

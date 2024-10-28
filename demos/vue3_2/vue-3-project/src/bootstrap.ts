@@ -1,6 +1,6 @@
 // import Antd from '@v3/Antd'
 import {createApp} from 'vue'
-import App from './App.vue'
+import vue from 'vue'
 import Home from './home.vue'
 // console.log('Antd', Antd)
 const app = createApp(Home)
