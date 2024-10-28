@@ -32,8 +32,8 @@ export default {
     DynamicButton: () => import('./Button'),
   },
   props: {
-    dataProps: {type: Number, required: false},
-    methodProps: {type: Function, required: false},
+    // dataProps: {type: Number, required: false},
+    // methodProps: {type: Function, required: false},
   },
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted() {
-    this.methodProps && this.methodProps()
+    // this.methodProps && this.methodProps()
     // console.log(this.$props)
     // console.log(this.$attrs)
     // console.log(this.$listeners)

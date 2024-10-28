@@ -1,0 +1,12 @@
+{
+    "name": "v3u2-demo",
+    "ignored": true,
+    "version": "0.0.1",
+    "scripts": {
+      "dev": "pnpm --filter 'v3u2-*' --parallel dev",
+      "build": "pnpm --filter v3u2-* --parallel build",
+      "serve": "pnpm --filter v3u2-* --parallel serve",
+      "stat": "pnpm --filter v3u2-* --parallel stat"
+    }
+  }
+  

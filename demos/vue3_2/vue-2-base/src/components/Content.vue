@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button>
+    <!-- <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button> -->
     <p @click="showMore">More... update from base</p>
     <div class="more">
       <ul v-if="isMore === true">
         <li>
-          <button class="button" @click="increment">Vuex Store : {{ $store.state.count }}</button>
+          <!-- <button class="button" @click="increment">Vuex Store : {{ $store.state.count }}</button> -->
         </li>
         <li>
           <h2>{{ title }}</h2>
@@ -19,7 +19,7 @@
       </ul>
     </div>
     <h2>JSX Dynamic Component</h2>
-    <Hello />
+    <!-- <Hello /> -->
   </div>
 </template>
 
@@ -28,7 +28,7 @@ import Button from './Button.vue'
 export default {
   components: {
     Button,
-    Hello: () => import('./Hello'),
+    // Hello: () => import('./Hello'),
     DynamicButton: () => import('./Button'),
   },
   props: {
@@ -52,7 +52,7 @@ export default {
       this.isMore = !this.isMore
     },
     increment() {
-      this.$store.commit('increment')
+      // this.$store.commit('increment')
       // console.log(this.$store.state.count)
     },
     add() {

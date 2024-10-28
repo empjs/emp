@@ -2,22 +2,24 @@
   <div>
     <h1>Vue 3 Project</h1>
     <h2>=== @v2b/Content ===</h2>
-    <Content />
+    <div id="vue2Content"></div>
+    <vue2-content />
     <h2>CompositionApi</h2>
-    <CompositionApi />
+    <!-- <CompositionApi /> -->
     <h2>=== @v2b/Table ===</h2>
-    <Table />
+    <!-- <Table /> -->
   </div>
 </template>
 
-
 <script>
-//import Content from "@v2b/Content"
+import Content from "@v2b/Content"
+import {vue2ToVue3} from './util'
 export default {
   components: {
-    Content: () => import('@v2b/Content'),
-    Table: () => import('@v2b/Table'),
-    CompositionApi: () => import('@v2b/CompositionApi'),
+    vue2Content: vue2ToVue3(Content, 'vue2Content')
+    // Content: defineAsyncComponent(() => import('@v2b/Content')),
+    // Table: defineAsyncComponent(() => import('@v2b/Table')),
+    // CompositionApi: defineAsyncComponent(() => import('@v2b/CompositionApi')),
   },
 }
 </script>

@@ -3,7 +3,6 @@
     <h1>SVGA COMPONENT LOGO:</h1>
     <!-- <Logo class="svg-logo" /> -->
     <h2>Hello JSX Component</h2>
-    <Hello />
     <h2>Img Example in src</h2>
     <ul class="imgbox">
       <li>
@@ -26,7 +25,6 @@
 <script>
 import CompositionApi from '../components/CompositionApi'
 import Content from '../components/Content'
-import Hello from '../components/Hello'
 // import Logo from './logo.svg'
 import Table from '../components/table'
 export default {
@@ -35,7 +33,6 @@ export default {
     // Logo,
     Table,
     CompositionApi,
-    Hello,
   },
 }
 </script>

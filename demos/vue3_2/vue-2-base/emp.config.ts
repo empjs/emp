@@ -15,9 +15,8 @@ export default defineConfig(store => {
         },
         empRuntime: {
           runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js",
+          frameworkLib: "https://unpkg.com/@empjs/lib-vue-2@0.0.1/dist",
           shareLib: {
-            vue: 'Vue@https://unpkg.com/vue@2.7.14/dist/vue.min.js',
-            vuex: "Vuex@https://unpkg.com/vuex@3.6.2/dist/vuex.min.js",
             'element-ui': [
               'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
               "https://unpkg.com/element-ui/lib/theme-chalk/index.css",
