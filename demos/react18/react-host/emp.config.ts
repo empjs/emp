@@ -1,6 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {pluginRspackEmpShare} from '@empjs/share'
+import Dotenv from 'dotenv-webpack'
 export default defineConfig(store => {
   return {
     plugins: [
@@ -19,6 +20,9 @@ export default defineConfig(store => {
         },
         manifest: true
       }),
+      // new Dotenv({
+      //   path: './.env',
+      // }),
     ],
     build: {
       
