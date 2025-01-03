@@ -19,6 +19,9 @@ export const Nav = () => {
       <a className={getAct('1900')} href={getUrl('1900')}>
         React 19
       </a>
+      <a href="https://github.com/empjs/emp/tree/v3/projects/react-across" target="_blank" rel="noreferrer">
+        Github
+      </a>
     </div>
   )
 }
