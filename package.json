@@ -16,16 +16,24 @@
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.0",
 		"@commitlint/config-conventional": "^17.8.0",
+		"@empjs/biome-config": "^0.7.2",
 		"husky": "^8.0.3",
 		"lint-staged": "^15.0.2",
 		"typescript": "^5.3.3"
 	},
 	"commitlint": {
-		"extends": ["@commitlint/config-conventional"]
+		"extends": [
+			"@commitlint/config-conventional"
+		]
 	},
 	"eslintConfig": {
 		"root": true,
-		"extends": ["@empjs/eslint-config-react"]
+		"extends": [
+			"@empjs/eslint-config-react"
+		]
 	},
-	"eslintIgnore": ["node_modules", "dist"]
+	"eslintIgnore": [
+		"node_modules",
+		"dist"
+	]
 }
