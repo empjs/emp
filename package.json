@@ -26,8 +26,8 @@
   },
   "eslintIgnore": ["node_modules", "dist"],
   "resolutions": {
-    "@empjs/cli": "^3.4.6",
+    "@empjs/cli": "^3.5.0",
     "@empjs/plugin-react": "^3.4.3",
-    "@empjs/share": "^3.4.7"
+    "@empjs/share": "^3.5.0"
   }
 }

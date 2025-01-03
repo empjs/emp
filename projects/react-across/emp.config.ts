@@ -27,7 +27,7 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: store.mode === 'development' ? `/sdk.js` : `/${projectName}/sdk.js`,
+            lib: store.mode === 'development' ? `/share/sdk.js` : `/${projectName}/share/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {
