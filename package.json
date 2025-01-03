@@ -1,39 +1,28 @@
 {
-	"name": "emp-workspace",
-	"version": "1.0.0",
-	"description": "emp workspace",
-	"main": "index.js",
-	"type": "module",
-	"repository": "https://github.com/empjs/emp.git",
-	"author": "ken <ckken@qq.com>",
-	"license": "MIT",
-	"private": true,
-	"scripts": {},
-	"engines": {
-		"node": ">=20.0.0",
-		"pnpm": ">=8"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^17.8.0",
-		"@commitlint/config-conventional": "^17.8.0",
-		"@empjs/biome-config": "^0.7.2",
-		"husky": "^8.0.3",
-		"lint-staged": "^15.0.2",
-		"typescript": "^5.3.3"
-	},
-	"commitlint": {
-		"extends": [
-			"@commitlint/config-conventional"
-		]
-	},
-	"eslintConfig": {
-		"root": true,
-		"extends": [
-			"@empjs/eslint-config-react"
-		]
-	},
-	"eslintIgnore": [
-		"node_modules",
-		"dist"
-	]
+  "name": "emp-workspace",
+  "version": "1.0.0",
+  "description": "emp workspace",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/empjs/emp.git",
+  "author": "ken <ckken@qq.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@commitlint/cli": "^17.8.0",
+    "@commitlint/config-conventional": "^17.8.0",
+    "@empjs/biome-config": "^0.7.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "typescript": "^5.3.3"
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": ["@empjs/eslint-config-react"]
+  },
+  "eslintIgnore": ["node_modules", "dist"]
 }
