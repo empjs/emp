@@ -33,5 +33,12 @@
         border-radius: 5px;
         margin: 10px;
         padding: 10px;
+
+        .info {
+            pre {
+                background-color: #eee;
+                padding: 8px;
+            }
+        }
     }
 }

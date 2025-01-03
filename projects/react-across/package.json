@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@empjs/cli": "^3.4.5",
+    "@empjs/cli": "^3.4.6",
     "@empjs/plugin-react": "^3.4.3",
     "@types/react": "19",
     "@types/react-dom": "19"
@@ -19,12 +19,18 @@
     "dev:19": "emp dev -ev  v=19",
     "dev:c1": "emp dev -ev  v=c1",
     "dev:c2": "emp dev -ev  v=c2",
-    "build": "emp build",
+    "build": "pnpm --parallel run /^build:.*/",
+    "build:17": "emp build -ev v=17",
+    "build:18": "emp build -ev v=18",
+    "build:19": "emp build -ev v=19",
+    "build:c1": "emp build -ev v=c1",
+    "build:c2": "emp build -ev v=c2",
     "start": "emp serve",
     "stat": "emp build --analyze",
+    "s1": "emp build --analyze -ev v=c1",
     "emp": "emp"
   },
   "dependencies": {
-    "@empjs/share": "^3.4.5"
+    "@empjs/share": "^3.4.7"
   }
 }

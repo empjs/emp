@@ -14,7 +14,12 @@ export default defineConfig(store => {
   }
   const reactVersion = Number(env)
   port = Number(port)
+  const projectName = `c${port}`
   return {
+    // base: store.mode === 'development' ? undefined : projectName,
+    build: {
+      outDir: `dist/${projectName}`,
+    },
     plugins: [
       pluginReact({
         version: reactVersion,
@@ -22,7 +27,7 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `/sdk.js`,
+            lib: store.mode === 'development' ? `/sdk.js` : `/${projectName}/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {
@@ -30,20 +35,20 @@ export default defineConfig(store => {
             version: reactVersion,
             entry: 'react',
             global: 'EMP_ADAPTER_REACT',
-            lib: `/${reactVersion}`,
+            lib: store.mode === 'development' ? `/${reactVersion}` : `/${projectName}/${reactVersion}`,
           },
         },
         exposes: {
           './Component': './src/Component',
         },
-        name: `c${port}`,
+        name: projectName,
       }),
     ],
     server: {
       port,
       open: false,
     },
-    define: {ip: store.server.ip, port},
+    define: {ip: store.server.ip, port, mode: store.mode},
     debug: {
       clearLog: false,
     },
