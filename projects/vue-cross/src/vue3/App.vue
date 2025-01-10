@@ -1,13 +1,16 @@
 <template>
     <div class="vue">
+      <Nav/>
       <h1>Vue {{version}} <span>App.vue</span></h1>
     </div>
   </template>
   
   <script lang="ts">
   import {version} from 'vue'
+  import Nav from './nav.vue'
   export default {
     name: 'App',
+    components:{Nav},
     data(){
       return {
         version

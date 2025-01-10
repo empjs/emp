@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@empjs/cli': ^3.5.0
-  '@empjs/plugin-react': ^3.4.3
-  '@empjs/share': ^3.5.0
+  '@empjs/cli': ^3.5.1
+  '@empjs/plugin-react': ^3.5.1
+  '@empjs/share': ^3.5.2
 
 importers:
 
@@ -35,8 +35,8 @@ importers:
   demos/react16_18/react-16-app:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3)
       mobx:
         specifier: ^6.12.3
         version: 6.13.0
@@ -51,11 +51,11 @@ importers:
         version: 16.14.0(react@16.14.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '16'
         version: 16.14.60
@@ -66,8 +66,8 @@ importers:
   demos/react17/react-app:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
       core-js:
         specifier: ^3.36.1
         version: 3.37.1
@@ -85,11 +85,11 @@ importers:
         version: 17.0.2(react@17.0.2)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^17.0.2
         version: 17.0.83
@@ -100,8 +100,8 @@ importers:
   demos/react17/react-host:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3)
       core-js:
         specifier: ^3.36.1
         version: 3.37.1
@@ -119,11 +119,11 @@ importers:
         version: 17.0.2(react@17.0.2)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^17.0.2
         version: 17.0.83
@@ -136,8 +136,8 @@ importers:
   demos/react18/react-app:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -146,11 +146,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '18'
         version: 18.3.3
@@ -161,8 +161,8 @@ importers:
   demos/react18/react-host:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -171,11 +171,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '18'
         version: 18.3.3
@@ -191,8 +191,8 @@ importers:
   demos/react18_with_base_config/react-app:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -201,11 +201,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '18'
         version: 18.3.3
@@ -216,8 +216,8 @@ importers:
   demos/react18_with_base_config/react-host-with-base-config:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       react:
         specifier: '18'
         version: 18.2.0
@@ -226,11 +226,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '18'
         version: 18.3.3
@@ -243,8 +243,8 @@ importers:
   demos/vue2/vue-2-base:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       element-ui:
         specifier: ^2.15.14
         version: 2.15.14(vue@2.7.16)
@@ -259,8 +259,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -268,8 +268,8 @@ importers:
   demos/vue2/vue-2-cube:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       element-ui:
         specifier: ^2.15.14
         version: 2.15.14(vue@2.7.16)
@@ -284,8 +284,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-stylus':
         specifier: ^3.2.0
         version: 3.2.0(@rspack/core@1.1.0)(webpack@5.90.3)
@@ -296,8 +296,8 @@ importers:
   demos/vue2/vue-2-project:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       vue:
         specifier: ^2.7.14
         version: 2.7.16
@@ -309,8 +309,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -323,8 +323,8 @@ importers:
         specifier: 3.2.2
         version: 3.2.2
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       ant-design-vue:
         specifier: ^4.1.2
         version: 4.2.3(vue@3.4.31)
@@ -333,8 +333,8 @@ importers:
         version: 3.4.31(typescript@5.3.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -342,8 +342,8 @@ importers:
   demos/vue3/vue-3-project:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       ant-design-vue:
         specifier: ^4.1.2
         version: 4.2.3(vue@3.4.31)
@@ -355,8 +355,8 @@ importers:
         version: 4.4.5(vue@3.4.31)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -366,8 +366,8 @@ importers:
   demos/vue3_2/vue-2-base:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       element-ui:
         specifier: ^2.15.14
         version: 2.15.14(vue@2.7.16)
@@ -382,8 +382,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -391,8 +391,8 @@ importers:
   demos/vue3_2/vue-3-project:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
       ant-design-vue:
         specifier: ^4.1.2
         version: 4.2.3(vue@3.4.31)
@@ -401,8 +401,8 @@ importers:
         version: 3.4.31(typescript@5.3.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: 3.2.0
         version: 3.2.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -426,11 +426,11 @@ importers:
         version: 16.14.0(react@16.14.0)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^16.9.9
         version: 16.14.60
@@ -448,11 +448,11 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^18.2.30
         version: 18.3.3
@@ -470,11 +470,11 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^18.2.30
         version: 18.3.3
@@ -495,8 +495,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@types/react':
         specifier: ^18.2.30
         version: 18.3.3
@@ -523,11 +523,11 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: ^18.2.30
         version: 18.3.3
@@ -538,15 +538,15 @@ importers:
   projects/react-across:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@types/react':
         specifier: '19'
         version: 19.0.2
@@ -718,8 +718,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@types/react':
         specifier: ^18.2.30
         version: 18.3.3
@@ -743,8 +743,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: ^3.0.0-beta.1
         version: 3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
@@ -759,8 +759,8 @@ importers:
         version: 3.4.31(typescript@5.3.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: ^3.0.0-beta.3
         version: 3.0.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -784,8 +784,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: '*'
         version: 3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
@@ -806,8 +806,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: '*'
         version: 3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
@@ -825,8 +825,8 @@ importers:
         version: 3.6.2(vue@2.7.16)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue2':
         specifier: '*'
         version: 3.0.0(@babel/core@7.24.0)(css-loader@7.1.2)(webpack@5.90.3)
@@ -841,8 +841,8 @@ importers:
         version: 3.4.31(typescript@5.3.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: '*'
         version: 3.0.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -857,8 +857,8 @@ importers:
         version: 3.4.31(typescript@5.3.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-vue3':
         specifier: '*'
         version: 3.0.0(@babel/core@7.24.0)(typescript@5.3.3)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -866,15 +866,15 @@ importers:
   projects/vue-cross:
     dependencies:
       '@empjs/share':
-        specifier: ^3.5.0
-        version: 3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.2
+        version: 3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3)
     devDependencies:
       '@empjs/cli':
-        specifier: ^3.5.0
-        version: 3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
+        specifier: ^3.5.1
+        version: 3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3)
       '@empjs/plugin-react':
-        specifier: ^3.4.3
-        version: 3.4.3(typescript@5.3.3)
+        specifier: ^3.5.1
+        version: 3.5.1(typescript@5.3.3)
       '@empjs/plugin-vue2':
         specifier: '*'
         version: 3.2.0(@babel/core@7.24.0)(css-loader@7.1.2)(react-dom@18.2.0)(react@18.2.0)(vue-template-compiler@2.7.16)(webpack@5.90.3)
@@ -1194,11 +1194,6 @@ packages:
     resolution: {integrity: sha512-7MbVt6xrwFQbunH2DNQsAP5sTGxfqQtErvBIvIMi6EQnbgUOuVYanvREcmFrOPhoXBrTtjhhP+lW+o5UfK+tDg==}
     engines: {node: '>=6.9.0'}
 
-  /@babel/helper-validator-identifier@7.22.20:
-    resolution: {integrity: sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A==}
-    engines: {node: '>=6.9.0'}
-    dev: true
-
   /@babel/helper-validator-identifier@7.24.7:
     resolution: {integrity: sha512-rR+PBcQ1SMQDDyF6X0wxtG8QyLCgUB0eRAGguqRLfkCA87l7yAP7ehq8SNj96OOGTO8OBV70KhuFYcIkHXOg0w==}
     engines: {node: '>=6.9.0'}
@@ -1237,7 +1232,7 @@ packages:
     resolution: {integrity: sha512-dkdMCN3py0+ksCgYmGG8jKeGA/8Tk+gJwSYYlFGxG5lmhfKNoAy004YpLxpS1W2J8m/EK2Ew+yOs9pVRwO89mg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/helper-validator-identifier': 7.22.20
+      '@babel/helper-validator-identifier': 7.25.9
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
@@ -1813,7 +1808,7 @@ packages:
       '@babel/helper-hoist-variables': 7.24.7
       '@babel/helper-module-transforms': 7.24.7(@babel/core@7.24.0)
       '@babel/helper-plugin-utils': 7.24.7
-      '@babel/helper-validator-identifier': 7.24.7
+      '@babel/helper-validator-identifier': 7.25.9
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2636,8 +2631,8 @@ packages:
       '@biomejs/biome': 1.9.4
     dev: true
 
-  /@empjs/cli@3.5.0(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-QEqvPpIJ4BTgmugIrRyYylPHbSs20a5HMq3jPj3umk44S/QTmaEwIvje3cN/Q4G/aywNHhQwSylTxML8TcHwBQ==}
+  /@empjs/cli@3.5.1(less@4.2.0)(ts-node@10.9.1)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-M/Dyqxy0c9QL+zq4id3jEmowH/4uA7/aSMTrFnns21xaUr4iTpyxO8khPhPcpI+IbVFOrlEiE0zg3LQenwsGfw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
@@ -2706,8 +2701,8 @@ packages:
       lightningcss: 1.27.0
     dev: false
 
-  /@empjs/plugin-react@3.4.3(typescript@5.3.3):
-    resolution: {integrity: sha512-toRkF+ZIgZQntfRHt+DjyOBdOoLdKE09Rs9rs3bNhLXQ1zDDaialRNTgsopyxqFrTRbza+4DVLJCJyswfiBXvA==}
+  /@empjs/plugin-react@3.5.1(typescript@5.3.3):
+    resolution: {integrity: sha512-R7taF+/GdZ0k6SK8ZAUFkTb0rjrsM8v4EmmZ5R4bty3uX8g0vjeOs6utWFspJjI1XU0Oh1eroVaHOO/BL9ZnWQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@rspack/plugin-react-refresh': 1.0.0(react-refresh@0.14.2)
@@ -2916,8 +2911,8 @@ packages:
       - webpack
     dev: true
 
-  /@empjs/share@3.5.0(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-QURHGqijZHNPk+zLsDsD/XUhK1r4+HYysHusLamABXKM0WOLCpcvMziLn5dovWjmFbrbM/67kjVICePXLRCO5w==}
+  /@empjs/share@3.5.2(react-dom@16.14.0)(react@16.14.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-/VIZKKx1ewKgo6B2lMTSe9Ngprs2brA7Hpk002sU4lcUXtIi8KZ9Dkc32gGlUV6N9F9A2OqnIu6/AwNgJcu1DA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@empjs/module-federation-runtime': 0.6.10-stable
@@ -2936,8 +2931,8 @@ packages:
       - webpack
     dev: false
 
-  /@empjs/share@3.5.0(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-QURHGqijZHNPk+zLsDsD/XUhK1r4+HYysHusLamABXKM0WOLCpcvMziLn5dovWjmFbrbM/67kjVICePXLRCO5w==}
+  /@empjs/share@3.5.2(react-dom@17.0.2)(react@17.0.2)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-/VIZKKx1ewKgo6B2lMTSe9Ngprs2brA7Hpk002sU4lcUXtIi8KZ9Dkc32gGlUV6N9F9A2OqnIu6/AwNgJcu1DA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@empjs/module-federation-runtime': 0.6.10-stable
@@ -2956,8 +2951,8 @@ packages:
       - webpack
     dev: false
 
-  /@empjs/share@3.5.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3):
-    resolution: {integrity: sha512-QURHGqijZHNPk+zLsDsD/XUhK1r4+HYysHusLamABXKM0WOLCpcvMziLn5dovWjmFbrbM/67kjVICePXLRCO5w==}
+  /@empjs/share@3.5.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.3):
+    resolution: {integrity: sha512-/VIZKKx1ewKgo6B2lMTSe9Ngprs2brA7Hpk002sU4lcUXtIi8KZ9Dkc32gGlUV6N9F9A2OqnIu6/AwNgJcu1DA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@empjs/module-federation-runtime': 0.6.10-stable
@@ -3966,7 +3961,7 @@ packages:
   /@simonwep/pickr@1.8.2:
     resolution: {integrity: sha512-/l5w8BIkrpP6n1xsetx9MWPWlU6OblN5YgZZphxan0Tq4BByTCETL6lyIeY8lagalS2Nbt4F2W034KHLIiunKA==}
     dependencies:
-      core-js: 3.37.1
+      core-js: 3.39.0
       nanopop: 2.4.2
     dev: false
 
@@ -8699,16 +8694,6 @@ packages:
     dependencies:
       fs-monkey: 1.0.6
 
-  /memfs@4.13.0:
-    resolution: {integrity: sha512-dIs5KGy24fbdDhIAg0RxXpFqQp3RwL6wgSMRF9OSuphL/Uc9a4u2/SDJKPLj/zUgtOGKuHrRMrj563+IErj4Cg==}
-    engines: {node: '>= 4.0.0'}
-    dependencies:
-      '@jsonjoy.com/json-pack': 1.1.0(tslib@2.6.2)
-      '@jsonjoy.com/util': 1.5.0(tslib@2.6.2)
-      tree-dump: 1.0.2(tslib@2.6.2)
-      tslib: 2.6.2
-    dev: true
-
   /memfs@4.15.3:
     resolution: {integrity: sha512-vR/g1SgqvKJgAyYla+06G4p/EOcEmwhYuVb1yc1ixcKf8o/sh7Zngv63957ZSNd1xrZJoinmNyDf2LzuP8WJXw==}
     engines: {node: '>= 4.0.0'}
@@ -11126,7 +11111,7 @@ packages:
       css-tree: 2.3.1
       css-what: 6.1.0
       csso: 5.0.5
-      picocolors: 1.0.1
+      picocolors: 1.1.1
     dev: true
 
   /tailwindcss@3.4.4(ts-node@10.9.1):
@@ -12084,7 +12069,7 @@ packages:
         optional: true
     dependencies:
       colorette: 2.0.20
-      memfs: 4.13.0
+      memfs: 4.15.3
       mime-types: 2.1.35
       on-finished: 2.4.1
       range-parser: 1.2.1

@@ -1,96 +1,51 @@
 import {defineConfig} from '@empjs/cli'
-import type {GlobalStore} from '@empjs/cli'
-import pluginReact from '@empjs/plugin-react'
 import pluginVue2 from '@empjs/plugin-vue2'
 import pluginVue3 from '@empjs/plugin-vue3'
-import {pluginRspackEmpShare} from '@empjs/share/rspack'
+import {externalReact, pluginRspackEmpShare} from '@empjs/share/rspack'
 export default defineConfig(store => {
-  const {port, pluginEmpShare, pluginFramework, appEntry, name} = setup(store)
-  return {
-    plugins: [pluginFramework, pluginEmpShare],
-    server: {
-      port,
-      open: false,
-    },
-    appEntry,
-    define: {ip: store.server.ip, port, name},
-    debug: {clearLog: false},
-  }
-})
-//
-const setup = (store: GlobalStore) => {
   const {cliOptions} = store
   const env = cliOptions.envVars.v
-  let port: any = `${env}00`
+  let port: any = `200${env}`
 
-  const exposes = {
-    // './Component': './src/react/Component',
-    // './Nav': './src/react/Nav',
-  }
   const version = Number(env)
-  //
-  let frameworkName = 'react'
-  let appEntry = `react/index.tsx`
-  if ([2, 3].includes(version)) {
-    frameworkName = 'vue'
-    port = `200${version}`
-  }
   port = Number(port)
-  let framework: any = {
-    name: frameworkName,
-    version: version,
-    entry: frameworkName,
-    global: 'EMP_ADAPTER_REACT',
-    lib: `/${frameworkName}-${version}`,
-  }
-  if (frameworkName === 'vue') {
-    framework = {
-      name: frameworkName,
-      version: version,
-      entry: frameworkName,
-      global: 'EMP_ADAPTER_VUE',
-      lib: `/${frameworkName}-${version}`,
-    }
-    //
-    appEntry = version === 2 ? `vue/index.ts` : `vue3/index.ts`
-  }
-  //
-  const name = `c${port}`
+  const projectName = `c${port}`
   return {
-    name,
-    port,
-    version,
-    appEntry,
-    get pluginFramework() {
-      if (frameworkName === 'vue') {
-        if (version === 3) {
-          return pluginVue3()
-        } else if (version === 2) {
-          return pluginVue2()
-        }
-      }
-      return pluginReact({
-        version,
-      })
+    // base: store.mode === 'development' ? undefined : projectName,
+    build: {
+      outDir: `dist/${projectName}`,
     },
-    get pluginEmpShare() {
-      return pluginRspackEmpShare({
+    plugins: [
+      version === 2 ? pluginVue2() : pluginVue3(),
+      pluginRspackEmpShare({
         empRuntime: {
           runtime: {
             lib: `/share/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
-          framework,
+          framework: {
+            libs: [
+              version === 2
+                ? `https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js`
+                : `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
+            ],
+          },
           setExternals(o) {
-            if (frameworkName === 'vue') {
-              o['vue'] = version === 2 ? `EMP_ADAPTER_VUE.Vue` : `EMP_ADAPTER_VUE`
-            }
+            o['vue'] = 'window.Vue'
             return o
           },
         },
-        exposes,
-        name,
-      })
+        name: projectName,
+      }),
+    ],
+    appEntry: `vue${version}/index.ts`,
+    server: {
+      port,
+      open: false,
+    },
+    define: {ip: store.server.ip, port, mode: store.mode},
+    debug: {
+      clearLog: false,
     },
   }
-}
+})

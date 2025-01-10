@@ -1,17 +1,11 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
-import {pluginRspackEmpShare} from '@empjs/share/rspack'
+import {externalReact, pluginRspackEmpShare} from '@empjs/share/rspack'
 export default defineConfig(store => {
   const {cliOptions} = store
-  let env = cliOptions.envVars.v
+  const env = cliOptions.envVars.v
   let port: any = `${env}00`
-  if (cliOptions.envVars.v === 'c1') {
-    env = `17`
-    port = `2100`
-  } else if (cliOptions.envVars.v === 'c2') {
-    env = `17`
-    port = `2200`
-  }
+
   const reactVersion = Number(env)
   port = Number(port)
   const projectName = `c${port}`
@@ -31,11 +25,11 @@ export default defineConfig(store => {
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {
-            name: 'react',
-            version: reactVersion,
-            entry: 'react',
-            global: 'EMP_ADAPTER_REACT',
-            lib: store.mode === 'development' ? `/${reactVersion}` : `/${projectName}/${reactVersion}`,
+            libs: [`/${reactVersion}/react.${store.mode}.umd.js`],
+          },
+          setExternals(o) {
+            externalReact(o, 'EMP_ADAPTER_REACT')
+            return o
           },
         },
         exposes: {

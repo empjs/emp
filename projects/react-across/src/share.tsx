@@ -3,16 +3,16 @@ import empRuntime from '@empjs/share/runtime'
 import {ip, mode, name} from './config'
 export const remotes = [
   {
-    name: 'c2100',
-    entry: mode === 'development' ? `http://${ip}:2100/emp.js` : `${window.location.origin}/c2100/emp.js`,
+    name: 'c1700',
+    entry: mode === 'development' ? `http://${ip}:1700/emp.js` : `${window.location.origin}/c1700/emp.js`,
   },
   {
-    name: 'c2200',
-    entry: mode === 'development' ? `http://${ip}:2200/emp.js` : `${window.location.origin}/c2200/emp.js`,
+    name: 'c1800',
+    entry: mode === 'development' ? `http://${ip}:1800/emp.js` : `${window.location.origin}/c1800/emp.js`,
   },
 ]
 empRuntime.init({
-  shared: {...reactAdapter.shared},
+  shared: {...reactAdapter.getShared('EMP_ADAPTER_REACT')},
   name,
   remotes,
 })

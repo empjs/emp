@@ -3,8 +3,8 @@ import {Nav} from './Nav'
 import './style.scss'
 import sdk from './share'
 export const App = () => {
-  const C1 = lazy(() => sdk.load('c2100/Component'))
-  const C2 = lazy(() => sdk.load('c2200/Component'))
+  const C1 = lazy(() => sdk.load('c1700/Component'))
+  const C2 = lazy(() => sdk.load('c1800/Component'))
   return (
     <div className="container">
       <Nav />
