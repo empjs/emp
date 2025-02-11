@@ -1,6 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import vue from '@empjs/plugin-vue2'
-import {pluginRspackEmpShare} from '@empjs/share'
+import {externalVue, pluginRspackEmpShare} from '@empjs/share/rspack'
+
 export default defineConfig(store => {
   return {
     plugins: [
@@ -15,16 +16,18 @@ export default defineConfig(store => {
           './Home': './src/views/Home',
         },
         empRuntime: {
-          runtimeLib: "https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js",
-          frameworkLib: "https://unpkg.com/@empjs/lib-vue-2@0.0.1/dist",
-          // shareLib: {
-          //   'element-ui': [
-          //     'ELEMENT@https://unpkg.com/element-ui/lib/index.js',
-          //     "https://unpkg.com/element-ui/lib/theme-chalk/index.css",
-          //   ],
-          // },
-          framework: 'vue2',
-        },
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.6.0/output/sdk.js`,
+          },
+          framework: {
+            libs: [
+              `https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.runtime.common${store.mode === 'production' ? '.prod' : ''}.min.js`,
+            //  `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.prod.js`, //如果需要用到 vue-router
+              ],
+            global: 'window',
+          },
+          setExternals: externalVue,
+        }
       }),
     ],
     html: {

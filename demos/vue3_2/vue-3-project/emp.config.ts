@@ -1,6 +1,6 @@
 import {defineConfig} from '@empjs/cli'
 import Vue3 from '@empjs/plugin-vue3'
-import {pluginRspackEmpShare} from '@empjs/share'
+import {externalVue, pluginRspackEmpShare} from '@empjs/share/rspack'
 // cf vue3
 const deploy = process.env.DEPLOY
 const isCf = deploy === 'cloudflare'
@@ -13,22 +13,24 @@ export default defineConfig(store => {
       Vue3(),
       pluginRspackEmpShare({
         name: 'vue3Project',
-        shared: {
-          vue: {
-            requiredVersion: '^3',
-          },
-        },
         remotes: {
           '@v2b': `vue2Base@${vue2Base}`,
         },
         empRuntime: {
-          runtimeLib: "https://unpkg.com/@empjs/share@3.3.1-beta.1/output/sdk.js",
-          frameworkLib: "https://unpkg.com/@empjs/lib-vue-2@0.0.5/dist",
-          shareLib: {
-            'vue': 'Vue@https://unpkg.com/vue@3.5.12/dist/vue.global.js'
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.6.0/output/sdk.js`,
           },
-          framework: undefined,
-        },
+          
+          framework: {
+            libs: [
+              `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
+              `https://unpkg.com/@empjs/cdn-vue@0.2.0/dist/vue.${store.mode}.umd.js`
+            //  `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.prod.js`, //如果需要用到 vue-router
+              ],
+            global: 'window',
+          },
+          setExternals: externalVue,
+        }
       }),
     ],
     appEntry: 'main.ts',
