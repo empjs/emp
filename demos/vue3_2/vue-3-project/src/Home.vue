@@ -10,9 +10,8 @@
 </template>
 
 <script>
-import { vueAdapter } from '@empjs/share/adapter'
+import { Vue2InVue3Adapter } from '@empjs/share/adapterVue'
 import vue, { ref } from 'vue'
-const {Vue2InVue3Adapter} = vueAdapter
 export default {
   components: {
     Vue2InVue3Adapter,

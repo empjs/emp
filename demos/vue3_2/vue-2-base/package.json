@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.2.6-beta.2",
+    "@empjs/cli": "3.6.1",
     "@empjs/plugin-vue2": "3.2.0"
   },
   "dependencies": {
-    "@empjs/share": "3.3.1-beta.1",
+    "@empjs/share": "3.6.1-beta.2",
     "element-ui": "^2.15.14",
     "vue": "^2.7.14",
     "vue-router": "3",

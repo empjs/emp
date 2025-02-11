@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.2.7",
+    "@empjs/cli": "3.6.1",
     "@empjs/plugin-vue3": "3.2.0"
   },
   "dependencies": {
-    "@empjs/share": "3.3.1-beta.1",
+    "@empjs/share": "3.6.1-beta.2",
     "ant-design-vue": "^4.1.2",
     "vue": "^3.4.20"
   },
