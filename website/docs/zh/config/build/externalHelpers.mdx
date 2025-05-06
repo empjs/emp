@@ -1,0 +1,15 @@
+# build.externalHelpers
++ swc 会将一些工具类，通过模块的形式导入
++ 类型： `boolean`
++ 默认值： `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        externalHelpers:false,
+    }
+  }
+})
+```

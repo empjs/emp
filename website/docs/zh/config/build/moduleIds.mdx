@@ -1,0 +1,17 @@
+# build.moduleIds
+:::tip
+`named` 使用有意义、方便调试的内容当作模块 id。此选项会在开发环境下默认开启。         
+`deterministic` 使用对模块标识符哈希后的数字当作模块 id，有益于长期缓存。此选项会在生产环境下默认开启。
+:::
++ 类型：`named` | `deterministic`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        moduleIds:store.isDev?'named':'deterministic'
+    }
+  }
+})
+```

@@ -1,0 +1,47 @@
+.root {
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  width: 240px;
+  padding: 8px 0 8px 8px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease-in-out;
+  margin-bottom: 12px;
+
+  &:nth-child(2n + 1) {
+    margin-right: 16px;
+  }
+
+  &:hover {
+    background-color: var(--rp-c-bg-mute);
+  }
+}
+
+.name {
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--rp-c-text-1);
+}
+
+.desc {
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 4px;
+  color: rgba(60, 60, 60, 0.5);
+
+  :global(.dark) & {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  margin-right: 20px;
+  object-fit: contain;
+
+  :global(.dark) & {
+    opacity: 0.9;
+  }
+}

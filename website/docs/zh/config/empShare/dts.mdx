@@ -1,0 +1,92 @@
+import { Badge } from '@theme';
+
+# empShare.dts.sync
+
+<Badge text="remove in v3.1.4" type="danger" />
+
+:::danger title="EmpShare"
+`v3.1.4`版本后，使用 [RspackEmpSharePlugin](/plugin/tool/share)代替`empShare`配置。
+:::
+
+:::tip{title="EmpShare 生产者类型同步"}
+`@emp/cli` v3.0.0-beta.31 后接入 `@module-federation/enhanced` 支持 Typescript 的基站 类型同步
+:::
+## 实例
+### 01.生产者-导出组件与类型
+```js title="federation_provider/emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      port: 3301,
+    },
+    empShare: {
+        name: 'federation_provider',
+        exposes: {
+        './App': './src/App',
+        },
+        shared: {
+          react: {
+            singleton: true,
+          },
+          'react-dom': {
+            singleton: true,
+          },
+        },
+        dts: true,//生成dts
+    },
+    ...
+  }
+})
+
+```
+### 02.消费者-接收组件与类型
+```js title="federation_consumer/emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      port: 3302,
+    },
+    empShare: {
+        name: 'federation_consumer',
+        remotes: {
+          federation_provider: 'federation_provider@http://localhost:3301/emp.js',
+        },
+        shared: {
+          react: {
+            singleton: true,
+          },
+          'react-dom': {
+            singleton: true,
+          },
+        },
+        dts: true,//同步生产者dts
+    },
+    ...
+  }
+})
+
+```
+### 03.设置类型路径
+```js title="federation_consumer/tsconfig.json"
+{
+  "compilerOptions": {
+    "paths": {
+      "*": ["./@mf-types/*"]
+    }
+  }
+}
+
+```
+> `federation_provider/tsconfig.json` 同理
+## 注意事项 
+:::warning{title="使用提示"}
+项目入口不能使用 `expose` 否则会引起报错
+:::
+### `ignore` 类型文件提交到 `git`
+```doc title=".gitignore"
+@mf-types
+```

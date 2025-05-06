@@ -1,0 +1,15 @@
+# build.publicDir
++ 静态文件路径
++ 类型： `string`
++ 默认值： `public`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        publicDir:'public'
+    }
+  }
+})
+```

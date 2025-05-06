@@ -1,0 +1,28 @@
+# base
+:::tip
+生成环境 可以通过 `base` 设置 cdn 路径  
+publicPath 根路径 可参考webpack,业务模式默认为 `auto`   
+html 部分 publicPath 默认为 undefined,可设置全量域名或子目录适配，也可以单独在html设置 Public
+:::
+
++ 类型： `boolean | string | 'auto'`
++ 默认值： `'auto'`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    base:'/'
+  }
+})
+```
+
+## 生产与开发环境设置用例
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    base:store.isDev?'https://dev.xxx.com/':'https://www.xxx.com/'
+  }
+})
+```

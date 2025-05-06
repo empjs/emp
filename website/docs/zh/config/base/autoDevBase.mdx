@@ -1,0 +1,19 @@
+# autoDevBase
+:::tip
+启动后 自动设置 base 为当前 Ip+port的路径如 base = http://127.0.0.1:8080/ 并且固定 ws 方便代理调试
+:::
+
++ 类型： `boolean`
++ 默认值： `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    autoDevBase:true
+  }
+})
+```
+
+## 作用
+便于远程接入代理工具进行调试、无需代理以及嵌入`debug` 工具到页面，影响美观

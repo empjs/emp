@@ -1,0 +1,28 @@
+# EMP 项目构建工具
+
+## 快速开始
+
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/cli -D" />
+
+### 配置
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+  }
+})
+```
+
+### 指令
+```json title="package.json"
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+```

@@ -1,0 +1,60 @@
+import { Badge } from '@theme';
+
+# build.polyfill
+
+<Badge text="breakchange in v3.1.4" type="info" />
+
+## polyfill.entryCdn
+<Badge text="add in v3.1.5" type="warning" />
++ 页面头部引入兼容代码CDN脚本
++ 示例`https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`
++ 兼容代码生成仓库: 代补充
+
+## polyfill.mode
+
+<Badge text="add in v3.1.4" type="warning" />
+
+
++ 注入兼容代码
++ 类型： `entry` | `usage` | false
++ 默认值： false
+
+:::tip
+module federation 入口 建议使用  entry
+:::
+
+## polyfill.entry
+<Badge text="remove in v3.1.4" type="danger" />
+兼容代码注入到 入口文件里面
+
+## polyfill.usage
+<Badge text="remove in v3.1.4" type="danger" />
+按需添加兼容代码
+
+## polyfill.coreJsFeatures
+:::tip
+选择core-js的兼容版本有助于切换适当的代码体积
+:::
++ 类型： `full` | `actual` | `stable` | `es`
++ 默认值： `stable`
+
+## polyfill.externalHelpers
++ @swc/helpers 外置
++ 类型：boolean
++ 默认值： false
+
+## polyfill.browserslist
++ 浏览器 兼容版本
++ 类型：string[]
++ 默认值： ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14']
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        mode:'usage',
+    }
+  }
+})
+```

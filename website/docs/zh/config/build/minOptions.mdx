@@ -1,0 +1,55 @@
+# build.minOptions
++ 生成代码 参考 [Configuring SWC](https://swc.rs/docs/configuring-swc#jsctarget)
++ 类型： `SwcJsMinimizerRspackPluginOptions`
+```ts
+export type SwcJsMinimizerRspackPluginOptions = {
+    /**
+     * @deprecated Deprecated, move to `compress.passes`
+     */
+    passes?: number;
+    /**
+     * @deprecated Deprecated, move to `compress.drop_console`
+     */
+    dropConsole?: boolean;
+    /**
+     * @deprecated Deprecated, move to `compress.pure_funcs`
+     */
+    pureFuncs?: Array<string>;
+    /**
+     * @deprecated Deprecated, move to `mangle.keep_classnames`
+     */
+    keepClassNames?: boolean;
+    /**
+     * @deprecated Deprecated, move to `mangle.keep_fnames`
+     */
+    keepFnNames?: boolean;
+    /**
+     * @deprecated Deprecated, move to `format.comments`
+     */
+    comments?: false | "all" | "some";
+    /**
+     * @deprecated Deprecated, move to `format.ascii_only`
+     */
+    asciiOnly?: boolean;
+    extractComments?: ExtractCommentsOptions | undefined;
+    compress?: TerserCompressOptions | boolean;
+    mangle?: TerserMangleOptions | boolean;
+    format?: JsFormatOptions & ToSnakeCaseProperties<JsFormatOptions>;
+    module?: boolean;
+    test?: MinifyConditions;
+    exclude?: MinifyConditions;
+    include?: MinifyConditions;
+};
+```
++ 默认值： `{}`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        minOptions:{}
+    }
+  }
+})
+```

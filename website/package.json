@@ -1,0 +1,26 @@
+{
+  "name": "@empjs/offical",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "rspress dev",
+    "build": "rspress build",
+    "start": "rspress preview"
+  },
+  "dependencies": {
+    "antd": "^5.17.3",
+    "framer-motion": "^11.1.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.10.2",
+    "rsfamily-nav-icon": "^1.0.2",
+    "rspress": "^1.41.1",
+    "rspress-plugin-sitemap": "^1.1.1",
+    "tailwindcss": "^3.4.3"
+  },
+  "devDependencies": {
+    "@modern-js/tsconfig": "^2.49.3",
+    "@types/node": "^16",
+    "@types/react": "^18.2.73"
+  }
+}

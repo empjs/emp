@@ -1,0 +1,15 @@
+# build.outDir
++ 生成代码目录
++ 类型： `string`
++ 默认值： `dist`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        outDir:'dist'
+    }
+  }
+})
+```

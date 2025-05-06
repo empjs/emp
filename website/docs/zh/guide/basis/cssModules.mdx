@@ -1,0 +1,227 @@
+import { PackageManagerTabs } from "@theme";
+
+# 使用 CSS Modules
+
+## 出现
+
+我们日常的开发模式是组件化开发，我们希望每个组件都能作为一个独立的模块，即使是样式也应该仅在组件内部生效，不会相互影响。然而，传统的全局 CSS 往往无法满足这种需求，因为样式之间会相互干扰。为了解决这个问题，CSS Modules 提供了一个合适的解决方案。
+
+## CSS Modules
+
+**CSS Modules** 是一种用于管理 CSS 样式的模块化解决方案。它解决了**传统 CSS 的全局作用域**、**样式冲突**和**命名空间污染**等问题，提供了局部作用域、类名转换和样式导入等功能，提高了样式的可维护性和可重用性。
+
+## 核心概念
+
+- 每个 CSS 文件都被视为一个模块，与特定的组件或模块关联。
+- 在编译时，CSS Modules 将 CSS 类名转换为唯一的局部作用域类名。
+- 每个组件都有自己的局部作用域，样式规则只适用于当前组件内部。
+
+## 使用指南
+
+EMP 内置了 `less-loader`、`postcss-loader`、`sass-loader `处理 CSS 文件。你可以直接在项目中导入 Less、Sass 或 Scss 文件进行使用。
+
+## 使用示例
+
+### React
+
+在 React 中启用 CSS Modules，我们只需要使用 `[name].module.css` 作为样式文件名。
+
+以下文件扩展名的样式文件将被视为 CSS Modules：
+
+- `*.module.css`
+- `*.module.less`
+- `*.module.sass`
+- `*.module.scss`
+- `*.module.styl`
+- `*.module.stylus`
+
+以下是一个简单的示例：
+我们将 `index.tsx` 文件、`index.module.scss` 文件放在同一文件夹。
+
+在 `index.tsx` 文件中编写组件：
+
+```tsx title="index.tsx"
+import React, { memo } from "react";
+import type { FC, ReactNode } from "react";
+import styles from "./index.module.scss";
+
+interface IProps {
+  children?: ReactNode;
+}
+
+const MyComponent: FC<IProps> = () => {
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Hello, CSS Modules!</h1>
+    </div>
+  );
+};
+
+export default memo(MyComponent);
+
+```
+
+在 `index.module.scss` 文件中编写样式：
+
+```scss title="index.module.scss"
+.container {
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+.title {
+  font-size: 20px;
+  color: #333;
+}
+```
+
+然而，当 React 组件需要添加多个类名时，我们需要将类名放在一个数组中；当我们需要动态添加/移除类名时，我们需要使用条件判断语句进行条件判断。
+
+为了更方便地动态添加/移除类名，我们推荐使用第三方库 `classnames` 结合 CSS Modules 进行使用。
+
+以下是一个简单的示例：
+
+我们需要安装 `classnames`：
+
+<PackageManagerTabs command='install classnames' />
+在 `index.tsx` 文件中编写组件：
+```tsx title="index.tsx" 
+import React, { memo, useState } from "react";
+import type { FC, ReactNode } from "react";
+import styles from "./index.module.scss";
+import cx from "classnames";
+
+interface IProps {
+  children?: ReactNode;
+  isActive: boolean;
+}
+
+const MyComponent: FC<IProps> = (props) => {
+
+  const { isActive } = props;
+  const [curText, setCurText] = useState(1);
+
+  function changeTextStyle() {
+    setCurText(curText === 3 ? 1 : curText + 1);
+  }
+
+  return (
+    <div className={styles.container}>
+      {/* 条件判断 */}
+      <h1 className={cx(styles.title, { [styles.active]: isActive })}>Hello, CSS Modules!</h1>
+      <h2 className={cx(styles.title, isActive ? styles.active : "")}>Hello, CSS Modules!</h2>
+      <h3 className={cx(styles.title, isActive && styles.active)}>Hello, CSS Modules!</h3>
+      {/* 动态拼接 */}
+      <p className={cx(styles.text, styles?.[`text_${curText}`])}>这是一段文字</p>
+      <button onClick={changeTextStyle}>改变文字样式</button>
+    </div>
+  );
+
+};
+
+export default memo(MyComponent);
+
+
+```
+> 💡TIP：你可以自定义从 `classnames` 引入的名字
+
+在 `index.module.scss` 文件中编写样式：
+```scss title="index.module.scss"
+.container {
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+.title {
+  color: #333;
+}
+.active {
+  color: red;
+}
+.text_1 {
+  color: rgb(19, 59, 65);
+}
+.text_2 {
+  color: rgb(255, 0, 255);
+}
+.text_3 {
+  color: rgb(163, 81, 99);
+}
+
+```
+在根组件中引入 `MyComponent` 组件：
+```tsx title="App.tsx"
+import "./App.css";
+import MyComponent from "./components/index";
+
+const App = () => {
+  return (
+    <div className='content'>
+      <MyComponent isActive={false} />
+    </div>
+  );
+};
+
+export default App;
+
+```
+
+### Vue
+
+`.vue` 文件中的 `style` 标签用于定义组件的样式。默认情况下，`.vue` 文件中的样式是全局属性，即它们会对整个应用程序产生作用。这意味着，如果你在一个组件中定义了某个样式，它将会影响到其他组件中相同元素的样式。
+
+然而，Vue 也提供了一种作用域样式的方式，即设置 `scoped` 属性。当你在 `style` 标签中添加了 `scoped` 属性后，样式将仅对当前组件起作用，不会影响其他组件中相同元素的样式。这种方式可以确保组件之间的样式相互隔离，避免样式冲突和意外的样式覆盖。
+
+通过使用 `scoped` 属性，你可以在Vue组件中轻松地编写样式，而无需担心全局样式的干扰。每个组件都有其独立的样式作用域，使得组件化开发更加灵活和可维护。
+
+同时，`lang` 属性可用于在 `<style>` 元素中指定样式代码的语言和编码规则。
+
+
+以下是一个简单的示例：
+
+创建 `components` 文件夹，在 `MyComponent.vue` 文件中编写组件：
+
+```html title="MyComponent.vue" 
+<template>
+  <div class="container">
+    <button class="btn">Click me</button>
+  </div>
+</template>
+
+<script setup lang="ts"></script>
+
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+</style>
+
+```
+在根组件中引入 `MyComponent` 组件：
+
+```html title="App.vue"
+<template>
+  <div>
+    <MyComponent />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import MyComponent from "./components/MyComponent.vue";
+</script>
+
+<style lang="scss">
+body {
+  padding: 10px;
+}
+</style>
+
+
+```

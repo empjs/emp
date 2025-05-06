@@ -1,0 +1,71 @@
+import { Tabs, Tab, PackageManagerTabs } from "@theme";
+
+# Vue3 项目
+
+在 Vue3 中，我们提供了两个示例项目供参考：
+
+- `vue-3-base`：基础项目，用于书写通用业务组件对外暴露，它通常是一些项目的基石。
+- `vue-3-project`：基础项目，用于和其他通用业务组件进行集成，它通常是一些项目的业务逻辑。
+
+> 💡TIP：两个业务的 demo 仅仅只是部分依赖以及 emp 的配置不一样，你可以根据业务需求进行自由选择或者组合。
+
+## 前期准备
+
+在开始之前，请确保你已经配备了如下开发环境：
+
+- Node.js >= `20.0.0`
+- npm >= `8`
+
+> 💡TIP：建议你使用 `nvm` 来管理 node 版本，直接执行 `nvm use 20` 命令即可完成开发环境设置
+
+### 安装 emp⚡
+
+[快速上手](/guide/start/quick-start)
+
+### 项目初始化
+
+在对项目进行初始化之前，我们先克隆 `emp` 仓库，将示例代码拉取到本地。
+
+```bash
+git clone https://github.com/empjs/emp
+```
+
+> 🚨 如果你无法拉取项目至本地，请检查你的网络环境或代理设置是否可以访问 github，如果仍不能解决，请联系我们。
+
+在拉取完成代码后，我们进入代码的根目录，安装项目依赖，推荐使用`PNPM`进行安装：
+
+<PackageManagerTabs command='install' />
+
+## 运行示例项目
+
+> 🚧 注意：在运行示例项目之前，请确保你已经完成了前期准备，并当前目录处于 `emp` 仓库的根目录下。
+
+### vue-3-base
+
+首先进入示例项目的根目录：
+
+```bash
+# 运行 vue-3-base 示例项目
+cd projects/vue-3-base
+```
+
+然后运行代码：
+
+<PackageManagerTabs command='dev' />
+
+运行成功后，你可以访问 `http://localhost:9001/` 进行查看。
+
+### vue-3-project
+
+首先进入示例项目的根目录：
+
+```bash
+# 运行 vue-3-project 示例项目
+cd projects/vue-3-project
+```
+
+然后运行代码：
+
+<PackageManagerTabs command='dev' />
+
+运行成功后，你可以访问 `http://localhost:9002/` 进行查看。

@@ -1,0 +1,48 @@
+# autoPages
+
+import { Badge } from '@theme';
+
+<Badge text="add in v3.0.0-rc.10" type="warning" />
+
+:::tip
+启动后 自动寻找 `pages` 目录的入口文件
+:::
+
++ 类型： `boolean` | `{path:'pages'}`
++ 默认值： `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    autoPages:true
+  }
+})
+```
+
+## 作用
++ 捕抓 `src/pages` 目录下面的所有文件、并且根据 `html` 与 `entries` 配置 进行对 `html-template` 进行配置 如: 
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+
+export default defineConfig(store => {
+  return {
+    //开启 autoPages
+    autoPages: true,
+    plugins: [pluginReact()],
+    // 全局设置 html 配置
+    html: {
+      title: 'EMP v3 Auto Pages',
+    },
+    // 局部设置存在页面的配置
+    entries: {
+      'work/index.ts': {
+        title: 'auto page work',
+      },
+    },
+  }
+})
+
+
+```

@@ -1,0 +1,16 @@
+# appEntry
+:::tip
+项目代码入口文件 如 `index.js`  
+当 `entries` 设置后 该选项失效
+:::
++ 类型： `string`
++ 默认值： `index.js`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    appEntry: 'main.js'
+  }
+})
+```

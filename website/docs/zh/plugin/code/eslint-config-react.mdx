@@ -1,0 +1,44 @@
+# React Eslint 格式化插件
+
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/eslint-config-react -D" />
+
+### 配置插件
+```ts title="package.json"
+{
+    "eslintConfig": {
+    "extends": [
+      "@empjs/eslint-config-react"
+    ]
+  },
+}
+```
+
+### vscode 建议配置
+```json title=".vscode/settings.json"
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "json"
+  ],
+  "javascript.format.enable": false,
+  "typescript.format.enable": false
+}
+```
+
+:::info 💡 TIP
+在`vscode`中，需要搭配`VS Code ESLint extension`使用，无需安装`Prettier Formatter for Visual Studio Code`。
+:::

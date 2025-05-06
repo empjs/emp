@@ -1,0 +1,20 @@
+.root {
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .root {
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.title {
+  color: var(--rp-c-text-1);
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 8px 6px;
+}

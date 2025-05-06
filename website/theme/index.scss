@@ -1,0 +1,22 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.m-4 {
+    margin: 1rem;
+}
+
+.w-20 {
+    width: 5rem;
+}
+
+
+#root .pb-12 .grid.z-10 {
+    display: flex;
+}
+
+@media (min-width: 768px) {
+    #root .flex-col.md\:flex-row {
+        flex-direction: row;
+    }
+}

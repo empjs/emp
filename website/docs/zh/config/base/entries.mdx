@@ -1,0 +1,23 @@
+# entries
++ 多页面入口配置，相当于`html`的集合
++ 类型： `{[entryFilename: string]: HtmlType}`
++ `HtmlType`的配置[参考](./html.mdx)
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    entries: {
+      'info.ts': {
+        title: 'Info Page',
+      },
+    //基于`src`的文件路径
+      'work/index.ts': {
+        title: 'work Page',
+         //基于项目根目录的文件路径
+        template: 'src/work/index.html',
+      },
+    },
+  }
+})
+```

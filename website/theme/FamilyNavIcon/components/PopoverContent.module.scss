@@ -1,0 +1,38 @@
+.header {
+  border-bottom: 1px solid rgba(60, 60, 60, 0.07);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+
+  :global(.dark) & {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 6px;
+  color: var(--rp-c-text-1);
+  font-size: 22px;
+  line-height: 1.2;
+
+  &:hover {
+    color: var(--rp-c-text-1);
+  }
+}
+
+.titleText {
+  margin-top: 1px;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  object-fit: contain;
+
+  // logo not fit dark mode yet
+  :global(.dark) & {
+    display: none;
+  }
+}

@@ -1,0 +1,57 @@
+# plugins
+EMP v3的功能拓展。 
+插件执行顺序是并行、可以考虑使用 [lifeCycle](./lifeCycle.mdx) 进行时序设置
+
+## 以`Vue 3.0`为例 
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-vue3" />
+
+### 配置插件
+```js title="emp-config.js"
+import Vue3 from '@empjs/plugin-vue3'
+import {defineConfig} from '@empjs/cli'
+
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [Vue3()],
+    appEntry: 'main.ts',
+  }
+})
+
+```
+
+## 插件的基本结构 
+```js title="入口文件"
+import type {GlobalStore} from '@empjs/cli'
+//
+export default () => {
+  return {
+    name: '@empjs/plugin-vue3',
+    async rsConfig(store: GlobalStore) {
+      const {chain} = store
+       // 重置chain的配置
+      store.merge({
+        experiments: {
+          rspackFuture: {
+            newTreeshaking: true,
+          },
+        },
+      })
+      // 修改chain的配置
+      chain.module.rule('javascript').test(/\.js$/)
+
+      // module 实例 
+      chain.module
+        .rule('vue-loader')
+        .test(/\.vue$/)
+        .use('vue-loader')
+        .loader(require.resolve('vue-loader'))
+        .options({})
+        .end()
+    },
+  }
+}
+
+```

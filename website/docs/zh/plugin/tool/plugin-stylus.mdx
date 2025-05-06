@@ -1,0 +1,21 @@
+# tailwindcss 插件
+
+## 快速开始
+
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-tailwindcss" />
+
+### 注册插件
+```ts title="emp-config.js"
+import pluginTailwindcss from '@empjs/plugin-tailwindcss'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [pluginTailwindcss()],
+  }
+})
+```
+
+

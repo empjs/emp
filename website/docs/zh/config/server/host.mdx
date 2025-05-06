@@ -1,0 +1,29 @@
+# host
+
+host配置项类似于Rspack的devServer的host配置项，可用于指定监听的主机名或IP地址。
+
+- **类型**： `string`
+- **默认值**: `0.0.0.0`
+
+host是一个ip地址或者一个主机名，在本地服务器启动后，指定ip或者指定主机名可以通过网络访问到项目，当host为默认值(0.0.0.0)时，所有在网络的主机都可以访问项目。
+
+在构建项目时，host的值会传递给Rspack的devServer的host配置项作为配置项的值。
+
+## 示例
+
+```js title="emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      host: '127.0.0.1',
+      ...
+    },
+    ...
+  }
+})
+
+```
+
+该配置示例表示项目仅允许本地的主机(127.0.0.1)访问。

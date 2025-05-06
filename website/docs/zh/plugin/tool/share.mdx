@@ -1,0 +1,427 @@
+# @empjs/share 插件
+
+## 快速开始
+
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+import { Badge } from '@theme';
+
+<PackageManagerTabs command="add @empjs/share" />
+
+### 注册插件
+:::info
+> v3.5.3 会是 EMP 共享 的最终方案，后续所有配置都会围绕该配置方式推进
+
+#### 项目依赖
++ `@empjs/share@3.5.3`  
++ `@empjs/plugin-react@3.5.3` or `@empjs/plugin-vue3` or `@empjs/plugin-vue2`
++ `@empjs/cli@3.5.3`
+
+#### 如 React 与 Vue 的配置方案: 
+React ：开发时无需安装 `react` & `react-dom`，如果ts，只需安装 `@types/react` & `@types/react-dom` 即可
+:::
+#### 配置方案  <Badge text="add in v3.5.3" type="warning" />
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import {externalReact, pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  return {
+    plugins: [
+      pluginReact(),
+      pluginRspackEmpShare({
+        empRuntime: {
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.5.3/output/sdk.js`,
+          },
+          framework: {
+            libs: [`https://cdn.jsdelivr.net/npm/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
+            global: 'EMP_ADAPTER_REACT',
+          },
+          setExternals: externalReact,
+        },
+      }),
+    ],
+  }
+})
+```
+:::info
+同理 Vue3 与 Vue2 的配置方案如下：
+依赖除类型外、也不会在生产环境打包
+:::
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginVue from '@empjs/plugin-vue3'// @empjs/plugin-vue2
+import {externalVue, pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  return {
+    plugins: [
+      pluginVue(),
+      pluginRspackEmpShare({
+        empRuntime: {
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.5.3/output/sdk.js`,
+          },
+          framework: {
+            libs: [
+             `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,// vue 2 同理
+            //  `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.prod.js`, //如果需要用到 vue-router
+              ],
+            global: 'window',
+          },
+          setExternals: externalVue,
+        },
+      }),
+    ],
+  }
+})
+```
+#### 配置方案 <Badge text="add in v3.4.5" type="warning" />
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import {pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  const reactVersion = 19// 17~19可自由切换、实测能通过大部分业务场景、保持向下兼容原则
+  return {
+    plugins: [
+      pluginReact({
+        version: reactVersion,
+      }),
+      pluginRspackEmpShare({
+        // module federation runtime & sdk 配置 基于 0.6.10 小部分重构 支持external
+        empRuntime: {
+          runtime: {
+            // mf sdk 地址
+            lib: `https://yourcdn.com/@empjs/share@3.4.5/output/sdk.js`,
+            // mf umd global name
+            global: `EMP_SHARE_RUNTIME`
+          },
+          // 框架以umd格式暴露
+          framework: {
+            name: 'react',
+            version: reactVersion,
+            // 最终访问地址 默认为 reactRouter.development.umd.js
+            entry: 'reactRouter',
+            // react umd global name
+            global: 'EMP_ADAPTER_REACT',
+            // 自动区分 dev & prod
+            lib: `https://yourcdn.com/@empjs/react@${reactVersion}/dist`,
+          },
+        },
+      }),
+    ],
+  }
+})
+```
+#### 老方法 依然能用
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import {pluginRspackEmpShare} from '@empjs/share'
+export default defineConfig(store => {
+return {
+  plugins:[
+    pluginRspackEmpShare({
+        name: 'mfHost',
+        shared: {
+          react: {
+              singleton: true,
+              requiredVersion: '18',
+          },
+          'react-dom': {
+              singleton: true,
+              requiredVersion: '18',
+          },
+        },
+        exposes: {
+          './App': './src/App',
+          './CountComp': './src/CountComp',
+        },
+        empRuntime: {
+          runtimeLib: "https://cdn.jsdelivr.net/npm/@empjs/share@3.1.2/output/full.js",
+          frameworkLib: "https://cdn.jsdelivr.net/npm/@empjs/libs-18@0.0.1/dist",
+          frameworkGlobal: 'EMP_ADAPTER_REACT',
+          framework: 'react',
+        },
+        // experiments: {
+        //   federationRuntime: 'hoisted',
+        // },
+    }),
+  ]
+}
+```
+## 配置说明
+
+### name
+
++ 类型：`string`
++ 是否必填：`是`
+
+Module Federation 模块名称，name 必须保证唯一。
+
+Module Federation 通过 name 进行关联。name 将用于运行时数据获取以及 chunk 全局存储变量
+
+[查看详情](https://module-federation.io/zh/configure/name.html)
+
+### shared
+`shared` 用于在消费者和生产间共享公共依赖，降低运行时下载体积从而提升性能。
+
+- 类型：`PluginSharedOptions`
+- 是否必填：否
+- 默认值：`undefined`
+
+`PluginSharedOptions` 类型如下：
+
+```tsx
+type PluginSharedOptions = string[] | SharedObject;
+
+interface SharedObject {
+  [sharedName: string]: SharedConfig;
+}
+
+interface SharedConfig {
+  singleton?: boolean;
+  requiredVersion?: string;
+  eager?: boolean;
+  shareScope?: string;
+}
+```
+
+- Example
+
+```ts
+plugins:[
+    pluginRspackEmpShare({
+      name: '@demo/host',
+      shared: {
+        react: {
+          singleton: true,
+        },
+        'react-dom': {
+          singleton: true,
+        },
+      },
+    })]
+```
+[查看详情](https://module-federation.io/zh/configure/shared.html)
+
+### remotes
+- 类型：`PluginRemoteOptions`
+- 是否必填：否
+- 默认值：`undefined`
+- 使用场景：用 `Module Federation` 消费远程模块
+
+:::tip
+消费者者特有参数，设置了 `remotes` 则可认为这是一个消费者
+
+:::
+
+`PluginRemoteOptions` 类型如下：
+
+```tsx
+type ModuleFederationInfo = string;
+interface PluginRemoteOptions {
+  [remoteAlias: string]: ModuleFederationInfo;
+}
+```
+
+- `remoteAlias` 为实际用户引用的名称，可自行配置，例如设置了 `remoteAlias` 为 `demo` ，那么消费方式为 `import xx from 'demo'` 。
+- `ModuleFederationInfo` 由 `ModuleFederation name` + `@` + `ModuleFederation entry` 组成
+  - `ModuleFederation name` 是生产者设置的名称
+  - `entry` 可以为 `mf-manifest.json` 和 `remoteEntry.js`
+  - `entry` 为 `mf-manifest.json` 拥有以下额外能力
+    - 动态模块类型提示
+    - 资源预加载
+    - chrome devtool 调试工具
+
+```js
+module.exports = {
+  plugins: [
+    pluginRspackEmpShare({
+      name: 'host',
+      // 下面的 remotes 中定义了两个 remote，分别是名称为：manifest_provider 在 3011 端口启动的项目、js_entry_provider 在 3012 端口启动的项目
+      remotes: {
+        'manifest-provider':
+          'manifest_provider@http://localhost:3011/mf-manifest.json',
+        'js-entry-provider':
+          'js_entry_provider@http://localhost:3012/remoteEntry.js',
+      },
+    }),
+  ],
+};
+```
+[查看详情](https://module-federation.io/zh/configure/remotes.html)
+
+
+
+### exposes
+
+- 类型：`PluginExposesOptions`
+- 是否必填：否
+- 默认值：`undefined`
+- 使用场景：决定 `Module Federation` 对外暴露的模块以及文件入口
+
+:::tip
+生产者特有参数，设置了 `exposes` 则可认为这是一个生产者
+
+:::
+
+配置之后，会将 expose 的模块单独抽离成一个 chunk ，如果有异步 chunk 会在抽取成单独 chunk（具体拆分行为根据 chunk 拆分规则而定）。
+
+`PluginExposesOptions` 类型如下：
+
+```tsx
+interface PluginExposesOptions {
+  [exposeKey: string]: string | ExposesConfig;
+}
+
+interface ExposesConfig {
+  // 文件入口
+  import: string;
+}
+```
+
+其中 `exposeKey` 与 [Package Entry Points](https://nodejs.org/api/packages.html#package-entry-points) 规范基本一致（除了不支持正则匹配）。
+
+举例：
+
+```jsx
+module.exports = {
+  plugins: [
+    pluginRspackEmpShare({
+      name: 'provider',
+      exposes: {
+        // 注意： 不支持 "./"，为 . 导出是表示为 default 默认导出
+        '.': './src/index.tsx',
+        './add': './src/utils/add.ts',
+        './Button': './src/components/Button.tsx',
+      },
+    }),
+  ],
+};
+```
+[查看详情](https://module-federation.io/zh/configure/exposes.html)
+
+### dts
+- 类型：`boolean | PluginDtsOptions`
+- 是否必填：否
+- 默认值：`true`
+- 使用场景：用于控制 `Module Federation` 生成/消费类型行为
+
+配置之后，生产者会在构建时自动生成一个压缩的类型文件 `@mf-types.zip`（默认名称），消费者会自动拉取 `remotes` 的类型文件并解压至 `@mf-types`（默认名称）。
+
+`PluginDtsOptions` 类型如下：
+
+```ts
+interface PluginDtsOptions {
+  generateTypes?: boolean | DtsRemoteOptions;
+  consumeTypes?: boolean | DtsHostOptions;
+  tsConfigPath?: string;
+}
+```
+[查看详情](https://module-federation.io/zh/configure/dts.html)
+
+
+### manifest
+
+
+- 类型：`boolean | PluginManifestOptions`
+- 默认值：`undefined`
+
+用于控制是否生成 manifest ，以及对应的生成配置。
+
+`PluginManifestOptions` 类型如下：
+
+```ts
+interface PluginManifestOptions {
+  filePath?: string;
+  disableAssetsAnalyze?: boolean;
+  fileName?: string;
+}
+```
+[查看详情](https://module-federation.io/zh/configure/manifest.html)
+
+### getPublicPath
+- 类型：`string`
+- 是否必填：否
+- 默认值：`undefined`
+- 作用：用于设置动态 publicPath，设置后，对应的远程模块资源也将使用此 publicPath。例如，部署的项目是动态下发 `cdn_prefix` ，那么可以设置 `getPublicPath` 为 `return "https:" + window.navigator.cdn_host + "/resource/app/"`
+
+- 示例：
+
+下面的示例中，设置了 `getPublicPath`，在其他消费者加载该生产者时，将会通过 `new Function` 的方式执行 `getPublicPath` 的代码获取到返回值，将会把返回值的内容作为该模块的 `publicPath` 静态资源前缀
+
+```ts title="rspack.config.ts"
+module.exports = {
+  plugins: [
+    pluginRspackEmpShare({
+      name: 'provider',
+      exposes: {
+        './Button': './src/components/Button.tsx',
+      },
+      // ...
+      getPublicPath: `return "https:" + window.navigator.cdn_host + "/resource/app/"`,
+    }),
+  ],
+};
+```
+[相关DEMO](https://github.com/empjs/emp/tree/v3/demos/react18_with_base_config)
+
+[查看详情](https://module-federation.io/zh/configure/getpublicpath.html)
+
+
+### empRuntime.runtimeLib
+- 类型：`string | 'useFrameworkLib'`
+- 是否必填：否
+
+MFRuntime 远程地址
+
+### empRuntime.runtimeGlobal
+- 类型：`string`
+- 是否必填：否
+
+MFRuntime 全局命名
+
+### empRuntime.frameworkLib
+- 类型：`string`
+- 是否必填：否
+
+UI框架 远程地址
+
+### empRuntime.frameworkGlobal
+- 类型：`string`
+- 是否必填：否
+
+UI框架 全局命名
+
+### empRuntime.framework
+- 类型：`'react' | 'vue2' | 'vue'`
+- 是否必填：否
+
+快捷设置 external 默认为 react
+
+### empRuntime.shareLib
+- 类型：`{[key: string]: string | string[] | {entry: string; global: string; type: string}}`
+- 是否必填：否
+
+兼容 emp2.0 shareLib 配置
+
+### empRuntime.setExternals
+- 类型：`(o: [key: string]: string) => void`
+- 是否必填：否
+
+自定义 `externals` 配置
+```jsx
+module.exports = {
+  plugins: [
+    pluginRspackEmpShare({
+      setExternals: (o => {
+        o['history'] = 'EMP_ADAPTER_REACT.History'
+        o['react-router'] = 'EMP_ADAPTER_REACT.ReactRouter'
+        o['react-router-dom'] = 'EMP_ADAPTER_REACT.ReactRouterDOM'
+      })
+    }),
+  ],
+};
+```
+

@@ -1,0 +1,75 @@
+# Lightningcss 插件
+
+:::tip
+推荐使用 `lightningcss` 替代 `postcss`,提升整体效能
+:::
+
+## 快速开始
+
+### 安装插件
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-lightningcss" />
+
+### 注册插件
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import lightningcssPlugin, {postcss} from '@empjs/plugin-lightningcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+        lightningcssPlugin({
+        transform: {
+            // px to rem
+          visitor:postcss.pxtorem({rootValue: 16, excludeSelectors: [], minPixelValue: 1}),
+          // or px to vw
+          visitor:postcss.pxtovw({
+            designWidth: 320,
+            minPixelValue: 1,
+            excludeSelectors: [],
+            }),
+        },
+      })
+    ],
+  }
+})
+
+```
+### Postcss 兼容 
+> `postcss` 涵盖了主流的 Postcss 插件的支持 如:
++ `postcss.px_to_rem` [PX-to-REM](https://github.com/cuth/postcss-pxtorem)
++ `postcss.px_to_viewport` [PX-to-VW](https://github.com/evrone/postcss-px-to-viewport)
++ `postcss.apply` [postcss-apply](https://www.npmjs.com/package/postcss-apply)
++ `postcss.static_vars` [postcss-prefix-selector](https://www.npmjs.com/package/postcss-prefix-selector)
++ `postcss.url` [postcss-simple-vars](https://www.npmjs.com/package/postcss-url)
++ `postcss.specific_environment_variables` [postcss-env-function](https://www.npmjs.com/package/postcss-env-function)
++ `postcss.env_function` [postcss-env-function](https://www.npmjs.com/package/postcss-env-function)
++ `postcss.design_tokens` [postcss-design-token](https://www.npmjs.com/package/@csstools/postcss-design-token)
++ `postcss.custom_units` [custom-units](https://github.com/csstools/custom-units)
++ `postcss.property_lookup` [postcss-property-lookup](https://www.npmjs.com/package/postcss-property-lookup)
++ `postcss.focus_visible` [postcss-focus-visible](https://www.npmjs.com/package/postcss-focus-visible)
++ `postcss.dark_theme_class` [postcss-dark-theme-class](https://github.com/postcss/postcss-dark-theme-class)
++ `postcss.fix_100vh` [postcss-100vh-fix](https://github.com/postcss/postcss-100vh-fix)
++ `postcss.logical_transforms` [rtlcss](https://github.com/MohammadYounes/rtlcss)
++ `postcss.hover_media_query` [mq4-hover-shim](https://github.com/twbs/mq4-hover-shim)
++ `postcss.momentum_scrolling` [postcss-momentum-scrolling](https://github.com/yunusga/postcss-momentum-scrolling)
++ `postcss.size` [postcss-size](https://github.com/postcss/postcss-size)
+
+### 兼容性设置 
++ lightningcss 自动集成了 `autoprefixer` 通过 `build.browserslist` 可以自定义 `browserslist`
++ emp 集成了默认的浏览器设置，可以通过 `store.browserslistOptions.default` 或者 `store.browserslistOptions.h5` 设置 mobile web 支持
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import lightningcssPlugin from '@empjs/plugin-lightningcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+        lightningcssPlugin()
+    ],
+    build: {
+      browserslist: store.browserslistOptions.h5,
+    },
+  }
+})
+
+```

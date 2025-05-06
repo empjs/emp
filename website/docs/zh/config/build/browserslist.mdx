@@ -1,0 +1,26 @@
+# build.browserslist
++ 浏览器兼容性设置
++ 类型： `string[]`
++ 默认值： `store.browserslistOptions.default`
+
+```js title="store.browserslistOptions"
+  get browserslistOptions() {
+    return {
+      default: ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14'],
+      h5: ['iOS >= 9', 'Android >= 4.4', 'last 2 versions', '> 0.2%', 'not dead'],
+      node: ['node >= 16'],
+    }
+  }
+```
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        // 支持 移动浏览器的兼容性配置
+        browserslist: store.browserslistOptions.h5,
+    }
+  }
+})
+```

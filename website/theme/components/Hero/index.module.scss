@@ -1,0 +1,70 @@
+.wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    flex-wrap: wrap;
+    .item_wrap {
+        margin: 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        width: 140px;
+        height: 330px;
+        .qq {
+            width: 140px;
+            height: 140px;
+            background: url('./imgs/emp-g.png') no-repeat;
+            background-size: 100% auto;
+            background-position: center bottom;
+        }
+        .name {
+            background: var(--rp-home-hero-name-background);
+            background-clip: text;
+            -webkit-text-fill-color: var(--rp-home-hero-name-color);
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .subname {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .desc {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--rp-c-text-2);
+        }
+
+        .button {
+            background: linear-gradient(275deg, var(--rp-c-brand-dark) 3%, var(--rp-c-brand-light) 97%);
+            border-radius: var(--rp-radius-large);
+            font-size: 14px;
+            min-width: 142px;
+            font-weight: 700;
+            display: inline-block;
+            text-align: center;
+            white-space: nowrap;
+            height: 30px;
+            line-height: 30px;
+            color: #FFF;
+            transition: all .3s ease;
+            cursor: pointer;
+            margin-top: 10px;
+            &:hover {
+                background-color: var(--rp-c-brand-light);
+                opacity: .8;
+            }
+        }
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    }
+}

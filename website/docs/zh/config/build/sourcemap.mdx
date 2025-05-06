@@ -1,0 +1,15 @@
+# build.sourcemap
++ 是否生成 sourceMap
++ 类型： `boolean`
++ 默认值： `true`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        sourcemap:true
+    }
+  }
+})
+```

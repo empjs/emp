@@ -1,0 +1,49 @@
+import { Tabs, Tab, PackageManagerTabs } from '@theme';
+
+# 从EMP2升级到EMP3
+
+## 背景
+`EMP3`已经处于发布状态并落地在线上项目之中，经过多项目与`EMP2`比对，首次构建速度提升`80%`，二次构建速度提升`60%`，产物包体积缩小`25%`以上。
+
+## 升级步骤
+
+### 1.卸载 `@efox/emp`
+
+<PackageManagerTabs command="remove @efox/emp" />
+
+:::tip
+项目存在的其他 `@efox/xxx` 依赖，都可以一并移除。
+:::
+
+### 2.安装 `@empjs/cli`
+
+<PackageManagerTabs command="add @empjs/cli -D" />
+
+### 3.修改 `package.json`
+`EMP3` 建议使用 ESM 模块系统，在package.json中添加如下配置
+```json title="package.json"
+"type": "module",
+```
+
+### 4.修改 `emp-config.js`
+:::tip
+配置文件名也可以使用 typescript `emp.config.ts`文件
+:::
+
+#### 4.1 模块引入格式调整
+`EMP2.x`的配置默认使用 `commonjs` 模块规范，升级 `EMP3` 首要是把`commonjs`的模块引用方式修改为`ESM`的引用方式，则 `require` 和 `module.exports` 或 `exports` 改为 `import` 与 `export` 或 `export default`
+
+#### 4.2 模块返回结果调整
+`EMP3`配置需要返回 `defineConfig` 函数的执行结果，调整如下:
+```javascript title="emp-config.js
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async ({ mode }) => {
+// 构建逻辑
+    return {
+        // 最终配置
+    }
+}
+```
+
+详细配置可以参考 [DEMO](https://github.com/empjs/emp/blob/v3/demos/react18/react-host/emp.config.ts)，其中用到的相关插件可以在 [插件](zh/plugin/index) 中查看使用说明。

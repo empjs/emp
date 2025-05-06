@@ -1,0 +1,27 @@
+# port
+
+port配置项类似于Rspack的devServer的port配置项，可用于指定监听的端口号。
+
+- **类型**： `number`
+- **默认值**: `8000`
+
+port可指定项目服务监听的端口号，默认监听端口号为8000，即您可以通过 **http://主机名或ip地址:端口号** 访问项目
+
+## 示例
+
+```js title="emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      prot: 9002,
+      ...
+    },
+    ...
+  }
+})
+
+```
+
+该配置示例表示项目访问的端口号为9002

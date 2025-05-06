@@ -1,0 +1,15 @@
+# build.assetsDir
++ 生成静态目录
++ 类型： `string`
++ 默认值： `assets`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        assetsDir:'assets'
+    }
+  }
+})
+```
