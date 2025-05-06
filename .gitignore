@@ -10,3 +10,4 @@ projects/e-svga*
 .emp-cache
 @mf-types
 .output
+doc_build
