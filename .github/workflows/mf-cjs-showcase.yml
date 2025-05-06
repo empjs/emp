@@ -1,0 +1,85 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: mf-cjs-showcase CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'projects/mf-app/**'
+      - 'projects/mf-host/**'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+      - run: pnpm emp-plugin-build
+        
+      - run: mkdir -p ${{ github.workspace }}/.output/app && mkdir -p ${{ github.workspace }}/.output/host
+      - run: ls
+      - run: echo ${{ github.workspace }}
+      - run: pnpm cloudflare:mf-cjs
+      # - run: cd ${{ github.workspace }}/projects/mf-app &&  pnpm run build
+      # - run: cd ${{ github.workspace }}/projects/mf-host &&  pnpm run build
+      # - run: cd ${{ github.workspace }}
+    #   - run: cp -r ./projects/emp-runtime-react-16-app/dist/* ./.output/app
+    #   - run: cp -r ./packages/plugin-emp-runtime/dist/* ./.output/lib
+      - run: cp -r ${{ github.workspace }}/projects/mf-app/dist/* ${{ github.workspace }}/.output/app
+      - run: cp -r ${{ github.workspace }}/projects/mf-host/dist/* ${{ github.workspace }}/.output/host
+      - run: ls .output
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: a1de09ceedba10d3b70d54cc47e6ff25
+          projectName: mf-cjs
+          directory: .output
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Switch what branch you are publishing to.
+          # By default this will be the branch which triggered this workflow
+          branch: main
+          # Optional: Change the working directory
+        #   workingDirectory: mf-app
+          # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
+          wranglerVersion: '3'

@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import {reactive, ref} from 'vue'
 export default {
   setup() {
-    let count = ref(0)
-    let state = reactive({ count: 0 })
+    const count = ref(0)
+    const state = reactive({count: 0})
     const increase = () => {
       count.value++
       state.count++
     }
-    return { count, state, increase }
+    return {count, state, increase}
   },
 }
 </script>

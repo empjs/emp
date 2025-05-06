@@ -1,0 +1,129 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignore": ["dist/**", "output/**", "node_modules/**"],
+    "ignoreUnknown": true,
+    "include": [
+      "*.js",
+      "*.ts",
+      "*.jsx",
+      "*.tsx",
+      "*.mjs",
+      "*.tjs",
+      "*.json",
+      "*.jsonc",
+      "*.css",
+      "emp-config.js",
+      "emp.config.js",
+      "emp-config.ts",
+      "emp.config.ts",
+      ".vscode/"
+    ]
+  },
+  "formatter": {
+    "lineWidth": 120
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
+    },
+    "parser": {
+      "cssModules": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": false,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "jsxQuoteStyle": "double",
+      "quoteStyle": "single",
+      "semicolons": "asNeeded"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    },
+    "parser": {
+      "allowComments": true,
+      "allowTrailingCommas": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useAltText": "off",
+        "useButtonType": "off",
+        "useValidAnchor": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noUselessConstructor": "off",
+        "useArrowFunction": "off",
+        "useOptionalChain": "off",
+        "useLiteralKeys": "off",
+        "noUselessTernary": "off"
+      },
+      "correctness": {
+        "noUnreachable": "off",
+        "useExhaustiveDependencies": "off"
+      },
+      "performance": {
+        "noDelete": "off"
+      },
+      "recommended": true,
+      "style": {
+        "noUnusedTemplateLiteral": "off",
+        "useSelfClosingElements": "off",
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "off",
+        "noUselessElse": "off",
+        "useNodejsImportProtocol": "off",
+        "useSingleVarDeclarator": "off",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "off",
+        "noArrayIndexKey": "off",
+        "noDoubleEquals": "off",
+        "noExplicitAny": "off",
+        "noGlobalIsNan": "off",
+        "noImplicitAnyLet": "off"
+      }
+    }
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "overrides": [
+    {
+      "include": ["*.svelte", "*.astro", "*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ],
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "@empjs/cli/emp-tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "include": [
+    "src"
+  ]
+}

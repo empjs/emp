@@ -16,9 +16,9 @@
 </template>
 
 <script>
+import Table from '@base/Table'
 import Alert from './components/alert.vue'
 import Step from './components/step.vue'
-import Table from '@base/Table'
 export default {
   components: {Alert, Step, Table},
   data() {

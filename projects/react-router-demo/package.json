@@ -1,0 +1,27 @@
+{
+  "name": "react-router-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.14"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.25.1"
+  }
+}

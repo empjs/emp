@@ -5,12 +5,14 @@
   "main": "index.js",
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.0.1",
-    "@empjs/plugin-vue3": "*"
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-vue3": "workspace:^*"
   },
   "dependencies": {
+    "@empjs/share": "workspace:^",
     "ant-design-vue": "^4.1.2",
-    "vue": "^3.4.20"
+    "vue": "^3.5.13",
+    "vue-router": "4"
   },
   "scripts": {
     "dev": "emp dev",

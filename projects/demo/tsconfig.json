@@ -1,0 +1,10 @@
+{
+  "extends": "@empjs/cli/emp-tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
+  },
+  "include": ["src"]
+}

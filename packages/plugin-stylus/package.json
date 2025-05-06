@@ -1,0 +1,50 @@
+{
+  "name": "@empjs/plugin-stylus",
+  "version": "3.2.0",
+  "description": "emp stylus plugin",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/plugin-vue2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["stylus"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "tsup": "^8.1.0"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "stylus": "^0.63.0",
+    "stylus-loader": "^8.1.1"
+  }
+}

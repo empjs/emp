@@ -1,0 +1,40 @@
+{
+  "name": "@empjs/cdn-vue",
+  "version": "0.2.0",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/cdn-vue-2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/vueRouter.production.umd.js",
+  "types": "dist/vueRouter.d.ts",
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:bundle": "tsup --watch",
+    "dev:serve": "serve ./dist --cors -p 2200",
+    "build": "tsup",
+    "start": "serve ./dist --cors -p 2200"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "vue": "^2",
+    "vue-router": "3"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.10.4",
+    "serve": "^14.2.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}

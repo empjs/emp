@@ -1,0 +1,42 @@
+{
+  "name": "@empjs/polyfill",
+  "version": "0.0.2",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/emp-polyfill"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:lib-dev": "tsup --watch",
+    "dev:serve": "serve ./dist --cors -p 9011",
+    "build": "tsup",
+    "start": "serve ./dist --cors -p 9011"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "core-js": "^3.39.0",
+    "core-js-bundle": "^3.39.0",
+    "core-js-pure": "^3.39.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.7.42",
+    "@types/node": "^22.8.5",
+    "serve": "^14.2.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.5.4"
+  }
+}

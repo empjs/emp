@@ -1,0 +1,49 @@
+{
+  "name": "@empjs/plugin-lightningcss",
+  "version": "3.3.3",
+  "description": "emp v3 lightningcss",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/plugin-lightningcss"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserslist": "^4.24.2",
+    "lightningcss": "^1.28.1"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@rspack/core": "0.6.5",
+    "tsup": "^8.1.0"
+  }
+}

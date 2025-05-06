@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/packages/cli/dist/index.js",
+      "args": ["dev", "-ev aa=1,bb=2"],
+      "request": "launch",
+      "type": "node",
+      "runtimeVersion": "20.11.1"
+    },
+    {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}

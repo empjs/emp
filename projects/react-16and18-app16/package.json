@@ -1,0 +1,24 @@
+{
+  "name": "different-react-versions-16-18_app1",
+  "description": "React 16",
+  "ignored": true,
+  "version": "0.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "16.9.9",
+    "@types/react-dom": "16.9.9"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "dependencies": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  }
+}

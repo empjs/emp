@@ -1,0 +1,27 @@
+{
+  "name": "runtime-18-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze"
+  },
+  "dependencies": {
+    "@empjs/share": "workspace:^",
+    "@module-federation/runtime": "^0.3.3",
+    "react": "18",
+    "react-dom": "18"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "18",
+    "@types/react-dom": "18"
+  }
+}

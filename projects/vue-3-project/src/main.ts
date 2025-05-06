@@ -1,1 +1,2 @@
+import './env'
 import('./bootstrap')

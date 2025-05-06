@@ -1,0 +1,76 @@
+{
+  "name": "@empjs/lib-react",
+  "version": "0.17.0",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/plugin-emp-runtime"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/runtime.umd.js",
+  "types": "dist/plugin.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/plugin.d.ts",
+      "default": "./dist/plugin.js"
+    },
+    "./runtime": {
+      "import": {
+        "types": "./dist/runtime.d.ts",
+        "default": "./dist/runtime.mjs"
+      },
+      "require": {
+        "types": "./dist/runtime.d.cts",
+        "default": "./dist/runtime.cjs"
+      }
+    },
+    "./*": ["./*", "./*.d.ts"]
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/*", "./*"]
+    }
+  },
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:development": "tsup --watch --env.NODE_ENV development",
+    "dev:production": "tsup --watch --env.NODE_ENV production",
+    "build": "pnpm run /^build:.*/",
+    "build:development": "tsup --env.NODE_ENV development",
+    "build:production": "tsup --env.NODE_ENV production",
+    "dev:serve": "serve ./dist --cors -p 1700",
+    "start": "serve ./dist --cors -p 1700"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "@empjs/module-federation-runtime": "^0.6.2",
+    "@module-federation/runtime": "0.6.1",
+    "@module-federation/sdk": "0.6.1",
+    "history": "^5.3.0",
+    "react": "17",
+    "react-dom": "17",
+    "react-router-dom": "^6.25.1"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@swc/core": "^1.7.4",
+    "@types/node": "^20.12.7",
+    "@types/react": "17",
+    "@types/react-dom": "17",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5",
+    "serve": "^14.2.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.5.4"
+  }
+}

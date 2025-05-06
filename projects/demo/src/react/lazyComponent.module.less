@@ -1,0 +1,18 @@
+.lazyComponentTitle {
+  margin-top: -3ipx;
+  margin-bottom: 5px;
+  font-size: 20px;
+  border: 2ipx solid #222;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: red;
+    height: 1ipx;
+    width: 250px;
+    right: 2px;
+    top: 50%;
+  }
+
+}

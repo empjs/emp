@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "declaration": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "useUnknownInCatchVariables": false,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "jsx": "preserve",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "emitDeclarationOnly": true,
+    // "allowImportingTsExtensions": true,
+    "noImplicitAny": false
+  },
+  "include": [
+    "src"
+  ]
+}

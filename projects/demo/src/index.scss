@@ -1,0 +1,77 @@
+h1 {
+  font-size: 30px;
+  font-weight: bolder;
+  line-height: 40px;
+  color: #000;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.banner {
+  text-align: center;
+  position: relative;
+  height: 40px;
+}
+
+.banner p {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: absolute;
+}
+
+.title {
+  text-align: center;
+  background-color: #eee;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+.imgList {
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  li {
+    flex: 1;
+    text-align: center;
+  }
+
+  .img {
+    width: 150px;
+  }
+}
+
+body,
+#emp-root,
+.ant-layout {
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.margin-p {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  *margin: 2px;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  body {
+    background-color: lightblue;
+  }
+}

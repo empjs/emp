@@ -2,12 +2,8 @@
   "extends": "@empjs/cli/emp-tsconfig.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "allowJs": true,
+    "allowJs": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

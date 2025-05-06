@@ -1,0 +1,26 @@
+{
+  "name": "@empjs/biome-config",
+  "version": "0.7.2",
+  "main": "biome.jsonc",
+  "type": "module",
+  "bin": {
+    "biome": "bin/biome.js"
+  },
+  "exports": {
+    ".": "./biome.jsonc",
+    "./biome": "./biome.jsonc"
+  },
+  "maintainers": ["ckken@qq.com"],
+  "files": ["biome.jsonc", "bin"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/biome-config"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
+}

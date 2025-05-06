@@ -5,7 +5,8 @@ declare module '*.vue' {
 }
 
 declare module '*.svg' {
-  import Vue, {VueConstructor} from 'vue'
+  import type Vue from 'vue'
+  import type {VueConstructor} from 'vue'
   const content: VueConstructor<Vue>
   export default content
 }

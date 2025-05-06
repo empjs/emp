@@ -1,6 +1,7 @@
 {
-  "eslint.enable": false,
   "biome.enabled": true,
+  "eslint.enable": false,
+  "prettier.enable": false,
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
@@ -8,19 +9,20 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "editor.defaultFormatter": "biomejs.biome",
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
   },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[typescriptreact]": {
+  "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
   }
 }

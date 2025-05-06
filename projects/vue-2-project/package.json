@@ -6,10 +6,11 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.0.1",
-    "@empjs/plugin-vue2": "*"
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-vue2": "workspace:^*"
   },
   "dependencies": {
+    "@empjs/share": "workspace:^",
     "vue": "^2.7.14",
     "vue-router": "3",
     "vuex": "3"

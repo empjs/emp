@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "types": ["@empjs/cli/client"],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": false,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "nodule_modules"]
+}

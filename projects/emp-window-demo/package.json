@@ -1,0 +1,29 @@
+{
+  "name": "emp-window-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "maintainers": ["xuhonngbin"],
+  "keywords": ["emp", "emp share runtime", "react", "react-dom", "multi react version"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@empjs/share": "workspace:^",
+    "react": "18",
+    "react-dom": "18"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "18",
+    "@types/react-dom": "18"
+  }
+}

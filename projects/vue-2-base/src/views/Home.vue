@@ -24,11 +24,11 @@
   </div>
 </template>
 <script>
+import CompositionApi from '../components/CompositionApi'
 import Content from '../components/Content'
+import Hello from '../components/Hello'
 // import Logo from './logo.svg'
 import Table from '../components/table'
-import CompositionApi from '../components/CompositionApi'
-import Hello from '../components/Hello'
 export default {
   components: {
     Content,

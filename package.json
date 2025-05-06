@@ -8,21 +8,42 @@
   "author": "ken <ckken@qq.com>",
   "license": "MIT",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "lib": "pnpm --filter @empjs/cdn-react-* --filter @empjs/polyfill --filter @empjs/share build",
+    "emp": "pnpm --filter @empjs/cli dev",
+    "emp:prod": "pnpm --filter @empjs/cli build",
+    "emp:build": "pnpm --filter @empjs/cli --filter @empjs/plugin-react --filter @empjs/plugin-vue2 --filter @empjs/plugin-vue3 --filter @empjs/plugin-lightningcss --filter @empjs/plugin-postcss --filter @empjs/share build",
+    "esm": "pnpm --filter esm-react-host --filter esm-react-app dev",
+    "esm:prod": "pnpm --filter esm-react-host --filter esm-react-app build && pnpm --filter esm-react-host --filter esm-react-app start",
+    "mf": "pnpm --filter mf-host --filter mf-app dev",
+    "mf:prod": "pnpm --filter mf-host --filter mf-app build && pnpm --filter mf-host --filter mf-app start",
+    "vue2": "pnpm --filter vue-2-base --filter vue-2-project dev",
+    "vue2:prod": "pnpm --filter vue-2-base --filter vue-2-project --filter vue-2-element build && pnpm --filter vue-2-base --filter vue-2-project --filter vue-2-element start",
+    "vue": "pnpm --filter vue-3-base --filter vue-3-project dev",
+    "vue:prod": "pnpm --filter vue-3-base --filter vue-3-project build && pnpm --filter vue-3-base --filter vue-3-project start",
+    "eager": "pnpm --filter react-eager-host --filter react-eager-app dev",
+    "runtime18": "pnpm --filter runtime-18-app --filter runtime-18-host --filter @empjs/libs-18 dev",
+    "runtime17": "pnpm --filter react-17-runtime --filter @empjs/libs-17 dev",
+    "cloudflare:diff-react": "cross-env DEPLOY=cloudflare pnpm --filter emp-runtime-react-16-app --filter @empjs/libs-18 build",
+    "cloudflare:mf-cjs": "cross-env DEPLOY=cloudflare pnpm --filter mf-host --filter mf-app build",
+    "cloudflare:mf-esm": "cross-env DEPLOY=cloudflare pnpm --filter esm-react-app --filter esm-react-host build",
+    "cloudflare:mf-react": "cross-env DEPLOY=cloudflare pnpm --filter mf-app --filter mf-host build",
+    "cloudflare:mf-vue2": "cross-env DEPLOY=cloudflare pnpm --filter vue-2-project --filter vue-2-base build",
+    "cloudflare:mf-vue3": "cross-env DEPLOY=cloudflare pnpm --filter vue-3-project --filter vue-3-base build",
+    "lint": "biome check . --fix",
+    "check": "biome check .",
+    "lint:css": "biome check --css-formatter-enabled=true --css-linter-enabled=true ./ --fix",
+    "biome": "biome"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "pnpm": ">=8"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
-    "@empjs/biome-config": "^0.7.2",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
-    "typescript": "^5.3.3"
-  },
-  "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": ["@empjs/eslint-config-react"]
-  },
-  "eslintIgnore": ["node_modules", "dist"]
+    "@empjs/biome-config": "workspace:^",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.4.5"
+  }
 }

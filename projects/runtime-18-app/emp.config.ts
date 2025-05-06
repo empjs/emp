@@ -1,0 +1,38 @@
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import {externalReact, pluginRspackEmpShare} from '@empjs/share'
+export default defineConfig(store => {
+  const ip = store.getLanIp()
+  const port = 3801
+  return {
+    plugins: [
+      pluginReact(),
+      pluginRspackEmpShare({
+        empRuntime: {
+          framework: {
+            global: 'EMP_ADAPTER_REACT',
+            libs: [`https://unpkg.yy.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
+          },
+          runtime: {
+            lib: `http://${store.server.ip}:2100/sdk.js`,
+          },
+          setExternals: externalReact,
+        },
+      }),
+    ],
+    build: {
+      polyfill: {
+        entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
+      },
+    },
+    server: {
+      port,
+      open: false,
+    },
+    html: {
+      template: 'src/index.html',
+    },
+    define: {runtimeHost: `http://${ip}:3802/emp.js`, ip: `${ip}`},
+    // debug: {showRsconfig: true},
+  }
+})

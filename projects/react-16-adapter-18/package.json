@@ -1,0 +1,40 @@
+{
+  "name": "react-16-adapter-18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "maintainers": [
+    "xuhonngbin",
+    "liangxiaoming",
+    "hupanpan",
+    "wangchunyang2",
+    "linlijian",
+    "chenweihao",
+    "tangjiaqiang",
+    "liujunjie"
+  ],
+  "keywords": ["emp", "emp share runtime", "react", "react-dom", "multi react version"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@empjs/share": "workspace:^",
+    "mobx": "^6.12.3",
+    "mobx-react": "^9.1.1",
+    "react": "16",
+    "react-dom": "16"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.9"
+  }
+}

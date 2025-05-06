@@ -2,12 +2,12 @@ import pluginReact from '@empjs/plugin-react'
 // reset
 let target = 'es2015'
 let useImportMap = false
-let dts = true
+const dts = false
 let empShare = {}
 // ==============================
 export default store => {
   // 主要选择设置 esm cjs shared
-  const selectMode = 'esm'  
+  const selectMode = 'esm'
   getEmpshareLibConfig(selectMode, store)
   //===================
   const st = {
@@ -37,7 +37,7 @@ export default store => {
       showRsconfig: false,
     },
   }
-  console.log(st)
+  // console.log(st)
   return st
 }
 function getEmpshareLibConfig(type, store) {

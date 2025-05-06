@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2023", "DOM"],
+    "outDir": "dist",
+    "baseUrl": "./",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true,
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

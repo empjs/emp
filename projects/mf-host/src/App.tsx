@@ -1,10 +1,10 @@
 import {useState, version} from 'react'
 import './App.css'
+import {CountComp, ShowCountComp} from './CountComp'
 import ReactLogo from './assets/react.svg'
 import ReactInline from './assets/react.svg?inline'
-
-import {CountComp, ShowCountComp} from './CountComp'
 import Section from './component/Section'
+
 //
 type AppType = {
   from?: string
@@ -12,6 +12,7 @@ type AppType = {
   component?: any
   nameformRemote?: string
 }
+console.log('test console')
 
 function App(o: AppType) {
   const [count, setCount] = useState(0)
@@ -23,7 +24,7 @@ function App(o: AppType) {
           {/* <ReactLogo /> */}
         </a>
       </div>
-      <h1>EMP 3.0 React {version}</h1>
+      <h1>EMP 3.0 React {version} </h1>
       <ShowCountComp />
       {o.from ? <p>{o.from}</p> : ''}
       {o.nameformRemote ? <p>{o.nameformRemote}</p> : ''}

@@ -1,45 +1,45 @@
 .logo {
-  height: 300px;
-  will-change: filter;
+	height: 300px;
+	will-change: filter;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+	filter: drop-shadow(0 0 2em #646cffaa);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+	filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
 
-  to {
-    transform: rotate(360deg);
-  }
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .logo {
-  animation: logo-spin infinite 20s linear;
+	animation: logo-spin infinite 20s linear;
 }
 
-
 .card {
-  padding: 2em;
+	padding: 2em;
 }
 
 .read-the-docs {
-  color: #888;
+	color: #888;
 }
 
 .imageList {
-  display: flex;
+	display: flex;
 }
 
 .imageList span {
-  flex: 1;
-
-
+	flex: 1;
+}
+.App h1{
+   
 }

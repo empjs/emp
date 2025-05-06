@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Table } from 'ant-design-vue'
+import {Table} from 'ant-design-vue'
+import {defineComponent} from 'vue'
 const dataSource = [
   {
     key: '1',

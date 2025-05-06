@@ -1,0 +1,3 @@
+{
+  "extends": ["@empjs/biome-config"]
+}

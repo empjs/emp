@@ -15,13 +15,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@empjs/cli": "3.0.1",
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
     "@types/react": "^18.2.30",
     "@types/react-dom": "^18.2.14"
   },
   "dependencies": {
-    "core-js": "^3.36.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@empjs/share": "workspace:^",
+    "core-js": "^3.36.1"
   }
 }

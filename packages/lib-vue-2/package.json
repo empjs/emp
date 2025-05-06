@@ -1,0 +1,74 @@
+{
+  "name": "@empjs/lib-vue-2",
+  "version": "0.0.5",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/plugin-emp-runtime"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/runtime.umd.js",
+  "types": "dist/plugin.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/plugin.d.ts",
+      "default": "./dist/plugin.js"
+    },
+    "./runtime": {
+      "import": {
+        "types": "./dist/runtime.d.ts",
+        "default": "./dist/runtime.mjs"
+      },
+      "require": {
+        "types": "./dist/runtime.d.cts",
+        "default": "./dist/runtime.cjs"
+      }
+    },
+    "./*": ["./*", "./*.d.ts"]
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/*", "./*"]
+    }
+  },
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:development": "tsup --watch --env.NODE_ENV development",
+    "dev:production": "tsup --watch --env.NODE_ENV production",
+    "build": "pnpm run /^build:.*/",
+    "build:development": "tsup --env.NODE_ENV development",
+    "build:production": "tsup --env.NODE_ENV production",
+    "dev:serve": "serve ./dist --cors -p 1800",
+    "start": "serve ./dist --cors -p 1800"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "doerme",
+  "dependencies": {
+    "@module-federation/runtime": "^0.3.3",
+    "@module-federation/sdk": "^0.3.3",
+    "core-js": "^3.37.1",
+    "vue": "2.7.14",
+    "vuex": "3.6.2"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@swc/core": "^1.7.4",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5",
+    "serve": "^14.2.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@empjs/cdn-react",
+  "version": "0.19.0",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/cdn-react-19"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/reactRouter.production.umd.js",
+  "types": "dist/reactRouter.d.ts",
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:bundle": "tsup --watch",
+    "dev:serve": "serve ./dist --cors -p 1900",
+    "build": "tsup",
+    "start": "serve ./dist --cors -p 1900"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^6.25.1"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.10.4",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "serve": "^14.2.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}

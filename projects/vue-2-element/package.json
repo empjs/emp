@@ -6,8 +6,9 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@empjs/cli": "3.0.1",
-    "@empjs/plugin-vue2": "*"
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-vue2": "workspace:^*",
+    "@empjs/share": "workspace:^"
   },
   "dependencies": {
     "element-ui": "^2.15.6",

@@ -1,0 +1,110 @@
+{
+  "name": "@empjs/share",
+  "version": "3.6.1-beta.2",
+  "description": "emp share and runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist", "output"],
+  "maintainers": ["ckken@qq.com"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/emp-share"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./runtime": {
+      "import": {
+        "types": "./dist/runtime.d.ts",
+        "default": "./dist/runtime.js"
+      },
+      "require": {
+        "types": "./dist/runtime.d.cts",
+        "default": "./dist/runtime.cjs"
+      }
+    },
+    "./adapter": {
+      "import": {
+        "types": "./dist/adapter.d.ts",
+        "default": "./dist/adapter.js"
+      },
+      "require": {
+        "types": "./dist/adapter.d.cts",
+        "default": "./dist/adapter.cjs"
+      }
+    },
+    "./adapterVue": {
+      "import": {
+        "types": "./dist/adapterVue.d.ts",
+        "default": "./dist/adapterVue.js"
+      },
+      "require": {
+        "types": "./dist/adapterVue.d.cts",
+        "default": "./dist/adapterVue.cjs"
+      }
+    },
+    "./rspack": {
+      "import": {
+        "types": "./dist/rspack.d.ts",
+        "default": "./dist/rspack.js"
+      },
+      "require": {
+        "types": "./dist/rspack.d.cts",
+        "default": "./dist/rspack.cjs"
+      }
+    },
+    "./library": {
+      "types": "./output/sdk.d.ts",
+      "default": "./output/sdk.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": ["./dist/index.d.ts"],
+      "runtime": ["./dist/runtime.d.ts"],
+      "adapter": ["./dist/adapter.d.ts"],
+      "adapterVue": ["./dist/adapter.d.ts"],
+      "rspack": ["./dist/rspack.d.ts"],
+      "library": ["./output/index.d.ts"]
+    }
+  },
+  "scripts": {
+    "dev": "pnpm --filter @empjs/share run /^dev:.*/",
+    "dev:lib-dev": "tsup --watch",
+    "dev:serve": "serve ./output --cors -p 2100",
+    "build": "tsup",
+    "start": "serve ./output --cors -p 2100",
+    "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "@module-federation/enhanced": "0.6.10",
+    "@module-federation/sdk": "0.6.10",
+    "@empjs/module-federation-runtime": "0.6.10-emp.2",
+    "core-js": "^3.40.0"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@swc/core": "^1.10.8",
+    "serve": "^14.2.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.5.4"
+  }
+}
