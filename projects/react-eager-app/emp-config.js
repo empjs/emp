@@ -15,7 +15,7 @@ export default defineConfig(async store => {
       name: 'react_eger_app',
       remotes: {
         react_eger_host: `react_eger_host@http://${ip}:6001/emp.js`,
-        yybase: 'pcyyBase@https://unpkg.yy.com/@webbase/yybase@1.27.5/dist/emp.js',
+        yybase: 'pcyyBase@https://unpkg.com/@webbase/yybase@1.27.5/dist/emp.js',
       },
       shared: {
         react: {

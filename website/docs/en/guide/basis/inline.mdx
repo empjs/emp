@@ -1,0 +1,88 @@
+# Inline Resources
+
+EMP provides the ability to inline various resources directly into your JavaScript bundles. This guide explains how to use inline resources effectively.
+
+## Inline Assets
+
+### Inline Images
+
+Small images can be automatically inlined as base64:
+
+```js
+import logo from './logo.png';
+
+// If image is smaller than inlineLimit, it will be inlined
+console.log(logo); // data:image/png;base64,...
+```
+
+### Inline SVG
+
+SVG files can be imported as React components:
+
+```js
+import { ReactComponent as Logo } from './logo.svg';
+
+function App() {
+  return <Logo className="logo" />;
+}
+```
+
+## Configuration
+
+Customize inline behavior in your EMP configuration:
+
+```js
+// emp.config.js
+module.exports = {
+  assets: {
+    inlineLimit: 4096, // Size limit for inlining (in bytes)
+    svgr: true, // Enable SVGR for SVG files
+  }
+};
+```
+
+## Inline Styles
+
+### CSS Modules
+
+CSS Modules are automatically processed and inlined:
+
+```css
+/* styles.module.css */
+.title {
+  color: blue;
+}
+```
+
+```js
+import styles from './styles.module.css';
+
+function Component() {
+  return <div className={styles.title}>Hello</div>;
+}
+```
+
+### Inline CSS
+
+You can also inline CSS directly in JavaScript:
+
+```js
+const styles = {
+  container: {
+    padding: '20px',
+    backgroundColor: '#f5f5f5'
+  }
+};
+
+function Component() {
+  return <div style={styles.container}>Hello</div>;
+}
+```
+
+## Best Practices
+
+1. Use inlining for small assets to reduce HTTP requests
+2. Consider performance implications of large inlined assets
+3. Use appropriate file formats for different types of assets
+4. Balance between inlining and external loading
+5. Monitor bundle size impact of inlined resources

@@ -1,0 +1,206 @@
+# @empjs/share Plugin
+
+## Quick Start
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+import { Badge } from '@theme';
+
+<PackageManagerTabs command="add @empjs/share" />
+
+### Register Plugin
+:::info
+> v3.5.3 will be the final solution for EMP sharing, and all subsequent configurations will be based on this configuration approach
+
+#### Project Dependencies
++ `@empjs/share@3.5.3`  
++ `@empjs/plugin-react@3.5.3` or `@empjs/plugin-vue3` or `@empjs/plugin-vue2`
++ `@empjs/cli@3.5.3`
+
+#### Configuration for React and Vue: 
+React: No need to install `react` & `react-dom` during development. For TypeScript, only install `@types/react` & `@types/react-dom`
+:::
+#### Configuration Method  <Badge text="add in v3.5.3" type="warning" />
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import {externalReact, pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  return {
+    plugins: [
+      pluginReact(),
+      pluginRspackEmpShare({
+        empRuntime: {
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.5.3/output/sdk.js`,
+          },
+          framework: {
+            libs: [`https://cdn.jsdelivr.net/npm/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
+            global: 'EMP_ADAPTER_REACT',
+          },
+          setExternals: externalReact,
+        },
+      }),
+    ],
+  }
+})
+```
+:::info
+Similarly, the configuration for Vue3 and Vue2 is as follows:
+Dependencies, except for types, will not be bundled in the production environment
+:::
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginVue from '@empjs/plugin-vue3'// @empjs/plugin-vue2
+import {externalVue, pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  return {
+    plugins: [
+      pluginVue(),
+      pluginRspackEmpShare({
+        empRuntime: {
+          runtime: {
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.5.3/output/sdk.js`,
+          },
+          framework: {
+            libs: [
+             `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,// same for vue 2
+            //  `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.prod.js`, //if vue-router is needed
+              ],
+            global: 'window',
+          },
+          setExternals: externalVue,
+        },
+      }),
+    ],
+  }
+})
+```
+#### Configuration Method <Badge text="add in v3.4.5" type="warning" />
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import {pluginRspackEmpShare} from '@empjs/share/rspack'
+export default defineConfig(store => {
+  const reactVersion = 19// Can switch between 17~19 freely, tested to work in most business scenarios, maintaining backward compatibility
+  return {
+    plugins: [
+      pluginReact({
+        version: reactVersion,
+      }),
+      pluginRspackEmpShare({
+        // Module federation runtime & sdk configuration based on 0.6.10 with partial refactoring supporting external
+        empRuntime: {
+          runtime: {
+            // mf sdk address
+            lib: `https://yourcdn.com/@empjs/share@3.4.5/output/sdk.js`,
+            // mf umd global name
+            global: `EMP_SHARE_RUNTIME`
+          },
+          // Framework exposed in umd format
+          framework: {
+            name: 'react',
+            version: reactVersion,
+            // Final access address defaults to reactRouter.development.umd.js
+            entry: 'reactRouter',
+            // react umd global name
+            global: 'EMP_ADAPTER_REACT',
+            // Automatically distinguishes between dev & prod
+            lib: `https://yourcdn.com/@empjs/react@${reactVersion}/dist`,
+          },
+        },
+      }),
+    ],
+  }
+})
+```
+#### Legacy Method (Still Usable)
+```ts title="emp.config.ts"
+import {defineConfig} from '@empjs/cli'
+import {pluginRspackEmpShare} from '@empjs/share'
+export default defineConfig(store => {
+return {
+  plugins:[
+    pluginRspackEmpShare({
+        name: 'mfHost',
+        shared: {
+          react: {
+              singleton: true,
+              requiredVersion: '18',
+          },
+          'react-dom': {
+              singleton: true,
+              requiredVersion: '18',
+          },
+        },
+        exposes: {
+          './App': './src/App',
+          './CountComp': './src/CountComp',
+        },
+        empRuntime: {
+          runtimeLib: "https://cdn.jsdelivr.net/npm/@empjs/share@3.1.2/output/full.js",
+          frameworkLib: "https://cdn.jsdelivr.net/npm/@empjs/libs-18@0.0.1/dist",
+          frameworkGlobal: 'EMP_ADAPTER_REACT',
+          framework: 'react',
+        },
+        // experiments: {
+        //   federationRuntime: 'hoisted',
+        // },
+    }),
+  ]
+}
+```
+## Configuration Details
+
+### name
+
++ Type: `string`
++ Required: `Yes`
+
+Module Federation module name, which must be unique.
+
+Module Federation uses name for association. The name will be used for runtime data retrieval and chunk global storage variables.
+
+[View Details](https://module-federation.io/configure/name.html)
+
+### shared
+`shared` is used to share common dependencies between consumers and producers, reducing runtime download size and improving performance.
+
+- Type: `PluginSharedOptions`
+- Required: No
+- Default: `undefined`
+
+`PluginSharedOptions` type definition:
+
+```tsx
+type PluginSharedOptions = string[] | SharedObject;
+
+interface SharedObject {
+  [sharedName: string]: SharedConfig;
+}
+
+interface SharedConfig {
+  singleton?: boolean;
+  requiredVersion?: string;
+  eager?: boolean;
+  shareScope?: string;
+}
+```
+
+- Example
+
+```ts
+plugins:[
+    pluginRspackEmpShare({
+      name: '@demo/host',
+      shared: {
+        react: {
+          singleton: true,
+        },
+        'react-dom': {
+          singleton: true,
+        },
+      },
+    }),
+]
+```

@@ -1,0 +1,119 @@
+# Alias Configuration
+
+Alias configuration allows you to create custom mappings for module imports, making your import statements cleaner and more maintainable.
+
+## Basic Configuration
+
+Use the `resolve.alias` option in your EMP configuration:
+
+```typescript
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': './src',
+      '@components': './src/components',
+      '@utils': './src/utils'
+    }
+  }
+})
+```
+
+## Usage Examples
+
+### Directory Aliases
+
+Instead of using relative paths:
+
+```typescript
+// Before
+import { Button } from '../../../components/Button'
+
+// After
+import { Button } from '@components/Button'
+```
+
+### Module Aliases
+
+Redirect module imports:
+
+```typescript
+export default defineConfig({
+  resolve: {
+    alias: {
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'lodash-es': 'lodash'
+    }
+  }
+})
+```
+
+## TypeScript Integration
+
+Update your `tsconfig.json` to match alias configurations:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  }
+}
+```
+
+## Best Practices
+
+1. **Consistency:**
+   - Use consistent alias naming conventions
+   - Document alias patterns in project documentation
+
+2. **Path Resolution:**
+   - Use absolute paths for reliability
+   - Consider using path.resolve for cross-platform compatibility
+
+3. **Maintenance:**
+   - Keep alias mappings simple and intuitive
+   - Regularly review and update alias configurations
+
+4. **IDE Support:**
+   - Ensure IDE configurations match your alias settings
+   - Use TypeScript path mappings for better IDE integration
+
+## Advanced Configuration
+
+### Conditional Aliases
+
+Use environment-specific aliases:
+
+```typescript
+export default defineConfig(({ mode }) => ({
+  resolve: {
+    alias: {
+      '@api': mode === 'development'
+        ? './src/api/mock'
+        : './src/api/production'
+    }
+  }
+}))
+```
+
+### Multiple Entry Points
+
+Configure aliases for different entry points:
+
+```typescript
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@app1': './src/app1',
+      '@app2': './src/app2',
+      '@shared': './src/shared'
+    }
+  }
+})
+```
+
+For more information about configuration options, refer to the [Configuration Guide](../../config/index.mdx).

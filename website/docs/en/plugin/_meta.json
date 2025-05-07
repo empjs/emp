@@ -1,0 +1,27 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Plugin Overview"
+  },
+  {
+    "type": "file",
+    "name": "chainName",
+    "label": "Configuration Reference"
+  },
+  {
+    "type": "dir",
+    "name": "tool",
+    "label": "Build"
+  },
+  {
+    "type": "dir",
+    "name": "framework",
+    "label": "Framework"
+  },
+  {
+    "type": "dir",
+    "name": "code",
+    "label": "Code"
+  }
+]

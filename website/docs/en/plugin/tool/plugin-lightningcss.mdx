@@ -1,0 +1,75 @@
+# Lightningcss Plugin
+
+:::tip
+It is recommended to use `lightningcss` instead of `postcss` to improve overall performance
+:::
+
+## Quick Start
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-lightningcss" />
+
+### Register Plugin
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import lightningcssPlugin, {postcss} from '@empjs/plugin-lightningcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+        lightningcssPlugin({
+        transform: {
+            // px to rem
+          visitor:postcss.pxtorem({rootValue: 16, excludeSelectors: [], minPixelValue: 1}),
+          // or px to vw
+          visitor:postcss.pxtovw({
+            designWidth: 320,
+            minPixelValue: 1,
+            excludeSelectors: [],
+            }),
+        },
+      })
+    ],
+  }
+})
+
+```
+### Postcss Compatibility 
+> `postcss` covers support for mainstream Postcss plugins such as:
++ `postcss.px_to_rem` [PX-to-REM](https://github.com/cuth/postcss-pxtorem)
++ `postcss.px_to_viewport` [PX-to-VW](https://github.com/evrone/postcss-px-to-viewport)
++ `postcss.apply` [postcss-apply](https://www.npmjs.com/package/postcss-apply)
++ `postcss.static_vars` [postcss-prefix-selector](https://www.npmjs.com/package/postcss-prefix-selector)
++ `postcss.url` [postcss-simple-vars](https://www.npmjs.com/package/postcss-url)
++ `postcss.specific_environment_variables` [postcss-env-function](https://www.npmjs.com/package/postcss-env-function)
++ `postcss.env_function` [postcss-env-function](https://www.npmjs.com/package/postcss-env-function)
++ `postcss.design_tokens` [postcss-design-token](https://www.npmjs.com/package/@csstools/postcss-design-token)
++ `postcss.custom_units` [custom-units](https://github.com/csstools/custom-units)
++ `postcss.property_lookup` [postcss-property-lookup](https://www.npmjs.com/package/postcss-property-lookup)
++ `postcss.focus_visible` [postcss-focus-visible](https://www.npmjs.com/package/postcss-focus-visible)
++ `postcss.dark_theme_class` [postcss-dark-theme-class](https://github.com/postcss/postcss-dark-theme-class)
++ `postcss.fix_100vh` [postcss-100vh-fix](https://github.com/postcss/postcss-100vh-fix)
++ `postcss.logical_transforms` [rtlcss](https://github.com/MohammadYounes/rtlcss)
++ `postcss.hover_media_query` [mq4-hover-shim](https://github.com/twbs/mq4-hover-shim)
++ `postcss.momentum_scrolling` [postcss-momentum-scrolling](https://github.com/yunusga/postcss-momentum-scrolling)
++ `postcss.size` [postcss-size](https://github.com/postcss/postcss-size)
+
+### Compatibility Settings 
++ lightningcss automatically integrates `autoprefixer` through `build.browserslist` which can customize `browserslist`
++ emp integrates default browser settings, which can be set through `store.browserslistOptions.default` or `store.browserslistOptions.h5` for mobile web support
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import lightningcssPlugin from '@empjs/plugin-lightningcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+        lightningcssPlugin()
+    ],
+    build: {
+      browserslist: store.browserslistOptions.h5,
+    },
+  }
+})
+
+```

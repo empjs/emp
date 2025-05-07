@@ -1,0 +1,44 @@
+# ESLint Config React Plugin
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/eslint-config-react -D" />
+
+### Configure Plugin
+```ts title="package.json"
+{
+    "eslintConfig": {
+    "extends": [
+      "@empjs/eslint-config-react"
+    ]
+  },
+}
+```
+
+### VSCode Recommended Settings
+```json title=".vscode/settings.json"
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "json"
+  ],
+  "javascript.format.enable": false,
+  "typescript.format.enable": false
+}
+```
+
+:::info 💡 TIP
+In `vscode`, you need to use it with the `VS Code ESLint extension`. There's no need to install `Prettier Formatter for Visual Studio Code`.
+:::

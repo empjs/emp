@@ -1,0 +1,140 @@
+# Output Files
+
+EMP provides flexible configuration options for controlling build output files. This guide explains how to customize and optimize your build output.
+
+## Basic Configuration
+
+### Output Directory
+
+Specify the output directory in your EMP configuration:
+
+```js
+// emp.config.js
+module.exports = {
+  output: {
+    path: 'dist', // Output directory
+    clean: true, // Clean directory before build
+  }
+};
+```
+
+### File Names
+
+Customize output file names:
+
+```js
+module.exports = {
+  output: {
+    filename: '[name].[hash].js',
+    chunkFilename: '[id].[chunkhash].js',
+    assetModuleFilename: 'assets/[name].[hash][ext]'
+  }
+};
+```
+
+## Asset Management
+
+### Static Assets
+
+Configure static asset handling:
+
+```js
+module.exports = {
+  assets: {
+    publicPath: '/assets/',
+    inlineLimit: 4096,
+    outputPath: 'static'
+  }
+};
+```
+
+### Source Maps
+
+Control source map generation:
+
+```js
+module.exports = {
+  sourcemap: true,
+  output: {
+    sourceMapFilename: '[file].map'
+  }
+};
+```
+
+## Optimization
+
+### Code Splitting
+
+Configure chunk splitting:
+
+```js
+module.exports = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors'
+        }
+      }
+    }
+  }
+};
+```
+
+### Minification
+
+Control file minification:
+
+```js
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [
+      // custom minimizer configuration
+    ]
+  }
+};
+```
+
+## Advanced Features
+
+### Library Output
+
+Configure library output format:
+
+```js
+module.exports = {
+  output: {
+    library: {
+      type: 'umd',
+      name: 'MyLibrary'
+    }
+  }
+};
+```
+
+### Module Federation
+
+Configure Module Federation output:
+
+```js
+module.exports = {
+  moduleFederation: {
+    name: 'host',
+    filename: 'remoteEntry.js',
+    exposes: {
+      './Button': './src/Button'
+    }
+  }
+};
+```
+
+## Best Practices
+
+1. Use content hashing for cache busting
+2. Implement appropriate code splitting
+3. Optimize asset sizes and loading
+4. Configure source maps based on environment
+5. Monitor and optimize bundle sizes

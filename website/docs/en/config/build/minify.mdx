@@ -1,0 +1,15 @@
+# build.minify
++ Whether to compress
++ Type: `boolean`
++ Default: `true`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        minify:true
+    }
+  }
+})
+```

@@ -1,0 +1,78 @@
+import { Badge } from '@theme';
+
+
+# html
+<Badge text="breakchange in v3.1.4" type="warning" />
+
++ Page generation configuration
++ Type: `HtmlType`
+```js
+export interface HtmlType extends HtmlRspackPluginOptions {
+  /**
+   * index.html file path based on project root directory
+   * @default src/index.html
+   */
+  template?: string
+  /**
+   * favicon file path based on project root directory
+   * @default src/favicon.ico
+   */
+  favicon?: string
+  /**
+   * Website language
+   */
+  lang?: string
+  /**
+   * externals file injection into html breakchange in v3.1.4
+   */
+  tags?: {
+    type: "js" | "css";
+    src?: string;
+    content?: string;
+    pos?: "head" | "body";
+  }[]
+}
+```
+:::tip
+In version 3.1.4 and later, `files` and `tags` are unified and merged into `tags?: InjectHeadTagsTypeItem[]` configuration
+:::
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    html: {
+      template: 'src/index.html',
+    },
+  }
+})
+```
+
+
+
+
+# html
+<Badge text="html.files removed in version 3.1.4 and html.tags upgrade in version 3.1.4 " type="warning" />
+
++ Page generation configuration
++ Type: `HtmlType`
+```js
+export interface HtmlType extends HtmlRspackPluginOptions {
+  files?: {
+    /**
+     * Insert css
+     */
+    css?: string[]
+    /**
+     * Insert js
+     */
+    js?: string[]
+  },
+  /**
+   * Custom head and body content, requires template configuration
+   */
+  tags?: {
+    headTags?: any[]
+    bodyTags?: any[]
+  }
+}
+```

@@ -11,7 +11,7 @@ export default defineConfig(store => {
   return {
     build: {
       polyfill: {
-        entryCdn: 'https://unpkg.yy.com/@empjs/polyfill@0.0.2/dist/es.js',
+        entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
       },
     },
     plugins: [
@@ -19,7 +19,7 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.yy.com/@empjs/share@3.5.0/output/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.5.0/output/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {

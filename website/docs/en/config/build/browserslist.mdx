@@ -1,0 +1,26 @@
+# build.browserslist
++ Browser compatibility settings
++ Type: `string[]`
++ Default: `store.browserslistOptions.default`
+
+```js title="store.browserslistOptions"
+  get browserslistOptions() {
+    return {
+      default: ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14'],
+      h5: ['iOS >= 9', 'Android >= 4.4', 'last 2 versions', '> 0.2%', 'not dead'],
+      node: ['node >= 16'],
+    }
+  }
+```
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        // Support mobile browser compatibility configuration
+        browserslist: store.browserslistOptions.h5,
+    }
+  }
+})
+```

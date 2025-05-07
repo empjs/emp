@@ -9,16 +9,16 @@ export default defineConfig(store => {
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
-            libs: [`https://unpkg.yy.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            lib: `https://unpkg.yy.com/@empjs/share@3.6.0/output/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.6.0/output/sdk.js`,
           },
           setExternals: externalReact,
         },
         remotes: {
-          '@astro/render': `Astro_Render@https://unpkg.yy.com/@astro/render@0.6.0/dist/emp.js`,
-          '@astro/ui': 'Astro_UI@https://unpkg.yy.com/@astro/ui@0.0.1/dist/emp.json',
+          '@astro/render': `Astro_Render@https://unpkg.com/@astro/render@0.6.0/dist/emp.js`,
+          '@astro/ui': 'Astro_UI@https://unpkg.com/@astro/ui@0.0.1/dist/emp.json',
         },
         dts: {
           consumeTypes: true,
@@ -27,7 +27,7 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: 'https://unpkg.yy.com/@empjs/polyfill@0.0.2/dist/es.js',
+        entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
       },
     },
     server: {

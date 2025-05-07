@@ -1,0 +1,15 @@
++ Reset `rspack` settings
+## Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+    // Method 1
+    store.chain.module.rule('javascript').test(/\.js$/)
+  return {
+    chain(chain){
+        // Method 2
+        chain.module.rule('javascript').test(/\.js$/)
+    },
+  }
+})
+```

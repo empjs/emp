@@ -13,11 +13,11 @@ export default defineConfig(store => {
         },
         empRuntime: {
           runtime: {
-            // lib: `https://unpkg.yy.com/@empjs/share@3.5.3/output/sdk.js`,
+            // lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
             lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           framework: {
-            libs: [`https://unpkg.yy.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
             global: 'EMP_ADAPTER_REACT',
           },
           setExternals: externalReact,
@@ -36,7 +36,7 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
       },
     },
     server: {

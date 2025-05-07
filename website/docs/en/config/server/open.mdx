@@ -1,0 +1,28 @@
+# open
+
+The open configuration option is similar to Rspack's devServer open configuration, used to specify whether to open the browser after project startup.
+
+- **Type**: `boolean`
+- **Default**: `false`
+
+When we want the browser to automatically open and access the project after startup, we can set this to `true`.
+
+> 💡TIP: Note that the automatically opened browser will be the system's default browser.
+
+## Example
+
+```js title="emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      open: true,
+      ...
+    },
+    ...
+  }
+})
+```
+
+This configuration example indicates that the browser will automatically open and access the project after startup.

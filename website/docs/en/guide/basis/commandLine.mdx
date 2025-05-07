@@ -1,0 +1,82 @@
+# Command Line Interface
+
+EMP provides a command line interface (CLI) for project development and building. You can use these commands in your project's scripts or directly in the terminal.
+
+## Development Commands
+
+### emp dev
+
+Starts the development server.
+
+```bash
+emp dev
+```
+
+Options:
+- `--port`: Specifies the port number (default: 8000)
+- `--host`: Specifies the host (default: localhost)
+- `--open`: Automatically opens the browser after startup
+
+### emp build
+
+Builds the project for production.
+
+```bash
+emp build
+```
+
+Options:
+- `--analyze`: Enables bundle analysis
+- `--sourcemap`: Generates source maps
+
+### emp preview
+
+Previews the production build locally.
+
+```bash
+emp preview
+```
+
+Options:
+- `--port`: Specifies the port number (default: 8000)
+- `--host`: Specifies the host (default: localhost)
+
+## Configuration Commands
+
+### emp init
+
+Initializes a new EMP project.
+
+```bash
+emp init
+```
+
+### emp info
+
+Displays environment information.
+
+```bash
+emp info
+```
+
+## Advanced Commands
+
+### emp serve
+
+Serves the production build.
+
+```bash
+emp serve
+```
+
+Options:
+- `--port`: Specifies the port number (default: 8000)
+- `--host`: Specifies the host (default: localhost)
+
+### emp clean
+
+Cleans the build directory.
+
+```bash
+emp clean
+```

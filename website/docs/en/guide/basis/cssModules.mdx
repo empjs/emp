@@ -1,0 +1,81 @@
+# CSS Modules
+
+CSS Modules is a CSS file in which all class names and animation names are scoped locally by default. It's a very popular way to modularize CSS code.
+
+## Basic Usage
+
+To use CSS Modules in EMP, simply name your CSS file with the `.module.css` extension:
+
+```css
+/* styles.module.css */
+.title {
+  color: red;
+  font-size: 20px;
+}
+```
+
+Then import it in your JavaScript/TypeScript file:
+
+```js
+import styles from './styles.module.css';
+
+function Component() {
+  return <div className={styles.title}>Hello World</div>;
+}
+```
+
+## Features
+
+### Local Scoping
+
+All class names are automatically scoped to the component:
+
+```css
+/* Input: styles.module.css */
+.title { color: red; }
+
+/* Output: Transformed to unique class names */
+._styles_title_xk9a2 { color: red; }
+```
+
+### Composition
+
+You can compose multiple classes using the `composes` keyword:
+
+```css
+.base { color: blue; }
+.title {
+  composes: base;
+  font-size: 20px;
+}
+```
+
+### Global Classes
+
+Use `:global` to define global classes:
+
+```css
+:global(.global-class) {
+  color: green;
+}
+```
+
+## TypeScript Support
+
+EMP provides TypeScript declarations for CSS Modules out of the box:
+
+```ts
+// styles.module.css
+declare const styles: {
+  readonly [key: string]: string;
+};
+export default styles;
+```
+
+## Best Practices
+
+1. Use camelCase for class names to maintain consistency with JavaScript conventions.
+2. Keep CSS Modules files close to their corresponding components.
+3. Use composition to share common styles.
+4. Avoid using global styles unless necessary.
+5. Use meaningful class names that describe the purpose rather than appearance.

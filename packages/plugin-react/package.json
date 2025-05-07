@@ -43,8 +43,8 @@
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@rspack/plugin-react-refresh": "1.2.0",
-    "@svgr/webpack": "^8.1.0",
-    "react-refresh": "^0.17.0"
+    "@rspack/plugin-react-refresh": "1.4.1",
+    "@svgr/webpack": "8.1.0",
+    "react-refresh": "0.17.0"
   }
 }

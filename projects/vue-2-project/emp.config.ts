@@ -18,7 +18,7 @@ export default defineConfig(store => {
         },
         // shared: ['vue', 'vuex'],
         empRuntime: {
-          // runtimeLib: `https://unpkg.yy.com/@empjs/share@3.1.5/output/sdk.js`,
+          // runtimeLib: `https://unpkg.com/@empjs/share@3.1.5/output/sdk.js`,
           runtimeLib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
           framework: {
             libs: [

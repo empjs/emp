@@ -1,0 +1,104 @@
+# CSS Usage
+
+EMP provides comprehensive support for CSS and various CSS preprocessors. This guide will help you understand how to use CSS effectively in your EMP projects.
+
+## Basic CSS
+
+You can directly import CSS files in your JavaScript/TypeScript files:
+
+```js
+import './styles.css';
+```
+
+## CSS Preprocessors
+
+### SASS/SCSS
+
+EMP supports SASS/SCSS out of the box:
+
+```scss
+// styles.scss
+$primary-color: blue;
+
+.container {
+  color: $primary-color;
+  
+  .title {
+    font-size: 20px;
+  }
+}
+```
+
+### Less
+
+Less is also supported:
+
+```less
+// styles.less
+@primary-color: blue;
+
+.container {
+  color: @primary-color;
+  
+  .title {
+    font-size: 20px;
+  }
+}
+```
+
+## PostCSS
+
+EMP includes PostCSS by default. You can configure it in your project's `postcss.config.js`:
+
+```js
+module.exports = {
+  plugins: [
+    require('autoprefixer'),
+    // other plugins
+  ]
+};
+```
+
+## CSS Modules
+
+For CSS Modules support, please refer to the [CSS Modules](./cssModules.mdx) documentation.
+
+## CSS-in-JS
+
+EMP is compatible with popular CSS-in-JS solutions:
+
+```js
+import styled from 'styled-components';
+
+const Button = styled.button`
+  background: blue;
+  color: white;
+`;
+```
+
+## Best Practices
+
+1. Use appropriate preprocessors based on your project needs
+2. Leverage CSS Modules for component-scoped styles
+3. Maintain consistent naming conventions
+4. Optimize CSS bundle size
+5. Use modern CSS features when possible
+
+## Configuration
+
+You can customize CSS processing in your EMP configuration:
+
+```js
+// emp.config.js
+module.exports = {
+  css: {
+    // CSS configuration options
+    modules: {
+      // CSS Modules options
+    },
+    preprocessorOptions: {
+      // preprocessor options
+    }
+  }
+};
+```

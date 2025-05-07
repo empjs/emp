@@ -1,0 +1,147 @@
+# Development Server
+
+EMP provides a powerful development server with features like hot module replacement (HMR), proxy configuration, and more.
+
+## Basic Usage
+
+Start the development server using the CLI command:
+
+```bash
+emp dev
+```
+
+## Configuration
+
+Configure the development server in your EMP configuration file:
+
+```js
+// emp.config.js
+module.exports = {
+  dev: {
+    port: 8000,
+    host: 'localhost',
+    https: false,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
+      }
+    }
+  }
+};
+```
+
+## Features
+
+### Hot Module Replacement (HMR)
+
+HMR is enabled by default, allowing you to see changes without refreshing the page:
+
+```js
+if (module.hot) {
+  module.hot.accept();
+}
+```
+
+### Proxy Configuration
+
+Set up proxy rules for API requests:
+
+```js
+module.exports = {
+  dev: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      }
+    }
+  }
+};
+```
+
+### HTTPS
+
+Enable HTTPS mode:
+
+```js
+module.exports = {
+  dev: {
+    https: true,
+    // Or provide custom certificates
+    https: {
+      key: '/path/to/server.key',
+      cert: '/path/to/server.crt'
+    }
+  }
+};
+```
+
+### Custom Middleware
+
+Add custom middleware to the development server:
+
+```js
+module.exports = {
+  dev: {
+    before: (app) => {
+      app.get('/custom', (req, res) => {
+        res.json({ message: 'Hello from custom middleware!' });
+      });
+    }
+  }
+};
+```
+
+## Advanced Configuration
+
+### Headers
+
+Add custom headers to all responses:
+
+```js
+module.exports = {
+  dev: {
+    headers: {
+      'X-Custom-Header': 'custom-value'
+    }
+  }
+};
+```
+
+### Compression
+
+Enable response compression:
+
+```js
+module.exports = {
+  dev: {
+    compress: true
+  }
+};
+```
+
+### Client Configuration
+
+Configure client-side options:
+
+```js
+module.exports = {
+  dev: {
+    client: {
+      overlay: true, // Show errors as overlay
+      progress: true // Show progress bar
+    }
+  }
+};
+```
+
+## Best Practices
+
+1. Use appropriate proxy settings for API requests
+2. Enable HTTPS when needed
+3. Configure appropriate headers for security
+4. Use custom middleware sparingly
+5. Monitor performance impact of development server settings

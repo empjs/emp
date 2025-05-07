@@ -1,0 +1,99 @@
+# Raw Asset Handling
+
+EMP provides support for handling raw assets in your application. This guide explains how to work with raw assets effectively.
+
+## Basic Usage
+
+### Importing Raw Assets
+
+Use the `?raw` suffix to import files as raw text:
+
+```js
+import text from './file.txt?raw';
+import source from './component.jsx?raw';
+
+console.log(text); // Raw file content
+```
+
+### Raw HTML
+
+Import HTML files as raw content:
+
+```js
+import template from './template.html?raw';
+
+document.body.innerHTML = template;
+```
+
+## Asset Types
+
+### Text Files
+
+Handle various text file formats:
+
+```js
+// Plain text
+import readme from './README.md?raw';
+
+// Source code
+import sourceCode from './example.js?raw';
+
+// Configuration files
+import config from './config.yaml?raw';
+```
+
+### Binary Files
+
+Work with binary files:
+
+```js
+import binary from './file.bin?raw';
+```
+
+## Configuration
+
+Customize raw asset handling in your EMP configuration:
+
+```js
+// emp.config.js
+module.exports = {
+  assets: {
+    raw: {
+      test: /\.(txt|md|template)$/,
+      exclude: /node_modules/
+    }
+  }
+};
+```
+
+## Advanced Usage
+
+### Custom Transformations
+
+Apply transformations to raw content:
+
+```js
+import { transform } from './transformer';
+import content from './file.txt?raw';
+
+const transformed = transform(content);
+```
+
+### Dynamic Imports
+
+Use dynamic imports for raw assets:
+
+```js
+async function loadTemplate(name) {
+  const module = await import(`./templates/${name}.html?raw`);
+  return module.default;
+}
+```
+
+## Best Practices
+
+1. Use raw imports for static content
+2. Consider performance implications of large files
+3. Implement proper error handling
+4. Cache processed raw content when appropriate
+5. Follow security best practices when handling raw content

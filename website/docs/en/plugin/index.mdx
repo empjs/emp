@@ -1,0 +1,17 @@
+# Plugin Overview
+> Register plugins through the `plugins` option in `emp-config.js`
+
+import Overview from '@components/Overview';
+
+<Overview list={OVERVIEW_PLUGINS} />
+
+> Configuration example:
+```ts title="emp-config.js"
+import pluginReact from '@empjs/plugin-react'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    plugins:[pluginReact({svgrQuery: 'react'})]
+  }
+})
+```

@@ -1,0 +1,49 @@
+import { Tabs, Tab, PackageManagerTabs } from '@theme';
+
+# Upgrading from EMP2 to EMP3
+
+## Background
+`EMP3` is now in release status and has been deployed in production projects. After comparison with `EMP2` across multiple projects, initial build speed has improved by `80%`, secondary build speed has improved by `60%`, and output bundle size has been reduced by more than `25%`.
+
+## Upgrade Steps
+
+### 1. Uninstall `@efox/emp`
+
+<PackageManagerTabs command="remove @efox/emp" />
+
+:::tip
+Other `@efox/xxx` dependencies in the project can also be removed.
+:::
+
+### 2. Install `@empjs/cli`
+
+<PackageManagerTabs command="add @empjs/cli -D" />
+
+### 3. Modify `package.json`
+`EMP3` recommends using the ESM module system. Add the following configuration to package.json:
+```json title="package.json"
+"type": "module",
+```
+
+### 4. Modify `emp-config.js`
+:::tip
+The configuration file can also use typescript with the name `emp.config.ts`
+:::
+
+#### 4.1 Module Import Format Adjustment
+`EMP2.x` configuration defaults to using the `commonjs` module specification. When upgrading to `EMP3`, the first step is to change the `commonjs` module reference method to the `ESM` reference method, changing `require` and `module.exports` or `exports` to `import` and `export` or `export default`
+
+#### 4.2 Module Return Result Adjustment
+`EMP3` configuration needs to return the execution result of the `defineConfig` function, adjusted as follows:
+```javascript title="emp-config.js"
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async ({ mode }) => {
+// Build logic
+    return {
+        // Final configuration
+    }
+})
+```
+
+For detailed configuration, please refer to the [DEMO](https://github.com/empjs/emp/blob/v3/demos/react18/react-host/emp.config.ts). The related plugins used can be found in the [Plugins](en/plugin/index) section with usage instructions.

@@ -1,0 +1,15 @@
+# build.externalHelpers
++ swc will import utility classes through modules
++ Type: `boolean`
++ Default: `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        externalHelpers:false,
+    }
+  }
+})
+```

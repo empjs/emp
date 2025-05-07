@@ -1,0 +1,108 @@
+import { Badge } from '@theme';
+
+# empShare
+
+<Badge text="remove in v3.1.4" type="danger" />
+
+:::danger title="EmpShare"
+After version `v3.1.4`, use [RspackEmpSharePlugin](/plugin/tool/share) instead of `empShare` configuration.
+:::
+
+:::tip title="EmpShare"
+Secondary encapsulation development based on `module federation`, adapting to more business models.     
+Currently supports basic `module federation` sharing method, CDN-based sharing method, and ESM sharing method.
+:::
+
+## Basic Sharing Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    empShare: {
+      name: 'unpkglib',
+      exposes: {
+        './App': './src/App',
+      },
+      shared: {
+        react: {singleton: true},
+        'react-dom': {singleton: true},
+      },
+    },
+  }
+})
+```
+
+## FastMode Sharing Configuration
+:::tip title="FastMode"
+Secondary encapsulation development based on `module federation v2`, currently the optimal sharing mode in EMP
+:::
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    empShare: {
+      fastMode: {
+        runtimeHost: 'Secondary encapsulation library, including basic libraries, SDK, etc.',
+        framework: 'react',
+      },
+      name: 'unpkglib',
+      exposes: {
+        './App': './src/App',
+      },
+      shared: {
+        react: {singleton: true},
+        'react-dom': {singleton: true},
+      },
+    },
+  }
+})
+```
+
+## CDN Sharing Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig((store) => {
+  const shareLib =
+    store.mode === 'development'
+      ? {
+          react: 'React@https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.min.js',
+          'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js',
+        }
+      : {
+          react: 'React@https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js',
+          'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js',
+        }
+
+  return {
+    empShare: {
+      name: 'unpkglib',
+      exposes: {
+        './App': './src/App',
+      },
+      shareLib,
+    },
+  }
+})
+```
+
+## ESM Sharing Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build : {
+     target:'es2015',
+    },
+    empShare: {
+      name: 'unpkglib',
+      exposes: {
+        './App': './src/App',
+      },
+      shared: {
+        react: {singleton: true},
+        'react-dom': {singleton: true},
+      },
+    },
+  }
+})
+```

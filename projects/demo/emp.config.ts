@@ -42,7 +42,7 @@ export default defineConfig(store => {
     build: {
       // polyfill: 'entry',
       polyfill: {
-        entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
       },
       // browserslist: store.browserslistOptions.h5,
       sourcemap: true,

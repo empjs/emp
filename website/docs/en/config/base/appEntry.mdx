@@ -1,0 +1,15 @@
+:::tip
+Project code entry file such as `index.js`  
+This option becomes invalid when `entries` is set
+:::
++ Type: `string`
++ Default: `index.js`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    appEntry: 'main.js'
+  }
+})
+```

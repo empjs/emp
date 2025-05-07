@@ -1,0 +1,23 @@
+# entries
++ Multi-page entry configuration, equivalent to a collection of `html`
++ Type: `{[entryFilename: string]: HtmlType}`
++ For `HtmlType` configuration, [refer to](./html.mdx)
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    entries: {
+      'info.ts': {
+        title: 'Info Page',
+      },
+    //File path based on `src`
+      'work/index.ts': {
+        title: 'work Page',
+         //File path based on project root directory
+        template: 'src/work/index.html',
+      },
+    },
+  }
+})
+```

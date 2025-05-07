@@ -1,0 +1,64 @@
+import { Badge } from '@theme';
+
+# build.polyfill
+
+<Badge text="breakchange in v3.1.4" type="info" />
+
+## polyfill.entryCdn
+<Badge text="add in v3.1.5" type="warning" />
++ Import compatibility code CDN script in page header
++ Example: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`
++ Compatibility code generation repository: To be supplemented
+
+## polyfill.mode
+
+<Badge text="add in v3.1.4" type="warning" />
+
++ Inject compatibility code
++ Type: `entry` | `usage` | false
++ Default: false
+
+:::tip
+For module federation entry, it is recommended to use entry
+:::
+
+## polyfill.entry
+<Badge text="remove in v3.1.4" type="danger" />
+Inject compatibility code into the entry file
+
+## polyfill.usage
+<Badge text="remove in v3.1.4" type="danger" />
+Add compatibility code as needed
+
+## polyfill.coreJsFeatures
+:::tip
+Choosing the compatible version of core-js helps to switch appropriate code size
+:::
++ Type: `full` | `actual` | `stable` | `es`
++ Default: `stable`
+
+## polyfill.externalHelpers
++ Externalize @swc/helpers
++ Type: boolean
++ Default: false
+
+## polyfill.browserslist
++ Browser compatibility version
++ Type: string[]
++ Default: ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14']
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        polyfill:{
+            mode:'entry',
+            coreJsFeatures:'stable',
+            externalHelpers:false,
+            browserslist:['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14']
+        }
+    }
+  }
+})
+```

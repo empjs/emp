@@ -1,0 +1,50 @@
+# React Build Plugin
+
+## Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-react -D" />
+
+## Configure Plugin
+```ts title="emp-config.js"
+import pluginReact from '@empjs/plugin-react'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [pluginReact()],
+  }
+})
+```
+## React HMR
+```ts title="emp-config.js"
+import pluginReact from '@empjs/plugin-react'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [pluginReact({hmr: true})],
+  }
+})
+```
+## React SVGR
+```js 
+import LogoComponent from 'src/assets/logo.svg?react'
+
+// Usage
+<LogoComponent className="logo" />
+
+// TypeScript Integration
+declare module '*.svg?react' {
+  const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
+  export default ReactComponent
+}
+```
+Custom Configuration
+```ts title="emp-config.js"
+import pluginReact from '@empjs/plugin-react'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [pluginReact({svgrQuery: 'react'})],
+  }
+})
+```

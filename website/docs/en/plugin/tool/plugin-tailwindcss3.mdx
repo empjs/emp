@@ -1,0 +1,40 @@
+# TailwindCSS 3 Plugin
+
+import { Badge } from '@theme';
+
+<Badge text="Hot reload support for @empjs/cli@3.7.0" type="warning" />
+
+## Quick Start
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-tailwindcss3" />
+
+### Register Plugin
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginTailwindcss from '@empjs/plugin-tailwindcss3'
+export default defineConfig(store => {
+  return {
+    plugins:[
+      pluginTailwindcss({
+        content: ['./src/**/*.{js,ts,jsx,tsx}'],
+        theme: {
+          extend: {},
+        },
+        plugins: [],
+      }),
+    ],
+  }
+})
+
+```
+
+### Import Styles
+```css title="style.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+#### Import style.css into your project

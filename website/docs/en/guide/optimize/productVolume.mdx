@@ -1,0 +1,104 @@
+# Output Size Optimization
+
+This guide covers strategies and best practices for optimizing the size of your build output in EMP projects.
+
+## Bundle Analysis
+
+Understanding your bundle composition is the first step to optimization. Use bundle analysis tools to:
+
+- Identify large dependencies
+- Detect duplicate modules
+- Find opportunities for code splitting
+- Track bundle size changes
+
+## Optimization Strategies
+
+### Code Splitting
+
+Implement effective code splitting to reduce initial bundle size:
+
+```typescript
+export default defineConfig({
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 20000,
+      cacheGroups: {
+        vendors: {
+          test: /[\\]node_modules[\\]/,
+          priority: -10
+        }
+      }
+    }
+  }
+})
+```
+
+### Tree Shaking
+
+Enable tree shaking to eliminate unused code:
+
+```typescript
+export default defineConfig({
+  optimization: {
+    usedExports: true,
+    sideEffects: true
+  }
+})
+```
+
+### Dynamic Imports
+
+Use dynamic imports for route-based code splitting:
+
+```typescript
+// Instead of static import
+// import { heavyComponent } from './heavy-component'
+
+// Use dynamic import
+const HeavyComponent = React.lazy(() => import('./heavy-component'))
+```
+
+### Compression
+
+Enable output compression:
+
+```typescript
+export default defineConfig({
+  output: {
+    compress: true
+  }
+})
+```
+
+### Image Optimization
+
+- Use appropriate image formats (WebP for photos, SVG for icons)
+- Implement responsive images
+- Consider lazy loading for below-the-fold images
+
+### Dependencies Management
+
+- Regularly audit and update dependencies
+- Consider lighter alternatives for heavy packages
+- Use bundle-size aware libraries
+
+## Best Practices
+
+1. **Monitor Bundle Size:**
+   - Set budget thresholds
+   - Track size changes in CI/CD
+
+2. **Optimize Dependencies:**
+   - Use modern, tree-shakeable packages
+   - Consider micro-frontends for large applications
+
+3. **Development vs Production:**
+   - Implement environment-specific optimizations
+   - Use source maps appropriately
+
+4. **Asset Management:**
+   - Implement effective caching strategies
+   - Optimize static assets delivery
+
+For more detailed configuration options, refer to the [Configuration Guide](../../config/index.mdx).

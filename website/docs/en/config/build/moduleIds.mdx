@@ -1,0 +1,17 @@
+# build.moduleIds
+:::tip
+`named` uses meaningful, debug-friendly content as module id. This option is enabled by default in development environment.         
+`deterministic` uses hashed numbers as module id, which is beneficial for long-term caching. This option is enabled by default in production environment.
+:::
++ Type: `named` | `deterministic`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        moduleIds:store.isDev?'named':'deterministic'
+    }
+  }
+})
+```

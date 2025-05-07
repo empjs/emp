@@ -1,0 +1,52 @@
+# Biome Formatting Plugin
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/biome-config -D" />
+
+### Configure Plugin
+```ts title="biome.json"
+{
+  "extends": ["@empjs/biome-config"]
+}
+```
+
+### Recommended VSCode Configuration
+```json title=".vscode/settings.json"
+{
+  "eslint.enable": false,
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}
+
+```
+
+:::info 💡 TIP
+Add `public-hoist-pattern[]=*@biomejs/biome*` to `.npmrc` in the root directory
+:::
+
+### Common Biome Commands
+```jsonc
+// Fix project code
+biome lint . --fix
+// Check project code
+biome check .
+```

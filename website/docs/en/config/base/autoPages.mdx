@@ -1,0 +1,44 @@
+import { Badge } from '@theme';
+
+<Badge text="add in v3.0.0-rc.10" type="warning" />
+
+:::tip
+Automatically finds entry files in the `pages` directory after startup
+:::
+
++ Type: `boolean` | `{path:'pages'}`
++ Default: `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    autoPages:true
+  }
+})
+```
+
+## Purpose
++ Captures all files under the `src/pages` directory and configures the `html-template` according to `html` and `entries` configurations, for example:
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+
+export default defineConfig(store => {
+  return {
+    //Enable autoPages
+    autoPages: true,
+    plugins: [pluginReact()],
+    // Global HTML configuration settings
+    html: {
+      title: 'EMP v3 Auto Pages',
+    },
+    // Local configuration settings for existing pages
+    entries: {
+      'work/index.ts': {
+        title: 'auto page work',
+      },
+    },
+  }
+})
+```

@@ -1,0 +1,18 @@
+:::tip
+After startup, automatically sets the base to the current IP+port path (e.g., base = http://127.0.0.1:8080/) and fixes ws for proxy debugging
+:::
+
++ Type: `boolean`
++ Default: `false`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    autoDevBase:true
+  }
+})
+```
+
+## Purpose
+Facilitates remote access to proxy tools for debugging, eliminates the need for proxies, and avoids embedding `debug` tools in the page which could affect aesthetics

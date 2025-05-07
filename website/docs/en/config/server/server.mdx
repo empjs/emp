@@ -1,0 +1,42 @@
+# server
+
+`Dev Server` and `Prod Server` service configuration
+- Type: `ServerType`
+- For detailed configuration, [refer to](https://www.rspack.dev/config/dev-server.html)
+
+```js
+export type ServerType = devServerConfig & {
+  /**
+   * Access host
+   * @default '0.0.0.0'
+   */
+  host: string
+  /**
+   * Access port
+   * @default 8000
+   */
+  port: number
+  /**
+   * Auto open
+   * @default false
+   */
+  open?: devServerConfig['open']
+  /**
+   * Hot reload
+   * @default true
+   */
+  hot?: devServerConfig['hot']
+}
+```
+
+## Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    server: {
+        port: 9002
+    },
+  }
+})
+```

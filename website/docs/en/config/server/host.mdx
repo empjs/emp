@@ -1,0 +1,28 @@
+# host
+
+The host configuration option is similar to Rspack's devServer host configuration, used to specify the listening hostname or IP address.
+
+- **Type**: `string`
+- **Default**: `0.0.0.0`
+
+Host is an IP address or a hostname. After the local server starts, the project can be accessed through the network using the specified IP or hostname. When the host is set to the default value (0.0.0.0), all hosts in the network can access the project.
+
+During project build, the host value is passed to Rspack's devServer host configuration as the configuration value.
+
+## Example
+
+```js title="emp-config.js"
+export default defineConfig(store => {
+  ...
+  return {
+    ...
+    server: {
+      host: '127.0.0.1',
+      ...
+    },
+    ...
+  }
+})
+```
+
+This configuration example indicates that the project only allows access from the local host (127.0.0.1).

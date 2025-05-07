@@ -1,0 +1,15 @@
+[
+  "outDir",
+  "assetsDir",
+  "staticDir",
+  "publicDir",
+  "moduleIds",
+  "chunkIds",
+  "sourcemap",
+  "minify",
+  "minOptions",
+  "target",
+  "polyfill",
+  "externalHelpers",
+  "browserslist"
+]

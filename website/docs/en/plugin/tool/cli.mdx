@@ -1,0 +1,28 @@
+# EMP Project Build Tool
+
+## Quick Start
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/cli -D" />
+
+### Configuration
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+  }
+})
+```
+
+### Commands
+```json title="package.json"
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+```

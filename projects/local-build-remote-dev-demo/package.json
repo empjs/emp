@@ -1,0 +1,29 @@
+{
+  "name": "local-build-remote-dev-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp",
+    "demo": "pnpm run --parallel /^demo:.*/",
+    "demo:local": "emp build && emp serve",
+    "demo:remote": "emp dev --env remote"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.14"
+  },
+  "dependencies": {
+    "@empjs/share": "workspace:^"
+  }
+}

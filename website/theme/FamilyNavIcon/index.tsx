@@ -1,20 +1,20 @@
-import style from './index.module.scss';
-import Popover from 'antd/es/popover';
-import { PopoverContent } from './components/PopoverContent';
+import Popover from 'antd/es/popover'
+import {useEffect, useState} from 'react'
+import {PopoverContent} from './components/PopoverContent'
+import style from './index.module.scss'
 // import navConfig from './nav-config.json';
-import { type NavConfig, getLang, type Lang } from './utils';
-import { useEffect, useState } from 'react';
+import {type Lang, type NavConfig, getLang} from './utils'
 export interface FamilyNavIconProps {
-  lang?: Lang;
-  trigger?: 'hover' | 'focus' | 'click';
+  lang?: Lang
+  trigger?: 'hover' | 'focus' | 'click'
 }
 
 export const FamilyNavIcon = (props: FamilyNavIconProps = {}) => {
-  const [configData, setConfigData] = useState<NavConfig>({} as NavConfig);
-  const lang = props.lang || getLang();
+  const [configData, setConfigData] = useState<NavConfig>({} as NavConfig)
+  const lang = props.lang || getLang()
   useEffect(() => {
     ;(async () => {
-      const res = await fetch('https://unpkg.yy.com/webupload/official/data/nav-config.json').then(res => res.json())
+      const res = await fetch('https://unpkg.com/webupload/official/data/nav-config.json').then(res => res.json())
       setConfigData(res)
     })()
   }, [])
@@ -38,5 +38,5 @@ export const FamilyNavIcon = (props: FamilyNavIconProps = {}) => {
         </div>
       </Popover>
     </div>
-  );
-};
+  )
+}

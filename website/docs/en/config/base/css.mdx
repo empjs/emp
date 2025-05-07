@@ -1,0 +1,45 @@
+import { Badge } from '@theme';
+import SassModern from '@components/Css';
+
+<Badge text="add in v3.0.0-rc.17" type="warning" />
+
+:::tip
+Quick CSS configuration method 
+:::
+## css.sass
+> sass build supports two modes: `default` and `modern`
+
+<SassModern />
+
++ Type
+```ts
+  api?: 'modern' | 'modern-compiler'
+  sassOptions?: SassOptions<'async'>
+  mode?: 'default' | 'modern'
+  implementation?: object | string
+```
+
++ Default
+```js
+export default {
+  css:{
+      sass:{
+        mode:'modern'
+      }
+  }
+}
+```
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    css:{
+        // Enable sass modern build
+        sass:{
+          mode:'modern'
+        }
+    }
+  }
+})
+```

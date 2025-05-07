@@ -1,0 +1,131 @@
+# Environment Variables
+
+Environment variables are essential for managing different configurations across various environments in your EMP project.
+
+## Built-in Variables
+
+EMP provides several built-in environment variables:
+
+- `process.env.NODE_ENV`: Current environment ('development' or 'production')
+- `process.env.EMP_ENV`: EMP-specific environment variables
+- `process.env.PUBLIC_URL`: Public URL path for assets
+
+## Configuration
+
+### Basic Usage
+
+Create environment-specific files in your project root:
+
+```bash
+.env                # Default environment variables
+.env.development    # Development environment variables
+.env.production     # Production environment variables
+.env.local          # Local overrides (ignored by git)
+```
+
+### Variable Definition
+
+Define variables in your .env files:
+
+```bash
+# .env
+API_URL=https://api.example.com
+DEBUG=false
+
+# Only variables prefixed with EMP_ are exposed to your application
+EMP_APP_TITLE=My EMP App
+EMP_API_KEY=your-api-key
+```
+
+## Usage in Code
+
+### In JavaScript/TypeScript
+
+```typescript
+console.log(process.env.EMP_APP_TITLE)
+console.log(process.env.EMP_API_KEY)
+```
+
+### In Configuration
+
+```typescript
+export default defineConfig({
+  define: {
+    'process.env.CUSTOM_VAR': JSON.stringify(process.env.EMP_CUSTOM_VAR)
+  }
+})
+```
+
+## Best Practices
+
+### Security
+
+1. **Sensitive Information:**
+   - Never commit sensitive values to version control
+   - Use .env.local for sensitive values
+   - Consider using secrets management services
+
+2. **Access Control:**
+   - Limit access to production environment variables
+   - Use different keys for different environments
+
+### Organization
+
+1. **Naming Conventions:**
+   - Use UPPERCASE for variable names
+   - Use descriptive, consistent naming
+   - Prefix variables with EMP_ for application exposure
+
+2. **Documentation:**
+   - Maintain a template .env.example
+   - Document required variables
+   - Include variable descriptions
+
+## Advanced Usage
+
+### Dynamic Variables
+
+Use environment variables in configuration:
+
+```typescript
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd())
+  return {
+    define: {
+      __API_URL__: JSON.stringify(env.EMP_API_URL)
+    }
+  }
+})
+```
+
+### Type Safety
+
+Declare types for environment variables:
+
+```typescript
+// env.d.ts
+declare namespace NodeJS {
+  interface ProcessEnv {
+    EMP_APP_TITLE: string
+    EMP_API_KEY: string
+  }
+}
+```
+
+### Conditional Configuration
+
+Implement environment-specific logic:
+
+```typescript
+export default defineConfig(({ mode }) => {
+  const isDev = mode === 'development'
+  return {
+    server: {
+      port: isDev ? 3000 : 8080,
+      host: isDev ? 'localhost' : '0.0.0.0'
+    }
+  }
+})
+```
+
+For more detailed configuration options, refer to the [Configuration Guide](../../config/index.mdx).

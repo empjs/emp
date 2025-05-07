@@ -1,0 +1,163 @@
+# Hot Module Replacement (HMR)
+
+Hot Module Replacement (HMR) allows modules to be updated at runtime without a full page refresh, significantly improving the development experience.
+
+## Basic Configuration
+
+HMR is enabled by default in development mode. You can customize it in your EMP configuration:
+
+```typescript
+export default defineConfig({
+  server: {
+    hmr: true, // Enable/disable HMR
+    // Custom HMR options
+    hmrOptions: {
+      protocol: 'ws',
+      host: 'localhost',
+      port: 8080,
+      path: '/hmr'
+    }
+  }
+})
+```
+
+## Framework-Specific Setup
+
+### React
+
+EMP's React plugin handles HMR automatically. For custom components:
+
+```typescript
+// Component.tsx
+if (module.hot) {
+  module.hot.accept()
+}
+```
+
+### Vue
+
+Vue components support HMR out of the box. For store modules:
+
+```typescript
+// store.ts
+if (module.hot) {
+  module.hot.accept(['./modules/user'], () => {
+    // Handle hot update
+  })
+}
+```
+
+## Advanced Configuration
+
+### Custom HMR Handlers
+
+```typescript
+if (module.hot) {
+  module.hot.accept('./module', () => {
+    // Custom update handling
+  })
+
+  module.hot.dispose((data) => {
+    // Cleanup before update
+  })
+}
+```
+
+### State Preservation
+
+Preserve state during updates:
+
+```typescript
+if (module.hot) {
+  module.hot.dispose((data) => {
+    // Save state
+    data.state = store.state
+  })
+
+  module.hot.accept(['./store'], () => {
+    // Restore state
+    if (module.hot.data) {
+      store.replaceState(module.hot.data.state)
+    }
+  })
+}
+```
+
+## Best Practices
+
+1. **Performance Optimization:**
+   - Use appropriate boundaries for HMR
+   - Implement efficient update handlers
+   - Monitor update performance
+
+2. **Error Handling:**
+   - Implement error boundaries
+   - Handle update failures gracefully
+   - Provide fallback mechanisms
+
+3. **Development Workflow:**
+   - Use HMR with source maps
+   - Implement proper error reporting
+   - Maintain state consistency
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Connection Problems:**
+   - Check WebSocket connectivity
+   - Verify port availability
+   - Review proxy configurations
+
+2. **State Management:**
+   - Handle circular dependencies
+   - Manage side effects
+   - Implement proper cleanup
+
+### Debug Mode
+
+Enable HMR logging:
+
+```typescript
+export default defineConfig({
+  server: {
+    hmr: {
+      log: 'debug'
+    }
+  }
+})
+```
+
+## Advanced Use Cases
+
+### Custom Protocol
+
+Configure custom HMR protocol:
+
+```typescript
+export default defineConfig({
+  server: {
+    hmr: {
+      protocol: 'wss',
+      clientPort: 443
+    }
+  }
+})
+```
+
+### Multiple Entry Points
+
+Handle HMR with multiple entries:
+
+```typescript
+export default defineConfig({
+  server: {
+    hmr: {
+      port: 8080,
+      multiEntries: true
+    }
+  }
+})
+```
+
+For more detailed configuration options, refer to the [Configuration Guide](../../config/index.mdx).

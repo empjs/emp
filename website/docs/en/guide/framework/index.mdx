@@ -1,0 +1,180 @@
+# Framework Integration
+
+EMP provides seamless integration with popular frontend frameworks. This guide explains how to use EMP with different frameworks and their specific configurations.
+
+## React Integration
+
+### Setup
+
+EMP has built-in support for React 18. To create a React project:
+
+```bash
+npm create emp@latest my-react-app
+# Select 'react' template
+```
+
+### Configuration
+
+```typescript
+// emp.config.ts
+import { defineConfig } from '@empjs/cli'
+import { reactPlugin } from '@empjs/plugin-react'
+
+export default defineConfig({
+  plugins: [reactPlugin()],
+  // Additional React-specific configurations
+  moduleFederation: {
+    shared: {
+      react: { singleton: true },
+      'react-dom': { singleton: true }
+    }
+  }
+})
+```
+
+### Features
+
+- Fast Refresh support
+- JSX/TSX compilation
+- React 18 features support
+- Automatic runtime optimization
+
+## Vue Integration
+
+### Vue 3
+
+For Vue 3 projects:
+
+```bash
+npm create emp@latest my-vue3-app
+# Select 'vue3' template
+```
+
+#### Configuration
+
+```typescript
+// emp.config.ts
+import { defineConfig } from '@empjs/cli'
+import { vue3Plugin } from '@empjs/plugin-vue3'
+
+export default defineConfig({
+  plugins: [vue3Plugin()],
+  // Vue 3 specific configurations
+  moduleFederation: {
+    shared: {
+      vue: { singleton: true }
+    }
+  }
+})
+```
+
+### Vue 2
+
+For Vue 2 projects:
+
+```bash
+npm create emp@latest my-vue2-app
+# Select 'vue2' template
+```
+
+#### Configuration
+
+```typescript
+// emp.config.ts
+import { defineConfig } from '@empjs/cli'
+import { vue2Plugin } from '@empjs/plugin-vue2'
+
+export default defineConfig({
+  plugins: [vue2Plugin()],
+  // Vue 2 specific configurations
+  moduleFederation: {
+    shared: {
+      vue: { singleton: true }
+    }
+  }
+})
+```
+
+## Framework Features
+
+### Hot Module Replacement (HMR)
+
+EMP provides optimized HMR support for each framework:
+
+- React: Fast Refresh
+- Vue 3: Hot Module Replacement
+- Vue 2: Hot Reload
+
+### TypeScript Support
+
+All framework integrations include built-in TypeScript support:
+
+- Automatic type generation
+- Framework-specific type definitions
+- Type-safe component development
+
+### Performance Optimization
+
+EMP includes framework-specific optimizations:
+
+- Tree-shaking
+- Code splitting
+- Module federation optimization
+- Build-time performance improvements
+
+## Best Practices
+
+### Shared Dependencies
+
+When using module federation, properly configure shared dependencies:
+
+```typescript
+export default defineConfig({
+  moduleFederation: {
+    shared: {
+      // Framework core libraries
+      react: { singleton: true },
+      'react-dom': { singleton: true },
+      vue: { singleton: true },
+      // Common utilities
+      lodash: { requiredVersion: '^4.0.0' },
+      moment: { requiredVersion: '^2.0.0' }
+    }
+  }
+})
+```
+
+### Development Mode
+
+Optimize development experience:
+
+```typescript
+export default defineConfig(async ({ mode }) => {
+  return {
+    plugins: [
+      mode === 'development' 
+        ? reactPlugin({ fastRefresh: true })
+        : reactPlugin()
+    ]
+  }
+})
+```
+
+### Production Optimization
+
+Enable production optimizations:
+
+```typescript
+export default defineConfig(async ({ mode }) => {
+  return {
+    optimization: {
+      minimize: mode === 'production',
+      splitChunks: {
+        chunks: 'all'
+      }
+    }
+  }
+})
+```
+
+For more detailed information about framework-specific configurations and features, please refer to the respective framework documentation in the [Configuration Guide](../config/index.mdx).

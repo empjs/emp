@@ -1,0 +1,120 @@
+# Tailwind CSS Integration
+
+EMP provides seamless integration with Tailwind CSS, a utility-first CSS framework. This guide explains how to set up and use Tailwind CSS in your EMP projects.
+
+## Installation
+
+First, install Tailwind CSS and its peer dependencies:
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+## Configuration
+
+### Initialize Tailwind
+
+Create a Tailwind configuration file:
+
+```bash
+npx tailwindcss init -p
+```
+
+This creates `tailwind.config.js` and `postcss.config.js`.
+
+### Configure Tailwind
+
+Update your Tailwind configuration:
+
+```js
+// tailwind.config.js
+module.exports = {
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './public/index.html'
+  ],
+  theme: {
+    extend: {
+      // Custom theme extensions
+    }
+  },
+  plugins: [
+    // Additional plugins
+  ]
+};
+```
+
+### PostCSS Configuration
+
+Ensure your PostCSS configuration includes Tailwind:
+
+```js
+// postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {}
+  }
+};
+```
+
+## Usage
+
+### Base Styles
+
+Import Tailwind's base styles in your main CSS file:
+
+```css
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### Using Utility Classes
+
+Apply Tailwind classes directly in your components:
+
+```jsx
+function Button() {
+  return (
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Click me
+    </button>
+  );
+}
+```
+
+## Advanced Features
+
+### Custom Components
+
+Create reusable components with Tailwind:
+
+```css
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  }
+}
+```
+
+### JIT Mode
+
+Tailwind's JIT mode is enabled by default in newer versions:
+
+```js
+// tailwind.config.js
+module.exports = {
+  mode: 'jit',
+  // other config
+};
+```
+
+## Best Practices
+
+1. Use PurgeCSS to remove unused styles
+2. Leverage Tailwind's configuration for consistency
+3. Create custom utilities when needed
+4. Follow component-based architecture
+5. Optimize for production builds

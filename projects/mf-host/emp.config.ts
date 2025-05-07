@@ -41,10 +41,10 @@ export default defineConfig(store => {
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
-            libs: [`https://unpkg.yy.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            lib: `https://unpkg.yy.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
             // lib: `http://${ip}:2100/sdk.js`,
           },
           setExternals: externalReact,
@@ -59,7 +59,7 @@ export default defineConfig(store => {
     build: {
       polyfill: {
         mode: 'entry',
-        entryCdn: 'https://unpkg.yy.com/@empjs/polyfill@0.0.2/dist/es.js',
+        entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
         browserslist: store.browserslistOptions.h5,
       },
       sourcemap: true,
@@ -67,8 +67,8 @@ export default defineConfig(store => {
     html: {
       template: 'src/index.html',
       tags: [
-        {tagName: 'link', attributes: {rel: 'dns-prefetch', href: 'https://unpkg.yy.com'}},
-        // {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://unpkg.yy.com'}},
+        {tagName: 'link', attributes: {rel: 'dns-prefetch', href: 'https://unpkg.com'}},
+        // {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://unpkg.com'}},
         {innerHTML: 'console.log(123234)', tagName: 'script', pos: 'head'},
       ],
     },

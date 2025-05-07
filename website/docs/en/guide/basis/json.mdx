@@ -1,0 +1,98 @@
+# JSON Support
+
+EMP provides built-in support for importing and handling JSON files in your applications. This guide covers various ways to work with JSON in EMP projects.
+
+## Basic Usage
+
+### Importing JSON
+
+You can directly import JSON files in your JavaScript/TypeScript code:
+
+```js
+import config from './config.json';
+
+console.log(config.apiUrl);
+```
+
+### Dynamic JSON Imports
+
+Use dynamic imports for JSON files:
+
+```js
+async function loadConfig() {
+  const config = await import('./config.json');
+  return config.default;
+}
+```
+
+## TypeScript Support
+
+### Type Declarations
+
+EMP automatically provides type declarations for JSON imports:
+
+```ts
+// config.json
+{
+  "apiUrl": "https://api.example.com",
+  "version": "1.0.0"
+}
+
+// app.ts
+import config from './config.json';
+// config is typed as { apiUrl: string; version: string }
+```
+
+### Custom Type Definitions
+
+You can also create custom type definitions:
+
+```ts
+interface Config {
+  apiUrl: string;
+  version: string;
+  features: string[];
+}
+
+import config from './config.json' assert { type: 'json' };
+const typedConfig: Config = config;
+```
+
+## Advanced Features
+
+### JSON5 Support
+
+EMP supports JSON5 format with comments and more flexible syntax:
+
+```json5
+{
+  // This is a comment
+  apiUrl: 'https://api.example.com',
+  features: [
+    'auth',
+    'api',
+  ],
+}
+```
+
+### JSON Module Transformation
+
+Customize JSON module transformation:
+
+```js
+// emp.config.js
+module.exports = {
+  json: {
+    stringify: true, // Convert JSON to string
+    parse: true, // Parse JSON at runtime
+  }
+};
+```
+
+## Best Practices
+
+1. Use JSON for configuration files
+2. Leverage TypeScript for type safety
+3. Consider JSON5 for better maintainability
+4. Optimize JSON parsing for performance
+5. Keep JSON files modular and organized

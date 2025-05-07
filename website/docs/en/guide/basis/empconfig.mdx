@@ -1,0 +1,61 @@
+# Configuration
+
+`EMP` supports direct modification of the Rspack configuration object, as well as modifying EMP's built-in Rspack configuration through bundler-chain.
+
+## Modifying the `EMP` Configuration Object
+
+You can directly modify the exposed `EMP` configuration object in the configuration file. Please check the [configuration documentation](/config/index) for complete usage.
+
+```ts title="emp-config.js"
+export default {
+    base: '/',
+    build: {
+        outDir: 'output',
+    },
+    server: {
+        server: 'http',
+        port: 8092,
+    },
+    entries: {
+        'index.ts': {
+            title: 'emp3 demo',
+            files: {
+                js: [],
+            },
+        }
+    }
+}
+```
+
+## Using `@empjs/cli`'s `defineConfig` Function to Configure `EMP`
+
+`defineConfig` includes a `store` parameter that contains global variable information for the build environment. Please check the [configuration documentation](/config/index) for complete usage.
+
+```ts title="emp-config.js"
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async store => {
+    const projectName = 'emp3-demo'
+    const isDev = store.mode === 'development'
+    return {
+        base: isDev ? undefined : `/${projectName}/`,
+        build: {
+            outDir: 'output',
+        },
+        server: {
+            server: 'http',
+            port: 8092,
+        },
+        entries: {
+            'index.ts': {
+                title: 'emp3 demo',
+                files: {
+                    js: [],
+                },
+            }
+        }
+    }
+})
+```
+
+## Using `chain`

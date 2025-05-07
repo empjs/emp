@@ -1,0 +1,65 @@
+# PostCSS Plugin
+
+## Quick Start
+
+### Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-postcss" />
+
+### Register Plugin
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginPostcss, {postcss as postcssPlugins} from '@empjs/plugin-postcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+      pluginPostcss({
+        postcssOptions: {
+          plugins: [
+            postcssPlugins.autoprefixer(), 
+           /**
+            * px to vw
+            * Default values
+            rootValue: 16,
+            unitPrecision: 5,
+            propList: ['*'],
+            selectorBlackList: [],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 0
+           * Can be replaced by passing parameters
+           */
+            postcssPlugins.pxtovw({}), 
+           /**
+            * px to rem
+            * Default values
+            unitToConvert: 'px',
+            viewportWidth: 320,
+            viewportHeight: 568,
+            unitPrecision: 5,
+            viewportUnit: 'vw',
+            fontViewportUnit: 'vw',
+            selectorBlackList: [],
+            propList: ['*'],
+            minPixelValue: 1,
+            mediaQuery: false,
+            replace: true,
+            landscape: false,
+            landscapeUnit: 'vw',
+            landscapeWidth: 568,
+           * Can be replaced by passing parameters
+           */
+            postcssPlugins.pxtorem({}), 
+            ],
+        },
+      }),
+    ],
+  }
+})
+
+```
+### Built-in PostCSS Methods
++ `postcss.autoprefixer` Compatibility settings integrated with `autoprefixer`
++ `postcss.pxtorem` px to rem conversion integrated with `postcss-pxtorem`
++ `postcss.pxtovw` px to vw conversion integrated with `@empjs/postcss-px-to-viewport`

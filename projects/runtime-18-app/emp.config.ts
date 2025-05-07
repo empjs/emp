@@ -11,7 +11,7 @@ export default defineConfig(store => {
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
-            libs: [`https://unpkg.yy.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
             lib: `http://${store.server.ip}:2100/sdk.js`,
@@ -22,7 +22,7 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: `https://unpkg.yy.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
       },
     },
     server: {

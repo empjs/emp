@@ -1,0 +1,17 @@
+# Vue v2 Build Plugin
+
+## Install Plugin
+import { PackageManagerTabs } from '@theme';
+
+<PackageManagerTabs command="add @empjs/plugin-vue2 -D" />
+
+## Configure Plugin
+```ts title="emp-config.js"
+import pluginVue from '@empjs/plugin-vue2'
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(({mode, env}) => {
+  return {
+    plugins: [pluginVue()],
+  }
+})
+```
