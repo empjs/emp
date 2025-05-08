@@ -1,0 +1,15 @@
+# build.staticDir
++ 生成包含 js、css、asset 的父目录
++ 类型： `string`
++ 默认值： ``
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        staticDir:'static'
+    }
+  }
+})
+```

@@ -9,12 +9,12 @@ import { Badge } from '@theme';
 ```js
 export interface HtmlType extends HtmlRspackPluginOptions {
   /**
-   * index.html file path based on project root directory
+   * The index.html file path based on project root
    * @default src/index.html
    */
   template?: string
   /**
-   * favicon file path based on project root directory
+   * The favicon file path based on project root
    * @default src/favicon.ico
    */
   favicon?: string
@@ -23,7 +23,7 @@ export interface HtmlType extends HtmlRspackPluginOptions {
    */
   lang?: string
   /**
-   * externals file injection into html breakchange in v3.1.4
+   * External files injected into html (breakchange in v3.1.4)
    */
   tags?: {
     type: "js" | "css";
@@ -34,7 +34,7 @@ export interface HtmlType extends HtmlRspackPluginOptions {
 }
 ```
 :::tip
-In version 3.1.4 and later, `files` and `tags` are unified and merged into `tags?: InjectHeadTagsTypeItem[]` configuration
+Since version 3.1.4, `files` and `tags` have been unified into `tags?: InjectHeadTagsTypeItem[]` configuration
 :::
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
@@ -59,16 +59,16 @@ export default defineConfig(store => {
 export interface HtmlType extends HtmlRspackPluginOptions {
   files?: {
     /**
-     * Insert css
+     * 插入 css
      */
     css?: string[]
     /**
-     * Insert js
+     * 插入 js
      */
     js?: string[]
   },
   /**
-   * Custom head and body content, requires template configuration
+   * Custom head/body tags (requires template configuration)
    */
   tags?: {
     headTags?: any[]

@@ -1,17 +1,17 @@
-# TailwindCSS 3 Plugin
+# Tailwind CSS v3 插件
 
 import { Badge } from '@theme';
 
-<Badge text="Hot reload support for @empjs/cli@3.7.0" type="warning" />
+<Badge text="@empjs/cli@3.7.0 适配热更" type="warning" />
 
-## Quick Start
+## 快速开始
 
-### Install Plugin
+### 安装插件
 import { PackageManagerTabs } from '@theme';
 
 <PackageManagerTabs command="add @empjs/plugin-tailwindcss3" />
 
-### Register Plugin
+### 注册插件
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 import pluginTailwindcss from '@empjs/plugin-tailwindcss3'
@@ -31,10 +31,10 @@ export default defineConfig(store => {
 
 ```
 
-### Import Styles
+### 引入样式
 ```css title="style.css"
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
-#### Import style.css into your project
+#### 引入 style.css 到项目

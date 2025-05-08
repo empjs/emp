@@ -1,13 +1,13 @@
 # port
 
-The port configuration option is similar to Rspack's devServer port configuration, used to specify the listening port number.
+The port configuration is similar to Rspack's devServer port configuration, used to specify the port number to listen on.
 
-- **Type**: `number`
-- **Default**: `8000`
+- **类型**： `number`
+- **默认值**: `8000`
 
-Port can specify the port number that the project service listens on. The default listening port number is 8000, which means you can access the project through **http://hostname-or-ip:port-number**
+Port specifies the port number for the project service to listen on, defaulting to 8000. You can access the project via **http://hostname_or_ip:port**
 
-## Example
+## 示例
 
 ```js title="emp-config.js"
 export default defineConfig(store => {
@@ -21,6 +21,7 @@ export default defineConfig(store => {
     ...
   }
 })
+
 ```
 
-This configuration example indicates that the project's access port number is 9002.
+This configuration example means the project will be accessed on port 9002

@@ -5,14 +5,14 @@ import SassModern from '@components/Css';
 <Badge text="add in v3.0.0-rc.17" type="warning" />
 
 :::tip
-css 快捷设置方式 
+CSS quick setup method
 :::
 ## css.sass
-> sass 构建支持 `default` 与 `modern` 两种方式
+> sass build supports two modes: `default` and `modern`
 
 <SassModern />
 
-+ 类型
++ Type
 ```ts
   api?: 'modern' | 'modern-compiler'
   sassOptions?: SassOptions<'async'>
@@ -20,7 +20,7 @@ css 快捷设置方式
   implementation?: object | string
 ```
 
-+ 默认为 
++ Default
 ```js
 export default {
   css:{

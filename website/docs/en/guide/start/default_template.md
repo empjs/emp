@@ -1,180 +1,210 @@
-# Default Template
+# Markdown & MDX
 
-EMP provides several default templates to help you quickly start your project. This guide introduces the available templates and their usage.
+Rspress supports not only Markdown but also [MDX](https://mdxjs.com/), a powerful way to develop content.
 
-## Available Templates
+## Markdown
 
-### React Templates
+MDX is a superset of Markdown, which means you can write Markdown files as usual. For example:
 
-#### Basic React Template
-```bash
-npm create @efox/emp@latest my-react-app -- --template react
+```md
+# Hello World
 ```
 
-Features:
-- React 18
-- TypeScript support
-- Module Federation ready
-- Hot Module Replacement
-- CSS Modules
+## Use Component
 
-#### React with Tailwind
-```bash
-npm create @efox/emp@latest my-react-tailwind -- --template react-tailwind
+When you want to use React components in Markdown files, you should name your files with `.mdx` extension. For example:
+
+```mdx
+// docs/index.mdx
+import { CustomComponent } from './custom';
+
+# Hello World
+
+<CustomComponent />
 ```
 
-Features:
-- All basic React template features
-- Tailwind CSS integration
-- PostCSS configuration
-- Responsive design utilities
+## Front Matter
 
-### Vue Templates
+You can add Front Matter at the beginning of your Markdown file, which is a YAML-formatted object that defines some metadata. For example:
 
-#### Vue 3 Template
-```bash
-npm create @efox/emp@latest my-vue3-app -- --template vue3
+```yaml
+---
+title: Hello World
+---
 ```
 
-Features:
-- Vue 3
-- TypeScript support
-- Composition API
-- Module Federation ready
-- Hot Module Replacement
+> Note: By default, Rspress uses h1 headings as html headings.
 
-#### Vue 2 Template
-```bash
-npm create @efox/emp@latest my-vue2-app -- --template vue2
+You can also access properties defined in Front Matter in the body, for example:
+
+```markdown
+---
+title: Hello World
+---
+
+# {frontmatter.title}
 ```
 
-Features:
-- Vue 2
-- TypeScript support
-- Options API
-- Module Federation ready
-- Hot Module Replacement
+The previously defined properties will be passed to the component as `frontmatter` properties. So the final output will be:
 
-## Template Structure
-
-All templates follow a similar directory structure:
-
-```
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── App.[tsx|vue]
-│   └── main.[ts|js]
-├── public/
-├── emp.config.[ts|js]
-├── package.json
-├── README.md
-└── tsconfig.json
+```html
+<h1>Hello World</h1>
 ```
 
-## Customization
+## Custom Container
 
-### Configuration
+You can use the `:::` syntax to create custom containers and support custom titles. For example:
 
-Each template can be customized through `emp.config.ts`:
+**Input:**
 
-```typescript
-export default defineConfig({
-  // Base configuration
-  server: {
-    port: 8000
+```markdown
+:::tip
+This is a `block` of type `tip`
+:::
+
+:::info
+This is a `block` of type `info`
+:::
+
+:::warning
+This is a `block` of type `warning`
+:::
+
+:::danger
+This is a `block` of type `danger`
+:::
+
+::: details
+This is a `block` of type `details`
+:::
+
+:::tip Custom Title
+This is a `block` of `Custom Title`
+:::
+
+:::tip{title="Custom Title"}
+This is a `block` of `Custom Title`
+:::
+```
+
+**Output:**
+
+:::tip
+This is a `block` of type `tip`
+:::
+
+:::info
+This is a `block` of type `info`
+:::
+
+:::warning
+This is a `block` of type `warning`
+:::
+
+:::danger
+This is a `block` of type `danger`
+:::
+
+::: details
+This is a `block` of type `details`
+:::
+
+:::tip Custom Title
+This is a `block` of `Custom Title`
+:::
+
+:::tip{title="Custom Title"}
+This is a `block` of `Custom Title`
+:::
+
+## Code Block
+
+### Basic Usage
+
+You can use the \`\`\` syntax to create code blocks and support custom titles. For example:
+
+**Input:**
+
+````md
+```js
+console.log('Hello World');
+```
+
+```js title="hello.js"
+console.log('Hello World');
+```
+````
+
+**Output:**
+
+```js
+console.log('Hello World');
+```
+
+```js title="hello.js"
+console.log('Hello World');
+```
+
+### Show Line Numbers
+
+If you want to display line numbers, you can enable the `showLineNumbers` option in the config file:
+
+```ts title="rspress.config.ts"
+export default {
+  // ...
+  markdown: {
+    showLineNumbers: true,
   },
-  // Framework-specific settings
-  plugins: [
-    // Add plugins based on template
-  ]
-})
+};
 ```
 
-### Styling
+### Wrap Code
 
-Templates support various styling approaches:
+If you want to wrap long code line by default, you can enable the `defaultWrapCode` option in the config file:
 
-```typescript
-// CSS Modules
-import styles from './styles.module.css'
-
-// Global CSS
-import './global.css'
-
-// Preprocessors (if configured)
-import './styles.scss'
+```ts title="rspress.config.ts"
+export default {
+  // ...
+  markdown: {
+    defaultWrapCode: true,
+  },
+};
 ```
 
-## Development
+### Line Highlighting
 
-### Starting Development Server
+You can also apply line highlighting and code block title at the same time, for example:
 
-```bash
-npm run dev
+**Input:**
+
+````md
+```js title="hello.js" {1,3-5}
+console.log('Hello World');
+
+const a = 1;
+
+console.log(a);
+
+const b = 2;
+
+console.log(b);
+```
+````
+
+**Ouput:**
+
+```js title="hello.js" {1,3-5}
+console.log('Hello World');
+
+const a = 1;
+
+console.log(a);
+
+const b = 2;
+
+console.log(b);
 ```
 
-### Building for Production
+## Rustify MDX compiler
 
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Best Practices
-
-1. **Project Structure**
-   - Keep components modular
-   - Use consistent file naming
-   - Organize by feature/module
-
-2. **Code Style**
-   - Follow framework conventions
-   - Use TypeScript for type safety
-   - Implement proper error handling
-
-3. **Performance**
-   - Optimize imports
-   - Implement code splitting
-   - Use lazy loading
-
-4. **Testing**
-   - Write unit tests
-   - Include integration tests
-   - Test across browsers
-
-## Template Extensions
-
-### Adding Dependencies
-
-```bash
-npm install package-name
-```
-
-### Configuring Tools
-
-- ESLint configuration
-- Prettier setup
-- Git hooks
-- CI/CD integration
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Build Errors**
-   - Check Node.js version
-   - Verify dependencies
-   - Review configuration
-
-2. **Runtime Issues**
-   - Check browser console
-   - Verify environment variables
-   - Review module federation setup
-
-For more detailed information about configuration and customization, refer to the [Configuration Guide](../config/index.mdx).
+You can enable Rustify MDX compiler by following config:

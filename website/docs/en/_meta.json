@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "text": "Guide",
+    "link": "/guide/start/",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "Configuration",
+    "link": "/config/",
+    "activeMatch": "/config/"
+  },
+  {
+    "text": "Plugins",
+    "link": "/plugin/",
+    "activeMatch": "/plugin/"
+  }
+]

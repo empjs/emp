@@ -1,5 +1,6 @@
+# autoDevBase
 :::tip
-After startup, automatically sets the base to the current IP+port path (e.g., base = http://127.0.0.1:8080/) and fixes ws for proxy debugging
+Automatically sets the base URL to current IP+port path (e.g. http://127.0.0.1:8080/) and fixes WebSocket for proxy debugging after startup
 :::
 
 + Type: `boolean`
@@ -14,5 +15,5 @@ export default defineConfig(store => {
 })
 ```
 
-## Purpose
-Facilitates remote access to proxy tools for debugging, eliminates the need for proxies, and avoids embedding `debug` tools in the page which could affect aesthetics
+## Function
+Enables remote access to debugging proxy tools without requiring manual proxies or embedding debug tools that may affect page aesthetics

@@ -1,10 +1,10 @@
-# Configuration Reference
+# 配置对照
 
 import { Badge } from '@theme';
 
 <Badge text="add in v3.1.0" type="warning" />
 
-> Combined with `webpack chain`, you can get the related configuration names through `this.store.chainName`, or manually configure according to the names provided below, such as:
+> 结合 `webpack chain`通过`this.store.chainName` 可以获取相关配置名,也可以手动根据下面提供名称进行配置 如:
 
 ```ts title="emp.config.ts"
 import {defineConfig} from '@empjs/cli'
@@ -22,7 +22,7 @@ export default defineConfig(store => {
 
 ```
 
-## Reference Configuration
+## 参考配置
 ```ts
 export const chainName = {
   rule: {

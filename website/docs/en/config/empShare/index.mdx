@@ -5,15 +5,14 @@ import { Badge } from '@theme';
 <Badge text="remove in v3.1.4" type="danger" />
 
 :::danger title="EmpShare"
-After version `v3.1.4`, use [RspackEmpSharePlugin](/plugin/tool/share) instead of `empShare` configuration.
+`v3.1.4`版本后，使用 [RspackEmpSharePlugin](/plugin/tool/share)代替`empShare`配置。
 :::
 
 :::tip title="EmpShare"
-Secondary encapsulation development based on `module federation`, adapting to more business models.     
-Currently supports basic `module federation` sharing method, CDN-based sharing method, and ESM sharing method.
+基于 `module federation` 进行二次封装开发、适配更多业务模型     
+目前支持 基本 `module federation`的共享方式、基于cdn的共享方式以及ESM的共享方式
 :::
-
-## Basic Sharing Configuration
+## 基础共享配置
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig(({mode, env}) => {
@@ -32,9 +31,9 @@ export default defineConfig(({mode, env}) => {
 })
 ```
 
-## FastMode Sharing Configuration
+## FastMode 共享配置
 :::tip title="FastMode"
-Secondary encapsulation development based on `module federation v2`, currently the optimal sharing mode in EMP
+基于 `module federation v2` 进行二次封装开发、目前EMP最优的共享模式 
 :::
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
@@ -42,7 +41,7 @@ export default defineConfig(({mode, env}) => {
   return {
     empShare: {
       fastMode: {
-        runtimeHost: 'Secondary encapsulation library, including basic libraries, SDK, etc.',
+        runtimeHost:'二次封装库、包含基础库、sdk等',
         framework: 'react',
       },
       name: 'unpkglib',
@@ -58,11 +57,12 @@ export default defineConfig(({mode, env}) => {
 })
 ```
 
-## CDN Sharing Configuration
+## CDN共享配置
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig((store) => {
-  const shareLib =
+ //
+   const shareLib =
     store.mode === 'development'
       ? {
           react: 'React@https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.min.js',
@@ -72,7 +72,7 @@ export default defineConfig((store) => {
           react: 'React@https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js',
           'react-dom': 'ReactDOM@https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js',
         }
-
+//
   return {
     empShare: {
       name: 'unpkglib',
@@ -85,7 +85,7 @@ export default defineConfig((store) => {
 })
 ```
 
-## ESM Sharing Configuration
+## ESM共享配置
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig(store => {
@@ -94,15 +94,20 @@ export default defineConfig(store => {
      target:'es2015',
     },
     empShare: {
-      name: 'unpkglib',
-      exposes: {
+    name: 'unpkglib',
+    exposes: {
         './App': './src/App',
-      },
-      shared: {
-        react: {singleton: true},
-        'react-dom': {singleton: true},
-      },
+    },
+    shareLib: {
+          react: `https://esm.sh/react@18.2.0${store.mode === 'development' ? '?dev' : ''}`,
+          'react-dom': `https://esm.sh/react-dom@18.2.0${store.mode === 'development' ? '?dev' : ''}`,
+          'react/jsx-dev-runtime': 'https://esm.sh/react/jsx-dev-runtime.js',
+          'react/jsx-runtime': 'https://esm.sh/react/jsx-runtime.js',
+    },
+    //是否开启 importMap
+    useImportMap:true,
     },
   }
 })
+
 ```

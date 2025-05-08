@@ -1,11 +1,11 @@
-# React Build Plugin
+# React 构建插件 
 
-## Install Plugin
+## 安装插件
 import { PackageManagerTabs } from '@theme';
 
 <PackageManagerTabs command="add @empjs/plugin-react -D" />
 
-## Configure Plugin
+## 配置插件
 ```ts title="emp-config.js"
 import pluginReact from '@empjs/plugin-react'
 import {defineConfig} from '@empjs/cli'
@@ -29,16 +29,16 @@ export default defineConfig(({mode, env}) => {
 ```js 
 import LogoComponent from 'src/assets/logo.svg?react'
 
-// Usage
+//使用
 <LogoComponent className="logo" />
 
-// TypeScript Integration
+//ts集成
 declare module '*.svg?react' {
   const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
   export default ReactComponent
 }
 ```
-Custom Configuration
+自定义配置
 ```ts title="emp-config.js"
 import pluginReact from '@empjs/plugin-react'
 import {defineConfig} from '@empjs/cli'

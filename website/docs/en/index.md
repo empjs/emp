@@ -3,8 +3,8 @@ pageType: home
 
 hero:
   name: EMP 3.0
-  text: The Fast Micro-Frontend Web Bundler
-  tagline: A high-performance frontend build system based on the Rust ecosystem
+  text: High Performance & Micro Frontends
+  tagline: High-performance frontend build system based on Rust ecosystem
   actions:
     - theme: brand
       text: Quick Start
@@ -16,23 +16,23 @@ hero:
     src: /rspress-icon.png
     alt: EMP Logo
 features:
-  - title: Focus on High Performance & Micro-Frontend
-    details: Rebuilt with Rspack and New ModuleFederation <br/> Fully customized with ESM & MF new features <br> Achieving efficient building and hot updates
+  - title: Focus on Performance & Micro Frontends
+    details: Refactored with Rspack & New ModuleFederation <br/> Fully customized with ESM & MF features <br/> Enables efficient building and hot updates
     icon: ⚡️
-  - title: Full Embrace of Rust Ecosystem
-    details: Exploring Rust's build ecosystem <br/>Introducing Rspack, Swc, LightningCss, Biome, etc.<br/>for efficiency improvement
+  - title: Fully Embrace Rust Ecosystem
+    details: Explore Rust build ecosystem <br/> Integrate Rspack, Swc, LightningCss, Biome etc. <br/> For better efficiency
     icon: 🎯  
-  - title: Engineering Project Construction
-    details: Support for Multi-page, Micro-frontend, ESM & ImportMap, Remote Debugging, Browser Compatibility, and more
+  - title: Intelligent Project Building
+    details: Supports multiple modes like multi-page, micro frontends, ESM & ImportMap, remote debugging, browser compatibility
     icon: 📦
   - title: Universal Plugins
-    details: Thanks to Rspack's compatibility with Webpack plugins, sharing plugin interfaces between development and build.
+    details: Benefit from Rspack's Webpack plugin compatibility, sharing Webpack/Rspack plugin interfaces between development and build
     icon: 🔩 
   - title: Multi-functional Module Support
-    details: Out-of-the-box support for TypeScript, JSX, CSS, Less, Sass, Wasm, and more.
+    details: Out-of-the-box support for TypeScript, JSX, CSS, Less, Sass, Wasm etc.
     icon: 🛠️  
   - title: Full Lifecycle Injection
-    details: Support for full cycle build injection through Compile Hook during build phase
+    details: Build phase supports full lifecycle injection via Compile Hook
     icon: 💡
   
 ---

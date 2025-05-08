@@ -1,147 +1,42 @@
-# Development Server
+# 开发服务器
 
-EMP provides a powerful development server with features like hot module replacement (HMR), proxy configuration, and more.
+`EMP` 配备了一个内置的开发服务器，旨在提升开发体验。当你执行 `emp dev` 或 `emp serve` 命令时，该服务器将启动，并提供页面预览、路由、模块热更新等功能。
 
-## Basic Usage
+## 页面路由
 
-Start the development server using the CLI command:
+`EMP` 的 Server 提供一套默认的路由约定，并允许用户通过配置项定制。
 
-```bash
-emp dev
-```
+### 默认行为
 
-## Configuration
+#### 执行 `emp dev`
 
-Configure the development server in your EMP configuration file:
+`EMP` Server 会根据 `appEntry` 或 `entries` 配置生成对应的页面路由。
 
-```js
-// emp.config.js
-module.exports = {
-  dev: {
-    port: 8000,
-    host: 'localhost',
-    https: false,
-    open: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true
-      }
-    }
-  }
+当 appEntry 为 `index.ts|x` 时，可通过 `/` 访问页面；当 appEntry 为 `info.ts|x` 时，可通过 `/info` 访问该页面。
+
+```ts title="emp-config.js"
+export default {
+    appEntry: './index.tsx',
 };
 ```
 
-## Features
-
-### Hot Module Replacement (HMR)
-
-HMR is enabled by default, allowing you to see changes without refreshing the page:
-
-```js
-if (module.hot) {
-  module.hot.accept();
-}
-```
-
-### Proxy Configuration
-
-Set up proxy rules for API requests:
-
-```js
-module.exports = {
-  dev: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' }
-      }
-    }
-  }
+```ts title="emp-config.js"
+export default {
+    appEntry: './info.ts',
 };
 ```
-
-### HTTPS
-
-Enable HTTPS mode:
-
-```js
-module.exports = {
-  dev: {
-    https: true,
-    // Or provide custom certificates
-    https: {
-      key: '/path/to/server.key',
-      cert: '/path/to/server.crt'
-    }
-  }
-};
+上述配置也可以改为多入口配置，使用`entries`，此时对应使用 `/index.html` 与 `info.html` 访问对应页面
+```ts title="emp-config.js"
+entries: {
+    index: 'src/index.tsx',
+    info: 'src/info.ts',
+},
 ```
 
-### Custom Middleware
+#### 执行 `emp serve`
 
-Add custom middleware to the development server:
+`EMP` Server 会根据 `build.outDir` (默认值为"dist")，启动一个本地 http/https 服务，提供文件访问服务。
 
-```js
-module.exports = {
-  dev: {
-    before: (app) => {
-      app.get('/custom', (req, res) => {
-        res.json({ message: 'Hello from custom middleware!' });
-      });
-    }
-  }
-};
-```
-
-## Advanced Configuration
-
-### Headers
-
-Add custom headers to all responses:
-
-```js
-module.exports = {
-  dev: {
-    headers: {
-      'X-Custom-Header': 'custom-value'
-    }
-  }
-};
-```
-
-### Compression
-
-Enable response compression:
-
-```js
-module.exports = {
-  dev: {
-    compress: true
-  }
-};
-```
-
-### Client Configuration
-
-Configure client-side options:
-
-```js
-module.exports = {
-  dev: {
-    client: {
-      overlay: true, // Show errors as overlay
-      progress: true // Show progress bar
-    }
-  }
-};
-```
-
-## Best Practices
-
-1. Use appropriate proxy settings for API requests
-2. Enable HTTPS when needed
-3. Configure appropriate headers for security
-4. Use custom middleware sparingly
-5. Monitor performance impact of development server settings
+:::tip
+你还可以通过 `EMP` 的 `devServer` 配置 Server 的行为，详见 [Config 总览](zh/config/)。
+:::

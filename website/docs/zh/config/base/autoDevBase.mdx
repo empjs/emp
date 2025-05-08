@@ -1,10 +1,10 @@
 # autoDevBase
 :::tip
-启动后 自动设置 base 为当前 Ip+port的路径如 base = http://127.0.0.1:8080/ 并且固定 ws 方便代理调试
+After startup, automatically set base to current IP+port path like base = http://127.0.0.1:8080/ and fix ws for proxy debugging
 :::
 
-+ 类型： `boolean`
-+ 默认值： `false`
++ Type: `boolean`
++ Default: `false`
 
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
@@ -15,5 +15,5 @@ export default defineConfig(store => {
 })
 ```
 
-## 作用
-便于远程接入代理工具进行调试、无需代理以及嵌入`debug` 工具到页面，影响美观
+## Purpose
+Facilitate remote access to proxy tools for debugging, no need for proxy or embedding `debug` tools into the page, which affects aesthetics

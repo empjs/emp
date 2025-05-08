@@ -1,119 +1,26 @@
-# Alias Configuration
+# 路径别名
 
-Alias configuration allows you to create custom mappings for module imports, making your import statements cleaner and more maintainable.
+路径别名（alias）允许开发者为模块定义别名，以便于在代码中更方便的引用它们。当你想要使用一个简短、易于记忆的名称来代替冗长复杂的路径时，这将非常有用。
 
-## Basic Configuration
+例如，假如你在项目中经常引用 src/common/request.ts 模块，你可以为它定义一个别名 @request ，然后在代码中通过 import request from '@request' 来引用它，而不需要每次都写出完整的相对路径。
+同时，这也允许你将模块移动到不同的位置，而不需要更新代码中的所有 import 语法。
 
-Use the `resolve.alias` option in your EMP configuration:
+在 `EMP` 中，您可以通过配置 `resolve.alias` 来进行路径别名设置。
 
-```typescript
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@': './src',
-      '@components': './src/components',
-      '@utils': './src/utils'
-    }
+## 配置
+
+`EMP` 提供了 `resolve.alias` 配置项对路径别名进行设置，具体配置如下：
+
+```js titie="emp.config.js"
+export default defineConfig(store => {
+  return {
+    resolve: {
+      alias: {
+        '@common': store.resolve('/src/common')
+      }
+    },
   }
 })
 ```
 
-## Usage Examples
-
-### Directory Aliases
-
-Instead of using relative paths:
-
-```typescript
-// Before
-import { Button } from '../../../components/Button'
-
-// After
-import { Button } from '@components/Button'
-```
-
-### Module Aliases
-
-Redirect module imports:
-
-```typescript
-export default defineConfig({
-  resolve: {
-    alias: {
-      'react': path.resolve(__dirname, './node_modules/react'),
-      'lodash-es': 'lodash'
-    }
-  }
-})
-```
-
-## TypeScript Integration
-
-Update your `tsconfig.json` to match alias configurations:
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"]
-    }
-  }
-}
-```
-
-## Best Practices
-
-1. **Consistency:**
-   - Use consistent alias naming conventions
-   - Document alias patterns in project documentation
-
-2. **Path Resolution:**
-   - Use absolute paths for reliability
-   - Consider using path.resolve for cross-platform compatibility
-
-3. **Maintenance:**
-   - Keep alias mappings simple and intuitive
-   - Regularly review and update alias configurations
-
-4. **IDE Support:**
-   - Ensure IDE configurations match your alias settings
-   - Use TypeScript path mappings for better IDE integration
-
-## Advanced Configuration
-
-### Conditional Aliases
-
-Use environment-specific aliases:
-
-```typescript
-export default defineConfig(({ mode }) => ({
-  resolve: {
-    alias: {
-      '@api': mode === 'development'
-        ? './src/api/mock'
-        : './src/api/production'
-    }
-  }
-}))
-```
-
-### Multiple Entry Points
-
-Configure aliases for different entry points:
-
-```typescript
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@app1': './src/app1',
-      '@app2': './src/app2',
-      '@shared': './src/shared'
-    }
-  }
-})
-```
-
-For more information about configuration options, refer to the [Configuration Guide](../../config/index.mdx).
+按照上述配置设置完后，如果你在代码中引用 `@common/Foo.tsx`, 则会映射到 `<project>/src/common/Foo.tsx` 路径上。

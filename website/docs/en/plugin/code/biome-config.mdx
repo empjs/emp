@@ -1,18 +1,18 @@
-# Biome Formatting Plugin
+# Biome 格式化插件
 
-### Install Plugin
+### 安装插件
 import { PackageManagerTabs } from '@theme';
 
 <PackageManagerTabs command="add @empjs/biome-config -D" />
 
-### Configure Plugin
+### 配置插件
 ```ts title="biome.json"
 {
   "extends": ["@empjs/biome-config"]
 }
 ```
 
-### Recommended VSCode Configuration
+### vscode 建议配置
 ```json title=".vscode/settings.json"
 {
   "eslint.enable": false,
@@ -40,13 +40,13 @@ import { PackageManagerTabs } from '@theme';
 ```
 
 :::info 💡 TIP
-Add `public-hoist-pattern[]=*@biomejs/biome*` to `.npmrc` in the root directory
+在根目录 `.npmrc` 加入 `public-hoist-pattern[]=*@biomejs/biome*`
 :::
 
-### Common Biome Commands
+### biome 常用指令
 ```jsonc
-// Fix project code
+// 项目代码修复
 biome lint . --fix
-// Check project code
+// 项目代码检查
 biome check .
 ```

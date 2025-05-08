@@ -1,7 +1,8 @@
+# base
 :::tip
-In production environment, you can set CDN path through `base`  
-publicPath is the root path, refer to webpack, default is `auto` in business mode  
-For HTML, publicPath defaults to undefined, can be set to full domain name or subdirectory for adaptation, or Public can be set separately in HTML
+In production environment, CDN path can be configured via `base`
+publicPath root path reference webpack, business mode defaults to `auto`
+For html part, publicPath defaults to undefined, can be set to full domain or subdirectory, or configured separately in html Public
 :::
 
 + Type: `boolean | string | 'auto'`
@@ -16,7 +17,7 @@ export default defineConfig(store => {
 })
 ```
 
-## Example for Production and Development Environment Settings
+## Production and Development Environment Examples
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig(store => {

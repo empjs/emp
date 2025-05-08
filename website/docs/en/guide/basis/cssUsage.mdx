@@ -1,104 +1,81 @@
-# CSS Usage
+# 引入样式资源
 
-EMP provides comprehensive support for CSS and various CSS preprocessors. This guide will help you understand how to use CSS effectively in your EMP projects.
+EMP 内置多种常用的样式资源处理方式，包括 Sass 预处理器、PostCSS、CSS Modules、CSS 内联和 CSS 压缩。
 
-## Basic CSS
+除此之外，EMP 也提供了多个配置项来自定义样式资源的处理规则。
 
-You can directly import CSS files in your JavaScript/TypeScript files:
+## 使用 Sass
 
-```js
-import './styles.css';
-```
+EMP目前内置了社区流行的 CSS 预处理器之一：`Sass`。默认情况下，你不需要对 Sass 进行任何配置。目前您无法对其进行任何配置。
 
-## CSS Preprocessors
+## 使用 PostCSS
 
-### SASS/SCSS
+EMP 内置了 PostCSS 来转换 CSS 代码。你可以通过以下方式来配置 PostCSS：
 
-EMP supports SASS/SCSS out of the box:
+1. EMP 使用 `postcss-load-config` 来加载当前项目根目录下的 PostCSS 配置文件，比如：
 
-```scss
-// styles.scss
-$primary-color: blue;
-
-.container {
-  color: $primary-color;
-  
-  .title {
-    font-size: 20px;
-  }
-}
-```
-
-### Less
-
-Less is also supported:
-
-```less
-// styles.less
-@primary-color: blue;
-
-.container {
-  color: @primary-color;
-  
-  .title {
-    font-size: 20px;
-  }
-}
-```
-
-## PostCSS
-
-EMP includes PostCSS by default. You can configure it in your project's `postcss.config.js`:
-
-```js
+```js title="postcss.config.js"
 module.exports = {
-  plugins: [
-    require('autoprefixer'),
-    // other plugins
-  ]
+  'postcss-px-to-viewport': {
+    viewportWidth: 375,
+  },
 };
 ```
 
-## CSS Modules
+2. 通过 EMP 的 `css.postcss` 选项来配置 postcss-loader，该选项支持通过函数来修改内置配置，比如：
 
-For CSS Modules support, please refer to the [CSS Modules](./cssModules.mdx) documentation.
-
-## CSS-in-JS
-
-EMP is compatible with popular CSS-in-JS solutions:
-
-```js
-import styled from 'styled-components';
-
-const Button = styled.button`
-  background: blue;
-  color: white;
-`;
-```
-
-## Best Practices
-
-1. Use appropriate preprocessors based on your project needs
-2. Leverage CSS Modules for component-scoped styles
-3. Maintain consistent naming conventions
-4. Optimize CSS bundle size
-5. Use modern CSS features when possible
-
-## Configuration
-
-You can customize CSS processing in your EMP configuration:
-
-```js
-// emp.config.js
-module.exports = {
-  css: {
-    // CSS configuration options
-    modules: {
-      // CSS Modules options
+```js title="emp.config.js"
+export default defineConfig(store => {
+  return {
+    css: {
+      postcss: opts => {
+        const viewportPlugin = require('postcss-px-to-viewport')({
+          viewportWidth: 375,
+        })
+        opts.postcssOptions.plugins.push(viewportPlugin)
+      },
     },
-    preprocessorOptions: {
-      // preprocessor options
-    }
   }
-};
+})
 ```
+
+当你同时配置 `postcss.config.js` 文件和 `css.postcss` 选项时，两者都会生效，并且 `css.postcss` 的优先级更高。
+
+### 内置 PostCSS 插件
+
+EMP 内置了 [autoprefixer](https://github.com/postcss/autoprefixer) 插件，来自动补齐 CSS 的浏览器前缀。
+如果你需要配置目标浏览器，可以使用 [browserslist](https://rsbuild.dev/zh/guide/advanced/browserslist) 进行配置。
+
+:::tip 💡 TIP
+如果你的项目中已经注册了 autoprefixer 插件，EMP 不会再次注册 autoprefixer 插件。
+:::
+
+## 使用CSS Modules
+
+请参阅 [使用 CSS Modules](/guide/basis/cssModules.html) 章节来了解 CSS Modules 的完整用法。
+
+## CSS 压缩
+
+在生产环境构建时， EMP 会将 CSS、JS 等`静态资源`进行压缩，以达到更好的传输效率。
+
+EMP 默认使用 Rspack 内置的 `SwcCssMinimizerRspackPlugin` 插件，在生产环境构建时自动压缩 CSS 代码。
+
+## 引用 node_modules 里的样式
+
+你可以直接引用 node_modules 里的样式文件。
+
+- 在组件中引入:
+  ```tsx title="src/appendFile.tsx"
+  // 引用 Arco Design 样式：
+  import '@arco-design/web-react/dist/css/arco.css';
+  ```
+- 在样式文件中引用：
+  ```css title="src/App.css"
+  /* 引用 normalize.css */
+  /* https://github.com/necolas/normalize.css */
+  @import 'normalize.css';
+
+  body {
+    /* */
+  }
+  ```

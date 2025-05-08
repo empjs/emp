@@ -1,131 +1,90 @@
-# Environment Variables
+# 环境变量
 
-Environment variables are essential for managing different configurations across various environments in your EMP project.
+`EMP` 支持在编译过程中向代码中注入环境变量或表达式，这对于区分运行环境、替换常量值等场景很有帮助。本章节会介绍环境变量的使用方式。
 
-## Built-in Variables
+## 默认环境变量
 
-EMP provides several built-in environment variables:
+### process.env.NODE_ENV
 
-- `process.env.NODE_ENV`: Current environment ('development' or 'production')
-- `process.env.EMP_ENV`: EMP-specific environment variables
-- `process.env.PUBLIC_URL`: Public URL path for assets
+默认情况下，`EMP` 会自动设置 `process.env.NODE_ENV` 环境变量，在开发模式为 `'development'`，生产模式为 `'production'`。
 
-## Configuration
+你可以在 Node.js 和 client 代码中直接使用 `process.env.NODE_ENV`。
 
-### Basic Usage
-
-Create environment-specific files in your project root:
-
-```bash
-.env                # Default environment variables
-.env.development    # Development environment variables
-.env.production     # Production environment variables
-.env.local          # Local overrides (ignored by git)
-```
-
-### Variable Definition
-
-Define variables in your .env files:
-
-```bash
-# .env
-API_URL=https://api.example.com
-DEBUG=false
-
-# Only variables prefixed with EMP_ are exposed to your application
-EMP_APP_TITLE=My EMP App
-EMP_API_KEY=your-api-key
-```
-
-## Usage in Code
-
-### In JavaScript/TypeScript
-
-```typescript
-console.log(process.env.EMP_APP_TITLE)
-console.log(process.env.EMP_API_KEY)
-```
-
-### In Configuration
-
-```typescript
-export default defineConfig({
-  define: {
-    'process.env.CUSTOM_VAR': JSON.stringify(process.env.EMP_CUSTOM_VAR)
-  }
-})
-```
-
-## Best Practices
-
-### Security
-
-1. **Sensitive Information:**
-   - Never commit sensitive values to version control
-   - Use .env.local for sensitive values
-   - Consider using secrets management services
-
-2. **Access Control:**
-   - Limit access to production environment variables
-   - Use different keys for different environments
-
-### Organization
-
-1. **Naming Conventions:**
-   - Use UPPERCASE for variable names
-   - Use descriptive, consistent naming
-   - Prefix variables with EMP_ for application exposure
-
-2. **Documentation:**
-   - Maintain a template .env.example
-   - Document required variables
-   - Include variable descriptions
-
-## Advanced Usage
-
-### Dynamic Variables
-
-Use environment variables in configuration:
-
-```typescript
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
-  return {
-    define: {
-      __API_URL__: JSON.stringify(env.EMP_API_URL)
-    }
-  }
-})
-```
-
-### Type Safety
-
-Declare types for environment variables:
-
-```typescript
-// env.d.ts
-declare namespace NodeJS {
-  interface ProcessEnv {
-    EMP_APP_TITLE: string
-    EMP_API_KEY: string
-  }
+```ts
+if (process.env.NODE_ENV === 'development') {
+  console.log('this is a development log');
 }
 ```
 
-### Conditional Configuration
+在开发环境，以上代码会被编译为：
 
-Implement environment-specific logic:
-
-```typescript
-export default defineConfig(({ mode }) => {
-  const isDev = mode === 'development'
-  return {
-    server: {
-      port: isDev ? 3000 : 8080,
-      host: isDev ? 'localhost' : '0.0.0.0'
-    }
-  }
-})
+```js
+if (true) {
+  console.log('this is a development log');
+}
 ```
 
-For more detailed configuration options, refer to the [Configuration Guide](../../config/index.mdx).
+在生产环境，以上代码会被编译为：
+
+```js
+if (false) {
+  console.log('this is a development log');
+}
+```
+
+在代码压缩过程中，`if (false) { ... }` 会被识别为无效代码，并被自动移除。
+
+## 命令行工具中快速定义变量
+可以在 `npm script` 中，快速添加 cli 参数来达到区分环境的目的。
+### -e --env
+```json package.json
+script: {
+    "dev": "emp dev --env dev",
+    "build": "emp build --env test",
+    "build:prod": "emp build --env prod",
+}
+```
+代码里面使用
+```ts
+if (process.env.env) {
+    //...
+}
+```
+
+### -ev, --env-vars
+使用 -ev key=value 或 -ev key=value -ev key=value 定义一个或多个环境变量，可以在构建时候使用这些环境变量。
+
+单个变量
+```json package.json
+script: {
+    "dev": "emp dev --env-vars showLog=true",
+    "build": "emp build --env-vars showLog=false",
+    "build:prod": "emp build --env-vars showLog=false",
+}
+```
+多个变量
+```json package.json
+script: {
+    "dev": "emp dev --env-vars showLog=true --env-vars sourceMap=true",
+    "build": "emp build --env-vars showLog=false --env-vars sourceMap=true",
+    "build:prod": "emp build --env-vars showLog=false --env-vars sourceMap=false",
+}
+```
+
+在配置中使用变量
+```js emp-config.js
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+    const {cliOptions} = store
+    console.log('cliOptions', cliOptions.envVars)
+}
+```
+
+执行 `run dev` 控制台输出
+
+```bash
+cliOptions { showLog: 'false', sourceMap: 'true' }
+```
+
+更多环境变量配置，请见[配置](zh/config/index)
+

@@ -1,17 +1,17 @@
 # define
-+ 全局环境替换
-+ 类型： `Record<string, any>`
++ Global environment replacement
++ Type: `Record<string, any>`
 
 ## defineFix
-+ 类型 `all` | `esm` | `cjs` | `none`
-+ 默认 `cjs`
++ Type `all` | `esm` | `cjs` | `none`
++ Default `cjs`
 
 :::tip 
-是否创建 cjs 的 process.env 或者 esm 的 import.meta.env
-all 两者创建
-esm 创建 import.meta.env
-cjs 创建 process.env
-none 不创建
+Whether to create process.env for cjs or import.meta.env for esm
+all creates both
+esm creates import.meta.env
+cjs creates process.env
+none creates neither
 :::
 
 ```ts title="emp-config.js"

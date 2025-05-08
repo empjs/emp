@@ -1,23 +1,23 @@
-# Introduction
-`EMP` is a high-performance engineering solution focused on micro-frontends, built on Rspack, Module Federation, and TypeScript.
+# 介绍
+`EMP`是一个基于Rspack、Module Federation与Typescript，聚焦高性能与微前端的工程化解决方案。
 
-## Why EMP
+## 为什么要做 EMP
 
-We created `EMP` to address various performance issues encountered while maintaining build tools in our team. Due to the presence of many monolithic applications within the team, which have complex build configurations, even after performance improvements with `EMP²`, production environment builds still take several minutes, and development environment startup times exceed one minute.
+我们创建`EMP`的原因是要解决在团队维护构建工具时遇到的各种性能问题。由于团队内部存在许多巨石应用，它们都具有复杂的构建配置，经过`EMP²`性能提升后，生产环境构建还需要耗费好几分钟；开发环境的耗时也超过一分钟以上。
 
-We tried various methods to optimize these monolithic applications on Webpack, but the results were minimal. We realized that optimizations on Webpack had reached their limit, and we needed to rebuild from the ground up to meet our needs.
+我们在 Webpack 上尝试了多种方法来优化这些巨石应用，但是效果甚微。我们意识到在 Webpack 上的优化已经难以为继，必须要从底层改造，才能适应我们的需求。
 
-Compared to previous versions of EMP, `EMP` has switched from webpack to rspack (a Rust-based high-performance build engine) for JS building. Through new algorithms, it reduces build output size, and the node build environment has been upgraded to use nodejs 20 LTS, with versions prior to 20 no longer being maintained.
+相对应EMP之前的版本，`EMP`从webpack切换到rspack(基于Rust的高性能构建引擎)，来构建JS。通过新算法减少产物体积，node构建环境做了升级，目前使用nodejs 20lts，20以前的版本不再维护。
 
-## Current Status of EMP
+## EMP目前的状态
 
-Currently, `EMP` is in a released state and has been deployed in team production projects. After comparison with EMP2 across multiple projects, initial build speed has improved by approximately 28%, secondary build speed has improved by about 45%, and build output size has been reduced by more than 24%.
+目前`EMP`已经处于发布状态，已经落地在团队线上项目之中，经过多个项目与EMP2比对，目前首次构建速度提升约28%，二次构建速度提升约45%，产物包体积缩小24%以上。
 
-## Future of EMP
-Micro-component sharing will adapt to more business scenarios, such as integrating new projects without requiring modifications to old projects. Further adaptation to modern browser modularization solutions, browser on-demand loading, and local development service on-demand building.
+## EMP的未来
+微组件共享适配更多业务场景，如老项目不需要改造情况下接入新项目。对于现代浏览器模块化方案进一步适配，浏览器按需加载与本地开发服务按需构建。
 
-### Continuous Performance Improvement
-Exploring higher-performance concurrent/multi-core friendly algorithms, higher-performance caching solutions, higher-performance plugin communication solutions, and more.
+### 持续提升性能
+探索更高性能的并发/多核友好的算法，探索更高性能的缓存方案，探索更高性能的插件通信方案等等。
 
-### Collaboration with More Team Partners
-Within the team, `EMP` has been implemented in multiple projects, and we are currently collaborating with more team partners, hoping that `EMP` can become a standard configuration for more teams.
+### 和更多团队伙伴合作
+在团队内部，`EMP`已经落地了多个项目，目前正在和更多团队伙伴合作，希望 `EMP` 能够成为更多团队的标配。

@@ -1,13 +1,13 @@
-# PostCSS Plugin
+# Postcss 插件
 
-## Quick Start
+## 快速开始
 
-### Install Plugin
+### 安装插件
 import { PackageManagerTabs } from '@theme';
 
 <PackageManagerTabs command="add @empjs/plugin-postcss" />
 
-### Register Plugin
+### 注册插件
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 import pluginPostcss, {postcss as postcssPlugins} from '@empjs/plugin-postcss'
@@ -20,7 +20,7 @@ export default defineConfig(store => {
             postcssPlugins.autoprefixer(), 
            /**
             * px to vw
-            * Default values
+            * 默认值
             rootValue: 16,
             unitPrecision: 5,
             propList: ['*'],
@@ -28,12 +28,12 @@ export default defineConfig(store => {
             replace: true,
             mediaQuery: false,
             minPixelValue: 0
-           * Can be replaced by passing parameters
+           * 可通过传入参数进行替换
            */
             postcssPlugins.pxtovw({}), 
            /**
             * px to rem
-            * Default values
+            * 默认值
             unitToConvert: 'px',
             viewportWidth: 320,
             viewportHeight: 568,
@@ -48,7 +48,7 @@ export default defineConfig(store => {
             landscape: false,
             landscapeUnit: 'vw',
             landscapeWidth: 568,
-           * Can be replaced by passing parameters
+           * 可通过传入参数进行替换
            */
             postcssPlugins.pxtorem({}), 
             ],
@@ -59,7 +59,9 @@ export default defineConfig(store => {
 })
 
 ```
-### Built-in PostCSS Methods
-+ `postcss.autoprefixer` Compatibility settings integrated with `autoprefixer`
-+ `postcss.pxtorem` px to rem conversion integrated with `postcss-pxtorem`
-+ `postcss.pxtovw` px to vw conversion integrated with `@empjs/postcss-px-to-viewport`
+### Postcss 内置方法 
++ `postcss.autoprefixer` 兼容性设置 集成于 `autoprefixer`
++ `postcss.pxtorem` px转rem 集成于 `postcss-pxtorem`
++ `postcss.pxtovw` px转vw 集成于 `@empjs/postcss-px-to-viewport`
+
+

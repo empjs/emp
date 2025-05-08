@@ -1,102 +1,63 @@
-# Glossary
+# 术语表
 
-This glossary provides definitions for key terms used throughout the EMP documentation.
+该索引列出了整个 `EMP` 生态系统中的常用术语。
 
-## Core Concepts
+## asset（静态资源）
 
-### EMP (Efficient Module Platform)
-A high-performance build tool based on Rspack, designed for modern web development with a focus on module federation and efficient building.
+静态资源是对 图像、字体、视频等静态文件的统称。这些文件通常会最终输出为单独的文件，而不是打包到代码块中，但是通过其也可以转换成 base64 内联到代码块中
 
-### Module Federation
-A JavaScript architecture that allows multiple independent builds to form a single application, enabling runtime dependency sharing and code splitting.
+## asset module（资源模块）
 
-### Rspack
-A Rust-based bundler that provides significant performance improvements over traditional JavaScript bundlers.
+Asset 模块是一种特殊的模块类型，用来处理静态资源，例如图片、字体、视频等。
 
-## Build Terms
+## bundle splitting
 
-### Bundle
-A compiled and minified file that contains all the necessary code for a specific part of your application.
+Bundle splitting 是一种允许你将代码拆分或合并到多个 bundle 的技术，这对于并行请求和更好的浏览器缓存很有用，它不用于减少初始化 bundle 的大小。
 
-### Chunk
-A portion of your application's code that can be loaded independently, often used in code splitting strategies.
+## chunk
 
-### Tree Shaking
-The process of removing unused code from your production bundle to reduce its size.
+Chunk 是一组绑定在一起的模块。`EMP` 会将相互关联的模块打包成一个 chunk，然后生成对应的文件。
 
-### Hot Module Replacement (HMR)
-A development feature that allows modules to be updated without a full page refresh.
+## chunk graph（chunk 图）
 
-## Configuration Terms
+chunk 图是一种表示块之间关系的数据结构。它是一个有向图，图中的每个节点代表一个块，每条边代表块之间的依赖关系。
 
-### Entry Point
-The main file that serves as the starting point for bundling your application.
+## code splitting
 
-### Output
-The resulting files generated after the build process.
+Code splitting 是一种技术，它允许你将你的代码拆分成多个块，并且只在应用程序运行时加载必要的块。这可以帮助你减少初始包的大小，加快应用程序的加载时间。
 
-### Loader
-A tool that transforms files from one format to another before adding them to the bundle.
+## first class module type（一等公民模块类型）
 
-### Plugin
-An extension that can modify how the bundling works and add additional functionality.
+`EMP` 中的一等公民模块指的是那些不需要依赖 loader 和 plugin 即可支持的模块类型，例如 JavaScript、CSS、JSON 等，而像 HTML、Markdown、YAML 等需要依赖 loader 和 plugin 才能支持的模块类型则不是一等公民模块。
 
-## Development Terms
+## loader
 
-### Development Server
-A local server that hosts your application during development, providing features like HMR and live reloading.
+Loader 是用来转换模块内容的。例如，我们可以使用 loader 将 TypeScript 模块转化为 JavaScript 模块，或者将 CSS 模块转化为 JavaScript 模块，将 CSS 注入到页面中。
 
-### Source Map
-A file that maps the transformed code back to its original source, making debugging easier.
+## module（模块）
 
-### Build Mode
-The environment setting (development or production) that determines how the code is processed and optimized.
+模块允许你将应用拆分为多个文件，并且在这些文件可以通过导入和导出进行模块内容的共享和复用，这可以帮助你将代码组织成独立的部分，并使用良好的接口在彼此间进行通信。
 
-## Advanced Concepts
+## module type（模块类型）
 
-### Code Splitting
-The practice of splitting your code into various bundles that can be loaded on demand.
+模块类型是模块的一种属性，它们可以通过不同的方式进行解析和处理。我们可以通过指明模块的模块类型来告诉 `EMP` 如何处理它们。例如，我们可以通过指定模块类型为 JavaScript 来告诉 `EMP` 该模块是一个 JavaScript 模块，然后 `EMP` 就会使用 JavaScript 解析器来解析该模块，如果指定的模块类型为 CSS，那么 `EMP` 就会使用 CSS 解析器来解析该模块。
 
-### Dynamic Import
-A feature that allows you to import modules conditionally and load them when needed.
+## module resolution（模块解析）
 
-### Lazy Loading
-A technique where certain parts of your application are loaded only when they're required.
+模块解析是指 `EMP` 如何找到模块的过程。`EMP` 会根据模块的路径来解析模块，例如，当我们在代码中使用 `import 'foo'` 时，`EMP` 就会根据模块的路径来解析模块。
 
-### Micro-frontends
-An architectural style where independently deliverable frontend applications are composed into a larger whole.
+## module graph | dependency graph（模块图 | 依赖图）
 
-## Performance Terms
+模块图是一种表示模块之间关系的数据结构。它是一个有向图，图中的每个节点代表一个模块，每条边代表模块之间的依赖关系。
 
-### Time to Interactive (TTI)
-The time it takes for a page to become fully interactive.
+## NAPI-RS
 
-### First Contentful Paint (FCP)
-The time when the first content element is rendered on the screen.
+[NAPI-RS](https://napi.rs/) 是一个在 Rust 中构建预编译的 Node.js 插件的框架。它通过提供 Node-API 的高级抽象，简化了创建和发布本地 Node.js 附加组件的过程。
 
-### Bundle Size
-The total size of all JavaScript bundles that need to be downloaded by the browser.
+## plugin（插件）
 
-## Deployment Terms
+插件可以用来扩展 `EMP` 的功能。它可以用来定制构建过程，或与其他工具集成。`EMP` 提供了很多钩子，你可以用它们来定制构建过程。
 
-### Static Assets
-Files like images, fonts, and other resources that don't need processing.
+## tree shaking
 
-### Content Delivery Network (CDN)
-A distributed network of servers that delivers content based on the user's geographic location.
-
-### Environment Variables
-Values that can be different between development and production environments.
-
-## Best Practices
-
-### Progressive Enhancement
-A strategy of building applications that work for all users while providing enhanced functionality for modern browsers.
-
-### Responsive Design
-An approach to web design that makes web pages render well on different devices and screen sizes.
-
-### Accessibility (a11y)
-The practice of making websites usable by as many people as possible.
-
-For more detailed information about these concepts and their implementation in EMP, refer to the respective documentation sections.
+Tree shaking 是一种允许你从包中删除未使用代码的技术。它是一种特殊的死代码优化方式。像 `EMP` 这样的编译器将通过分析代码的静态语法，然后删除未使用的代码来完成此操作。

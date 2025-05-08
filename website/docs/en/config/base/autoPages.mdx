@@ -1,9 +1,11 @@
+# autoPages
+
 import { Badge } from '@theme';
 
 <Badge text="add in v3.0.0-rc.10" type="warning" />
 
 :::tip
-Automatically finds entry files in the `pages` directory after startup
+After startup, automatically find the entry files in the `pages` directory
 :::
 
 + Type: `boolean` | `{path:'pages'}`
@@ -18,22 +20,22 @@ export default defineConfig(store => {
 })
 ```
 
-## Purpose
-+ Captures all files under the `src/pages` directory and configures the `html-template` according to `html` and `entries` configurations, for example:
+## Function
++ Automatically discovers all files under `src/pages` directory and configures `html-template` based on `html` and `entries` settings, for example: 
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 
 export default defineConfig(store => {
   return {
-    //Enable autoPages
+    //开启 autoPages
     autoPages: true,
     plugins: [pluginReact()],
-    // Global HTML configuration settings
+    // 全局设置 html 配置
     html: {
       title: 'EMP v3 Auto Pages',
     },
-    // Local configuration settings for existing pages
+    // 局部设置存在页面的配置
     entries: {
       'work/index.ts': {
         title: 'auto page work',
@@ -41,4 +43,6 @@ export default defineConfig(store => {
     },
   }
 })
+
+
 ```

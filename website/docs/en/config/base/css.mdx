@@ -1,13 +1,14 @@
+# css
 import { Badge } from '@theme';
 import SassModern from '@components/Css';
 
 <Badge text="add in v3.0.0-rc.17" type="warning" />
 
 :::tip
-Quick CSS configuration method 
+css 快捷设置方式 
 :::
 ## css.sass
-> sass build supports two modes: `default` and `modern`
+> sass 构建支持 `default` 与 `modern` 两种方式
 
 <SassModern />
 
@@ -35,7 +36,7 @@ import {defineConfig} from '@empjs/cli'
 export default defineConfig(store => {
   return {
     css:{
-        // Enable sass modern build
+        // 启用 sass modern 构建
         sass:{
           mode:'modern'
         }
@@ -43,3 +44,4 @@ export default defineConfig(store => {
   }
 })
 ```
+

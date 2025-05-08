@@ -1,163 +1,55 @@
-# Hot Module Replacement (HMR)
+# 模块热更新
 
-Hot Module Replacement (HMR) allows modules to be updated at runtime without a full page refresh, significantly improving the development experience.
+模块热更新（HMR - hot module replacement）功能会在应用程序运行过程中，替换、添加或删除模块，而无需重新加载整个页面。主要是通过以下几种方式，来显著加快开发速度：
 
-## Basic Configuration
+- 保留在完全重新加载页面期间丢失的应用程序状态。
 
-HMR is enabled by default in development mode. You can customize it in your EMP configuration:
+- 只更新变更内容，以节省宝贵的开发时间。
 
-```typescript
-export default defineConfig({
-  server: {
-    hmr: true, // Enable/disable HMR
-    // Custom HMR options
-    hmrOptions: {
-      protocol: 'ws',
-      host: 'localhost',
-      port: 8080,
-      path: '/hmr'
-    }
-  }
-})
-```
+- 在源代码中 CSS / JS 产生修改时，会立刻在浏览器中进行更新，这几乎相当于在浏览器 devtools 直接更改样式。
 
-## Framework-Specific Setup
+## HMR 开关
 
-### React
+`EMP` 已内置了对 HMR 的支持，在开发环境下默认启用。
 
-EMP's React plugin handles HMR automatically. For custom components:
+如果你不需要使用 HMR 能力，可以将 `server.hot` 设置为 false，此时热更新和 react-refresh 将被禁用，`EMP` 会自动降级到 server.liveReload (是否重新加载页面。当开启 hot 时候该配置项会被关闭。)。
 
-```typescript
-// Component.tsx
-if (module.hot) {
-  module.hot.accept()
+```js title="emp-config.js"
+export default {
+	server: {
+		hot: false
+	}
 }
 ```
 
-### Vue
+如果你需要同时禁用 HMR 和 liveReload，可以将 `server.hmr` 和 `server.liveReload` 都设置为 false，此时页面上不会发起 Web Socket 请求到 dev server，也不会在文件变更时自动刷新页面。
 
-Vue components support HMR out of the box. For store modules:
-
-```typescript
-// store.ts
-if (module.hot) {
-  module.hot.accept(['./modules/user'], () => {
-    // Handle hot update
-  })
+```js title="emp-config.js"
+export default {
+	server: {
+		hot: false,
+		liveReload: false
+	}
 }
 ```
 
-## Advanced Configuration
+## 自定义 HMR URL
 
-### Custom HMR Handlers
+在默认情况下，`EMP` 使用当前页面的 host 和端口号来拼接 HMR 对应的 WebSocket URL。
 
-```typescript
-if (module.hot) {
-  module.hot.accept('./module', () => {
-    // Custom update handling
-  })
+当出现 HMR 连接失败的情况时，你可以通过自定义 `server.host` 和 `server.port` 配置的方式来指定 WebSocket URL。
 
-  module.hot.dispose((data) => {
-    // Cleanup before update
-  })
+### 默认配置
+
+默认配置如下，`EMP` 会根据当前页面的 location 自动推导 WebSocket 请求的 URL：
+
+```js title="emp-config.js"
+export default {
+	server: {
+		// 默认设置为 dev server 的端口号
+		port: '',
+		host: location.hostname
+	}
 }
 ```
 
-### State Preservation
-
-Preserve state during updates:
-
-```typescript
-if (module.hot) {
-  module.hot.dispose((data) => {
-    // Save state
-    data.state = store.state
-  })
-
-  module.hot.accept(['./store'], () => {
-    // Restore state
-    if (module.hot.data) {
-      store.replaceState(module.hot.data.state)
-    }
-  })
-}
-```
-
-## Best Practices
-
-1. **Performance Optimization:**
-   - Use appropriate boundaries for HMR
-   - Implement efficient update handlers
-   - Monitor update performance
-
-2. **Error Handling:**
-   - Implement error boundaries
-   - Handle update failures gracefully
-   - Provide fallback mechanisms
-
-3. **Development Workflow:**
-   - Use HMR with source maps
-   - Implement proper error reporting
-   - Maintain state consistency
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Connection Problems:**
-   - Check WebSocket connectivity
-   - Verify port availability
-   - Review proxy configurations
-
-2. **State Management:**
-   - Handle circular dependencies
-   - Manage side effects
-   - Implement proper cleanup
-
-### Debug Mode
-
-Enable HMR logging:
-
-```typescript
-export default defineConfig({
-  server: {
-    hmr: {
-      log: 'debug'
-    }
-  }
-})
-```
-
-## Advanced Use Cases
-
-### Custom Protocol
-
-Configure custom HMR protocol:
-
-```typescript
-export default defineConfig({
-  server: {
-    hmr: {
-      protocol: 'wss',
-      clientPort: 443
-    }
-  }
-})
-```
-
-### Multiple Entry Points
-
-Handle HMR with multiple entries:
-
-```typescript
-export default defineConfig({
-  server: {
-    hmr: {
-      port: 8080,
-      multiEntries: true
-    }
-  }
-})
-```
-
-For more detailed configuration options, refer to the [Configuration Guide](../../config/index.mdx).

@@ -4,66 +4,65 @@ import { Tabs, Tab, PackageManagerTabs } from '@theme';
 
 ## Environment Setup
 
-Before getting started, you need to install [Node.js](https://nodejs.org/), and ensure Node.js version >= 20. **We recommend using Node.js 20 LTS version**.
+Before getting started, you need to install [Node.js](https://nodejs.org/) with version >= 20. **We recommend using Node.js 20 LTS version**.
 
-You can check your current Node.js version using the following command:
+You can check your current Node.js version with:
 
 ```bash
 node -v
 ```
 
-If you haven't installed Node.js in your current environment, or if your installed version is too old, you can install the required version using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm).
+If Node.js is not installed or the version is too low, you can use [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) to install the required version.
 
-Here's an example of installing Node.js 20 LTS version using nvm:
+Here's an example of installing Node.js 20 LTS with nvm:
 
 ```bash
 # Install Node.js 20 LTS version
 nvm install 20 --lts
 
-# Set the newly installed Node.js 20 as the default version
+# Set Node.js 20 as default
 nvm alias default 20
 
-# Switch to the newly installed Node.js 20
+# Switch to Node.js 20
 nvm use 20
 ```
 
-## Creating an EMP Project
+## Create EMP Project
 
-You can use `create-emp` to create an EMP project by running the following command:
+You can use `create-emp` to initialize an EMP project by running:
 
 <PackageManagerTabs command="create emp@latest" />
 
+Follow the prompts to proceed. You can choose from these templates provided by `create-emp`:
 
-Then follow the prompts. You can choose from the following templates provided by `create-emp`:
-
-| Template | Description                    | Optional Features |
-| -------- | ------------------------------ | ---------------- |
-| react    | [React 18](https://react.dev/) | TypeScript      |
-| vue3     | [Vue 3](https://vuejs.org/)    | TypeScript      |
-| vue2     | [Vue 2](https://v2.vuejs.org/) | TypeScript      |
+| Template | Description                     | Features   |
+| -------- | ------------------------------- | ---------- |
+| react    | [React 18](https://react.dev/)  | TypeScript |
+| vue3     | [Vue 3](https://vuejs.org/)     | TypeScript |
+| vue2     | [Vue 2](https://v2.vuejs.org/)  | TypeScript |
 
 
-## Command Line Tools
+## CLI Tools
 
-`EMP` CLI includes a lightweight command-line tool with commands like dev, build, and more.
+The `EMP` CLI includes a lightweight command line tool with commands like dev and build.
 
 ```json title="package.json"
 {
   "scripts": {
-    // Start the development server
+    // Start development server
     "dev": "emp dev",
     // Build for production
     "build": "emp build",
-    // Preview the production version locally
+    // Preview production build locally
     "start": "emp serve",
     // Bundle size analysis
-    "stat": "emp build --analyze"
+    "stat": "emp build --analyze",
   }
 }
 ```
 
-Please refer to [CLI Tools] to learn about all available commands and options.
+Refer to [CLI Tools] for all available commands and options.
 
 ## Entry Module
 
-`EMP` CLI uses `src/index.(js|ts|jsx|tsx)` as the default entry module. You can modify the entry module using the [entry] configuration option.
+By default, `EMP` CLI uses `src/index.(js|ts|jsx|tsx)` as the entry module. You can modify the entry module using the [entry] configuration option.

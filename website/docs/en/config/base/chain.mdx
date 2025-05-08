@@ -1,13 +1,14 @@
-+ Reset `rspack` settings
+# chain
++ Overrides `rspack` configuration
 ## Configuration
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig(store => {
-    // Method 1
+    // 方法一
     store.chain.module.rule('javascript').test(/\.js$/)
   return {
     chain(chain){
-        // Method 2
+        // 方法二
         chain.module.rule('javascript').test(/\.js$/)
     },
   }

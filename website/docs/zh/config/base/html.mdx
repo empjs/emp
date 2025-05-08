@@ -4,26 +4,26 @@ import { Badge } from '@theme';
 # html
 <Badge text="breakchange in v3.1.4" type="warning" />
 
-+ 页面生成配置
-+ 类型： `HtmlType`
++ Page generation configuration
++ Type: `HtmlType`
 ```js
 export interface HtmlType extends HtmlRspackPluginOptions {
   /**
-   * 基于项目的根目录 index.html file path
+   * The index.html file path based on project root
    * @default src/index.html
    */
   template?: string
   /**
-   * 基于项目的根目录 favicon file path
+   * The favicon file path based on project root
    * @default src/favicon.ico
    */
   favicon?: string
   /**
-   * 网站语言
+   * Website language
    */
   lang?: string
   /**
-   * externals 文件插入到html breakchange in v3.1.4
+   * External files injected into html (breakchange in v3.1.4)
    */
   tags?: {
     type: "js" | "css";
@@ -34,7 +34,7 @@ export interface HtmlType extends HtmlRspackPluginOptions {
 }
 ```
 :::tip
-3.1.4及以后的版本，把`files` 和 `tags` 统一合并到 `tags?: InjectHeadTagsTypeItem[]` 中配置
+Since version 3.1.4, `files` and `tags` have been unified into `tags?: InjectHeadTagsTypeItem[]` configuration
 :::
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
@@ -53,22 +53,22 @@ export default defineConfig(store => {
 # html
 <Badge text="html.files removed in version 3.1.4 and html.tags upgrade in version 3.1.4 " type="warning" />
 
-+ 页面生成配置
-+ 类型： `HtmlType`
++ Page generation configuration
++ Type: `HtmlType`
 ```js
 export interface HtmlType extends HtmlRspackPluginOptions {
   files?: {
     /**
-     * 插入 css
+     * Insert CSS files
      */
     css?: string[]
     /**
-     * 插入 js
+     * Insert JavaScript files
      */
     js?: string[]
   },
   /**
-   * 自定义 头部脚步内容 需要 template 配合 
+   * Custom head/body tags (requires template configuration)
    */
   tags?: {
     headTags?: any[]

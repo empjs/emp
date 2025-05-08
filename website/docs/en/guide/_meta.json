@@ -1,0 +1,27 @@
+[
+  {
+    "type": "dir",
+    "name": "start",
+    "label": "Getting Started"
+  },
+  {
+    "type": "dir",
+    "name": "empShare",
+    "label": "Module Sharing"
+  },
+  {
+    "type": "dir",
+    "name": "framework",
+    "label": "Frameworks"
+  },
+  {
+    "type": "dir",
+    "name": "basis",
+    "label": "Basics"
+  },
+  {
+    "type": "dir",
+    "name": "advanced",
+    "label": "Advanced"
+  }
+]

@@ -1,49 +1,49 @@
 import { Tabs, Tab, PackageManagerTabs } from '@theme';
 
-# Upgrading from EMP2 to EMP3
+# 从EMP2升级到EMP3
 
-## Background
-`EMP3` is now in release status and has been deployed in production projects. After comparison with `EMP2` across multiple projects, initial build speed has improved by `80%`, secondary build speed has improved by `60%`, and output bundle size has been reduced by more than `25%`.
+## 背景
+`EMP3`已经处于发布状态并落地在线上项目之中，经过多项目与`EMP2`比对，首次构建速度提升`80%`，二次构建速度提升`60%`，产物包体积缩小`25%`以上。
 
-## Upgrade Steps
+## 升级步骤
 
-### 1. Uninstall `@efox/emp`
+### 1.卸载 `@efox/emp`
 
 <PackageManagerTabs command="remove @efox/emp" />
 
 :::tip
-Other `@efox/xxx` dependencies in the project can also be removed.
+项目存在的其他 `@efox/xxx` 依赖，都可以一并移除。
 :::
 
-### 2. Install `@empjs/cli`
+### 2.安装 `@empjs/cli`
 
 <PackageManagerTabs command="add @empjs/cli -D" />
 
-### 3. Modify `package.json`
-`EMP3` recommends using the ESM module system. Add the following configuration to package.json:
+### 3.修改 `package.json`
+`EMP3` 建议使用 ESM 模块系统，在package.json中添加如下配置
 ```json title="package.json"
 "type": "module",
 ```
 
-### 4. Modify `emp-config.js`
+### 4.修改 `emp-config.js`
 :::tip
-The configuration file can also use typescript with the name `emp.config.ts`
+配置文件名也可以使用 typescript `emp.config.ts`文件
 :::
 
-#### 4.1 Module Import Format Adjustment
-`EMP2.x` configuration defaults to using the `commonjs` module specification. When upgrading to `EMP3`, the first step is to change the `commonjs` module reference method to the `ESM` reference method, changing `require` and `module.exports` or `exports` to `import` and `export` or `export default`
+#### 4.1 模块引入格式调整
+`EMP2.x`的配置默认使用 `commonjs` 模块规范，升级 `EMP3` 首要是把`commonjs`的模块引用方式修改为`ESM`的引用方式，则 `require` 和 `module.exports` 或 `exports` 改为 `import` 与 `export` 或 `export default`
 
-#### 4.2 Module Return Result Adjustment
-`EMP3` configuration needs to return the execution result of the `defineConfig` function, adjusted as follows:
-```javascript title="emp-config.js"
+#### 4.2 模块返回结果调整
+`EMP3`配置需要返回 `defineConfig` 函数的执行结果，调整如下:
+```javascript title="emp-config.js
 import { defineConfig } from '@empjs/cli'
 
 export default defineConfig(async ({ mode }) => {
-// Build logic
+// 构建逻辑
     return {
-        // Final configuration
+        // 最终配置
     }
-})
+}
 ```
 
-For detailed configuration, please refer to the [DEMO](https://github.com/empjs/emp/blob/v3/demos/react18/react-host/emp.config.ts). The related plugins used can be found in the [Plugins](en/plugin/index) section with usage instructions.
+详细配置可以参考 [DEMO](https://github.com/empjs/emp/blob/v3/demos/react18/react-host/emp.config.ts)，其中用到的相关插件可以在 [插件](zh/plugin/index) 中查看使用说明。

@@ -1,10 +1,10 @@
-# Configuration
+# 配置 
 
-`EMP` supports direct modification of the Rspack configuration object, as well as modifying EMP's built-in Rspack configuration through bundler-chain.
+`EMP` 支持直接修改 Rspack 配置对象，也支持通过 bundler-chain 的形式来修改 `EMP` 内置的 Rspack 配置。
 
-## Modifying the `EMP` Configuration Object
+## 修改 `EMP` 配置对象
 
-You can directly modify the exposed `EMP` configuration object in the configuration file. Please check the [configuration documentation](/config/index) for complete usage.
+你可以在配置文件中，直接修改暴露的`EMP`配置对象，请查看 [配置文档](/config/index) 来了解完整用法。
 
 ```ts title="emp-config.js"
 export default {
@@ -27,9 +27,9 @@ export default {
 }
 ```
 
-## Using `@empjs/cli`'s `defineConfig` Function to Configure `EMP`
+## 使用 `@empjs/cli` 的 `defineConfig` 函数来配置 `EMP`。
 
-`defineConfig` includes a `store` parameter that contains global variable information for the build environment. Please check the [configuration documentation](/config/index) for complete usage.
+`defineConfig` 中会带入一个 `store` 的参数，里面包含构建环境的全局变量信息，请查看 [配置文档](/config/index) 来了解完整用法。
 
 ```ts title="emp-config.js"
 import { defineConfig } from '@empjs/cli'
@@ -58,4 +58,104 @@ export default defineConfig(async store => {
 })
 ```
 
-## Using `chain`
+## 使用 `chain`
+`chain` 是 `webpack-chain` 的子集，便于深层，分批次的方式去修改 `EMP` 中 `Rspack` 和 `webpack` 的配置，请查看 [配置文档](/config/index) 来了解完整用法。
+
+```js title="emp-config.js"
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async store => {
+    const projectName = 'emp3-demo'
+    // 根据环境
+    const isDev = store.mode === 'development'
+    return {
+        chain: (chainConfig) {
+            chainConfig.merge({
+                module: {
+                    rule: {
+                    sass: {
+                        test: /\.(sass|scss)$/,
+                        use: {
+                        postcss: this.postcss,
+                        sassLoader,
+                        },
+                        type: 'css/auto',
+                    },
+                    },
+                },
+            })
+        },
+        base: isDev ? undefined : `/${projectName}/`,
+        build: {
+            outDir: 'output',
+        },
+        server: {
+            server: 'http',
+            port: 8092,
+        },
+        entries: {
+            'index.ts': {
+                title: 'emp3 demo',
+                files: {
+                    js: [],
+                },
+            }
+        }
+    }
+})
+```
+
+#### 配置 loader
+
+下面是新增、修改和删除 loader 的示例。
+
+```js title="emp-config.js"
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async store => {
+    return {
+        chain: (chainConfig) {
+            // 新增loader
+            chainConfig.module
+                .rule(name)
+                    .use(name)
+                    .loader(loader)
+                    .options(options)
+            // 修改loader
+            chainConfig.module
+                .rule(name)
+                    .use(name)
+                    .tap(options => newOptions)
+            // 删除loader
+            chainConfig.module
+                .rule(name)
+                    .uses.delete(name)
+        },
+    }
+})
+```
+
+#### 配置 Plugin
+
+下面是新增、修改和删除 插件 的示例。
+
+```js title="emp-config.js"
+import { defineConfig } from '@empjs/cli'
+
+export default defineConfig(async store => {
+    return {
+        chain: (chainConfig) {
+            // 新增插件
+            chainConfig.plugin(name).use(WebpackPlugin, args);
+
+            // 修改插件
+            chainConfig.plugin(name).tap((args) => newArgs);
+
+            // 删除插件
+            chainConfig.plugins.delete(name);
+        },
+    }
+})
+```
+
+以上是一些常见的配置示例，完整的 bundler-chain API 请见 [webpack-chain 文档](https://github.com/neutrinojs/webpack-chain)。

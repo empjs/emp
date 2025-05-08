@@ -1,0 +1,28 @@
+# build.target
++ 类型：
+```ts
+export type JscTarget =
+  | 'es3'
+  | 'es5'
+  | 'es2015'
+  | 'es2016'
+  | 'es2017'
+  | 'es2018'
+  | 'es2019'
+  | 'es2020'
+  | 'es2021'
+  | 'es2022'
+
+```
++ 默认值： ``
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+export default defineConfig(store => {
+  return {
+    build:{
+        target:'es2015'//es3 & es5默认为 commonjs es2015默认为ESM
+    }
+  }
+})
+```

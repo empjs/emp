@@ -1,0 +1,27 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Configuration Overview"
+  },
+  {
+    "type": "dir",
+    "name": "base",
+    "label": "Basic Configuration"
+  },
+  {
+    "type": "dir",
+    "name": "build",
+    "label": "Build Configuration"
+  },
+  {
+    "type": "dir",
+    "name": "empShare",
+    "label": "Module Sharing"
+  },
+  {
+    "type": "dir",
+    "name": "debug",
+    "label": "Debugging"
+  }
+]

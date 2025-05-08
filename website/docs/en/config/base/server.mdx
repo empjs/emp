@@ -1,35 +1,32 @@
 # server
-
-`Dev Server` and `Prod Server` service configuration
-- Type: `ServerType`
-- For detailed configuration, [refer to](https://www.rspack.dev/config/dev-server.html)
-
++ `Dev Server`和`Prod Server`服务配置
++ 类型： `ServerType`
++ 详细配置 [参考](https://www.rspack.dev/config/dev-server.html)
 ```js
 export type ServerType = devServerConfig & {
   /**
-   * Access host
+   * 访问 host
    * @default '0.0.0.0'
    */
   host: string
   /**
-   * Access port
+   * 访问 端口
    * @default 8000
    */
   port: number
   /**
-   * Auto open
+   * 自动打开
    * @default false
    */
   open?: devServerConfig['open']
   /**
-   * Hot reload
+   * 热重载
    * @default true
    */
   hot?: devServerConfig['hot']
 }
 ```
-
-## Configuration
+## 配置
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 export default defineConfig(store => {

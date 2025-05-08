@@ -5,11 +5,11 @@ import { Badge } from '@theme';
 <Badge text="add in v3.0.0-rc.10" type="warning" />
 
 :::tip
-启动后 自动寻找 `pages` 目录的入口文件
+After startup, automatically find entry files in the `pages` directory
 :::
 
-+ 类型： `boolean` | `{path:'pages'}`
-+ 默认值： `false`
++ Type: `boolean` | `{path:'pages'}`
++ Default: `false`
 
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
@@ -20,8 +20,8 @@ export default defineConfig(store => {
 })
 ```
 
-## 作用
-+ 捕抓 `src/pages` 目录下面的所有文件、并且根据 `html` 与 `entries` 配置 进行对 `html-template` 进行配置 如: 
+## Purpose
++ Capture all files under the `src/pages` directory and configure the `html-template` according to the `html` and `entries` settings, for example: 
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'

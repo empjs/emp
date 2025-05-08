@@ -1,98 +1,94 @@
-# JSON Support
+# 引入 JSON 文件
 
-EMP provides built-in support for importing and handling JSON files in your applications. This guide covers various ways to work with JSON in EMP projects.
+EMP 支持在代码中引用 JSON 文件，也支持引用 [YAML](https://yaml.org/) 和 [TOML](https://toml.io/en/) 文件并将其转换为 JSON 格式。
 
-## Basic Usage
+## JSON 文件
 
-### Importing JSON
+你可以直接在 JavaScript 文件中引用 JSON 文件。
 
-You can directly import JSON files in your JavaScript/TypeScript code:
-
-```js
-import config from './config.json';
-
-console.log(config.apiUrl);
-```
-
-### Dynamic JSON Imports
-
-Use dynamic imports for JSON files:
-
-```js
-async function loadConfig() {
-  const config = await import('./config.json');
-  return config.default;
-}
-```
-
-## TypeScript Support
-
-### Type Declarations
-
-EMP automatically provides type declarations for JSON imports:
-
-```ts
-// config.json
+```json title="demo.json"
 {
-  "apiUrl": "https://api.example.com",
-  "version": "1.0.0"
-}
-
-// app.ts
-import config from './config.json';
-// config is typed as { apiUrl: string; version: string }
-```
-
-### Custom Type Definitions
-
-You can also create custom type definitions:
-
-```ts
-interface Config {
-  apiUrl: string;
-  version: string;
-  features: string[];
-}
-
-import config from './config.json' assert { type: 'json' };
-const typedConfig: Config = config;
-```
-
-## Advanced Features
-
-### JSON5 Support
-
-EMP supports JSON5 format with comments and more flexible syntax:
-
-```json5
-{
-  // This is a comment
-  apiUrl: 'https://api.example.com',
-  features: [
-    'auth',
-    'api',
-  ],
-}
-```
-
-### JSON Module Transformation
-
-Customize JSON module transformation:
-
-```js
-// emp.config.js
-module.exports = {
-  json: {
-    stringify: true, // Convert JSON to string
-    parse: true, // Parse JSON at runtime
+  "name": "Youli",
+  "items": [1, 2],
+  "objs": {
+    pass: true
   }
-};
+}
 ```
 
-## Best Practices
+```js title="demo.js"
+import demo from './demo.json';
 
-1. Use JSON for configuration files
-2. Leverage TypeScript for type safety
-3. Consider JSON5 for better maintainability
-4. Optimize JSON parsing for performance
-5. Keep JSON files modular and organized
+console.log(demo.name); // 'Youli';
+console.log(demo.items); // [1, 2];
+console.log(demo.objs); // {pass: true};
+```
+
+### 具名引用
+
+EMP 同样支持通过 named import 来引用 JSON 文件：
+
+```js title="demo.js"
+import { name } from './demo.json';
+
+console.log(name); // 'Youli';
+```
+
+## YAML 文件
+
+YAML 是一种数据序列化语言，通常用于编写配置文件。
+
+EMP 提供了 YAML 插件，在注册插件后，你可以在 JavaScript 中引用 .yaml 或 .yml 文件，它们会被自动转换为 JavaScript 对象。
+
+```yaml title="demo.yaml"
+---
+hello: world
+foo:
+  bar: lisa
+```
+
+```js title="demo.js"
+import demo from './demo.yaml';
+
+console.log(demo.hello); // 'world';
+console.log(demo.foo); // { bar: 'lisa' };
+```
+
+## TOML 文件
+
+TOML 是一种语义明显、易于阅读的配置文件格式。
+
+EMP 提供了 TOML 插件，在注册插件后，你可以在 JavaScript 中引用 .toml 文件，它会被自动转换为 JavaScript 对象。
+
+```yaml title="demo.toml"
+hello = "world"
+
+[foo]
+bar = "lisa"
+```
+
+```js title="demo.js"
+import demo from './demo.toml';
+
+console.log(demo.hello); // 'world';
+console.log(demo.foo); // { bar: 'lisa' };
+```
+
+## 类型声明
+
+当你在 TypeScript 代码中引用 YAML 或 TOML 文件时，请在项目中创建 `src/env.d.ts` 文件，并添加相应的类型声明。
+
+``` ts title="src/env.d.ts"
+declare module '*.yaml' {
+  const content: Record<string, any>;
+  export default content;
+}
+declare module '*.yml' {
+  const content: Record<string, any>;
+  export default content;
+}
+declare module '*.toml' {
+  const content: Record<string, any>;
+  export default content;
+}
+```

@@ -1,0 +1,57 @@
+# debug配置
++ 类型
+```
+export type DebugType = {
+  loggerLevel?: LoggerType
+  clearLog?: boolean
+  progress?: boolean
+  showRsconfig?: boolean | string | InspectOptions
+  showPerformance?: boolean
+  newTreeshaking?: boolean
+  /**
+   * 是否显示执行日志
+   * @default false
+   */
+  infrastructureLogging?: RsConfig['infrastructureLogging']
+}
+```
+## debug.loggerLevel
++ 控制台日志 
++ 类型 `debug` | `info` | `warn` | `error`
++ 默认 `info`
+
+## debug.clearLog
++ 自动清理控制台日志 
++ 类型 `boolean`
++ 默认 `true`
+
+## debug.progress
++ 项目构建进度
++ 类型 `boolean`
++ 默认 `true`
+
+## debug.showRsconfig
++ 显示`rspack`配置
++ 类型 `boolean`
++ 默认 `false`
+
+## debug.showPerformance
++ 显示性能数据 `alpha`
++ 类型 `boolean`
++ 默认 `false`
+
+## debug.newTreeshaking
++ 启用rspack新的构建方案
++ 类型 `boolean`
++ 默认 `true`
+
+## debug.infrastructureLogging
++ 控制基础架构级别的日志记录
++ 类型 `RsConfig['infrastructureLogging']`
++ 默认 
+```json
+{
+  appendOnly: true,
+  level: 'warn',
+}
+```
