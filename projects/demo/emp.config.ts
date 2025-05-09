@@ -4,6 +4,7 @@ import {defineConfig} from '@empjs/cli'
 import pluginlightningcss, {postcss} from '@empjs/plugin-lightningcss'
 import pluginReact from '@empjs/plugin-react'
 // import pluginShare from '@empjs/share'
+const port = 8000
 export default defineConfig(store => {
   return {
     // autoDevBase: true,
@@ -15,12 +16,15 @@ export default defineConfig(store => {
       //     cert: fs.readFileSync(path.join(__dirname, 'resource/emp.cert')),
       //   },
       // },
-      port: 8000,
+      port,
     },
     html: {
       template: 'src/index.html',
       favicon: '',
     },
+    // output: {
+    //   publicPath: `http://dev-test.yy.com:8000/`,
+    // },
     plugins: [
       pluginReact(),
       pluginlightningcss({
@@ -33,11 +37,11 @@ export default defineConfig(store => {
     debug: {
       // showRsconfig: true,
       // clearLog: false,
-      infrastructureLogging: {
-        level: 'verbose', // 或 'log'，verbose 会输出更详细的日志
-        colors: true, // 启用彩色日志，便于区分
-        appendOnly: true, // 追加日志而不是覆盖，适合持续观察
-      },
+      // infrastructureLogging: {
+      //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志
+      //   colors: true, // 启用彩色日志，便于区分
+      //   appendOnly: true, // 追加日志而不是覆盖，适合持续观察
+      // },
     },
     build: {
       // polyfill: 'entry',

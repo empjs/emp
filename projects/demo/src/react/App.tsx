@@ -43,6 +43,10 @@ function App() {
               <h3>SVG Url</h3>
               <img className="img" src={LogoUrl} />
             </li>
+            <li>
+              <h3>CSS Background Image</h3>
+              <div className="img-yy-logo"></div>
+            </li>
           </ul>
         </div>
         <div>
