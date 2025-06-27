@@ -34,7 +34,7 @@ export default defineConfig(store => {
       // pluginShare(),
     ],
     debug: {
-      showPerformance: true,
+      // showPerformance: true,
       // showRsconfig: true,
       // clearLog: false,
       // infrastructureLogging: {
