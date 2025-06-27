@@ -1,9 +1,10 @@
-import fs from 'fs'
 import rspack, {type SourceMapDevToolPluginOptions} from '@rspack/core'
+import fs from 'fs'
 import type {GlobalStore} from 'src/store'
 import type {RsdoctorRspackPluginOptions} from 'src/types/config'
 import {TsCheckerRspackPlugin} from 'ts-checker-rspack-plugin'
 import {EmpPolyfillPlugin} from './builtInPlugin'
+
 class RspackPlugin {
   public store!: GlobalStore
   async setup(store: GlobalStore) {

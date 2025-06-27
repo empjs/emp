@@ -4,6 +4,7 @@ import ReactLogo from './assets/react.svg'
 import ReactInline from './assets/react.svg?inline'
 
 import Section from './component/Section'
+
 type AppType = {
   from?: string
   version?: string

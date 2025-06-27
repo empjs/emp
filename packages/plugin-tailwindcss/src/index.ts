@@ -1,5 +1,5 @@
-import path from 'path'
 import type {GlobalStore} from '@empjs/cli'
+import path from 'path'
 export default () => {
   return {
     name: '@empjs/plugin-tailwindcss',

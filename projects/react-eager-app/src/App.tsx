@@ -6,6 +6,7 @@ import ChannelHeader from 'yybase/components/Header/ChannelHeader'
 import MicrophonePanel from 'yybase/components/MicrophonePanel'
 import Provider from 'yybase/store/Provider'
 import ErrorBoundary from './ErrorBoundary'
+
 //
 const App = () => (
   <div>

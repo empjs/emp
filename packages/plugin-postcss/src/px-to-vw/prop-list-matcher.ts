@@ -1,7 +1,7 @@
 export const filterPropList = {
   exact: function (list: any[]) {
     return list.filter(function (m: string) {
-      return m.match(/^[^\*\!]+$/)
+      return m.match(/^[^*!]+$/)
     })
   },
   contain: function (list: any[]) {
@@ -16,7 +16,7 @@ export const filterPropList = {
   endWith: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^\*[^\*]+$/)
+        return m.match(/^\*[^*]+$/)
       })
       .map(function (m: string) {
         return m.substr(1)
@@ -25,7 +25,7 @@ export const filterPropList = {
   startWith: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^[^\*\!]+\*$/)
+        return m.match(/^[^*!]+\*$/)
       })
       .map(function (m: string) {
         return m.substr(0, m.length - 1)
@@ -34,7 +34,7 @@ export const filterPropList = {
   notExact: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^\![^\*].*$/)
+        return m.match(/^![^*].*$/)
       })
       .map(function (m: string) {
         return m.substr(1)
@@ -43,7 +43,7 @@ export const filterPropList = {
   notContain: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^\!\*.+\*$/)
+        return m.match(/^!\*.+\*$/)
       })
       .map(function (m: string) {
         return m.substr(2, m.length - 3)
@@ -52,7 +52,7 @@ export const filterPropList = {
   notEndWith: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^\!\*[^\*]+$/)
+        return m.match(/^!\*[^*]+$/)
       })
       .map(function (m: string) {
         return m.substr(2)
@@ -61,7 +61,7 @@ export const filterPropList = {
   notStartWith: function (list: any[]) {
     return list
       .filter(function (m: string) {
-        return m.match(/^\![^\*]+\*$/)
+        return m.match(/^![^*]+\*$/)
       })
       .map(function (m: string) {
         return m.substr(1, m.length - 2)

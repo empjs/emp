@@ -1,7 +1,8 @@
-import url from 'url'
 import chalk from 'chalk'
 import {gray} from 'src/helper/color'
+import url from 'url'
 import {getLanIp} from './utils'
+
 type IpAdressOpt = {
   protocol?: string
   port?: number

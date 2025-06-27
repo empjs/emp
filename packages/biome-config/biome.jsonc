@@ -96,7 +96,9 @@
         "useAltText": "off", // 关闭：图片必须有 alt 文本
         "useButtonType": "off", // 关闭：button 必须有 type 属性
         "useValidAnchor": "off", // 关闭：a 标签必须有有效的 href
-        "useKeyWithClickEvents": "off" // 关闭：点击事件必须配合键盘事件
+        "useKeyWithClickEvents": "off", // 关闭：点击事件必须配合键盘事件
+        "noStaticElementInteractions": "off",
+        "noNoninteractiveTabindex": "off"
       },
       // 复杂度规则
       "complexity": {
@@ -105,13 +107,20 @@
         "useArrowFunction": "off", // 关闭：强制使用箭头函数
         "useOptionalChain": "off", // 关闭：强制使用可选链
         "useLiteralKeys": "off", // 关闭：强制使用字面量键
-        "noUselessTernary": "off" // 关闭：禁止无用的三元表达式
+        "noUselessTernary": "off", // 关闭：禁止无用的三元表达式
+        "noUselessFragments": "off"
       },
       // 正确性规则
       "correctness": {
         "noUnreachable": "off", // 关闭：禁止不可达代码
         "useExhaustiveDependencies": "off", // 关闭：React Hook 依赖项检查
-        "useHookAtTopLevel": "off" // 关闭：Hook 必须在顶层调用
+        "useHookAtTopLevel": "off", // 关闭：Hook 必须在顶层调用
+        "noUnusedVariables": "off",
+        "noUnusedImports": "off",
+        "noUnusedFunctionParameters": "off"
+      },
+      "nursery": {
+        "noNestedComponentDefinitions": "off"
       },
       // 性能规则
       "performance": {
@@ -144,7 +153,11 @@
         "noDoubleEquals": "off", // 关闭：禁止使用 ==
         "noExplicitAny": "off", // 关闭：禁止显式 any 类型
         "noGlobalIsNan": "off", // 关闭：禁止使用全局 isNaN
-        "noImplicitAnyLet": "off" // 关闭：禁止隐式 any 的 let 声明
+        "noImplicitAnyLet": "off", // 关闭：禁止隐式 any 的 let 声明
+        "noDuplicateProperties": "off",
+        "noEmptyBlock": "off",
+        "noTemplateCurlyInString": "off",
+        "noDuplicateFontNames": "off"
       }
     }
   },

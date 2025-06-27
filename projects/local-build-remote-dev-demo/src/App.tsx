@@ -1,5 +1,6 @@
 import rt from '@empjs/share/runtime'
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
+
 // import RemoteApp from './RemoteApp'
 function App() {
   const RemoteApp = lazy(() => rt.load('rc/RemoteApp'))

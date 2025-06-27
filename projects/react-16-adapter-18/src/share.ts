@@ -1,5 +1,6 @@
 import {reactAdapter} from '@empjs/share/adapter'
 import empRuntime from '@empjs/share/runtime'
+
 const entry = process.env.mfhost as string
 console.log('shared', entry)
 // 实例化远程 emp

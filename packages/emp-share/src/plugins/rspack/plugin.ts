@@ -1,6 +1,7 @@
 import type {Compiler} from '@rspack/core'
 import {importJsVm} from 'src/helper'
 import type {EMPSHARERuntimeOptions} from './types'
+
 const getShareRuntimeEntry = url => {
   const content = [`import '${url}'`].join('\n')
   return importJsVm(content)

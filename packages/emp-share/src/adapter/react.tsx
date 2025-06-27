@@ -1,6 +1,7 @@
 import {checkVersion, isPromise} from 'src/helper'
 import type {EMPShareRuntimeAdapterReactType, InitOptionsType} from 'src/types'
 import {log} from '../helper'
+
 //
 let globalLib = {}
 const win: any = window

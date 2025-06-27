@@ -2,6 +2,7 @@ import {timeDone} from 'src/helper/buildPrint'
 import {BaseScript} from 'src/script/base'
 import {ProdServer} from 'src/server'
 import store from 'src/store'
+
 const server = new ProdServer()
 let timing = 0
 export class ServeScript extends BaseScript {

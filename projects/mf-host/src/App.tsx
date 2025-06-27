@@ -1,8 +1,8 @@
 import {useState, version} from 'react'
 import './App.css'
-import {CountComp, ShowCountComp} from './CountComp'
 import ReactLogo from './assets/react.svg'
 import ReactInline from './assets/react.svg?inline'
+import {CountComp, ShowCountComp} from './CountComp'
 import Section from './component/Section'
 
 //

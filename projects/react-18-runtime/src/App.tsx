@@ -1,6 +1,7 @@
 import {reactAdapter} from '@empjs/share/adapter'
 import empRuntime from '@empjs/share/runtime'
-import {Suspense, lazy, useEffect} from 'react'
+import {lazy, Suspense, useEffect} from 'react'
+
 const ip = process.env.ip
 empRuntime.init({
   shared: reactAdapter.shared,

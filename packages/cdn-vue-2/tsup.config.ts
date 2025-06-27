@@ -1,4 +1,5 @@
-import {type Options, defineConfig} from 'tsup'
+import {defineConfig, type Options} from 'tsup'
+
 function getOptions(env: 'development' | 'production', watch = false): Options {
   return {
     entry: ['src/vue.ts', 'src/vueRouter.ts'],

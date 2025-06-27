@@ -1,21 +1,20 @@
 import fs from 'node:fs'
+import type {Output, Resolve} from '@rspack/core'
+import {logger} from 'src/helper'
+import {getEmpConfigPath, loadConfig} from 'src/helper/loadConfig'
+import {deepAssign} from 'src/helper/utils'
 import type {GlobalStore} from 'src/store'
+import {LifeCycle} from 'src/store/lifeCycle'
 import type {
   BuildType,
   DebugType,
   EmpOptions,
   HtmlType,
   ModuleTransform,
-  RsTarget,
   RsdoctorRspackPluginOptions,
+  RsTarget,
   ServerType,
 } from 'src/types/config'
-
-import type {Output, Resolve} from '@rspack/core'
-import {logger} from 'src/helper'
-import {getEmpConfigPath, loadConfig} from 'src/helper/loadConfig'
-import {deepAssign} from 'src/helper/utils'
-import {LifeCycle} from 'src/store/lifeCycle'
 // 重构server
 export class EmpConfig {
   private store!: GlobalStore
@@ -406,7 +405,7 @@ export class EmpConfig {
         ]
   }
   get autoPages() {
-    let autoPages = undefined
+    let autoPages
     if (this.store.empOptions.autoPages) {
       autoPages = typeof this.store.empOptions.autoPages === 'boolean' ? {} : this.store.empOptions.autoPages
       autoPages = this.assign({path: 'pages'}, autoPages)

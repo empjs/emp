@@ -1,6 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {pluginRspackEmpShare} from '@empjs/share'
+
 //
 const deploy = process.env.DEPLOY
 const isCf = deploy === 'cloudflare'

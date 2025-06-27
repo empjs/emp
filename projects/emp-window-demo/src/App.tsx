@@ -1,4 +1,4 @@
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
 import runtime from './runtime'
 
 const MfApp: any = lazy(() => runtime.load('mfHost/App'))

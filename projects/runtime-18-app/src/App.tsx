@@ -1,5 +1,5 @@
 import rt from '@empjs/share/runtime'
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
 
 const R92 = lazy(() => rt.load('r92/App'))
 const R91 = lazy(() => rt.load('r91/App'))

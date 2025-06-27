@@ -1,6 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import Vue3 from '@empjs/plugin-vue3'
 import {externalVue, pluginRspackEmpShare} from '@empjs/share'
+
 // cf vue3
 const deploy = process.env.DEPLOY
 const isCf = deploy === 'cloudflare'

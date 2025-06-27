@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import {PopoverContent} from './components/PopoverContent'
 import style from './index.module.scss'
 // import navConfig from './nav-config.json';
-import {type Lang, type NavConfig, getLang} from './utils'
+import {getLang, type Lang, type NavConfig} from './utils'
 export interface FamilyNavIconProps {
   lang?: Lang
   trigger?: 'hover' | 'focus' | 'click'

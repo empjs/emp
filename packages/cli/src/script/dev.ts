@@ -1,10 +1,10 @@
 import {type RspackOptions, rspack} from '@rspack/core'
-import {DevServer} from 'src/server'
-
 import {timeDone} from 'src/helper/buildPrint'
 import {deepAssign} from 'src/helper/utils'
 import {BaseScript} from 'src/script/base'
+import {DevServer} from 'src/server'
 import store, {type GlobalStore} from 'src/store'
+
 const empDevServer = new DevServer()
 class DevScript extends BaseScript {
   get stats() {

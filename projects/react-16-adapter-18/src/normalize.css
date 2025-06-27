@@ -67,7 +67,6 @@ hr {
  */
 
 pre {
-	/* biome-ignore lint/suspicious/noDuplicateFontNames: <explanation> */
 	font-family: monospace, monospace;
 	/* 1 */
 	font-size: 1em;
@@ -116,7 +115,6 @@ strong {
 code,
 kbd,
 samp {
-	/* biome-ignore lint/suspicious/noDuplicateFontNames: <explanation> */
 	font-family: monospace, monospace;
 	/* 1 */
 	font-size: 1em;

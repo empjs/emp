@@ -2,6 +2,7 @@ import {Buffer} from 'node:buffer'
 import type {LoaderContext} from '@rspack/core'
 import {transform as _transform, composeVisitors} from 'lightningcss'
 import type {LightningCSSLoaderOptions} from './types'
+
 const LOADER_NAME = 'lightningcss-loader'
 
 async function LightningCSSLoader(

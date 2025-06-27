@@ -1,5 +1,6 @@
-import App from '@/App'
 import Vue from 'vue'
+import App from '@/App'
+
 //
 Vue.config.productionTip = false
 new Vue({

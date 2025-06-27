@@ -1,4 +1,4 @@
-import { defineConfig } from '@empjs/cli'
+import {defineConfig} from '@empjs/cli'
 import pluginPostcss from '@empjs/plugin-postcss'
 import pluginReact from '@empjs/plugin-react'
 export default defineConfig(store => {
@@ -12,6 +12,5 @@ export default defineConfig(store => {
       // clearLog: false,
     },
     cache: false,
-
   }
 })

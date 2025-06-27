@@ -1,4 +1,5 @@
 import pluginReact from '@empjs/plugin-react'
+
 // reset
 let target = 'es2015'
 let useImportMap = false

@@ -4,19 +4,8 @@
   "description": "emp",
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist",
-    "bin",
-    "resource",
-    "template",
-    "client.d.ts",
-    "emp-tsconfig.json"
-  ],
-  "maintainers": [
-    "xuhongbin",
-    "ckken",
-    "doerme"
-  ],
+  "files": ["dist", "bin", "resource", "template", "client.d.ts", "emp-tsconfig.json"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -26,11 +15,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": [
-    "rspack",
-    "rust",
-    "typescript"
-  ],
+  "keywords": ["rspack", "rust", "typescript"],
   "bin": {
     "emp": "./bin/emp.js"
   },

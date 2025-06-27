@@ -3,6 +3,7 @@ import {printFileSizes} from 'src/helper/buildPrint'
 import logger from 'src/helper/logger'
 import {BaseScript} from 'src/script/base'
 import store, {type GlobalStore} from 'src/store'
+
 class BuildScript extends BaseScript {
   private isWatchMode = false
   private rspackConfig!: GlobalStore['rsConfig']

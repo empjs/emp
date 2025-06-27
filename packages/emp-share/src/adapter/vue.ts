@@ -21,7 +21,7 @@ function vue2ToVue3(WrapperComponent: any, wrapperId: string): any {
             {
               on: this.$attrs,
               attrs: this.$attrs,
-              props: {...this.$props, ...this.$attrs},  // 合并 props 和 attrs
+              props: {...this.$props, ...this.$attrs}, // 合并 props 和 attrs
               scopedSlots: this.$scopedSlots,
             },
             slots,

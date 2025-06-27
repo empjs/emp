@@ -8,7 +8,7 @@ export default defineConfig(({watch}) => {
         runtime: 'src/runtime/index.ts',
         adapter: 'src/adapter/index.ts',
         rspack: 'src/plugins/rspack/index.ts',
-        adapterVue:'src/adapter/vue.ts',
+        adapterVue: 'src/adapter/vue.ts',
       },
       format: ['esm', 'cjs'],
       splitting: false,

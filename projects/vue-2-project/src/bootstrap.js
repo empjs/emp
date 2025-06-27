@@ -1,7 +1,7 @@
+import store from '@v2b/store'
 import Vue from 'vue'
 import App from './App'
 
-import store from '@v2b/store'
 console.log('store', store)
 
 new Vue({

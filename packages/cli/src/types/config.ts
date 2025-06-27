@@ -1,18 +1,18 @@
 import type {InspectOptions} from 'node:util'
 import type {RsdoctorRspackPlugin} from '@rsdoctor/rspack-plugin'
-import type {Configuration as RsConfig} from '@rspack/core'
 import type {
+  DevServer as devServerConfig,
   Externals,
   HtmlRspackPluginOptions,
   // LightningCssMinimizerRspackPluginOptions,
   Output,
   Resolve,
+  Configuration as RsConfig,
   RuleSetRule,
   SourceMapDevToolPluginOptions,
   // SwcCssMinimizerRspackPlugin,
   SwcJsMinimizerRspackPluginOptions,
 } from '@rspack/core'
-import type {DevServer as devServerConfig} from '@rspack/core'
 import type {HtmlTagObject} from 'html-webpack-plugin'
 import type {Options as SassOptions} from 'sass-embedded'
 import type {LifeCycleOptions} from 'src/store/lifeCycle'

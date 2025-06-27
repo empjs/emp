@@ -1,4 +1,5 @@
 import MainLayout from './Layout'
+
 const App = () => (
   <>
     <h1>Proxy demo</h1>

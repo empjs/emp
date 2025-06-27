@@ -1,8 +1,9 @@
-import path from 'path'
 import type {GlobalStore} from '@empjs/cli'
 import browserslist from 'browserslist'
 import {browserslistToTargets} from 'lightningcss'
+import path from 'path'
 import type {PluginLightningcssOptions} from './types.js'
+
 const uselightningcssLoader = async (store: GlobalStore, o: PluginLightningcssOptions = {}) => {
   if (!o.transform) return
   o.transform = typeof o.transform !== 'boolean' ? o.transform : {}

@@ -5,6 +5,7 @@ import {Carousel} from './components/Carousel'
 import {Diff} from './components/Diff'
 import {Layout} from './components/Layout'
 import {Table} from './components/Table'
+
 function App() {
   return (
     <Layout>

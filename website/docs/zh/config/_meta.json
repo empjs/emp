@@ -1,27 +1,27 @@
 [
-	{
-		"type": "file",
-		"name": "index",
-		"label": "配置总览"
-	},
-	{
-		"type": "dir",
-		"name": "base",
-		"label": "基础"
-	},
-	{
-		"type": "dir",
-		"name": "build",
-		"label": "构建"
-	},
-	{
-		"type": "dir",
-		"name": "empShare",
-		"label": "共享"
-	},
-	{
-		"type": "dir",
-		"name": "debug",
-		"label": "调试"
-	}
+  {
+    "type": "file",
+    "name": "index",
+    "label": "配置总览"
+  },
+  {
+    "type": "dir",
+    "name": "base",
+    "label": "基础"
+  },
+  {
+    "type": "dir",
+    "name": "build",
+    "label": "构建"
+  },
+  {
+    "type": "dir",
+    "name": "empShare",
+    "label": "共享"
+  },
+  {
+    "type": "dir",
+    "name": "debug",
+    "label": "调试"
+  }
 ]

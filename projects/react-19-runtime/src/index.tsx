@@ -1,6 +1,7 @@
 import 'abortcontroller-polyfill'
 import {createRoot} from 'react-dom/client'
 import {RouterConfigProvider, RouterEntry} from './Router'
+
 const dom = document.getElementById('emp-root')!
 const root = createRoot(dom)
 // root.render(<RouterEntry />)

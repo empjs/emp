@@ -1,6 +1,6 @@
 import {reactAdapter} from '@empjs/share/adapter'
 import empRuntime from '@empjs/share/runtime'
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
 
 const entryUrl = `http://172.29.96.217:8801/emp.js`
 const shared: any = reactAdapter.shared

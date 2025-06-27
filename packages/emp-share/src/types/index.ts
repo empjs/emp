@@ -1,4 +1,5 @@
 export type {FederationRuntimePlugin} from 'src/helper/moduleFederation'
+
 import type {MFRuntime, MFSDK} from 'src/helper/moduleFederation'
 export type Override<What, With> = Omit<What, keyof With> & With
 export type EMPShareRuntimeType = {

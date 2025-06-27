@@ -2,6 +2,7 @@ import path from 'node:path'
 import type {SwcLoaderOptions} from '@rspack/core'
 import {deepAssign, getPkgVersion} from 'src/helper/utils'
 import type {GlobalStore} from 'src/store'
+
 //
 class RspackModule {
   public store!: GlobalStore

@@ -1,6 +1,7 @@
 import {deepAssign} from 'src/helper'
 import {shareGlobalName} from 'src/helper/config'
 import type {EMPShareRuntimeType, EmpRuntimeOptions, InitOptionsType, LoadRemoteType} from 'src/types'
+
 type EmpInitOptionsType = Partial<InitOptionsType>
 let globalLib = window[shareGlobalName] || {}
 // 根据 injectGlobalValToHtml 提前把库赋值到 EMPRuntime

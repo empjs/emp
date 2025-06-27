@@ -1,5 +1,4 @@
-import {Suspense, useState} from 'react'
-import React from 'react'
+import React, {Suspense, useState} from 'react'
 import './App.css'
 import css from './App.module.css'
 import ReactLogo from './assets/react.svg'

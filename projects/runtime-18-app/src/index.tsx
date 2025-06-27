@@ -1,5 +1,6 @@
 import {reactAdapter} from '@empjs/share/adapter'
 import rt from '@empjs/share/runtime'
+
 // 实例化
 rt.init({
   name: 'runtimeHost_18_app',

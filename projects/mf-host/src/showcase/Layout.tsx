@@ -1,7 +1,8 @@
 import {reactAdapter} from '@empjs/share/adapter'
 import empRuntime from '@empjs/share/runtime'
 // import App from './App'
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
+
 const ip = process.env.ip
 const port = process.env.port
 empRuntime.init({

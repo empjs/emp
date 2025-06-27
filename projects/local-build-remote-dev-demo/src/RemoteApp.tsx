@@ -1,4 +1,5 @@
 import css from './RemoteApp.module.scss'
+
 function RemoteApp() {
   return (
     <div className={css.RemoteApp}>

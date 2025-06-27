@@ -1,14 +1,8 @@
-import type { Lang, NavConfig } from '../utils';
-import { LinkGroup } from './LinkGroup';
-import style from './PopoverContent.module.scss';
+import type {Lang, NavConfig} from '../utils'
+import {LinkGroup} from './LinkGroup'
+import style from './PopoverContent.module.scss'
 
-export const PopoverContent = ({
-  lang,
-  config,
-}: {
-  config: NavConfig;
-  lang: Lang;
-}) => (
+export const PopoverContent = ({lang, config}: {config: NavConfig; lang: Lang}) => (
   <div>
     {/* <div className={style.header}>
       <a
@@ -28,4 +22,4 @@ export const PopoverContent = ({
       <LinkGroup {...item} lang={lang} key={item.title} />
     ))}
   </div>
-);
+)

@@ -1,17 +1,17 @@
 [
-	{
-		"text": "指南",
-		"link": "/guide/start/",
-		"activeMatch": "/guide/"
-	},
-	{
-		"text": "配置",
-		"link": "/config/",
-		"activeMatch": "/config/"
-	},
-	{
-		"text": "插件",
-		"link": "/plugin/",
-		"activeMatch": "/plugin/"
-	}
+  {
+    "text": "指南",
+    "link": "/guide/start/",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "配置",
+    "link": "/config/",
+    "activeMatch": "/config/"
+  },
+  {
+    "text": "插件",
+    "link": "/plugin/",
+    "activeMatch": "/plugin/"
+  }
 ]

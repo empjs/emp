@@ -6,11 +6,12 @@ import {EmpShareRemoteLibPlugin} from './plugin'
 import type {
   EMPPluginShareType,
   ExternalsItemType,
-  ModuleFederationPluginOptions,
   frameworkOptions,
+  ModuleFederationPluginOptions,
   runtimeLibType,
 } from './types'
 import {getRuntimeLib} from './utils'
+
 const exp = /^([0-9a-zA-Z_\s]+)@(.*)/
 export class EmpShare {
   private op: EMPPluginShareType

@@ -2,6 +2,7 @@ import {defineConfig} from '@empjs/cli'
 import lightningcssPlugin, {postcss} from '@empjs/plugin-lightningcss'
 import pluginPostcss, {postcss as postcssPlugins} from '@empjs/plugin-postcss'
 import pluginReact from '@empjs/plugin-react'
+
 const cssSelector = {
   lightningcss: true,
   vw: false,
