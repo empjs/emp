@@ -1,12 +1,12 @@
 import {Button} from 'antd'
-import {Suspense, lazy} from 'react'
+import {lazy, Suspense} from 'react'
 import LogoUrl from 'src/assets/logo.svg'
 import LogoComponent from 'src/assets/logo.svg?react'
 import txt from 'src/file.txt?raw'
 import AppLayout from 'src/react/AppLayout'
 import CssModule from 'src/react/CssModule'
-import SameAssets from './SameAssets'
 import classDemo from './classDemo'
+import SameAssets from './SameAssets'
 
 const LazyComponent = lazy(() => import('src/react/LazyComponent'))
 console.log('logourl', txt)

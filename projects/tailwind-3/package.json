@@ -9,7 +9,8 @@
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
-    "emp": "emp"
+    "emp": "emp",
+    "check": "biome check ."
   },
   "keywords": [],
   "author": "",

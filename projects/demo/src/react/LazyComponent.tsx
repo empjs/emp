@@ -1,5 +1,6 @@
 import './lazyComponent.less'
 import css from './lazyComponent.module.less'
+
 const LazyComponent = () => (
   <>
     <div className="lazyComponent">

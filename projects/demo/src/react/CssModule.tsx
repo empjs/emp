@@ -1,4 +1,5 @@
 import css from './cm.module.scss'
+
 const CssModule = () => (
   <div className={css.cssModule}>
     <h2>CSS Module</h2>

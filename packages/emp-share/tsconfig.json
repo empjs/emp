@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -18,9 +14,7 @@
     "baseUrl": "./",
     "jsx": "preserve",
     "paths": {
-      "src/*": [
-        "./src/*"
-      ]
+      "src/*": ["./src/*"]
     },
     "moduleResolution": "Bundler",
     "module": "ESNext",
@@ -28,7 +22,5 @@
     // "allowImportingTsExtensions": true,
     "noImplicitAny": false
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

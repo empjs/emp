@@ -1,5 +1,6 @@
 import img1 from 'src/assets/a/hoka.jpeg'
 import img2 from 'src/assets/b/hoka.jpeg'
+
 const SameAssets = () => (
   <div>
     <h2>Same Img Test</h2>

@@ -1,6 +1,6 @@
 import 'src/style.css'
-import DeviceInfo from './demo/Device'
 import Colors from './demo/colors'
+import DeviceInfo from './demo/Device'
 import Shop from './demo/shop'
 import Sizing from './demo/sizing'
 

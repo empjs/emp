@@ -1,129 +1,168 @@
 {
+  // 标记为嵌套配置，不是根配置
+  "root": false,
+  // 引用 Biome 配置的 JSON Schema，提供代码提示和验证
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  // 文件处理配置
   "files": {
-    "ignore": ["dist/**", "output/**", "node_modules/**"],
+    // 忽略未知文件类型的错误
     "ignoreUnknown": true,
-    "include": [
-      "*.js",
-      "*.ts",
-      "*.jsx",
-      "*.tsx",
-      "*.mjs",
-      "*.tjs",
-      "*.json",
-      "*.jsonc",
-      "*.css",
-      "emp-config.js",
-      "emp.config.js",
-      "emp-config.ts",
-      "emp.config.ts",
-      ".vscode/"
+    // 包含需要处理的文件类型和路径
+    "includes": [
+      "**/*.js", // JavaScript 文件
+      "**/*.ts", // TypeScript 文件
+      "**/*.jsx", // React JSX 文件
+      "**/*.tsx", // TypeScript JSX 文件
+      "**/*.mjs", // ES 模块 JavaScript 文件
+      "**/*.tjs", // TypeScript JavaScript 文件
+      "**/*.json", // JSON 文件
+      "**/*.jsonc", // 带注释的 JSON 文件
+      "**/*.css", // CSS 文件
+      "**/*.html", // HTML 文件
+      "**/emp-config.js", // EMP 配置文件
+      "**/emp.config.js", // EMP 配置文件
+      "**/emp-config.ts", // EMP TypeScript 配置文件
+      "**/emp.config.ts", // EMP TypeScript 配置文件
+      "**/.vscode/**", // VS Code 配置文件
+      "**/*.svelte", // Svelte 组件文件
+      "**/*.astro", // Astro 组件文件
+      "**/*.vue", // Vue 组件文件
+      // 排除的文件和目录
+      "!**/dist/**", // 构建输出目录
+      "!**/node_modules/**" // 依赖模块目录
     ]
   },
+  // 格式化器全局配置
   "formatter": {
+    // 每行最大字符数
     "lineWidth": 120
   },
+  // CSS 相关配置
   "css": {
+    // CSS 格式化器
     "formatter": {
-      "enabled": true
+      "enabled": true // 启用 CSS 格式化
     },
+    // CSS 解析器
     "parser": {
-      "cssModules": true
+      "cssModules": true // 启用 CSS Modules 支持
     },
+    // CSS 检查器
     "linter": {
-      "enabled": true
+      "enabled": true // 启用 CSS 检查
     }
   },
+  // JavaScript/TypeScript 相关配置
   "javascript": {
+    // JavaScript 格式化器配置
     "formatter": {
-      "arrowParentheses": "asNeeded",
-      "bracketSpacing": false,
-      "indentStyle": "space",
-      "indentWidth": 2,
-      "jsxQuoteStyle": "double",
-      "quoteStyle": "single",
-      "semicolons": "asNeeded"
+      "arrowParentheses": "asNeeded", // 箭头函数参数括号：仅在需要时添加
+      "bracketSpacing": false, // 对象字面量括号内不添加空格 {foo} 而不是 { foo }
+      "indentStyle": "space", // 使用空格缩进
+      "indentWidth": 2, // 缩进宽度为 2 个空格
+      "jsxQuoteStyle": "double", // JSX 属性使用双引号
+      "quoteStyle": "single", // 字符串使用单引号
+      "semicolons": "asNeeded" // 仅在需要时添加分号
     },
+    // JavaScript 解析器配置
     "parser": {
+      // 启用不安全的参数装饰器（实验性功能）
       "unsafeParameterDecoratorsEnabled": true
     }
   },
+  // JSON 文件配置
   "json": {
+    // JSON 格式化器
     "formatter": {
-      "enabled": true,
-      "indentStyle": "space",
-      "indentWidth": 2
+      "enabled": true, // 启用 JSON 格式化
+      "indentStyle": "space", // 使用空格缩进
+      "indentWidth": 2, // 缩进宽度为 2 个空格
+      "expand": "auto" // 自动决定是否展开对象/数组
     },
+    // JSON 解析器
     "parser": {
-      "allowComments": true,
-      "allowTrailingCommas": true
+      "allowComments": true, // 允许 JSON 中的注释
+      "allowTrailingCommas": true // 允许尾随逗号
     }
   },
+  // 代码检查器配置
   "linter": {
-    "enabled": true,
+    "enabled": true, // 启用代码检查
+    // 具体规则配置
     "rules": {
+      // 无障碍性规则
       "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useAltText": "off",
-        "useButtonType": "off",
-        "useValidAnchor": "off",
-        "useKeyWithClickEvents": "off"
+        "noSvgWithoutTitle": "off", // 关闭：SVG 必须有 title
+        "useAltText": "off", // 关闭：图片必须有 alt 文本
+        "useButtonType": "off", // 关闭：button 必须有 type 属性
+        "useValidAnchor": "off", // 关闭：a 标签必须有有效的 href
+        "useKeyWithClickEvents": "off" // 关闭：点击事件必须配合键盘事件
       },
+      // 复杂度规则
       "complexity": {
-        "noForEach": "off",
-        "noUselessConstructor": "off",
-        "useArrowFunction": "off",
-        "useOptionalChain": "off",
-        "useLiteralKeys": "off",
-        "noUselessTernary": "off"
+        "noForEach": "off", // 关闭：禁止使用 forEach
+        "noUselessConstructor": "off", // 关闭：禁止无用的构造函数
+        "useArrowFunction": "off", // 关闭：强制使用箭头函数
+        "useOptionalChain": "off", // 关闭：强制使用可选链
+        "useLiteralKeys": "off", // 关闭：强制使用字面量键
+        "noUselessTernary": "off" // 关闭：禁止无用的三元表达式
       },
+      // 正确性规则
       "correctness": {
-        "noUnreachable": "off",
-        "useExhaustiveDependencies": "off"
+        "noUnreachable": "off", // 关闭：禁止不可达代码
+        "useExhaustiveDependencies": "off", // 关闭：React Hook 依赖项检查
+        "useHookAtTopLevel": "off" // 关闭：Hook 必须在顶层调用
       },
+      // 性能规则
       "performance": {
-        "noDelete": "off"
+        "noDelete": "off" // 关闭：禁止使用 delete 操作符
       },
+      // 启用推荐规则集
       "recommended": true,
+      // 代码风格规则
       "style": {
-        "noUnusedTemplateLiteral": "off",
-        "useSelfClosingElements": "off",
-        "noNonNullAssertion": "off",
-        "noParameterAssign": "off",
-        "noUselessElse": "off",
-        "useNodejsImportProtocol": "off",
-        "useSingleVarDeclarator": "off",
-        "useTemplate": "off"
+        "noUnusedTemplateLiteral": "off", // 关闭：禁止无用的模板字面量
+        "useSelfClosingElements": "off", // 关闭：强制使用自闭合元素
+        "noNonNullAssertion": "off", // 关闭：禁止非空断言
+        "noParameterAssign": "off", // 关闭：禁止给参数重新赋值
+        "noUselessElse": "off", // 关闭：禁止无用的 else
+        "useNodejsImportProtocol": "off", // 关闭：强制使用 Node.js 导入协议
+        "useSingleVarDeclarator": "off", // 关闭：强制单一变量声明
+        "useTemplate": "off", // 关闭：强制使用模板字符串
+        "useAsConstAssertion": "error", // 错误：强制使用 as const 断言
+        "useDefaultParameterLast": "error", // 错误：默认参数必须在最后
+        "useEnumInitializers": "error", // 错误：枚举必须初始化
+        "useNumberNamespace": "error", // 错误：使用 Number 命名空间
+        "noInferrableTypes": "error", // 错误：禁止可推断的类型注解
+        "useConst": "off", // 关闭：强制使用 const
+        "useImportType": "off" // 关闭：强制使用 import type
       },
+      // 可疑代码规则
       "suspicious": {
-        "noAssignInExpressions": "off",
-        "noArrayIndexKey": "off",
-        "noDoubleEquals": "off",
-        "noExplicitAny": "off",
-        "noGlobalIsNan": "off",
-        "noImplicitAnyLet": "off"
+        "noAssignInExpressions": "off", // 关闭：禁止在表达式中赋值
+        "noArrayIndexKey": "off", // 关闭：禁止使用数组索引作为 key
+        "noDoubleEquals": "off", // 关闭：禁止使用 ==
+        "noExplicitAny": "off", // 关闭：禁止显式 any 类型
+        "noGlobalIsNan": "off", // 关闭：禁止使用全局 isNaN
+        "noImplicitAnyLet": "off" // 关闭：禁止隐式 any 的 let 声明
       }
     }
   },
-  "organizeImports": {
-    "enabled": true
-  },
-  "overrides": [
-    {
-      "include": ["*.svelte", "*.astro", "*.vue"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
-          }
-        }
+  // 辅助功能配置
+  "assist": {
+    "actions": {
+      "source": {
+        // 启用导入语句自动组织
+        "organizeImports": "on"
       }
     }
-  ],
+  },
+  // 覆盖规则（针对特定文件的特殊配置）
+  "overrides": [],
+  // 版本控制系统配置
   "vcs": {
-    "clientKind": "git",
-    "enabled": true,
-    "useIgnoreFile": true
+    "enabled": true, // 启用版本控制集成
+    "clientKind": "git", // 使用 Git 作为版本控制系统
+    "useIgnoreFile": true // 使用 .gitignore 文件
   }
 }

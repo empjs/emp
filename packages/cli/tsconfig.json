@@ -4,17 +4,13 @@
     "outDir": "dist",
     "baseUrl": "./",
     "paths": {
-      "src/*": [
-        "./src/*"
-      ]
+      "src/*": ["./src/*"]
     },
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "emitDeclarationOnly": true,
     // "allowImportingTsExtensions": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": false
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

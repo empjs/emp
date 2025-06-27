@@ -12,7 +12,8 @@
     "build:doctor": "emp build --doctor",
     "dev:doctor": "emp dev --doctor",
     "emp": "emp",
-    "cra": "pnpm create emp"
+    "cra": "pnpm create emp",
+    "lint": "biome check . --fix"
   },
   "keywords": [],
   "author": "",

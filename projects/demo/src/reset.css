@@ -3,6 +3,7 @@
 *:after {
 	box-sizing: border-box;
 }
+
 html,
 body,
 div,
@@ -92,7 +93,6 @@ blockquote:after,
 q:before,
 q:after {
 	content: "";
-	content: none;
 }
 
 table {
