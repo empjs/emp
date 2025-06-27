@@ -32,9 +32,32 @@ class RspackModule {
     this.store.chain.merge({
       module: {
         generator: {
-          css: {localIdentName},
-          'css/auto': {localIdentName},
-          'css/module': {localIdentName},
+          // css: {localIdentName},
+          // 'css/auto': {localIdentName},
+          // 'css/module': {localIdentName},
+          // Generator options for css/auto modules
+          'css/auto': {
+            exportsConvention: 'as-is',
+            exportsOnly: false,
+            localIdentName,
+            esModule: true,
+          },
+          // Generator options for `css` modules
+          css: {
+            exportsOnly: false,
+            esModule: true,
+          },
+          // Generator options for css/module modules
+          'css/module': {
+            exportsConvention: 'as-is',
+            exportsOnly: false,
+            localIdentName,
+            esModule: true,
+          },
+          // Generator options for `json` modules
+          json: {
+            JSONParse: true,
+          },
         },
       },
     })

@@ -4,21 +4,11 @@
   "prettier.enable": false,
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
+    "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "explicit"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.defaultFormatter": "biomejs.biome",
-  "[scss]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
   "files.associations": {
     "*.css": "tailwindcss"
   },
