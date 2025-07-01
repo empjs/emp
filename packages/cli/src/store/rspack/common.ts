@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import {getBuildDependencies} from 'src/helper/loadConfig'
 import type {GlobalStore} from 'src/store'
 
 class RspackCommon {
@@ -18,6 +19,7 @@ class RspackCommon {
   }
   async common() {
     this.store.merge({
+      name: this.store.pkg.name,
       node: {
         global: true,
       },
@@ -56,9 +58,15 @@ class RspackCommon {
         // 缓存设置
         cache: {
           type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
+          buildDependencies: getBuildDependencies(),
+          version: this.store.empPkg.version,
         },
-        // code splitting
+        // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
+        incremental: 'advance-silent',
+        // 如果你的项目中包含较多的动态引用，开启后可以显著降低 code splitting 阶段耗时 https://rspack.rs/zh/config/experiments#experimentsparallelcodesplitting
         parallelCodeSplitting: this.store.empConfig.debug.parallelCodeSplitting,
+        // 对应的 loader 会被发送到 worker threads 执行 https://rspack.rs/zh/config/experiments#experimentsparallelloader
+        parallelLoader: true,
       },
       target: this.store.empConfig.target, // default [web,es5]
       infrastructureLogging: this.store.empConfig.debug.infrastructureLogging,

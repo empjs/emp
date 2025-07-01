@@ -3,12 +3,13 @@ import path from 'node:path'
 import util from 'node:util'
 import type {Configuration as RsConfig, RspackOptions} from '@rspack/core'
 import {rspack} from '@rspack/core'
+import {getEmpConfigPath, getTsConfig} from 'src/helper/loadConfig'
 import logger from 'src/helper/logger'
 import {deepAssign, getLanIp, vCompare} from 'src/helper/utils'
 import empConfig, {type EmpConfig} from 'src/store/empConfig'
 import rspackStore from 'src/store/rspack'
 import {StoreServer} from 'src/store/server'
-import type {EmpOptions, InjectTagsType} from 'src/types/config'
+import type {EmpOptions, InjectTagsType, StoreRootPaths} from 'src/types/config'
 import type {CliActionType, EMPModeType} from 'src/types/env'
 import WPChain from 'webpack-chain'
 import {chainName} from './chain'
@@ -101,9 +102,19 @@ export class GlobalStore {
   public entries: {[chunkName: string]: RspackOptions['entry']} = {} // 获取所有入口名称
   public debug!: EmpConfig['debug']
   public cliAction!: CliActionType
+  // 获取 emp-config路径 以及 tsconfig 路径
+  public rootPaths: StoreRootPaths = {
+    empConfig: undefined,
+    tsConfig: undefined,
+  }
   public async setup(cliAction: CliActionType, cliOptions: any) {
     logger.time('[store]Setup')
-    // console.log(`[empRoot]`, this.empRoot)
+    //
+    const [epath, tpath] = await Promise.all([getEmpConfigPath(), getTsConfig()])
+    this.rootPaths.empConfig = epath
+    this.rootPaths.tsConfig = tpath
+    // console.log('this.rootPaths', this.rootPaths)
+    //
     // 初始化 store 基础变量
     await this.initVars(cliAction, cliOptions)
     // 设置 empConfig

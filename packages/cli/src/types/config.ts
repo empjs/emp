@@ -48,6 +48,11 @@ export type DebugType = {
    * @default true
    */
   parallelCodeSplitting?: boolean
+  /**
+   * https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
+   * 启用 CssChunkingPlugin 后，SplitChunksPlugin 将不再处理 CSS 模块。 这意味着 optimization.splitChunks 等配置对 CSS 模块将不再生效，所有 CSS 模块的代码分割逻辑完全由 CssChunkingPlugin 处理。
+   */
+  cssChunkingPlugin?: boolean
 }
 // devServer Type
 export type ServerType = devServerConfig & {
@@ -379,3 +384,8 @@ export type InjectTagsType = InjectTagsTypeItem[]
 export type InjectTagsTypeItem = {
   pos?: 'head' | 'body'
 } & Partial<HtmlTagObject>
+
+export type StoreRootPaths = {
+  tsConfig?: string
+  empConfig?: string
+}

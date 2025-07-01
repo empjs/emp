@@ -1,0 +1,36 @@
+{
+  "name": "emp-v1-load-v3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@efox/emp-cli": "1.8.17",
+    "@types/react": "17",
+    "@types/react-dom": "17",
+    "babel-loader": "8",
+    "@babel/core": "7",
+    "@babel/runtime": "7",
+    "@babel/plugin-proposal-class-properties": "7.10.4",
+    "@babel/plugin-proposal-decorators": "7.12.1",
+    "@babel/plugin-syntax-top-level-await": "7.10.4",
+    "@babel/plugin-transform-runtime": "7.11.5",
+    "@babel/preset-env": "7.10.2",
+    "@babel/preset-react": "7.10.1",
+    "@babel/preset-typescript": "7.10.1"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}

@@ -21,6 +21,7 @@ export const DEFAULT_CONFIG_FILES = [
   'emp.config.mts',
   'emp.config.cts',
 ]
+
 //
 export const loadConfig = createJiti(__filename, {
   // esmResolve: true,
@@ -31,24 +32,40 @@ export const loadConfig = createJiti(__filename, {
 })
 
 export const getEmpConfigPath = async () => {
-  return fsFindByConfigFileName()
-}
-/* const globFindConfig = async () => {
-  logger.time('getEmpConfigPath')
-  const exp = path.join(store.root, `emp{-,.}config.{ts,js,mjs,cjs}`)
-  const entries = (await glob([exp], {windowsPathsNoEscape: true})) || []
-  logger.timeEnd('getEmpConfigPath')
-  return entries[0]
-} */
-const fsFindByConfigFileName = () => {
   logger.time('[store]GetEmpConfigPath')
-  let resolvedPath
-  for (const filename of DEFAULT_CONFIG_FILES) {
-    const filePath = path.resolve(store.root, filename)
-    if (!fs.existsSync(filePath)) continue
-    resolvedPath = filePath
-    break
-  }
+  const paths = DEFAULT_CONFIG_FILES.map(filename => path.resolve(store.root, filename))
+  const exists = await Promise.all(
+    paths.map(p =>
+      fs.promises.access(p).then(
+        () => true,
+        () => false,
+      ),
+    ),
+  )
+  const empConfigPath = paths.find((_, i) => exists[i])
   logger.timeEnd('[store]GetEmpConfigPath')
-  return resolvedPath
+  return empConfigPath
+}
+
+export const getTsConfig = async () => {
+  let tsconfig: string | undefined = path.join(store.root, 'tsconfig.json')
+  const exists = await fs.promises.access(tsconfig).then(
+    () => true,
+    () => false,
+  )
+  if (!exists) {
+    tsconfig = undefined
+  }
+  return tsconfig
+}
+
+export const getBuildDependencies = () => {
+  const entries: string[] = []
+  if (store.rootPaths.empConfig) {
+    entries.push(store.rootPaths.empConfig)
+  }
+  if (store.rootPaths.tsConfig) {
+    entries.push(store.rootPaths.tsConfig)
+  }
+  return entries
 }

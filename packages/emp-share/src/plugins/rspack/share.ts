@@ -47,7 +47,7 @@ export class EmpShare {
     }
   }
   private injectFramework() {
-    if (this.fk.libs.length > 0) {
+    if (this.fk && this.fk.libs.length > 0) {
       return this.injectFkLibs(this.fk.libs)
     }
     if (!this.op.empRuntime || !this.fk.lib) return

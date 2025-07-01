@@ -115,7 +115,7 @@ export class EmpConfig {
     return this.assign<Required<DebugType>>(
       {
         loggerLevel: 'info',
-        clearLog: true,
+        clearLog: false,
         progress: true,
         showRsconfig: false,
         showPerformance: false,
@@ -128,6 +128,7 @@ export class EmpConfig {
         devShowAllLog: false,
         showScriptDebug: false,
         parallelCodeSplitting: true,
+        cssChunkingPlugin: true,
       },
       this.store.empOptions.debug,
     )
@@ -362,9 +363,8 @@ export class EmpConfig {
   }
   private async syncEmpOptions() {
     logger.time('[store][empConfig]SyncEmpOptions')
-    const empConfigPath = await getEmpConfigPath()
-    if (!empConfigPath || !fs.existsSync(empConfigPath)) return
-    const empOptionsFn = await loadConfig(empConfigPath)
+    if (!this.store.rootPaths.empConfig) return
+    const empOptionsFn = await loadConfig(this.store.rootPaths.empConfig)
     if (typeof empOptionsFn === 'function') {
       this.store.empOptions = await empOptionsFn(this.store)
     } else {

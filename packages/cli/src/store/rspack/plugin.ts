@@ -19,6 +19,7 @@ class RspackPlugin {
       this.redoctor(),
       // this.sourceMapDevToolPlugin(),
       this.tsCheckerRspackPlugin(),
+      this.cssChunkingPlugin(),
     ]
     this.beforeLifeCycle()
     await this.store.empConfig.lifeCycle.beforePlugin()
@@ -138,6 +139,11 @@ class RspackPlugin {
   }
   circularDependency() {
     this.store.chain.plugin('circularDependency').use(rspack.CircularDependencyRspackPlugin, [{}])
+  }
+  // https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
+  cssChunkingPlugin() {
+    if (!this.store.empConfig.debug.cssChunkingPlugin) return
+    this.store.chain.plugin('CssChunkingPlugin').use(rspack.experiments.CssChunkingPlugin, [{}])
   }
 }
 

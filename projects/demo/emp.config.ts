@@ -42,6 +42,7 @@ export default defineConfig(store => {
       //   colors: true, // 启用彩色日志，便于区分
       //   appendOnly: true, // 追加日志而不是覆盖，适合持续观察
       // },
+      cssChunkingPlugin: true,
     },
     build: {
       // polyfill: 'entry',
