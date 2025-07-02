@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-react",
-  "version": "3.6.1",
+  "version": "3.8.2-beta.0",
   "description": "emp react plugin",
   "license": "MIT",
   "type": "module",
@@ -43,7 +43,7 @@
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@rspack/plugin-react-refresh": "1.4.1",
+    "@rspack/plugin-react-refresh": "1.4.3",
     "@svgr/webpack": "8.1.0",
     "react-refresh": "0.17.0"
   }
