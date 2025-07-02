@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-react",
-  "version": "3.8.2-beta.0",
+  "version": "3.8.2",
   "description": "emp react plugin",
   "license": "MIT",
   "type": "module",

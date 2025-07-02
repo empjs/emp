@@ -1,0 +1,23 @@
+{
+  "name": "es5-import-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.39.5"
+  }
+}
