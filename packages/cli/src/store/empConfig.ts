@@ -1,7 +1,6 @@
-import fs from 'node:fs'
 import type {Output, Resolve} from '@rspack/core'
 import {logger} from 'src/helper'
-import {getEmpConfigPath, loadConfig} from 'src/helper/loadConfig'
+import {loadConfig} from 'src/helper/loadConfig'
 import {deepAssign} from 'src/helper/utils'
 import type {GlobalStore} from 'src/store'
 import {LifeCycle} from 'src/store/lifeCycle'
@@ -106,9 +105,9 @@ export class EmpConfig {
     let rsdoctor: RsdoctorRspackPluginOptions | boolean = false
     if (this.store.cliOptions.doctor) {
       rsdoctor = {
-        supports: {
-          generateTileGraph: true,
-        },
+        // supports: {
+        //   generateTileGraph: true,
+        // },
       }
     }
     //
