@@ -1,7 +1,8 @@
 packages:
-  # all packages in subdirs of packages/ and components/
-  - 'packages/**'
-  - 'projects/**'
-  # exclude packages that are inside test directories
+  - packages/**
+  - projects/**
   - '!**/test/**'
-  - 'website'
+  - website
+
+ignoredBuiltDependencies:
+  - esbuild
