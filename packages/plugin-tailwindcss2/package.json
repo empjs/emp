@@ -1,0 +1,51 @@
+{
+  "name": "@empjs/plugin-tailwindcss2",
+  "version": "1.0.0",
+  "description": "base tailwind 2",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/plugin-tailwindcss3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["vue", "vue2"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@types/node": "^22.13.11",
+    "tsup": "^8.1.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-loader": "^8.1.1",
+    "tailwindcss": "2.2.19"
+  }
+}

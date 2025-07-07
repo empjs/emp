@@ -1,0 +1,26 @@
+{
+  "name": "tailwind-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp",
+    "check": "biome check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@empjs/plugin-tailwindcss2": "workspace:*",
+    "@empjs/share": "workspace:*",
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
+}
