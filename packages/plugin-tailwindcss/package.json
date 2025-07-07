@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-tailwindcss",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "base tailwind 4",
   "license": "MIT",
   "type": "module",
@@ -47,6 +47,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.1.1",
+    "postcss-preset-env": "^10.2.4",
     "tailwindcss": "^4.1.11"
   }
 }
