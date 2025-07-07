@@ -604,7 +604,7 @@ importers:
         version: 8.5.6
       postcss-loader:
         specifier: ^8.1.1
-        version: 8.1.1(@rspack/core@1.4.4(@swc/helpers@0.5.17))(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17)))
+        version: 8.1.1(@rspack/core@1.4.4(@swc/helpers@0.5.17))(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5))
       tailwindcss:
         specifier: 2.2.19
         version: 2.2.19(autoprefixer@10.4.21(postcss@8.5.6))(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.12.7(@swc/helpers@0.5.17))(@types/node@22.15.33)(typescript@5.8.3))
@@ -615,6 +615,9 @@ importers:
       '@types/node':
         specifier: ^22.13.11
         version: 22.15.33
+      '@types/tailwindcss':
+        specifier: ^2.2.4
+        version: 2.2.4
       tsup:
         specifier: ^8.1.0
         version: 8.5.0(@swc/core@1.12.7(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(typescript@5.8.3)(yaml@2.8.0)
@@ -4044,6 +4047,9 @@ packages:
 
   '@types/source-list-map@0.1.6':
     resolution: {integrity: sha512-5JcVt1u5HDmlXkwOD2nslZVllBBc7HDuOICfiZah2Z0is8M8g+ddAEawbmd3VjedfDHBzxCaXLs07QEmb7y54g==}
+
+  '@types/tailwindcss@2.2.4':
+    resolution: {integrity: sha512-8mIk+0BoReKiaBI4e3hjaz9YDQto+rdZ2eEExHf6AfS38FZcALQ6s8mTd+74N8BtBaLnTzLdNe5GbkzObWlSXw==}
 
   '@types/tapable@2.2.7':
     resolution: {integrity: sha512-D6QzACV9vNX3r8HQQNTOnpG+Bv1rko+yEA82wKs3O9CQ5+XW7HI7TED17/UE7+5dIxyxZIWTxKbsBeF6uKFCwA==}
@@ -12626,6 +12632,8 @@ snapshots:
 
   '@types/source-list-map@0.1.6': {}
 
+  '@types/tailwindcss@2.2.4': {}
+
   '@types/tapable@2.2.7':
     dependencies:
       tapable: 2.2.2
@@ -17101,6 +17109,18 @@ snapshots:
       postcss: 8.5.6
       yaml: 2.8.0
 
+  postcss-loader@8.1.1(@rspack/core@1.4.4(@swc/helpers@0.5.17))(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)):
+    dependencies:
+      cosmiconfig: 9.0.0(typescript@5.8.3)
+      jiti: 1.21.7
+      postcss: 8.5.6
+      semver: 7.7.2
+    optionalDependencies:
+      '@rspack/core': 1.4.4(@swc/helpers@0.5.17)
+      webpack: 5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)
+    transitivePeerDependencies:
+      - typescript
+
   postcss-loader@8.1.1(@rspack/core@1.4.4(@swc/helpers@0.5.17))(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.8.3)
@@ -18910,6 +18930,19 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
+  terser-webpack-plugin@5.3.14(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 4.3.2
+      serialize-javascript: 6.0.2
+      terser: 5.43.1
+      webpack: 5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)
+    optionalDependencies:
+      '@swc/core': 1.12.7(@swc/helpers@0.5.17)
+      esbuild: 0.25.5
+    optional: true
+
   terser-webpack-plugin@5.3.14(@swc/core@1.12.7(@swc/helpers@0.5.17))(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
@@ -19688,6 +19721,38 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
+
+  webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5):
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.8
+      '@types/json-schema': 7.0.15
+      '@webassemblyjs/ast': 1.14.1
+      '@webassemblyjs/wasm-edit': 1.14.1
+      '@webassemblyjs/wasm-parser': 1.14.1
+      acorn: 8.15.0
+      browserslist: 4.25.1
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.18.2
+      es-module-lexer: 1.7.0
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 4.3.2
+      tapable: 2.2.2
+      terser-webpack-plugin: 5.3.14(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5))
+      watchpack: 2.4.4
+      webpack-sources: 3.3.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+    optional: true
 
   websocket-driver@0.7.4:
     dependencies:

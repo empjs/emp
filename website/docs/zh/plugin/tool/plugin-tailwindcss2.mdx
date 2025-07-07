@@ -1,4 +1,4 @@
-# Tailwind CSS v3 插件
+# Tailwind CSS v2 插件
 
 import { Badge } from '@theme';
 
@@ -9,22 +9,16 @@ import { Badge } from '@theme';
 ### 安装插件
 import { PackageManagerTabs } from '@theme';
 
-<PackageManagerTabs command="add @empjs/plugin-tailwindcss3" />
+<PackageManagerTabs command="add @empjs/plugin-tailwindcss2" />
 
 ### 注册插件
 ```ts title="emp-config.js"
 import {defineConfig} from '@empjs/cli'
-import pluginTailwindcss from '@empjs/plugin-tailwindcss3'
+import pluginTailwindcss from '@empjs/plugin-tailwindcss2'
 export default defineConfig(store => {
   return {
     plugins:[
-      pluginTailwindcss({
-        content: ['./src/**/*.{js,ts,jsx,tsx}'],
-        theme: {
-          extend: {},
-        },
-        plugins: [],
-      }),
+      pluginTailwindcss(),
     ],
   }
 })

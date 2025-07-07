@@ -13,7 +13,7 @@ export default defineConfig(store => {
             lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
           },
           framework: {
-            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
             global: 'EMP_ADAPTER_REACT',
           },
           setExternals: externalReact,

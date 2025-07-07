@@ -19,7 +19,7 @@ export default (tailwindConfig?: TailwindConfig, options?: autoprefixer.Options)
         },
         plugins: [],
       }
-      tailwindConfig = Object.assign({}, tailwindConfigDefault, tailwindConfig)
+      tailwindConfig = store.deepAssign<TailwindConfig>(tailwindConfigDefault, tailwindConfig)
       // console.log('tailwindConfig', tailwindConfig)
       //
       chain.module
