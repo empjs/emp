@@ -10,9 +10,9 @@ function App() {
       <h1 className="text-4xl font-bold text-black-800 p-10 text-center">Tailwind CSS 4</h1>
       <Responsive />
       <GridFlow />
-      {/* <Shop />
-      <Sizing />
-      <Colors /> */}
+      {/* <Shop /> */}
+      {/* <Sizing /> */}
+      {/* <Colors /> */}
     </div>
   )
 }
