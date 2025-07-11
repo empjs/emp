@@ -1,0 +1,51 @@
+{
+  "name": "@empjs/rspack-chain",
+  "version": "1.0.0",
+  "description": "emp rspack chain",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/rspack-chain"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["rspack-chain", "webpack-chain"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "bun test"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "@types/bun": "latest",
+    "tsup": "^8.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "javascript-stringify": "^2.1.0"
+  }
+}

@@ -1,3 +1,5 @@
+export {default as Chain} from '@empjs/rspack-chain'
+
 export const chainName = {
   rule: {
     mjs: 'mjs',

@@ -11,8 +11,7 @@ import rspackStore from 'src/store/rspack'
 import {StoreServer} from 'src/store/server'
 import type {EmpOptions, InjectTagsType, StoreRootPaths} from 'src/types/config'
 import type {CliActionType, EMPModeType} from 'src/types/env'
-import WPChain from 'webpack-chain'
-import {chainName} from './chain'
+import {Chain, chainName} from './chain'
 import {HtmlEmpInjectPlugin} from './rspack/builtInPlugin'
 export class GlobalStore {
   public rspackVersion = rspack.rspackVersion
@@ -94,7 +93,7 @@ export class GlobalStore {
    * 项目配置
    */
   public cliOptions: any
-  public chain!: WPChain
+  public chain!: Chain
   public rsConfig!: RsConfig
   public empOptions: EmpOptions = {}
   public empConfig!: EmpConfig
@@ -124,7 +123,7 @@ export class GlobalStore {
     // 初始化 store 绝对路径
     this.initPaths()
     // chain 实例化
-    this.chain = new WPChain()
+    this.chain = new Chain()
     // rspack setup
     await rspackStore.setup(this)
     //

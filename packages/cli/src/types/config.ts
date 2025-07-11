@@ -15,9 +15,9 @@ import type {
 } from '@rspack/core'
 import type {HtmlTagObject} from 'html-webpack-plugin'
 import type {Options as SassOptions} from 'sass-embedded'
+import {Chain} from 'src/store/chain'
 import type {LifeCycleOptions} from 'src/store/lifeCycle'
 import type {TsCheckerRspackPluginOptions} from 'ts-checker-rspack-plugin/lib/plugin-options'
-import type Chain from 'webpack-chain'
 import type {EMP3PluginType} from './plugin'
 
 export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
