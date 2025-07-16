@@ -24,6 +24,7 @@ class RspackCommon {
         global: true,
       },
       experiments: {
+        nativeWatcher: true,
         // rspackFuture: {
         //   // disableTransformByDefault: false, // 开启默认转换
         //   //  移除 experiments.rspackFuture.disableApplyEntryLazily
