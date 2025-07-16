@@ -6,12 +6,12 @@ import {rspack} from '@rspack/core'
 import {getEmpConfigPath, getTsConfig} from 'src/helper/loadConfig'
 import logger from 'src/helper/logger'
 import {deepAssign, getLanIp, vCompare} from 'src/helper/utils'
+import {Chain} from 'src/store/chain'
 import empConfig, {type EmpConfig} from 'src/store/empConfig'
 import rspackStore from 'src/store/rspack'
 import {StoreServer} from 'src/store/server'
 import type {EmpOptions, InjectTagsType, StoreRootPaths} from 'src/types/config'
 import type {CliActionType, EMPModeType} from 'src/types/env'
-import WPChain from 'webpack-chain'
 import {chainName} from './chain'
 import {HtmlEmpInjectPlugin} from './rspack/builtInPlugin'
 export class GlobalStore {
@@ -94,7 +94,7 @@ export class GlobalStore {
    * 项目配置
    */
   public cliOptions: any
-  public chain!: WPChain
+  public chain!: Chain
   public rsConfig!: RsConfig
   public empOptions: EmpOptions = {}
   public empConfig!: EmpConfig
@@ -124,7 +124,7 @@ export class GlobalStore {
     // 初始化 store 绝对路径
     this.initPaths()
     // chain 实例化
-    this.chain = new WPChain()
+    this.chain = new Chain()
     // rspack setup
     await rspackStore.setup(this)
     //

@@ -1,3 +1,5 @@
+import Chain from 'webpack-chain'
+export {Chain}
 export const chainName = {
   rule: {
     mjs: 'mjs',
