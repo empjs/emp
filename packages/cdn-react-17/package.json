@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cdn-react",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
