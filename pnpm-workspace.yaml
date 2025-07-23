@@ -5,4 +5,10 @@ packages:
   - website
 
 ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - '@tailwindcss/oxide'
+  - core-js
+  - core-js-bundle
+  - core-js-pure
   - esbuild

@@ -199,6 +199,9 @@ importers:
       compression:
         specifier: ^1.7.4
         version: 1.8.0
+      connect:
+        specifier: ^3.7.0
+        version: 3.7.0
       core-js:
         specifier: ^3.41.0
         version: 3.43.0
@@ -208,9 +211,6 @@ importers:
       default-gateway:
         specifier: ^7.2.2
         version: 7.2.2
-      express:
-        specifier: ^4.21.2
-        version: 4.21.2
       fs-extra:
         specifier: ^11.2.0
         version: 11.3.0
@@ -238,6 +238,9 @@ importers:
       sass-loader:
         specifier: ^16.0.5
         version: 16.0.5(@rspack/core@1.4.9(@swc/helpers@0.5.17))(sass-embedded@1.89.2)(sass@1.89.2)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17)))
+      serve-static:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-checker-rspack-plugin:
         specifier: ^1.1.4
         version: 1.1.4(@rspack/core@1.4.9(@swc/helpers@0.5.17))(typescript@5.8.3)
@@ -251,15 +254,15 @@ importers:
       '@types/compression':
         specifier: ^1.7.2
         version: 1.8.1
+      '@types/connect':
+        specifier: ^3.4.38
+        version: 3.4.38
       '@types/cors':
         specifier: ^2.8.12
         version: 2.8.19
       '@types/default-gateway':
         specifier: ^7.2.1
         version: 7.2.2
-      '@types/express':
-        specifier: ^4.17.13
-        version: 4.17.23
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -269,6 +272,9 @@ importers:
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.23
+      '@types/serve-static':
+        specifier: ^1.15.8
+        version: 1.15.8
       '@types/watchpack':
         specifier: ^2.4.3
         version: 2.4.4
@@ -553,11 +559,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17)))
       stylus:
-        specifier: ^0.63.0
-        version: 0.63.0
+        specifier: 0.0.1-security
+        version: 0.0.1-security
       stylus-loader:
         specifier: ^8.1.1
-        version: 8.1.1(@rspack/core@1.4.9(@swc/helpers@0.5.17))(stylus@0.63.0)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17)))
+        version: 8.1.1(@rspack/core@1.4.9(@swc/helpers@0.5.17))(stylus@0.0.1-security)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17)))
     devDependencies:
       '@empjs/cli':
         specifier: workspace:*
@@ -1822,9 +1828,6 @@ importers:
         version: 18.3.23
 
 packages:
-
-  '@adobe/css-tools@4.3.3':
-    resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -6345,6 +6348,10 @@ packages:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
+  fresh@2.0.0:
+    resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
+    engines: {node: '>= 0.8'}
+
   fs-extra@10.1.0:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
     engines: {node: '>=12'}
@@ -7658,6 +7665,10 @@ packages:
 
   mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
+    engines: {node: '>= 0.6'}
+
+  mime-types@3.0.1:
+    resolution: {integrity: sha512-xRc4oEhT6eaBpU1XF7AjpOFD+xQmXNB5OVKwp4tqCuBpHLS/ZbBDrc07mYTDqVMg6PfxUjjNp85O6Cd2Z/5HWA==}
     engines: {node: '>= 0.6'}
 
   mime@1.6.0:
@@ -9355,9 +9366,6 @@ packages:
   sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
 
-  sax@1.3.0:
-    resolution: {integrity: sha512-0s+oAmw9zLl1V1cS9BtZN7JAd0cW5e0QH4W3LWEK6a4LaLEA2OTpGYWDY+6XasBLtz6wkm3u1xRw95mRuJ59WA==}
-
   sax@1.4.1:
     resolution: {integrity: sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==}
 
@@ -9428,6 +9436,10 @@ packages:
     resolution: {integrity: sha512-dW41u5VfLXu8SJh5bwRmyYUbAoSB3c9uQh6L8h/KtsFREPWpbX1lrljJo186Jc4nmci/sGUZ9a0a0J2zgfq2hw==}
     engines: {node: '>= 0.8.0'}
 
+  send@1.2.0:
+    resolution: {integrity: sha512-uaW0WwXKpL9blXE2o0bRhoL2EGXIrZxQ2ZQ4mgcfoBxdFmQold+qWsD2jLrfZ0trjKL6vOw0j//eAwcALFjKSw==}
+    engines: {node: '>= 18'}
+
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
 
@@ -9441,6 +9453,10 @@ packages:
   serve-static@1.16.2:
     resolution: {integrity: sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==}
     engines: {node: '>= 0.8.0'}
+
+  serve-static@2.2.0:
+    resolution: {integrity: sha512-61g9pCh0Vnh7IutZjtLGGpTA355+OPn2TyDv/6ivP2h/AdAVX9azsoxmg2/M6nZeQZNYBEwIcsne1mJd9oQItQ==}
+    engines: {node: '>= 18'}
 
   serve@14.2.4:
     resolution: {integrity: sha512-qy1S34PJ/fcY8gjVGszDB3EXiPSk5FKhUa7tQe0UPRddxRidc2V6cNHPNewbE1D7MAkgLuWEt3Vw56vYy73tzQ==}
@@ -9725,9 +9741,8 @@ packages:
       webpack:
         optional: true
 
-  stylus@0.63.0:
-    resolution: {integrity: sha512-OMlgrTCPzE/ibtRMoeLVhOY0RcNuNWh0rhAVqeKnk/QwcuUKQbnqhZ1kg2vzD8VU/6h3FoPTq4RJPHgLBvX6Bw==}
-    hasBin: true
+  stylus@0.0.1-security:
+    resolution: {integrity: sha512-qTLX5NJwuj5dqdJyi1eAjXGE4HfjWDoPLbSIpYWn/rAEdiyZnsngS/Yj0BRjM7wC41e/+spK4QCXFqz7LM0fFQ==}
 
   sucrase@3.35.0:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
@@ -10526,8 +10541,6 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
-
-  '@adobe/css-tools@4.3.3': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -15751,6 +15764,8 @@ snapshots:
 
   fresh@0.5.2: {}
 
+  fresh@2.0.0: {}
+
   fs-extra@10.1.0:
     dependencies:
       graceful-fs: 4.2.11
@@ -17340,6 +17355,10 @@ snapshots:
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
+
+  mime-types@3.0.1:
+    dependencies:
+      mime-db: 1.54.0
 
   mime@1.6.0: {}
 
@@ -19242,8 +19261,6 @@ snapshots:
 
   sax@1.2.4: {}
 
-  sax@1.3.0: {}
-
   sax@1.4.1:
     optional: true
 
@@ -19330,6 +19347,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  send@1.2.0:
+    dependencies:
+      debug: 4.4.1
+      encodeurl: 2.0.0
+      escape-html: 1.0.3
+      etag: 1.8.1
+      fresh: 2.0.0
+      http-errors: 2.0.0
+      mime-types: 3.0.1
+      ms: 2.1.3
+      on-finished: 2.4.1
+      range-parser: 1.2.1
+      statuses: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+
   serialize-javascript@6.0.2:
     dependencies:
       randombytes: 2.1.0
@@ -19362,6 +19395,15 @@ snapshots:
       escape-html: 1.0.3
       parseurl: 1.3.3
       send: 0.19.0
+    transitivePeerDependencies:
+      - supports-color
+
+  serve-static@2.2.0:
+    dependencies:
+      encodeurl: 2.0.0
+      escape-html: 1.0.3
+      parseurl: 1.3.3
+      send: 1.2.0
     transitivePeerDependencies:
       - supports-color
 
@@ -19708,24 +19750,16 @@ snapshots:
 
   stylis@4.3.6: {}
 
-  stylus-loader@8.1.1(@rspack/core@1.4.9(@swc/helpers@0.5.17))(stylus@0.63.0)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))):
+  stylus-loader@8.1.1(@rspack/core@1.4.9(@swc/helpers@0.5.17))(stylus@0.0.1-security)(webpack@5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))):
     dependencies:
       fast-glob: 3.3.3
       normalize-path: 3.0.0
-      stylus: 0.63.0
+      stylus: 0.0.1-security
     optionalDependencies:
       '@rspack/core': 1.4.9(@swc/helpers@0.5.17)
       webpack: 5.99.9(@swc/core@1.12.7(@swc/helpers@0.5.17))
 
-  stylus@0.63.0:
-    dependencies:
-      '@adobe/css-tools': 4.3.3
-      debug: 4.4.1
-      glob: 7.2.3
-      sax: 1.3.0
-      source-map: 0.7.4
-    transitivePeerDependencies:
-      - supports-color
+  stylus@0.0.1-security: {}
 
   sucrase@3.35.0:
     dependencies:

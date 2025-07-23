@@ -6,5 +6,8 @@ export default defineConfig(store => {
     debug: {
       showPerformance: true,
     },
+    server: {
+      https: true,
+    },
   }
 })
