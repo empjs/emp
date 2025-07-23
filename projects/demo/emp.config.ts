@@ -16,8 +16,7 @@ export default defineConfig(store => {
       //   },
       // },
       port,
-      open: false,
-      // server: 'http2',
+      // open: false,
       https: true,
     },
     html: {
