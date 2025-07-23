@@ -12,6 +12,11 @@ export class DevServer implements DevServerType {
     return app
   }
   async beforeCompiler(rspackConfig: any) {
+    rspackConfig.devServer.app = () => require('connect')()
+    if (rspackConfig.devServer.server && rspackConfig.devServer.server.type === 'https') {
+      rspackConfig.devServer.server.type = 'http2'
+    }
+    console.log('rspackConfig', rspackConfig.devServer)
     return rspackConfig
   }
 }

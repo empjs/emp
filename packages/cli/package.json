@@ -4,8 +4,19 @@
   "description": "emp",
   "license": "MIT",
   "type": "module",
-  "files": ["dist", "bin", "resource", "template", "client.d.ts", "emp-tsconfig.json"],
-  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "files": [
+    "dist",
+    "bin",
+    "resource",
+    "template",
+    "client.d.ts",
+    "emp-tsconfig.json"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -15,7 +26,11 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": ["rspack", "rust", "typescript"],
+  "keywords": [
+    "rspack",
+    "rust",
+    "typescript"
+  ],
   "bin": {
     "emp": "./bin/emp.js"
   },
@@ -58,6 +73,7 @@
     "tsup": "^8.4.0"
   },
   "dependencies": {
+    "@empjs/typescript-plugin-css-modules": "1.0.0",
     "@rsdoctor/rspack-plugin": "1.1.8",
     "@rspack/core": "1.4.9",
     "@rspack/dev-server": "1.1.3",
@@ -66,6 +82,7 @@
     "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "compression": "^1.7.4",
+    "connect": "^3.7.0",
     "core-js": "^3.41.0",
     "cors": "^2.8.5",
     "default-gateway": "^7.2.2",
@@ -80,7 +97,6 @@
     "sass-embedded": "1.89.2",
     "sass-loader": "^16.0.5",
     "ts-checker-rspack-plugin": "^1.1.4",
-    "@empjs/typescript-plugin-css-modules": "1.0.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-chain": "^6.5.1"
   }

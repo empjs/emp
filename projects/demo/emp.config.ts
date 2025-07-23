@@ -16,6 +16,9 @@ export default defineConfig(store => {
       //   },
       // },
       port,
+      open: false,
+      // server: 'http2',
+      https: true,
     },
     html: {
       template: 'src/index.html',
