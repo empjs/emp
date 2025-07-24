@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-stylus",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "emp stylus plugin",
   "license": "MIT",
   "type": "module",

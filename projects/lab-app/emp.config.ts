@@ -16,5 +16,6 @@ export default defineConfig(store => {
     build: {
       sourcemap: true,
     },
+    // cache: false,
   }
 })

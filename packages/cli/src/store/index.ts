@@ -106,6 +106,7 @@ export class GlobalStore {
   public rootPaths: StoreRootPaths = {
     empConfig: undefined,
     tsConfig: undefined,
+    pkg: undefined,
   }
   public async setup(cliAction: CliActionType, cliOptions: any) {
     logger.time('[store]Setup')
@@ -113,6 +114,7 @@ export class GlobalStore {
     const [epath, tpath] = await Promise.all([getEmpConfigPath(), getTsConfig()])
     this.rootPaths.empConfig = epath
     this.rootPaths.tsConfig = tpath
+    this.rootPaths.pkg = this.resolve('package.json')
     // console.log('this.rootPaths', this.rootPaths)
     //
     // 初始化 store 基础变量

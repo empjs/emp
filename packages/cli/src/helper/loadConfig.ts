@@ -60,7 +60,10 @@ export const getTsConfig = async () => {
 }
 
 export const getBuildDependencies = () => {
-  const entries: string[] = []
+  const entries: string[] = [__filename]
+  if (store.rootPaths.pkg) {
+    entries.push(store.rootPaths.pkg)
+  }
   if (store.rootPaths.empConfig) {
     entries.push(store.rootPaths.empConfig)
   }

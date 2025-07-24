@@ -388,4 +388,5 @@ export type InjectTagsTypeItem = {
 export type StoreRootPaths = {
   tsConfig?: string
   empConfig?: string
+  pkg?: string
 }
