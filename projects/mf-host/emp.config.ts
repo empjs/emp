@@ -37,7 +37,7 @@ export default defineConfig(store => {
         //   disableDynamicRemoteTypeHints: false,
         //   disableLiveReload: false,
         // },
-        dev: false,
+        // dev: false,
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
@@ -95,6 +95,6 @@ export default defineConfig(store => {
           }
         })
     },
-    cache: false,
+    // cache: true,
   }
 })

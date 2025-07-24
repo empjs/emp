@@ -4,7 +4,7 @@ import pluginReact from '@empjs/plugin-react'
 
 export default defineConfig(store => {
   return {
-    autoPages: false,
+    autoPages: true,
     plugins: [pluginReact(), pluginlightningcss()],
     debug: {
       clearLog: false,
