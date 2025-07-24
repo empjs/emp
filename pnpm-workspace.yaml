@@ -5,6 +5,7 @@ packages:
   - website
 
 ignoredBuiltDependencies:
+  - '@biomejs/biome'
   - '@parcel/watcher'
   - '@swc/core'
   - '@tailwindcss/oxide'

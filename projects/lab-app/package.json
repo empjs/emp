@@ -1,0 +1,32 @@
+{
+  "name": "mf-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev -ev aa=1 -ev bb=2 -ev cc=3",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.14"
+  },
+  "dependencies": {
+    "@astro-ui/emp": "^1.0.38",
+    "@astro/utils": "^0.0.74",
+    "@astro/yyapi": "^0.0.64",
+    "@empjs/share": "workspace:^",
+    "core-js": "^3.36.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
