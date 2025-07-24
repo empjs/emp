@@ -1,4 +1,5 @@
-import Chain from 'webpack-chain'
+// import Chain from 'webpack-chain'
+import Chain from '@empjs/chain'
 export {Chain}
 export const chainName = {
   rule: {
