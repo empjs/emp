@@ -37,7 +37,7 @@ export default defineConfig(store => {
     ],
     debug: {
       // showPerformance: true,
-      // showRsconfig: true,
+      // showRsconfig: 'wp.json',
       // clearLog: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志

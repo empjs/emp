@@ -12,3 +12,4 @@ ignoredBuiltDependencies:
   - core-js-bundle
   - core-js-pure
   - esbuild
+  - fsevents
