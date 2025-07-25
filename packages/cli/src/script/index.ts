@@ -2,9 +2,10 @@ import process from 'node:process'
 import {program} from 'commander'
 // import logger from 'src/helper/logger'
 // import {vCompare} from 'src/helper/utils'
-import store from 'src/store'
-export default function runScript() {
-  program.version(store.empPkg.version, '-v, --version').usage('<command> [options]')
+// import store from 'src/store'
+import pkg from '../../package.json'
+export default async function runScript() {
+  program.version(pkg.version, '-v, --version').usage('<command> [options]')
   /**
    * 调试
    */

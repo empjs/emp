@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cli",
-  "version": "3.9.0",
+  "version": "3.9.1-beta.1",
   "description": "emp",
   "license": "MIT",
   "type": "module",
@@ -61,7 +61,7 @@
   "dependencies": {
     "@empjs/typescript-plugin-css-modules": "1.0.0",
     "@rsdoctor/rspack-plugin": "1.1.8",
-    "@rspack/core": "1.4.9",
+    "@rspack/core": "1.4.10",
     "@rspack/dev-server": "1.1.3",
     "@swc/helpers": "^0.5.17",
     "address": "^2.0.2",
