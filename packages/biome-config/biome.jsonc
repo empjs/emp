@@ -117,13 +117,15 @@
         "useHookAtTopLevel": "off", // 关闭：Hook 必须在顶层调用
         "noUnusedVariables": "off",
         "noUnusedImports": "off",
-        "noUnusedFunctionParameters": "off"
+        "noUnusedFunctionParameters": "off",
+        "noUnusedPrivateClassMembers": "off"
       },
       "nursery": {
         "noNestedComponentDefinitions": "off"
       },
       // 性能规则
       "performance": {
+        "noAccumulatingSpread": "off",
         "noDelete": "off" // 关闭：禁止使用 delete 操作符
       },
       // 启用推荐规则集

@@ -96,6 +96,8 @@ export default async function runScript() {
     .action(o => {
       // exec('init', 'none', o, pkg)
     })
-  // 执行命令
+  //执行命令
   program.parse(process.argv)
+  // 拓展指令行
+  return program
 }
