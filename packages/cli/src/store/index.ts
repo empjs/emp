@@ -173,11 +173,15 @@ export class GlobalStore {
   /**
    * 设置 日志等级
    */
+  private loggerExtensionName = ''
+  public setLoggerExtensionName(name: string) {
+    this.loggerExtensionName = name
+  }
   public setLogger() {
     let logLevel = this.cliMode === 'dev' ? 'debug' : 'info'
     if (this.debug.loggerLevel) logLevel = this.debug.loggerLevel
     logger.setup({
-      fullName: `EMP⚡${this.empPkg.version}${this.cliMode === 'dev' ? '.DEV' : ''}`,
+      fullName: `EMP⚡${this.empPkg.version}${this.cliMode === 'dev' ? '.DEV' : ''}${this.loggerExtensionName ? ' ' + this.loggerExtensionName : ''}`,
       brandName: `EMP`,
       logLevel,
     })
