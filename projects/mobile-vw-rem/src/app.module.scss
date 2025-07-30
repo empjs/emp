@@ -2,4 +2,5 @@ $font-size: 30px;
 
 .title {
     font-size: $font-size;
+    @include clearfix();
 }

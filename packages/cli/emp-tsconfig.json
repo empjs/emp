@@ -1,7 +1,21 @@
 {
   "compilerOptions": {
     "types": ["@empjs/cli/client"],
-    "plugins": [{ "name": "@empjs/typescript-plugin-css-modules" }],
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "allowUnknownClassnames": true
+        },
+        "postcssOptions": {
+          "useConfig": true
+        }
+      }
+    ],
+    "paths": {
+      "src/*": ["./src/*"],
+      "*": ["./@mf-types/*"]
+    },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,

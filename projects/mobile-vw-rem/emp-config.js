@@ -48,7 +48,20 @@ export default defineConfig(store => {
     debug: {
       clearLog: false,
       showRsconfig: false,
+      warnRuleAsWarning: true,
     },
     plugins,
+    chain: config => {
+      config.module
+        .rule('sass')
+        .use('sassLoader')
+        .tap(options => {
+          console.log('options', options)
+          return {
+            ...options,
+            additionalData: `@use '~@/assets/css/lib/_mixin.scss' as *;`,
+          }
+        })
+    },
   }
 })

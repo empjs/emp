@@ -39,7 +39,7 @@
   "license": "ISC",
   "dependencies": {
     "browserslist": "^4.24.2",
-    "lightningcss": "^1.28.1"
+    "lightningcss": "^1.30.1"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",

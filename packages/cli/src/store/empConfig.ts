@@ -128,6 +128,7 @@ export class EmpConfig {
         showScriptDebug: false,
         parallelCodeSplitting: true,
         cssChunkingPlugin: true,
+        warnRuleAsWarning: true,
       },
       this.store.empOptions.debug,
     )
@@ -240,7 +241,7 @@ export class EmpConfig {
   }
   get css() {
     const cb: Required<EmpOptions['css']> = this.assign(
-      {sass: {mode: 'modern', warnRuleAsWarning: false}, prifixName: ''},
+      {sass: {mode: 'modern', warnRuleAsWarning: this.store.empConfig.debug.warnRuleAsWarning}, prifixName: ''},
       this.store.empOptions.css,
     )
     return cb

@@ -38,6 +38,7 @@ export type DebugType = {
   rsdoctor?: boolean | RsdoctorRspackPluginOptions
   newTreeshaking?: boolean
   devShowAllLog?: boolean //显示所有错误 默认关闭
+  warnRuleAsWarning?: boolean
   /**
    * 是否显示执行日志
    * @default false

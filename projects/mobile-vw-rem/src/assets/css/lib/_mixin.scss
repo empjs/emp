@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+@mixin clearfix() {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    display: table;
+    content: '';
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin ir() {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  direction: ltr;
+  display: block;
+  overflow: hidden;
+  text-align: left;
+  text-indent: -999em;
+  outline: none;
+
+  br {
+    display: none;
+  }
+}
+
+// text overflow
+// -------------------------
+// requires inline-block or block for proper styling
+@mixin text-overflow() {
+  word-wrap: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// @mixin text-overflow($row:1) {
+//     width:auto;
+//     display: -webkit-box;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     -webkit-line-clamp: $row;
+//     -webkit-box-orient: vertical;
+// }
+
+@mixin scroll-bar($width: 4px, $color: #fff, $thumbOpacity: 0.2, $thumbHoverOpacity: 0.5) {
+  // overflow: hidden;
+  overflow: auto;
+
+  &:hover {
+    // overflow: auto;
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: $width;
+      background-color: rgba($color, $thumbOpacity);
+
+      &:hover {
+        background-color: rgba($color, $thumbHoverOpacity);
+      }
+    }
+
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: $width;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: $width;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $width;
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+      // background-color: rgba($color, $thumbHoverOpacity);
+    }
+  }
+}
+
+@mixin scroll-bar-x($height: 4px, $color: #fff, $thumbOpacity: 0.2, $thumbHoverOpacity: 0.5) {
+  overflow: hidden;
+
+  &:hover {
+    // overflow: auto;
+    overflow-x: auto;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: $height;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    // width: $width;
+    height: $height;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $height;
+    background-color: rgba($color, $thumbOpacity);
+
+    &:hover {
+      background-color: rgba($color, $thumbHoverOpacity);
+    }
+  }
+}
+
+@mixin triangle($direction, $size, $borderColor) {
+  content: '';
+  height: 0;
+  width: 0;
+
+  @if $direction==top {
+    border-bottom: $size solid $borderColor;
+    border-left: $size dashed transparent;
+    border-right: $size dashed transparent;
+  }
+
+  @else if $direction==right {
+    border-left: $size solid $borderColor;
+    border-top: $size dashed transparent;
+    border-bottom: $size dashed transparent;
+  }
+
+  @else if $direction==bottom {
+    border-top: $size solid $borderColor;
+    border-left: $size dashed transparent;
+    border-right: $size dashed transparent;
+  }
+
+  @else if $direction==left {
+    border-right: $size solid $borderColor;
+    border-top: $size dashed transparent;
+    border-bottom: $size dashed transparent;
+  }
+}
+
+@mixin table {
+  width: 100%;
+  margin: 10px 0;
+
+  tr th,
+  tr td {
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 12px;
+    color: #989088;
+    border: 1px solid #624d3a;
+    font-weight: 400;
+  }
+
+  td:first-child {
+    color: #febd5f;
+  }
+
+  tr th {
+    color: #989088;
+    background-color: #322a24;
+  }
+
+  tr td {
+    background-color: transparent;
+  }
+}
