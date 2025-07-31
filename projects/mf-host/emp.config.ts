@@ -28,7 +28,7 @@ export default defineConfig(store => {
           './CountComp': './src/CountComp',
           './Section': './src/component/Section',
         },
-        // manifest: true,
+        manifest: true,
         // dts: {
         //   generateTypes: true,
         // },
@@ -81,7 +81,7 @@ export default defineConfig(store => {
       // },
     },
     debug: {
-      showRsconfig: true,
+      // showRsconfig: true,
       clearLog: false,
     },
     chain(config) {
@@ -91,7 +91,8 @@ export default defineConfig(store => {
         .tap(options => {
           return {
             ...options,
-            additionalData: `@import '~@/css/mixin';`,
+            // additionalData: `@import '~@/css/mixin';`,
+            additionalData: `@use '~@/css/mixin' as *;`,
           }
         })
     },

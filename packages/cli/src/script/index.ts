@@ -98,6 +98,4 @@ export default async function runScript() {
     })
   //执行命令
   program.parse(process.argv)
-  // 拓展指令行
-  return program
 }

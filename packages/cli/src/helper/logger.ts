@@ -1,8 +1,8 @@
 import color from 'src/helper/color'
 export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
-
+export {color}
 //
-class Logger {
+export class Logger {
   public brandName = ''
   public fullName = ''
   public logLevel = 'debug'

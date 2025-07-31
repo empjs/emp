@@ -7,7 +7,7 @@ export class BaseScript {
   async setup(cliName: string, o: any) {
     logger.time(`[${cliName}]Setup`)
     //实例化 store
-    await store.setup(cliName, o)
+    await store.setup(cliName as any, o)
     // 是否清除上一个日志
     if (store.debug.clearLog) {
       clearConsole()
