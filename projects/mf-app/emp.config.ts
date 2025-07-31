@@ -36,7 +36,7 @@ export default defineConfig(store => {
           },
           setExternals: (o, global) => {
             o = externalReact(o, global)
-            console.log(o)
+            // console.log(o)
             return o
           },
         },

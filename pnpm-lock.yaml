@@ -338,11 +338,8 @@ importers:
   packages/emp-share:
     dependencies:
       '@empjs/module-federation-enhanced':
-        specifier: 0.6.10-emp.5
-        version: 0.6.10-emp.5(react-dom@18.3.1)(react@18.3.1)(typescript@5.8.3)
-      '@module-federation/sdk':
-        specifier: 0.6.10
-        version: 0.6.10
+        specifier: 0.6.10-rc.1
+        version: 0.6.10-rc.1(react-dom@18.3.1)(react@18.3.1)(typescript@5.8.3)
       core-js:
         specifier: ^3.40.0
         version: 3.44.0
@@ -4350,8 +4347,8 @@ packages:
       - webpack-cli
     dev: false
 
-  /@empjs/module-federation-enhanced@0.6.10-emp.5(react-dom@18.3.1)(react@18.3.1)(typescript@5.8.3):
-    resolution: {integrity: sha512-H1JLyBaO5sEVZxA8hsg/9DrNf0cNoK4jZABQcu37SgCoF6hXHfq1KpfiUWZj4wKaKOtm9BSuXx88Lcou4SiKPw==}
+  /@empjs/module-federation-enhanced@0.6.10-rc.1(react-dom@18.3.1)(react@18.3.1)(typescript@5.8.3):
+    resolution: {integrity: sha512-0QMKLegowvT+/GuYIFlBZpuW1e/uCHvtW/ACWpCYt9hBr/WcDwa92fRwuujoultqJCpQ2pr3cI2fceNyftA5fg==}
     peerDependencies:
       typescript: ^4.9.0 || ^5.0.0
       vue-tsc: '>=1.0.24'
