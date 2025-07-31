@@ -31,8 +31,8 @@ export default defineConfig(store => {
             // libs: [`http://${store.server.ip}:1800/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
-            // lib: `http://${store.server.ip}:2100/sdk.js`,
+            // lib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
+            lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           setExternals: (o, global) => {
             o = externalReact(o, global)

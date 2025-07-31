@@ -1,4 +1,4 @@
-import type {Compiler} from '@rspack/core'
+import {Compiler} from '@empjs/cli'
 import {importJsVm} from 'src/helper'
 import type {EMPSHARERuntimeOptions} from './types'
 

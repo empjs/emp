@@ -45,6 +45,9 @@ export default defineConfig(({watch}) => {
       esbuildOptions(options: any, context) {
         options.legalComments = 'none'
         options.define.FEDERATION_ALLOW_NEW_FUNCTION = 'true'
+        options.logOverride = {
+          'direct-eval': 'silent',
+        }
       },
       outExtension() {
         return {

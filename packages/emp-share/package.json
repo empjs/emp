@@ -1,6 +1,6 @@
 {
   "name": "@empjs/share",
-  "version": "3.8.2",
+  "version": "3.9.0-beta.1",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",
@@ -95,9 +95,8 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@module-federation/enhanced": "0.6.10",
+    "@empjs/module-federation-enhanced": "0.6.10-emp.5",
     "@module-federation/sdk": "0.6.10",
-    "@empjs/module-federation-runtime": "0.6.10-emp.2",
     "core-js": "^3.40.0"
   },
   "devDependencies": {
