@@ -18,6 +18,9 @@ export default defineConfig(store => {
           },
           setExternals: externalReact,
         },
+        dts: true,
+        manifest: true,
+        dev: true,
       }),
     ],
     build: {
