@@ -738,6 +738,31 @@ importers:
         specifier: '18'
         version: 18.3.7(@types/react@18.3.23)
 
+  projects/async-startup-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '18'
+        version: 18.3.1
+      react-dom:
+        specifier: '18'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.23
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.23)
+
   projects/auto-pages:
     dependencies:
       react:
