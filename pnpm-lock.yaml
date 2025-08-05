@@ -1630,6 +1630,48 @@ importers:
         specifier: ^3.4.1
         version: 3.4.17(ts-node@10.9.2)
 
+  projects/tailwindcss-app:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.1.6(@types/react@19.1.8)
+
+  projects/tailwindcss-host:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.1.6(@types/react@19.1.8)
+
   projects/unpkg-demo:
     dependencies:
       '@module-federation/runtime':
