@@ -34,9 +34,9 @@
     "level": "warn"
   },
   "context": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host",
-  "mode": "production",
+  "mode": "development",
   "cache": true,
-  "devtool": false,
+  "devtool": "cheap-module-source-map",
   "externals": {
     "@module-federation/runtime": "EMP_SHARE_RUNTIME.MFRuntime",
     "@module-federation/sdk": "EMP_SHARE_RUNTIME.MFSDK",
@@ -71,11 +71,11 @@
     "publicPath": "auto",
     "crossOriginLoading": "anonymous",
     "filename": "js/[name].[contenthash:8].js",
-    "cssFilename": "css/[name].[contenthash:8].css",
-    "cssChunkFilename": "css/[name].[contenthash:8].css",
+    "cssFilename": "css/[name].css",
+    "cssChunkFilename": "css/[name].css",
     "assetModuleFilename": "assets/[name].[contenthash:8][ext][query]",
     "path": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/dist",
-    "clean": true,
+    "clean": false,
     "uniqueName": "tailwindcssHost"
   },
   "resolve": {
@@ -118,7 +118,7 @@
     "static": [
       {
         "directory": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/public",
-        "watch": false
+        "watch": true
       }
     ],
     "historyApiFallback": true,
@@ -153,7 +153,7 @@
       "css/auto": {
         "exportsConvention": "as-is",
         "exportsOnly": false,
-        "localIdentName": "[local]-[hash:base64:5]",
+        "localIdentName": "[id]-[local]-[hash:base64:8]",
         "esModule": true
       },
       "css": {
@@ -163,7 +163,7 @@
       "css/module": {
         "exportsConvention": "as-is",
         "exportsOnly": false,
-        "localIdentName": "[local]-[hash:base64:5]",
+        "localIdentName": "[id]-[local]-[hash:base64:8]",
         "esModule": true
       },
       "json": {
@@ -190,8 +190,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": false,
-                    "refresh": false
+                    "development": true,
+                    "refresh": true
                   }
                 },
                 "externalHelpers": false,
@@ -232,8 +232,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": false,
-                    "refresh": false
+                    "development": true,
+                    "refresh": true
                   }
                 },
                 "externalHelpers": false,
@@ -276,8 +276,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": false,
-                    "refresh": false
+                    "development": true,
+                    "refresh": true
                   }
                 },
                 "externalHelpers": false,
@@ -359,7 +359,7 @@
             "options": {
               "implementation": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-embedded@1.89.2/node_modules/sass-embedded/dist/lib/index.js",
               "api": "modern-compiler",
-              "sourceMap": false,
+              "sourceMap": true,
               "warnRuleAsWarning": true
             }
           }
@@ -417,9 +417,9 @@
     ]
   },
   "optimization": {
-    "moduleIds": "deterministic",
-    "chunkIds": "deterministic",
-    "minimize": true,
+    "moduleIds": "named",
+    "chunkIds": "named",
+    "minimize": false,
     "splitChunks": {
       "chunks": "async",
       "cacheGroups": {}
@@ -446,7 +446,7 @@
       "name": "DefinePlugin",
       "_args": [
         {
-          "process.env.mode": "\"production\""
+          "process.env.mode": "\"development\""
         }
       ]
     },
@@ -486,7 +486,7 @@
         "lang": "zh-CN",
         "title": "tailwindcss host",
         "inject": "body",
-        "minify": true,
+        "minify": false,
         "scriptLoading": "defer",
         "meta": {
           "charset": {
@@ -526,7 +526,7 @@
         "scriptLoading": "defer",
         "compile": true,
         "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
-        "minify": true,
+        "minify": false,
         "cache": true,
         "showErrors": true,
         "chunks": [
@@ -560,6 +560,22 @@
       }
     },
     {
+      "options": {
+        "include": [
+          {}
+        ],
+        "exclude": [
+          {},
+          {}
+        ],
+        "library": "tailwindcss_host",
+        "forceEnable": false,
+        "injectLoader": true,
+        "injectEntry": true,
+        "overlay": false
+      }
+    },
+    {
       "name": "RspackModuleFederationPlugin",
       "_options": {
         "filename": "emp.js",
@@ -589,7 +605,7 @@
         },
         {
           "attributes": {
-            "src": "https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.production.umd.js"
+            "src": "https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js"
           },
           "tagName": "script"
         },
