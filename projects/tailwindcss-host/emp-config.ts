@@ -47,7 +47,7 @@ export default defineConfig(store => {
       port: 4401,
     },
     debug: {
-      showRsconfig: 'x.json',
+      // showRsconfig: 'x.json',
     },
   }
 })
