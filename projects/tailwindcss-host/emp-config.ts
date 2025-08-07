@@ -11,9 +11,14 @@ export default defineConfig(store => {
         name: 'tailwindcssHost',
         exposes: {
           './App': './src/App',
+          './Info': './src/Info',
+          './Color': './src/Color',
+          './tailwindcss': './src/tailwindcss',
         },
         manifest: true,
-        // dts: true,
+        // dts: {
+        //   generateTypes: true,
+        // },
         empRuntime: {
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
@@ -40,6 +45,9 @@ export default defineConfig(store => {
     server: {
       open: false,
       port: 4401,
+    },
+    debug: {
+      showRsconfig: 'x.json',
     },
   }
 })

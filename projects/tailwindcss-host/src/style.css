@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* .tailwindcss-host{} */
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -8,4 +10,22 @@
 @theme {
 	--color-background: hsl(var(--background));
 	--color-foreground: hsl(var(--foreground));
+}
+
+
+
+.card {
+  background-color: var(--color-gray-100);
+  padding:50px;
+  div {
+    color: var(--color-gray-800);
+    font-weight: 600;
+	color: red;
+  }
+  a {
+    color: var(--color-blue-500);
+    &:hover {
+      color: var(--color-blue-700);
+    }
+  }
 }

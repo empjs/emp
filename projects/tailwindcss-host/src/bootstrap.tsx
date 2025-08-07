@@ -1,6 +1,6 @@
 import {createRoot} from 'react-dom/client'
-import App from './App'
+import Container from './Container'
 
 const dom = document.getElementById('emp-root')!
 const root = createRoot(dom)
-root.render(<App />)
+root.render(<Container />)
