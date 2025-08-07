@@ -16,7 +16,7 @@
 
 .card {
   background-color: var(--color-gray-100);
-  padding:50px;
+  padding:10px;
   div {
     color: var(--color-gray-800);
     font-weight: 600;
