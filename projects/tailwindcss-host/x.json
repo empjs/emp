@@ -34,9 +34,9 @@
     "level": "warn"
   },
   "context": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host",
-  "mode": "development",
+  "mode": "production",
   "cache": true,
-  "devtool": "cheap-module-source-map",
+  "devtool": false,
   "externals": {
     "@module-federation/runtime": "EMP_SHARE_RUNTIME.MFRuntime",
     "@module-federation/sdk": "EMP_SHARE_RUNTIME.MFSDK",
@@ -71,11 +71,11 @@
     "publicPath": "auto",
     "crossOriginLoading": "anonymous",
     "filename": "js/[name].[contenthash:8].js",
-    "cssFilename": "css/[name].css",
-    "cssChunkFilename": "css/[name].css",
+    "cssFilename": "css/[name].[contenthash:8].css",
+    "cssChunkFilename": "css/[name].[contenthash:8].css",
     "assetModuleFilename": "assets/[name].[contenthash:8][ext][query]",
     "path": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/dist",
-    "clean": false,
+    "clean": true,
     "uniqueName": "tailwindcssHost"
   },
   "resolve": {
@@ -118,7 +118,7 @@
     "static": [
       {
         "directory": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/public",
-        "watch": true
+        "watch": false
       }
     ],
     "historyApiFallback": true,
@@ -153,7 +153,7 @@
       "css/auto": {
         "exportsConvention": "as-is",
         "exportsOnly": false,
-        "localIdentName": "[id]-[local]-[hash:base64:8]",
+        "localIdentName": "[local]-[hash:base64:5]",
         "esModule": true
       },
       "css": {
@@ -163,7 +163,7 @@
       "css/module": {
         "exportsConvention": "as-is",
         "exportsOnly": false,
-        "localIdentName": "[id]-[local]-[hash:base64:8]",
+        "localIdentName": "[local]-[hash:base64:5]",
         "esModule": true
       },
       "json": {
@@ -190,8 +190,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": true,
-                    "refresh": true
+                    "development": false,
+                    "refresh": false
                   }
                 },
                 "externalHelpers": false,
@@ -232,8 +232,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": true,
-                    "refresh": true
+                    "development": false,
+                    "refresh": false
                   }
                 },
                 "externalHelpers": false,
@@ -276,8 +276,8 @@
                 "transform": {
                   "react": {
                     "runtime": "automatic",
-                    "development": true,
-                    "refresh": true
+                    "development": false,
+                    "refresh": false
                   }
                 },
                 "externalHelpers": false,
@@ -359,7 +359,7 @@
             "options": {
               "implementation": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-embedded@1.89.2/node_modules/sass-embedded/dist/lib/index.js",
               "api": "modern-compiler",
-              "sourceMap": true,
+              "sourceMap": false,
               "warnRuleAsWarning": true
             }
           }
@@ -381,14 +381,8 @@
       },
       {
         "test": {},
-        "type": "javascript/auto",
+        "type": "css",
         "use": [
-          {
-            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/@rspack+core@1.4.11_@swc+helpers@0.5.17/node_modules/@rspack/core/dist/cssExtractLoader.js"
-          },
-          {
-            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/css-loader@7.1.2_webpack@5.100.2/node_modules/css-loader/dist/cjs.js"
-          },
           {
             "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/postcss-loader@8.1.1_postcss@8.5.6_typescript@5.8.3/node_modules/postcss-loader/dist/cjs.js",
             "options": {
@@ -423,9 +417,9 @@
     ]
   },
   "optimization": {
-    "moduleIds": "named",
-    "chunkIds": "named",
-    "minimize": false,
+    "moduleIds": "deterministic",
+    "chunkIds": "deterministic",
+    "minimize": true,
     "splitChunks": {
       "chunks": "async",
       "cacheGroups": {}
@@ -452,7 +446,7 @@
       "name": "DefinePlugin",
       "_args": [
         {
-          "process.env.mode": "\"development\""
+          "process.env.mode": "\"production\""
         }
       ]
     },
@@ -466,9 +460,7 @@
       ]
     },
     {
-      "options": {
-        "filename": "[name].[contenthash].css"
-      }
+      "options": {}
     },
     {},
     {
@@ -494,7 +486,7 @@
         "lang": "zh-CN",
         "title": "tailwindcss host",
         "inject": "body",
-        "minify": false,
+        "minify": true,
         "scriptLoading": "defer",
         "meta": {
           "charset": {
@@ -534,7 +526,7 @@
         "scriptLoading": "defer",
         "compile": true,
         "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
-        "minify": false,
+        "minify": true,
         "cache": true,
         "showErrors": true,
         "chunks": [
@@ -568,22 +560,6 @@
       }
     },
     {
-      "options": {
-        "include": [
-          {}
-        ],
-        "exclude": [
-          {},
-          {}
-        ],
-        "library": "tailwindcss_host",
-        "forceEnable": false,
-        "injectLoader": true,
-        "injectEntry": true,
-        "overlay": false
-      }
-    },
-    {
       "name": "RspackModuleFederationPlugin",
       "_options": {
         "filename": "emp.js",
@@ -613,7 +589,7 @@
         },
         {
           "attributes": {
-            "src": "https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js"
+            "src": "https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.production.umd.js"
           },
           "tagName": "script"
         },

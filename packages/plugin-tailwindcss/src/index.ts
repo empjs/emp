@@ -36,14 +36,7 @@ export default () => {
       // console.log('postcssPlugins', JSON.stringify(postcssPlugins))
       chain.module
         .rule(store.chainName.rule.css)
-        // .set('type', 'css')
-        .set('type', 'javascript/auto')
-        .use('MiniCssExtractPlugin')
-        .loader(store.rspack.CssExtractRspackPlugin.loader)
-        .end()
-        .use('CssLoader')
-        .loader(require.resolve('css-loader'))
-        .end()
+        .set('type', 'css')
         .use('postcss')
         .loader(require.resolve('postcss-loader'))
         .options({
@@ -51,14 +44,7 @@ export default () => {
             plugins: postcssPlugins,
           },
         })
-        .end()
-      chain.plugin('CssChunkingPlugin').use(store.rspack.CssExtractRspackPlugin, [
-        {
-          filename: '[name].[contenthash].css',
-        },
-      ])
       chain.resolve.alias.set('tailwindcss', installDir)
-      // chain.merge({experiments: {css: false}})
     },
   }
 }

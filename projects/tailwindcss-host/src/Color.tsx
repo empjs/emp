@@ -1,5 +1,5 @@
 export const Color = () => (
-  <div>
+  <div className="tailwindcss-host">
     <h1 className="p-5 font-bold ">Color</h1>
     <div className="flex mx-auto max-w-lg grid-cols-1 gap-3 *:*:first:size-9 *:*:first:rounded-md *:*:first:inset-ring *:*:first:inset-ring-black/5 sm:grid-cols-11 sm:flex-row sm:*:*:first:aspect-square sm:*:*:first:w-full">
       <div className="flex items-center gap-1.5 sm:flex-col">

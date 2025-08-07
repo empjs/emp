@@ -1,1 +1,1 @@
-import 'tailwindcss'
+import './style.css'
