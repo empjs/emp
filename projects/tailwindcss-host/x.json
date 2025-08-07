@@ -1,0 +1,635 @@
+{
+  "name": "tailwindcss-host",
+  "experiments": {
+    "nativeWatcher": false,
+    "outputModule": false,
+    "topLevelAwait": true,
+    "asyncWebAssembly": true,
+    "css": true,
+    "rspackFuture": {
+      "bundlerInfo": {
+        "force": false
+      }
+    },
+    "cache": {
+      "type": "persistent",
+      "buildDependencies": [
+        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/dist/index.js",
+        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/package.json",
+        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/emp-config.ts",
+        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/tsconfig.json"
+      ],
+      "version": "3.9.3"
+    },
+    "incremental": "advance-silent",
+    "parallelCodeSplitting": true,
+    "parallelLoader": true
+  },
+  "target": [
+    "web",
+    "es5"
+  ],
+  "infrastructureLogging": {
+    "appendOnly": true,
+    "level": "warn"
+  },
+  "context": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host",
+  "mode": "development",
+  "cache": true,
+  "devtool": "cheap-module-source-map",
+  "externals": {
+    "@module-federation/runtime": "EMP_SHARE_RUNTIME.MFRuntime",
+    "@module-federation/sdk": "EMP_SHARE_RUNTIME.MFSDK",
+    "react": "EMP_ADAPTER_REACT.React",
+    "react-dom": "EMP_ADAPTER_REACT.ReactDOM",
+    "react-dom/client": "EMP_ADAPTER_REACT",
+    "react/jsx-runtime": "EMP_ADAPTER_REACT",
+    "react/jsx-dev-runtime": "EMP_ADAPTER_REACT",
+    "react-router-dom": "EMP_ADAPTER_REACT.ReactRouterDOM"
+  },
+  "ignoreWarnings": [
+    {}
+  ],
+  "watchOptions": {
+    "ignored": [
+      "**/node_modules/**",
+      "**/@mf-types/**"
+    ]
+  },
+  "stats": {
+    "colors": true,
+    "all": false,
+    "assets": false,
+    "chunks": false,
+    "timings": true,
+    "version": true
+  },
+  "node": {
+    "global": true
+  },
+  "output": {
+    "publicPath": "auto",
+    "crossOriginLoading": "anonymous",
+    "filename": "js/[name].[contenthash:8].js",
+    "cssFilename": "css/[name].css",
+    "cssChunkFilename": "css/[name].css",
+    "assetModuleFilename": "assets/[name].[contenthash:8][ext][query]",
+    "path": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/dist",
+    "clean": false,
+    "uniqueName": "tailwindcssHost"
+  },
+  "resolve": {
+    "tsConfig": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/tsconfig.json",
+    "alias": {
+      "src": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/src",
+      "@": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/src",
+      "core-js": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/core-js@3.44.0/node_modules/core-js",
+      "tailwindcss": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/tailwindcss@4.1.11/node_modules/tailwindcss"
+    },
+    "extensions": [
+      "...",
+      ".js",
+      ".jsx",
+      ".mjs",
+      ".ts",
+      ".tsx",
+      ".css",
+      ".less",
+      ".scss",
+      ".sass",
+      ".json",
+      ".wasm",
+      ".vue",
+      ".svg",
+      ".svga"
+    ]
+  },
+  "devServer": {
+    "allowedHosts": [
+      "all"
+    ],
+    "host": "0.0.0.0",
+    "port": 4401,
+    "open": false,
+    "hot": true,
+    "watchFiles": [
+      "src/**/*.html"
+    ],
+    "static": [
+      {
+        "directory": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/public",
+        "watch": true
+      }
+    ],
+    "historyApiFallback": true,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
+  },
+  "module": {
+    "parser": {
+      "javascript": {
+        "exportsPresence": "error",
+        "importExportsPresence": "error",
+        "dynamicImportMode": "lazy",
+        "dynamicImportPrefetch": false,
+        "dynamicImportPreload": false,
+        "url": true,
+        "importMeta": true
+      },
+      "css": {
+        "namedExports": false
+      },
+      "css/auto": {
+        "namedExports": false
+      },
+      "css/module": {
+        "namedExports": false
+      }
+    },
+    "generator": {
+      "css/auto": {
+        "exportsConvention": "as-is",
+        "exportsOnly": false,
+        "localIdentName": "[id]-[local]-[hash:base64:8]",
+        "esModule": true
+      },
+      "css": {
+        "exportsOnly": false,
+        "esModule": true
+      },
+      "css/module": {
+        "exportsConvention": "as-is",
+        "exportsOnly": false,
+        "localIdentName": "[id]-[local]-[hash:base64:8]",
+        "esModule": true
+      },
+      "json": {
+        "JSONParse": true
+      }
+    },
+    "rules": [
+      {
+        "test": {},
+        "exclude": [
+          {}
+        ],
+        "use": [
+          {
+            "loader": "builtin:swc-loader",
+            "options": {
+              "jsc": {
+                "parser": {
+                  "syntax": "ecmascript",
+                  "jsx": true,
+                  "decorators": true,
+                  "decoratorsBeforeExport": false
+                },
+                "transform": {
+                  "react": {
+                    "runtime": "automatic",
+                    "development": true,
+                    "refresh": true
+                  }
+                },
+                "externalHelpers": false,
+                "preserveAllComments": true
+              },
+              "isModule": "unknown",
+              "env": {
+                "coreJs": "3.44",
+                "targets": [
+                  "iOS >= 9",
+                  "Android >= 4.4",
+                  "last 2 versions",
+                  "> 0.2%",
+                  "not dead"
+                ],
+                "mode": "entry"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "exclude": [
+          {}
+        ],
+        "use": [
+          {
+            "loader": "builtin:swc-loader",
+            "options": {
+              "jsc": {
+                "parser": {
+                  "syntax": "typescript",
+                  "decorators": true,
+                  "tsx": true,
+                  "dynamicImport": true
+                },
+                "transform": {
+                  "react": {
+                    "runtime": "automatic",
+                    "development": true,
+                    "refresh": true
+                  }
+                },
+                "externalHelpers": false,
+                "preserveAllComments": true
+              },
+              "isModule": "unknown",
+              "env": {
+                "coreJs": "3.44",
+                "targets": [
+                  "iOS >= 9",
+                  "Android >= 4.4",
+                  "last 2 versions",
+                  "> 0.2%",
+                  "not dead"
+                ],
+                "mode": "entry"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "mimetype": {
+          "or": [
+            "text/javascript",
+            "application/javascript"
+          ]
+        },
+        "use": [
+          {
+            "loader": "builtin:swc-loader",
+            "options": {
+              "jsc": {
+                "parser": {
+                  "syntax": "ecmascript",
+                  "jsx": true,
+                  "decorators": true,
+                  "decoratorsBeforeExport": false
+                },
+                "transform": {
+                  "react": {
+                    "runtime": "automatic",
+                    "development": true,
+                    "refresh": true
+                  }
+                },
+                "externalHelpers": false,
+                "preserveAllComments": true
+              },
+              "isModule": "unknown",
+              "env": {
+                "coreJs": "3.44",
+                "targets": [
+                  "iOS >= 9",
+                  "Android >= 4.4",
+                  "last 2 versions",
+                  "> 0.2%",
+                  "not dead"
+                ],
+                "mode": "entry"
+              }
+            }
+          }
+        ],
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "oneOf": [
+          {
+            "issuer": {},
+            "resourceQuery": {},
+            "use": [
+              {
+                "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/@svgr+webpack@8.1.0_typescript@5.8.3/node_modules/@svgr/webpack/dist/index.js"
+              }
+            ]
+          },
+          {
+            "resourceQuery": {
+              "not": [
+                {}
+              ]
+            },
+            "type": "asset/resource"
+          }
+        ]
+      },
+      {
+        "resourceQuery": {},
+        "type": "asset/inline"
+      },
+      {
+        "resourceQuery": {},
+        "type": "asset/source"
+      },
+      {
+        "test": {},
+        "type": "asset/resource"
+      },
+      {
+        "test": {},
+        "type": "asset/resource"
+      },
+      {
+        "test": {},
+        "type": "asset/resource"
+      },
+      {
+        "test": {},
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "type": "css/auto",
+        "use": [
+          {
+            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-loader@16.0.5_@rspack+core@1.4.11_sass-embedded@1.89.2_webpack@5.100.2/node_modules/sass-loader/dist/cjs.js",
+            "options": {
+              "implementation": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-embedded@1.89.2/node_modules/sass-embedded/dist/lib/index.js",
+              "api": "modern-compiler",
+              "sourceMap": true,
+              "warnRuleAsWarning": true
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "type": "css/auto",
+        "use": [
+          {
+            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/less-loader@12.3.0_@rspack+core@1.4.11_less@4.4.0_webpack@5.100.2/node_modules/less-loader/dist/cjs.js",
+            "options": {
+              "lessOptions": {
+                "javascriptEnabled": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "type": "javascript/auto",
+        "use": [
+          {
+            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/@rspack+core@1.4.11_@swc+helpers@0.5.17/node_modules/@rspack/core/dist/cssExtractLoader.js"
+          },
+          {
+            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/css-loader@7.1.2_webpack@5.100.2/node_modules/css-loader/dist/cjs.js"
+          },
+          {
+            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/postcss-loader@8.1.1_postcss@8.5.6_typescript@5.8.3/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {
+                "plugins": [
+                  {
+                    "postcssPlugin": "postcss-import"
+                  },
+                  [
+                    "@tailwindcss/postcss",
+                    {}
+                  ],
+                  [
+                    "postcss-preset-env",
+                    {
+                      "browsers": [
+                        "iOS >= 9",
+                        "Android >= 4.4",
+                        "last 2 versions",
+                        "> 0.2%",
+                        "not dead"
+                      ],
+                      "stage": 1
+                    }
+                  ]
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "optimization": {
+    "moduleIds": "named",
+    "chunkIds": "named",
+    "minimize": false,
+    "splitChunks": {
+      "chunks": "async",
+      "cacheGroups": {}
+    },
+    "minimizer": [
+      {
+        "affectedHooks": "compilation",
+        "name": "SwcJsMinimizerRspackPlugin",
+        "_args": [
+          {}
+        ]
+      },
+      {
+        "name": "LightningCssMinimizerRspackPlugin",
+        "_args": [
+          {}
+        ]
+      }
+    ]
+  },
+  "plugins": [
+    {
+      "affectedHooks": "compilation",
+      "name": "DefinePlugin",
+      "_args": [
+        {
+          "process.env.mode": "\"development\""
+        }
+      ]
+    },
+    {
+      "name": "ProgressPlugin",
+      "_args": [
+        {
+          "template": "{bar:25.green/white}{spinner:.green}{percent}% {wide_msg:.dim}",
+          "progressChars": "▩▩"
+        }
+      ]
+    },
+    {
+      "options": {
+        "filename": "[name].[contenthash].css"
+      }
+    },
+    {},
+    {
+      "PluginName": "HtmlEmpInjectPlugin-injectEMPPolyfill",
+      "chunk": "",
+      "files": [
+        {
+          "attributes": {
+            "src": "https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js"
+          },
+          "tagName": "script",
+          "pos": "head"
+        }
+      ]
+    },
+    {
+      "PluginName": "HtmlEmpInjectPlugin-injectTags-index",
+      "chunk": "index",
+      "files": []
+    },
+    {
+      "userOptions": {
+        "lang": "zh-CN",
+        "title": "tailwindcss host",
+        "inject": "body",
+        "minify": false,
+        "scriptLoading": "defer",
+        "meta": {
+          "charset": {
+            "charset": "utf-8"
+          },
+          "http-equiv": {
+            "http-equiv": "X-UA-Compatible",
+            "content": "IE=edge"
+          },
+          "viewport": {
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"
+          },
+          "keywords": {
+            "keywords": ""
+          },
+          "description": {
+            "description": ""
+          }
+        },
+        "cache": true,
+        "template": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/index.html",
+        "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
+        "chunks": [
+          "index"
+        ],
+        "filename": "index.html"
+      },
+      "version": 5,
+      "options": {
+        "template": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/index.html",
+        "templateContent": false,
+        "filename": "index.html",
+        "publicPath": "auto",
+        "hash": false,
+        "inject": "body",
+        "scriptLoading": "defer",
+        "compile": true,
+        "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
+        "minify": false,
+        "cache": true,
+        "showErrors": true,
+        "chunks": [
+          "index"
+        ],
+        "excludeChunks": [],
+        "chunksSortMode": "auto",
+        "meta": {
+          "charset": {
+            "charset": "utf-8"
+          },
+          "http-equiv": {
+            "http-equiv": "X-UA-Compatible",
+            "content": "IE=edge"
+          },
+          "viewport": {
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"
+          },
+          "keywords": {
+            "keywords": ""
+          },
+          "description": {
+            "description": ""
+          }
+        },
+        "base": false,
+        "title": "tailwindcss host",
+        "xhtml": false,
+        "lang": "zh-CN"
+      }
+    },
+    {
+      "options": {
+        "include": [
+          {}
+        ],
+        "exclude": [
+          {},
+          {}
+        ],
+        "library": "tailwindcss_host",
+        "forceEnable": false,
+        "injectLoader": true,
+        "injectEntry": true,
+        "overlay": false
+      }
+    },
+    {
+      "name": "RspackModuleFederationPlugin",
+      "_options": {
+        "filename": "emp.js",
+        "manifest": {
+          "fileName": "emp.json"
+        },
+        "dts": false,
+        "dev": {
+          "disableDynamicRemoteTypeHints": true
+        },
+        "name": "tailwindcssHost",
+        "exposes": {
+          "./App": "./src/App",
+          "./Info": "./src/Info",
+          "./Color": "./src/Color",
+          "./tailwindcss": "./src/tailwindcss"
+        }
+      }
+    },
+    {
+      "PluginName": "HtmlEmpInjectPlugin-EMPShare",
+      "chunk": "",
+      "files": [
+        {
+          "tagName": "script",
+          "innerHTML": "EMPShareGlobalVal={\"frameworkLib\":\"EMP_ADAPTER_REACT\",\"runtimeLib\":\"EMP_SHARE_RUNTIME\"}"
+        },
+        {
+          "attributes": {
+            "src": "https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js"
+          },
+          "tagName": "script"
+        },
+        {
+          "tagName": "script",
+          "pos": "head",
+          "attributes": {
+            "src": "https://unpkg.com/@empjs/share@3.5.3/output/sdk.js"
+          }
+        }
+      ]
+    }
+  ],
+  "entry": {
+    "index": [
+      "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/tailwindcss-host/src/index.tsx"
+    ]
+  }
+}

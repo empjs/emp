@@ -15,6 +15,7 @@ import type {CliActionType, EMPModeType} from 'src/types/env'
 import {chainName} from './chain'
 import {HtmlEmpInjectPlugin} from './rspack/builtInPlugin'
 export class GlobalStore {
+  public rspack = rspack
   public rspackVersion = rspack.rspackVersion
   public isOldRspack = vCompare(this.rspackVersion, '1.0.0') === -1
   /**
