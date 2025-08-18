@@ -22,6 +22,10 @@ export class RspackCss {
       options.sourceMap = this.store.empConfig.build.sourcemap
       if (sass.sassOptions) options.sassOptions = sass.sassOptions
     }
+    // prepend the entry's content
+    if (typeof sass.additionalData !== 'undefined') {
+      options.additionalData = sass.additionalData
+    }
     /**
      * webpackImporter default true
      * warnRuleAsWarning default false
