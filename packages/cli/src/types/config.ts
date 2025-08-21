@@ -323,6 +323,7 @@ export type EmpOptions = {
     sass?: CssSassOptionsType & {
       webpackImporter?: boolean
       warnRuleAsWarning?: boolean
+      additionalData?: string
     }
     prifixName?: string
   }
