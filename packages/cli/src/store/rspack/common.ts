@@ -24,7 +24,7 @@ class RspackCommon {
         global: true,
       },
       experiments: {
-        nativeWatcher: false, //导致 二次启动后 热更新失效
+        nativeWatcher: true, //导致 二次启动后 热更新失效
         // rspackFuture: {
         //   // disableTransformByDefault: false, // 开启默认转换
         //   //  移除 experiments.rspackFuture.disableApplyEntryLazily
