@@ -28,7 +28,7 @@ class RspackModule {
     const prifixName = this.store.empConfig.css?.prifixName ? `${this.store.empConfig.css?.prifixName}-` : ''
     const localIdentName = this.store.isDev
       ? `${prifixName}[id]-[local]-[hash:base64:8]`
-      : `${prifixName}[local]-[hash:base64:5]`
+      : `${prifixName}[local]-[hash:5]`
 
     this.store.chain.merge({
       module: {
