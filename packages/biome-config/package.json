@@ -1,6 +1,6 @@
 {
   "name": "@empjs/biome-config",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "biome.jsonc",
   "type": "module",
   "bin": {
@@ -21,6 +21,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@biomejs/biome": "^2.1.2"
+    "@biomejs/biome": "2.2.0"
   }
 }

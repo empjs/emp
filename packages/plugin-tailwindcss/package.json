@@ -4,13 +4,8 @@
   "description": "base tailwind 4",
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "maintainers": [
-    "xuhongbin",
-    "ckken"
-  ],
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -19,10 +14,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": [
-    "vue",
-    "vue2"
-  ],
+  "keywords": ["vue", "vue2"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {

@@ -2,7 +2,7 @@
   // 标记为嵌套配置，不是根配置
   "root": false,
   // 引用 Biome 配置的 JSON Schema，提供代码提示和验证
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
   // 文件处理配置
   "files": {
     // 忽略未知文件类型的错误
@@ -28,8 +28,8 @@
       "**/*.astro", // Astro 组件文件
       "**/*.vue", // Vue 组件文件
       // 排除的文件和目录
-      "!**/dist/**", // 构建输出目录
-      "!**/node_modules/**" // 依赖模块目录
+      "!**/dist", // 构建输出目录
+      "!**/node_modules" // 依赖模块目录
     ]
   },
   // 格式化器全局配置
@@ -118,10 +118,11 @@
         "noUnusedVariables": "off",
         "noUnusedImports": "off",
         "noUnusedFunctionParameters": "off",
-        "noUnusedPrivateClassMembers": "off"
+        "noUnusedPrivateClassMembers": "off",
+        "noNestedComponentDefinitions": "off"
       },
       "nursery": {
-        "noNestedComponentDefinitions": "off"
+        // "noNestedComponentDefinitions": "off"
       },
       // 性能规则
       "performance": {
@@ -159,7 +160,9 @@
         "noDuplicateProperties": "off",
         "noEmptyBlock": "off",
         "noTemplateCurlyInString": "off",
-        "noDuplicateFontNames": "off"
+        "noDuplicateFontNames": "off",
+        "noUnknownAtRules": "off",
+        "useIterableCallbackReturn": "off"
       }
     }
   },
