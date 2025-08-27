@@ -14,11 +14,11 @@ rt.register([
     entry: `http://${process.env.ip}:3911/emp.json`,
     alias: 'r91',
   },
-  {
-    name: 'runtimeHost_3912',
-    entry: `http://${process.env.ip}:3912/emp.json`,
-    alias: 'r92',
-  },
+  // {
+  //   name: 'runtimeHost_3912',
+  //   entry: `http://${process.env.ip}:3912/emp.json`,
+  //   alias: 'r92',
+  // },
 ])
 //
 import('./bootstrap')

@@ -23,14 +23,17 @@ export default defineConfig(store => {
           setExternals: externalReact,
         },
         manifest: true,
-        dts: {
-          generateTypes: {
-            generateAPITypes: true,
-            abortOnError: true,
-            extractThirdParty: true,
-            extractRemoteTypes: true,
-            compileInChildProcess: true,
-          },
+        // dts: {
+        //   generateTypes: {
+        //     generateAPITypes: true,
+        //     abortOnError: true,
+        //     extractThirdParty: true,
+        //     extractRemoteTypes: true,
+        //     compileInChildProcess: true,
+        //   },
+        // },
+        remotes: {
+          // mfHost: `mfHost@http://${store.server.ip}:6001/emp.js`,
         },
       }),
     ],
