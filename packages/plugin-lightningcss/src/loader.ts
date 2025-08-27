@@ -1,5 +1,5 @@
 import {Buffer} from 'node:buffer'
-import type {LoaderContext} from '@rspack/core'
+import type {LoaderContext} from '@empjs/cli'
 import {transform as _transform, composeVisitors} from 'lightningcss'
 import type {LightningCSSLoaderOptions} from './types'
 

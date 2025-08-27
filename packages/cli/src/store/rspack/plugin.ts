@@ -143,8 +143,8 @@ class RspackPlugin {
   // https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
   cssChunkingPlugin() {
     if (!this.store.empConfig.debug.cssChunkingPlugin) return
-    // this.store.chain.plugin('CssChunkingPlugin').use(rspack.experiments.CssChunkingPlugin, [{}])
-    this.store.chain.plugin('CssChunkingPlugin').use(rspack.CssExtractRspackPlugin, [{}])
+    this.store.chain.plugin('CssChunkingPlugin').use(rspack.experiments.CssChunkingPlugin, [{}])
+    // this.store.chain.plugin('CssChunkingPlugin').use(rspack.CssExtractRspackPlugin, [{}])
   }
 }
 

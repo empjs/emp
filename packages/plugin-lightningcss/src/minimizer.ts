@@ -1,5 +1,5 @@
 import {Buffer} from 'node:buffer'
-import type {Compilation, Compiler} from '@rspack/core'
+import type {Compilation, Compiler} from '@empjs/cli'
 import {transform as _transform} from 'lightningcss'
 import type {LightningCSSMinifyPluginOptions} from './types'
 

@@ -5,7 +5,7 @@ import type {EmpOptions} from 'src/types/config'
 
 export type {EMP3PluginFnType, EMP3PluginType} from 'src/types/plugin'
 
-import {type Compiler, type RspackOptions, rspack} from '@rspack/core'
+import {type RspackOptions, rspack} from '@rspack/core'
 import {program} from 'commander'
 import runScript from 'src/script'
 import store from 'src/store'
@@ -17,5 +17,6 @@ export function defineConfig(config: EMPConfigExport): EMPConfigExport {
 
 import {color, Logger} from 'src/helper/logger'
 export {store, runScript, rspack, program, color, Logger}
-export type {GlobalStore, RspackOptions, Compiler}
+export type {GlobalStore, RspackOptions}
+export type {Compilation, Compiler, LoaderContext} from '@rspack/core'
 export * as empHelper from 'src/helper'

@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cli",
-  "version": "3.9.5",
+  "version": "3.10.0-beta.1",
   "description": "emp",
   "license": "MIT",
   "type": "module",
@@ -40,7 +40,7 @@
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "author": "Ken",
   "devDependencies": {

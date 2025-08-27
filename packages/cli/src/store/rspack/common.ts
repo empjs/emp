@@ -24,33 +24,26 @@ class RspackCommon {
         global: true,
       },
       experiments: {
-        nativeWatcher: true, //导致 二次启动后 热更新失效
-        // rspackFuture: {
-        //   // disableTransformByDefault: false, // 开启默认转换
-        //   //  移除 experiments.rspackFuture.disableApplyEntryLazily
-        //   // disableApplyEntryLazily: true,
-        //   // rspack 0.6 默认开启新版 tree shaking
-        //   newTreeshaking: this.store.empConfig.debug.newTreeshaking, // 该功能启用了与 webpack 相同的新摇树优化实现，可以生成更高效和更小的代码。
-        // },
+        /**
+         * 基于 Rust 打造了原生的文件系统监听器
+         * 观察:导致 二次启动后 热更新失效
+         * https://rspack.rs/zh/blog/announcing-1-5#%E6%9B%B4%E5%BF%AB%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%91%E5%90%AC%E5%99%A8
+         */
+        nativeWatcher: true,
+        /**
+         * 自动识别无副作用的 barrel 文件，对其中的重导出进行延迟构建优化，只在真正需要时才会解析和构建相关模块
+         * https://rspack.rs/zh/blog/announcing-1-5#barrel-%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96
+         */
+        lazyBarrel: true,
+        // https://rspack.rs/zh/blog/announcing-1-5#%E5%B8%B8%E9%87%8F%E5%86%85%E8%81%94%E4%BC%98%E5%8C%96
+        inlineConst: true,
+        inlineEnum: true,
+        // https://rspack.rs/zh/config/experiments#experimentstypereexportspresence
+        typeReexportsPresence: true,
         outputModule: this.store.empConfig.isESM, //将尽可能输出符合 ECMAScript 语法的代码
         topLevelAwait: true,
         asyncWebAssembly: true,
-        // lazyCompilation: this.store.isDev, // 开启懒编译功能
-        // lazyCompilation: {
-        //   imports: true,
-        //   entries: true,
-        //   test(module: any) {
-        //     console.log(module)
-        //     const isMyClient = module.nameForCondition().endsWith('reactRefreshEntry.js')
-        //     console.log(module, isMyClient)
-        //     return !isMyClient
-        //   },
-        // },
         css: true,
-        /**
-         *  是否增量地进行重构建，加快重构建的速度。
-         *  In a case of 10000 React components, the HMR becomes 38% faster:
-         */
         // 用于控制是否开启 Rspack 未来的默认行为
         rspackFuture: {
           // 用于在生成产物中注入当前使用的 Rspack 信息
@@ -69,6 +62,11 @@ class RspackCommon {
         // 对应的 loader 会被发送到 worker threads 执行 https://rspack.rs/zh/config/experiments#experimentsparallelloader
         parallelLoader: true,
       },
+      /**
+       * 懒编译，对提高多入口应用（MPA）或大型单页面应用（SPA）的 dev 启动性能会非常有帮助
+       * https://rspack.rs/zh/config/lazy-compilation#lazycompilation
+       */
+      lazyCompilation: this.store.isDev,
       target: this.store.empConfig.target, // default [web,es5]
       infrastructureLogging: this.store.empConfig.debug.infrastructureLogging,
       context: this.store.root,
