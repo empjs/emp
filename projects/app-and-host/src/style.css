@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.box {
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 10px 20px;
+    margin: 10px 0 20px;
+    border-radius: 10px;
+    h1{
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+.app{
+    padding: 20px;
+}
+.app-title{
+    padding: 10px 20px;
+}
