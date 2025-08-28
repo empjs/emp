@@ -21,13 +21,15 @@ export default () => {
       chain.module.rule('javascript').test(/\.js$/)
       chain.module.rule('typescript').test(/\.ts$/)
       //
+      const library = `${store.uniqueName}_emp_hmr_${store.empConfig.server.port || 'default'}`
+      //
       chain.module
         .rule('vue-loader')
         .test(/\.vue$/)
         .use('vue-loader')
         .loader(require.resolve('vue-loader'))
         .options({
-          library: store.pkg.name,
+          library,
           compilerOptions: {
             preserveWhitespace: false,
           },

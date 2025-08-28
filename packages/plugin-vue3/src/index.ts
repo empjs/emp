@@ -32,8 +32,9 @@ export default () => {
         // exposeFilename: false,
         // library: store.empConfig.empShareLib.config.name,
       }
-
-      options.library = store.pkg.name
+      const library = `${store.uniqueName}_emp_hmr_${store.empConfig.server.port || 'default'}`
+      //
+      options.library = library
 
       chain.module
         .rule('vue-loader')
@@ -63,7 +64,7 @@ export default () => {
         })
         .end()
       // define
-      store.chain.plugin('definePlugin').tap(args => {
+      store.chain.plugin('definePlugin').tap((args: any) => {
         // https://link.vuejs.org/feature-flags
         const o = {
           __VUE_OPTIONS_API__: true,
