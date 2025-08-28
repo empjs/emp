@@ -1,6 +1,8 @@
 import rt from '@empjs/share/runtime'
 import {lazy, Suspense} from 'react'
 
+// import Title from './Title'
+
 const R93 = lazy(() => rt.load('r93/App'))
 const R92 = lazy(() => rt.load('r92/App'))
 const R91 = lazy(() => rt.load('r91/App'))
@@ -11,7 +13,7 @@ const R91 = lazy(() => rt.load('r91/App'))
 })()
 const App = () => (
   <div>
-    <h1>React 18 Runtime App!!</h1>
+    {/* <Title /> */}
     <Suspense>
       <R93 name="from port 91 Name 93" />
       <R92 name="from port 92" />

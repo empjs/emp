@@ -8,6 +8,11 @@ export default defineConfig(store => {
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
+        name: `runtime_app`,
+        manifest: true,
+        exposes: {
+          './Title': './src/Title',
+        },
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',

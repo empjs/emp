@@ -11,6 +11,9 @@ export default defineConfig(store => {
         exposes: {
           './App': './src/App',
         },
+        // remotes: {
+        //   runtimeApp: `runtimeApp@http://${store.server.ip}:3801/emp.js`,
+        // },
         empRuntime: {
           runtime: {
             // lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
@@ -32,9 +35,6 @@ export default defineConfig(store => {
         //     compileInChildProcess: true,
         //   },
         // },
-        remotes: {
-          // mfHost: `mfHost@http://${store.server.ip}:6001/emp.js`,
-        },
       }),
     ],
     build: {

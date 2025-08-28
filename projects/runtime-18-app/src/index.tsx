@@ -3,7 +3,7 @@ import rt from '@empjs/share/runtime'
 
 // 实例化
 rt.init({
-  name: 'runtimeHost_18_app',
+  name: 'runtime_app',
   shared: reactAdapter.shared,
   remotes: [],
 })
