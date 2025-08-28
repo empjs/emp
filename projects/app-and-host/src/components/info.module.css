@@ -1,3 +1,6 @@
 .info{
     background: lightgoldenrodyellow;
+    p{
+        color: #666;
+    }
 }

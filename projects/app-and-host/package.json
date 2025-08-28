@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "pnpm --filter=app-and-host run /^dev:.*/",
-    "dev:a": "emp dev --env=3711",
+    "dev:a": "emp dev --env=3710",
     "dev:b": "emp dev --env=3712",
     "build": "emp build",
     "start": "emp serve",
