@@ -50,13 +50,6 @@ export default defineConfig(store => {
       clearLog: false,
       showRsconfig: false,
     },
-    cache: {
-      type: 'persistent',
-      storage: {
-        type: 'filesystem',
-        directory: `node_modules/.cache/rspack_${port}`,
-      },
-    },
     define: {port: `${port}`},
   }
 })

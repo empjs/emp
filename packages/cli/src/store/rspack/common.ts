@@ -18,6 +18,9 @@ class RspackCommon {
     //
     await Promise.all(runFuns)
   }
+  /**
+   * 适配缓存多样性设置
+   */
   get cache(): ExperimentCacheOptions {
     // return this.store.empConfig.cache
     if (this.store.empConfig.cache === false) {
@@ -33,9 +36,17 @@ class RspackCommon {
     }
     return defaultCache
   }
+  /**
+   * 解决单项目多开的缓存问题
+   */
+  get name() {
+    const portName = this.store.empConfig.server.port ? `_${this.store.empConfig.server.port}` : ''
+    const pkgPortName = this.store.pkg.name + portName
+    return pkgPortName
+  }
   async common() {
     this.store.merge({
-      name: this.store.pkg.name,
+      name: this.name,
       node: {
         global: true,
       },

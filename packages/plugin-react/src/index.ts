@@ -54,7 +54,7 @@ export default (o: PluginReactType = {}) => {
       if (store.isDev && o.hmr) {
         // React Refresh插件配置选项 (基于rspack-plugin-react-refresh类型定义)
         const library = `${store.uniqueName}_emp_hmr_${store.empConfig.server.port || 'default'}`
-        console.log('emp plugin library', library)
+        // console.log('emp plugin library', library)
         const op: PluginReactConfigType = {
           include: [/\.(?:js|jsx|mjs|cjs|ts|tsx|mts|cts)$/],
           exclude: [/node_modules/, /\.css$/],
