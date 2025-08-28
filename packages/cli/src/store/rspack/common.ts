@@ -1,3 +1,4 @@
+import {ExperimentCacheOptions} from '@rspack/core'
 import fs from 'fs-extra'
 import {getBuildDependencies} from 'src/helper/loadConfig'
 import type {GlobalStore} from 'src/store'
@@ -16,6 +17,21 @@ class RspackCommon {
     ]
     //
     await Promise.all(runFuns)
+  }
+  get cache(): ExperimentCacheOptions {
+    // return this.store.empConfig.cache
+    if (this.store.empConfig.cache === false) {
+      return false
+    }
+    let defaultCache: ExperimentCacheOptions = {
+      type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
+      buildDependencies: getBuildDependencies(),
+      version: this.store.empPkg.version,
+    }
+    if (typeof this.store.empConfig.cache === 'object') {
+      defaultCache = this.store.deepAssign(defaultCache, this.store.empConfig.cache)
+    }
+    return defaultCache
   }
   async common() {
     this.store.merge({
@@ -50,11 +66,7 @@ class RspackCommon {
           bundlerInfo: {force: false},
         },
         // 缓存设置
-        cache: {
-          type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
-          buildDependencies: getBuildDependencies(),
-          version: this.store.empPkg.version,
-        },
+        cache: this.cache,
         // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
         incremental: 'advance-silent',
         // 如果你的项目中包含较多的动态引用，开启后可以显著降低 code splitting 阶段耗时 https://rspack.rs/zh/config/experiments#experimentsparallelcodesplitting

@@ -53,13 +53,15 @@ export default (o: PluginReactType = {}) => {
        */
       if (store.isDev && o.hmr) {
         // React Refresh插件配置选项 (基于rspack-plugin-react-refresh类型定义)
+        const library = `${store.uniqueName}_react_refresh_${store.empConfig.server.port || 'default'}`
+        console.log('emp plugin library', library)
         const op: PluginReactConfigType = {
           include: [/\.(?:js|jsx|mjs|cjs|ts|tsx|mts|cts)$/],
           exclude: [/node_modules/, /\.css$/],
           // 禁用错误覆盖层以避免与模块联邦冲突
           // overlay: false,
           // 使用模块联邦的唯一名称作为library
-          library: store.uniqueName,
+          library,
           // injectEntry: false,
           // injectLoader: false,
         }

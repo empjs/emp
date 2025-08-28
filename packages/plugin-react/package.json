@@ -4,8 +4,13 @@
   "description": "emp react plugin",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -14,7 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["react"],
+  "keywords": [
+    "react"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -39,6 +46,7 @@
   "author": "Ken",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
+    "@types/node": "^24.3.0",
     "@types/react": "^18.2.30",
     "tsup": "^8.1.0"
   },

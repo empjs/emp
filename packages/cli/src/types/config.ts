@@ -2,6 +2,7 @@ import type {InspectOptions} from 'node:util'
 import type {RsdoctorRspackPlugin} from '@rsdoctor/rspack-plugin'
 import type {
   DevServer as devServerConfig,
+  ExperimentCacheOptions,
   Externals,
   HtmlRspackPluginOptions,
   // LightningCssMinimizerRspackPluginOptions,
@@ -341,7 +342,7 @@ export type EmpOptions = {
    * 启用缓存
    * @default persistent 为 内存缓存 false 关闭 persistent 持久缓存
    */
-  cache?: boolean | 'persistent'
+  cache?: boolean | 'persistent' | ExperimentCacheOptions
   /**
    * 全局环境替换
    */
