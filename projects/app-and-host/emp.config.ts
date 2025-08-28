@@ -8,7 +8,7 @@ export default defineConfig(store => {
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
-        name: `app_host_${port}`, //(*)不能语主项目重名
+        name: `app_host_${port}`, //(*)不能与主项目重名
         exposes: {
           './Info': './src/components/Info',
           './About': './src/components/About',
