@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "*": ["./@mf-types/*"]
+      "*": ["./@mf-types/*"],
+      "src/*": ["./src/*"]
     }
   },
   "include": ["src"]
