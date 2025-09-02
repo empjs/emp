@@ -68,6 +68,17 @@ export default async function runScript() {
     .command('serve')
     .description('Server 模式')
     .option('-cl, --clearLog <clearLog>', '清空日志 默认为 true')
+    .option('-e, --env <env>', '部署环境 dev、test、prod')
+    .option(
+      '-ev, --env-vars <key=value>',
+      '定义一个环境变量 -ev key=value 多个环境变量重复调用 -ev key=value -ev key=value',
+      (ovalue: string, memo: Record<string, string>) => {
+        const [key, value] = ovalue.split('=')
+        memo[key] = value
+        return memo
+      },
+      {},
+    )
     .action(async o => {
       const {default: serveScript} = await import('src/script/serve')
       await serveScript.setup('serve', o)
