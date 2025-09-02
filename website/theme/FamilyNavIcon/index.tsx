@@ -1,4 +1,5 @@
-import Popover from 'antd/es/popover'
+import {navConfig as res} from '@config'
+import {Popover} from 'antd'
 import {useEffect, useState} from 'react'
 import {PopoverContent} from './components/PopoverContent'
 import style from './index.module.scss'
@@ -13,10 +14,10 @@ export const FamilyNavIcon = (props: FamilyNavIconProps = {}) => {
   const [configData, setConfigData] = useState<NavConfig>({} as NavConfig)
   const lang = props.lang || getLang()
   useEffect(() => {
-    ;(async () => {
-      const res = await fetch('https://unpkg.com/webupload/official/data/nav-config.json').then(res => res.json())
-      setConfigData(res)
-    })()
+    // ;(async () => {
+    // const res = await fetch('https://unpkg.com/webupload/official/data/nav-config.json').then(res => res.json())
+    setConfigData(res)
+    // })()
   }, [])
   return (
     <div className={style.root}>
@@ -25,7 +26,6 @@ export const FamilyNavIcon = (props: FamilyNavIconProps = {}) => {
         trigger="hover"
         placement="bottomLeft"
         content={<PopoverContent lang={lang} config={configData} />}
-        overlayClassName={style.popover}
       >
         <div className={style.wrapper}>
           <svg width="20" height="20" fill="none">

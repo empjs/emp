@@ -69,9 +69,10 @@ export default defineConfig({
 				}
 			]
 		}, */
-    source: {
+    resolve: {
       alias: {
         '@components': path.join(__dirname, 'theme/components'),
+        '@config': path.join(__dirname, 'config'),
         '@en': path.join(__dirname, 'docs/en'),
         '@zh': path.join(__dirname, 'docs/zh'),
       },

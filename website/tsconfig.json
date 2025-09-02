@@ -5,6 +5,7 @@
     "paths": {
       "@hooks/*": ["./hooks/*"],
       "@components/*": ["./components/*"],
+      "@config": ["./config"],
       "@builtIns/*": ["./components/builtIns/*"]
     }
   },
