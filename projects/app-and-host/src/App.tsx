@@ -17,7 +17,7 @@ if (isEmp) {
 const App = () => {
   return (
     <div className={`app`}>
-      <h1 className="app-title">App and Host In One Project!</h1>
+      <h1 className="app-title">App and Host In One Project</h1>
       <Suspense>
         <Info desc={`from app ${ip}:${port}`} />
         <About desc={`from app ${ip}:${port}`} />
