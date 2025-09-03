@@ -14,7 +14,8 @@
     "start": "pnpm --filter=app-and-host run /^start:.*/",
     "start:a": "emp serve --env=3710",
     "start:b": "emp serve --env=3712",
-    "stat": "emp build --analyze"
+    "stat": "emp build --analyze",
+    "dt": "emp build --doctor"
   },
   "dependencies": {
     "@empjs/share": "workspace:^",
