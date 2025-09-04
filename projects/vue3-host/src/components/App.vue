@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello App</h1>
+  <h1>Hello App Count: {{ counterStore.count }}</h1>
   <p>
     <strong>Current route path:</strong> {{ $route.fullPath }}
   </p>
@@ -11,3 +11,8 @@
     <RouterView />
   </main>
 </template>
+
+<script setup lang="ts">
+import { useCounterStore } from './countStore'
+const counterStore = useCounterStore()
+</script>
