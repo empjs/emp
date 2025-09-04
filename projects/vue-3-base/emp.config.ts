@@ -15,12 +15,12 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.5.0/output/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.9.3/output/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {
             libs: [
-              `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
+              `https://cdn.jsdelivr.net/npm/vue@3.5.21/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
             ],
             global: 'window',
           },

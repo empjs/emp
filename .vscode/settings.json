@@ -30,6 +30,9 @@
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.suggest.autoImports": true,
   "scss.validate": false,

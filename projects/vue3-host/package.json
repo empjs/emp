@@ -1,19 +1,17 @@
 {
-  "name": "vue-3-base",
+  "name": "vue-3-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@empjs/plugin-vue3": "workspace:^*",
-    "@vue/tsconfig": "^0.7.0"
+    "@empjs/plugin-vue3": "workspace:^*"
   },
   "dependencies": {
-    "@empjs/plugin-lightningcss": "workspace:^",
     "@empjs/share": "workspace:^",
-    "ant-design-vue": "^4.1.2",
-    "vue": "^3.5.21"
+    "vue": "3.5.21",
+    "vue-router": "4.5.1"
   },
   "scripts": {
     "dev": "emp dev",
