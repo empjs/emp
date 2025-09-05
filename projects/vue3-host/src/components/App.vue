@@ -9,13 +9,13 @@
     </div>
 
   </div>
+  <nav>
+    <RouterLink to="/">Go to home</RouterLink> /
+    <RouterLink to="/info">Go to info</RouterLink>
+  </nav>
   <p>
     <strong>Current route path:</strong> {{ $route.fullPath }}
   </p>
-  <nav>
-    <RouterLink to="/">Go to home</RouterLink> |
-    <RouterLink to="/info">Go to info</RouterLink>
-  </nav>
   <main>
     <RouterView />
   </main>
@@ -41,7 +41,7 @@ h1 {
 }
 
 .logo {
-  width: 80px;
+  height: 60px;
 }
 
 .header {

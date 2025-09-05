@@ -3,9 +3,9 @@ import Vue3 from '@empjs/plugin-vue3'
 import {externalVue, pluginRspackEmpShare} from '@empjs/share'
 import pkg from './package.json'
 
-const vueVersion = pkg.dependencies.vue
-const vueRouterVersion = pkg.dependencies['vue-router']
-const piniaVersion = pkg.dependencies.pinia
+const vueVersion = pkg.dependencies.vue.replace('^', '')
+const vueRouterVersion = pkg.dependencies['vue-router'].replace('^', '')
+const piniaVersion = pkg.dependencies.pinia.replace('^', '')
 export default defineConfig(store => {
   return {
     defineFix: 'all',
@@ -47,7 +47,7 @@ export default defineConfig(store => {
       //   name: 'vue3Project',
       // }),
     ],
-    server: {port: 9901},
+    server: {port: 9901,open:false},
     html: {
       title: 'Vue3 Host',
       template: 'src/setup/index.html',
