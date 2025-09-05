@@ -1,4 +1,4 @@
-import('./bootstrap')
+import('src/bootstrap')
 // import {createRoot} from 'react-dom/client'
 // import App from './showcase/Layout'
 

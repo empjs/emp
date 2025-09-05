@@ -1,4 +1,4 @@
- /// <reference types="node" />
+/// <reference types="node" />
 // web worker
 declare module '*?worker' {
   const workerConstructor: {

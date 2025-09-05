@@ -45,16 +45,20 @@
       "default": "./tsconfig/vue.json"
     },
     "./client": {
-      "types": "./types/react.d.ts",
-      "default": "./types/react.d.ts"
+      "types": "./types/react/index.d.ts",
+      "default": "./types/react/index.d.ts"
+    },
+    "./types/base": {
+      "types": "./types/base/index.d.ts",
+      "default": "./types/base/index.d.ts"
     },
     "./types/vue": {
-      "types": "./types/vue.d.ts",
-      "default": "./types/vue.d.ts"
+      "types": "./types/vue/index.d.ts",
+      "default": "./types/vue/index.d.ts"
     },
     "./types/react": {
-      "types": "./types/react.d.ts",
-      "default": "./types/react.d.ts"
+      "types": "./types/react/index.d.ts",
+      "default": "./types/react/index.d.ts"
     }
   },
   "scripts": {
