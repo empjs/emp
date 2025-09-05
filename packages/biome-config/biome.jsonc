@@ -49,10 +49,8 @@
     },
     // CSS 检查器
     "linter": {
-      "enabled": true, // 启用 CSS 检查
-      "domains": {
-        "vue": "none"
-      }
+      "enabled": true // 启用 CSS 检查
+     
     }
   },
   // JavaScript/TypeScript 相关配置

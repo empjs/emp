@@ -1,0 +1,6 @@
+{
+  "extends": ["./base"],
+  "compilerOptions": {
+    "types": ["@empjs/cli/types/react"]
+  }
+}

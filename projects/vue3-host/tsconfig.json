@@ -1,11 +1,8 @@
 {
-  "extends": "@empjs/cli/emp-tsconfig.json",
+  "extends": "@empjs/cli/tsconfig/vue",
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "src": ["./src/*"],
-      "*": ["./@mf-types/*"]
-    }
+    "baseUrl": "./"
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

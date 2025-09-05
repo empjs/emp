@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["@empjs/cli/client"],
     "plugins": [
       {
         "name": "typescript-plugin-css-modules",
@@ -32,7 +31,5 @@
     "sourceMap": true,
     "jsx": "preserve",
     "verbatimModuleSyntax": true
-  },
-  "include": ["src"],
-  "exclude": ["dist", "nodule_modules"]
+  }
 }

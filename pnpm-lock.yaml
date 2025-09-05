@@ -187,6 +187,9 @@ importers:
       '@swc/helpers':
         specifier: ^0.5.17
         version: 0.5.17
+      '@vue/tsconfig':
+        specifier: ^0.8.1
+        version: 0.8.1(typescript@5.9.2)(vue@3.5.21)
       address:
         specifier: ^2.0.2
         version: 2.0.3
@@ -290,6 +293,9 @@ importers:
       tsup:
         specifier: ^8.4.0
         version: 8.5.0(jiti@2.0.0)(postcss@8.5.6)(typescript@5.9.2)
+      vue:
+        specifier: ^3.5.21
+        version: 3.5.21(typescript@5.9.2)
 
   packages/emp-chain:
     dependencies:
@@ -7414,6 +7420,21 @@ packages:
       typescript: 5.9.2
       vue: 3.5.21(typescript@5.9.2)
     dev: true
+
+  /@vue/tsconfig@0.8.1(typescript@5.9.2)(vue@3.5.21):
+    resolution: {integrity: sha512-aK7feIWPXFSUhsCP9PFqPyFOcz4ENkb8hZ2pneL6m2UjCkccvaOhC/5KCKluuBufvp2KzkbdA2W2pk20vLzu3g==}
+    peerDependencies:
+      typescript: 5.x
+      vue: ^3.4.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      typescript: 5.9.2
+      vue: 3.5.21(typescript@5.9.2)
+    dev: false
 
   /@webassemblyjs/ast@1.14.1:
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}

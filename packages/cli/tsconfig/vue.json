@@ -1,0 +1,6 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "types": ["@empjs/cli/types/vue"]
+  }
+}

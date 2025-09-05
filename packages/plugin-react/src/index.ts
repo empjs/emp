@@ -57,7 +57,7 @@ export default (o: PluginReactType = {}) => {
         // console.log('emp plugin library', library)
         const op: PluginReactConfigType = {
           include: [/\.(?:js|jsx|mjs|cjs|ts|tsx|mts|cts)$/],
-          exclude: [/node_modules/, /\.css$/],
+          exclude: [/node_modules/, /\.css$/, /__federation_expose.*\.js$/],
           // 禁用错误覆盖层以避免与模块联邦冲突
           // overlay: false,
           // 使用模块联邦的唯一名称作为library

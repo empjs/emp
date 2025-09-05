@@ -1,2 +1,2 @@
 import 'src/setup/env'
-import('./setup')
+import('src/setup')
