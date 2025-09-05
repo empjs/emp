@@ -5,12 +5,21 @@ import pkg from './package.json'
 
 const vueVersion = pkg.dependencies.vue
 const vueRouterVersion = pkg.dependencies['vue-router']
+const piniaVersion = pkg.dependencies.pinia
 export default defineConfig(store => {
   return {
+    defineFix: 'all',
+    define: {
+      vueVersion,
+      vueRouterVersion,
+      piniaVersion,
+    },
     build: {
-      // polyfill: {
-      //   entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
-      // },
+      polyfill: {
+        // mode: 'usage',
+        // browserslist: store.browserslistOptions.h5,
+        // entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
+      },
     },
     plugins: [
       Vue3(),
