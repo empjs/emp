@@ -20,6 +20,7 @@
     "@empjs/plugin-tailwindcss": "workspace:^",
     "@empjs/share": "workspace:*",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4.1.13"
   }
 }
