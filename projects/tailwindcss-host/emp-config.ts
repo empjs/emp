@@ -13,7 +13,7 @@ export default defineConfig(store => {
           './App': './src/App',
           './Info': './src/Info',
           './Color': './src/Color',
-          './tailwindcss': './src/tailwindcss',
+          // './tailwindcss': './src/tailwindcss',
         },
         manifest: true,
         // dts: {

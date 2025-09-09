@@ -7,18 +7,23 @@ export default () => {
       const {chain} = store
       const tailwindcssPath = require.resolve('tailwindcss/package.json')
       const installDir = path.dirname(tailwindcssPath)
+      const tailwindcssEntry = path.join(installDir, 'index.css')
+
       const postcssPlugins = [
-        // 添加 postcss-import 插件支持别名解析
+        // postcss-import 插件必须第一个加载，支持别名解析
         require('postcss-import')({
           resolve: (id: string) => {
-            // console.log('postcss-import', store.resolve, id)
-            // 处理 tailwindcss 导入
+            // console.log('postcss-import resolve:', id, 'installDir:', installDir)
+            // 处理 tailwindcss 导入 - 根据 package.json exports 配置
             if (id === 'tailwindcss') {
-              return path.join(installDir, 'index.css')
+              // console.log('Resolving tailwindcss to:', tailwindcssEntry)
+              return tailwindcssEntry
+            } else if (id.startsWith('tailwindcss/')) {
+              const subPath = id.replace('tailwindcss/', '')
+              const resolvedPath = path.join(installDir, subPath)
+              // console.log('Resolving tailwindcss subpath:', id, 'to:', resolvedPath)
+              return resolvedPath
             }
-            // if (id.startsWith('src/')) {
-            //   return path.join(store.appSrc, id.replace('src/', ''))
-            // }
             return id
           },
         }),
@@ -44,6 +49,7 @@ export default () => {
             plugins: postcssPlugins,
           },
         })
+      // 设置 webpack alias 指向 tailwindcss 模块目录，而不是 CSS 文件
       chain.resolve.alias.set('tailwindcss', installDir)
     },
   }

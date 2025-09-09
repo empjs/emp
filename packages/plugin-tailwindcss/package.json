@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-tailwindcss",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "base tailwind 4",
   "license": "MIT",
   "type": "module",
@@ -27,6 +27,16 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./tailwindcss": {
+      "import": {
+        "types": "./dist/tailwindcss.d.ts",
+        "default": "./dist/tailwindcss.js"
+      },
+      "require": {
+        "types": "./dist/tailwindcss.d.cts",
+        "default": "./dist/tailwindcss.cjs"
+      }
     }
   },
   "scripts": {
@@ -44,11 +54,11 @@
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
-    "css-loader": "^7.1.2",
-    "postcss": "^8.5.6",
-    "postcss-loader": "^8.1.1",
-    "postcss-preset-env": "^10.2.4",
-    "tailwindcss": "^4.1.11"
+    "@tailwindcss/postcss": "4.1.13",
+    "css-loader": "7.1.2",
+    "postcss": "8.5.6",
+    "postcss-loader": "8.2.0",
+    "postcss-preset-env": "10.3.1",
+    "tailwindcss": "4.1.13"
   }
 }

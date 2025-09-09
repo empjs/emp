@@ -1,3 +1,4 @@
+import 'src/scope.css'
 // 颜色项组件
 interface ColorItemProps {
   colorClass: string
@@ -27,7 +28,7 @@ const colorData = [
 ]
 
 export const Color = () => (
-  <div className="tailwindcss-host">
+  <div className="tw-host">
     <h1 className="p-5 font-bold ">Color</h1>
     <div className="flex mx-auto max-w-lg grid-cols-1 gap-3 *:*:first:size-9 *:*:first:rounded-md *:*:first:inset-ring *:*:first:inset-ring-black/5 sm:grid-cols-11 sm:flex-row sm:*:*:first:aspect-square sm:*:*:first:w-full">
       {colorData.map((color, index) => (
