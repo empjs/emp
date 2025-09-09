@@ -1,14 +1,24 @@
-/* @import "tailwindcss"; */
-/* @source not "tailwindcss/preflight.css"; */
-/* @config '../tailwindcss-config.ts' */
+/* @import "tailwindcss";
+@config '../tailwindcss-config.ts'; */
 
 
 
 
-
+/* 
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
-/* @import "tailwindcss/preflight.css" layer(base); */
+@import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 @config '../tailwindcss-config.ts'
 
+ */
+
+ @layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+/* @import "tailwindcss/utilities.css" layer(utilities); */
+@layer utilities {
+  .tw-host {
+    @tailwind utilities;
+  }
+}
