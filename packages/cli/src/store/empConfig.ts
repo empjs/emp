@@ -114,7 +114,7 @@ export class EmpConfig {
     return this.assign<Required<DebugType>>(
       {
         loggerLevel: 'info',
-        clearLog: false,
+        clearLog: true,
         progress: true,
         showRsconfig: false,
         showPerformance: false,
