@@ -1,6 +1,6 @@
-import {defineConfig} from 'tsup'
+import {defineConfig, Options} from 'tsup'
 import {shareGlobalName} from './src/helper/config'
-export default defineConfig(({watch}) => {
+export default defineConfig(({watch}): Options[] => {
   return [
     {
       entry: {
@@ -38,7 +38,7 @@ export default defineConfig(({watch}) => {
       clean: true,
       dts: true,
       globalName: `${shareGlobalName}`,
-      env: {EMPSHARE_ENV: watch ? 'dev' : 'prod', NODE_ENV: 'production'},
+      env: {EMPSHARE_ENV: watch ? 'dev' : 'prod'},
       replaceNodeEnv: true, //替换到 process.env.NODE_ENV
       minify: !watch,
       watch: watch,
