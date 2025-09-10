@@ -10,6 +10,9 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         name: `runtime_app`,
         manifest: true,
+        experiments: {
+          asyncStartup: true,
+        },
         exposes: {
           './Title': './src/Title',
         },

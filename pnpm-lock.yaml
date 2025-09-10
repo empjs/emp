@@ -355,11 +355,8 @@ importers:
       '@empjs/module-federation':
         specifier: workspace:*
         version: link:../emp-module-federation
-      '@empjs/module-federation-enhanced':
-        specifier: /Users/xuhongbin/Desktop/Develop/emp-workspace/module-federation-core/packages/enhanced
-        version: link:../../../../emp-workspace/module-federation-core/packages/enhanced
       core-js:
-        specifier: ^3.40.0
+        specifier: ^3.45.1
         version: 3.45.1
     devDependencies:
       '@empjs/cli':
