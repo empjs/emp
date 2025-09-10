@@ -38,7 +38,7 @@ export default defineConfig(({watch}) => {
       clean: true,
       dts: true,
       globalName: `${shareGlobalName}`,
-      env: {EMPSHARE_ENV: watch ? 'dev' : 'prod'},
+      env: {EMPSHARE_ENV: watch ? 'dev' : 'prod', NODE_ENV: 'production'},
       replaceNodeEnv: true, //替换到 process.env.NODE_ENV
       minify: !watch,
       watch: watch,

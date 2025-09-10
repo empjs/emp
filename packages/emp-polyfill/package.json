@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@swc/core": "^1.7.42",
-    "@types/node": "^22.8.5",
-    "serve": "^14.2.1"
+    "@types/node": "^22.8.5"
   }
 }

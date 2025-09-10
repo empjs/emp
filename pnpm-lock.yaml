@@ -20,6 +20,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      serve:
+        specifier: 14.2.5
+        version: 14.2.5
       tsup:
         specifier: 8.5.0
         version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
@@ -54,9 +57,6 @@ importers:
       '@types/react-dom':
         specifier: ^17.0.0
         version: 17.0.26(@types/react@17.0.87)
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
       tsup:
         specifier: ^8.3.5
         version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
@@ -85,15 +85,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.2
         version: 18.3.7(@types/react@18.3.23)
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
-      tsup:
-        specifier: ^8.3.5
-        version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.2
 
   packages/cdn-react-19:
     dependencies:
@@ -116,15 +107,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.1.7(@types/react@19.1.10)
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
-      tsup:
-        specifier: ^8.3.5
-        version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.2
 
   packages/cdn-vue-2:
     dependencies:
@@ -138,15 +120,6 @@ importers:
       '@swc/core':
         specifier: ^1.10.4
         version: 1.13.4
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
-      tsup:
-        specifier: ^8.3.5
-        version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.2
 
   packages/cdn-vue-3:
     dependencies:
@@ -163,15 +136,6 @@ importers:
       '@types/node':
         specifier: ^22.10.5
         version: 22.17.2
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
-      tsup:
-        specifier: ^8.3.5
-        version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.2
 
   packages/cli:
     dependencies:
@@ -346,9 +310,6 @@ importers:
       '@types/node':
         specifier: ^22.8.5
         version: 22.17.2
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
 
   packages/emp-share:
     dependencies:
@@ -365,9 +326,6 @@ importers:
       '@swc/core':
         specifier: ^1.10.8
         version: 1.13.4
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
 
   packages/eslint-config-react:
     dependencies:
@@ -447,9 +405,6 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
 
   packages/lib-vue-2:
     dependencies:
@@ -490,9 +445,6 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
-      serve:
-        specifier: ^14.2.1
-        version: 14.2.4
 
   packages/plugin-lightningcss:
     dependencies:
@@ -7535,6 +7487,7 @@ packages:
     dependencies:
       mime-types: 2.1.35
       negotiator: 0.6.3
+    dev: false
 
   /acorn-import-attributes@1.9.5(acorn@8.15.0):
     resolution: {integrity: sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==}
@@ -8251,7 +8204,6 @@ packages:
   /bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
-    dev: false
 
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -8575,21 +8527,6 @@ packages:
     dependencies:
       mime-db: 1.54.0
 
-  /compression@1.7.4:
-    resolution: {integrity: sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==}
-    engines: {node: '>= 0.8.0'}
-    dependencies:
-      accepts: 1.3.8
-      bytes: 3.0.0
-      compressible: 2.0.18
-      debug: 2.6.9
-      on-headers: 1.0.2
-      safe-buffer: 5.1.2
-      vary: 1.1.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /compression@1.8.1:
     resolution: {integrity: sha512-9mAqGPHLakhCLeNyxPkK4xVo746zQ/czLH1Ky+vkitMnWfWZps8r0qXuwhwizagCRttsL4lfG4pIOvaWLpAP0w==}
     engines: {node: '>= 0.8.0'}
@@ -8603,7 +8540,6 @@ packages:
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /compute-scroll-into-view@1.0.20:
     resolution: {integrity: sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==}
@@ -13236,11 +13172,11 @@ packages:
   /negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
+    dev: false
 
   /negotiator@0.6.4:
     resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==}
     engines: {node: '>= 0.6'}
-    dev: false
 
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
@@ -13438,15 +13374,9 @@ packages:
       ee-first: 1.1.1
     dev: false
 
-  /on-headers@1.0.2:
-    resolution: {integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==}
-    engines: {node: '>= 0.8'}
-    dev: true
-
   /on-headers@1.1.0:
     resolution: {integrity: sha512-737ZY3yNnXy37FHkQxPzt4UZ2UWPWiCZWLvFZ4fu5cueciegX0zGPnrlY6bwRg4FdQOe9YU8MkmJwGhoMybl8A==}
     engines: {node: '>= 0.8'}
-    dev: false
 
   /once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
@@ -15761,6 +15691,7 @@ packages:
 
   /safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
+    dev: false
 
   /safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -16253,8 +16184,8 @@ packages:
       - supports-color
     dev: false
 
-  /serve@14.2.4:
-    resolution: {integrity: sha512-qy1S34PJ/fcY8gjVGszDB3EXiPSk5FKhUa7tQe0UPRddxRidc2V6cNHPNewbE1D7MAkgLuWEt3Vw56vYy73tzQ==}
+  /serve@14.2.5:
+    resolution: {integrity: sha512-Qn/qMkzCcMFVPb60E/hQy+iRLpiU8PamOfOSYoAHmmF+fFFmpPpqa6Oci2iWYpTdOUM3VF+TINud7CfbQnsZbA==}
     engines: {node: '>= 14'}
     hasBin: true
     dependencies:
@@ -16265,7 +16196,7 @@ packages:
       chalk: 5.0.1
       chalk-template: 0.4.0
       clipboardy: 3.0.0
-      compression: 1.7.4
+      compression: 1.8.1
       is-port-reachable: 4.0.0
       serve-handler: 6.1.6
       update-check: 1.5.4

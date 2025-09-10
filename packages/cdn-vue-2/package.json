@@ -32,9 +32,6 @@
     "vue-router": "3"
   },
   "devDependencies": {
-    "@swc/core": "^1.10.4",
-    "serve": "^14.2.1",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "@swc/core": "^1.10.4"
   }
 }

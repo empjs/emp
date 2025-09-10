@@ -66,7 +66,6 @@
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
     "cross-env": "^7.0.3",
-    "rimraf": "^5.0.5",
-    "serve": "^14.2.1"
+    "rimraf": "^5.0.5"
   }
 }
