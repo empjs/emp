@@ -3,7 +3,12 @@ import {defineConfig} from 'tsup'
 export default defineConfig(({watch}) => {
   const isDev = !!watch
   return {
-    entry: ['src/index.ts'],
+    // entry: ['src/runtime/index.ts', 'src/sdk.ts', 'src/rspack.ts'],
+    entry: {
+      runtime: 'src/runtime/index.ts',
+      sdk: 'src/sdk.ts',
+      rspack: 'src/rspack.ts',
+    },
     format: ['esm', 'cjs'],
     splitting: false,
     sourcemap: isDev,

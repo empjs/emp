@@ -96,7 +96,8 @@
   "author": "Ken",
   "dependencies": {
     "@empjs/module-federation-enhanced": "/Users/xuhongbin/Desktop/Develop/emp-workspace/module-federation-core/packages/enhanced",
-    "core-js": "^3.40.0"
+    "core-js": "^3.40.0",
+    "@empjs/module-federation": "workspace:*"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
