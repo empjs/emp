@@ -1630,9 +1630,6 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.1.7(@types/react@19.1.10)
-      tailwindcss-scoped-preflight:
-        specifier: ^3.4.12
-        version: 3.4.12(postcss@8.5.6)(tailwindcss@3.4.17)
 
   projects/unpkg-demo:
     dependencies:
@@ -17022,16 +17019,6 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
-      tailwindcss: 3.4.17(ts-node@10.9.2)
-    dev: true
-
-  /tailwindcss-scoped-preflight@3.4.12(postcss@8.5.6)(tailwindcss@3.4.17):
-    resolution: {integrity: sha512-iEk5Hk4N1C3TZpUlRHc1TiPY9+A/X+Ia21/i/hO0yjMy3A5tGDCZZJdREK8tWPzybgBYRBNpUxTWbL0Yj0zoSw==}
-    peerDependencies:
-      postcss: ^8
-      tailwindcss: ^3
-    dependencies:
-      postcss: 8.5.6
       tailwindcss: 3.4.17(ts-node@10.9.2)
     dev: true
 

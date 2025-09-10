@@ -1,6 +1,6 @@
-import App from './App'
-import Color from './Color'
-import Info from './Info'
+import App from 'src/component/App'
+import Color from 'src/component/Color'
+import Info from 'src/component/Info'
 
 const Container = () => {
   return (

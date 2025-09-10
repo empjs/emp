@@ -1,4 +1,4 @@
-import 'src/scope.css'
+import 'src/style/scope.css'
 // 颜色项组件
 interface ColorItemProps {
   colorClass: string

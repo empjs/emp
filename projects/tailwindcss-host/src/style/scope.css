@@ -1,0 +1,48 @@
+/* 全局引用*/
+/* @import "tailwindcss"; */
+/* @config '../tailwindcss-config.ts'; */
+
+/* 手动配置
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+@config '../tailwindcss-config.ts'
+ */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+/* @import "tailwindcss/utilities.css" layer(utilities); */
+/* @config '../../tailwindcss-config.ts'; */
+@layer utilities {
+  .tw-host {
+    @tailwind utilities;
+  }
+}
+ @layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 0 0% 3.9%;
+	}
+}
+@theme {
+	--color-background: hsl(var(--background));
+	--color-foreground: hsl(var(--foreground));
+}
+
+.card {
+	background-color: var(--color-gray-100);
+	padding: 10px;
+	div {
+		color: var(--color-gray-800);
+		font-weight: 600;
+		color: blue;
+	}
+	a {
+		color: var(--color-blue-500);
+		&:hover {
+			color: var(--color-blue-700);
+		}
+	}
+}

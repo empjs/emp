@@ -10,10 +10,10 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         name: 'tailwindcssHost',
         exposes: {
-          './App': './src/App',
-          './Info': './src/Info',
-          './Color': './src/Color',
-          // './tailwindcss': './src/tailwindcss',
+          './App': './src/component/App',
+          './Info': './src/component/Info',
+          './Color': './src/component/Color',
+          './Container': './src/component/Container',
         },
         manifest: true,
         // dts: {
