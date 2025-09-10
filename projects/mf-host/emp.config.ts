@@ -23,6 +23,9 @@ export default defineConfig(store => {
         //     requiredVersion: '18',
         //   },
         // },
+        experiments: {
+          asyncStartup: true,
+        },
         exposes: {
           './App': './src/App',
           './CountComp': './src/CountComp',

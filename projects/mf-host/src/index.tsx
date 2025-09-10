@@ -1,7 +1,7 @@
-import('src/bootstrap')
-// import {createRoot} from 'react-dom/client'
-// import App from './showcase/Layout'
+// import('src/bootstrap')
+import {createRoot} from 'react-dom/client'
+import App from 'src/App'
 
-// const dom = document.getElementById('emp-root')!
-// const root = createRoot(dom)
-// root.render(<App />)
+const dom = document.getElementById('emp-root')!
+const root = createRoot(dom)
+root.render(<App />)

@@ -16,5 +16,6 @@ export default defineConfig(({watch}) => {
     clean: true,
     dts: true,
     shims: true,
+    // noExternal: ['@module-federation/manifest'],
   }
 })

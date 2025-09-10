@@ -10,6 +10,9 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: store.uniqueName,
+        experiments: {
+          asyncStartup: true,
+        },
         shared: {
           react: {
             singleton: true,
@@ -21,7 +24,7 @@ export default defineConfig(store => {
           },
         },
         remotes: {
-          mfHost: `mfHost@http://${store.server.ip}:6001/emp.js`,
+          mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
         },
         empRuntime: {
           framework: {
