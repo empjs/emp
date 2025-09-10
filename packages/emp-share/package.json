@@ -95,14 +95,12 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@empjs/module-federation-enhanced": "0.6.10-rc.1",
+    "@empjs/module-federation-enhanced": "/Users/xuhongbin/Desktop/Develop/emp-workspace/module-federation-core/packages/enhanced",
     "core-js": "^3.40.0"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
     "@swc/core": "^1.10.8",
-    "serve": "^14.2.1",
-    "tsup": "^8.3.5",
-    "typescript": "^5.5.4"
+    "serve": "^14.2.1"
   }
 }

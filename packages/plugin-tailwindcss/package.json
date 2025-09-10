@@ -50,8 +50,7 @@
   "devDependencies": {
     "@empjs/cli": "workspace:*",
     "@types/node": "^22.13.11",
-    "postcss-import": "^16.1.0",
-    "tsup": "^8.1.0"
+    "postcss-import": "^16.1.0"
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.1.13",

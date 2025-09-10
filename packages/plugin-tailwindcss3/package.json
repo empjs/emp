@@ -39,8 +39,7 @@
   "author": "Ken",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@types/node": "^22.13.11",
-    "tsup": "^8.1.0"
+    "@types/node": "^22.13.11"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",

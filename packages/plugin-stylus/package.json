@@ -38,8 +38,7 @@
   },
   "author": "Ken",
   "devDependencies": {
-    "@empjs/cli": "workspace:*",
-    "tsup": "^8.1.0"
+    "@empjs/cli": "workspace:*"
   },
   "dependencies": {
     "css-loader": "^7.1.2",

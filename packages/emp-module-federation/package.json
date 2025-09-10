@@ -1,7 +1,7 @@
 {
-  "name": "@empjs/plugin-tailwindcss2",
-  "version": "1.0.0",
-  "description": "base tailwind 2",
+  "name": "@empjs/module-federation",
+  "version": "0.18.4",
+  "description": "emp module-federation",
   "license": "MIT",
   "type": "module",
   "files": ["dist"],
@@ -9,12 +9,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
-    "directory": "packages/plugin-tailwindcss2"
+    "directory": "packages/emp-module-federation"
   },
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["vue", "vue2"],
+  "keywords": ["emp", "module-federation"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -37,15 +37,6 @@
     "node": ">=16.0.0"
   },
   "author": "Ken",
-  "devDependencies": {
-    "@empjs/cli": "workspace:*",
-    "@types/node": "^22.13.11",
-    "@types/tailwindcss": "^2.2.4"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "postcss-loader": "^8.1.1",
-    "tailwindcss": "2.2.19"
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }

@@ -47,6 +47,7 @@
     "@commitlint/config-conventional": "^17.8.0",
     "@empjs/biome-config": "workspace:^",
     "cross-env": "^7.0.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.9.2",
+    "tsup": "8.5.0"
   }
 }

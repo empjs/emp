@@ -69,8 +69,6 @@
     "@types/react-dom": "17",
     "cross-env": "^7.0.3",
     "rimraf": "^5.0.5",
-    "serve": "^14.2.1",
-    "tsup": "^8.0.2",
-    "typescript": "^5.5.4"
+    "serve": "^14.2.1"
   }
 }

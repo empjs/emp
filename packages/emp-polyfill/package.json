@@ -35,8 +35,6 @@
   "devDependencies": {
     "@swc/core": "^1.7.42",
     "@types/node": "^22.8.5",
-    "serve": "^14.2.1",
-    "tsup": "^8.3.5",
-    "typescript": "^5.5.4"
+    "serve": "^14.2.1"
   }
 }
