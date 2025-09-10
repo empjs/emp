@@ -16,3 +16,12 @@ export default defineConfig(({mode, env}) => {
 })
 
 ```
+
+## 配置
+> tailwindcss 已经集成都插件、只需直接引入即可
+```js
+import type {Config} from '@empjs/plugin-tailwindcss/tailwindcss'
+export default {
+  important: '.tw-host',
+} satisfies Config
+```
