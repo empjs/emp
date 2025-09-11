@@ -10,11 +10,11 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         name: `runtime_app`,
         manifest: true,
-        experiments: {
-          asyncStartup: true,
-        },
+        // experiments: {
+        //   asyncStartup: true,
+        // },
         exposes: {
-          './Title': './src/Title',
+          // './Title': './src/Title',
         },
         empRuntime: {
           framework: {
@@ -26,6 +26,10 @@ export default defineConfig(store => {
           },
           setExternals: externalReact,
         },
+        // dts: {
+        //   generateTypes: false,
+        //   consumeTypes: true,
+        // },
       }),
     ],
     build: {
