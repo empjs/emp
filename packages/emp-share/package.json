@@ -95,8 +95,8 @@
   },
   "author": "Ken",
   "dependencies": {
-    "core-js": "^3.45.1",
-    "@empjs/module-federation": "workspace:*"
+    "@empjs/module-federation": "workspace:*",
+    "core-js": "^3.45.1"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",

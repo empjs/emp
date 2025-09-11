@@ -84,7 +84,7 @@ export default defineConfig(store => {
       // },
     },
     debug: {
-      // showRsconfig: true,
+      // showRsconfig: 'log.json',
       clearLog: false,
     },
     chain(config) {

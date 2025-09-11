@@ -24,7 +24,7 @@ function App(o: AppType) {
           {/* <ReactLogo /> */}
         </a>
       </div>
-      <h1>EMP 3.0 React {version} </h1>
+      <h1>EMP 3.0 React {version}</h1>
       <ShowCountComp />
       {o.from ? <p>{o.from}</p> : ''}
       {o.nameformRemote ? <p>{o.nameformRemote}</p> : ''}
