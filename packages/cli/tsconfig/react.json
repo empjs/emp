@@ -1,6 +1,7 @@
 {
   "extends": ["./base"],
   "compilerOptions": {
-    "types": ["@empjs/cli/types/react"]
+    "types": ["@empjs/cli/types/react"],
+    "jsx": "react-jsx"
   }
 }

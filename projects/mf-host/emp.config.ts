@@ -23,18 +23,18 @@ export default defineConfig(store => {
         //     requiredVersion: '18',
         //   },
         // },
-        experiments: {
-          asyncStartup: true,
-        },
+        // experiments: {
+        //   asyncStartup: true,
+        // },
         exposes: {
           './App': './src/App',
           './CountComp': './src/CountComp',
           './Section': './src/component/Section',
         },
         manifest: true,
-        // dts: {
-        //   generateTypes: true,
-        // },
+        dts: {
+          generateTypes: true,
+        },
         // dev: {
         //   disableHotTypesReload: false,
         //   disableDynamicRemoteTypeHints: false,
@@ -84,7 +84,7 @@ export default defineConfig(store => {
       // },
     },
     debug: {
-      // showRsconfig: true,
+      // showRsconfig: 'log.json',
       clearLog: false,
     },
     chain(config) {

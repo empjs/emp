@@ -6,6 +6,7 @@ export default defineConfig(({watch}): Options[] => {
       entry: {
         index: 'src/index.ts',
         runtime: 'src/runtime/index.ts',
+        mfRuntime: 'src/runtime/mfRuntime.ts',
         adapter: 'src/adapter/index.ts',
         rspack: 'src/plugins/rspack/index.ts',
         adapterVue: 'src/adapter/vue.ts',

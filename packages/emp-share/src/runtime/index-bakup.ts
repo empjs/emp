@@ -1,4 +1,3 @@
-import type {ModuleFederation} from '@module-federation/runtime'
 import {deepAssign} from 'src/helper'
 import {shareGlobalName} from 'src/helper/config'
 import type {EMPShareRuntimeType, EmpRuntimeOptions, InitOptionsType, LoadRemoteType} from 'src/types'
@@ -19,10 +18,13 @@ export class EMPRuntime {
     showLog: false,
   }
   public shareGlobalName = shareGlobalName
+  private isInit = false
   constructor(op?: EMPShareRuntimeType) {
     if (op) this.setup(op)
   }
-  public mfInstance?: ModuleFederation
+  /**
+   * 实例化 adapter libs
+   */
   public setup(o?: EMPShareRuntimeType | string) {
     if (o) {
       if (typeof o === 'string') o = window[o]
@@ -33,30 +35,23 @@ export class EMPRuntime {
     }
   }
   public init(options: EmpInitOptionsType = {}) {
-    if (this.mfInstance) return this.mfInstance
+    if (this.isInit) return
     let op: InitOptionsType = {
       name: 'empRuntimeProject',
       remotes: [],
       // plugins: [catchErrorNextPlugin(this.options.showLog)],
     }
     op = deepAssign<InitOptionsType>(op, options)
-    this.mfInstance = this.libs.MFRuntime.createInstance(op)
+    this.libs.MFRuntime.init(op)
+    this.isInit = true
   }
   public load<T = any>(...args: LoadRemoteType) {
-    return this.mfInstance?.loadRemote<T>(...args) as Promise<T>
+    return this.libs.MFRuntime.loadRemote<T>(...args) as Promise<T>
   }
-  public register(...args: Parameters<NonNullable<typeof this.mfInstance>['registerRemotes']>) {
-    return this.mfInstance?.registerRemotes(...args)
-  }
-  public preload(...args: Parameters<NonNullable<typeof this.mfInstance>['preloadRemote']>) {
-    return this.mfInstance?.preloadRemote(...args)
-  }
-  public loadShare(...args: Parameters<NonNullable<typeof this.mfInstance>['loadShare']>) {
-    return this.mfInstance?.loadShare(...args)
-  }
-  public preloadRemote(...args: Parameters<NonNullable<typeof this.mfInstance>['preloadRemote']>) {
-    return this.mfInstance?.preloadRemote(...args)
-  }
+  public register = this.libs?.MFRuntime.registerRemotes
+  public preload = this.libs?.MFRuntime.preloadRemote
+  public loadShare = this.libs?.MFRuntime.loadShare
+  public preloadRemote = this.libs?.MFRuntime.preloadRemote
 }
 //
 export default new EMPRuntime()

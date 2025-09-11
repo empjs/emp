@@ -5,7 +5,7 @@ export default defineConfig(({watch}) => {
   return {
     // entry: ['src/runtime/index.ts', 'src/sdk.ts', 'src/rspack.ts'],
     entry: {
-      runtime: 'src/runtime/index.ts',
+      runtime: 'src/runtime.ts',
       sdk: 'src/sdk.ts',
       rspack: 'src/rspack.ts',
     },

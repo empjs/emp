@@ -1,6 +1,6 @@
 {
   "name": "@empjs/share",
-  "version": "3.10.0",
+  "version": "3.10.0-beta.5",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",
@@ -35,6 +35,16 @@
       "require": {
         "types": "./dist/runtime.d.cts",
         "default": "./dist/runtime.cjs"
+      }
+    },
+    "./mfRuntime": {
+      "import": {
+        "types": "./dist/mfRuntime.d.ts",
+        "default": "./dist/mfRuntime.js"
+      },
+      "require": {
+        "types": "./dist/mfRuntime.d.cts",
+        "default": "./dist/mfRuntime.cjs"
       }
     },
     "./adapter": {
@@ -76,6 +86,7 @@
     "*": {
       ".": ["./dist/index.d.ts"],
       "runtime": ["./dist/runtime.d.ts"],
+      "mfRuntime": ["./dist/mfRuntime.d.ts"],
       "adapter": ["./dist/adapter.d.ts"],
       "adapterVue": ["./dist/adapter.d.ts"],
       "rspack": ["./dist/rspack.d.ts"],
@@ -95,8 +106,10 @@
   },
   "author": "Ken",
   "dependencies": {
-    "core-js": "^3.45.1",
-    "@empjs/module-federation": "workspace:*"
+    "@module-federation/rspack": "0.18.4",
+    "@module-federation/runtime": "^0.18.4",
+    "@module-federation/sdk": "0.18.4",
+    "core-js": "^3.45.1"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
