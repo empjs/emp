@@ -95,7 +95,9 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@empjs/module-federation": "workspace:*",
+    "@module-federation/rspack": "0.18.4",
+    "@module-federation/runtime": "^0.18.4",
+    "@module-federation/sdk": "0.18.4",
     "core-js": "^3.45.1"
   },
   "devDependencies": {

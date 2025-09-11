@@ -11,6 +11,7 @@ type AppType = {
   version?: string
   component?: any
   nameformRemote?: string
+  increment?: number
 }
 console.log('test console')
 

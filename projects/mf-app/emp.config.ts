@@ -1,7 +1,6 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import pluginRspackEmpShare, {externalReact} from '@empjs/share/rspack'
-import getConfig from '../mf-host/emp.runtime'
 export default defineConfig(store => {
   // const ip = store.getLanIp()
   // const {empRuntime, polyfillCdn} = getConfig(ip, store)
@@ -42,6 +41,9 @@ export default defineConfig(store => {
             // console.log(o)
             return o
           },
+        },
+        dts: {
+          consumeTypes: true,
         },
         // experiments: {
         //   federationRuntime: 'hoisted',

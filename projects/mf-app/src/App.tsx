@@ -5,7 +5,7 @@ import Bound from './Bound'
 const App = () => (
   <div className={css.main}>
     <Bound name="MF-Host">
-      <Host from="fromMainAppName" nameformRemote="nameformRemote" />
+      <Host from="fromMainAppName" nameformRemote="nameformRemote" increment={1} />
     </Bound>
     <Bound name="MF-APP">
       <h1>mf-app</h1>

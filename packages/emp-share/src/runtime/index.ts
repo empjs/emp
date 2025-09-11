@@ -1,4 +1,4 @@
-import {ModuleFederation} from '@empjs/module-federation/runtime'
+import type {ModuleFederation} from '@module-federation/runtime'
 import {deepAssign} from 'src/helper'
 import {shareGlobalName} from 'src/helper/config'
 import type {EMPShareRuntimeType, EmpRuntimeOptions, InitOptionsType, LoadRemoteType} from 'src/types'

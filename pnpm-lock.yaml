@@ -316,9 +316,15 @@ importers:
 
   packages/emp-share:
     dependencies:
-      '@empjs/module-federation':
-        specifier: workspace:*
-        version: link:../emp-module-federation
+      '@module-federation/rspack':
+        specifier: 0.18.4
+        version: 0.18.4(@rspack/core@1.5.3)(typescript@5.9.2)
+      '@module-federation/runtime':
+        specifier: ^0.18.4
+        version: 0.18.4
+      '@module-federation/sdk':
+        specifier: 0.18.4
+        version: 0.18.4
       core-js:
         specifier: ^3.45.1
         version: 3.45.1
