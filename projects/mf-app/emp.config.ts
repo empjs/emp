@@ -55,11 +55,12 @@ export default defineConfig(store => {
     build: {
       polyfill: {
         // entryCdn: `https://unpkg.com/@empjs/polyfill@2025.9.12/dist/es.js`,
-        // entryCdn: `https://unpkg.com/@empjs/polyfill@2025.9.12/dist/c71.js`,
-        entryCdn: `http://${store.server.ip}:9011/c71.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@2025.9.12/dist/c71.js`,
+        // entryCdn: `http://${store.server.ip}:9011/c71.js`,
       },
-      browserslist: store.browserslistOptions.h5,
-      sourcemap: true,
+      // browserslist: store.browserslistOptions.h5,
+      browserslist: '> 0.5%',
+      // sourcemap: true,
     },
     html: {
       template: 'src/index.html',
