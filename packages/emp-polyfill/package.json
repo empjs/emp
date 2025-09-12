@@ -1,17 +1,11 @@
 {
   "name": "@empjs/polyfill",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "maintainers": [
-    "xuhongbin",
-    "ckken",
-    "doerme"
-  ],
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
