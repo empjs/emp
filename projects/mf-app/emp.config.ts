@@ -30,7 +30,7 @@ export default defineConfig(store => {
             global: 'EMP_ADAPTER_REACT',
             // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
             // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js`],
-            libs: [`http://${store.server.ip}:1800/reactRouter.${store.mode}.umd.js`],
+            libs: [`http://${store.server.ip}:1900/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.10.0-beta.6/output/sdk.js`,

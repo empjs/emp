@@ -10,8 +10,8 @@ function getOptions(env: 'development' | 'production', watch = false): Options {
     dts: true,
     globalName: 'EMP_ADAPTER_REACT',
     env: {NODE_ENV: env},
-    // minify: env !== 'development' ? 'terser' : false,
-    minify: env !== 'development' ? true : false,
+    minify: env !== 'development' ? 'terser' : false,
+    // minify: env !== 'development' ? true : false,
     watch: watch,
     esbuildOptions(options, context) {
       options.legalComments = 'none'

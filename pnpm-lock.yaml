@@ -89,10 +89,10 @@ importers:
   packages/cdn-react-19:
     dependencies:
       react:
-        specifier: ^19.0.0
+        specifier: 19.1.1
         version: 19.1.1
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.1.1
         version: 19.1.1(react@19.1.1)
       react-router-dom:
         specifier: ^6.25.1
