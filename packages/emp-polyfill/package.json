@@ -1,6 +1,6 @@
 {
   "name": "@empjs/polyfill",
-  "version": "0.0.3",
+  "version": "2025.9.12",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",

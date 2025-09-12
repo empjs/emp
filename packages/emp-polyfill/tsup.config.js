@@ -12,13 +12,15 @@ export default defineConfig(({watch}) => {
       // 'src/stage2.ts',
       'src/c71.ts',
     ],
-    target: 'es2015', // 改为 es2015 以减小体积
+    // target: 'es2015', // 改为 es2015 以减小体积
+    target: 'es5',
     format: ['iife'],
     // sourcemap: false, // 生产环境关闭 sourcemap
     clean: true,
     // dts: false, // 关闭类型声明文件生成
     env: {NODE_ENV: 'production'},
     minify: 'terser', // 使用 terser 进行更好的压缩
+    // minify: true,
     watch: watch,
     splitting: false, // 关闭代码分割
     treeshake: true, // 启用 tree shaking
