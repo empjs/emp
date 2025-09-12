@@ -26,10 +26,13 @@ export default defineConfig(store => {
           },
           setExternals: externalReact,
         },
-        // dts: {
-        //   generateTypes: false,
-        //   consumeTypes: true,
-        // },
+        dts: {
+          generateTypes: false,
+          consumeTypes: true,
+        },
+        dev: {
+          disableDynamicRemoteTypeHints: false,
+        },
       }),
     ],
     build: {
@@ -45,6 +48,6 @@ export default defineConfig(store => {
       template: 'src/index.html',
     },
     define: {runtimeHost: `http://${ip}:3802/emp.js`, ip: `${ip}`},
-    // debug: {showRsconfig: true},
+    debug: {showRsconfig: 'log.json'},
   }
 })

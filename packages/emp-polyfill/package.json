@@ -4,8 +4,14 @@
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -28,12 +34,13 @@
   },
   "author": "Ken",
   "dependencies": {
-    "core-js": "^3.39.0",
-    "core-js-bundle": "^3.39.0",
-    "core-js-pure": "^3.39.0"
+    "core-js": "^3.45.1",
+    "core-js-builder": "^3.45.1",
+    "core-js-bundle": "^3.45.1",
+    "core-js-pure": "^3.45.1"
   },
   "devDependencies": {
-    "@swc/core": "^1.7.42",
+    "@swc/core": "^1.13.5",
     "@types/node": "^22.8.5"
   }
 }

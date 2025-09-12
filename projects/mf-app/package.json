@@ -21,7 +21,6 @@
     "@types/react-dom": "^18.2.14"
   },
   "dependencies": {
-    "@empjs/share": "workspace:^",
-    "core-js": "^3.36.1"
+    "@empjs/share": "workspace:^"
   }
 }

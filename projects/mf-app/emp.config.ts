@@ -9,9 +9,9 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: store.uniqueName,
-        experiments: {
-          asyncStartup: true,
-        },
+        // experiments: {
+        //   asyncStartup: true,
+        // },
         shared: {
           react: {
             singleton: true,
@@ -28,13 +28,13 @@ export default defineConfig(store => {
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
-            // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
-            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
+            // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js`],
             // libs: [`http://${store.server.ip}:1800/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            // lib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
-            lib: `http://${store.server.ip}:2100/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.10.0-beta.6/output/sdk.js`,
+            // lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           setExternals: (o, global) => {
             o = externalReact(o, global)
@@ -42,9 +42,9 @@ export default defineConfig(store => {
             return o
           },
         },
-        dts: {
-          consumeTypes: true,
-        },
+        // dts: {
+        //   consumeTypes: true,
+        // },
         // experiments: {
         //   federationRuntime: 'hoisted',
         // },
@@ -54,7 +54,8 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        // entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js`,
+        entryCdn: `http://${store.server.ip}:9011/c71.js`,
       },
       browserslist: store.browserslistOptions.h5,
       sourcemap: true,
