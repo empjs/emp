@@ -29,35 +29,55 @@ import {pluginRspackEmpShare} from '@empjs/share'
 export default defineConfig(store => {
   return {
     plugins: [
-      Vue3(),
+      Vue3(), // Vue3 插件，提供 Vue3 框架支持
       pluginRspackEmpShare({
-        // 暴露的组件配置
+        // 🔗 暴露的组件配置 - 定义哪些组件可以被其他微前端应用消费
         exposes: {
-          './Info': './src/components/Info.vue',
-          './Count': './src/components/Count.vue',
-          './Home': './src/components/Home.vue',
+          './Info': './src/components/Info.vue',     // 信息展示组件
+          './Count': './src/components/Count.vue',   // 计数器组件（包含 Pinia 状态管理）
+          './Home': './src/components/Home.vue',     // 首页组件
         },
-        // 微前端运行时配置
+        
+        // ⚙️ 微前端运行时配置 - 定义共享依赖和运行时环境
         empRuntime: {
+          // 🚀 EMP 核心运行时配置
           runtime: {
+            // EMP Share 运行时库，负责模块联邦的核心功能
             lib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
+            // 全局变量名，运行时库挂载到 window 对象的属性名
             global: `EMP_SHARE_RUNTIME`,
           },
+          
+          // 🎯 框架适配器配置 - 提供 Vue3 生态系统支持
           framework: {
+            // Vue3 + Vue Router + Pinia 的 CDN 适配器库
+            // 根据构建模式（development/production）自动选择对应版本
             libs: [`https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`],
+            // 框架适配器的全局变量名
             global: 'EMP_ADAPTER_VUE',
           },
+          
+          // 📦 外部依赖映射配置 - 将 npm 包映射到全局变量，实现依赖共享
           setExternals(o) {
+            // 将 Vue3 核心库映射到适配器提供的全局变量
             o['vue'] = `EMP_ADAPTER_VUE.Vue`
+            // 将 Vue Router 映射到适配器提供的路由库
             o['vue-router'] = `EMP_ADAPTER_VUE.VueRouter`
+            // 将 Pinia 状态管理库映射到适配器提供的状态管理
             o['pinia'] = `EMP_ADAPTER_VUE.Pinia`
             return o
           },
         },
-        name: 'vue3Host', // 微前端应用名称
+        
+        // 🏷️ 微前端应用唯一标识名称，用于模块联邦识别
+        name: 'vue3Host',
       }),
     ],
-    server: {port: 9901}, // 宿主应用端口
+    
+    // 🌐 开发服务器配置
+    server: {
+      port: 9901, // 宿主应用运行端口，消费者应用将通过此端口访问暴露的组件
+    },
   }
 })
 ```
