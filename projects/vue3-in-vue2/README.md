@@ -66,6 +66,17 @@ pnpm dev
 pnpm --filter vue3-host dev
 ```
 
+> ⚠️ **重要提醒**：为了避免影响主应用的热更新功能，建议 vue3-host 应用在 **production 模式** 下运行。开发模式下的 vue3-host 可能会导致主应用出现热更新冲突和报错。
+>
+> ```bash
+> # 推荐：以 production 模式启动 vue3-host
+> pnpm --filter vue3-host build
+> pnpm --filter vue3-host preview
+> 
+> # 或者使用生产构建后的静态服务
+> pnpm --filter vue3-host build && pnpm --filter vue3-host serve
+> ```
+
 ## 核心组件详解
 
 ### Vue3Adapter 适配器组件
@@ -305,7 +316,7 @@ render(h) {
 启用开发模式进行调试：
 
 ```bash
-# 开发模式启动
+# 开发模式启动主应用
 pnpm dev
 
 # 构建分析
@@ -314,6 +325,16 @@ pnpm run stat
 # 生产构建
 pnpm run build
 ```
+
+**开发环境最佳实践**：
+- 主应用（vue3-in-vue2）使用开发模式：`pnpm dev`
+- Vue3 Host 应用建议使用 production 模式，避免热更新冲突：
+  ```bash
+  # 推荐的开发流程
+  pnpm --filter vue3-host build
+  pnpm --filter vue3-host preview
+  ```
+- 如需调试 Vue3 组件，可临时切换 vue3-host 到开发模式，但需注意可能的冲突
 
 ## 常见问题
 
@@ -325,21 +346,34 @@ pnpm run build
 3. 验证组件名称是否正确
 4. 查看浏览器控制台错误信息
 
-### Q2: Props 传递不生效？
+### Q2: 主应用热更新失效或报错？
+
+**A**: 这通常是由于 vue3-host 应用在开发模式下运行导致的冲突：
+1. **推荐解决方案**：将 vue3-host 切换到 production 模式
+   ```bash
+   # 构建并启动 production 模式的 vue3-host
+   pnpm --filter vue3-host build
+   pnpm --filter vue3-host preview
+   ```
+2. **临时解决方案**：重启两个应用，确保启动顺序正确
+3. **检查端口冲突**：确保两个应用使用不同的端口
+4. **清除缓存**：清除浏览器缓存和 node_modules/.cache
+
+### Q3: Props 传递不生效？
 
 **A**: 确保：
 1. Props 数据格式正确
 2. Vue3 组件正确定义了 props
 3. 数据是响应式的（使用 Vue2 的 data 或 computed）
 
-### Q3: 状态管理问题？
+### Q4: 状态管理问题？
 
 **A**: 
 1. 确保 Pinia 正确配置
 2. 检查 Vue3 组件中的 store 使用方式
 3. 验证适配器中的 Pinia 实例创建
 
-### Q4: 样式隔离问题？
+### Q5: 样式隔离问题？
 
 **A**:
 1. 使用 scoped CSS
