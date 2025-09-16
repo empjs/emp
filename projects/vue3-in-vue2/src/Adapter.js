@@ -10,12 +10,12 @@ class Vue3AdapterCore {
     this.plugins = new Map()
     this.isLoading = true
     this.error = null
-    
+
     // 整合EMP_ADAPTER_VUE模块
     this.Vue = EMP_ADAPTER_VUE?.Vue
     this.Pinia = EMP_ADAPTER_VUE?.Pinia
     this.VueRouter = EMP_ADAPTER_VUE?.VueRouter
-    
+
     this.initPlugins()
   }
 
@@ -27,10 +27,13 @@ class Vue3AdapterCore {
       this.plugins.set('pinia', this.Pinia.createPinia?.() || this.Pinia)
     }
     if (this.VueRouter) {
-      this.plugins.set('router', this.VueRouter.createRouter?.({
-        history: this.VueRouter.createWebHistory?.() || this.VueRouter.createWebHashHistory?.(),
-        routes: []
-      }))
+      this.plugins.set(
+        'router',
+        this.VueRouter.createRouter?.({
+          history: this.VueRouter.createWebHistory?.() || this.VueRouter.createWebHashHistory?.(),
+          routes: [],
+        }),
+      )
     }
   }
 
@@ -68,7 +71,7 @@ class Vue3AdapterCore {
 
     // 创建Vue3应用
     this.vue3App = this.Vue.createApp(this.vue3Component, props)
-    
+
     // 安装插件
     this.plugins.forEach(plugin => {
       if (plugin) this.vue3App.use(plugin)
@@ -113,10 +116,10 @@ class Vue3AdapterCore {
 export default {
   name: 'Vue3Adapter',
   props: {
-    moduleName: { type: String, required: true },
-    componentProps: { type: Object, default: () => ({}) },
+    moduleName: {type: String, required: true},
+    componentProps: {type: Object, default: () => ({})},
   },
-  
+
   data() {
     return {
       adapter: new Vue3AdapterCore(),
@@ -137,7 +140,7 @@ export default {
       try {
         await this.adapter.loadComponent(this.moduleName)
         await this.$nextTick()
-        
+
         const container = await this.getContainer()
         await this.adapter.mountApp(container, this.componentProps)
       } catch (error) {
@@ -180,16 +183,16 @@ export default {
 
   render(h) {
     if (this.adapter.isLoading) {
-      return h('div', { class: 'vue3-adapter-loading' }, '正在加载Vue3组件...')
+      return h('div', {class: 'vue3-adapter-loading'}, '正在加载Vue3组件...')
     }
 
     if (this.adapter.error) {
-      return h('div', { class: 'vue3-adapter-error' }, [
+      return h('div', {class: 'vue3-adapter-error'}, [
         h('div', `错误: ${this.adapter.error}`),
-        h('button', { on: { click: this.reload } }, '重试')
+        h('button', {on: {click: this.reload}}, '重试'),
       ])
     }
 
-    return h('div', { ref: 'vue3Container', class: 'vue3-adapter-container' })
+    return h('div', {ref: 'vue3Container', class: 'vue3-adapter-container'})
   },
 }
