@@ -31,10 +31,8 @@ export default defineConfig(store => {
           },
           framework: {
             libs: [
-              `http://172.29.96.250:2300/vueRouter.${store.mode}.umd.js`,
-              // `https://cdn.jsdelivr.net/npm/vue@${vueVersion}/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
-              // `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js`,
-              // `https://cdn.jsdelivr.net/npm/vue-router@${vueRouterVersion}/dist/vue-router.global.prod.js`,
+              // `http://${store.server.ip}:2300/vueRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0-1/dist/vueRouter.${store.mode}.umd.js`,
             ],
             global: 'EMP_ADAPTER_VUE',
             // global: 'window',
@@ -53,7 +51,7 @@ export default defineConfig(store => {
     server: {port: 9901, open: false},
     html: {
       title: 'Vue3 Host',
-      template: 'src/setup/index.html',
+      // template: 'src/setup/index.html',
     },
     debug: {
       clearLog: false,
