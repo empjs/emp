@@ -1,0 +1,39 @@
+{
+  "name": "@empjs/cdn-vue-router-pinia",
+  "version": "0.3.0",
+  "description": "empShare runtime",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/cdn-vue-router-pinia"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/vueRouter.production.umd.js",
+  "types": "dist/vueRouter.d.ts",
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:bundle": "tsup --watch",
+    "dev:serve": "serve ./dist --cors -p 2300",
+    "build": "tsup",
+    "start": "serve ./dist --cors -p 2300"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {
+    "pinia": "^3.0.3",
+    "vue": "^3.6.0-alpha.2",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.10.4",
+    "@types/node": "^22.10.5"
+  }
+}

@@ -18,43 +18,46 @@ export default defineConfig(store => {
       polyfill: {
         // mode: 'usage',
         // browserslist: store.browserslistOptions.h5,
-        // entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
+        entryCdn: 'https://unpkg.com/@empjs/polyfill@2025.9.12/dist/c71.js',
       },
     },
     plugins: [
       Vue3(),
-      // pluginRspackEmpShare({
-      //   empRuntime: {
-      //     runtime: {
-      //       lib: `https://unpkg.com/@empjs/share@3.5.0/output/sdk.js`,
-      //       global: `EMP_SHARE_RUNTIME`,
-      //     },
-      //     framework: {
-      //       libs: [
-      //         `https://cdn.jsdelivr.net/npm/vue@${vueVersion}/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
-      //         // `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js`,
-      //         `https://cdn.jsdelivr.net/npm/vue-router@${vueRouterVersion}/dist/vue-router.global.prod.js`,
-      //       ],
-      //       global: 'window',
-      //     },
-      //     setExternals(o) {
-      //       o['vue'] = `Vue`
-      //       o['vue-router'] = `VueRouter`
-      //       return o
-      //     },
-      //   },
-      //   remotes: {},
-      //   name: 'vue3Project',
-      // }),
+      pluginRspackEmpShare({
+        empRuntime: {
+          runtime: {
+            lib: `https://unpkg.com/@empjs/share@3.5.0/output/sdk.js`,
+            global: `EMP_SHARE_RUNTIME`,
+          },
+          framework: {
+            libs: [
+              `http://172.29.96.250:2300/vueRouter.${store.mode}.umd.js`,
+              // `https://cdn.jsdelivr.net/npm/vue@${vueVersion}/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
+              // `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js`,
+              // `https://cdn.jsdelivr.net/npm/vue-router@${vueRouterVersion}/dist/vue-router.global.prod.js`,
+            ],
+            global: 'EMP_ADAPTER_VUE',
+            // global: 'window',
+          },
+          setExternals(o) {
+            o['vue'] = `EMP_ADAPTER_VUE.Vue`
+            o['vue-router'] = `EMP_ADAPTER_VUE.VueRouter`
+            o['pinia'] = `EMP_ADAPTER_VUE.Pinia`
+            return o
+          },
+        },
+        remotes: {},
+        name: 'vue3Project',
+      }),
     ],
-    server: {port: 9901,open:false},
+    server: {port: 9901, open: false},
     html: {
       title: 'Vue3 Host',
-      template: 'src/setup/index.html',
+      // template: 'src/setup/index.html',
     },
     debug: {
       clearLog: false,
-      showRsconfig: false,
+      // showRsconfig: 'x.json',
     },
   }
 })

@@ -21,7 +21,7 @@
   </main>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" vapor>
 // import { useCounterStore } from './countStore'
 
 // const counterStore = useCounterStore()

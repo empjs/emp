@@ -1,7 +1,9 @@
 import * as React from 'react'
+import * as JSXSource from 'react/jsx-dev-runtime'
 import * as ReactDOM from 'react-dom'
 
-export {jsxDEV} from 'react/jsx-dev-runtime'
 export * from 'react/jsx-runtime'
 export * from 'react-dom/client'
-export {React, ReactDOM}
+
+const {jsxDEV} = JSXSource
+export {React, ReactDOM, jsxDEV}
