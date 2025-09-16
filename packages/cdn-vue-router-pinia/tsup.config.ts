@@ -4,14 +4,14 @@ function getOptions(env: 'development' | 'production', watch = false): Options {
   return {
     entry: ['src/vue.ts', 'src/vueRouter.ts'],
     format: ['iife'],
-    target: 'es5',
+    target: 'es2018',
     sourcemap: true,
     clean: true,
     dts: true,
     globalName: 'EMP_ADAPTER_VUE',
     env: {NODE_ENV: env},
-    // minify: env !== 'development' ? 'terser' : false,
-    minify: env !== 'development' ? true : false,
+    minify: env !== 'development' ? 'terser' : false,
+    // minify: env !== 'development' ? true : false,
 
     watch: watch,
     esbuildOptions(options, context) {

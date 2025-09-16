@@ -163,13 +163,13 @@ importers:
     dependencies:
       pinia:
         specifier: ^3.0.3
-        version: 3.0.3(typescript@5.9.2)(vue@3.6.0-alpha.2)
+        version: 3.0.3(typescript@5.9.2)(vue@3.5.21)
       vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-alpha.2(typescript@5.9.2)
+        specifier: ^3.5.21
+        version: 3.5.21(typescript@5.9.2)
       vue-router:
         specifier: ^4.5.1
-        version: 4.5.1(vue@3.6.0-alpha.2)
+        version: 4.5.1(vue@3.5.21)
     devDependencies:
       '@swc/core':
         specifier: ^1.10.4
@@ -15243,6 +15243,20 @@ packages:
     requiresBuild: true
     dev: false
 
+  /pinia@3.0.3(typescript@5.9.2)(vue@3.5.21):
+    resolution: {integrity: sha512-ttXO/InUULUXkMHpTdp9Fj4hLpD/2AoJdmAbAeW2yu1iy1k+pkFekQXw5VpC0/5p51IOR/jDaDRfRWRnMMsGOA==}
+    peerDependencies:
+      typescript: '>=4.4.4'
+      vue: ^2.7.0 || ^3.5.11
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 7.7.7
+      typescript: 5.9.2
+      vue: 3.5.21(typescript@5.9.2)
+    dev: false
+
   /pinia@3.0.3(typescript@5.9.2)(vue@3.6.0-alpha.2):
     resolution: {integrity: sha512-ttXO/InUULUXkMHpTdp9Fj4hLpD/2AoJdmAbAeW2yu1iy1k+pkFekQXw5VpC0/5p51IOR/jDaDRfRWRnMMsGOA==}
     peerDependencies:
@@ -19815,6 +19829,15 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.19(typescript@5.9.2)
+    dev: false
+
+  /vue-router@4.5.1(vue@3.5.21):
+    resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.21(typescript@5.9.2)
     dev: false
 
   /vue-router@4.5.1(vue@3.6.0-alpha.2):

@@ -1,5 +1,5 @@
 <template>
-    <h3>count: <b>{{ count }}</b></h3>
+    <h3>count {{ name }}: <b>{{ count }}</b></h3>
     <button class="button" v-on:click="counterStore.increment">Clicked Me</button>
 </template>
 
@@ -9,6 +9,12 @@ import { useCounterStore } from './countStore'
 
 const counterStore = useCounterStore()
 const { count } = storeToRefs(counterStore)
+const { name } = defineProps({
+    name: {
+        type: String,
+        default: 'count',
+    },
+})
 </script>
 
 <style lang="css" scoped>

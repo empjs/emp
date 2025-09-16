@@ -21,14 +21,15 @@
   </main>
 </template>
 
-<script setup lang="ts" vapor>
+<script setup lang="ts">
 // import { useCounterStore } from './countStore'
 
 // const counterStore = useCounterStore()
 import logo from 'src/assets/logo.svg'
-import { ref } from 'vue'
+import { ref, version } from 'vue'
 
-const vueVersion = ref(import.meta.env.vueVersion)
+const vueVersion = version
+// const vueVersion = ref(import.meta.env.vueVersion)
 const vueRouterVersion = ref(import.meta.env.vueRouterVersion)
 const piniaVersion = ref(import.meta.env.piniaVersion)
 </script>

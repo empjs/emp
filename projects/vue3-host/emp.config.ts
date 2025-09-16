@@ -53,7 +53,7 @@ export default defineConfig(store => {
     server: {port: 9901, open: false},
     html: {
       title: 'Vue3 Host',
-      // template: 'src/setup/index.html',
+      template: 'src/setup/index.html',
     },
     debug: {
       clearLog: false,
