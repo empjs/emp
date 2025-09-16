@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cdn-vue-router-pinia",
-  "version": "3.5.0-1",
+  "version": "3.5.0",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
@@ -21,7 +21,11 @@
     "dev:bundle": "tsup --watch",
     "dev:serve": "serve ./dist --cors -p 2300",
     "build": "tsup",
-    "start": "serve ./dist --cors -p 2300"
+    "start": "serve ./dist --cors -p 2300",
+    "dev-rs": "pnpm run /^dev-rs:.*/",
+    "dev-rs:bundle": "rslib build --watch",
+    "dev-rs:serve": "serve ./dist --cors -p 2300",
+    "build-rs": "rslib build"
   },
   "engines": {
     "node": ">=16.0.0"
