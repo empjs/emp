@@ -1851,6 +1851,28 @@ importers:
         specifier: workspace:^*
         version: link:../../packages/plugin-vue3
 
+  projects/vue3-in-vue2:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.14
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.14)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.14)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
+
   website:
     dependencies:
       antd:
