@@ -1807,6 +1807,28 @@ importers:
         specifier: workspace:^*
         version: link:../../packages/plugin-vue3
 
+  projects/vue3-app:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.3(typescript@5.9.2)(vue@3.6.0-alpha.2)
+      vue:
+        specifier: ^3.6.0-alpha.2
+        version: 3.6.0-alpha.2(typescript@5.9.2)
+      vue-router:
+        specifier: ^4.5.1
+        version: 4.5.1(vue@3.6.0-alpha.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
   projects/vue3-host:
     dependencies:
       '@empjs/share':
@@ -7718,7 +7740,7 @@ packages:
       '@vue/compiler-vapor': 3.6.0-alpha.2
       '@vue/shared': 3.6.0-alpha.2
       estree-walker: 2.0.2
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       postcss: 8.5.6
       source-map-js: 1.2.1
     dev: false
@@ -13917,7 +13939,6 @@ packages:
     resolution: {integrity: sha512-2N21sPY9Ws53PZvsEpVtNuSW+ScYbQdp4b9qUaL+9QkHUrGFKo56Lg9Emg5s9V/qrtNBmiR01sYhUOwu3H+VOw==}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
-    dev: true
 
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}

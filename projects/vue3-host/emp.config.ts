@@ -24,6 +24,12 @@ export default defineConfig(store => {
     plugins: [
       Vue3(),
       pluginRspackEmpShare({
+        manifest: true,
+        exposes: {
+          './Info': './src/components/Info.vue',
+          './Count': './src/components/Count.vue',
+          './Home': './src/components/Home.vue',
+        },
         empRuntime: {
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
@@ -45,7 +51,14 @@ export default defineConfig(store => {
           },
         },
         remotes: {},
-        name: 'vue3Project',
+        name: 'vue3Host',
+        // dts: {
+        //   generateTypes: {
+        //     compilerInstance: 'vue-tsc',
+        //     compileInChildProcess: false,
+        //   },
+        //   consumeTypes: false,
+        // },
       }),
     ],
     server: {port: 9901, open: false},
