@@ -2,11 +2,11 @@
   <div class="main">
     <h1>vue3 in vue2</h1>
     <div class="demo-section">
-      <h2>Vue3组件适配器演示</h2>
+      <h2>Vue2 App.vue</h2>
 
       <!-- 使用适配器加载Vue3组件 -->
       <div class="adapter-demo">
-        <h3>通过适配器加载的Vue3组件：</h3>
+        <h3>Vue3 Component:</h3>
         <Vue3Adapter module-name="v3h/Info" :component-props="vue3Props" />
       </div>
 
@@ -15,13 +15,12 @@
 </template>
 
 <script>
-import Vue3Adapter from './Adapter.js'
+import Vue3Adapter from './Adapter'
 
 
 export default {
   components: {
     Vue3Adapter,
-    Info: () => rt.load('v3h/Info'),
   },
   data() {
     return {

@@ -61,7 +61,13 @@ export default defineConfig(store => {
         // },
       }),
     ],
-    server: {port: 9901, open: false},
+    server: {
+      port: 9901,
+      open: false,
+      client: {
+        overlay: false,
+      },
+    },
     html: {
       title: 'Vue3 Host',
       // template: 'src/setup/index.html',
