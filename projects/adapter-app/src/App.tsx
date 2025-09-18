@@ -6,6 +6,7 @@ import React from 'react'
 const react18 = new ReactAdapter(EMP_ADAPTER_REACT)
 const Remote18App = react18.adapter(ahApp)
 // console.log('ahApp', ahApp)
+// TODO React18的组件插入React16组件
 //
 const App = () => (
   <div>
