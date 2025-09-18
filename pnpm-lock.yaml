@@ -33,6 +33,8 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  packages/adapter-react: {}
+
   packages/biome-config:
     dependencies:
       '@biomejs/biome':
@@ -320,24 +322,6 @@ importers:
       tsup:
         specifier: ^8.1.0
         version: 8.5.0(@swc/core@1.13.4)(typescript@5.9.2)
-
-  packages/emp-module-federation:
-    dependencies:
-      '@module-federation/error-codes':
-        specifier: 0.18.4
-        version: 0.18.4
-      '@module-federation/rspack':
-        specifier: 0.18.4
-        version: 0.18.4(@rspack/core@1.5.4)(typescript@5.9.2)
-      '@module-federation/runtime':
-        specifier: ^0.18.4
-        version: 0.18.4
-      '@module-federation/runtime-core':
-        specifier: 0.18.4
-        version: 0.18.4
-      '@module-federation/sdk':
-        specifier: 0.18.4
-        version: 0.18.4
 
   packages/emp-polyfill:
     dependencies:
@@ -699,6 +683,53 @@ importers:
       '@empjs/cli':
         specifier: workspace:*
         version: link:../cli
+
+  projects/adapter-app:
+    dependencies:
+      '@empjs/adapter-react':
+        specifier: workspace:^
+        version: link:../../packages/adapter-react
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '16'
+        version: 16.14.0
+      react-dom:
+        specifier: '16'
+        version: 16.14.0(react@16.14.0)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '16'
+        version: 16.9.9
+      '@types/react-dom':
+        specifier: '16'
+        version: 16.9.9
+
+  projects/adapter-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.23
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.23)
 
   projects/app-and-host:
     dependencies:
@@ -1177,56 +1208,6 @@ importers:
       '@types/react-dom':
         specifier: ^16.9.9
         version: 16.9.9
-
-  projects/react-16and18-app16:
-    dependencies:
-      react:
-        specifier: 16.14.0
-        version: 16.14.0
-      react-dom:
-        specifier: 16.14.0
-        version: 16.14.0(react@16.14.0)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: 16.9.9
-        version: 16.9.9
-      '@types/react-dom':
-        specifier: 16.9.9
-        version: 16.9.9
-
-  projects/react-16and18-host18:
-    dependencies:
-      core-js:
-        specifier: ^3.36.1
-        version: 3.45.1
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.23
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.23)
 
   projects/react-18-runtime:
     dependencies:
@@ -4614,53 +4595,12 @@ packages:
     resolution: {integrity: sha512-SzFETS2JcS7xnEFcqOvIzZwnbvWffdhu5xjVHcH3EdWaaLgmxmG61HcI+9Kq6qFhC9BEp133ZQBD7Ezcqikf8A==}
     dev: true
 
-  /@module-federation/bridge-react-webpack-plugin@0.18.4:
-    resolution: {integrity: sha512-tYgso9izSinWzzVlsOUsBjW5lPMsvsVp95Jrw5W4Ajg9Un/yTkjOqEqmsMYpiL7drEN2+gPPVYyQ/hUK4QWz8Q==}
-    dependencies:
-      '@module-federation/sdk': 0.18.4
-      '@types/semver': 7.5.8
-      semver: 7.6.3
-    dev: false
-
   /@module-federation/bridge-react-webpack-plugin@0.19.1:
     resolution: {integrity: sha512-D+iFESodr/ohaXjmTOWBSFdjAz/WfN5Y5lIKB5Axh19FBUxvCy6Pj/We7C5JXc8CD9puqxXFOBNysJ7KNB89iw==}
     dependencies:
       '@module-federation/sdk': 0.19.1
       '@types/semver': 7.5.8
       semver: 7.6.3
-    dev: false
-
-  /@module-federation/dts-plugin@0.18.4(typescript@5.9.2):
-    resolution: {integrity: sha512-5FlrajLCypQ8+vEsncgEGpDmxUDG+Ub6ogKOE00e2gMxcYlgcCZNUSn5VbEGdCMcHQmIK2xt3WGQT30/7j2KiQ==}
-    peerDependencies:
-      typescript: ^4.9.0 || ^5.0.0
-      vue-tsc: '>=1.0.24'
-    peerDependenciesMeta:
-      vue-tsc:
-        optional: true
-    dependencies:
-      '@module-federation/error-codes': 0.18.4
-      '@module-federation/managers': 0.18.4
-      '@module-federation/sdk': 0.18.4
-      '@module-federation/third-party-dts-extractor': 0.18.4
-      adm-zip: 0.5.16
-      ansi-colors: 4.1.3
-      axios: 1.11.0
-      chalk: 3.0.0
-      fs-extra: 9.1.0
-      isomorphic-ws: 5.0.0(ws@8.18.0)
-      koa: 3.0.1
-      lodash.clonedeepwith: 4.5.0
-      log4js: 6.9.1
-      node-schedule: 2.1.1
-      rambda: 9.4.2
-      typescript: 5.9.2
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
     dev: false
 
   /@module-federation/dts-plugin@0.19.1(typescript@5.9.2):
@@ -4703,20 +4643,8 @@ packages:
   /@module-federation/error-codes@0.18.0:
     resolution: {integrity: sha512-Woonm8ehyVIUPXChmbu80Zj6uJkC0dD9SJUZ/wOPtO8iiz/m+dkrOugAuKgoiR6qH4F+yorWila954tBz4uKsQ==}
 
-  /@module-federation/error-codes@0.18.4:
-    resolution: {integrity: sha512-cpLsqL8du9CfTTCKvXbRg93ALF+lklqHnuPryhbwVEQg2eYo6CMoMQ6Eb7kJhLigUABIDujbHD01SvBbASGkeQ==}
-    dev: false
-
   /@module-federation/error-codes@0.19.1:
     resolution: {integrity: sha512-XtrOfaYPBD9UbdWb7O+gk295/5EFfC2/R6JmhbQmM2mt2axlrwUoy29LAEMSpyMkAD0NfRfQ3HaOsJQiUIy+Qg==}
-    dev: false
-
-  /@module-federation/inject-external-runtime-core-plugin@0.18.4(@module-federation/runtime-tools@0.18.4):
-    resolution: {integrity: sha512-x+IakEXu+ammna2SMKkb1NRDXKxhKckOJIYanNHh1FtG2bvhu8xJplShvStmfO+BUv1n0KODSq89qGVYxFMbGQ==}
-    peerDependencies:
-      '@module-federation/runtime-tools': 0.18.4
-    dependencies:
-      '@module-federation/runtime-tools': 0.18.4
     dev: false
 
   /@module-federation/inject-external-runtime-core-plugin@0.19.1(@module-federation/runtime-tools@0.19.1):
@@ -4727,37 +4655,12 @@ packages:
       '@module-federation/runtime-tools': 0.19.1
     dev: false
 
-  /@module-federation/managers@0.18.4:
-    resolution: {integrity: sha512-wJ8wheGNq4vnaLHx17F8Y0L+T9nzO5ijqMxQ7q9Yohm7MGeC5DoSjjurv/afxL6Dg5rGky+kHsYGM4qRTMFXaA==}
-    dependencies:
-      '@module-federation/sdk': 0.18.4
-      find-pkg: 2.0.0
-      fs-extra: 9.1.0
-    dev: false
-
   /@module-federation/managers@0.19.1:
     resolution: {integrity: sha512-bZwiRqc0Cy76xSgKw8dFpVc0tpu6EG+paL0bAtHU5Kj9SBRGyCZ1JQY2W+S8z5tS/7M+gDNl9iIgQim+Kq6isg==}
     dependencies:
       '@module-federation/sdk': 0.19.1
       find-pkg: 2.0.0
       fs-extra: 9.1.0
-    dev: false
-
-  /@module-federation/manifest@0.18.4(typescript@5.9.2):
-    resolution: {integrity: sha512-1+sfldRpYmJX/SDqG3gWeeBbPb0H0eKyQcedf77TQGwFypVAOJwI39qV0yp3FdjutD7GdJ2TGPBHnGt7AbEvKA==}
-    dependencies:
-      '@module-federation/dts-plugin': 0.18.4(typescript@5.9.2)
-      '@module-federation/managers': 0.18.4
-      '@module-federation/sdk': 0.18.4
-      chalk: 3.0.0
-      find-pkg: 2.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - vue-tsc
     dev: false
 
   /@module-federation/manifest@0.19.1(typescript@5.9.2):
@@ -4775,35 +4678,6 @@ packages:
       - typescript
       - utf-8-validate
       - vue-tsc
-    dev: false
-
-  /@module-federation/rspack@0.18.4(@rspack/core@1.5.4)(typescript@5.9.2):
-    resolution: {integrity: sha512-gnvXKtk/w0ML15JHueWej5/8Lkoho7EoYUxvO77nBCnGOlXNqVYqLZ3REy2SS/8SQ4vQK156eSiyUkth2OYQqw==}
-    peerDependencies:
-      '@rspack/core': '>=0.7'
-      typescript: ^4.9.0 || ^5.0.0
-      vue-tsc: '>=1.0.24'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      vue-tsc:
-        optional: true
-    dependencies:
-      '@module-federation/bridge-react-webpack-plugin': 0.18.4
-      '@module-federation/dts-plugin': 0.18.4(typescript@5.9.2)
-      '@module-federation/inject-external-runtime-core-plugin': 0.18.4(@module-federation/runtime-tools@0.18.4)
-      '@module-federation/managers': 0.18.4
-      '@module-federation/manifest': 0.18.4(typescript@5.9.2)
-      '@module-federation/runtime-tools': 0.18.4
-      '@module-federation/sdk': 0.18.4
-      '@rspack/core': 1.5.4(@swc/helpers@0.5.17)
-      btoa: 1.2.1
-      typescript: 5.9.2
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
     dev: false
 
   /@module-federation/rspack@0.19.1(@rspack/core@1.5.4)(typescript@5.9.2):
@@ -4848,13 +4722,6 @@ packages:
       '@module-federation/error-codes': 0.18.0
       '@module-federation/sdk': 0.18.0
 
-  /@module-federation/runtime-core@0.18.4:
-    resolution: {integrity: sha512-LGGlFXlNeTbIGBFDiOvg0zz4jBWCGPqQatXdKx7mylXhDij7YmwbuW19oenX+P1fGhmoBUBM5WndmR87U66qWA==}
-    dependencies:
-      '@module-federation/error-codes': 0.18.4
-      '@module-federation/sdk': 0.18.4
-    dev: false
-
   /@module-federation/runtime-core@0.19.1:
     resolution: {integrity: sha512-NLSlPnIzO2RoF6W1xq/x3t1j7jcglMaPSv2EIVOFvs5/ah7BeJmRhtH494tmjIwV0q+j1QEGGhijHxXZLK1HMQ==}
     dependencies:
@@ -4874,13 +4741,6 @@ packages:
     dependencies:
       '@module-federation/runtime': 0.18.0
       '@module-federation/webpack-bundler-runtime': 0.18.0
-
-  /@module-federation/runtime-tools@0.18.4:
-    resolution: {integrity: sha512-wSGTdx77R8BQX+q6nAcUuHPydYYm0F97gAEP9RTW1UlzXnM/0AFysDHujvtRQf5vyXkhj//HdcH6LIJJCImy2g==}
-    dependencies:
-      '@module-federation/runtime': 0.18.4
-      '@module-federation/webpack-bundler-runtime': 0.18.4
-    dev: false
 
   /@module-federation/runtime-tools@0.19.1:
     resolution: {integrity: sha512-WjLZcuP7U5pSQobMEvaMH9pFrvfV3Kk2dfOUNza0tpj6vYtAxk6FU6TQ8WDjqG7yuglyAzq0bVEKVrdIB4Vd9Q==}
@@ -4909,14 +4769,6 @@ packages:
       '@module-federation/error-codes': 0.18.0
       '@module-federation/runtime-core': 0.18.0
       '@module-federation/sdk': 0.18.0
-
-  /@module-federation/runtime@0.18.4:
-    resolution: {integrity: sha512-2et6p7pjGRHzpmrW425jt/BiAU7QHgkZtbQB7pj01eQ8qx6SloFEBk9ODnV8/ztSm9H2T3d8GxXA6/9xVOslmQ==}
-    dependencies:
-      '@module-federation/error-codes': 0.18.4
-      '@module-federation/runtime-core': 0.18.4
-      '@module-federation/sdk': 0.18.4
-    dev: false
 
   /@module-federation/runtime@0.19.1:
     resolution: {integrity: sha512-eSXexdGGPpZnhiWCVfRlVLNWj7gHKp65beC4b8wddTvMBIrxnsdl9ae1ebwcIpbe9gOGDbaXBFtc3r5MH6l6Jg==}
@@ -4949,10 +4801,6 @@ packages:
   /@module-federation/sdk@0.18.0:
     resolution: {integrity: sha512-Lo/Feq73tO2unjmpRfyyoUkTVoejhItXOk/h5C+4cistnHbTV8XHrW/13fD5e1Iu60heVdAhhelJd6F898Ve9A==}
 
-  /@module-federation/sdk@0.18.4:
-    resolution: {integrity: sha512-dErzOlX+E3HS2Sg1m12Hi9nCnfvQPuIvlq9N47KxrbT2TIU3KKYc9q/Ua+QWqxfTyMVFpbNDwFMJ1R/w/gYf4A==}
-    dev: false
-
   /@module-federation/sdk@0.19.1:
     resolution: {integrity: sha512-0JTkYaa4qNLtYGc6ZQQ50BinWh4bAOgT8t17jB/6BqcWiza6fKz647wN0AK+VX3rtl6kvGAjhtqqZtRBc8aeiw==}
     dev: false
@@ -4967,14 +4815,6 @@ packages:
 
   /@module-federation/sdk@0.6.12:
     resolution: {integrity: sha512-QC2uwlnDPxf7OYJAKot0zCJl95VV+iBmvCKGGeXLlzbdBFYIFpmE8IkFBLQqTRxtSKF9hv2z4Zltonu7YjRUdQ==}
-    dev: false
-
-  /@module-federation/third-party-dts-extractor@0.18.4:
-    resolution: {integrity: sha512-PpiC0jxOegNR/xjhNOkjSYnUqMNJAy1kWsRd10to3Y64ZvGRf7/HF+x3aLIX8MbN7Ioy9F7Gd5oax6rtm+XmNQ==}
-    dependencies:
-      find-pkg: 2.0.0
-      fs-extra: 9.1.0
-      resolve: 1.22.8
     dev: false
 
   /@module-federation/third-party-dts-extractor@0.19.1:
@@ -4997,13 +4837,6 @@ packages:
     dependencies:
       '@module-federation/runtime': 0.18.0
       '@module-federation/sdk': 0.18.0
-
-  /@module-federation/webpack-bundler-runtime@0.18.4:
-    resolution: {integrity: sha512-nPHp2wRS4/yfrGRQchZ0cyvdUZk+XgUmD0qWQl95xmeIeXUb90s3JrWFHSmS6Dt1gwMgJOeNpzzZDcBSy2P1VQ==}
-    dependencies:
-      '@module-federation/runtime': 0.18.4
-      '@module-federation/sdk': 0.18.4
-    dev: false
 
   /@module-federation/webpack-bundler-runtime@0.19.1:
     resolution: {integrity: sha512-pr9kgwvBoe8tvXELDCqu8ihvLJYwS+cfwJmvk99MTbespzK0nuOepkeRCy2gOpeATDNiWdy/2DJcw34qeAmhJw==}
@@ -17097,16 +16930,6 @@ packages:
       scheduler: 0.20.2
     dev: false
 
-  /react-dom@18.2.0(react@18.2.0):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.2
-    dev: false
-
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -17273,13 +17096,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: false
-
-  /react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      loose-envify: 1.4.0
     dev: false
 
   /react@18.3.1:

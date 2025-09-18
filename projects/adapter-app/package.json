@@ -1,0 +1,29 @@
+{
+  "name": "mf-host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "16",
+    "@types/react-dom": "16"
+  },
+  "dependencies": {
+    "@empjs/adapter-react": "workspace:^",
+    "@empjs/share": "workspace:^",
+    "react": "16",
+    "react-dom": "16"
+  }
+}

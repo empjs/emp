@@ -1,6 +1,6 @@
+// import('src/bootstrap')
 import {createRoot} from 'react-dom/client'
-
-import App from './components/App'
+import App from 'src/App'
 
 const dom = document.getElementById('emp-root')!
 const root = createRoot(dom)

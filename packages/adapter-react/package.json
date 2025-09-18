@@ -1,0 +1,41 @@
+{
+  "name": "@empjs/adapter-react",
+  "version": "0.0.1",
+  "description": "emp react adapter",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/adapter-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "rslib build --watch",
+    "build": "rslib build"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {},
+  "devDependencies": {}
+}
