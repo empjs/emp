@@ -24,8 +24,8 @@ export default defineConfig(store => {
             global: 'EMP_ADAPTER_REACT',
             libs: [
               `https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`,
-              // `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`,
-              `http://${ip}:2300/vueRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`,
+              // `http://${ip}:2300/vueRouter.${store.mode}.umd.js`,
             ],
           },
           runtime: {
