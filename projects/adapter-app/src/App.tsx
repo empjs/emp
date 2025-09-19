@@ -1,7 +1,7 @@
 import React from 'react'
-import {Box, React16Info} from './Info'
-import {Remote18App} from './React18'
-import {RemoteVue3App} from './Vue3'
+import {Box, React16Info} from './components/Info'
+import {Remote18App} from './adapter/React18'
+import {RemoteVue3App} from './adapter/Vue3'
 
 const App = () => (
   <div>
@@ -9,7 +9,7 @@ const App = () => (
       <Remote18App>
         <React16Info desc="React16Info in Remote18App">
           <Remote18App>
-            <React16Info />
+            <React16Info desc="last component " />
           </Remote18App>
         </React16Info>
       </Remote18App>

@@ -2,7 +2,7 @@ import React from 'react'
 import style from './Info.module.scss'
 export const React16Info: any = (props: any) => {
   return (
-    <div className={style.box}>
+    <div className={`${style.box} ${style.react16Info}`}>
       <h1>React App</h1>
       <p>React Version {React.version}</p>
       <h5>Props desc</h5>
