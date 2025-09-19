@@ -30,7 +30,42 @@
 
 ## 实现细节
 
-### 1. 在 React 16 中使用 React 18
+### 1. EMP 运行时配置 (`emp.config.ts`)
+
+为了让框架适配器正常工作，关键在于 `emp.config.ts` 中的 `empRuntime` 配置。此配置负责在 `window` 对象上注入必要的框架库和适配器。
+
+```typescript
+// emp.config.ts
+export default defineConfig(store => {
+  return {
+    plugins: [
+      pluginRspackEmpShare({
+        // ...
+        empRuntime: {
+          framework: {
+            global: 'EMP_ADAPTER_REACT', // 定义全局变量名
+            libs: [ // 需要注入的框架库
+              `https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`,
+            ],
+          },
+          runtime: {
+            lib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
+          },
+        },
+      }),
+    ],
+    // ...
+  }
+})
+```
+
+- **`empRuntime.framework.global`**: 定义一个全局变量（如此处的 `EMP_ADAPTER_REACT`），它将作为一个命名空间，挂载所有通过 `libs` 加载的库。
+- **`empRuntime.framework.libs`**: 一个包含 CDN URL 的数组。EMP 会在运行时动态加载这些脚本，并将其导出内容附加到 `global` 对象上。例如，`@empjs/cdn-react` 会导出 `React`、`ReactDOM` 和 `createRoot`，这些都会被挂载到 `window.EMP_ADAPTER_REACT` 上。
+
+通过这种方式，主机应用可以从 `window` 对象上获取远程组件所需的特定版本的框架实例，从而实现多框架/多版本共存。
+
+### 2. 在 React 16 中使用 React 18
 
 `src/adapter/React18.ts` 文件展示了如何为 React 18 组件创建桥接：
 
@@ -46,10 +81,12 @@ const BridgeComponent = createBridgeComponent(AhApp, EMP_ADAPTER_REACT)
 export const Remote18App = createRemoteAppComponent(BridgeComponent, {React})
 ```
 
-*   `createBridgeComponent`: 这个来自 `@empjs/bridge-react` 的函数接收远程组件 (`AhApp`) 和来自 window 对象的 React 适配器 (`EMP_ADAPTER_REACT`) 来创建一个桥接。
+*   `createBridgeComponent`: 这个函数来自 `@empjs/bridge-react`，它接收两个参数：
+    1.  **远程组件** (`AhApp`): 这是需要动态加载和渲染的组件。
+    2.  **React 适配器** (`EMP_ADAPTER_REACT`): 这是一个包含 `React`, `ReactDOM`, 和 `createRoot` 的对象，由 `emp.config.ts` 中 `empRuntime.framework` 配置注入到 `window` 对象中。它为桥接提供了远程组件所需的 React 运行时环境，确保组件使用其自身的 React 版本进行渲染，而不是主机的版本。
 *   `createRemoteAppComponent`: 这个函数接收桥接后的组件和主机的 React 实例，以创建一个可以在 React 16 应用程序中使用的组件。
 
-### 2. 在 React 16 中使用 Vue 3
+### 3. 在 React 16 中使用 Vue 3
 
 同样，`src/adapter/Vue3.ts` 演示了如何集成 Vue 3 组件：
 
@@ -76,8 +113,9 @@ export const RemoteVue3App = createRemoteAppComponent(BridgeComponent, {React})
 
 *   `@empjs/bridge-vue3`: 这个包提供了用于 Vue 的 `createBridgeComponent` 函数。
 *   **Vue 实例和插件:** Vue 实例和任何插件（如 Pinia）都会传递给桥接，以确保远程组件正常运行。
+*   **`plugin` 选项**: `createBridgeComponent` 的第二个参数可以包含一个 `plugin` 字段。这是一个回调函数，它会在 Vue 应用实例创建后立即执行。这对于安装 Vue 插件（如 `Pinia` 用于状态管理或 `Vue Router` 用于路由）至关重要。如示例所示，我们创建了一个 `pinia` 实例并将其提供给 Vue 应用，以确保远程 Vue 组件可以访问共享的状态存储。
 
-### 3. 使用组件
+### 4. 使用组件
 
 最后，在 `src/App.tsx` 中，远程组件可以像任何其他 React 组件一样使用：
 
