@@ -43,6 +43,8 @@ importers:
 
   packages/bridge-react: {}
 
+  packages/bridge-vue3: {}
+
   packages/cdn-react-17:
     dependencies:
       react:
@@ -694,6 +696,9 @@ importers:
       '@empjs/bridge-react':
         specifier: workspace:^
         version: link:../../packages/bridge-react
+      '@empjs/bridge-vue3':
+        specifier: workspace:^
+        version: link:../../packages/bridge-vue3
       '@empjs/share':
         specifier: workspace:^
         version: link:../../packages/emp-share
@@ -735,6 +740,28 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.3.7(@types/react@18.3.23)
+
+  projects/adapter-vue3-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.3(typescript@5.9.2)(vue@3.6.0-alpha.2)
+      vue:
+        specifier: ^3.6.0-alpha.2
+        version: 3.6.0-alpha.2(typescript@5.9.2)
+      vue-router:
+        specifier: ^4.5.1
+        version: 4.5.1(vue@3.6.0-alpha.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
 
   projects/app-and-host:
     dependencies:

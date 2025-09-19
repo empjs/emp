@@ -23,6 +23,7 @@
   "dependencies": {
     "@empjs/adapter-react": "workspace:^",
     "@empjs/bridge-react": "workspace:^",
+    "@empjs/bridge-vue3": "workspace:^",
     "@empjs/share": "workspace:^",
     "react": "16",
     "react-dom": "16"
