@@ -8,14 +8,17 @@
 import { storeToRefs } from 'pinia'
 import { onMounted, onCreated } from 'vue'
 import { useCounterStore } from './countStore'
+
+const counterStore = useCounterStore()
+const { count } = storeToRefs(counterStore)
+
+//
 const { name } = defineProps({
   name: {
     type: String,
     default: 'count',
   },
 })
-const counterStore = useCounterStore()
-const { count } = storeToRefs(counterStore)
 </script>
 
 <style lang="css" scoped>
