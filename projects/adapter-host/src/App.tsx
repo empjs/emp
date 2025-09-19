@@ -1,9 +1,10 @@
 import React from 'react'
 
-const App = () => (
+const App = (props: any) => (
   <>
     <h1>React Adapter Host</h1>
     <p>React Version {React.version}</p>
+    {props.children}
   </>
 )
 
