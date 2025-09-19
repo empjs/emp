@@ -17,7 +17,9 @@ const App = () => (
         <h2>Vue3 Component</h2>
         <RemoteVue3App name="vue3 in React 16" />
       </Box>
-      <Remote18App></Remote18App>
+      <Remote18App>
+      <RemoteVue3App name="vue3 in React 18" />
+      </Remote18App>
     </React16Info>
   </div>
 )

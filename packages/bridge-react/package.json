@@ -1,6 +1,6 @@
 {
   "name": "@empjs/bridge-react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Emp Bridge React",
   "license": "MIT",
   "type": "module",
