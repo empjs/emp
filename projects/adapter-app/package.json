@@ -1,6 +1,6 @@
 {
-  "name": "mf-host",
-  "version": "1.0.0",
+  "name": "adapter-app",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "type": "module",
