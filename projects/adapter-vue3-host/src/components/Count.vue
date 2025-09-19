@@ -1,5 +1,5 @@
 <template>
-  <h3>count {{ name }}: <b>{{ count }}</b></h3>
+  <h3>count : <b>{{ count }}</b></h3>
   <button class="button" v-on:click="counterStore.increment">Clicked Me</button>
 </template>
 
@@ -7,17 +7,10 @@
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 import { useCounterStore } from './countStore'
-
 onMounted(() => {
   console.log('Count mounted')
   const counterStore = useCounterStore()
   const { count } = storeToRefs(counterStore)
-  const { name } = defineProps({
-    name: {
-      type: String,
-      default: 'count',
-    },
-  })
 })
 </script>
 
