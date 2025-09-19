@@ -29,7 +29,7 @@
     }
   },
   "scripts": {
-    "dev": "rslib build --watch",
+    "dev": "rslib build --watch --env-mode development",
     "build": "rslib build"
   },
   "engines": {

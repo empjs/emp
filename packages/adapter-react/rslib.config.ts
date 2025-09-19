@@ -1,19 +1,22 @@
 import {defineConfig} from '@rslib/core'
 
-export default defineConfig({
-  lib: [
-    {
-      format: 'esm',
-      dts: true,
+export default defineConfig(o => {
+  // console.log(o.env, o.env === 'production', o)
+  return {
+    lib: [
+      {
+        format: 'esm',
+        dts: true,
+      },
+      {
+        format: 'cjs',
+      },
+    ],
+    output: {
+      target: 'web',
     },
-    {
-      format: 'cjs',
+    performance: {
+      removeConsole: o.envMode !== 'development' ? ['log'] : [],
     },
-  ],
-  output: {
-    target: 'web',
-  },
-  performance: {
-    removeConsole: ['log'],
-  },
+  }
 })
