@@ -41,6 +41,8 @@ importers:
         specifier: 2.2.2
         version: 2.2.2
 
+  packages/bridge-react: {}
+
   packages/cdn-react-17:
     dependencies:
       react:
@@ -689,6 +691,9 @@ importers:
       '@empjs/adapter-react':
         specifier: workspace:^
         version: link:../../packages/adapter-react
+      '@empjs/bridge-react':
+        specifier: workspace:^
+        version: link:../../packages/bridge-react
       '@empjs/share':
         specifier: workspace:^
         version: link:../../packages/emp-share
