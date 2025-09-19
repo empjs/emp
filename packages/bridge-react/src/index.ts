@@ -1,180 +1,181 @@
-// import type {ReactNode} from 'react'
-// import React, {useEffect, useRef} from 'react'
-type ReactNode = any
-
-// 定义应用提供者返回的接口
+// 简化类型定义
 export interface BridgeProviderReturn {
-  render: (dom: HTMLElement, props: any) => void
+  render: (dom: HTMLElement, props?: any) => void
   destroy: (dom: HTMLElement) => void
 }
 
-// 定义应用提供者函数类型
 export type BridgeProvider = () => BridgeProviderReturn
+export type AsyncBridgeProvider = () => Promise<{default: BridgeProvider}>
+export type ComponentProvider = BridgeProvider | AsyncBridgeProvider
 
 /**
- * createBridgeComponent - 用于生产者包装应用级别导出模块
- *
- * 这个函数用于创建一个桥接组件，使React应用可以被远程加载和渲染
- * 支持 React 16 到 19 版本
- *
- * @param Component 要导出的React组件
- * @returns 返回一个符合BridgeProvider接口的函数
+ * 创建桥接组件 - 用于生产者包装应用级别导出模块
  */
-export function createBridgeComponent(Component: React.ComponentType<any>, {React, ReactDOM, createRoot}: any) {
+export function createBridgeComponent(Component: any, options: any): BridgeProvider {
+  const {React, ReactDOM, createRoot} = options
+  const hasCreateRoot = typeof createRoot === 'function'
+
   return function (): BridgeProviderReturn {
-    const rootMap = new Map<HTMLElement, any>()
+    const rootMap = new Map()
 
-    // 检测 React 版本并返回对应的渲染和卸载方法
-    const getReactAPI = () => {
-      // 检查是否存在 ReactDOM.createRoot 方法 (React 18+)
-      if (createRoot) {
-        return {
-          createRoot: (dom: HTMLElement) => {
-            const root = createRoot(dom)
-            return {
-              render: (element: React.ReactElement) => root.render(element),
-              unmount: () => root.unmount(),
-            }
-          },
+    // 渲染或更新组件
+    const render = (dom: HTMLElement, props?: any): void => {
+      try {
+        const element = React.createElement(Component, props || {})
+        const existingRoot = rootMap.get(dom)
+
+        if (existingRoot) {
+          // 更新已存在的组件
+          if (hasCreateRoot && 'render' in existingRoot && typeof existingRoot.render === 'function') {
+            existingRoot.render(element)
+          } else {
+            ReactDOM.render(element, dom)
+          }
+        } else {
+          // 首次渲染组件
+          let root: any
+          if (hasCreateRoot && createRoot) {
+            root = createRoot(dom)
+            root.render(element)
+          } else {
+            ReactDOM.render(element, dom)
+            root = dom
+          }
+          rootMap.set(dom, root)
         }
+      } catch (error) {
+        console.error('[EMP-ERROR] 渲染/更新失败', error)
+        throw error
       }
-
-      // 检查是否存在 ReactDOM (React 16/17)
-      if (ReactDOM) {
-        return {
-          createRoot: (dom: HTMLElement) => {
-            return {
-              render: (element: React.ReactElement) => {
-                ReactDOM.render(element, dom)
-                return dom
-              },
-              unmount: () => ReactDOM.unmountComponentAtNode(dom),
-            }
-          },
-        }
-      }
-
-      // 如果无法确定版本，抛出错误
-      throw new Error('无法检测 React 版本，请确保正确引入 React')
     }
 
-    return {
-      render(dom: HTMLElement, props: any) {
-        // 获取对应版本的 React API
-        const reactAPI = getReactAPI()
+    // 卸载组件
+    const destroy = (dom: HTMLElement): void => {
+      const root = rootMap.get(dom)
+      if (!root) return
 
-        // 创建 React 根元素
-        const root = reactAPI.createRoot(dom)
-        rootMap.set(dom, root)
-
-        // 渲染组件
-        root.render(React.createElement(Component, props))
-      },
-
-      destroy(dom: HTMLElement) {
-        // 获取并卸载React根
-        const root = rootMap.get(dom)
-        if (root) {
+      try {
+        if (hasCreateRoot && 'unmount' in root && typeof root.unmount === 'function') {
           root.unmount()
-          rootMap.delete(dom)
+        } else if (typeof ReactDOM.unmountComponentAtNode === 'function') {
+          ReactDOM.unmountComponentAtNode(dom)
         }
-      },
+        rootMap.delete(dom)
+      } catch (error) {
+        console.error('[EMP-ERROR] 卸载失败', error)
+      }
     }
+
+    return {render, destroy}
   }
 }
 
 /**
- * createRemoteAppComponent - 用于消费者加载应用级别模块
- *
- * 这个函数用于创建一个组件，该组件可以加载并渲染远程应用
- *
- * @param options 配置选项，包含loader或component
- * @returns 返回一个React组件
+ * 创建远程应用组件 - 用于消费者加载应用级别模块
  */
-export function createRemoteAppComponent(
-  options: {
-    // 加载远程模块的函数，与component二选一
-    loader?: () => Promise<{default: BridgeProvider}>
-    // 直接传入已加载好的组件，与loader二选一
-    component?: BridgeProvider
-    // 加载失败时显示的组件
-    fallback?: ReactNode
-    // 加载中显示的组件
-    loading?: ReactNode
-    // 错误处理函数
-    onError?: (error: Error) => void
-  },
-  {React}: any,
-) {
-  if (!options.loader && !options.component) {
-    throw new Error('createRemoteAppComponent: 必须提供 loader 或 component 参数')
+export function createRemoteAppComponent(component: ComponentProvider, reactOptions: any, options: any = {}): any {
+  if (!component) {
+    throw new Error('createRemoteAppComponent: component参数不能为空')
   }
 
-  // 创建一个懒加载组件
-  const LazyComponent = React.lazy(async () => {
-    try {
-      // 获取提供者信息，可以是通过loader加载或直接使用传入的component
-      let providerInfo: BridgeProvider
+  const {React} = reactOptions
 
-      if (options.component) {
-        // 直接使用传入的组件
-        providerInfo = options.component
-      } else if (options.loader) {
-        // 通过loader加载远程模块
-        const module = await options.loader()
-        providerInfo = module.default
-      } else {
-        throw new Error('createRemoteAppComponent: 必须提供 loader 或 component 参数')
-      }
+  class RemoteAppComponent extends React.Component {
+    containerRef = React.createRef()
+    provider: any = null
+    providerInfo: any = null
+    isMounted = false
 
-      // 返回一个组件，该组件在挂载时渲染远程应用
-      return {
-        default: (props: any) => {
-          const rootRef = React.useRef(null)
-          const providerInfoRef = React.useRef(null)
-
-          React.useEffect(() => {
-            if (!rootRef.current) return
-
-            // 创建提供者实例
-            const providerReturn = providerInfo()
-            providerInfoRef.current = providerReturn
-
-            // 渲染远程应用
-            providerReturn.render(rootRef.current, props)
-
-            // 清理函数，在组件卸载时销毁远程应用
-            return () => {
-              if (rootRef.current && providerInfoRef.current) {
-                providerInfoRef.current.destroy(rootRef.current)
-                providerInfoRef.current = null
-              }
-            }
-          }, [])
-
-          // 返回一个容器div，远程应用将渲染到这个div中
-          return React.createElement('div', {
-            ref: rootRef,
-          })
-        },
-      }
-    } catch (error) {
-      // 处理加载错误
-      if (options.onError && error instanceof Error) {
-        options.onError(error)
-      }
-      throw error
+    constructor(props: any) {
+      super(props)
+      this.loadComponent()
     }
-  })
 
-  // 返回一个包装了Suspense的组件
-  return function RemoteAppComponent(props: any) {
-    return React.createElement(
-      React.Suspense,
-      {fallback: options.loading || options.fallback || React.createElement('div', null, 'Loading...')},
-      React.createElement(LazyComponent, props),
-    )
+    async loadComponent() {
+      try {
+        if (typeof component === 'function') {
+          try {
+            const result = component()
+
+            if (result instanceof Promise) {
+              const module = await result
+              this.providerInfo = module.default
+            } else {
+              this.providerInfo = component
+            }
+          } catch (error) {
+            this.providerInfo = component
+          }
+        }
+
+        if (this.isMounted && this.containerRef.current) {
+          this.renderComponent()
+        }
+      } catch (error) {
+        if (options.onError) options.onError(error)
+        console.error('[EMP-ERROR] 加载组件失败', error)
+      }
+    }
+
+    renderComponent() {
+      if (!this.providerInfo || !this.containerRef.current) return
+
+      try {
+        if (!this.provider) {
+          this.provider = this.providerInfo()
+        }
+        this.provider.render(this.containerRef.current, this.props)
+      } catch (error) {
+        console.error('[EMP-ERROR] 渲染组件失败', error)
+      }
+    }
+
+    unmountComponent() {
+      if (this.provider && this.containerRef.current) {
+        try {
+          this.provider.destroy(this.containerRef.current)
+          this.provider = null
+        } catch (error) {
+          console.error('[EMP-ERROR] 卸载组件失败', error)
+        }
+      }
+    }
+
+    componentDidMount() {
+      this.isMounted = true
+      if (this.providerInfo) this.renderComponent()
+    }
+
+    componentDidUpdate() {
+      if (this.isMounted && this.provider && this.containerRef.current) {
+        try {
+          this.provider.render(this.containerRef.current, this.props)
+        } catch (error) {
+          console.error('[EMP-ERROR] 更新组件失败', error)
+        }
+      }
+    }
+
+    componentWillUnmount() {
+      this.isMounted = false
+
+      if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+        window.requestAnimationFrame(() => {
+          this.unmountComponent()
+        })
+      } else {
+        setTimeout(() => {
+          this.unmountComponent()
+        }, 0)
+      }
+    }
+
+    render() {
+      return React.createElement('div', {ref: this.containerRef})
+    }
   }
+
+  return RemoteAppComponent
 }
 
 // 导出默认模块

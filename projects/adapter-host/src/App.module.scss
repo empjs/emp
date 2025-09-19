@@ -1,0 +1,16 @@
+.container {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #90d9f5;
+    border: 1px solid #0059ff;
+
+    h1,
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 14px;
+    }
+}

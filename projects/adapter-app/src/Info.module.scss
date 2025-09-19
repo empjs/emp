@@ -1,4 +1,17 @@
 .desc {
     background-color: #eee;
+    padding: 10px !important;
+}
+
+.box {
+    border: 1px solid blue;
+    background-color: #f7f7f7;
     padding: 10px;
+
+    p,
+    h2,
+    h5 {
+        margin: 0;
+        padding: 0;
+    }
 }

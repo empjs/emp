@@ -39,6 +39,9 @@ export default defineConfig(store => {
     server: {
       port,
       open: false,
+      client: {
+        overlay: false,
+      },
     },
     debug: {
       // showRsconfig: 'log.json',
