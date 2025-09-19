@@ -7,7 +7,9 @@ const App = () => (
     <React16Info desc="React16Info">
       <Remote18App>
         <React16Info desc="React16Info in Remote18App">
-          <Remote18App />
+          <Remote18App>
+            <React16Info />
+          </Remote18App>
         </React16Info>
       </Remote18App>
 

@@ -1,6 +1,6 @@
-// 简化类型定义
+// Type definitions
 export interface BridgeProviderReturn {
-  render: (dom: HTMLElement, props?: any) => void
+  render: (dom: HTMLElement, props?: Record<string, any>) => void
   destroy: (dom: HTMLElement) => void
 }
 
@@ -8,61 +8,62 @@ export type BridgeProvider = () => BridgeProviderReturn
 export type AsyncBridgeProvider = () => Promise<{default: BridgeProvider}>
 export type ComponentProvider = BridgeProvider | AsyncBridgeProvider
 
+interface ReactOptions {
+  React?: any
+  ReactDOM?: any
+  createRoot?: any
+}
+
 /**
- * 创建桥接组件 - 用于生产者包装应用级别导出模块
+ * Create bridge component - for producer to wrap application-level export modules
  */
-export function createBridgeComponent(Component: any, options: any): BridgeProvider {
+export function createBridgeComponent(Component: any, options: ReactOptions): BridgeProvider {
   const {React, ReactDOM, createRoot} = options
   const hasCreateRoot = typeof createRoot === 'function'
 
   return function (): BridgeProviderReturn {
-    const rootMap = new Map()
+    const rootMap = new Map<HTMLElement, any>()
 
-    // 渲染或更新组件
-    const render = (dom: HTMLElement, props?: any): void => {
+    const render = (dom: HTMLElement, props?: Record<string, any>): void => {
       try {
         const element = React.createElement(Component, props || {})
         const existingRoot = rootMap.get(dom)
 
         if (existingRoot) {
-          // 更新已存在的组件
-          if (hasCreateRoot && 'render' in existingRoot && typeof existingRoot.render === 'function') {
+          if (hasCreateRoot && 'render' in existingRoot) {
             existingRoot.render(element)
-          } else {
+          } else if (ReactDOM.render) {
             ReactDOM.render(element, dom)
           }
         } else {
-          // 首次渲染组件
-          let root: any
           if (hasCreateRoot && createRoot) {
-            root = createRoot(dom)
+            const root = createRoot(dom)
             root.render(element)
-          } else {
+            rootMap.set(dom, root)
+          } else if (ReactDOM.render) {
             ReactDOM.render(element, dom)
-            root = dom
+            rootMap.set(dom, dom)
           }
-          rootMap.set(dom, root)
         }
       } catch (error) {
-        console.error('[EMP-ERROR] 渲染/更新失败', error)
+        console.error('[EMP-ERROR] Failed to render/update component', error)
         throw error
       }
     }
 
-    // 卸载组件
     const destroy = (dom: HTMLElement): void => {
       const root = rootMap.get(dom)
       if (!root) return
 
       try {
-        if (hasCreateRoot && 'unmount' in root && typeof root.unmount === 'function') {
+        if (hasCreateRoot && 'unmount' in root) {
           root.unmount()
-        } else if (typeof ReactDOM.unmountComponentAtNode === 'function') {
+        } else if (ReactDOM.unmountComponentAtNode) {
           ReactDOM.unmountComponentAtNode(dom)
         }
         rootMap.delete(dom)
       } catch (error) {
-        console.error('[EMP-ERROR] 卸载失败', error)
+        console.error('[EMP-ERROR] Failed to unmount component', error)
       }
     }
 
@@ -71,19 +72,23 @@ export function createBridgeComponent(Component: any, options: any): BridgeProvi
 }
 
 /**
- * 创建远程应用组件 - 用于消费者加载应用级别模块
+ * Create remote app component - for consumer to load application-level modules
  */
-export function createRemoteAppComponent(component: ComponentProvider, reactOptions: any, options: any = {}): any {
+export function createRemoteAppComponent(
+  component: ComponentProvider,
+  reactOptions: ReactOptions,
+  options: {onError?: (error: Error) => void} = {},
+): any {
   if (!component) {
-    throw new Error('createRemoteAppComponent: component参数不能为空')
+    throw new Error('createRemoteAppComponent: component parameter cannot be empty')
   }
 
   const {React} = reactOptions
 
   class RemoteAppComponent extends React.Component {
     containerRef = React.createRef()
-    provider: any = null
-    providerInfo: any = null
+    provider: BridgeProviderReturn | null = null
+    providerInfo: BridgeProvider | null = null
     isMounted = false
 
     constructor(props: any) {
@@ -94,17 +99,13 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
     async loadComponent() {
       try {
         if (typeof component === 'function') {
-          try {
-            const result = component()
+          const result = component()
 
-            if (result instanceof Promise) {
-              const module = await result
-              this.providerInfo = module.default
-            } else {
-              this.providerInfo = component
-            }
-          } catch (error) {
-            this.providerInfo = component
+          if (result instanceof Promise) {
+            const module = await result
+            this.providerInfo = module.default
+          } else {
+            this.providerInfo = component as BridgeProvider
           }
         }
 
@@ -112,8 +113,8 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
           this.renderComponent()
         }
       } catch (error) {
-        if (options.onError) options.onError(error)
-        console.error('[EMP-ERROR] 加载组件失败', error)
+        if (options.onError) options.onError(error as Error)
+        console.error('[EMP-ERROR] Failed to load component', error)
       }
     }
 
@@ -126,7 +127,7 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
         }
         this.provider.render(this.containerRef.current, this.props)
       } catch (error) {
-        console.error('[EMP-ERROR] 渲染组件失败', error)
+        console.error('[EMP-ERROR] Failed to render component', error)
       }
     }
 
@@ -136,7 +137,7 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
           this.provider.destroy(this.containerRef.current)
           this.provider = null
         } catch (error) {
-          console.error('[EMP-ERROR] 卸载组件失败', error)
+          console.error('[EMP-ERROR] Failed to unmount component', error)
         }
       }
     }
@@ -147,26 +148,19 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
     }
 
     componentDidUpdate() {
-      if (this.isMounted && this.provider && this.containerRef.current) {
-        try {
-          this.provider.render(this.containerRef.current, this.props)
-        } catch (error) {
-          console.error('[EMP-ERROR] 更新组件失败', error)
-        }
+      if (this.provider && this.containerRef.current) {
+        this.provider.render(this.containerRef.current, this.props)
       }
     }
 
     componentWillUnmount() {
       this.isMounted = false
+      const cleanup = () => this.unmountComponent()
 
       if (typeof window !== 'undefined' && window.requestAnimationFrame) {
-        window.requestAnimationFrame(() => {
-          this.unmountComponent()
-        })
+        window.requestAnimationFrame(cleanup)
       } else {
-        setTimeout(() => {
-          this.unmountComponent()
-        }, 0)
+        setTimeout(cleanup, 0)
       }
     }
 
@@ -178,7 +172,6 @@ export function createRemoteAppComponent(component: ComponentProvider, reactOpti
   return RemoteAppComponent
 }
 
-// 导出默认模块
 export default {
   createBridgeComponent,
   createRemoteAppComponent,
