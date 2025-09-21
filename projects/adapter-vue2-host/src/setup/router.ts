@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/Home.vue'
-import Info from '../components/Info.vue'
+import Home from 'src/components/Home.vue'
+import Info from 'src/components/Info.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/info', component: Info }
+  { path: '/', name: 'home', component: Home },
+  { path: '/info', name: 'info', component: Info },
 ]
 
-export default new VueRouter({
+export const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 })
