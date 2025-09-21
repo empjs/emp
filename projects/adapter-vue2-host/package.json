@@ -1,0 +1,21 @@
+{
+  "name": "adapter-vue2-host",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "serve": "emp serve"
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.3",
+    "vuex": "^3.6.2",
+    "@empjs/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "@types/node": "^18.15.11",
+    "@vue/cli-plugin-typescript": "^4.5.19"
+  }
+}
