@@ -1,23 +1,25 @@
 <template>
-  <div class="header">
-    <img class="logo item" :src="logo">
-    <div class="info item">
-      <h1>Vue {{ vueVersion }}</h1>
-      <div class="desc">
-        <p>vue-router:{{ vueRouterVersion }} / vuex:{{ vuexVersion }}</p>
+  <div class="app-container">
+    <div class="header">
+      <img class="logo item" :src="logo">
+      <div class="info item">
+        <h1>Vue {{ vueVersion }}</h1>
+        <div class="desc">
+          <p>vue-router:{{ vueRouterVersion }} / vuex:{{ vuexVersion }}</p>
+        </div>
       </div>
     </div>
+    <nav>
+      <router-link to="/">Go to home</router-link> /
+      <router-link to="/info">Go to info</router-link>
+    </nav>
+    <p>
+      <strong>Current route path:</strong> {{ $route.fullPath }}
+    </p>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
-  <nav>
-    <router-link to="/">Go to home</router-link> /
-    <router-link to="/info">Go to info</router-link>
-  </nav>
-  <p>
-    <strong>Current route path:</strong> {{ $route.fullPath }}
-  </p>
-  <main>
-    <router-view></router-view>
-  </main>
 </template>
 
 <script>
@@ -57,5 +59,9 @@ h1 {
 
 .info .desc {
   font-size: 12px;
+}
+
+.app-container {
+  padding: 20px;
 }
 </style>
