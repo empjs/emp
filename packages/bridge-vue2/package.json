@@ -1,0 +1,26 @@
+{
+  "name": "@emp/bridge-vue2",
+  "version": "1.0.0",
+  "description": "Vue 2 bridge for EMP module federation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
+  },
+  "keywords": [
+    "emp",
+    "vue2",
+    "module-federation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "tsup": "^6.0.1",
+    "typescript": "^4.7.4",
+    "vue": "^2.6.14"
+  }
+}
