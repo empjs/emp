@@ -1,12 +1,10 @@
-// import 'src/setup/env'
-import {createPinia} from 'pinia'
 import App from 'src/components/App.vue'
+import plugin from 'src/setup/plugin'
 import {router} from 'src/setup/router'
 import {createApp} from 'vue'
 
-const pinia = createPinia()
 const app = createApp(App)
 //
-app.use(pinia)
+plugin(app)
 app.use(router)
 app.mount('#emp-root')

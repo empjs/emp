@@ -29,6 +29,7 @@ export default defineConfig(store => {
           './Info': './src/components/Info.vue',
           './Count': './src/components/Count.vue',
           './Home': './src/components/Home.vue',
+          './plugin': './src/setup/plugin.ts',
         },
         empRuntime: {
           runtime: {
@@ -52,13 +53,13 @@ export default defineConfig(store => {
         },
         remotes: {},
         name: 'vue3Host',
-        // dts: {
-        //   generateTypes: {
-        //     compilerInstance: 'vue-tsc',
-        //     compileInChildProcess: false,
-        //   },
-        //   consumeTypes: false,
-        // },
+        dts: {
+          generateTypes: {
+            compilerInstance: 'vue-tsc',
+            compileInChildProcess: false,
+          },
+          consumeTypes: false,
+        },
       }),
     ],
     server: {

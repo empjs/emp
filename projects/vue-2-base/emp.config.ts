@@ -13,9 +13,10 @@ export default defineConfig(store => {
           './Table': './src/components/table',
           './CompositionApi': './src/components/CompositionApi',
           './store': './src/store',
+          './setup': './src/setup',
         },
         empRuntime: {
-          runtimeLib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
+          runtimeLib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
           framework: {
             libs: [
               // `https://unpkg.com/vue@2.7.14/dist/vue.min.js`,

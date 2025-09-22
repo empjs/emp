@@ -1,9 +1,9 @@
 {
   "extends": "@empjs/cli/tsconfig/vue",
   "compilerOptions": {
-    "baseUrl": "./",
-    "noCheck": true
+    "baseUrl": "./"
+    // "noCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
