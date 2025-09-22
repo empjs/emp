@@ -1,0 +1,27 @@
+{
+  "name": "adapter-vue2-host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-vue2": "workspace:^*"
+  },
+  "dependencies": {
+    "@empjs/share": "workspace:^",
+    "element-ui": "^2.15.14",
+    "vue": "^2.7.14",
+    "vue-router": "3",
+    "vuex": "3"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build --env prod",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -43,6 +43,8 @@ importers:
 
   packages/bridge-react: {}
 
+  packages/bridge-vue2: {}
+
   packages/bridge-vue3: {}
 
   packages/cdn-react-17:
@@ -695,6 +697,9 @@ importers:
       '@empjs/bridge-react':
         specifier: workspace:^
         version: link:../../packages/bridge-react
+      '@empjs/bridge-vue2':
+        specifier: workspace:^
+        version: link:../../packages/bridge-vue2
       '@empjs/bridge-vue3':
         specifier: workspace:^
         version: link:../../packages/bridge-vue3
@@ -739,6 +744,31 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.3.7(@types/react@18.3.23)
+
+  projects/adapter-vue2-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
 
   projects/adapter-vue3-host:
     dependencies:
@@ -4111,40 +4141,16 @@ packages:
     engines: {node: '>=10.0.0'}
     dev: false
 
-  /@emnapi/core@1.4.5:
-    resolution: {integrity: sha512-XsLw1dEOpkSX/WucdqUhPWP7hDxSvZiY+fsUC14h+FtQ2Ifni4znbBt8punRX+Uj2JG/uDb8nEHVKvrVlvdZ5Q==}
-    requiresBuild: true
-    dependencies:
-      '@emnapi/wasi-threads': 1.0.4
-      tslib: 2.8.1
-    optional: true
-
   /@emnapi/core@1.5.0:
     resolution: {integrity: sha512-sbP8GzB1WDzacS8fgNPpHlp6C9VZe+SJP3F90W9rLemaQj2PzIuTEl1qDOYQf58YIpyjViI24y9aPWCjEzY2cg==}
     requiresBuild: true
     dependencies:
       '@emnapi/wasi-threads': 1.1.0
       tslib: 2.8.1
-    dev: false
-    optional: true
-
-  /@emnapi/runtime@1.4.5:
-    resolution: {integrity: sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg==}
-    requiresBuild: true
-    dependencies:
-      tslib: 2.8.1
     optional: true
 
   /@emnapi/runtime@1.5.0:
     resolution: {integrity: sha512-97/BJ3iXHww3djw6hYIfErCZFee7qCtrneuLa20UXFCOTCfBM2cvQHjWJ2EG0s0MtdNwInarqCTz35i4wWXHsQ==}
-    requiresBuild: true
-    dependencies:
-      tslib: 2.8.1
-    dev: false
-    optional: true
-
-  /@emnapi/wasi-threads@1.0.4:
-    resolution: {integrity: sha512-PJR+bOmMOPH8AtcTGAyYNiuJ3/Fcoj2XN/gBEWzDIKh254XO+mM9XoXHk5GNEhodxeMznbg7BlRojVbKN+gC6g==}
     requiresBuild: true
     dependencies:
       tslib: 2.8.1
@@ -4155,7 +4161,6 @@ packages:
     requiresBuild: true
     dependencies:
       tslib: 2.8.1
-    dev: false
     optional: true
 
   /@emotion/hash@0.8.0:
@@ -4901,15 +4906,6 @@ packages:
       '@module-federation/sdk': 0.19.1
     dev: false
 
-  /@napi-rs/wasm-runtime@1.0.3:
-    resolution: {integrity: sha512-rZxtMsLwjdXkMUGC3WwsPwLNVqVqnTJT6MNIB6e+5fhMcSCPP0AOsNWuMQ5mdCq6HNjs/ZeWAEchpqeprqBD2Q==}
-    requiresBuild: true
-    dependencies:
-      '@emnapi/core': 1.4.5
-      '@emnapi/runtime': 1.4.5
-      '@tybys/wasm-util': 0.10.0
-    optional: true
-
   /@napi-rs/wasm-runtime@1.0.5:
     resolution: {integrity: sha512-TBr9Cf9onSAS2LQ2+QHx6XcC6h9+RIzJgbqG3++9TUZSH204AwEy5jg3BTQ0VATsyoGj4ee49tN/y6rvaOOtcg==}
     requiresBuild: true
@@ -4917,7 +4913,6 @@ packages:
       '@emnapi/core': 1.5.0
       '@emnapi/runtime': 1.5.0
       '@tybys/wasm-util': 0.10.1
-    dev: false
     optional: true
 
   /@nodelib/fs.scandir@2.1.5:
@@ -5765,7 +5760,7 @@ packages:
     cpu: [wasm32]
     requiresBuild: true
     dependencies:
-      '@napi-rs/wasm-runtime': 1.0.3
+      '@napi-rs/wasm-runtime': 1.0.5
     optional: true
 
   /@rspack/binding-wasm32-wasi@1.5.5:
@@ -6839,19 +6834,11 @@ packages:
   /@tsconfig/node16@1.0.4:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  /@tybys/wasm-util@0.10.0:
-    resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
-    requiresBuild: true
-    dependencies:
-      tslib: 2.8.1
-    optional: true
-
   /@tybys/wasm-util@0.10.1:
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
     requiresBuild: true
     dependencies:
       tslib: 2.8.1
-    dev: false
     optional: true
 
   /@types/acorn@4.0.6:
@@ -10805,6 +10792,20 @@ packages:
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 1.1.0
       vue: 2.7.14
+    dev: false
+
+  /element-ui@2.15.14(vue@2.7.16):
+    resolution: {integrity: sha512-2v9fHL0ZGINotOlRIAJD5YuVB8V7WKxrE9Qy7dXhRipa035+kF7WuU/z+tEmLVPBcJ0zt8mOu1DKpWcVzBK8IA==}
+    peerDependencies:
+      vue: ^2.5.17
+    dependencies:
+      async-validator: 1.8.5
+      babel-helper-vue-jsx-merge-props: 2.0.3
+      deepmerge: 1.5.2
+      normalize-wheel: 1.0.1
+      resize-observer-polyfill: 1.5.1
+      throttle-debounce: 1.1.0
+      vue: 2.7.16
     dev: false
 
   /elliptic@6.6.1:

@@ -14,17 +14,19 @@ export default defineConfig(store => {
         remotes: {
           ah: `adapterHost@http://${ip}:7701/emp.json`,
           v3h: `vue3Host@http://${ip}:9901/emp.json`,
+          v2h: `vue2Host@http://${ip}:9902/emp.json`,
           //mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
         },
-        dts: {
-          consumeTypes: true,
-        },
+        // dts: {
+        //   consumeTypes: true,
+        // },
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
             libs: [
               `https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`,
               `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue@0.2.1/dist/vueRouter.${store.mode}.umd.js`,
               // `http://${ip}:2300/vueRouter.${store.mode}.umd.js`,
             ],
           },

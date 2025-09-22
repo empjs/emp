@@ -12,6 +12,8 @@ interface ReactOptions {
   React?: any
   ReactDOM?: any
   createRoot?: any
+  syncUnmount?: boolean
+  errorBoundary?: boolean
 }
 
 /**
@@ -132,13 +134,22 @@ export function createRemoteAppComponent(
     }
 
     unmountComponent() {
-      if (this.provider && this.containerRef.current) {
-        try {
-          this.provider.destroy(this.containerRef.current)
+      try {
+        // 不强依赖containerRef.current存在，避免可能的null引用
+        if (this.provider) {
+          if (this.containerRef && this.containerRef.current) {
+            try {
+              this.provider.destroy(this.containerRef.current)
+            } catch (destroyError) {
+              console.warn('[bridge-react] Error during provider unmount:', destroyError)
+            }
+          }
+          
+          // 确保清理provider引用
           this.provider = null
-        } catch (error) {
-          console.error('[EMP-ERROR] Failed to unmount component', error)
         }
+      } catch (error) {
+        console.error('[EMP-ERROR] Failed to unmount component', error)
       }
     }
 
@@ -154,15 +165,21 @@ export function createRemoteAppComponent(
     }
 
     componentWillUnmount() {
-      this.isMounted = false
-      const cleanup = () => this.unmountComponent()
+    this.isMounted = false
 
-      if (typeof window !== 'undefined' && window.requestAnimationFrame) {
-        window.requestAnimationFrame(cleanup)
-      } else {
-        setTimeout(cleanup, 0)
-      }
+    // 检查是否使用同步卸载
+    if (reactOptions?.syncUnmount) {
+      // 直接同步卸载组件，避免异步操作导致的DOM节点关系变化
+      this.unmountComponent()
+    } else {
+      // 使用微任务队列，比setTimeout更快但仍然异步
+      Promise.resolve().then(() => {
+        if (this.containerRef && this.containerRef.current) {
+          this.unmountComponent()
+        }
+      })
     }
+  }
 
     render() {
       return React.createElement('div', {ref: this.containerRef})

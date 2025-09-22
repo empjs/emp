@@ -1,0 +1,41 @@
+{
+  "name": "@empjs/bridge-vue2",
+  "version": "0.2.0",
+  "description": "Emp Bridge Vue v2",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empjs/emp.git",
+    "directory": "packages/bridge-vue2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "rslib build --watch --env-mode development",
+    "build": "rslib build"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Ken",
+  "dependencies": {},
+  "devDependencies": {}
+}
