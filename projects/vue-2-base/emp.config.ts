@@ -20,7 +20,8 @@ export default defineConfig(store => {
             libs: [
               // `https://unpkg.com/vue@2.7.14/dist/vue.min.js`,
               // `https://unpkg.com/vuex@3.6.2/dist/vuex.min.js`,
-              `http://${store.server.ip}:2200/vueRouter.${store.mode}.umd.js`,
+              // `http://${store.server.ip}:2200/vueRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue@0.2.1/dist/vueRouter.${store.mode}.umd.js`,
               // `https://unpkg.com/element-ui/lib/index.js`,
               // `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
             ],

@@ -37,8 +37,8 @@ export default defineConfig(store => {
           },
           framework: {
             libs: [
-              `http://${store.server.ip}:2300/vueRouter.${store.mode}.umd.js`,
-              // `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.0/dist/vueRouter.${store.mode}.umd.js`,
+              // `http://${store.server.ip}:2300/vueRouter.${store.mode}.umd.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.1/dist/vueRouter.${store.mode}.umd.js`,
             ],
             global: 'EMP_ADAPTER_VUE',
             // global: 'window',
