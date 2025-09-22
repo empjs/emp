@@ -1,7 +1,4 @@
 {
   "root": true,
-  "extends": ["@empjs/biome-config"],
-  "files": {
-    "ignore": ["**/*.vue"]
-  }
+  "extends": ["@empjs/biome-config"]
 }

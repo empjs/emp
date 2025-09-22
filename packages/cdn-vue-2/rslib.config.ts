@@ -3,27 +3,40 @@ import path from 'path'
 
 function getLibConfig(env: 'development' | 'production'): LibConfig {
   const isProd = env === 'production'
-  const prodSuffix = isProd ? '.prod' : ''
   const nodeModulesPath = path.resolve(__dirname, 'node_modules')
-
+  const ext = isProd ? `.min` : ``
+  //
   return {
     format: 'umd',
-    umdName: 'EMP_ADAPTER_VUE',
+    umdName: 'EMP_ADAPTER_VUE_v2',
     bundle: true,
     dts: true,
-    syntax: 'es2018',
+    syntax: 'es5',
     output: {
       target: 'web',
       cleanDistPath: true,
       filename: {
         js: `[name].${env}.umd.js`,
       },
+      legalComments: 'none',
+      minify: isProd
+        ? {
+            js: true,
+            jsOptions: {
+              minimizerOptions: {
+                format: {
+                  comments: false,
+                },
+              },
+            },
+          }
+        : false,
     },
     resolve: {
       alias: {
-        vue: path.join(nodeModulesPath, `vue/dist/vue.runtime.esm-browser${prodSuffix}.js`),
-        'vue-router': path.join(nodeModulesPath, `vue-router/dist/vue-router.esm-browser${prodSuffix}.js`),
-        pinia: path.join(nodeModulesPath, 'pinia/dist/pinia.esm-browser.js'),
+        vue: path.join(nodeModulesPath, `vue/dist/vue${ext}.js`),
+        'vue-router': path.join(nodeModulesPath, `vue-router/dist/vue-router${ext}.js`),
+        vuex: path.join(nodeModulesPath, `vuex/dist/vuex${ext}.js`),
       },
     },
     source: {
@@ -37,6 +50,7 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
     },
     tools: {
       rspack: config => {
+        // 基础优化设置
         if (config.optimization) {
           config.optimization.removeAvailableModules = false
           config.optimization.removeEmptyChunks = false
@@ -76,7 +90,6 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
             },
           })
         }
-
         return config
       },
     },
@@ -87,17 +100,6 @@ export default defineConfig(() => ({
   lib: [getLibConfig('development'), getLibConfig('production')],
   output: {
     target: 'web',
-    legalComments: 'none',
-    minify: {
-      js: true,
-      jsOptions: {
-        minimizerOptions: {
-          format: {
-            comments: false,
-          },
-        },
-      },
-    },
   },
   plugins: [
     {
