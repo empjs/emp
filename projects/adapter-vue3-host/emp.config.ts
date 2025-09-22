@@ -53,10 +53,11 @@ export default defineConfig(store => {
         },
         remotes: {},
         name: 'vue3Host',
+        dev: false,
         dts: {
           generateTypes: {
             compilerInstance: 'vue-tsc',
-            compileInChildProcess: false,
+            compileInChildProcess: true,
           },
           consumeTypes: false,
         },
