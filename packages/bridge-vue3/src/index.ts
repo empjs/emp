@@ -82,7 +82,7 @@ export function createRemoteAppComponent(
   const {Vue} = vueOptions
 
   return defineComponent({
-    name: 'RemoteAppComponent',
+    name: 'Vue3RemoteAppComponent',
     props: {},
     setup() {
       const provider = ref<BridgeProviderReturn | null>(null)

@@ -8,9 +8,9 @@ const App = () => (
   <div>
     <Box>
       <h1>Vue 2 Remote App</h1>
-      <RemoteVue2App name="vue2 in React 16!sdfsdfdsflkjsfd" />
+      {/* <RemoteVue2App name="vue2 in React 16!dsd" /> */}
     </Box>
-    <React16Info desc="React16Info">
+    {/* <React16Info desc="React16Info">
       <Remote18App>
         <React16Info desc="React16Info in Remote18App">
           <Remote18App>
@@ -25,7 +25,7 @@ const App = () => (
       <Remote18App>
         <RemoteVue3App name="vue3 in React 18" />
       </Remote18App>
-    </React16Info>
+    </React16Info> */}
   </div>
 )
 
