@@ -134,6 +134,7 @@ export function createRemoteAppComponent(
     }
 
     unmountComponent() {
+      console.log('unmountComponent')
       try {
         // 不强依赖containerRef.current存在，避免可能的null引用
         if (this.provider) {
@@ -144,7 +145,7 @@ export function createRemoteAppComponent(
               console.warn('[bridge-react] Error during provider unmount:', destroyError)
             }
           }
-          
+
           // 确保清理provider引用
           this.provider = null
         }
@@ -154,32 +155,36 @@ export function createRemoteAppComponent(
     }
 
     componentDidMount() {
+      console.log('componentDidMount')
       this.isMounted = true
       if (this.providerInfo) this.renderComponent()
     }
 
     componentDidUpdate() {
+      console.log('componentDidUpdate')
       if (this.provider && this.containerRef.current) {
         this.provider.render(this.containerRef.current, this.props)
       }
     }
 
     componentWillUnmount() {
-    this.isMounted = false
+      console.log('componentWillUnmount', reactOptions?.syncUnmount)
+      this.isMounted = false
 
-    // 检查是否使用同步卸载
-    if (reactOptions?.syncUnmount) {
-      // 直接同步卸载组件，避免异步操作导致的DOM节点关系变化
-      this.unmountComponent()
-    } else {
-      // 使用微任务队列，比setTimeout更快但仍然异步
-      Promise.resolve().then(() => {
-        if (this.containerRef && this.containerRef.current) {
-          this.unmountComponent()
-        }
-      })
+      // 检查是否使用同步卸载
+      if (reactOptions?.syncUnmount) {
+        // 直接同步卸载组件，避免异步操作导致的DOM节点关系变化
+        this.unmountComponent()
+      } else {
+        console.log('componentWillUnmount async', this.containerRef, this.containerRef.current)
+        // 使用微任务队列，比setTimeout更快但仍然异步
+        Promise.resolve().then(() => {
+          if (this.containerRef && this.containerRef.current) {
+            this.unmountComponent()
+          }
+        })
+      }
     }
-  }
 
     render() {
       return React.createElement('div', {ref: this.containerRef})

@@ -6,6 +6,10 @@ import {Box, React16Info} from './components/Info'
 
 const App = () => (
   <div>
+    <Box>
+      <h1>Vue 2 Remote App</h1>
+      <RemoteVue2App name="vue2 in React 16!sdfsdfdsflkjsfd" />
+    </Box>
     <React16Info desc="React16Info">
       <Remote18App>
         <React16Info desc="React16Info in Remote18App">
@@ -22,10 +26,6 @@ const App = () => (
         <RemoteVue3App name="vue3 in React 18" />
       </Remote18App>
     </React16Info>
-    <Box>
-      <h1>Vue 2 Remote App </h1>
-      <RemoteVue2App />
-    </Box>
   </div>
 )
 

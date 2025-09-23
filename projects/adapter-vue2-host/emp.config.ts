@@ -10,7 +10,7 @@ export default defineConfig(store => {
         // shared: ['vue', 'vuex'],
         manifest: true,
         exposes: {
-          './Hello': './src/components/Hello',
+          './HelloVue': './src/components/HelloVue',
           './Content': './src/components/Content',
           './Table': './src/components/table',
           './CompositionApi': './src/components/CompositionApi',
