@@ -3,6 +3,7 @@ import {createBridgeComponent} from '@empjs/bridge-vue2'
 
 // React 16 组件
 import React from 'react'
+// 必须加载这个 预加载 从而解决热更问题
 import {Content, HelloVue, plugin, store, Table} from 'src/adapter/Vue2Exports'
 
 //
