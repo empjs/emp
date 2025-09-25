@@ -6,33 +6,42 @@ import {Box, ReactInfo} from './components/Info'
 
 const App = () => (
   <div>
-    <Box>
-      <h1>Vue 2 Remote App</h1>
-      <Box>
+    {/* Vue 2 组件集成示例区域 */}
+    <ReactInfo desc="以下展示了Vue 2组件在React环境中的无缝集成" title="Vue 2 Remote App">
+      <ReactInfo title="Vue2 Hello组件">
         <Vue2Hello name="vue2 in React" />
-      </Box>
-      <Box>
+      </ReactInfo>
+      <ReactInfo title="Vue2 Content组件">
         <Vue2Content />
-      </Box>
-      <Box>
+      </ReactInfo>
+      <ReactInfo title="Vue2 Table组件">
         <Vue2Table />
-      </Box>
-    </Box>
-    <ReactInfo desc="ReactInfo">
-      <Remote18App>
-        <ReactInfo desc="ReactInfo in Remote18App">
-          <Remote18App>
-            <ReactInfo desc="last component " />
-          </Remote18App>
-        </ReactInfo>
-      </Remote18App>
-      <Box>
-        <h2>Vue3 Component</h2>
+      </ReactInfo>
+    </ReactInfo>
+
+    {/* React 18和Vue 3组件嵌套集成示例 */}
+    <ReactInfo desc="EMP跨框架集成演示" title="多层次框架嵌套示例">
+      <ReactInfo desc="下面展示了React 16 → React 18 → React 16的嵌套调用">
+        <Remote18App>
+          <ReactInfo desc="React 18环境中的React 16组件">
+            <Remote18App>
+              <ReactInfo desc="深度嵌套的React组件" />
+            </Remote18App>
+          </ReactInfo>
+        </Remote18App>
+      </ReactInfo>
+
+      {/* Vue 3组件集成示例 */}
+      <ReactInfo title="Vue 3组件集成" desc="Vue 3组件在React 16环境中运行">
         <RemoteVue3App name="vue3 in React 16" />
-      </Box>
-      <Remote18App>
-        <RemoteVue3App name="vue3 in React 18" />
-      </Remote18App>
+      </ReactInfo>
+
+      {/* 多框架混合嵌套示例 */}
+      <ReactInfo title="多框架混合嵌套" desc="React 16 → React 18 → Vue 3的跨框架调用链">
+        <Remote18App>
+          <RemoteVue3App name="vue3 in React 18" />
+        </Remote18App>
+      </ReactInfo>
     </ReactInfo>
   </div>
 )

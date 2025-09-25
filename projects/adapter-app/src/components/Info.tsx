@@ -1,17 +1,48 @@
 import React from 'react'
 import style from './Info.module.scss'
-export const ReactInfo: any = (props: any) => {
-  return (
-    <div className={`${style.box} ${style.reactInfo}`}>
-      <h1>React App</h1>
-      <p>React Version {React.version}</p>
-      <h5>Props desc</h5>
-      <p className={style.desc}>{props.desc}</p>
-      <div className={style.box}>{props.children ? props.children : null}</div>
-    </div>
-  )
+
+interface BoxProps {
+  title?: string
+  desc?: string
+  children?: React.ReactNode
+  className?: string
 }
 
-export const Box = (props: any): any => {
-  return <div className={style.box}>{props.children}</div>
+export const Box = ({title, desc, children, className = ''}: BoxProps): JSX.Element => (
+  <div className={`${style.box} ${className}`}>
+    {title && (
+      <h1>
+        {title}
+        {desc && <span style={{fontWeight: 'normal', fontSize: '12px', marginLeft: '8px'}}>{desc}</span>}
+      </h1>
+    )}
+    {children}
+  </div>
+)
+
+interface ReactInfoProps {
+  desc: string
+  children?: React.ReactNode
 }
+
+export const ReactInfo = ({desc, children, title, className}: BoxProps): JSX.Element => (
+  <Box className={`${style.reactInfo} ${className}`} title={title} desc={desc}>
+    <span
+      style={{
+        position: 'absolute',
+        top: '5px',
+        right: '10px',
+        fontSize: '10px',
+        backgroundColor: '#e9f0f8',
+        color: '#4a90e2',
+        padding: '2px 6px',
+        borderRadius: '10px',
+        border: '1px solid #6ba4e5',
+        fontWeight: 'normal',
+      }}
+    >
+      React {React.version}
+    </span>
+    {children && <Box>{children}</Box>}
+  </Box>
+)

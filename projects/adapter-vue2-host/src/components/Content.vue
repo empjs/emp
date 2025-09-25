@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="button bigSize" @click="increment">Vuex Store : {{ $store.state.count }}</button>
+    <button class="button" @click="increment">Vuex Store : {{ $store.state.count }}</button>
     <p @click="showMore">More... update from base</p>
     <div class="more">
       <ul v-if="isMore === true">
@@ -32,8 +32,8 @@ export default {
     DynamicButton: () => import('./Button'),
   },
   props: {
-    dataProps: {type: Number, required: false},
-    methodProps: {type: Function, required: false},
+    dataProps: { type: Number, required: false },
+    methodProps: { type: Function, required: false },
   },
   data() {
     return {
@@ -71,26 +71,31 @@ export default {
   width: auto;
   padding: 3px 8px;
 }
+
 .more {
+
   ul,
   li {
     list-style: none;
+
     button {
       width: auto;
       padding: 3px 8px;
     }
   }
+
   h2 {
     font-size: 14px;
   }
 }
+
 .v2box {
   font-size: 38px;
   color: green;
   font-weight: bold;
 }
+
 .button {
-  width: 200px;
-  padding: 20px 0;
+  padding: 10px;
 }
 </style>

@@ -1,28 +1,67 @@
 .desc {
-    background-color: #eee;
-    padding: 10px !important;
+    background-color: #f0f0f0;
+    padding: 8px !important;
+    border-radius: 4px;
+    margin-bottom: 6px;
 }
 
 .reactInfo {
-    h1 {
-        font-size: 18px;
-    }
-
-    h1 {
-        margin: 0;
-        padding: 0;
-    }
+    margin-bottom: 8px;
+    position: relative;
 }
 
 .box {
-    border: 1px solid blue;
-    background-color: #f7f7f7;
+    border: 1px solid #4a90e2;
+    background-color: #f8f9fa;
     padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    h1 {
+        font-size: 14px;
+        color: #333;
+        margin: 0 0 6px 0;
+        padding: 0;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 5px;
+    }
 
     p,
     h2,
+    h3,
     h5 {
-        margin: 0;
+        margin: 0 0 5px 0;
         padding: 0;
+    }
+
+    h2 {
+        font-size: 13px;
+        color: #444;
+    }
+
+    h3 {
+        font-size: 12px;
+        color: #555;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 嵌套层级的背景色 */
+    .box {
+        background-color: #e9f0f8;
+        border-color: #6ba4e5;
+        padding: 8px;
+        margin-bottom: 6px;
+    }
+
+    /* 第二层嵌套的背景色 */
+    .box .box {
+        background-color: #d8e6f3;
+        border-color: #8cb8eb;
+        padding: 6px;
+        margin-bottom: 4px;
     }
 }

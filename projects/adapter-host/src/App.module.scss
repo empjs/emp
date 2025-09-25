@@ -1,16 +1,38 @@
 .container {
     padding: 10px;
     margin: 10px 0;
-    background-color: #90d9f5;
-    border: 1px solid #0059ff;
+    background-color: #f8f9fa;
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     h1,
     p {
         padding: 0;
-        margin: 0;
+        margin: 0 0 5px 0;
     }
 
     h1 {
         font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+    }
+
+    /* 嵌套层级的背景色 */
+    .container {
+        background-color: #e9f0f8;
+        border-color: #6ba4e5;
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    /* 第二层嵌套的背景色 */
+    .container .container {
+        background-color: #d8e6f3;
+        border-color: #8cb8eb;
+        padding: 6px;
+        margin: 6px 0;
     }
 }
