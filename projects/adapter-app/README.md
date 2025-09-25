@@ -26,7 +26,6 @@ cd my-cross-framework-app
 ```json
 {
   "dependencies": {
-    "@empjs/adapter-react": "^latest",
     "@empjs/bridge-react": "^latest",
     "@empjs/bridge-vue2": "^latest",
     "@empjs/bridge-vue3": "^latest",
