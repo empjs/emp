@@ -11,6 +11,9 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         name: 'adapterApp',
         exposes: {},
+        experiments: {
+          asyncStartup: true,
+        },
         remotes: {
           ah: `adapterHost@http://${ip}:7701/emp.json`,
           v3h: `vue3Host@http://${ip}:9901/emp.json`,

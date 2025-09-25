@@ -2,7 +2,10 @@
   "extends": "@empjs/cli/tsconfig/react",
   "compilerOptions": {
     "baseUrl": "./",
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
   "include": ["src"]
 }

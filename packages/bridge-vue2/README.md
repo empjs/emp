@@ -1,118 +1,132 @@
-# EMP Bridge React
+# EMP Bridge Vue2
 
-EMP Bridge React 是一个用于跨 React 版本组件通信的桥接工具，它解决了不同 React 版本之间组件共享和通信的问题。
+EMP Bridge Vue2 是一个用于在 React 应用中集成 Vue2 组件的桥接工具，它解决了 React 与 Vue2 之间组件共享和通信的问题。
 
 ## 功能特点
 
-- 支持不同 React 版本（16/17/18/19）之间的组件共享
+- 支持在 React 应用中使用 Vue2 组件
 - 提供简单的 API 用于生产者和消费者之间的通信
-- 自动处理 React 不同版本的渲染和卸载方法差异
-- 支持异步加载组件
+- 自动处理 React 与 Vue2 之间的渲染和卸载方法差异
+- 支持插件系统扩展 Vue2 功能
 
 ## 安装
 
 ```bash
 # 使用 npm
-npm install @empjs/bridge-react
+npm install @empjs/bridge-vue2
 
 # 使用 yarn
-yarn add @empjs/bridge-react
+yarn add @empjs/bridge-vue2
 
 # 使用 pnpm
-pnpm add @empjs/bridge-react
+pnpm add @empjs/bridge-vue2
 ```
 
 ## 基本用法
 
-### 生产者（导出组件的应用）
+### 生产者（Vue2 应用导出组件）
 
-```tsx
-// 在 React 16/17 应用中
-import React from 'react';
-import { createBridgeComponent } from '@empjs/bridge-react';
+```js
+// 在 Vue2 应用中
+import Vue from 'vue';
 
-// 创建要共享的组件
-const MyComponent = (props) => {
-  return <div>Hello from React 16/17! {props.message}</div>;
+// 创建要共享的 Vue2 组件
+const HelloVue = {
+  name: 'HelloVue',
+  props: {
+    name: {
+      type: String,
+      default: 'Vue2'
+    }
+  },
+  template: '<div>Hello from {{ name }}!</div>'
 };
 
-// 导出桥接组件
-export default createBridgeComponent(MyComponent, {
-  React,
-  ReactDOM: require('react-dom'),
-  // React 18+ 才有 createRoot
-  // createRoot: require('react-dom/client').createRoot
-});
+// 导出组件
+export default HelloVue;
 ```
 
-### 消费者（使用组件的应用）
+### 消费者（React 应用使用 Vue2 组件）
 
-```tsx
-// 在 React 18/19 应用中
+```jsx
+// 在 React 应用中
 import React from 'react';
 import { createRemoteAppComponent } from '@empjs/bridge-react';
+import { createBridgeComponent } from '@empjs/bridge-vue2';
 
-// 导入远程组件（可以是动态导入）
-import RemoteComponent from 'remote-app/MyComponent';
+// 导入远程 Vue2 组件
+import v2App from 'v2h/HelloVue';
 
-// 创建可在当前 React 版本中使用的组件
-const BridgedComponent = createRemoteAppComponent(
-  RemoteComponent,
-  {
-    React,
-    ReactDOM: require('react-dom'),
-    createRoot: require('react-dom/client').createRoot
-  },
-  {
-    onError: (error) => console.error('Failed to load component:', error)
-  }
-);
+// 获取全局 Vue 实例（通过适配器注入）
+const { EMP_ADAPTER_VUE_v2 } = window;
+const { Vue } = EMP_ADAPTER_VUE_v2;
 
-// 在应用中使用
+// 创建 Vue2 桥接组件
+const BridgeComponent = createBridgeComponent(v2App, { Vue });
+
+// 创建可在 React 中使用的组件
+export const RemoteVue2App = createRemoteAppComponent(BridgeComponent, { React });
+
+// 在 React 应用中使用
 function App() {
   return (
     <div>
-      <h1>My App (React 18/19)</h1>
-      <BridgedComponent message="Passed from React 18/19" />
+      <h1>My React App</h1>
+      <RemoteVue2App name="vue2 in React" />
     </div>
   );
 }
+```
+
+## 热更新支持
+
+在开发环境中，您必须在 `bootstrap.ts` 添加热更新支持：
+
+```js
+// 只在热更新时加载 vue-2-hmr 模块
+if (module.hot) {
+  console.log('vue-2-hmr', module);
+  import('src/adapter/vue-2-hmr');
+}
+```
+
+vue-2-hmr: 预载组件
+```js
+import 'v2h/HelloVue'
 ```
 
 ## API 参考
 
 ### createBridgeComponent
 
-用于生产者包装应用级别导出模块。
+用于生产者包装 Vue2 组件。
 
 ```typescript
 function createBridgeComponent(
-  Component: React.ComponentType<any>,
+  Component: any,
   options: {
-    React: any;
-    ReactDOM: any;
-    createRoot?: Function;
+    Vue?: any;
+    plugin?: (vue: any) => void;
   }
 ): BridgeProvider
 ```
 
 参数:
-- `Component`: 要导出的 React 组件
-- `options`: React 相关配置
-  - `React`: React 实例
-  - `ReactDOM`: ReactDOM 实例
-  - `createRoot`: (可选) React 18+ 的 createRoot 方法
+- `Component`: 要导出的 Vue2 组件
+- `options`: Vue2 相关配置
+  - `Vue`: Vue2 实例
+  - `plugin`: (可选) 用于扩展 Vue 功能的插件函数
 
-### createRemoteAppComponent
+### createRemoteAppComponent (来自 @empjs/bridge-react)
 
-用于消费者加载应用级别模块。
+用于消费者加载远程组件。
 
 ```typescript
 function createRemoteAppComponent(
   component: ComponentProvider,
   reactOptions: {
     React: any;
-    ReactDOM: any;
+    ReactDOM?: any;
     createRoot?: Function;
   },
   options?: {
@@ -122,22 +136,23 @@ function createRemoteAppComponent(
 ```
 
 参数:
-- `component`: 组件提供者函数，可以是同步或异步的
+- `component`: 组件提供者函数，通常是 `createBridgeComponent` 的返回值
 - `reactOptions`: 当前应用的 React 相关配置
   - `React`: React 实例
-  - `ReactDOM`: ReactDOM 实例
+  - `ReactDOM`: (可选) ReactDOM 实例
   - `createRoot`: (可选) React 18+ 的 createRoot 方法
 - `options`: (可选) 额外配置
   - `onError`: 错误处理回调函数
 
 ## 使用场景
 
-1. 微前端架构中不同 React 版本的应用集成
-2. 逐步升级大型 React 应用时的版本兼容
-3. 共享组件库到不同 React 版本的项目中
+1. 微前端架构中 React 与 Vue2 应用的集成
+2. 在 React 项目中复用现有的 Vue2 组件
+3. 逐步从 Vue2 迁移到 React 的过渡阶段
 
 ## 注意事项
 
-- 确保正确提供对应版本的 React 和 ReactDOM 实例
-- 对于 React 18+，需要提供 createRoot 方法
-- 组件间通信仅限于 props 传递，不支持 Context API 跨版本共享
+- 确保正确提供 Vue2 实例
+- 组件间通信仅限于 props 传递，不支持 Vue 的 provide/inject 或 React 的 Context API 跨框架共享
+- 在使用前需要确保 Vue2 适配器已正确加载
+- 复杂的状态管理需要在各自框架内部处理

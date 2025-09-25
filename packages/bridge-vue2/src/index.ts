@@ -1,4 +1,3 @@
-// Type definitions
 export interface BridgeProviderReturn {
   render: (dom: HTMLElement, props?: Record<string, any>) => void
   destroy: (dom: HTMLElement) => void
@@ -13,9 +12,6 @@ interface Vue2Options {
   plugin?: (vue: any) => void
 }
 
-/**
- * Create bridge component - for producer to wrap application-level export modules
- */
 export function createBridgeComponent(Component: any, options: Vue2Options): BridgeProvider {
   const Vue = options.Vue
 
@@ -23,7 +19,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
     const instanceMap = new Map<HTMLElement, any>()
 
     const render = (dom: HTMLElement, props?: Record<string, any>): void => {
-      // 防御性检查：确保 DOM 元素存在
       if (!dom || !(dom instanceof HTMLElement)) {
         console.error('[EMP-ERROR] Invalid DOM element provided to render')
         return
@@ -33,23 +28,16 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
         const existingInstance = instanceMap.get(dom)
 
         if (existingInstance) {
-          // Update props for existing instance
           if (props) {
             try {
-              // 更新组件的渲染函数，使用新的props重新渲染组件
               existingInstance.$options.render = (h: any) => h(Component, {props: props || {}})
-
-              // 更新propsData
               existingInstance.$options.propsData = props || {}
-
-              // 强制更新组件
               existingInstance.$forceUpdate()
             } catch (error) {
               console.warn('[EMP-WARN] Failed to update props:', error)
             }
           }
         } else {
-          // 创建一个额外的容器元素，作为Vue实例的挂载点
           const vueContainer = document.createElement('div')
           vueContainer.className = 'vue2-container'
           dom.appendChild(vueContainer)
@@ -57,14 +45,12 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
           const instance = new Vue({
             propsData: props || {},
             render: (h: any) => h(Component, {props: props || {}}),
-            el: vueContainer, // 使用新创建的容器元素
+            el: vueContainer,
             beforeDestroy() {
-              // 在销毁前清空容器内容，而不是直接操作React管理的DOM
               if (vueContainer && vueContainer.parentNode) {
                 while (vueContainer.firstChild) {
                   vueContainer.removeChild(vueContainer.firstChild)
                 }
-                // 尝试从父元素中移除Vue容器，但保留React的容器
                 try {
                   dom.removeChild(vueContainer)
                 } catch (e) {
@@ -74,7 +60,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
             },
           })
 
-          // 使用自定义插件（如果提供）
           if (options.plugin) {
             options.plugin(Vue)
           }
@@ -87,7 +72,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
     }
 
     const destroy = (dom: HTMLElement): void => {
-      // 防御性检查：确保 DOM 元素存在
       if (!dom || !(dom instanceof HTMLElement)) {
         console.error('[EMP-ERROR] Invalid DOM element provided to destroy')
         return
@@ -98,17 +82,12 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
       if (!instance) return
 
       try {
-        // 立即从映射中移除实例，防止重复销毁
         const vmToDestroy = instance
         instanceMap.delete(dom)
 
-        // 在销毁前安全清空 DOM 内容，避免 React 移除时的冲突
         try {
-          // 使用更安全的方式清空 DOM - 参考Vue3的实现
           if (dom) {
-            // 清空DOM内容 - 使用多种方法确保清理成功
             try {
-              // 方法1: 使用replaceChildren (现代浏览器)
               if (typeof dom.replaceChildren === 'function') {
                 dom.replaceChildren()
               }
@@ -116,7 +95,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
               console.warn('[EMP-WARN] destroy - replaceChildren failed:', replaceError)
             }
 
-            // 方法2: 循环移除子节点 (最兼容)
             try {
               while (dom.firstChild) {
                 dom.removeChild(dom.firstChild)
@@ -129,7 +107,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
           console.warn('[EMP-WARN] Error clearing DOM before destroy:', domError)
         }
 
-        // 立即销毁Vue实例，不再延迟
         try {
           vmToDestroy.$destroy()
         } catch (destroyError) {
@@ -144,9 +121,6 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
   }
 }
 
-/**
- * Create remote app component - for consumer to load application-level modules
- */
 export function createRemoteAppComponent(
   component: ComponentProvider,
   vueOptions: Vue2Options,
@@ -158,7 +132,6 @@ export function createRemoteAppComponent(
 
   return {
     name: 'Vue2RemoteAppComponent',
-    // 允许接收任意 props
     props: {
       name: String,
       [Symbol.toPrimitive]: Function,
@@ -205,10 +178,8 @@ export function createRemoteAppComponent(
             return
           }
 
-          // 确保传递正确的 props，Vue2 中 $props 可能不存在
           const props = this.$props || this.$options.propsData || {}
 
-          // 确保 props 是对象类型
           if (props && typeof props === 'object') {
             this.provider.render(this.$el, props)
           } else {
@@ -222,7 +193,6 @@ export function createRemoteAppComponent(
       unmountComponent() {
         if (this.provider && this.$el) {
           try {
-            // 先清空 DOM 内容，避免 React 移除时的冲突
             try {
               while (this.$el.firstChild) {
                 this.$el.removeChild(this.$el.firstChild)
@@ -231,7 +201,6 @@ export function createRemoteAppComponent(
               console.error('[EMP-ERROR] unmountComponent - Error during DOM clearing:', clearError)
             }
 
-            // 然后销毁 Vue 组件
             this.provider.destroy(this.$el)
             this.provider = null
           } catch (error) {
@@ -246,7 +215,6 @@ export function createRemoteAppComponent(
     },
     updated() {
       if (this.provider && this.$el) {
-        // 获取 props 的安全方式
         const props = this.$props || this.$options.propsData || {}
         this.provider.render(this.$el, props)
       }
@@ -256,7 +224,6 @@ export function createRemoteAppComponent(
       this.unmountComponent()
     },
     created() {
-      // 立即加载组件
       this.loadComponent()
     },
     render(h: any) {

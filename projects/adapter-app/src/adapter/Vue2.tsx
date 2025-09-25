@@ -1,5 +1,6 @@
 import {createRemoteAppComponent} from '@empjs/bridge-react'
 import {createBridgeComponent} from '@empjs/bridge-vue2'
+
 // React 16 组件
 import React from 'react'
 import v2App from 'v2h/HelloVue'
