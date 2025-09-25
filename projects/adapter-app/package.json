@@ -21,7 +21,6 @@
     "@types/react-dom": "17"
   },
   "dependencies": {
-    "@empjs/adapter-react": "workspace:^",
     "@empjs/bridge-react": "workspace:^",
     "@empjs/bridge-vue2": "workspace:^",
     "@empjs/bridge-vue3": "workspace:^",

@@ -691,9 +691,6 @@ importers:
 
   projects/adapter-app:
     dependencies:
-      '@empjs/adapter-react':
-        specifier: workspace:^
-        version: link:../../packages/adapter-react
       '@empjs/bridge-react':
         specifier: workspace:^
         version: link:../../packages/bridge-react
