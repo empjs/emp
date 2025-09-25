@@ -1,6 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import vue from '@empjs/plugin-vue2'
 import {pluginRspackEmpShare} from '@empjs/share'
+import pkg from './package.json'
 export default defineConfig(store => {
   return {
     plugins: [
@@ -10,12 +11,20 @@ export default defineConfig(store => {
         // shared: ['vue', 'vuex'],
         manifest: true,
         exposes: {
-          './Hello': './src/components/Hello',
+          './HelloVue': './src/components/HelloVue',
           './Content': './src/components/Content',
           './Table': './src/components/table',
           './CompositionApi': './src/components/CompositionApi',
           './store': './src/store',
           './plugin': './src/plugin',
+        },
+        shared: {
+          vue: {
+            singleton: true, // 单一实例
+            requiredVersion: pkg.dependencies.vue, // 与 Vue 2 版本匹配
+          },
+          'vue-router': {singleton: true, requiredVersion: pkg.dependencies['vue-router']}, // 如使用
+          vuex: {singleton: true, requiredVersion: pkg.dependencies.vuex}, // 如使用
         },
         empRuntime: {
           runtimeLib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
@@ -56,8 +65,9 @@ export default defineConfig(store => {
     server: {
       port: 9902,
       open: false,
+      // hot: false,
     },
-    appEntry: 'main.js',
+    // appEntry: 'index.js',
     debug: {},
   }
 })

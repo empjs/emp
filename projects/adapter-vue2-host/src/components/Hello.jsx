@@ -1,4 +1,10 @@
 export default {
+  props: {
+    name: {
+      type: String,
+      default: 'appName',
+    },
+  },
   methods: {
     handleButtonClick(e) {
       e.preventDefault()
@@ -8,11 +14,11 @@ export default {
   render() {
     return (
       <div>
-        <Hello />
+        <Hello name={this.name} />
         <button onClick={this.handleButtonClick}> click me</button>
       </div>
     )
   },
 }
 
-export const Hello = () => <h2>hello jsx Component Here!</h2>
+export const Hello = ({name}) => <h2>hello jsx Component Here! {name}</h2>

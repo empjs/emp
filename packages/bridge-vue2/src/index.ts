@@ -1,4 +1,3 @@
-// Type definitions
 export interface BridgeProviderReturn {
   render: (dom: HTMLElement, props?: Record<string, any>) => void
   destroy: (dom: HTMLElement) => void
@@ -9,71 +8,62 @@ export type AsyncBridgeProvider = () => Promise<{default: BridgeProvider}>
 export type ComponentProvider = BridgeProvider | AsyncBridgeProvider
 
 interface Vue2Options {
-  Vue: any
+  Vue?: any
   plugin?: (vue: any) => void
-  instance?: {[k: string]: any}
-  safeDestroy?: boolean
-  disableAutoCleanup?: boolean
-  enableDebug?: boolean
-}
-
-// Vue2 类型定义
-interface Vue2Instance {
-  providerInfo: BridgeProvider
-  isMounted: HTMLElement
-  renderComponent(): unknown
-  provider: any
-  $props: Record<string, any>
-  $set: (object: Record<string, any>, key: string, value: any) => void
-  $el: HTMLElement
-  $destroy: () => void
-}
-
-/**
- * Create bridge component - for producer to wrap application-level export modules
- */
-// 添加调试日志函数
-const DEBUG_PREFIX = '[bridge-vue2]'
-function debug(...args: any[]) {
-  console.log(DEBUG_PREFIX, ...args)
 }
 
 export function createBridgeComponent(Component: any, options: Vue2Options): BridgeProvider {
   const Vue = options.Vue
 
   return function (): BridgeProviderReturn {
-    const instanceMap = new Map<HTMLElement, Vue2Instance>()
+    const instanceMap = new Map<HTMLElement, any>()
 
     const render = (dom: HTMLElement, props?: Record<string, any>): void => {
-      if (options.enableDebug) debug('render called', dom, props)
+      if (!dom || !(dom instanceof HTMLElement)) {
+        console.error('[EMP-ERROR] Invalid DOM element provided to render')
+        return
+      }
+
       try {
         const existingInstance = instanceMap.get(dom)
 
         if (existingInstance) {
-          // Update props for existing instance
           if (props) {
-            Object.keys(props).forEach(key => {
-              existingInstance.$set(existingInstance.$props, key, props[key])
-            })
+            try {
+              existingInstance.$options.render = (h: any) => h(Component, {props: props || {}})
+              existingInstance.$options.propsData = props || {}
+              existingInstance.$forceUpdate()
+            } catch (error) {
+              console.warn('[EMP-WARN] Failed to update props:', error)
+            }
           }
         } else {
-          // Create new Vue instance
+          const vueContainer = document.createElement('div')
+          vueContainer.className = 'vue2-container'
+          dom.appendChild(vueContainer)
 
-          // 使用自定义插件（如果提供）
+          const instance = new Vue({
+            propsData: props || {},
+            render: (h: any) => h(Component, {props: props || {}}),
+            el: vueContainer,
+            beforeDestroy() {
+              if (vueContainer && vueContainer.parentNode) {
+                while (vueContainer.firstChild) {
+                  vueContainer.removeChild(vueContainer.firstChild)
+                }
+                try {
+                  dom.removeChild(vueContainer)
+                } catch (e) {
+                  console.warn('[EMP-WARN] Failed to remove Vue container:', e)
+                }
+              }
+            },
+          })
+
           if (options.plugin) {
             options.plugin(Vue)
-            // console.log('options.plugin', options.plugin)
           }
-          if (options.enableDebug) debug('render: creating new Vue instance', props)
-          const instance = new Vue({
-            ...(options.instance || {}),
-            render: (h: any) => h(Component, {props: props || {}}),
-            el: dom,
-          }) as Vue2Instance
-          if (options.enableDebug) debug('render: Vue instance created successfully')
-
           instanceMap.set(dom, instance)
-          if (options.enableDebug) debug('render: instance added to instanceMap')
         }
       } catch (error) {
         console.error('[EMP-ERROR] Failed to render/update Vue component', error)
@@ -82,81 +72,48 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
     }
 
     const destroy = (dom: HTMLElement): void => {
-      if (options.enableDebug) debug('destroy called', dom)
-      const instance = instanceMap.get(dom)
-      if (!instance) {
-        if (options.enableDebug) debug('destroy: no instance found for dom', dom)
+      if (!dom || !(dom instanceof HTMLElement)) {
+        console.error('[EMP-ERROR] Invalid DOM element provided to destroy')
         return
       }
 
+      const instance = instanceMap.get(dom)
+
+      if (!instance) return
+
       try {
-        // 先销毁Vue实例
-        if (options.enableDebug) debug('destroy: destroying Vue instance', instance)
-        instance.$destroy()
-        if (options.enableDebug) debug('destroy: Vue instance destroyed successfully')
-        
-        // 直接清空DOM内容，不检查innerHTML，避免与React DOM操作冲突
+        const vmToDestroy = instance
+        instanceMap.delete(dom)
+
         try {
-          if (options.enableDebug) debug('destroy: cleaning up DOM content')
-          // 直接设置innerHTML为空字符串是最安全的方式
-          if (!options.safeDestroy) {
-            dom.innerHTML = ''
-            if (options.enableDebug) debug('destroy: DOM cleanup completed')
-          } else {
-            if (options.enableDebug) debug('destroy: DOM cleanup skipped (safeDestroy=true)')
+          if (dom) {
+            try {
+              if (typeof dom.replaceChildren === 'function') {
+                dom.replaceChildren()
+              }
+            } catch (replaceError) {
+              console.warn('[EMP-WARN] destroy - replaceChildren failed:', replaceError)
+            }
+
+            try {
+              while (dom.firstChild) {
+                dom.removeChild(dom.firstChild)
+              }
+            } catch (removeError) {
+              console.warn('[EMP-WARN] destroy - removeChild failed:', removeError)
+            }
           }
         } catch (domError) {
-          // 捕获可能的DOM操作错误，避免影响React卸载流程
-          console.warn('[bridge-vue2] Error during component destroy:', domError)
-          if (options.enableDebug) debug('destroy: error cleaning up DOM', domError)
+          console.warn('[EMP-WARN] Error clearing DOM before destroy:', domError)
         }
 
-        instanceMap.delete(dom)
-        if (options.enableDebug) debug('destroy: instance removed from instanceMap')
+        try {
+          vmToDestroy.$destroy()
+        } catch (destroyError) {
+          console.error('[EMP-ERROR] Error during Vue instance destroy:', destroyError)
+        }
       } catch (error) {
         console.error('[EMP-ERROR] Failed to unmount Vue component', error)
-        if (options.enableDebug) debug('destroy: error during component unmount', error)
-      }
-    }
-
-    const unmountComponent = (dom: HTMLElement): void => {
-      if (options.enableDebug) debug('unmountComponent called', dom)
-      const instance = instanceMap.get(dom)
-      if (!instance) {
-        if (options.enableDebug) debug('unmountComponent: no instance found for dom', dom)
-        return
-      }
-      
-      try {
-        if (options.enableDebug) debug('unmountComponent: destroying Vue instance', instance)
-        instance.$destroy()
-        if (options.enableDebug) debug('unmountComponent: Vue instance destroyed successfully')
-      } catch (e) {
-        console.error('Failed to destroy Vue instance', e)
-        if (options.enableDebug) debug('unmountComponent: error destroying Vue instance', e)
-      }
-      
-      instanceMap.delete(dom)
-      if (options.enableDebug) debug('unmountComponent: instance removed from instanceMap')
-      
-      // 如果不禁用自动清理，则清空DOM
-      if (!options.disableAutoCleanup) {
-        if (options.enableDebug) debug('unmountComponent: cleaning up DOM children', dom.childNodes.length)
-        try {
-          let childCount = dom.childNodes.length;
-          if (options.enableDebug) debug('unmountComponent: DOM children count before cleanup', childCount)
-          
-          while (dom.firstChild) {
-            if (options.enableDebug) debug('unmountComponent: removing child', dom.firstChild.nodeName)
-            dom.removeChild(dom.firstChild)
-          }
-          if (options.enableDebug) debug('unmountComponent: DOM cleanup completed')
-        } catch (e) {
-          console.error('Failed to clean up DOM', e)
-          if (options.enableDebug) debug('unmountComponent: error cleaning up DOM', e, e.stack)
-        }
-      } else {
-        if (options.enableDebug) debug('unmountComponent: DOM cleanup skipped (disableAutoCleanup=true)')
       }
     }
 
@@ -164,46 +121,25 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
   }
 }
 
-// Vue2 组件类型定义
-interface Vue2Component {
-  isMounted: boolean
-  providerInfo: any
-  renderComponent(): unknown
-  provider: any
-  unmountComponent(): unknown
-  loadComponent(): unknown
-  name?: string
-  props?: Record<string, any>
-  data?: () => Record<string, any>
-  methods?: Record<string, (this: Vue2Instance, ...args: any[]) => any>
-  mounted?: () => void
-  updated?: () => void
-  beforeDestroy?: () => void
-  created?: () => void
-  render?: (h: any) => any
-  $el?: HTMLElement
-  $props?: Record<string, any>
-}
-
-/**
- * Create remote app component - for consumer to load application-level modules
- */
 export function createRemoteAppComponent(
   component: ComponentProvider,
   vueOptions: Vue2Options,
   options: {onError?: (error: Error) => void} = {},
-): Vue2Component {
+): any {
   if (!component) {
     throw new Error('createRemoteAppComponent: component parameter cannot be empty')
   }
 
   return {
-    name: 'RemoteAppComponent',
-    props: {},
+    name: 'Vue2RemoteAppComponent',
+    props: {
+      name: String,
+      [Symbol.toPrimitive]: Function,
+    },
     data() {
       return {
-        provider: null as BridgeProviderReturn | null,
-        providerInfo: null as BridgeProvider | null,
+        provider: null,
+        providerInfo: null,
         isMounted: false,
       }
     },
@@ -233,42 +169,42 @@ export function createRemoteAppComponent(
         if (!this.providerInfo || !this.$el) return
 
         try {
-          if (!this.provider) {
+          if (!this.provider && this.providerInfo) {
             this.provider = this.providerInfo()
           }
-          this.provider.render(this.$el, this.$props || {})
+
+          if (!this.provider) {
+            console.warn('[EMP-WARN] Provider not available yet')
+            return
+          }
+
+          const props = this.$props || this.$options.propsData || {}
+
+          if (props && typeof props === 'object') {
+            this.provider.render(this.$el, props)
+          } else {
+            this.provider.render(this.$el, {})
+          }
         } catch (error) {
           console.error('[EMP-ERROR] Failed to render component', error)
+          if (options.onError) options.onError(error as Error)
         }
       },
       unmountComponent() {
-        // 只检查provider是否存在，不再依赖DOM节点关系
-        if (this.provider) {
+        if (this.provider && this.$el) {
           try {
-            // 如果$el存在，尝试销毁，但捕获任何可能的错误
-            if (this.$el) {
-              try {
-                // 调用destroy方法，该方法已经增强了错误处理
-                this.provider.destroy(this.$el)
-              } catch (destroyError) {
-                console.warn('[EMP-WARN] Could not clear DOM content safely', destroyError)
+            try {
+              while (this.$el.firstChild) {
+                this.$el.removeChild(this.$el.firstChild)
               }
+            } catch (clearError) {
+              console.error('[EMP-ERROR] unmountComponent - Error during DOM clearing:', clearError)
             }
-            // 无论如何都清理provider引用
+
+            this.provider.destroy(this.$el)
             this.provider = null
-            
-            // 检查是否禁用自动清理
-            if (!vueOptions.disableAutoCleanup && this.$el) {
-              try {
-                // 使用安全的方式清空DOM内容
-                this.$el.innerHTML = ''
-              } catch (domError) {
-                console.warn('[EMP-WARN] Could not clear DOM content safely', domError)
-              }
-            }
           } catch (error) {
             console.error('[EMP-ERROR] Failed to unmount component', error)
-            console.warn('[bridge-vue2] Error during component unmount:', error)
           }
         }
       },
@@ -279,33 +215,19 @@ export function createRemoteAppComponent(
     },
     updated() {
       if (this.provider && this.$el) {
-        this.provider.render(this.$el, this.$props || {})
+        const props = this.$props || this.$options.propsData || {}
+        this.provider.render(this.$el, props)
       }
     },
     beforeDestroy() {
       this.isMounted = false
-
-      // 直接调用清理函数，避免异步操作可能导致的DOM节点关系变化
       this.unmountComponent()
     },
     created() {
-      // 立即加载组件
       this.loadComponent()
     },
     render(h: any) {
       return h('div')
-    },
-    isMounted: false,
-    providerInfo: undefined,
-    renderComponent: function (): unknown {
-      throw new Error('Function not implemented.')
-    },
-    provider: undefined,
-    unmountComponent: function (): unknown {
-      throw new Error('Function not implemented.')
-    },
-    loadComponent: function (): unknown {
-      throw new Error('Function not implemented.')
     },
   }
 }

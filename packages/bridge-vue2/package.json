@@ -1,6 +1,6 @@
 {
   "name": "@empjs/bridge-vue2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Emp Bridge Vue v2",
   "license": "MIT",
   "type": "module",

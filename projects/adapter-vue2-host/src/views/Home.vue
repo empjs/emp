@@ -2,6 +2,8 @@
   <div>
     <h1>SVGA COMPONENT LOGO:</h1>
     <!-- <Logo class="svg-logo" /> -->
+    <h2>Hello Vue Component</h2>
+    <HelloVue name="vue2 in React 16!!" />
     <h2>Hello JSX Component</h2>
     <Hello />
     <h2>Img Example in src</h2>
@@ -27,6 +29,7 @@
 import CompositionApi from '../components/CompositionApi'
 import Content from '../components/Content'
 import Hello from '../components/Hello'
+import HelloVue from '../components/HelloVue'
 // import Logo from './logo.svg'
 import Table from '../components/table'
 export default {
@@ -36,6 +39,7 @@ export default {
     Table,
     CompositionApi,
     Hello,
+    HelloVue,
   },
 }
 </script>

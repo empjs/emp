@@ -17,8 +17,8 @@
   "devDependencies": {
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-react": "workspace:*",
-    "@types/react": "16",
-    "@types/react-dom": "16"
+    "@types/react": "17",
+    "@types/react-dom": "17"
   },
   "dependencies": {
     "@empjs/adapter-react": "workspace:^",
@@ -26,7 +26,7 @@
     "@empjs/bridge-vue2": "workspace:^",
     "@empjs/bridge-vue3": "workspace:^",
     "@empjs/share": "workspace:^",
-    "react": "16",
-    "react-dom": "16"
+    "react": "17",
+    "react-dom": "17"
   }
 }
