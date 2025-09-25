@@ -10,10 +10,12 @@ export type ComponentProvider = BridgeProvider | AsyncBridgeProvider
 interface Vue2Options {
   Vue?: any
   plugin?: (vue: any) => void
+  instanceOptions?: Record<string, any>
 }
 
 export function createBridgeComponent(Component: any, options: Vue2Options): BridgeProvider {
   const Vue = options.Vue
+  const instanceOptions = options.instanceOptions || {}
 
   return function (): BridgeProviderReturn {
     const instanceMap = new Map<HTMLElement, any>()
@@ -41,7 +43,9 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
           const vueContainer = document.createElement('div')
           vueContainer.className = 'vue2-container'
           dom.appendChild(vueContainer)
-
+          if (options.plugin) {
+            options.plugin(Vue)
+          }
           const instance = new Vue({
             propsData: props || {},
             render: (h: any) => h(Component, {props: props || {}}),
@@ -58,11 +62,9 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
                 }
               }
             },
+            ...instanceOptions,
           })
 
-          if (options.plugin) {
-            options.plugin(Vue)
-          }
           instanceMap.set(dom, instance)
         }
       } catch (error) {

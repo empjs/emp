@@ -1,6 +1,6 @@
 import React from 'react'
 import {Remote18App} from './adapter/React18'
-import {RemoteVue2App} from './adapter/Vue2'
+import {Vue2Content, Vue2Hello, Vue2Table} from './adapter/Vue2'
 import {RemoteVue3App} from './adapter/Vue3'
 import {Box, ReactInfo} from './components/Info'
 
@@ -8,7 +8,15 @@ const App = () => (
   <div>
     <Box>
       <h1>Vue 2 Remote App</h1>
-      <RemoteVue2App name="vue2 in React" />
+      <Box>
+        <Vue2Hello name="vue2 in React" />
+      </Box>
+      <Box>
+        <Vue2Content />
+      </Box>
+      <Box>
+        <Vue2Table />
+      </Box>
     </Box>
     <ReactInfo desc="ReactInfo">
       <Remote18App>

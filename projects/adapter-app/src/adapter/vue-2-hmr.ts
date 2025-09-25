@@ -1,1 +1,5 @@
 import 'v2h/HelloVue'
+import 'v2h/Table'
+import 'v2h/Content'
+import 'v2h/store'
+import 'v2h/plugin'

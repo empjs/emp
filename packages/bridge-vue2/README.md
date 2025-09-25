@@ -107,6 +107,11 @@ function createBridgeComponent(
   options: {
     Vue?: any;
     plugin?: (vue: any) => void;
+    instanceOptions?: {
+      store?: any;
+      router?: any;
+      [key: string]: any;
+    };
   }
 ): BridgeProvider
 ```
@@ -116,6 +121,43 @@ function createBridgeComponent(
 - `options`: Vue2 相关配置
   - `Vue`: Vue2 实例
   - `plugin`: (可选) 用于扩展 Vue 功能的插件函数
+  - `instanceOptions`: (可选) 传递给 Vue 实例的选项
+    - `store`: (可选) Vuex store 实例
+    - `router`: (可选) Vue Router 实例
+    - 其他可能需要的 Vue 实例选项
+
+plugin 内容参考
+```js
+import ElementUI from 'element-ui'
+import Router from 'vue-router'
+import Vuex from 'vuex'
+import 'element-ui/lib/theme-chalk/index.css'
+export default Vue => {
+  Vue.use(Router)
+  Vue.use(Vuex)
+  Vue.config.productionTip = false
+  Vue.use(ElementUI)
+}
+```
+
+store 内容参考 
+> `countStore = ()=>{}` 是必须，避免后置请求报错
+```js
+import Vuex from 'vuex'
+export const countStore = () =>
+  new Vuex.Store({
+    state: {
+      count: 0,
+    },
+    mutations: {
+      increment(state) {
+        state.count++
+      },
+    },
+  })
+export default countStore
+
+```
 
 ### createRemoteAppComponent (来自 @empjs/bridge-react)
 
