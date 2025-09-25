@@ -49,10 +49,29 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
             }
           }
         } else {
+          // 创建一个额外的容器元素，作为Vue实例的挂载点
+          const vueContainer = document.createElement('div')
+          vueContainer.className = 'vue2-container'
+          dom.appendChild(vueContainer)
+
           const instance = new Vue({
             propsData: props || {},
             render: (h: any) => h(Component, {props: props || {}}),
-            el: dom,
+            el: vueContainer, // 使用新创建的容器元素
+            beforeDestroy() {
+              // 在销毁前清空容器内容，而不是直接操作React管理的DOM
+              if (vueContainer && vueContainer.parentNode) {
+                while (vueContainer.firstChild) {
+                  vueContainer.removeChild(vueContainer.firstChild)
+                }
+                // 尝试从父元素中移除Vue容器，但保留React的容器
+                try {
+                  dom.removeChild(vueContainer)
+                } catch (e) {
+                  console.warn('[EMP-WARN] Failed to remove Vue container:', e)
+                }
+              }
+            },
           })
 
           // 使用自定义插件（如果提供）
@@ -75,25 +94,47 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
       }
 
       const instance = instanceMap.get(dom)
-      console.log('[bridge-vue2] destroy', dom, instance)
+
       if (!instance) return
 
       try {
-        // 在销毁前安全清空 DOM 内容，避免 React 移除时的冲突
-        // if (dom && dom.parentNode) {
-        //   while (dom.firstChild) {
-        //     dom.removeChild(dom.firstChild)
-        //   }
-        // }
-
-        // 先解除引用，再销毁 Vue 实例
+        // 立即从映射中移除实例，防止重复销毁
         const vmToDestroy = instance
         instanceMap.delete(dom)
 
-        // 确保在下一个事件循环中销毁，避免与React卸载冲突
-        setTimeout(() => {
+        // 在销毁前安全清空 DOM 内容，避免 React 移除时的冲突
+        try {
+          // 使用更安全的方式清空 DOM - 参考Vue3的实现
+          if (dom) {
+            // 清空DOM内容 - 使用多种方法确保清理成功
+            try {
+              // 方法1: 使用replaceChildren (现代浏览器)
+              if (typeof dom.replaceChildren === 'function') {
+                dom.replaceChildren()
+              }
+            } catch (replaceError) {
+              console.warn('[EMP-WARN] destroy - replaceChildren failed:', replaceError)
+            }
+
+            // 方法2: 循环移除子节点 (最兼容)
+            try {
+              while (dom.firstChild) {
+                dom.removeChild(dom.firstChild)
+              }
+            } catch (removeError) {
+              console.warn('[EMP-WARN] destroy - removeChild failed:', removeError)
+            }
+          }
+        } catch (domError) {
+          console.warn('[EMP-WARN] Error clearing DOM before destroy:', domError)
+        }
+
+        // 立即销毁Vue实例，不再延迟
+        try {
           vmToDestroy.$destroy()
-        }, 0)
+        } catch (destroyError) {
+          console.error('[EMP-ERROR] Error during Vue instance destroy:', destroyError)
+        }
       } catch (error) {
         console.error('[EMP-ERROR] Failed to unmount Vue component', error)
       }
@@ -182,8 +223,12 @@ export function createRemoteAppComponent(
         if (this.provider && this.$el) {
           try {
             // 先清空 DOM 内容，避免 React 移除时的冲突
-            while (this.$el.firstChild) {
-              this.$el.removeChild(this.$el.firstChild)
+            try {
+              while (this.$el.firstChild) {
+                this.$el.removeChild(this.$el.firstChild)
+              }
+            } catch (clearError) {
+              console.error('[EMP-ERROR] unmountComponent - Error during DOM clearing:', clearError)
             }
 
             // 然后销毁 Vue 组件

@@ -8,7 +8,7 @@ const App = () => (
   <div>
     <Box>
       <h1>Vue 2 Remote App</h1>
-      <RemoteVue2App name="vue2 in React 16" />
+      <RemoteVue2App name="vue2 in React" />
     </Box>
     <ReactInfo desc="ReactInfo">
       <Remote18App>

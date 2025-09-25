@@ -56,8 +56,9 @@ export default defineConfig(store => {
     server: {
       port: 9902,
       open: false,
+      // hot: false,
     },
-    appEntry: 'main.js',
+    // appEntry: 'index.js',
     debug: {},
   }
 })
