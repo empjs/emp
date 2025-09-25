@@ -75,15 +75,16 @@ export function createBridgeComponent(Component: any, options: Vue2Options): Bri
       }
 
       const instance = instanceMap.get(dom)
+      console.log('[bridge-vue2] destroy', dom, instance)
       if (!instance) return
 
       try {
         // 在销毁前安全清空 DOM 内容，避免 React 移除时的冲突
-        if (dom && dom.parentNode) {
-          while (dom.firstChild) {
-            dom.removeChild(dom.firstChild)
-          }
-        }
+        // if (dom && dom.parentNode) {
+        //   while (dom.firstChild) {
+        //     dom.removeChild(dom.firstChild)
+        //   }
+        // }
 
         // 先解除引用，再销毁 Vue 实例
         const vmToDestroy = instance
