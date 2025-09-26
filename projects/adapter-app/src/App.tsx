@@ -3,9 +3,15 @@ import {Remote18App} from './adapter/React18'
 import {Vue2Content, Vue2Hello, Vue2Table} from './adapter/Vue2'
 import {RemoteVue3App} from './adapter/Vue3'
 import {Box, ReactInfo} from './components/Info'
+import {Nav} from './Nav'
+
+// 是否为部署环境
+// 将环境变量转换为布尔值
+const isDeploy = !!process.env.isDeploy
 
 const App = () => (
   <div>
+    {isDeploy && <Nav />}
     {/* Vue 2 组件集成示例区域 */}
     <ReactInfo desc="以下展示了Vue 2组件在React环境中的无缝集成" title="Vue 2 Remote App">
       <ReactInfo title="Vue2 Hello组件">

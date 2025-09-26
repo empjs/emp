@@ -3,8 +3,10 @@ import vue from '@empjs/plugin-vue2'
 import {pluginRspackEmpShare} from '@empjs/share'
 import pkg from './package.json'
 export default defineConfig(store => {
+  const port = 9902
+  const ip = store.server.ip
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-vue2-host/` : '/'
+  const base = isDeploy ? `/adapter-vue2-host/` : `http://${ip}:${port}/`
   return {
     base,
     plugins: [
@@ -66,7 +68,7 @@ export default defineConfig(store => {
       title: 'Vue2 host',
     },
     server: {
-      port: 9902,
+      port,
       open: false,
       // hot: false,
     },

@@ -7,8 +7,10 @@ const vueVersion = pkg.dependencies.vue.replace('^', '')
 const vueRouterVersion = pkg.dependencies['vue-router'].replace('^', '')
 const piniaVersion = pkg.dependencies.pinia.replace('^', '')
 export default defineConfig(store => {
+  const port = 9901
+  const ip = store.server.ip
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-vue3-host/` : '/'
+  const base = isDeploy ? `/adapter-vue3-host/` : `http://${ip}:${port}/`
   return {
     base,
     defineFix: 'all',
@@ -67,7 +69,7 @@ export default defineConfig(store => {
       }),
     ],
     server: {
-      port: 9901,
+      port,
       open: false,
       client: {
         overlay: false,

@@ -51,7 +51,7 @@ export default defineConfig(store => {
         },
       }),
     ],
-    define: {ip, port},
+    define: {ip, port, isDeploy},
     build: {
       polyfill: {
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
