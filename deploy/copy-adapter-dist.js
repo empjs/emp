@@ -52,19 +52,19 @@ console.log(`找到 ${adapterProjects.length} 个 adapter 项目`);
 // 处理每个 adapter 项目
 for (const project of adapterProjects) {
   const projectDistDir = path.join(projectsDir, project, 'dist');
-  const targetDistDir = path.join(targetRootDir, project, 'dist');
+  const targetDir = path.join(targetRootDir, project);
 
   // 检查项目 dist 目录是否存在
   if (fs.existsSync(projectDistDir)) {
-    console.log(`复制 ${project} 的 dist 目录...`);
+    console.log(`复制 ${project} 的 dist 目录到 dist/${project}...`);
     
     // 确保目标目录存在
-    if (!fs.existsSync(path.dirname(targetDistDir))) {
-      fs.mkdirSync(path.dirname(targetDistDir), { recursive: true });
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
     }
     
     // 复制目录
-    copyDir(projectDistDir, targetDistDir);
+    copyDir(projectDistDir, targetDir);
     console.log(`${project} 复制完成`);
   } else {
     console.log(`警告: ${project} 没有 dist 目录`);

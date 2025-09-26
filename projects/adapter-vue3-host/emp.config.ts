@@ -8,7 +8,7 @@ const vueRouterVersion = pkg.dependencies['vue-router'].replace('^', '')
 const piniaVersion = pkg.dependencies.pinia.replace('^', '')
 export default defineConfig(store => {
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-vue3-host/dist/` : '/'
+  const base = isDeploy ? `/adapter-vue3-host/` : '/'
   return {
     base,
     defineFix: 'all',

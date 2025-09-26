@@ -4,7 +4,7 @@ import {pluginRspackEmpShare} from '@empjs/share'
 import pkg from './package.json'
 export default defineConfig(store => {
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-vue2-host/dist/` : '/'
+  const base = isDeploy ? `/adapter-vue2-host/` : '/'
   return {
     base,
     plugins: [

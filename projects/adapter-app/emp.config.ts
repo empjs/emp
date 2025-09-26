@@ -4,9 +4,9 @@ import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 
 export default defineConfig(store => {
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-app/dist/` : '/'
+  const base = isDeploy ? `/adapter-app/` : '/'
   const remotesfn = (scopeName, {port, projectName}) => {
-    const host = isDeploy ? `http://172.29.96.250:3000/${projectName}/dist` : `http://${ip}:${port}`
+    const host = isDeploy ? `http://172.29.96.250:3000/${projectName}` : `http://${ip}:${port}`
     return `${scopeName}@${host}/emp.json`
   }
   //

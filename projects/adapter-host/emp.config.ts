@@ -4,7 +4,7 @@ import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 
 export default defineConfig(store => {
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
-  const base = isDeploy ? `/adapter-host/dist/` : '/'
+  const base = isDeploy ? `/adapter-host/` : '/'
   const ip = store.server.ip
   const port = 7701
   return {
