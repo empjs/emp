@@ -12,7 +12,7 @@
     "empbuild": "pnpm run /^empbuild:.*/",
     "empbuild:cli": "pnpm --filter @empjs/cli build",
     "empbuild:lib": "pnpm --filter @empjs/polyfill --filter @empjs/share --filter @empjs/chain build",
-    "empbuild:plugin": "pnpm --filter @empjs/plugin-* --filter !@empjs/plugin-stylus build",
+    "empbuild:plugin": "pnpm --filter @empjs/plugin-* --filter !@empjs/plugin-stylus --filter !@empjs/plugin-tailwindcss2 !@empjs/plugin-tailwindcss3 build",
     "empbuild:cdn": "pnpm --filter @empjs/cdn-* build",
     "emp": "pnpm --filter @empjs/cli dev",
     "offical:dev": "pnpm --filter @empjs/offical dev",
