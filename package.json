@@ -11,7 +11,7 @@
   "scripts": {
     "empbuild": "pnpm --filter @empjs/chain build && pnpm emp:prod && pnpm run /^empbuild:.*/",
     "empbuild:lib": "pnpm --filter @empjs/polyfill --filter @empjs/share build",
-    "empbuild:plugin": "pnpm --filter @empjs/plugin-* --filter !@empjs/plugin-stylus --filter !@empjs/plugin-tailwindcss2 !@empjs/plugin-tailwindcss3 build",
+    "empbuild:plugin": "pnpm --filter @empjs/plugin-* build",
     "empbuild:cdn": "pnpm --filter @empjs/cdn-* build",
     "empbuild:bridge": "pnpm --filter @empjs/bridge-* build",
     "emp": "pnpm --filter @empjs/cli dev",
