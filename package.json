@@ -10,6 +10,7 @@
   "private": true,
   "scripts": {
     "empbuild": "pnpm run /^empbuild:.*/",
+    "empbuild:cli": "pnpm --filter @empjs/cli build",
     "empbuild:lib": "pnpm --filter @empjs/polyfill --filter @empjs/share --filter @empjs/chain build",
     "empbuild:plugin": "pnpm --filter @empjs/plugin-* build",
     "empbuild:cdn": "pnpm --filter @empjs/cdn-* build",
