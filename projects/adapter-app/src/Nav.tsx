@@ -20,7 +20,7 @@ export const Nav = () => {
         href="https://emp-share.empjs.dev/adapter-vue2-host/"
         className={isActive('adapter-vue2-host') ? styles.activeLink : styles.link}
       >
-        Vue2 Host
+        Vue2
       </a>
       <a
         target="_blank"
@@ -28,7 +28,7 @@ export const Nav = () => {
         href="https://emp-share.empjs.dev/adapter-vue3-host/"
         className={isActive('adapter-vue3-host') ? styles.activeLink : styles.link}
       >
-        Vue3 Host
+        Vue3
       </a>
       <a
         target="_blank"
@@ -36,7 +36,15 @@ export const Nav = () => {
         href="https://emp-share.empjs.dev/adapter-host/"
         className={isActive('adapter-host') ? styles.activeLink : styles.link}
       >
-        React Host
+        React
+      </a>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/empjs/emp/tree/main/projects/adapter-app"
+        className={styles.link}
+      >
+        Github
       </a>
     </nav>
   )

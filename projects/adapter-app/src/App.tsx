@@ -7,7 +7,7 @@ import {Nav} from './Nav'
 
 // 是否为部署环境
 // 将环境变量转换为布尔值
-const isDeploy = !!process.env.isDeploy
+const isDeploy = !process.env.isDeploy
 
 const App = () => (
   <div>
