@@ -3,9 +3,17 @@ import pluginReact from '@empjs/plugin-react'
 import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 
 export default defineConfig(store => {
+  const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
+  const base = isDeploy ? `/adapter-app/dist/` : '/'
+  const remotesfn = (scopeName, {port, projectName}) => {
+    const host = isDeploy ? `http://172.29.96.250:3000/${projectName}/dist` : `http://${ip}:${port}`
+    return `${scopeName}@${host}/emp.json`
+  }
+  //
   const ip = store.server.ip
   const port = 7702
   return {
+    base,
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
@@ -15,11 +23,13 @@ export default defineConfig(store => {
           asyncStartup: true,
         },
         remotes: {
-          ah: `adapterHost@http://${ip}:7701/emp.json`,
-          v3h: `vue3Host@http://${ip}:9901/emp.json`,
-          v2h: `vue2Host@http://${ip}:9902/emp.json`,
-          vue2Host: `vue2Host@http://${ip}:9902/emp.json`,
-          //mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
+          ah: remotesfn('adapterHost', {port: 7701, projectName: 'adapter-host'}),
+          v3h: remotesfn('vue3Host', {port: 9901, projectName: 'adapter-vue3-host'}),
+          v2h: remotesfn('vue2Host', {port: 9902, projectName: 'adapter-vue2-host'}),
+          // ah: `adapterHost@http://${ip}:7701/emp.json`,
+          // v3h: `vue3Host@http://${ip}:9901/emp.json`,
+          // v2h: `vue2Host@http://${ip}:9902/emp.json`,
+          // vue2Host: `vue2Host@http://${ip}:9902/emp.json`,
         },
         // dts: {
         //   consumeTypes: true,
@@ -56,7 +66,7 @@ export default defineConfig(store => {
     },
     debug: {
       // showRsconfig: 'log.json',
-      // clearLog: false,
+      clearLog: false,
     },
     cache: false,
   }

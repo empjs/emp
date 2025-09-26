@@ -21,6 +21,7 @@
     "emp:prod": "pnpm --filter @empjs/cli build",
     "adapter": "pnpm --filter adapter-* dev",
     "adapter:build": "pnpm --filter adapter-* build",
+    "adapter:deploy": "pnpm --filter adapter-* build -ev deploy=cloudflare",
     "adapter:start": "pnpm --filter adapter-* start",
     "emp:build": "pnpm --filter @empjs/cli --filter @empjs/plugin-react --filter @empjs/plugin-vue2 --filter @empjs/plugin-vue3 --filter @empjs/plugin-lightningcss --filter @empjs/plugin-postcss --filter @empjs/share build",
     "esm": "pnpm --filter esm-react-host --filter esm-react-app dev",
