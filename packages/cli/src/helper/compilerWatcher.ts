@@ -15,7 +15,7 @@ function formatFileList(files: string[], context: string): string[] {
   return files.map(file => {
     // 将绝对路径转换为相对于项目根目录的路径
     const relativePath = path.relative(context, file)
-    return chalk.dim(path.dirname(relativePath) + path.sep) + chalk.cyan(path.basename(relativePath))
+    return chalk.dim(path.dirname(relativePath) + path.sep) + chalk.dim(path.basename(relativePath))
   })
 }
 
