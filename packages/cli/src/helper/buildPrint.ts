@@ -99,8 +99,6 @@ export async function printFileSizes(stats: Stats) {
   const longestLabelLength = Math.max(...assets.map(a => a.sizeLabel.length))
   const longestFileLength = Math.max(...assets.map(a => (a.folder + path.sep + a.name).length))
   //
-  logger.info(`${green('✓')} Ready built in ${timeFormat(Number(origin.time))}\n`)
-  //
   printHeader(longestFileLength, longestLabelLength)
   //
   let totalSize = 0
@@ -132,7 +130,7 @@ export async function printFileSizes(stats: Stats) {
   const totalSizeLabel = `${blue.bold('Total size:')}  ${calcFileSize(totalSize)}`
   const gzippedSizeLabel = `${blue.bold('Gzipped size:')}  ${calcFileSize(totalGzipSize)}`
   logger.info(`\n  ${totalSizeLabel}\n  ${gzippedSizeLabel}\n`)
-  // logger.info(`${green('✓')} Ready in ${timeFormat(Number(origin.time))}\n`)
+  logger.info(`${green('✓')} Built in ${timeFormat(Number(origin.time))}\n`)
 }
 export function timeDone(mis: number | string = 0) {
   logger.info(`${green('✓')} Ready in ${timeFormat(Number(mis))}`)
