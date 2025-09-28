@@ -22,7 +22,7 @@ function App() {
     <>
       <AppLayout>
         <h1 className="banner">
-          <p>EMP 3.0</p>
+          <p>EMP 3.0 fsssl</p>
         </h1>
         <div className="imgList">
           <h2 className="title">Image Text</h2>

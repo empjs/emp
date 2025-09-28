@@ -7,6 +7,7 @@ import type {DevServerType} from 'src/server/types'
 
 export class DevServer implements DevServerType {
   private server: any = null
+  public isServerStarted = false
 
   async setup(compiler: Compiler, rspackConfig: RspackOptions, store: GlobalStore, onReady: any = () => {}) {
     if (!rspackConfig.devServer) return logger.warn('rspackConfig.devServer need!')
@@ -31,6 +32,7 @@ export class DevServer implements DevServerType {
     if (this.server) {
       try {
         await this.server.stop()
+        this.isServerStarted = false
         this.server = null
         return true
       } catch (error) {

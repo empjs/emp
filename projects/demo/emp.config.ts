@@ -39,7 +39,7 @@ export default defineConfig(store => {
       // showPerformance: true,
       // showRsconfig: 'wp.json',
 
-      loggerLevel: 'debug',
+      // loggerLevel: 'debug',
       // clearLog: false,
       progress: false,
       // infrastructureLogging: {
@@ -79,6 +79,7 @@ export default defineConfig(store => {
       prifixName: 'v1',
     },
     // tsCheckerRspackPlugin: true,
+    // cache: false,
   }
 })
 //

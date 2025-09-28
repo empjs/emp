@@ -1,9 +1,11 @@
 import {type RspackOptions, rspack} from '@rspack/core'
+import chalk from 'chalk'
 import chokidar from 'chokidar'
 import fs from 'fs'
 import path from 'path'
 import {logger} from 'src/helper'
-import {timeDone} from 'src/helper/buildPrint'
+import {printBuildDone, printBuildStart, timeDone} from 'src/helper/buildPrint'
+import {setupCompilerWatcher} from 'src/helper/compilerWatcher'
 import {deepAssign} from 'src/helper/utils'
 import {BaseScript} from 'src/script/base'
 import {DevServer} from 'src/server'
@@ -68,16 +70,19 @@ class DevScript extends BaseScript {
       const compiler = rspack(rspackConfig)
       await store.empConfig.lifeCycle.beforeDevServe()
       server.startOpen()
+      // 显示构建开始提示
+      printBuildStart()
 
       await empDevServer.setup(compiler, rspackConfig, store as GlobalStore, async (o: any) => {
-        // showPerformance 为false 时 只显示一次
-        if (!store.debug.showPerformance) this.showTimeDone(o)
+        empDevServer.isServerStarted = true
+        printBuildDone(o)
         await store.empConfig.lifeCycle.afterDevServe()
       })
-
-      if (store.debug.showPerformance) {
-        compiler.hooks.afterDone.tap('done', this.showTimeDone)
-      }
+      // compiler.hooks.afterDone.tap('done', stats => {
+      //   this.lastBuildTime = printBuildDone(stats, this.lastBuildTime)
+      // })
+      // 设置编译器监听器，监听文件修改后的全流程
+      setupCompilerWatcher(compiler, empDevServer)
 
       if (isRestart) {
         logger.debug(`[EMP] Dev server restarted successfully`)
@@ -134,10 +139,8 @@ class DevScript extends BaseScript {
     this.watchConfigFile()
   }
 
-  private showTimeDone = (s: any) => {
-    const d = s?.toJson({all: false, colors: false, assets: false, chunks: false, timings: true})
-    timeDone(d.time)
-  }
+  // 记录上次构建完成时间，避免重复输出
+  private lastBuildTime = 0
 }
 
 export default new DevScript()

@@ -13,7 +13,7 @@ export class ServeScript extends BaseScript {
   }
   onReady = async () => {
     store.server.startOpen()
-    timeDone(Date.now() - timing)
+    timeDone(Date.now() - timing, 'Server Started')
     await store.empConfig.lifeCycle.afterServe()
   }
 }
