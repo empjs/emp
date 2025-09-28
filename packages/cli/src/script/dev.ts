@@ -13,6 +13,9 @@ import store, {type GlobalStore} from 'src/store'
 
 const empDevServer = new DevServer()
 class DevScript extends BaseScript {
+  // 用于存储关闭时需要执行的清理函数
+  private closeHooks: Array<() => void> = []
+
   get stats() {
     return {
       all: store.empConfig.debug.devShowAllLog,
@@ -82,7 +85,10 @@ class DevScript extends BaseScript {
       //   this.lastBuildTime = printBuildDone(stats, this.lastBuildTime)
       // })
       // 设置编译器监听器，监听文件修改后的全流程
-      setupCompilerWatcher(compiler, empDevServer)
+      const watcher = setupCompilerWatcher(compiler, empDevServer)
+
+      // 添加到关闭钩子中，确保资源被正确清理
+      this.closeHooks.push(() => watcher.cleanup())
 
       if (isRestart) {
         logger.debug(`[EMP] Dev server restarted successfully`)
@@ -124,6 +130,8 @@ class DevScript extends BaseScript {
 
         // 重启服务
         logger.debug(`[EMP] 配置文件已变更，正在重启服务...`)
+        // 执行所有清理钩子
+        this.executeCloseHooks()
         await empDevServer.close()
         await store.setup()
         logger.debug('[EMP] 重启服务完成，新配置如下:', store.empConfig.debug)
@@ -141,6 +149,24 @@ class DevScript extends BaseScript {
 
   // 记录上次构建完成时间，避免重复输出
   private lastBuildTime = 0
+
+  /**
+   * 执行所有关闭钩子函数
+   */
+  private executeCloseHooks() {
+    if (this.closeHooks.length > 0) {
+      logger.debug(`[EMP] 执行 ${this.closeHooks.length} 个清理钩子...`)
+      for (const hook of this.closeHooks) {
+        try {
+          hook()
+        } catch (error) {
+          logger.error('[EMP] 执行清理钩子时出错:', error)
+        }
+      }
+      // 清空钩子列表
+      this.closeHooks = []
+    }
+  }
 }
 
 export default new DevScript()
