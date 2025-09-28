@@ -308,6 +308,9 @@ importers:
       '@types/webpack-sources':
         specifier: ^3.2.2
         version: 3.2.3
+      chokidar:
+        specifier: ^4.0.3
+        version: 4.0.3
       vue:
         specifier: ^3.5.21
         version: 3.5.21(typescript@5.9.2)

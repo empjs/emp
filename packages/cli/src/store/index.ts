@@ -5,13 +5,13 @@ import type {Configuration as RsConfig, RspackOptions} from '@rspack/core'
 import {rspack} from '@rspack/core'
 import {getEmpConfigPath, getTsConfig} from 'src/helper/loadConfig'
 import logger from 'src/helper/logger'
-import {deepAssign, getLanIp, vCompare} from 'src/helper/utils'
+import {clearConsole, deepAssign, getLanIp, vCompare} from 'src/helper/utils'
 import {Chain} from 'src/store/chain'
 import empConfig, {type EmpConfig} from 'src/store/empConfig'
 import rspackStore from 'src/store/rspack'
 import {StoreServer} from 'src/store/server'
 import type {EmpOptions, InjectTagsType, StoreRootPaths} from 'src/types/config'
-import type {CliActionType, EMPModeType} from 'src/types/env'
+import type {CliActionType, CliOptionsType, EMPModeType} from 'src/types/env'
 import {chainName} from './chain'
 import {HtmlEmpInjectPlugin} from './rspack/builtInPlugin'
 export class GlobalStore {
@@ -27,6 +27,7 @@ export class GlobalStore {
    * 项目pkg信息
    */
   public pkg: any = {dependencies: {}, devDependencies: {}, version: '0.0.0', name: ''}
+
   /**
    * 项目根目录绝对路径
    * @default process.cwd()
@@ -94,7 +95,6 @@ export class GlobalStore {
   /**
    * 项目配置
    */
-  public cliOptions: any
   public chain!: Chain
   public rsConfig!: RsConfig
   public empOptions: EmpOptions = {}
@@ -103,13 +103,16 @@ export class GlobalStore {
   public entries: {[chunkName: string]: RspackOptions['entry']} = {} // 获取所有入口名称
   public debug!: EmpConfig['debug']
   public cliAction!: CliActionType
+  public cliOptions: CliOptionsType
   // 获取 emp-config路径 以及 tsconfig 路径
   public rootPaths: StoreRootPaths = {
     empConfig: undefined,
     tsConfig: undefined,
     pkg: undefined,
   }
-  public async setup(cliAction: CliActionType, cliOptions: any) {
+  public async setup(cliAction?: CliActionType, cliOptions?: any) {
+    this.cliAction = cliAction ? cliAction : this.cliAction
+    this.cliOptions = cliOptions ? cliOptions : this.cliOptions
     logger.time('[store]Setup')
     //
     const [epath, tpath] = await Promise.all([getEmpConfigPath(), getTsConfig()])
@@ -119,7 +122,7 @@ export class GlobalStore {
     // console.log('this.rootPaths', this.rootPaths)
     //
     // 初始化 store 基础变量
-    await this.initVars(cliAction, cliOptions)
+    await this.initVars(this.cliAction, this.cliOptions)
     // 设置 empConfig
     this.empConfig = empConfig
     await this.empConfig.setup(this)
@@ -138,6 +141,10 @@ export class GlobalStore {
     await this.server.setupOnStore()
     //
     logger.timeEnd('[store]Setup')
+    // 是否清除上一个日志
+    if (this.debug.clearLog) {
+      clearConsole()
+    }
   }
   /**
    * 初始化 基础变量

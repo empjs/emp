@@ -98,6 +98,26 @@ class RspackPlugin {
          * Default: ━━
          */
         progressChars: `▩▩`,
+        // 使用自定义handler来控制进度条输出
+        // handler(percentage: number, message: any, ...args: any[]) {
+        //   // 清除当前行
+        //   process.stdout.clearLine(0)
+        //   process.stdout.cursorTo(0)
+
+        //   // 只在非100%时显示进度，避免多次显示100%完成信息
+        //   if (percentage < 1) {
+        //     const percentStr = Math.floor(percentage * 100) + '%'
+        //     const barLength = 25
+        //     const completeLength = Math.floor(barLength * percentage)
+        //     const restLength = barLength - completeLength
+
+        //     const bar = '▩'.repeat(completeLength) + ' '.repeat(restLength)
+        //     process.stdout.write(`${bar} ${percentStr} ${message}`)
+        //   } else if (percentage === 1) {
+        //     // 100%完成时只显示一次
+        //     process.stdout.write(`▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ 100% ${message}\n`)
+        //   }
+        // },
       }
     }
     //
