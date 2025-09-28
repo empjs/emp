@@ -11,3 +11,5 @@ projects/e-svga*
 @mf-types
 .output
 doc_build
+
+.rslib

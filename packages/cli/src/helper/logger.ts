@@ -3,6 +3,7 @@ export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
 export {color}
 //
 const isDev = process.env.ENV === 'dev'
+// console.log('process.env.ENV', process.env.ENV)
 export class Logger {
   public brandName = ''
   public fullName = ''
