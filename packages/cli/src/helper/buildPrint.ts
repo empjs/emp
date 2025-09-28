@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type {Stats, StatsAsset} from '@rspack/core'
+import chalk from 'chalk'
 import {gzipSizeSync} from 'gzip-size'
 import {blue, gray, green, magenta, red, white, yellow} from 'src/helper/color'
 import store from 'src/store'
@@ -130,8 +131,76 @@ export async function printFileSizes(stats: Stats) {
   const totalSizeLabel = `${blue.bold('Total size:')}  ${calcFileSize(totalSize)}`
   const gzippedSizeLabel = `${blue.bold('Gzipped size:')}  ${calcFileSize(totalGzipSize)}`
   logger.info(`\n  ${totalSizeLabel}\n  ${gzippedSizeLabel}\n`)
-  logger.info(`${green('✓')} Ready in ${timeFormat(Number(origin.time))}\n`)
+  logger.info(`${chalk.green('ready  ')}Built in ${timeFormat(Number(origin.time))}\n`)
 }
-export function timeDone(mis: number | string = 0) {
-  logger.info(`${green('✓')} Ready in ${timeFormat(Number(mis))}`)
+/**
+ * 统一的打印函数，用于显示不同类型的构建消息
+ * @param type 消息类型: 'start' | 'ready'
+ * @param message 要显示的消息
+ */
+function printMessage(type: 'start' | 'ready', message: string) {
+  const prefix = type === 'start' ? chalk.cyan('start  ') : chalk.green('ready  ')
+  console.log(prefix + chalk.white(message))
+}
+
+export function timeDone(mis: number | string = 0, tips = 'Ready') {
+  logger.info(`${chalk.green('ready  ')}${tips} in ${timeFormat(Number(mis))}`)
+}
+
+/**
+ * 显示构建开始提示
+ */
+export function printBuildStart() {
+  printMessage('start', 'build started...')
+}
+
+/**
+ * 显示构建完成提示
+ * @param stats 构建统计信息
+ */
+export function printBuildDone(stats: any) {
+  const data = stats?.toJson({all: false, colors: false, assets: false, chunks: false, timings: true})
+  printMessage('ready', `built in ${chalk.bold((data.time / 1000).toFixed(2))} s`)
+}
+
+/**
+ * 显示模块构建开始提示
+ * @param moduleId 模块ID
+ * @param moduleCache 可选的模块缓存
+ */
+export function printModuleBuildStart(moduleId: string, moduleCache?: Map<string, number>) {
+  if (moduleId.includes('/src/') && !moduleId.includes('node_modules')) {
+    const relativePath = moduleId.split('/src/').pop() || ''
+    if (relativePath) {
+      printMessage('start', 'building ' + chalk.dim('src/' + relativePath))
+    }
+  }
+}
+
+/**
+ * 记录构建开始
+ * @param message 可选的自定义消息
+ */
+export function logStart(message = 'build started...') {
+  printMessage('start', message)
+}
+
+/**
+ * 记录构建完成
+ * @param stats 构建统计信息或构建时间（毫秒）
+ * @param message 可选的自定义消息前缀
+ */
+export function logDone(stats: any | number, message = 'built') {
+  let timeInSeconds: string
+
+  if (typeof stats === 'number') {
+    // 如果传入的是毫秒数
+    timeInSeconds = (stats / 1000).toFixed(2)
+  } else {
+    // 如果传入的是stats对象
+    const data = stats?.toJson({all: false, colors: false, assets: false, chunks: false, timings: true})
+    timeInSeconds = (data.time / 1000).toFixed(2)
+  }
+
+  printMessage('ready', `${message} in ${chalk.bold(timeInSeconds)} s`)
 }

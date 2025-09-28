@@ -77,7 +77,8 @@ class RspackPlugin {
       ])
   }
   async progress() {
-    if (!this.store.empConfig.debug.progress) return
+    // if (!this.store.empConfig.debug.progress) return
+    if (this.store.mode === 'development') return
     //
     let op: any = {}
     if (this.store.isOldRspack) {

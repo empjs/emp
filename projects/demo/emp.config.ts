@@ -38,7 +38,10 @@ export default defineConfig(store => {
     debug: {
       // showPerformance: true,
       // showRsconfig: 'wp.json',
+
+      // loggerLevel: 'debug',
       // clearLog: false,
+      progress: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志
       //   colors: true, // 启用彩色日志，便于区分
@@ -76,6 +79,7 @@ export default defineConfig(store => {
       prifixName: 'v1',
     },
     // tsCheckerRspackPlugin: true,
+    // cache: false,
   }
 })
 //

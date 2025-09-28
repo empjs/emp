@@ -2,11 +2,13 @@ import color from 'src/helper/color'
 export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
 export {color}
 //
+const isDev = process.env.ENV === 'dev'
+// console.log('process.env.ENV', process.env.ENV)
 export class Logger {
   public brandName = ''
   public fullName = ''
-  public logLevel = 'debug'
-  public isLogTime = process.env.ENV === 'dev'
+  public logLevel = isDev ? 'debug' : 'info'
+  public isLogTime = isDev
   setup({brandName, logLevel, fullName}: any) {
     //` EMP v${store.empPkg.version} `
     this.brandName = ` [${brandName}] `
