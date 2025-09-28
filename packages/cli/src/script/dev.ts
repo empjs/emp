@@ -71,7 +71,7 @@ class DevScript extends BaseScript {
 
       await empDevServer.setup(compiler, rspackConfig, store as GlobalStore, async (o: any) => {
         // showPerformance 为false 时 只显示一次
-        if (!isRestart && !store.debug.showPerformance) this.showTimeDone(o)
+        if (!store.debug.showPerformance) this.showTimeDone(o)
         await store.empConfig.lifeCycle.afterDevServe()
       })
 
