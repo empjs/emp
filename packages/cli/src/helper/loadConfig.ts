@@ -3,6 +3,7 @@ import {createJiti} from 'jiti'
 import path from 'path'
 // import {glob} from 'src/helper'
 import store from 'src/store'
+import pkg from '../../package.json'
 import logger from './logger'
 //
 export const DEFAULT_CONFIG_FILES = [
@@ -23,6 +24,7 @@ export const DEFAULT_CONFIG_FILES = [
 ]
 
 //
+// console.log('pkg.version', pkg.version)
 export const loadConfig = createJiti(__filename, {
   // 启用默认导出兼容性
   interopDefault: true,
@@ -30,6 +32,7 @@ export const loadConfig = createJiti(__filename, {
   fsCache: true,
   // 启用模块缓存集成
   moduleCache: true,
+  cacheVersion: pkg.version,
   // debug: true,
 })
 
