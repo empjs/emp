@@ -32,6 +32,9 @@ export type DebugType = {
   clearLog?: boolean
   progress?: boolean
   showRsconfig?: boolean | string | InspectOptions
+  /**
+   * 已经弃用
+   */
   showPerformance?: boolean
   showScriptDebug?: boolean
   //rspackCache 已弃用

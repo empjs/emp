@@ -364,7 +364,8 @@ export class EmpConfig {
   private async syncEmpOptions() {
     logger.time('[store][empConfig]SyncEmpOptions')
     if (!this.store.rootPaths.empConfig) return
-    const empOptionsFn = await loadConfig(this.store.rootPaths.empConfig)
+    const {default: empOptionsFn} = await loadConfig(this.store.rootPaths.empConfig)
+    // console.log('empOptionsFn', empOptionsFn)
     if (typeof empOptionsFn === 'function') {
       this.store.empOptions = await empOptionsFn(this.store)
     } else {

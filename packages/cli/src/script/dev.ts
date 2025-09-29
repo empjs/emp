@@ -155,7 +155,7 @@ class DevScript extends BaseScript {
    */
   private executeCloseHooks() {
     if (this.closeHooks.length > 0) {
-      logger.debug(`[EMP] 执行 ${this.closeHooks.length} 个清理钩子...`)
+      logger.debug(`[EMP] 执行 ${this.closeHooks.length} 个Hook...`)
       for (const hook of this.closeHooks) {
         try {
           hook()

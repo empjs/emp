@@ -40,14 +40,14 @@ export default defineConfig(store => {
       // showRsconfig: 'wp.json',
 
       // loggerLevel: 'debug',
-      // clearLog: false,
+      clearLog: false,
       progress: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志
       //   colors: true, // 启用彩色日志，便于区分
       //   appendOnly: true, // 追加日志而不是覆盖，适合持续观察
       // },
-      cssChunkingPlugin: true,
+      // cssChunkingPlugin: true,
     },
     build: {
       // polyfill: 'entry',

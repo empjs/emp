@@ -24,10 +24,12 @@ export const DEFAULT_CONFIG_FILES = [
 
 //
 export const loadConfig = createJiti(__filename, {
-  // esmResolve: true,
-  // disable require cache to support restart CLI and read the new config
-  // requireCache: false,
+  // 启用默认导出兼容性
   interopDefault: true,
+  // 启用文件系统缓存以提高性能
+  fsCache: true,
+  // 启用模块缓存集成
+  moduleCache: true,
   // debug: true,
 })
 
