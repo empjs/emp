@@ -7,12 +7,12 @@
   {
     "type": "file",
     "name": "share",
-    "label": "@empjs/share 插件"
+    "label": "@empjs/share"
   },
   {
     "type": "file",
     "name": "runtime",
-    "label": "@empjs/share/runtime 运行时"
+    "label": "@empjs/share/runtime"
   },
   {
     "type": "dir",
