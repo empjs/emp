@@ -28,12 +28,12 @@ export default defineConfig({
     },
     socialLinks: [{icon: 'github', mode: 'link', content: 'https://github.com/empjs/emp'}],
     locales: [
-      {
-        lang: 'en',
-        label: 'English',
-        title: 'emp',
-        description: 'The Rspack-based build tool for the web',
-      },
+      // {
+      //   lang: 'en',
+      //   label: 'English',
+      //   title: 'emp',
+      //   description: 'The Rspack-based build tool for the web',
+      // },
       {
         lang: 'zh',
         label: '简体中文',
