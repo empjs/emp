@@ -1,27 +1,18 @@
-# EMP Bridge Vue3
+# EMP Bridge React
 
-EMP Bridge Vue 是一个用于在 React 应用中集成 Vue3 组件的桥接工具，它解决了 React 与 Vue 之间组件共享和通信的问题。
+EMP Bridge React 是一个用于跨 React 版本组件通信的桥接工具，它解决了不同 React 版本之间组件共享和通信的问题。
 
 ## 功能特点
 
-- 支持在 React 应用中使用 Vue 组件
+- 支持不同 React 版本（16/17/18/19）之间的组件共享
 - 提供简单的 API 用于生产者和消费者之间的通信
-- 自动处理 React 与 Vue 之间的渲染和卸载方法差异
-- 支持插件系统扩展 Vue 功能
+- 自动处理 React 不同版本的渲染和卸载方法差异
+- 支持异步加载组件
 
+## 安装插件
+import { PackageManagerTabs } from '@theme';
 
-## 安装
-
-```bash
-# 使用 npm
-npm install @empjs/bridge-react
-
-# 使用 yarn
-yarn add @empjs/bridge-react
-
-# 使用 pnpm
-pnpm add @empjs/bridge-react
-```
+<PackageManagerTabs command="add @empjs/bridge-react" />
 
 ## 基本用法
 

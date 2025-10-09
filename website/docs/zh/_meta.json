@@ -5,6 +5,11 @@
     "activeMatch": "/guide/"
   },
   {
+    "text": "微前端",
+    "link": "/emp/",
+    "activeMatch": "/emp/"
+  },
+  {
     "text": "配置",
     "link": "/config/",
     "activeMatch": "/config/"

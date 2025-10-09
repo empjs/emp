@@ -1,0 +1,39 @@
+# @empjs/share/runtime 运行时引用
+## 参考用例 
++ [运行时用例](https://github.com/empjs/emp/blob/main/projects/react-18-runtime/src/App.tsx)
++ [同项目多端口](https://github.com/empjs/emp/blob/main/projects/runtime-18-app/src/App.tsx)
+## 项目调用
+
+```js
+import {reactAdapter} from '@empjs/share/adapter'
+import empRuntime from '@empjs/share/runtime'
+import {lazy, Suspense, useEffect} from 'react'
+
+const ip = process.env.ip
+empRuntime.init({
+  shared: reactAdapter.shared,
+  remotes: [
+    {
+      name: 'react_astro_ui',
+      entry: `http://${ip}:2800/emp.json`,
+    },
+  ],
+})
+export const App = () => {
+  const Layout = lazy(() => empRuntime.load('react_astro_ui/App'))
+  useEffect(() => {
+    setTimeout(async () => {
+      // console.log('react_astro_ui', (await empRuntime.load('react_astro_ui/App')).default.toString())
+    }, 1000)
+  }, [])
+  return (
+    <Suspense fallback="loading...">
+      <Layout>
+        <h1>react 18</h1>
+      </Layout>
+    </Suspense>
+  )
+}
+export default App
+
+```

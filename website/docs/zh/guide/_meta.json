@@ -6,11 +6,6 @@
   },
   {
     "type": "dir",
-    "name": "empShare",
-    "label": "模块共享"
-  },
-  {
-    "type": "dir",
     "name": "framework",
     "label": "框架"
   },

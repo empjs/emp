@@ -1,0 +1,22 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "EMP"
+  },
+  {
+    "type": "file",
+    "name": "share",
+    "label": "@empjs/share 插件"
+  },
+  {
+    "type": "file",
+    "name": "runtime",
+    "label": "@empjs/share/runtime 运行时"
+  },
+  {
+    "type": "dir",
+    "name": "bridge",
+    "label": "跨框架"
+  }
+]
