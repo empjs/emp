@@ -1,0 +1,29 @@
+{
+  "name": "react-19-tanstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@empjs/plugin-tailwindcss": "workspace:^",
+    "@tanstack/react-router-devtools": "^1.132.51",
+    "@tanstack/router-plugin": "^1.132.51",
+    "@types/react": "19",
+    "@types/react-dom": "19"
+  },
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "dependencies": {
+    "@empjs/share": "workspace:^",
+    "@tanstack/react-router": "^1.131.41"
+  }
+}

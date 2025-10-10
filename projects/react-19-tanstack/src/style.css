@@ -1,0 +1,16 @@
+/* @import "tailwindcss";
+ */
+
+ @layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+@layer utilities {
+  .react19tt {
+    @tailwind utilities;
+    /* @tailwind base; */
+  }
+}
+
+@layer base {
+
+}

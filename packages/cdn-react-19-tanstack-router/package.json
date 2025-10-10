@@ -1,6 +1,6 @@
 {
-  "name": "@empjs/cdn-react-tanstack-router",
-  "version": "0.19.1",
+  "name": "@empjs/cdn-react-tanstack",
+  "version": "0.19.2",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
@@ -18,10 +18,10 @@
   "types": "dist/reactRouter.d.ts",
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
-    "dev:bundle": "tsup --watch",
-    "dev:serve": "serve ./dist --cors -p 1900",
-    "build": "tsup",
-    "start": "serve ./dist --cors -p 1900"
+    "dev:bundle": "rslib build --watch",
+    "dev:serve": "serve ./dist --cors -p 2200",
+    "build": "rslib build",
+    "start": "serve ./dist --cors -p 2200"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -29,12 +29,11 @@
   "author": "Ken",
   "dependencies": {
     "@tanstack/react-router": "^1.131.41",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.10.4",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2"
+    "@types/react": "19.2.1",
+    "@types/react-dom": "19.2.1"
   }
 }
