@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cli",
-  "version": "3.10.1",
+  "version": "3.10.2",
   "description": "emp",
   "license": "MIT",
   "type": "module",
@@ -91,7 +91,7 @@
   "dependencies": {
     "@empjs/chain": "workspace:*",
     "@rsdoctor/rspack-plugin": "1.2.3",
-    "@rspack/core": "1.5.7",
+    "@rspack/core": "1.5.8",
     "@rspack/dev-server": "1.1.4",
     "@swc/helpers": "^0.5.17",
     "@vue/tsconfig": "^0.8.1",
