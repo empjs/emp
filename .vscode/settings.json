@@ -8,9 +8,9 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
+  // "files.associations": {
+  //   "*.css": "tailwindcss"
+  // },
   "editor.quickSuggestions": {
     "strings": "on"
   },
@@ -38,7 +38,7 @@
   },
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.suggest.autoImports": true,
-  "scss.validate": false,
-  "css.validate": false,
-  "tailwindCSS.files.exclude": ["**/preflight.css"]
+  "scss.validate": false
+  // "css.validate": false,
+  // "tailwindCSS.files.exclude": ["**/preflight.css"]
 }
