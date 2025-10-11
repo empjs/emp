@@ -6,7 +6,9 @@ import {CliActionType, CliOptionsType} from 'src/types/env'
 export class BaseScript {
   // 实现整体生命周期运转
   async setup(cliAction?: CliActionType, cliOptions?: CliOptionsType) {
-    logger.time(`[${cliAction}]Setup`)
+    const timeCliTag = `${cliAction}.setup`
+    const timeCliRunTag = `${cliAction}.run`
+    logger.time(timeCliTag)
     //实例化 store
     await store.setup(cliAction, cliOptions)
     // 是否清除上一个日志
@@ -14,11 +16,11 @@ export class BaseScript {
     //   clearConsole()
     // }
     logger.title(`${cliAction}`)
-    logger.time(`[${cliAction}]Run`)
+    logger.time(timeCliRunTag)
     await this.run()
     this.processExit()
-    logger.timeEnd(`[${cliAction}]Run`)
-    logger.timeEnd(`[${cliAction}]Setup`)
+    logger.timeEnd(timeCliRunTag)
+    logger.timeEnd(timeCliTag)
   }
   async run() {}
   processExit() {

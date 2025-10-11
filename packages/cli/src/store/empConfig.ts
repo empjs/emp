@@ -362,7 +362,8 @@ export class EmpConfig {
     return rl
   }
   private async syncEmpOptions() {
-    logger.time('[store][empConfig]SyncEmpOptions')
+    const timeTag = 'store.jiti.loadConfig.empConfig'
+    logger.time(timeTag)
     if (!this.store.rootPaths.empConfig) return
     const {default: empOptionsFn} = await loadConfig(this.store.rootPaths.empConfig)
     // console.log('empOptionsFn', empOptionsFn)
@@ -371,7 +372,7 @@ export class EmpConfig {
     } else {
       this.store.empOptions = empOptionsFn || {}
     }
-    logger.timeEnd('[store][empConfig]SyncEmpOptions')
+    logger.timeEnd(timeTag)
   }
   get moduleTransformRule() {
     // const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}

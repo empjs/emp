@@ -48,5 +48,8 @@ export default defineConfig(store => {
     server: {
       port: 1992,
     },
+    debug: {
+      clearLog: false,
+    },
   }
 })

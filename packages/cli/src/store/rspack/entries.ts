@@ -116,7 +116,8 @@ class RspackEntries {
     logger.timeEnd('setAutoPage')
   }
   async setDefaultEntry() {
-    logger.time('[store][empConfig]SetDefaultEntry')
+    const timeTag = 'store.empConfig.setDefaultEntry'
+    logger.time(timeTag)
     const appEntry = path.join(
       this.store.appSrc,
       this.store.empConfig.appEntry ? this.store.empConfig.appEntry : `index.{ts,tsx,jsx,js}`,
@@ -131,7 +132,7 @@ class RspackEntries {
       )
       this.setEntryItem(filename, this.store.empConfig.html, elist[0])
     }
-    logger.timeEnd('[store][empConfig]SetDefaultEntry')
+    logger.timeEnd(timeTag)
   }
   setEntryByConfig() {
     if (Object.keys(this.store.empConfig.entries).length > 0) {

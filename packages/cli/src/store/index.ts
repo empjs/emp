@@ -113,7 +113,8 @@ export class GlobalStore {
   public async setup(cliAction?: CliActionType, cliOptions?: any) {
     this.cliAction = cliAction ? cliAction : this.cliAction
     this.cliOptions = cliOptions ? cliOptions : this.cliOptions
-    logger.time('store.Setup')
+    const timeTag = 'store.setup'
+    logger.time(timeTag)
     //
     const [epath, tpath] = await Promise.all([getEmpConfigPath(), getTsConfig()])
     this.rootPaths.empConfig = epath
@@ -140,7 +141,7 @@ export class GlobalStore {
     // 根据配置适配 devServer 配置
     await this.server.setupOnStore()
     //
-    logger.timeEnd('store.Setup')
+    logger.timeEnd(timeTag)
     // 是否清除上一个日志
     if (this.debug.clearLog) {
       clearConsole()

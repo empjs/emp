@@ -34,10 +34,12 @@ export const loadConfig = createJiti(__filename, {
   moduleCache: true,
   cacheVersion: pkg.version,
   // debug: true,
+  // nativeModules: ['@rspack/core', 'typescript'],
 })
 
 export const getEmpConfigPath = async () => {
-  logger.time('[store]GetEmpConfigPath')
+  const timeTag = 'store.getEmpConfigPath'
+  logger.time(timeTag)
   const paths = DEFAULT_CONFIG_FILES.map(filename => path.resolve(store.root, filename))
   const exists = await Promise.all(
     paths.map(p =>
@@ -48,7 +50,7 @@ export const getEmpConfigPath = async () => {
     ),
   )
   const empConfigPath = paths.find((_, i) => exists[i])
-  logger.timeEnd('[store]GetEmpConfigPath')
+  logger.timeEnd(timeTag)
   return empConfigPath
 }
 
