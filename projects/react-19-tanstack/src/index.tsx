@@ -1,4 +1,4 @@
-import 'src/css/style.css'
+import 'src/tailwindcss/style.css'
 import {createRouter, RouterProvider} from '@tanstack/react-router'
 import {createRoot} from 'react-dom/client'
 

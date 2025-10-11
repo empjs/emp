@@ -39,5 +39,6 @@
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.suggest.autoImports": true,
   "scss.validate": false,
-  "css.validate": false
+  "css.validate": false,
+  "tailwindCSS.files.exclude": ["preflight.css"]
 }

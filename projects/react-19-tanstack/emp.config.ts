@@ -50,6 +50,7 @@ export default defineConfig(store => {
     },
     debug: {
       clearLog: false,
+      // showRsconfig: 'log.json',
     },
   }
 })

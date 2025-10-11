@@ -8,6 +8,7 @@ export default () => {
       const tailwindcssPath = require.resolve('tailwindcss/package.json')
       const installDir = path.dirname(tailwindcssPath)
       const tailwindcssEntry = path.join(installDir, 'index.css')
+      // console.log('tailwindcssEntry:', tailwindcssEntry)
 
       const postcssPlugins = [
         // postcss-import 插件必须第一个加载，支持别名解析
@@ -20,7 +21,7 @@ export default () => {
               return tailwindcssEntry
             } else if (id.startsWith('tailwindcss/')) {
               const resolvedPath = path.join(installDir, id.replace('tailwindcss/', ''))
-              // console.log('Resolving tailwindcss subpath to:', resolvedPath)
+              console.log('Resolving tailwindcss subpath to:', resolvedPath)
               return resolvedPath
             }
             // if (id.startsWith('src/')) {
