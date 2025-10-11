@@ -365,6 +365,7 @@ export class EmpConfig {
     const timeTag = 'store.jiti.loadConfig.empConfig'
     logger.time(timeTag)
     if (!this.store.rootPaths.empConfig) return
+    // const {default: empOptionsFn} = await loadConfig(this.store.rootPaths.empConfig)
     const {default: empOptionsFn} = await loadConfig(this.store.rootPaths.empConfig)
     // console.log('empOptionsFn', empOptionsFn)
     if (typeof empOptionsFn === 'function') {

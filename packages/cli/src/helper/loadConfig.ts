@@ -34,6 +34,7 @@ export const loadConfig = createJiti(__filename, {
   moduleCache: true,
   cacheVersion: pkg.version,
   // debug: true,
+  // tryNative: true,
   // nativeModules: ['@rspack/core', 'typescript'],
 })
 
