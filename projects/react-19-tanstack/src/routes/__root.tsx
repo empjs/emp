@@ -13,7 +13,7 @@ const Nav = () => (
 )
 const RootLayout = () => (
   <>
-    <div className="react19tt">
+    <div className="tailwind-react-contaner">
       <Nav />
       <Outlet />
     </div>
