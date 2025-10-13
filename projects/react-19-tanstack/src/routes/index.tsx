@@ -1,6 +1,6 @@
 import {createFileRoute} from '@tanstack/react-router'
-import {Home} from 'src/components/home'
+import TailwindShowcase from 'src/components/tailwindcss-4'
 
 export const Route = createFileRoute('/')({
-  component: Home,
+  component: TailwindShowcase,
 })

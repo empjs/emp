@@ -3,6 +3,9 @@ import pluginReact from '@empjs/plugin-react'
 import pluginTailwindcss from '@empjs/plugin-tailwindcss'
 import {externalReact, pluginRspackEmpShare} from '@empjs/share/rspack'
 import {tanstackRouter} from '@tanstack/router-plugin/rspack'
+
+// const cdnHost = 'https://cdn.jsdelivr.net/npm'
+const cdnHost = 'https://unpkg.com'
 export default defineConfig(store => {
   return {
     chain(config) {
@@ -19,13 +22,13 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.10.1/output/sdk.js`,
+            lib: `${cdnHost}/@empjs/share@3.10.1/output/sdk.js`,
             // lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           framework: {
             libs: [
-              // `https://unpkg.com/@empjs/cdn-react-tanstack@0.19.2/dist/reactRouter.${store.mode}.umd.js`,
-              `http://${store.server.ip}:2200/reactRouter.${store.mode}.umd.js`,
+              `${cdnHost}/@empjs/cdn-react-tanstack@0.19.2/dist/reactRouter.${store.mode}.umd.js`,
+              // `http://${store.server.ip}:2200/reactRouter.${store.mode}.umd.js`,
             ],
             global: 'EMP_REACT_19_TANSTACK',
           },
@@ -42,7 +45,7 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: 'https://unpkg.com/@empjs/polyfill@2025.9.12/dist/c71.js',
+        entryCdn: `${cdnHost}/@empjs/polyfill@2025.9.12/dist/c71.js`,
       },
     },
     server: {
