@@ -8,7 +8,19 @@
 
 @import "tailwindcss/theme.css";
 
-.tailwind-react-contaner {
+/* .tailwind-react-contaner {
     @import "tailwindcss/preflight.css";
     @import "tailwindcss/utilities.css";
+} */
+
+@layer base {
+    .tailwind-react-contaner {
+        @import "tailwindcss/preflight.css";
+    }
+}
+
+@layer utilities {
+    .tailwind-react-contaner {
+        @import "tailwindcss/utilities.css";
+    }
 }

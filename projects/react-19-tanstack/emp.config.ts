@@ -46,6 +46,7 @@ export default defineConfig(store => {
     build: {
       polyfill: {
         entryCdn: `${cdnHost}/@empjs/polyfill@2025.9.12/dist/c71.js`,
+        // browserslist: ['chrome >= 88', 'edge >= 88', 'firefox >= 78', 'safari >= 14'],
       },
     },
     server: {
