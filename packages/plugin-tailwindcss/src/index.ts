@@ -38,6 +38,9 @@ export default () => {
           {
             browsers: store.empConfig.build.polyfill.browserslist, // 针对安卓 7 的 Chrome
             stage: 1, // 启用较新的 CSS 特性并提供 polyfill
+            features: {
+              'is-pseudo-class': false, // 正确的特性名称
+            },
           },
         ])
       }

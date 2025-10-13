@@ -6,21 +6,10 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities); */
 
-@import "tailwindcss/theme.css";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
 
-/* .tailwind-react-contaner {
-    @import "tailwindcss/preflight.css";
-    @import "tailwindcss/utilities.css";
-} */
-
-@layer base {
-    .tailwind-react-contaner {
-        @import "tailwindcss/preflight.css";
-    }
-}
-
-@layer utilities {
-    .tailwind-react-contaner {
-        @import "tailwindcss/utilities.css";
-    }
+.tailwind-react-contaner {
+    @import "tailwindcss/preflight.css" layer(base);
+    @import "tailwindcss/utilities.css" layer(utilities);
 }
