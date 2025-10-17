@@ -10,8 +10,8 @@
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-react": "workspace:*",
     "@empjs/plugin-tailwindcss": "workspace:^",
-    "@tanstack/react-router-devtools": "^1.132.51",
-    "@tanstack/router-plugin": "^1.132.51",
+    "@tanstack/react-router-devtools": "^1.133.3",
+    "@tanstack/router-plugin": "^1.133.4",
     "@types/react": "19",
     "@types/react-dom": "19"
   },
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@empjs/share": "workspace:^",
-    "@tanstack/react-router": "^1.131.41",
+    "@tanstack/react-router": "^1.131.47",
     "tailwindcss": "^4.1.14"
   }
 }

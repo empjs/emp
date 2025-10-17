@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@modern-js/tsconfig": "^2.49.3",
-    "@types/node": "^16",
+    "@types/node": "^24.8.1",
     "@types/react": "^18.2.73"
   }
 }
