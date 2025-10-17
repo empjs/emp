@@ -1,4 +1,3 @@
-import {Button} from 'antd'
 import {lazy, Suspense} from 'react'
 import LogoUrl from 'src/assets/logo.svg'
 import LogoComponent from 'src/assets/logo.svg?react'
