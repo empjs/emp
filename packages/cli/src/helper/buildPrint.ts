@@ -150,8 +150,8 @@ export function timeDone(mis: number | string = 0, tips = 'Ready') {
 /**
  * 显示构建开始提示
  */
-export function printBuildStart() {
-  printMessage('start', 'build started...')
+export function printBuildStart(actionName = 'build') {
+  printMessage('start', `${actionName} Started...`)
 }
 
 /**

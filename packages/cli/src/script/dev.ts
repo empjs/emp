@@ -74,7 +74,7 @@ class DevScript extends BaseScript {
       await store.empConfig.lifeCycle.beforeDevServe()
       server.startOpen()
       // 显示构建开始提示
-      printBuildStart()
+      printBuildStart('DevServer')
 
       await empDevServer.setup(compiler, rspackConfig, store as GlobalStore, async (o: any) => {
         empDevServer.isServerStarted = true
