@@ -2,7 +2,7 @@ import {reactAdapter} from '@empjs/share/adapter'
 import rt from '@empjs/share/runtime'
 import {ip, port} from './config'
 
-const remotePort = 3710
+const remotePort = 3712
 // 实例化
 rt.init({
   name: 'app_and_host',
