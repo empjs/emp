@@ -26,6 +26,11 @@ export default defineConfig(store => {
     // output: {
     //   publicPath: `http://dev-test.yy.com:8000/`,
     // },
+    // chain: config => {
+    //   const swcReactCompiler = require('@swc/react-compiler')
+    //   console.log('swcReactCompiler', swcReactCompiler)
+    //   config.plugin('swc-react-compiler').use(swcReactCompiler, [{}])
+    // },
     plugins: [
       pluginReact(),
       pluginlightningcss({
@@ -39,7 +44,7 @@ export default defineConfig(store => {
       // showPerformance: true,
       // showRsconfig: 'wp.json',
       // loggerLevel: 'debug',
-      // clearLog: false,
+      clearLog: false,
       // progress: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志

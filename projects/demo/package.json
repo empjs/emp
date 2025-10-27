@@ -22,14 +22,15 @@
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-lightningcss": "workspace:^",
     "@empjs/plugin-react": "workspace:*",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0"
+    "@swc/react-compiler": "^1.13.21",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.2",
+    "@ant-design/icons": "^6.1.0",
     "@empjs/share": "workspace:^",
-    "antd": "^5.22.7",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "antd": "^5.27.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }

@@ -4,6 +4,7 @@ import LogoComponent from 'src/assets/logo.svg?react'
 import txt from 'src/file.txt?raw'
 import AppLayout from 'src/react/AppLayout'
 import CssModule from 'src/react/CssModule'
+import React19Suite from 'src/react/React19Suite'
 import classDemo from './classDemo'
 import SameAssets from './SameAssets'
 
@@ -67,6 +68,7 @@ function App() {
         </div>
         <CssModule />
         <SameAssets />
+        <React19Suite />
       </AppLayout>
     </>
   )
