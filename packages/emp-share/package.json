@@ -110,7 +110,9 @@
       "adapter": ["./dist/adapter.d.ts"],
       "adapterVue": ["./dist/adapter.d.ts"],
       "rspack": ["./dist/rspack.d.ts"],
-      "library": ["./output/index.d.ts"]
+      "library": ["./output/index.d.ts"],
+      "react": ["./dist/react.d.ts"],
+      "vue": ["./dist/vue.d.ts"]
     }
   },
   "scripts": {

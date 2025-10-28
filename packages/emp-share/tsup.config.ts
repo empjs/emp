@@ -57,6 +57,7 @@ export default defineConfig(({watch}): Options[] => {
       outExtension() {
         return {
           js: '.js',
+          dts: '.d.ts',
         }
       },
       async onSuccess() {},
