@@ -9,7 +9,8 @@ export default defineConfig(({watch}): Options[] => {
         mfRuntime: 'src/runtime/mfRuntime.ts',
         adapter: 'src/adapter/index.ts',
         rspack: 'src/plugins/rspack/index.ts',
-        adapterVue: 'src/adapter/vue.ts',
+        react: 'src/framework/react/index.ts',
+        vue: 'src/framework/vue/index.ts',
       },
       format: ['esm', 'cjs'],
       splitting: false,
@@ -40,6 +41,9 @@ export default defineConfig(({watch}): Options[] => {
       dts: true,
       globalName: `${shareGlobalName}`,
       env: {EMPSHARE_ENV: watch ? 'dev' : 'prod'},
+      define: {
+        'process.env.NODE_ENV': JSON.stringify(watch ? 'development' : 'production'),
+      },
       replaceNodeEnv: true, //替换到 process.env.NODE_ENV
       minify: !watch,
       // watch: watch,

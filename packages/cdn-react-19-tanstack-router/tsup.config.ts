@@ -10,6 +10,9 @@ function getOptions(env: 'development' | 'production', watch = false): Options {
     dts: true,
     globalName: 'EMP_ADAPTER_REACT',
     env: {NODE_ENV: env},
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(env),
+    },
     minify: env !== 'development' ? 'terser' : false,
     // minify: env !== 'development' ? true : false,
     watch: watch,

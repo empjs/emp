@@ -1,12 +1,12 @@
-import {reactAdapter} from '@empjs/share/adapter'
+import {shared} from '@empjs/share/react'
 import rt from '@empjs/share/runtime'
 import {ip, port} from './config'
 
-console.log('reactAdapter', reactAdapter)
+// console.log('reactAdapter', reactAdapter)
 // 实例化
 rt.init({
   name: 'app_and_host',
-  shared: reactAdapter.shared,
+  shared: shared(),
   remotes: [],
 })
 // 动态注册

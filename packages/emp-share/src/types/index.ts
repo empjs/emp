@@ -13,6 +13,12 @@ export type EMPShareRuntimeAdapterReactType = {
   hydrateRoot?: any
   scope: string
 }
+export type EMPShareRuntimeAdapterVueType = {
+  Vue?: any
+  VueRouter?: any
+  Pinia?: any
+  scope: string
+}
 
 //
 export type InitOptionsType = Parameters<typeof MFRuntime.init>[0]
