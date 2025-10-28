@@ -1,22 +1,32 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
+
 .box {
     border: 1px solid #eee;
     background-color: #fff;
     padding: 10px 20px;
     margin: 10px 0 20px;
     border-radius: 10px;
-    h1{
+
+    h1 {
         font-size: 20px;
         line-height: 30px;
     }
 }
-.app{
+
+.app {
     padding: 20px;
 }
-.app-title{
+
+.app-title {
     padding: 10px 20px;
     color: red;
+}
+
+.app-info {
+    padding: 0px 0 0 30px;
+    color: #666;
+    margin-bottom: 20px;
 }

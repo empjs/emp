@@ -2,7 +2,7 @@ import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 export default defineConfig(store => {
-  const port = store.cliOptions.env ? store.cliOptions.env : 3711
+  const port = store.cliOptions.env ? store.cliOptions.env : 3710
   const ip = store.server.ip
   return {
     plugins: [
@@ -15,8 +15,8 @@ export default defineConfig(store => {
         },
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.10.3/output/sdk.js`,
-            // lib: `http://${ip}:2100/sdk.js`,
+            // lib: `https://unpkg.com/@empjs/share@3.10.3/output/sdk.js`,
+            lib: `http://${ip}:2100/sdk.js`,
           },
           framework: {
             libs: [`https://unpkg.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],

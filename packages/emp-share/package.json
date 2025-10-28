@@ -1,6 +1,6 @@
 {
   "name": "@empjs/share",
-  "version": "3.10.3",
+  "version": "3.11.0",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",

@@ -1,7 +1,5 @@
 import rt from '@empjs/share/runtime'
 import {lazy, Suspense} from 'react'
-
-//
 import {ip, port} from './config'
 
 const isEmp = true
@@ -18,9 +16,10 @@ const App = () => {
   return (
     <div className={`app`}>
       <h1 className="app-title">App and Host In One Project</h1>
+      <p className="app-info">{`from app ${ip}:${port}`}</p>
       <Suspense>
-        <Info desc={`from app ${ip}:${port}`} />
-        <About desc={`from app ${ip}:${port}`} />
+        <Info />
+        <About />
       </Suspense>
     </div>
   )

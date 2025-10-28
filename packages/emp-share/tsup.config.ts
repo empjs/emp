@@ -42,7 +42,7 @@ export default defineConfig(({watch}): Options[] => {
       env: {EMPSHARE_ENV: watch ? 'dev' : 'prod'},
       replaceNodeEnv: true, //替换到 process.env.NODE_ENV
       minify: !watch,
-      watch: watch,
+      // watch: watch,
       esbuildOptions(options: any, context) {
         options.legalComments = 'none'
         options.define.FEDERATION_ALLOW_NEW_FUNCTION = 'true'

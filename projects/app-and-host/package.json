@@ -18,7 +18,7 @@
     "dt": "emp build --doctor"
   },
   "dependencies": {
-    "@empjs/share": "3.5.3",
+    "@empjs/share": "workspace:^",
     "react": "18",
     "react-dom": "18"
   },
