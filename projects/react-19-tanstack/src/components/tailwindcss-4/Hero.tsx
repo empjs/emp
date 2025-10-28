@@ -11,7 +11,12 @@ export const Hero = () => {
           <a href="#components" className="rounded-lg bg-white/90 px-4 py-2 text-indigo-700 font-medium hover:bg-white">
             Explore Components
           </a>
-          <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer" className="rounded-lg bg-black/20 px-4 py-2 font-medium hover:bg-black/30">
+          <a
+            href="https://tailwindcss.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg bg-black/20 px-4 py-2 font-medium hover:bg-black/30"
+          >
             Docs
           </a>
         </div>

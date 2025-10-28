@@ -8,7 +8,16 @@ export default function LazyInner() {
         className="absolute right-3 top-3 inline-flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-800"
         aria-label="View source on GitHub"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M7 17l10-10" />
           <path d="M8 7h9v9" />
         </svg>

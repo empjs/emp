@@ -16,11 +16,11 @@
 /* @import "tailwindcss/utilities.css" layer(utilities); */
 /* @config '../../tailwindcss-config.ts'; */
 @layer utilities {
-  .tw-host {
-    @tailwind utilities;
-  }
+	.tw-host {
+		@tailwind utilities;
+	}
 }
- @layer base {
+@layer base {
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;

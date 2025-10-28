@@ -30,10 +30,7 @@
     "parallelLoader": true
   },
   "lazyCompilation": true,
-  "target": [
-    "web",
-    "es5"
-  ],
+  "target": ["web", "es5"],
   "infrastructureLogging": {
     "appendOnly": true,
     "level": "warn"
@@ -52,14 +49,9 @@
     "react/jsx-dev-runtime": "EMP_ADAPTER_REACT",
     "react-router-dom": "EMP_ADAPTER_REACT.ReactRouterDOM"
   },
-  "ignoreWarnings": [
-    {}
-  ],
+  "ignoreWarnings": [{}],
   "watchOptions": {
-    "ignored": [
-      "**/node_modules/**",
-      "**/@mf-types/**"
-    ]
+    "ignored": ["**/node_modules/**", "**/@mf-types/**"]
   },
   "stats": {
     "colors": true,
@@ -108,16 +100,12 @@
     ]
   },
   "devServer": {
-    "allowedHosts": [
-      "all"
-    ],
+    "allowedHosts": ["all"],
     "host": "0.0.0.0",
     "port": 3801,
     "open": false,
     "hot": true,
-    "watchFiles": [
-      "src/**/*.html"
-    ],
+    "watchFiles": ["src/**/*.html"],
     "static": [
       {
         "directory": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/public",
@@ -176,10 +164,7 @@
     "rules": [
       {
         "mimetype": {
-          "or": [
-            "text/javascript",
-            "application/javascript"
-          ]
+          "or": ["text/javascript", "application/javascript"]
         },
         "use": [
           {
@@ -225,9 +210,7 @@
           },
           {
             "resourceQuery": {
-              "not": [
-                {}
-              ]
+              "not": [{}]
             },
             "type": "asset/resource"
           }
@@ -364,15 +347,11 @@
       {
         "affectedHooks": "compilation",
         "name": "SwcJsMinimizerRspackPlugin",
-        "_args": [
-          {}
-        ]
+        "_args": [{}]
       },
       {
         "name": "LightningCssMinimizerRspackPlugin",
-        "_args": [
-          {}
-        ]
+        "_args": [{}]
       }
     ]
   },
@@ -399,9 +378,7 @@
     },
     {
       "name": "CssChunkingPlugin",
-      "_args": [
-        {}
-      ]
+      "_args": [{}]
     },
     {
       "PluginName": "HtmlEmpInjectPlugin-injectEMPPolyfill",
@@ -432,9 +409,7 @@
         "cache": true,
         "template": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.html",
         "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
-        "chunks": [
-          "index"
-        ],
+        "chunks": ["index"],
         "filename": "index.html"
       },
       "version": 5,
@@ -451,9 +426,7 @@
         "minify": false,
         "cache": true,
         "showErrors": true,
-        "chunks": [
-          "index"
-        ],
+        "chunks": ["index"],
         "excludeChunks": [],
         "chunksSortMode": "auto",
         "meta": {},
@@ -465,13 +438,8 @@
     },
     {
       "options": {
-        "include": [
-          {}
-        ],
-        "exclude": [
-          {},
-          {}
-        ],
+        "include": [{}],
+        "exclude": [{}, {}],
         "library": "runtime_18_app_emp_hmr_3801",
         "forceEnable": false,
         "injectLoader": true,
@@ -522,8 +490,6 @@
     }
   ],
   "entry": {
-    "index": [
-      "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.tsx"
-    ]
+    "index": ["/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.tsx"]
   }
 }

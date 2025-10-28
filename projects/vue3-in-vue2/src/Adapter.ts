@@ -81,10 +81,13 @@ class Vue3AdapterCore {
       if (this.VueRouter?.createRouter) {
         const history = this.VueRouter.createWebHistory?.() || this.VueRouter.createWebHashHistory?.()
         if (history) {
-          this.plugins.set('router', this.VueRouter.createRouter({
-            history,
-            routes: []
-          }))
+          this.plugins.set(
+            'router',
+            this.VueRouter.createRouter({
+              history,
+              routes: [],
+            }),
+          )
         }
       }
     } catch (error) {
@@ -139,7 +142,7 @@ class Vue3AdapterCore {
 
     try {
       this.cleanup()
-      
+
       // 清空容器
       if (container instanceof Element) {
         container.innerHTML = ''
@@ -229,16 +232,16 @@ class Vue3AdapterCore {
  */
 export default {
   name: 'Vue3Adapter',
-  
+
   props: {
-    moduleName: { type: String, required: true },
-    componentProps: { type: Object, default: () => ({}) }
+    moduleName: {type: String, required: true},
+    componentProps: {type: Object, default: () => ({})},
   },
 
   data() {
     return {
       adapter: new Vue3AdapterCore(),
-      retryCount: 0
+      retryCount: 0,
     }
   },
 
@@ -281,7 +284,7 @@ export default {
         console.error('Vue3Adapter: Maximum retry attempts reached')
         return
       }
-      
+
       this.retryCount++
       try {
         const container = this.getContainer()
@@ -291,7 +294,7 @@ export default {
       } catch (error) {
         console.error('Vue3Adapter: Reload failed:', error)
       }
-    }
+    },
   },
 
   watch: {
@@ -300,49 +303,62 @@ export default {
         this.retryCount = 0
         this.loadAndMount()
       },
-      immediate: false
+      immediate: false,
     },
-    
+
     componentProps: {
       handler(newProps) {
         if (newProps && typeof newProps === 'object') {
           this.adapter.updateProps(newProps)
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   render(h) {
     // 检查Vue3运行时
     if (!this.adapter.hasVue3) {
-      return h('div', { 
-        class: 'vue3-adapter-error' 
-      }, 'Vue3 runtime not available')
+      return h(
+        'div',
+        {
+          class: 'vue3-adapter-error',
+        },
+        'Vue3 runtime not available',
+      )
     }
 
     // 加载状态
     if (this.adapter.loading) {
-      return h('div', { 
-        class: 'vue3-adapter-loading' 
-      }, 'Loading Vue3 component...')
+      return h(
+        'div',
+        {
+          class: 'vue3-adapter-loading',
+        },
+        'Loading Vue3 component...',
+      )
     }
 
     // 错误状态
     if (this.adapter.errorMessage) {
-      return h('div', { class: 'vue3-adapter-error' }, [
-        h('div', { class: 'error-message' }, `Error: ${this.adapter.errorMessage}`),
-        this.retryCount < 3 && h('button', { 
-          class: 'retry-button',
-          on: { click: this.handleReload } 
-        }, `Retry (${this.retryCount}/3)`)
+      return h('div', {class: 'vue3-adapter-error'}, [
+        h('div', {class: 'error-message'}, `Error: ${this.adapter.errorMessage}`),
+        this.retryCount < 3 &&
+          h(
+            'button',
+            {
+              class: 'retry-button',
+              on: {click: this.handleReload},
+            },
+            `Retry (${this.retryCount}/3)`,
+          ),
       ])
     }
 
     // 正常容器
     return h('div', {
       ref: 'vue3Container',
-      class: 'vue3-adapter-container'
+      class: 'vue3-adapter-container',
     })
-  }
+  },
 }

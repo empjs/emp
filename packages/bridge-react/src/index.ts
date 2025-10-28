@@ -1,8 +1,5 @@
 // 直接导入 classComponent 中的实现
-import {
-  createBridgeComponent,
-  createRemoteAppComponent,
-} from './classComponent'
+import {createBridgeComponent, createRemoteAppComponent} from './classComponent'
 import {
   AsyncBridgeProvider,
   BridgeProvider,
@@ -23,10 +20,7 @@ export {
 }
 
 // 直接导出 classComponent 中的实现
-export {
-  createBridgeComponent,
-  createRemoteAppComponent,
-}
+export {createBridgeComponent, createRemoteAppComponent}
 
 export default {
   createBridgeComponent,

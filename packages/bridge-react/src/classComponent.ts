@@ -1,5 +1,5 @@
-import { BridgeProvider, BridgeProviderReturn, ComponentProvider, ReactOptions } from './types'
-import { handleError } from './utils'
+import {BridgeProvider, BridgeProviderReturn, ComponentProvider, ReactOptions} from './types'
+import {handleError} from './utils'
 
 /**
  * Create bridge component - for producer to wrap application-level export modules

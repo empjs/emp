@@ -4,15 +4,8 @@
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "maintainers": [
-    "xuhongbin",
-    "ckken",
-    "doerme",
-    "ron0115"
-  ],
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -39,6 +32,5 @@
     "vue-router": "3.6.5",
     "vuex": "3.6.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

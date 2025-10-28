@@ -1,38 +1,38 @@
 .nav {
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #4a90e2;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    margin: 8px 0;
+	display: flex;
+	justify-content: flex-start;
+	padding: 10px;
+	background-color: #f8f9fa;
+	border: 1px solid #4a90e2;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	border-radius: 4px;
+	margin: 8px 0;
 }
 
 .link {
-    color: #333;
-    text-decoration: none;
-    padding: 6px 12px;
-    margin: 0 6px 0 0;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: all 0.3s ease;
+	color: #333;
+	text-decoration: none;
+	padding: 6px 12px;
+	margin: 0 6px 0 0;
+	border-radius: 4px;
+	font-weight: bold;
+	transition: all 0.3s ease;
 }
 
 .link:hover {
-    background-color: #e9f0f8;
-    border-color: #6ba4e5;
+	background-color: #e9f0f8;
+	border-color: #6ba4e5;
 }
 
 .activeLink {
-    composes: link;
-    background-color: #e9f0f8;
-    border-color: #6ba4e5;
+	composes: link;
+	background-color: #e9f0f8;
+	border-color: #6ba4e5;
 }
 
 @media (max-width: 768px) {
-   
-    .link, .activeLink {
-       font-size: 12px;
-    }
+	.link,
+	.activeLink {
+		font-size: 12px;
+	}
 }

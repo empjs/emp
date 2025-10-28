@@ -8,7 +8,7 @@ export const FeatureList = () => {
   ]
   return (
     <ul className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {features.map((f) => (
+      {features.map(f => (
         <li key={f.name} className="rounded-lg border border-gray-200 p-2 sm:p-3">
           <div className="font-medium">{f.name}</div>
           <div className="text-sm sm:text-base text-gray-500">{f.desc}</div>

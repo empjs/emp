@@ -7,7 +7,9 @@ type CardProps = {
 export const Card = ({title, desc, icon}: CardProps) => (
   <div className="rounded-xl border border-gray-200 p-3 sm:p-4 shadow-sm hover:shadow-md transition">
     <div className="flex items-center gap-3">
-      <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-indigo-50 text-indigo-600 grid place-items-center">{icon ?? '★'}</div>
+      <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-indigo-50 text-indigo-600 grid place-items-center">
+        {icon ?? '★'}
+      </div>
       <div className="font-semibold">{title}</div>
     </div>
     <p className="mt-2 text-sm sm:text-base text-gray-600">{desc}</p>
@@ -26,7 +28,7 @@ export const CardGrid = () => {
   ]
   return (
     <section className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {items.map((it) => (
+      {items.map(it => (
         <Card key={it.title} title={it.title} desc={it.desc} />
       ))}
     </section>

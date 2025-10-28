@@ -1,7 +1,7 @@
 <script lang="tsx">
-import {defineComponent, ref} from 'vue'
+	import {defineComponent, ref} from 'vue'
 
-export default defineComponent({
+	export default defineComponent({
   name: 'TsxScript',
   // https://vuejs.org//guide/typescript/composition-api.html#without-script-setup
   props: {
@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.value {
-  margin-left: 10px;
-}
+	.value {
+		margin-left: 10px;
+	}
 </style>

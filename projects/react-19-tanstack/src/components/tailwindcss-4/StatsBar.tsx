@@ -7,7 +7,7 @@ export const StatsBar = () => {
   ]
   return (
     <section className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
-      {stats.map((s) => (
+      {stats.map(s => (
         <div key={s.label} className="rounded-xl bg-gray-50 p-3 sm:p-4">
           <div className="text-sm text-gray-500">{s.label}</div>
           <div className="text-2xl sm:text-3xl font-bold">{s.value}</div>
