@@ -47,7 +47,7 @@ export default defineConfig(store => {
     },
     debug: {
       clearLog: false,
-      showRsconfig: `node_modules/log_${port}.json`,
+      // showRsconfig: `node_modules/log_${port}.json`,
     },
     define: {port: `${port}`, ip: `${ip}`},
     // cache: false,

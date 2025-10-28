@@ -34,22 +34,31 @@ export default defineConfig(({watch}): Options[] => {
       target: 'es5',
       format: ['iife'],
       platform: 'browser',
-      // treeshake: true,
-      shims: true,
-      sourcemap: true,
+      treeshake: true,
+      shims: false,
+      sourcemap: !!watch,
       clean: true,
-      dts: true,
+      // dts: true,
       globalName: `${shareGlobalName}`,
       env: {EMPSHARE_ENV: watch ? 'dev' : 'prod'},
       define: {
         'process.env.NODE_ENV': JSON.stringify(watch ? 'development' : 'production'),
+        'process.env.FEDERATION_DEBUG': JSON.stringify(!!watch),
       },
       replaceNodeEnv: true, //替换到 process.env.NODE_ENV
-      minify: !watch,
+      minify: watch ? false : 'terser',
       // watch: watch,
       esbuildOptions(options: any, context) {
         options.legalComments = 'none'
         options.define.FEDERATION_ALLOW_NEW_FUNCTION = 'true'
+        // 移除调试分支，减小体积（不影响运行时日志输出）
+        options.define.FEDERATION_DEBUG = `${!!watch}`
+        // 进一步压缩（无副作用）
+        options.minifySyntax = true
+        options.minifyIdentifiers = true
+        options.minifyWhitespace = true
+        // 保留 console 输出，仅移除 debugger（若存在）
+        options.drop = ['debugger']
         options.logOverride = {
           'direct-eval': 'silent',
         }
@@ -57,10 +66,11 @@ export default defineConfig(({watch}): Options[] => {
       outExtension() {
         return {
           js: '.js',
-          dts: '.d.ts',
         }
       },
-      async onSuccess() {},
+      async onSuccess() {
+        console.log('SDK onSuccess!')
+      },
     },
   ]
 })
