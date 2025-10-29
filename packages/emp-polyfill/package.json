@@ -34,7 +34,6 @@
     "core-js-pure": "^3.45.1"
   },
   "devDependencies": {
-    "@swc/core": "^1.13.5",
-    "@types/node": "^22.8.5"
+    "@swc/core": "^1.13.5"
   }
 }

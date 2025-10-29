@@ -39,7 +39,6 @@
   "author": "Ken",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@types/node": "^24.3.0",
     "@types/react": "^18.2.30"
   },
   "dependencies": {

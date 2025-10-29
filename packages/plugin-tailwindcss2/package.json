@@ -39,7 +39,6 @@
   "author": "Ken",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@types/node": "^22.13.11",
     "@types/tailwindcss": "^2.2.4"
   },
   "dependencies": {

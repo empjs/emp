@@ -59,6 +59,7 @@
     "cross-env": "^7.0.3",
     "serve": "14.2.5",
     "tsup": "8.5.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "@types/node": "^24.9.2"
   }
 }

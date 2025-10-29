@@ -78,7 +78,6 @@
     "@types/cors": "^2.8.12",
     "@types/default-gateway": "^7.2.1",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.8.1",
     "@types/react": "^18.3.2",
     "@types/serve-static": "^1.15.8",
     "@types/watchpack": "^2.4.3",

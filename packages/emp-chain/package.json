@@ -38,7 +38,6 @@
   },
   "author": "Ken",
   "devDependencies": {
-    "@types/node": "^24.1.0",
     "tsup": "^8.1.0"
   },
   "dependencies": {
