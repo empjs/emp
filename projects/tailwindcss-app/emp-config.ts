@@ -13,7 +13,7 @@ export default defineConfig(store => {
           tailwindcssHost: `tailwindcssHost@http://${store.server.ip}:4401/emp.json`,
         },
         dts: {
-          consumeTypes: false,
+          consumeTypes: true,
           generateTypes: false,
         },
         empRuntime: {

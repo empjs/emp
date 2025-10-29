@@ -52,7 +52,6 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.1.13",
-    "css-loader": "7.1.2",
     "postcss": "8.5.6",
     "postcss-loader": "8.2.0",
     "postcss-preset-env": "10.4.0",

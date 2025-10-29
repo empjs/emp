@@ -1,4 +1,4 @@
-// import 'tailwindcssHost/tailwindcss'
+import './style.css'
 import AppHost from 'tailwindcssHost/App'
 import Color from 'tailwindcssHost/Color'
 import Info from 'tailwindcssHost/Info'

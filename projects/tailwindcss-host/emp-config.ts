@@ -13,12 +13,12 @@ export default defineConfig(store => {
           './App': './src/component/App',
           './Info': './src/component/Info',
           './Color': './src/component/Color',
-          './Container': './src/component/Container',
+          './TailwindWrap': './src/component/TailwindWrap',
         },
         manifest: true,
-        // dts: {
-        //   generateTypes: true,
-        // },
+        dts: {
+          generateTypes: true,
+        },
         empRuntime: {
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
