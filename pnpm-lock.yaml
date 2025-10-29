@@ -594,6 +594,9 @@ importers:
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.1(postcss@8.5.6)
+      postcss-pxtorem:
+        specifier: ^6.1.0
+        version: 6.1.0(postcss@8.5.6)
 
   packages/plugin-tailwindcss2:
     dependencies:
@@ -16862,7 +16865,6 @@ packages:
       postcss: ^8.0.0
     dependencies:
       postcss: 8.5.6
-    dev: false
 
   /postcss-replace-overflow-wrap@4.0.0(postcss@8.5.6):
     resolution: {integrity: sha512-KmF7SBPphT4gPPcKZc7aDkweHiKEEO8cla/GjcBK+ckKxiZslIu3C4GCRW3DNfL0o7yW7kMQu9xlZ1kXRXLXtw==}
