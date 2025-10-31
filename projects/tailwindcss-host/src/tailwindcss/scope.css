@@ -1,26 +1,6 @@
 	@import "tailwindcss/theme.css";
 
 	.tailwindcss-host-contaner {
-
-		@import "tailwindcss/preflight.css";
+		/* @import "tailwindcss/utilities.css" layer(utilities) important; */
 		@import "tailwindcss/utilities.css";
-
-		.card {
-			background-color: var(--color-gray-100);
-			padding: 10px;
-
-			div {
-				color: var(--color-gray-800);
-				font-weight: 600;
-				color: blue;
-			}
-
-			a {
-				color: var(--color-blue-500);
-
-				&:hover {
-					color: var(--color-blue-700);
-				}
-			}
-		}
 	}

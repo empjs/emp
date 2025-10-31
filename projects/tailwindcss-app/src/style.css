@@ -1,6 +1,6 @@
-/* @import "tailwindcss"; */
-@import "tailwindcss/theme.css";
-/* @import "tailwindcss/preflight.css"; */
+@import "tailwindcss";
+/* @import "tailwindcss/theme.css";
+@import "tailwindcss/preflight.css";
 @import "tailwindcss/utilities.css";
 
 @layer base {
@@ -13,4 +13,4 @@
 @theme {
 	--color-background: hsl(var(--background));
 	--color-foreground: hsl(var(--foreground));
-}
+} */

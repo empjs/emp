@@ -12,10 +12,10 @@ export default defineConfig(store => {
         remotes: {
           tailwindcssHost: `tailwindcssHost@http://${store.server.ip}:4401/emp.json`,
         },
-        dts: {
-          consumeTypes: true,
-          generateTypes: false,
-        },
+        // dts: {
+        //   consumeTypes: true,
+        //   generateTypes: false,
+        // },
         empRuntime: {
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,

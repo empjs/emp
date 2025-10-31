@@ -16,9 +16,9 @@ export default defineConfig(store => {
           './TailwindWrap': './src/component/TailwindWrap',
         },
         manifest: true,
-        dts: {
-          generateTypes: true,
-        },
+        // dts: {
+        //   generateTypes: true,
+        // },
         empRuntime: {
           runtime: {
             lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
