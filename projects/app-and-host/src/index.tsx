@@ -10,7 +10,8 @@ rt.init({
   remotes: [],
 })
 // 动态注册
-const remotePort = 3712
+// console.log(window.origin)
+const remotePort = window.origin.includes('3712') ? 3710 : 3712
 rt.register([
   {
     name: `app_host_${remotePort}`, //(*)不能与主项目重名

@@ -1,6 +1,6 @@
 {
   "name": "@empjs/share",
-  "version": "3.11.1",
+  "version": "3.11.2",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",
@@ -128,13 +128,13 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@module-federation/rspack": "0.21.2",
-    "@module-federation/runtime": "0.21.2",
-    "@module-federation/sdk": "0.21.2",
+    "@module-federation/rspack": "0.21.3",
+    "@module-federation/runtime": "0.21.3",
+    "@module-federation/sdk": "0.21.3",
     "core-js": "^3.46.0"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@swc/core": "^1.13.5"
+    "@swc/core": "^1.15.1"
   }
 }

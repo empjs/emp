@@ -36,7 +36,7 @@ export default defineConfig(({watch}): Options[] => {
       platform: 'browser',
       treeshake: true,
       shims: false,
-      sourcemap: !!watch,
+      sourcemap: false,
       clean: true,
       // dts: true,
       globalName: `${shareGlobalName}`,
