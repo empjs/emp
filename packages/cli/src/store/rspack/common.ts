@@ -179,14 +179,38 @@ class RspackCommon {
         'multiple'：为每个入口点生成一个独立的运行时 chunk，适用于多入口应用。
        */
       // runtimeChunk: 'single',
+      // 代码分包优化：提升缓存命中率与首屏加载速度
       splitChunks: {
-        chunks: 'async', // 仅针对异步引入的模块进行优化，确保这些模块在需要时被分离出来，而不是在初始加载时全部打包
-        //   chunks: 'all',
+        // chunks: 'async', // 仅针对异步引入的模块进行优化，确保这些模块在需要时被分离出来，而不是在初始加载时全部打包
+        // 对所有类型的 chunk（同步/异步）都进行分包处理
+        chunks: 'all',
+        // 小于该值的模块不参与分包，避免产生过多的小 chunk
+        minSize: 20000,
+        // 一个模块被至少引用多少次才会参与默认分包
+        minChunks: 1,
+        // 生成 chunk 名称时的分隔符，便于阅读与定位
+        automaticNameDelimiter: '-',
         cacheGroups: {
-          // defaultVendors: {
-          //   filename: 'vendors-[name].js',
-          //   enforce: true,
-          // },
+          // 三方依赖统一打入 vendors，提升长期缓存命中率
+          vendors: {
+            // 匹配 node_modules 下的模块
+            test: /[\\/]node_modules[\\/]/,
+            // 生成的 chunk 名称
+            name: 'vendor',
+            // 分组优先级（数值越大优先级越高）
+            priority: -10,
+            // 复用已存在的 chunk，避免重复打包
+            reuseExistingChunk: true,
+          },
+          // 默认分组：被多次引用的模块会被抽离复用
+          default: {
+            // 至少被引用次数
+            minChunks: 2,
+            // 分组优先级
+            priority: -20,
+            // 复用已存在的 chunk
+            reuseExistingChunk: true,
+          },
         },
       },
     }
