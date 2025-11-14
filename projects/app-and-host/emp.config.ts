@@ -25,6 +25,7 @@ export default defineConfig(store => {
           setExternals: externalReact,
         },
         manifest: true,
+        dts: true,
         // dts: {
         //   generateTypes: {
         //     generateAPITypes: true,
