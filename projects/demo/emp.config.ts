@@ -26,11 +26,31 @@ export default defineConfig(store => {
     // output: {
     //   publicPath: `http://dev-test.yy.com:8000/`,
     // },
-    // chain: config => {
-    //   const swcReactCompiler = require('@swc/react-compiler')
-    //   console.log('swcReactCompiler', swcReactCompiler)
-    //   config.plugin('swc-react-compiler').use(swcReactCompiler, [{}])
-    // },
+    chain: config => {
+      // const swcReactCompiler = require('@swc/react-compiler')
+      // console.log('swcReactCompiler', swcReactCompiler)
+      // config.plugin('swc-react-compiler').use(swcReactCompiler, [{}])
+      config.optimization.splitChunks({
+        cacheGroups: {
+          // 完全自定义的规则
+          react: {
+            test: /node_modules[\\/](react|react-dom)/,
+            name: 'lib-react',
+            priority: 20,
+          },
+          antd: {
+            test: /node_modules[\\/](antd|@ant-design)/,
+            name: 'lib-antd',
+            priority: 15,
+          },
+          common: {
+            test: /node_modules/,
+            name: 'common',
+            priority: 5,
+          },
+        },
+      })
+    },
     plugins: [
       pluginReact(),
       pluginlightningcss({

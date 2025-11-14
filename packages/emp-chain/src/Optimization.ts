@@ -7,25 +7,97 @@ export default class Optimization extends ChainedMap {
   constructor(parent: any) {
     super(parent)
     this.minimizers = new ChainedMap(this)
-    this.extend([
-      'concatenateModules',
-      'flagIncludedChunks',
-      'mergeDuplicateChunks',
-      'minimize',
-      'namedChunks',
-      'namedModules',
-      'nodeEnv',
-      'noEmitOnErrors',
-      'occurrenceOrder',
-      'portableRecords',
-      'providedExports',
-      'removeAvailableModules',
-      'removeEmptyChunks',
-      'runtimeChunk',
-      'sideEffects',
-      'splitChunks',
-      'usedExports',
-    ])
+    // Avoid generating any-typed shorthand methods that override typed ones below
+    this.extend([])
+  }
+
+  // Provide a typed method for optimization.splitChunks
+  splitChunks(
+    value:
+      | false
+      | {
+          chunks?: 'all' | 'async' | 'initial'
+          minSize?: number
+          minChunks?: number
+          automaticNameDelimiter?: string
+          cacheGroups?: Record<string, any>
+          [key: string]: any
+        },
+  ): this {
+    return this.set('splitChunks', value)
+  }
+
+  // Typed setters for common optimization fields
+  concatenateModules(value: boolean): this {
+    return this.set('concatenateModules', value)
+  }
+
+  flagIncludedChunks(value: boolean): this {
+    return this.set('flagIncludedChunks', value)
+  }
+
+  mergeDuplicateChunks(value: boolean): this {
+    return this.set('mergeDuplicateChunks', value)
+  }
+
+  minimize(value: boolean): this {
+    return this.set('minimize', value)
+  }
+
+  namedChunks(value: boolean | string): this {
+    return this.set('namedChunks', value)
+  }
+
+  namedModules(value: boolean | string): this {
+    return this.set('namedModules', value)
+  }
+
+  nodeEnv(value: string | boolean): this {
+    return this.set('nodeEnv', value)
+  }
+
+  noEmitOnErrors(value: boolean): this {
+    return this.set('noEmitOnErrors', value)
+  }
+
+  occurrenceOrder(value: boolean): this {
+    return this.set('occurrenceOrder', value)
+  }
+
+  portableRecords(value: boolean): this {
+    return this.set('portableRecords', value)
+  }
+
+  providedExports(value: boolean): this {
+    return this.set('providedExports', value)
+  }
+
+  removeAvailableModules(value: boolean): this {
+    return this.set('removeAvailableModules', value)
+  }
+
+  removeEmptyChunks(value: boolean): this {
+    return this.set('removeEmptyChunks', value)
+  }
+
+  runtimeChunk(
+    value:
+      | boolean
+      | 'single'
+      | 'multiple'
+      | {
+          name?: string | ((entryPoint: any) => string)
+        },
+  ): this {
+    return this.set('runtimeChunk', value)
+  }
+
+  sideEffects(value: boolean): this {
+    return this.set('sideEffects', value)
+  }
+
+  usedExports(value: boolean | 'global'): this {
+    return this.set('usedExports', value)
   }
 
   minimizer(name: string | any[]): any {

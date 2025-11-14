@@ -22,15 +22,35 @@ export default class Resolve extends ChainedMap {
     this.mainFiles = new ChainedSet(this)
     this.modules = new ChainedSet(this)
     this.plugins = new ChainedMap(this)
-    this.extend([
-      'cachePredicate',
-      'cacheWithContext',
-      'concord',
-      'enforceExtension',
-      'enforceModuleExtension',
-      'symlinks',
-      'unsafeCache',
-    ])
+  }
+
+  // Typed setters to improve resolve option type support
+  cachePredicate(value: (request: string, context?: Record<string, any>) => boolean): this {
+    return this.set('cachePredicate', value)
+  }
+
+  cacheWithContext(value: boolean): this {
+    return this.set('cacheWithContext', value)
+  }
+
+  concord(value: Record<string, unknown>): this {
+    return this.set('concord', value as Record<string, any>)
+  }
+
+  enforceExtension(value: boolean): this {
+    return this.set('enforceExtension', value)
+  }
+
+  enforceModuleExtension(value: boolean): this {
+    return this.set('enforceModuleExtension', value)
+  }
+
+  symlinks(value: boolean): this {
+    return this.set('symlinks', value)
+  }
+
+  unsafeCache(value: boolean | RegExp | ((request: string) => boolean)): this {
+    return this.set('unsafeCache', value)
   }
 
   plugin(name: string): any {

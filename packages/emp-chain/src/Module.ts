@@ -9,7 +9,22 @@ export default class Module extends ChainedMap {
     super(parent)
     this.rules = new ChainedMap(this)
     this.defaultRules = new ChainedMap(this)
-    this.extend(['noParse', 'strictExportPresence'])
+  }
+
+  noParse(
+    value:
+      | RegExp
+      | RegExp[]
+      | ((resource: string) => boolean)
+      | Array<(resource: string) => boolean>
+      | string
+      | Array<string | RegExp>,
+  ): this {
+    return this.set('noParse', value)
+  }
+
+  strictExportPresence(value: boolean): this {
+    return this.set('strictExportPresence', value)
   }
 
   defaultRule(name: string): any {

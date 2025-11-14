@@ -4,13 +4,18 @@ import Orderable from './Orderable'
 
 class UseBase extends ChainedMap {
   name: string
-  options: any
-  loader: any
 
   constructor(parent: any, name: string) {
     super(parent)
     this.name = name
-    this.extend(['loader', 'options'])
+  }
+
+  loader(value: string): this {
+    return this.set('loader', value)
+  }
+
+  options(value: Record<string, any>): this {
+    return this.set('options', value)
   }
 
   tap(f: (options: any) => any): this {
