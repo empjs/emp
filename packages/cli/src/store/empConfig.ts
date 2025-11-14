@@ -126,7 +126,7 @@ export class EmpConfig {
         newTreeshaking: this.store.empConfig.isESM,
         devShowAllLog: false,
         showScriptDebug: false,
-        parallelCodeSplitting: true,
+        // parallelCodeSplitting: true,
         cssChunkingPlugin: true,
         warnRuleAsWarning: true,
       },

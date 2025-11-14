@@ -81,7 +81,7 @@ class RspackCommon {
         // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
         incremental: 'advance-silent',
         // 如果你的项目中包含较多的动态引用，开启后可以显著降低 code splitting 阶段耗时 https://rspack.rs/zh/config/experiments#experimentsparallelcodesplitting
-        parallelCodeSplitting: this.store.empConfig.debug.parallelCodeSplitting,
+        // parallelCodeSplitting: this.store.empConfig.debug.parallelCodeSplitting,
         // 对应的 loader 会被发送到 worker threads 执行 https://rspack.rs/zh/config/experiments#experimentsparallelloader
         parallelLoader: true,
       },
