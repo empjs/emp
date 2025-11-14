@@ -45,7 +45,7 @@ export default defineConfig(store => {
           },
           common: {
             test: /node_modules/,
-            name: 'common',
+            name: 'lib-common',
             priority: 5,
           },
         },
