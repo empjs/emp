@@ -29,11 +29,14 @@ class RspackCommon {
     let defaultCache: ExperimentCacheOptions = {
       type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
       buildDependencies: getBuildDependencies(),
-      version: this.store.empPkg.version,
+      version: this.store.empConfig.server.port
+        ? `${this.store.empPkg.version}_${this.store.empConfig.server.port}`
+        : this.store.empPkg.version,
     }
     if (typeof this.store.empConfig.cache === 'object') {
       defaultCache = this.store.deepAssign(defaultCache, this.store.empConfig.cache)
     }
+    // console.log('defaultCache', defaultCache)
     return defaultCache
   }
   /**
