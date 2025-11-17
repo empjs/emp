@@ -2,7 +2,7 @@
   // 标记为嵌套配置，不是根配置
   "root": false,
   // 引用 Biome 配置的 JSON Schema，提供代码提示和验证
-  "$schema": "https://biomejs.dev/schemas/2.3.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
   // 文件处理配置
   "files": {
     // 忽略未知文件类型的错误

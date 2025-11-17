@@ -1,6 +1,6 @@
-	@import "tailwindcss/theme.css";
+@import "tailwindcss/theme.css";
 
-	.tailwindcss-host-contaner {
-		/* @import "tailwindcss/utilities.css" layer(utilities) important; */
-		@import "tailwindcss/utilities.css";
-	}
+.tailwindcss-host-contaner {
+	/* @import "tailwindcss/utilities.css" layer(utilities) important; */
+	@import "tailwindcss/utilities.css";
+}

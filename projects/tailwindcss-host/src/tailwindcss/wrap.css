@@ -1,6 +1,6 @@
 @import "tailwindcss/theme.css";
 
 @scope (.tailwindcss-host-contaner) {
-    /* @import "tailwindcss/preflight.css"; */
-    @import "tailwindcss/utilities.css" layer(utilities) important;
+	/* @import "tailwindcss/preflight.css"; */
+	@import "tailwindcss/utilities.css" layer(utilities) important;
 }

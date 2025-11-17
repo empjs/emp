@@ -1,6 +1,6 @@
 import type {GlobalStore} from '@empjs/cli'
 import path from 'path'
-import { TailwindcssOptions } from './types.js'
+import {TailwindcssOptions} from './types.js'
 export default (tailwindcssOptions: TailwindcssOptions = {}) => {
   return {
     name: '@empjs/plugin-tailwindcss',
@@ -49,13 +49,13 @@ export default (tailwindcssOptions: TailwindcssOptions = {}) => {
         postcssPlugins.push([
           'postcss-pxtorem',
           {
-            rootValue: 100, 
-            unitPrecision: 3, 
-            propList: ['*'], 
-            selectorBlackList: [], 
-            replace: true, 
-            mediaQuery: true, 
-            minPixelValue: 0, 
+            rootValue: 100,
+            unitPrecision: 3,
+            propList: ['*'],
+            selectorBlackList: [],
+            replace: true,
+            mediaQuery: true,
+            minPixelValue: 0,
             ...tailwindcssOptions.pxToRemOptions,
           },
         ])
