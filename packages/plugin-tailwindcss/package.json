@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-tailwindcss",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "base tailwind 4",
   "license": "MIT",
   "type": "module",
@@ -51,6 +51,7 @@
     "@empjs/cli": "workspace:*"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.21",
     "@tailwindcss/postcss": "4.1.13",
     "postcss": "8.5.6",
     "postcss-loader": "8.2.0",
