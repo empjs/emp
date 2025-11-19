@@ -9,3 +9,8 @@
 		@tailwind utilities;
 	}
 }
+
+/* @import "tailwindcss/theme.css";
+.tailwindcss-host-contaner {
+	@import "tailwindcss/utilities.css";
+} */
