@@ -1,6 +1,11 @@
-@import "tailwindcss/theme.css";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* 为避免污染全局，暂时关闭 Preflight 重置 */
+/* @import "tailwindcss/preflight.css" layer(base); */
 
-.tailwindcss-host-contaner {
-	/* @import "tailwindcss/utilities.css" layer(utilities) important; */
-	@import "tailwindcss/utilities.css";
+/* 仅在容器内生成并应用 Tailwind 实用类 */
+@layer utilities {
+	.tailwindcss-host-contaner {
+		@tailwind utilities;
+	}
 }

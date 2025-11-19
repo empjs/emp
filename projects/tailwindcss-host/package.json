@@ -21,8 +21,5 @@
     "@empjs/share": "workspace:*",
     "@types/react": "^19",
     "@types/react-dom": "^19"
-  },
-  "dependencies": {
-    "tailwindcss": "^4.1.16"
   }
 }

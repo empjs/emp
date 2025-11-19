@@ -51,13 +51,13 @@
     "@empjs/cli": "workspace:*"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.21",
-    "@tailwindcss/postcss": "4.1.13",
+    "autoprefixer": "10.4.22",
+    "@tailwindcss/postcss": "4.1.17",
     "postcss": "8.5.6",
     "postcss-loader": "8.2.0",
     "postcss-preset-env": "10.4.0",
-    "tailwindcss": "4.1.13",
-    "postcss-import": "^16.1.0",
+    "tailwindcss": "4.1.17",
+    "postcss-import": "^16.1.1",
     "postcss-pxtorem": "^6.1.0"
   }
 }

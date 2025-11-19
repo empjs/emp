@@ -2,7 +2,11 @@ import type {GlobalStore} from '@empjs/cli'
 import autoprefixer from 'autoprefixer'
 import path from 'path'
 import {TailwindcssOptions} from './types.js'
-export default (tailwindcssOptions: TailwindcssOptions = {}, autoprefixerOptions?: autoprefixer.Options, presetEnvFeature?: Record<string, boolean>) => {
+export default (
+  tailwindcssOptions: TailwindcssOptions = {},
+  autoprefixerOptions?: autoprefixer.Options,
+  presetEnvFeature?: Record<string, boolean>,
+) => {
   return {
     name: '@empjs/plugin-tailwindcss',
     async rsConfig(store: GlobalStore) {
@@ -16,23 +20,17 @@ export default (tailwindcssOptions: TailwindcssOptions = {}, autoprefixerOptions
         // postcss-import 插件必须第一个加载，支持别名解析
         require('postcss-import')({
           resolve: (id: string) => {
-            // console.log('postcss-import resolve:', id, 'installDir:', installDir)
-            // 处理 tailwindcss 导入
+            // 处理 tailwindcss 顶层与子路径导入
             if (id === 'tailwindcss') {
-              // console.log('Resolving tailwindcss to:', tailwindcssEntry)
               return tailwindcssEntry
-            } else if (id.startsWith('tailwindcss/')) {
-              const resolvedPath = path.join(installDir, id.replace('tailwindcss/', ''))
-              // console.log('Resolving tailwindcss subpath to:', resolvedPath)
-              return resolvedPath
             }
-            // if (id.startsWith('src/')) {
-            //   return path.join(store.appSrc, id.replace('src/', ''))
-            // }
+            if (id.startsWith('tailwindcss/')) {
+              return path.join(installDir, id.replace('tailwindcss/', ''))
+            }
             return id
           },
         }),
-        ['@tailwindcss/postcss', {}],
+        [require.resolve('@tailwindcss/postcss'), {}],
       ]
       if (store.empConfig.build.polyfill.browserslist && store.empConfig.build.polyfill.browserslist.length > 0) {
         postcssPlugins.push([
@@ -72,8 +70,9 @@ export default (tailwindcssOptions: TailwindcssOptions = {}, autoprefixerOptions
             plugins: postcssPlugins,
           },
         })
-      chain.resolve.alias.set('tailwindcss$', tailwindcssEntry)
-      chain.resolve.alias.set('tailwindcss', installDir)
+      // 交由 @tailwindcss/postcss 解析 CSS 导入，不在打包层设置 alias
+      // chain.resolve.alias.set('tailwindcss$', tailwindcssEntry)
+      // chain.resolve.alias.set('tailwindcss', installDir)
     },
   }
 }
