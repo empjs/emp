@@ -1,2 +1,2 @@
-// import 'src/style/global.css'
+import 'src/tailwindcss/global.css'
 import('./bootstrap')
