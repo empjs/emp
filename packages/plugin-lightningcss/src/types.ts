@@ -42,4 +42,9 @@ export type PluginLightningcssOptions = {
    * })
    */
   implementation?: Implementation
+  /**
+   * enable postcss config
+   * @default false
+   */
+  enablePostcss?: boolean
 }

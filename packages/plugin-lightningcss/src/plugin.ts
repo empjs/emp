@@ -7,6 +7,7 @@ import type {PluginLightningcssOptions} from './types.js'
 const uselightningcssLoader = async (store: GlobalStore, o: PluginLightningcssOptions = {}) => {
   if (!o.transform) return
   o.transform = typeof o.transform !== 'boolean' ? o.transform : {}
+  o.enablePostcss = o.enablePostcss !== undefined ? o.enablePostcss : false
   const {chain} = store
   const ruleMap = ['sass', 'less', 'css']
   //
@@ -23,8 +24,12 @@ const uselightningcssLoader = async (store: GlobalStore, o: PluginLightningcssOp
     if (['sass', 'less'].includes(ruleName)) {
       useLightningcss.before(`${ruleName}Loader`)
     }
-    // 删除后引起重排
-    rule.uses.delete('postcss')
+    /**
+     * 启用tailwindcss 时、要保留postcss 插件
+     */
+    if (o.enablePostcss === false) {
+      rule.uses.delete('postcss')
+    }
   }
 }
 const uselightningcssMinify = async (store: GlobalStore, o: PluginLightningcssOptions = {}) => {
