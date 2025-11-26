@@ -61,6 +61,7 @@ export class RspackCss {
       options: {
         lessOptions: {
           javascriptEnabled: true,
+          math: 'always',
         },
       },
     }
