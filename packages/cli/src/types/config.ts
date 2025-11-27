@@ -245,6 +245,31 @@ export type CssSassOptionsType = {
   mode?: 'default' | 'modern' | 'legacy'
   implementation?: object | string
 }
+/**
+ * Less 配置项
+ *
+ * 将 less-loader 的常用选项暴露到 empConfig.css.less，并提供 TS 提示。
+ */
+export type CssLessOptionsType = {
+  /**
+   * 传递给 less-loader 的 lessOptions。
+   *
+   * - `javascriptEnabled`: 允许在 Less 中使用 JS 表达式与函数。
+   *   许多第三方 UI 库（如 Ant Design）在主题构建或函数型变量计算中需要开启。
+   *   若关闭，可能导致变量计算/函数调用失败（构建报错或样式异常）。
+   *   默认值：`true`。
+   *
+   * - `math`: 控制数学表达式解析策略（Less v4）。
+   *   - `'always'`: 始终解析数学表达式（兼容旧 Less 裸除法写法，升级更平滑）。
+   *   - `'parens-division'`: 仅在括号内解析除法，更安全的中间策略。
+   *   - `'strict'`: 更严格的解析方式，需显式括号。
+   *   默认值：`'always'`，用于提升对旧代码及部分生态的兼容性。
+   */
+  lessOptions?: {
+    javascriptEnabled?: boolean
+    math?: 'always' | 'parens-division' | 'strict'
+  }
+}
 export type ExternalsItemType = {
   /**
    * 模块名
@@ -329,6 +354,15 @@ export type EmpOptions = {
       warnRuleAsWarning?: boolean
       additionalData?: string
     }
+    /**
+     * Less 配置
+     *
+     * 默认：`{ lessOptions: { javascriptEnabled: true, math: 'always' } }`
+     * 如项目严格遵循 Less v4 新语法且不依赖 JS 表达式，可考虑：
+     * - 将 `math` 调整为 `'parens-division'` 或 `'strict'`；
+     * - 将 `javascriptEnabled` 设为 `false`。
+     */
+    less?: CssLessOptionsType
     prifixName?: string
   }
   /**

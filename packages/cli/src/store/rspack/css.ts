@@ -56,13 +56,11 @@ export class RspackCss {
   }
   async less() {
     const {rule, use} = this.store.chainName
+    const {lessOptions} = this.store.empConfig.css.less
     const lessLoader = {
       loader: require.resolve('less-loader'),
       options: {
-        lessOptions: {
-          javascriptEnabled: true,
-          math: 'always',
-        },
+        lessOptions,
       },
     }
     this.store.chain.merge({

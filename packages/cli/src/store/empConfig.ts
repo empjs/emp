@@ -241,7 +241,12 @@ export class EmpConfig {
   }
   get css() {
     const cb: Required<EmpOptions['css']> = this.assign(
-      {sass: {mode: 'modern', warnRuleAsWarning: this.store.empConfig.debug.warnRuleAsWarning}, prifixName: ''},
+      {
+        sass: {mode: 'modern', warnRuleAsWarning: this.store.empConfig.debug.warnRuleAsWarning},
+        // 默认开启 Less 的兼容选项，便于适配常见 UI 生态与旧 Less 写法
+        less: {lessOptions: {javascriptEnabled: true, math: 'always'}},
+        prifixName: '',
+      },
       this.store.empOptions.css,
     )
     return cb
