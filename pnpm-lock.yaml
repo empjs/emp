@@ -103,14 +103,14 @@ importers:
   packages/cdn-react-19:
     dependencies:
       react:
-        specifier: 19.1.1
-        version: 19.1.1
+        specifier: 19.2.0
+        version: 19.2.0
       react-dom:
-        specifier: 19.1.1
-        version: 19.1.1(react@19.1.1)
+        specifier: 19.2.0
+        version: 19.2.0(react@19.2.0)
       react-router-dom:
         specifier: ^6.25.1
-        version: 6.30.1(react-dom@19.1.1)(react@19.1.1)
+        version: 6.30.1(react-dom@19.2.0)(react@19.2.0)
     devDependencies:
       '@swc/core':
         specifier: ^1.10.4
@@ -125,8 +125,8 @@ importers:
   packages/cdn-react-19-tanstack-router:
     dependencies:
       '@tanstack/react-router':
-        specifier: ^1.131.47
-        version: 1.133.3(react-dom@19.2.0)(react@19.2.0)
+        specifier: ^1.139.7
+        version: 1.139.7(react-dom@19.2.0)(react@19.2.0)
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -7169,6 +7169,11 @@ packages:
     resolution: {integrity: sha512-zFQnGdX0S4g5xRuS+95iiEXM+qlGvYG7ksmOKx7LaMv60lDWa0imR8/24WwXXvBWJT1KnwVdZcjvhCwz9IiJCw==}
     engines: {node: '>=12'}
 
+  /@tanstack/history@1.139.0:
+    resolution: {integrity: sha512-l6wcxwDBeh/7Dhles23U1O8lp9kNJmAb2yNjekR6olZwCRNAVA8TCXlVCrueELyFlYZqvQkh0ofxnzG62A1Kkg==}
+    engines: {node: '>=12'}
+    dev: false
+
   /@tanstack/react-router-devtools@1.133.3(@tanstack/react-router@1.133.3)(@tanstack/router-core@1.133.3)(@types/node@24.9.2)(csstype@3.1.3)(react-dom@18.3.1)(react@18.3.1)(solid-js@1.9.9)(tiny-invariant@1.3.3):
     resolution: {integrity: sha512-lThQySAuTnCX+a3+nljVaIeeT9WHk+1o9YDGhxrOv03ENXWRSruSZ0r0fKquruag/WyTCUqjnYL0PH7uHJz62Q==}
     engines: {node: '>=12'}
@@ -7216,16 +7221,16 @@ packages:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  /@tanstack/react-router@1.133.3(react-dom@19.2.0)(react@19.2.0):
-    resolution: {integrity: sha512-m83U/KbCtcFhjeF0+TFt7L3h4aKoq9e4ikfGwEIoNZn3JyKv9LoUEz0ofXbIswCY034xpnMWW0WHqPvpodOPvQ==}
+  /@tanstack/react-router@1.139.7(react-dom@19.2.0)(react@19.2.0):
+    resolution: {integrity: sha512-5vhwIAwoxWl7oeIZRNgk5wh9TCkaAinK9qbfdKuKzwGtMHqnv1bRrfKwam3/MaMwHCmvnNfnFj0RYfnBA/ilEg==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
     dependencies:
-      '@tanstack/history': 1.133.3
-      '@tanstack/react-store': 0.7.5(react-dom@19.2.0)(react@19.2.0)
-      '@tanstack/router-core': 1.133.3
+      '@tanstack/history': 1.139.0
+      '@tanstack/react-store': 0.8.0(react-dom@19.2.0)(react@19.2.0)
+      '@tanstack/router-core': 1.139.7
       isbot: 5.1.30
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -7244,16 +7249,16 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
       use-sync-external-store: 1.5.0(react@18.3.1)
 
-  /@tanstack/react-store@0.7.5(react-dom@19.2.0)(react@19.2.0):
-    resolution: {integrity: sha512-A+WZtEnHZpvbKXm8qR+xndNKywBLez2KKKKEQc7w0Qs45GvY1LpRI3BTZNmELwEVim8+Apf99iEDH2J+MUIzlQ==}
+  /@tanstack/react-store@0.8.0(react-dom@19.2.0)(react@19.2.0):
+    resolution: {integrity: sha512-1vG9beLIuB7q69skxK9r5xiLN3ztzIPfSQSs0GfeqWGO2tGIyInZx0x1COhpx97RKaONSoAb8C3dxacWksm1ow==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
-      '@tanstack/store': 0.7.5
+      '@tanstack/store': 0.8.0
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
-      use-sync-external-store: 1.5.0(react@19.2.0)
+      use-sync-external-store: 1.6.0(react@19.2.0)
     dev: false
 
   /@tanstack/router-core@1.133.3:
@@ -7267,6 +7272,19 @@ packages:
       seroval-plugins: 1.3.3(seroval@1.3.2)
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
+
+  /@tanstack/router-core@1.139.7:
+    resolution: {integrity: sha512-mqgsJi4/B2Jo6PXRUs1AsWA+06nqiqVZe1aXioA3vR6PesNeKUSXWfmIoYF6wOx3osiV0BnwB1JCBrInCOQSWA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@tanstack/history': 1.139.0
+      '@tanstack/store': 0.8.0
+      cookie-es: 2.0.0
+      seroval: 1.4.0
+      seroval-plugins: 1.4.0(seroval@1.4.0)
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+    dev: false
 
   /@tanstack/router-devtools-core@1.133.3(@tanstack/router-core@1.133.3)(@types/node@24.9.2)(csstype@3.1.3)(solid-js@1.9.9)(tiny-invariant@1.3.3):
     resolution: {integrity: sha512-QmUZu/Dof1ek1XIpZ1ryLljpP8Ox0NV7ctkwuJUxpfdn75v+y9SHXGXLwxkTB2l7chKKqskYVmVv7VZVXBzKTQ==}
@@ -7376,6 +7394,10 @@ packages:
 
   /@tanstack/store@0.7.5:
     resolution: {integrity: sha512-qd/OjkjaFRKqKU4Yjipaen/EOB9MyEg6Wr9fW103RBPACf1ZcKhbhcu2S5mj5IgdPib6xFIgCUti/mKVkl+fRw==}
+
+  /@tanstack/store@0.8.0:
+    resolution: {integrity: sha512-Om+BO0YfMZe//X2z0uLF2j+75nQga6TpTJgLJQBiq85aOyZNIhkCgleNcud2KQg4k4v9Y9l+Uhru3qWMPGTOzQ==}
+    dev: false
 
   /@tanstack/virtual-file-routes@1.133.3:
     resolution: {integrity: sha512-6d2AP9hAjEi8mcIew2RkxBX+wClH1xedhfaYhs8fUiX+V2Cedk7RBD9E9ww2z6BGUYD8Es4fS0OIrzXZWHKGhw==}
@@ -18252,15 +18274,6 @@ packages:
       react: 18.3.1
       scheduler: 0.23.2
 
-  /react-dom@19.1.1(react@19.1.1):
-    resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
-    peerDependencies:
-      react: ^19.1.1
-    dependencies:
-      react: 19.1.1
-      scheduler: 0.26.0
-    dev: false
-
   /react-dom@19.2.0(react@19.2.0):
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
@@ -18345,7 +18358,7 @@ packages:
       react-router: 6.30.1(react@18.3.1)
     dev: false
 
-  /react-router-dom@6.30.1(react-dom@19.1.1)(react@19.1.1):
+  /react-router-dom@6.30.1(react-dom@19.2.0)(react@19.2.0):
     resolution: {integrity: sha512-llKsgOkZdbPU1Eg3zK8lCn+sjD9wMRZZPuzmdWWX5SUs8OFkN5HnFVC0u5KMeMaC9aoancFI/KoLuKPqN+hxHw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -18353,9 +18366,9 @@ packages:
       react-dom: '>=16.8'
     dependencies:
       '@remix-run/router': 1.23.0
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      react-router: 6.30.1(react@19.1.1)
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      react-router: 6.30.1(react@19.2.0)
     dev: false
 
   /react-router@6.30.1(react@17.0.2):
@@ -18378,14 +18391,14 @@ packages:
       react: 18.3.1
     dev: false
 
-  /react-router@6.30.1(react@19.1.1):
+  /react-router@6.30.1(react@19.2.0):
     resolution: {integrity: sha512-X1m21aEmxGXqENEPG3T6u0Th7g0aS4ZmoNynhbs+Cn+q+QGTLt+d5IQ2bHAXKzKcxGJjxACpVbnYQSCRcfxHlQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
       '@remix-run/router': 1.23.0
-      react: 19.1.1
+      react: 19.2.0
     dev: false
 
   /react-syntax-highlighter@15.6.6(react@18.3.1):
@@ -18424,11 +18437,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-
-  /react@19.1.1:
-    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /react@19.2.0:
     resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
@@ -19311,10 +19319,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
-    dev: false
-
   /scheduler@0.27.0:
     resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
     dev: false
@@ -19476,9 +19480,23 @@ packages:
     dependencies:
       seroval: 1.3.2
 
+  /seroval-plugins@1.4.0(seroval@1.4.0):
+    resolution: {integrity: sha512-zir1aWzoiax6pbBVjoYVd0O1QQXgIL3eVGBMsBsNmM8Ukq90yGaWlfx0AB9dTS8GPqrOrbXn79vmItCUP9U3BQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      seroval: ^1.0
+    dependencies:
+      seroval: 1.4.0
+    dev: false
+
   /seroval@1.3.2:
     resolution: {integrity: sha512-RbcPH1n5cfwKrru7v7+zrZvjLurgHhGyso3HTyGtRivGWgYjbOmGuivCQaORNELjNONoK35nj28EoWul9sb1zQ==}
     engines: {node: '>=10'}
+
+  /seroval@1.4.0:
+    resolution: {integrity: sha512-BdrNXdzlofomLTiRnwJTSEAaGKyHHZkbMXIywOh7zlzp4uZnXErEwl9XZ+N1hJSNpeTtNxWvVwN0wUzAIQ4Hpg==}
+    engines: {node: '>=10'}
+    dev: false
 
   /serve-handler@6.1.6:
     resolution: {integrity: sha512-x5RL9Y2p5+Sh3D38Fh9i/iQ5ZK+e4xuXRd/pGbM4D13tgo/MGwbttUk8emytcr1YYzBYs+apnUngBDFYfpjPuQ==}
@@ -21230,8 +21248,8 @@ packages:
     dependencies:
       react: 18.3.1
 
-  /use-sync-external-store@1.5.0(react@19.2.0):
-    resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
+  /use-sync-external-store@1.6.0(react@19.2.0):
+    resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:

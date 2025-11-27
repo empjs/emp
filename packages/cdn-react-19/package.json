@@ -28,8 +28,8 @@
   },
   "author": "Ken",
   "dependencies": {
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-router-dom": "^6.25.1"
   },
   "devDependencies": {

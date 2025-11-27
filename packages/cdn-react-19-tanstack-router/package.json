@@ -28,7 +28,7 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@tanstack/react-router": "^1.131.47",
+    "@tanstack/react-router": "^1.139.7",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
