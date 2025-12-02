@@ -3,7 +3,7 @@ import autoprefixer from 'autoprefixer'
 import path from 'path'
 import {TailwindcssOptions} from './types.js'
 export default (
-  tailwindcssOptions: TailwindcssOptions = {},
+  tailwindcssOptions?: TailwindcssOptions,
   autoprefixerOptions?: autoprefixer.Options,
   presetEnvFeature?: Record<string, boolean>,
 ) => {
@@ -42,7 +42,7 @@ export default (
           },
         ])
       }
-      if (tailwindcssOptions.pxToRemOptions) {
+      if (tailwindcssOptions?.pxToRemOptions) {
         postcssPlugins.push([
           'postcss-pxtorem',
           {
