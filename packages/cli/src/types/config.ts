@@ -116,6 +116,11 @@ export type PolyfillType = {
    */
   browserslist?: string[]
 }
+export type SourceMapType = {
+  js: RsConfig['devtool'] | false
+  css: boolean
+  devToolPluginOptions?: SourceMapDevToolPluginOptions
+}
 //
 export type BuildType = {
   /**
@@ -152,10 +157,11 @@ export type BuildType = {
    * 是否生成 source map
    * @default true
    */
-  sourcemap?: boolean | SourceMapDevToolPluginOptions
+  sourcemap?: boolean | SourceMapType
   /**
    * sourcemap 类型
    * 默认 source-map
+   * @deprecated 请使用 build.sourcemap.js 设置
    */
   devtool?: RsConfig['devtool']
   /**

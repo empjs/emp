@@ -91,7 +91,7 @@ export default defineConfig(store => {
       config.module
         .rule('sass')
         .use('sassLoader')
-        .tap(options => {
+        .tap((options: any) => {
           return {
             ...options,
             // additionalData: `@import '~@/css/mixin';`,

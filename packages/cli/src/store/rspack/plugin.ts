@@ -17,7 +17,7 @@ class RspackPlugin {
       ///////////////////////
       this.minify(),
       this.redoctor(),
-      // this.sourceMapDevToolPlugin(),
+      this.sourceMapDevToolPlugin(),
       this.tsCheckerRspackPlugin(),
       this.cssChunkingPlugin(),
     ]
@@ -131,12 +131,14 @@ class RspackPlugin {
     this.store.chain.plugin(this.store.chainName.plugin.rsdoctor).use(RsdoctorRspackPlugin, [op])
   }
   sourceMapDevToolPlugin() {
-    if (!this.store.empConfig.build.sourcemap) return
-    let op: SourceMapDevToolPluginOptions = {}
-    if (typeof this.store.empConfig.build.sourcemap === 'object') {
-      op = this.store.empConfig.build.sourcemap
+    if (
+      typeof this.store.empConfig.build.sourcemap === 'object' &&
+      this.store.empConfig.build.sourcemap?.devToolPluginOptions
+    ) {
+      this.store.chain
+        .plugin(this.store.chainName.plugin.sourceMapDevTool)
+        .use(rspack.SourceMapDevToolPlugin, [this.store.empConfig.build.sourcemap.devToolPluginOptions])
     }
-    this.store.chain.plugin(this.store.chainName.plugin.sourceMapDevTool).use(rspack.SourceMapDevToolPlugin, [op])
   }
   circularDependency() {
     this.store.chain.plugin('circularDependency').use(rspack.CircularDependencyRspackPlugin, [{}])

@@ -19,7 +19,7 @@ export class RspackCss {
        * https://github.com/webpack-contrib/sass-loader?tab=readme-ov-file#api
        */
       options.api = `modern-compiler`
-      options.sourceMap = this.store.empConfig.build.sourcemap
+      options.sourceMap = this.store.empConfig.build.sourcemap.css
       if (sass.sassOptions) options.sassOptions = sass.sassOptions
     }
     // prepend the entry's content

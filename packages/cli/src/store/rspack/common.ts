@@ -99,7 +99,7 @@ class RspackCommon {
       mode: this.store.mode,
       cache: !!this.store.empConfig.cache,
       // devtool: this.store.empConfig.build.sourcemap ? 'source-map' : false, //Recommended
-      devtool: this.store.empConfig.build.sourcemap ? this.store.empConfig.build.devtool : false, //Recommended
+      devtool: this.store.empConfig.build.sourcemap.js, //Recommended
       // devtool: false,
       //       builtins: {
       //         /**

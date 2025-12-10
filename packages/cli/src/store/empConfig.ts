@@ -13,6 +13,7 @@ import type {
   RsdoctorRspackPluginOptions,
   RsTarget,
   ServerType,
+  SourceMapType,
 } from 'src/types/config'
 // 重构server
 export class EmpConfig {
@@ -135,7 +136,17 @@ export class EmpConfig {
   }
   get build() {
     const staticDir = this.store.empOptions.build?.staticDir ? `${this.store.empOptions.build?.staticDir}/` : ''
-    return this.assign<Required<BuildType>>(
+    //
+    const sourcemap: SourceMapType = {js: this.store.isDev ? 'cheap-module-source-map' : 'source-map', css: false}
+    if (this.store.empOptions.build?.sourcemap === true) {
+      sourcemap.css = true
+      sourcemap.js = this.store.isDev ? 'cheap-module-source-map' : 'source-map'
+    }
+    if (this.store.empOptions.build?.devtool) {
+      sourcemap.js = this.store.empOptions.build?.devtool
+    }
+    //
+    return this.assign<Required<BuildType> & {sourcemap: SourceMapType}>(
       {
         outDir: 'dist',
         staticDir,
@@ -143,7 +154,7 @@ export class EmpConfig {
         publicDir: 'public',
         chunkIds: this.store.isDev ? 'named' : 'deterministic',
         moduleIds: this.store.isDev ? 'named' : 'deterministic',
-        sourcemap: this.store.isDev,
+        sourcemap,
         minify: !this.store.isDev,
         minOptions: {},
         cssminOptions: {},
@@ -160,7 +171,6 @@ export class EmpConfig {
         },
         swcConfig: {},
         devtool: this.store.isDev ? 'cheap-module-source-map' : 'source-map',
-        // devtool: 'source-map',
       },
       {...this.store.empOptions.build, staticDir},
     )
