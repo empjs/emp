@@ -69,7 +69,7 @@ export default defineConfig(store => {
         js: store.isDev ? 'cheap-module-source-map' : 'source-map',
         css: true,
         /* devToolPluginOptions: {
-          append: '\n//# sourceMappingURL=http://frontmon-sysop.bigoweb-test.bigo.inner/map/fed-activity/[url]',
+          append: '\n//# sourceMappingURL=http://sourcemap.example.com/map/fed-activity/[url]',
           filename: '[file].map[query]',
         }, */
       },
