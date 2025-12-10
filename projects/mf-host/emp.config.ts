@@ -32,9 +32,9 @@ export default defineConfig(store => {
           './Section': './src/component/Section',
         },
         manifest: true,
-        dts: {
-          generateTypes: true,
-        },
+        // dts: {
+        //   generateTypes: true,
+        // },
         // dev: {
         //   disableHotTypesReload: false,
         //   disableDynamicRemoteTypeHints: false,
@@ -47,8 +47,8 @@ export default defineConfig(store => {
             libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            // lib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
-            lib: `http://${ip}:2100/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.11.3/output/sdk.js`,
+            // lib: `http://${ip}:2100/sdk.js`,
           },
           setExternals: externalReact,
         },
@@ -65,7 +65,14 @@ export default defineConfig(store => {
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
         browserslist: store.browserslistOptions.h5,
       },
-      sourcemap: true,
+      sourcemap: {
+        js: store.isDev ? 'cheap-module-source-map' : 'source-map',
+        css: true,
+        /* devToolPluginOptions: {
+          append: '\n//# sourceMappingURL=http://frontmon-sysop.bigoweb-test.bigo.inner/map/fed-activity/[url]',
+          filename: '[file].map[query]',
+        }, */
+      },
     },
     html: {
       template: 'src/index.html',
