@@ -4,8 +4,7 @@ import path from 'path'
 function getLibConfig(env: 'development' | 'production'): LibConfig {
   const isProd = env === 'production'
   const nodeModulesPath = path.resolve(__dirname, 'node_modules')
-  const ext = isProd ? `.min` : ``
-  //
+  const ext = isProd ? `.min` : ''
   return {
     format: 'umd',
     umdName: 'EMP_ADAPTER_VUE_v2',
