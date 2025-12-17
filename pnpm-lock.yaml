@@ -141,6 +141,25 @@ importers:
         specifier: 19.2.1
         version: 19.2.1(@types/react@19.2.1)
 
+  packages/cdn-react-bg-19:
+    dependencies:
+      '@tanstack/react-router':
+        specifier: ^1.139.7
+        version: 1.140.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react:
+        specifier: 19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: 19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@types/react':
+        specifier: 19.2.1
+        version: 19.2.1
+      '@types/react-dom':
+        specifier: 19.2.1
+        version: 19.2.1(@types/react@19.2.1)
+
   packages/cdn-vue-2:
     dependencies:
       vue:
