@@ -1,123 +1,123 @@
 :root {
-    --primary-color: #646cff;
-    --primary-hover: #535bf2;
-    --bg-color: #f0f2f5;
-    --card-bg: #ffffff;
-    --text-color: #213547;
-    --text-secondary: #666;
-    --border-radius: 8px;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--primary-color: #646cff;
+	--primary-hover: #535bf2;
+	--bg-color: #f0f2f5;
+	--card-bg: #ffffff;
+	--text-color: #213547;
+	--text-secondary: #666;
+	--border-radius: 8px;
+	--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 body {
-    margin: 0;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
+	margin: 0;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	min-height: 100vh;
 }
 
 #emp-root {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
 }
 
 /* Navigation */
 nav {
-    background: var(--card-bg);
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 2rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+	background: var(--card-bg);
+	padding: 1rem;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	margin-bottom: 2rem;
+	display: flex;
+	gap: 1rem;
+	align-items: center;
 }
 
 nav a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    transition: all 0.2s;
+	text-decoration: none;
+	color: var(--text-color);
+	font-weight: 500;
+	padding: 0.5rem 1rem;
+	border-radius: var(--border-radius);
+	transition: all 0.2s;
 }
 
 nav a:hover {
-    background-color: #f3f4f6;
+	background-color: #f3f4f6;
 }
 
 nav a.active {
-    background-color: var(--primary-color);
-    color: white;
+	background-color: var(--primary-color);
+	color: white;
 }
 
 /* Content Area */
 main {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    min-height: 400px;
+	background: var(--card-bg);
+	padding: 2rem;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	min-height: 400px;
 }
 
 h1 {
-    margin-top: 0;
-    color: var(--primary-color);
+	margin-top: 0;
+	color: var(--primary-color);
 }
 
 button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: var(--primary-color);
-    cursor: pointer;
-    transition: border-color 0.25s;
-    color: white;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: var(--primary-color);
+	cursor: pointer;
+	transition: border-color 0.25s;
+	color: white;
 }
 
 button:hover {
-    background-color: var(--primary-hover);
+	background-color: var(--primary-hover);
 }
 
 .card {
-    border: 1px solid #e5e7eb;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    margin-top: 1rem;
+	border: 1px solid #e5e7eb;
+	padding: 1.5rem;
+	border-radius: var(--border-radius);
+	margin-top: 1rem;
 }
 
 .code-block {
-    background: #1a1a1a;
-    color: #fff;
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    font-family: monospace;
-    margin: 1rem 0;
-    overflow-x: auto;
+	background: #1a1a1a;
+	color: #fff;
+	padding: 1rem;
+	border-radius: var(--border-radius);
+	font-family: monospace;
+	margin: 1rem 0;
+	overflow-x: auto;
 }
 
 .user-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 1rem;
 }
 
 .user-card {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    text-align: center;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s;
+	padding: 1rem;
+	border: 1px solid #ddd;
+	border-radius: var(--border-radius);
+	text-align: center;
+	text-decoration: none;
+	color: inherit;
+	transition: transform 0.2s;
 }
 
 .user-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow);
 }

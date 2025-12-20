@@ -8,6 +8,7 @@
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
+    "lint": "biome check . --fix",
     "emp": "emp"
   },
   "keywords": [],

@@ -1,18 +1,11 @@
 {
-  "name": "@empjs/cdn-react-w",
+  "name": "@empjs/cdn-react-wouter",
   "version": "0.0.1",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "maintainers": [
-    "xuhongbin",
-    "ckken",
-    "doerme",
-    "ron0115"
-  ],
+  "files": ["dist"],
+  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
