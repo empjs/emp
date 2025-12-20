@@ -1,10 +1,11 @@
 import type {GlobalStore} from '@empjs/cli'
 import {EmpShare} from './share'
 import type {EMPPluginShareType} from './types'
-
+export type {EMPPluginShareType}
 //
 export * from 'src/framework/react/config'
 export * from 'src/framework/vue/config'
+export * from './types'
 //
 export const pluginRspackEmpShare = (o: EMPPluginShareType = {}) => {
   return {
