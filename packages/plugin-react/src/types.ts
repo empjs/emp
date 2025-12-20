@@ -22,6 +22,12 @@ export type PluginReactType = {
    * @default 18
    */
   version?: number
+  import?: {
+    src: string
+    externals?: {
+      [key: string]: string
+    }
+  }
 }
 /**
  * React Refresh 插件配置选项

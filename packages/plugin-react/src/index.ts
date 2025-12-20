@@ -23,6 +23,21 @@ export default (o: PluginReactType = {}) => {
       } else if (store.pkg.dependencies.react || store.pkg.devDependencies.react) {
         reactVersion = store.pkg.dependencies.react || store.pkg.devDependencies.react
       }
+      if (o.import) {
+        store.injectTags([
+          {
+            attributes: {
+              src: o.import.src,
+            },
+            tagName: 'script',
+          },
+        ])
+        if (o.import.externals) {
+          chain.merge({
+            externals: o.import.externals,
+          })
+        }
+      }
       //
       function getReactRuntime() {
         if (!reactVersion) return o.reactRuntime

@@ -1,4 +1,4 @@
-import {useRoute, Link} from 'wouter'
+import {Link, useRoute} from 'wouter'
 
 // Simulated user data
 const USERS = [
@@ -18,7 +18,9 @@ const User = () => {
     return (
       <div>
         <h1>User Not Found</h1>
-        <p>User with ID <strong>{params.id}</strong> does not exist.</p>
+        <p>
+          User with ID <strong>{params.id}</strong> does not exist.
+        </p>
         <Link href="/users">Back to Users</Link>
       </div>
     )
@@ -29,8 +31,12 @@ const User = () => {
       <h1>User Profile</h1>
       <div className="card">
         <h2>{user.name}</h2>
-        <p><strong>ID:</strong> {user.id}</p>
-        <p><strong>Role:</strong> {user.role}</p>
+        <p>
+          <strong>ID:</strong> {user.id}
+        </p>
+        <p>
+          <strong>Role:</strong> {user.role}
+        </p>
         <br />
         <Link href="/users">← Back to Users List</Link>
       </div>
