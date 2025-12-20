@@ -12,7 +12,8 @@ export default defineConfig(store => {
     plugins: [
       pluginReact({
         import: {
-          src: `http://localhost:2200/reactRouter.${store.mode}.umd.js`,
+          // src: `http://localhost:2200/reactRouter.${store.mode}.umd.js`,
+          src: `${cdnHost}/@empjs/cdn-react-wouter@0.0.2/dist/reactRouter.${store.mode}.umd.js`,
           externals: {
             react: `${globalVal}.React`,
             'react-dom': `${globalVal}.ReactDOM`,

@@ -6,7 +6,7 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
     format: 'umd',
     umdName: 'BIGO_NOVA_REACT',
     bundle: true,
-    syntax: 'es2015',
+    syntax: 'es2017',
     output: {
       target: 'web',
       cleanDistPath: true,
@@ -52,6 +52,9 @@ export default defineConfig(() => ({
   lib: [getLibConfig('development'), getLibConfig('production')],
   output: {
     target: 'web',
+  },
+  source: {
+    include: [/[\\/]node_modules[\\/]/],
   },
   plugins: [
     {

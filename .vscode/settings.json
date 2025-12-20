@@ -3,6 +3,7 @@
   "eslint.enable": false,
   "prettier.enable": false,
   "css.lint.unknownAtRules": "ignore",
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit"
   },
@@ -39,6 +40,4 @@
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.suggest.autoImports": true,
   "scss.validate": false
-  // "css.validate": false,
-  // "tailwindCSS.files.exclude": ["**/preflight.css"]
 }
