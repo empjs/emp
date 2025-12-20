@@ -1,15 +1,22 @@
 {
-  "name": "@empjs/cdn-react-bg",
-  "version": "0.19.2",
+  "name": "@empjs/cdn-react-w",
+  "version": "0.0.1",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme",
+    "ron0115"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
-    "directory": "packages/cdn-react-bg-19"
+    "directory": "packages/cdn-react-w"
   },
   "publishConfig": {
     "access": "public"
@@ -28,12 +35,15 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@tanstack/react-router": "^1.139.7",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "@empjs/share": "^3.11.3",
+    "@tanstack/react-router": "^1.141.8",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-router-dom": "6",
+    "wouter": "^3.9.0"
   },
   "devDependencies": {
-    "@types/react": "19.2.1",
-    "@types/react-dom": "19.2.1"
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }

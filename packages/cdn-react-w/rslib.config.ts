@@ -20,7 +20,7 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
     bundle: true,
     // dts: true,
     // syntax: 'es5',
-    syntax: 'es2015',
+    syntax: 'es2018',
     output: {
       target: 'web',
       cleanDistPath: true,
@@ -99,9 +99,6 @@ export default defineConfig(() => ({
   lib: [getLibConfig('development'), getLibConfig('production')],
   output: {
     target: 'web',
-  },
-  source: {
-    include: [/[\\/]node_modules[\\/]/],
   },
   plugins: [
     {

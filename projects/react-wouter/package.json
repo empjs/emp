@@ -1,0 +1,27 @@
+{
+  "name": "react-router-w",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze",
+    "emp": "emp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@types/react": "19",
+    "@types/react-dom": "19"
+  },
+  "dependencies": {
+    "@empjs/share": "^3.11.3",
+    "react": "^19.2.3",
+    "wouter": "^3.9.0"
+  }
+}

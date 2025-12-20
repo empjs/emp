@@ -8,9 +8,9 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import {Route as rootRouteImport} from './routes/__root'
-import {Route as IndexRouteImport} from './routes/index'
-import {Route as React19RouteImport} from './routes/react-19'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as React19RouteImport } from './routes/react-19'
+import { Route as IndexRouteImport } from './routes/index'
 
 const React19Route = React19RouteImport.update({
   id: '/react-19',
@@ -72,4 +72,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   React19Route: React19Route,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
