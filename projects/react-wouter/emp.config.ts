@@ -25,5 +25,9 @@ export default defineConfig(store => {
         },
       }),
     ],
+    server: {
+      port: 2200,
+      open: false,
+    },
   }
 })

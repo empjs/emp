@@ -1,4 +1,4 @@
-// Using regular anchor for navigation to avoid type issues in Link under current tsconfig
+import {useNavigate} from '@tanstack/react-router'
 
 const USERS = [
   {id: '1', name: 'Alice', role: 'Developer'},
@@ -7,6 +7,7 @@ const USERS = [
 ]
 
 const User = ({id}: {id: string}) => {
+  const navigate = useNavigate()
   const user = USERS.find(u => u.id === id)
 
   if (!user) {
@@ -16,7 +17,15 @@ const User = ({id}: {id: string}) => {
         <p>
           User with ID <strong>{id}</strong> does not exist.
         </p>
-        <a href="/users">Back to Users</a>
+        <a
+          href="/users"
+          onClick={e => {
+            e.preventDefault()
+            navigate({to: '/users'})
+          }}
+        >
+          Back to Users
+        </a>
       </div>
     )
   }
@@ -33,20 +42,37 @@ const User = ({id}: {id: string}) => {
           <strong>Role:</strong> {user.role}
         </p>
         <br />
-        <a href="/users">← Back to Users List</a>
+        <a
+          href="/users"
+          onClick={e => {
+            e.preventDefault()
+            navigate({to: '/users'})
+          }}
+        >
+          ← Back to Users List
+        </a>
       </div>
     </div>
   )
 }
 
 export const UserList = () => {
+  const navigate = useNavigate()
   return (
     <div>
       <h1>Users</h1>
       <p>Select a user to view details (Dynamic Route Example):</p>
       <div className="user-list">
         {USERS.map(user => (
-          <a key={user.id} href={`/user/${user.id}`} className="user-card">
+          <a
+            key={user.id}
+            href={`/user/${user.id}`}
+            className="user-card"
+            onClick={e => {
+              e.preventDefault()
+              navigate({to: '/user/$id', params: {id: user.id}})
+            }}
+          >
             <h3>{user.name}</h3>
             <p>{user.role}</p>
           </a>
