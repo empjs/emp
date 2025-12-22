@@ -110,12 +110,18 @@ export class GlobalStore {
     tsConfig: undefined,
     pkg: undefined,
   }
+  public beforeSetup?: () => Promise<void> | void
+  public afterSetup?: () => Promise<void> | void
   public async setup(cliAction?: CliActionType, cliOptions?: any) {
     this.cliAction = cliAction ? cliAction : this.cliAction
     this.cliOptions = cliOptions ? cliOptions : this.cliOptions
     const timeTag = 'store.setup'
     logger.time(timeTag)
-    //
+    // 执行 beforeSetup 钩子
+    if (this.beforeSetup) {
+      await this.beforeSetup()
+    }
+    // 获取 emp-config路径 以及 tsconfig 路径
     const [epath, tpath] = await Promise.all([getEmpConfigPath(), getTsConfig()])
     this.rootPaths.empConfig = epath
     this.rootPaths.tsConfig = tpath
@@ -140,6 +146,10 @@ export class GlobalStore {
     this.logConfig()
     // 根据配置适配 devServer 配置
     await this.server.setupOnStore()
+    // 执行 afterSetup 钩子
+    if (this.afterSetup) {
+      await this.afterSetup()
+    }
     //
     logger.timeEnd(timeTag)
     // 是否清除上一个日志
