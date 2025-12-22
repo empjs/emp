@@ -1,13 +1,21 @@
-import {createRootRoute, Outlet, useLocation} from '@tanstack/react-router'
+import {createRootRoute, Outlet, useLocation, useNavigate} from '@tanstack/react-router'
 import NotFound from '../NotFound'
 
 const OutletAny: any = Outlet
 
 const ActiveLink = ({to, children}: {to: string; children: React.ReactNode}) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const isActive = location.pathname === to
   return (
-    <a href={to} className={isActive ? 'active' : ''}>
+    <a
+      href={to}
+      className={isActive ? 'active' : ''}
+      onClick={e => {
+        e.preventDefault()
+        navigate({to: to as any})
+      }}
+    >
       {children}
     </a>
   )
