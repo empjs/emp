@@ -349,6 +349,9 @@ importers:
 
   packages/emp-polyfill:
     dependencies:
+      abortcontroller-polyfill:
+        specifier: ^1.7.8
+        version: 1.7.8
       core-js:
         specifier: ^3.45.1
         version: 3.47.0
