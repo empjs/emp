@@ -1421,6 +1421,40 @@ importers:
         specifier: ^18.2.14
         version: 18.3.7(@types/react@18.3.27)
 
+  projects/react-tanstack:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      '@tanstack/react-router':
+        specifier: ^1.131.47
+        version: 1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      tailwindcss:
+        specifier: ^4.1.14
+        version: 4.1.17
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@tanstack/react-router-devtools':
+        specifier: ^1.133.3
+        version: 1.140.0(@tanstack/react-router@1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.141.8)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.10)
+      '@tanstack/router-plugin':
+        specifier: ^1.133.4
+        version: 1.140.0(@rsbuild/core@1.6.14)(@tanstack/react-router@1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17)))
+      '@types/react':
+        specifier: '19'
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.7)
+
   projects/react-wouter:
     dependencies:
       '@empjs/share':
@@ -14919,6 +14953,18 @@ snapshots:
       - csstype
       - solid-js
 
+  '@tanstack/react-router-devtools@1.140.0(@tanstack/react-router@1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.141.8)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.10)':
+    dependencies:
+      '@tanstack/react-router': 1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@tanstack/router-devtools-core': 1.140.0(@tanstack/router-core@1.141.8)(csstype@3.2.3)(solid-js@1.9.10)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+    optionalDependencies:
+      '@tanstack/router-core': 1.141.8
+    transitivePeerDependencies:
+      - csstype
+      - solid-js
+
   '@tanstack/react-router@1.140.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@tanstack/history': 1.140.0
@@ -15028,6 +15074,29 @@ snapshots:
     optionalDependencies:
       '@rsbuild/core': 1.6.14
       '@tanstack/react-router': 1.140.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      webpack: 5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))
+    transitivePeerDependencies:
+      - supports-color
+
+  '@tanstack/router-plugin@1.140.0(@rsbuild/core@1.6.14)(@tanstack/react-router@1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17)))':
+    dependencies:
+      '@babel/core': 7.28.5
+      '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.5)
+      '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.5)
+      '@babel/template': 7.27.2
+      '@babel/traverse': 7.28.5
+      '@babel/types': 7.28.5
+      '@tanstack/router-core': 1.140.0
+      '@tanstack/router-generator': 1.140.0
+      '@tanstack/router-utils': 1.140.0
+      '@tanstack/virtual-file-routes': 1.140.0
+      babel-dead-code-elimination: 1.0.10
+      chokidar: 3.6.0
+      unplugin: 2.3.11
+      zod: 3.25.76
+    optionalDependencies:
+      '@rsbuild/core': 1.6.14
+      '@tanstack/react-router': 1.141.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       webpack: 5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))
     transitivePeerDependencies:
       - supports-color

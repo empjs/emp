@@ -1,0 +1,12 @@
+{
+  "extends": "@empjs/cli/emp-tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./@mf-types/*"],
+      "src/*": ["src/*"]
+    },
+    "jsx": "preserve"
+  },
+  "include": ["src"]
+}
