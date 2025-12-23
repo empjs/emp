@@ -1,16 +1,33 @@
-import rt from '@empjs/share/runtime'
+import {createInstance, reactShare, registerShared} from '@empjs/share/sdk'
 import {lazy, Suspense} from 'react'
-
 import Title from './Title'
 
-const R93 = lazy(() => rt.load('r93/App'))
-const R92 = lazy(() => rt.load('r92/App'))
-const R91 = lazy(() => rt.load('r91/App'))
-;(async () => {
-  console.log('R93', (await rt.load('r92/App')).default.toString())
-  console.log('R92', (await rt.load('r92/App')).default.toString())
-  console.log('R91', (await rt.load('r91/App')).default.toString())
-})()
+const mf = createInstance({
+  name: 'runtime-18-app',
+  remotes: [
+    {
+      name: 'runtimeHost_3911',
+      entry: `http://${process.env.ip}:3911/emp.json`,
+      alias: 'r91',
+    },
+    {
+      name: 'runtimeHost_3912',
+      entry: `http://${process.env.ip}:3912/emp.json`,
+      alias: 'r92',
+    },
+    {
+      name: 'runtimeHost_3913',
+      entry: `http://${process.env.ip}:3913/emp.json`,
+      alias: 'r93',
+    },
+  ],
+  shared: reactShare(),
+})
+
+const R93 = lazy(() => mf.loadRemote<any>('r93/App'))
+const R92 = lazy(() => mf.loadRemote<any>('r92/App'))
+const R91 = lazy(() => mf.loadRemote<any>('r91/App'))
+//
 const App = () => (
   <div>
     <Title />

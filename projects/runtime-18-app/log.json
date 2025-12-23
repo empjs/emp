@@ -18,24 +18,26 @@
     "cache": {
       "type": "persistent",
       "buildDependencies": [
-        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/dist/index.js",
-        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/package.json",
-        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/emp.config.ts",
-        "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/tsconfig.json"
+        "/Users/bigo/Desktop/Develop/emp/packages/cli/dist/index.js",
+        "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/package.json",
+        "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/emp.config.ts",
+        "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/tsconfig.json"
       ],
-      "version": "3.10.0-beta.6"
+      "version": "3.10.9_3801"
     },
     "incremental": "advance-silent",
-    "parallelCodeSplitting": true,
     "parallelLoader": true
   },
   "lazyCompilation": true,
-  "target": ["web", "es5"],
+  "target": [
+    "web",
+    "es5"
+  ],
   "infrastructureLogging": {
     "appendOnly": true,
     "level": "warn"
   },
-  "context": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app",
+  "context": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app",
   "mode": "development",
   "cache": true,
   "devtool": "cheap-module-source-map",
@@ -49,9 +51,14 @@
     "react/jsx-dev-runtime": "EMP_ADAPTER_REACT",
     "react-router-dom": "EMP_ADAPTER_REACT.ReactRouterDOM"
   },
-  "ignoreWarnings": [{}],
+  "ignoreWarnings": [
+    {}
+  ],
   "watchOptions": {
-    "ignored": ["**/node_modules/**", "**/@mf-types/**"]
+    "ignored": [
+      "**/node_modules/**",
+      "**/@mf-types/**"
+    ]
   },
   "stats": {
     "colors": true,
@@ -71,15 +78,15 @@
     "cssFilename": "css/[name].css",
     "cssChunkFilename": "css/[name].css",
     "assetModuleFilename": "assets/[name].[contenthash:8][ext][query]",
-    "path": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/dist",
+    "path": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/dist",
     "clean": false,
     "uniqueName": "runtime_app"
   },
   "resolve": {
-    "tsConfig": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/tsconfig.json",
+    "tsConfig": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/tsconfig.json",
     "alias": {
-      "src": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src",
-      "@": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src"
+      "src": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/src",
+      "@": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/src"
     },
     "extensions": [
       "...",
@@ -100,15 +107,19 @@
     ]
   },
   "devServer": {
-    "allowedHosts": ["all"],
+    "allowedHosts": [
+      "all"
+    ],
     "host": "0.0.0.0",
     "port": 3801,
     "open": false,
     "hot": true,
-    "watchFiles": ["src/**/*.html"],
+    "watchFiles": [
+      "src/**/*.html"
+    ],
     "static": [
       {
-        "directory": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/public",
+        "directory": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/public",
         "watch": true
       }
     ],
@@ -164,7 +175,10 @@
     "rules": [
       {
         "mimetype": {
-          "or": ["text/javascript", "application/javascript"]
+          "or": [
+            "text/javascript",
+            "application/javascript"
+          ]
         },
         "use": [
           {
@@ -204,13 +218,15 @@
             "resourceQuery": {},
             "use": [
               {
-                "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/@svgr+webpack@8.1.0_typescript@5.9.2/node_modules/@svgr/webpack/dist/index.js"
+                "loader": "/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/@svgr+webpack@8.1.0_typescript@5.9.3/node_modules/@svgr/webpack/dist/index.js"
               }
             ]
           },
           {
             "resourceQuery": {
-              "not": [{}]
+              "not": [
+                {}
+              ]
             },
             "type": "asset/resource"
           }
@@ -305,11 +321,11 @@
         "type": "css/auto",
         "use": [
           {
-            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-loader@16.0.5_@rspack+core@1.5.3_sass-embedded@1.91.0_webpack@5.101.3/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/sass-loader@16.0.5_@rspack+core@1.6.8_@swc+helpers@0.5.17__sass-embedded@1.93.2_sass@1._7c2d53036122ba629726679afb6472ab/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "implementation": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/sass-embedded@1.91.0/node_modules/sass-embedded/dist/lib/index.js",
+              "implementation": "/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/sass-embedded@1.93.2/node_modules/sass-embedded/dist/lib/index.js",
               "api": "modern-compiler",
-              "sourceMap": true,
+              "sourceMap": false,
               "warnRuleAsWarning": true
             }
           }
@@ -320,10 +336,11 @@
         "type": "css/auto",
         "use": [
           {
-            "loader": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/node_modules/.pnpm/less-loader@12.3.0_@rspack+core@1.5.3_less@4.4.1_webpack@5.101.3/node_modules/less-loader/dist/cjs.js",
+            "loader": "/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/less-loader@12.3.0_@rspack+core@1.6.8_@swc+helpers@0.5.17__less@4.4.2_webpack@5.103.0_@_47c50793560351c13b4860c6d87070ca/node_modules/less-loader/dist/cjs.js",
             "options": {
               "lessOptions": {
-                "javascriptEnabled": true
+                "javascriptEnabled": true,
+                "math": "always"
               }
             }
           }
@@ -340,18 +357,37 @@
     "chunkIds": "named",
     "minimize": false,
     "splitChunks": {
-      "chunks": "async",
-      "cacheGroups": {}
+      "chunks": "all",
+      "minSize": 20000,
+      "minChunks": 1,
+      "automaticNameDelimiter": "-",
+      "cacheGroups": {
+        "vendors": {
+          "test": {},
+          "name": "vendor",
+          "priority": -10,
+          "reuseExistingChunk": true
+        },
+        "default": {
+          "minChunks": 2,
+          "priority": -20,
+          "reuseExistingChunk": true
+        }
+      }
     },
     "minimizer": [
       {
         "affectedHooks": "compilation",
         "name": "SwcJsMinimizerRspackPlugin",
-        "_args": [{}]
+        "_args": [
+          {}
+        ]
       },
       {
         "name": "LightningCssMinimizerRspackPlugin",
-        "_args": [{}]
+        "_args": [
+          {}
+        ]
       }
     ]
   },
@@ -362,23 +398,16 @@
       "_args": [
         {
           "process.env.mode": "\"development\"",
-          "process.env.runtimeHost": "\"http://172.29.96.250:3802/emp.js\"",
-          "process.env.ip": "\"172.29.96.250\""
-        }
-      ]
-    },
-    {
-      "name": "ProgressPlugin",
-      "_args": [
-        {
-          "template": "{bar:25.green/white}{spinner:.green}{percent}% {wide_msg:.dim}",
-          "progressChars": "▩▩"
+          "process.env.runtimeHost": "\"http://172.19.146.10:3802/emp.js\"",
+          "process.env.ip": "\"172.19.146.10\""
         }
       ]
     },
     {
       "name": "CssChunkingPlugin",
-      "_args": [{}]
+      "_args": [
+        {}
+      ]
     },
     {
       "PluginName": "HtmlEmpInjectPlugin-injectEMPPolyfill",
@@ -407,14 +436,16 @@
         "scriptLoading": "defer",
         "meta": {},
         "cache": true,
-        "template": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.html",
-        "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
-        "chunks": ["index"],
+        "template": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/src/index.html",
+        "favicon": "/Users/bigo/Desktop/Develop/emp/packages/cli/template/favicon.ico",
+        "chunks": [
+          "index"
+        ],
         "filename": "index.html"
       },
       "version": 5,
       "options": {
-        "template": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.html",
+        "template": "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/src/index.html",
         "templateContent": false,
         "filename": "index.html",
         "publicPath": "auto",
@@ -422,11 +453,13 @@
         "inject": "body",
         "scriptLoading": "defer",
         "compile": true,
-        "favicon": "/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/packages/cli/template/favicon.ico",
+        "favicon": "/Users/bigo/Desktop/Develop/emp/packages/cli/template/favicon.ico",
         "minify": false,
         "cache": true,
         "showErrors": true,
-        "chunks": ["index"],
+        "chunks": [
+          "index"
+        ],
         "excludeChunks": [],
         "chunksSortMode": "auto",
         "meta": {},
@@ -438,12 +471,19 @@
     },
     {
       "options": {
-        "include": [{}],
-        "exclude": [{}, {}],
+        "include": [
+          {}
+        ],
+        "exclude": [
+          {},
+          {},
+          {}
+        ],
         "library": "runtime_18_app_emp_hmr_3801",
         "forceEnable": false,
         "injectLoader": true,
         "injectEntry": true,
+        "reloadOnRuntimeErrors": false,
         "overlay": false
       }
     },
@@ -483,13 +523,15 @@
           "tagName": "script",
           "pos": "head",
           "attributes": {
-            "src": "http://172.29.96.250:2100/sdk.js"
+            "src": "http://172.19.146.10:2100/sdk.js"
           }
         }
       ]
     }
   ],
   "entry": {
-    "index": ["/Users/xuhongbin/Desktop/Develop/empjs/emp-opensource/projects/runtime-18-app/src/index.tsx"]
+    "index": [
+      "/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app/src/index.tsx"
+    ]
   }
 }

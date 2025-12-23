@@ -10,6 +10,7 @@
     "dev": "pnpm --filter=runtime-18-host run /^dev:.*/",
     "dev:a": "emp dev --env=3911",
     "dev:b": "emp dev --env=3912",
+    "dev:c": "emp dev --env=3913",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze"
