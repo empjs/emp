@@ -1,4 +1,9 @@
 export * as Wouter from 'wouter'
-export {useBrowserLocation} from 'wouter/use-browser-location'
-export {useHashLocation} from 'wouter/use-hash-location'
+
+import {useBrowserLocation} from 'wouter/use-browser-location'
+import {useHashLocation} from 'wouter/use-hash-location'
+export const WouterLocation = {
+  useBrowserLocation,
+  useHashLocation,
+}
 export * from './react'
