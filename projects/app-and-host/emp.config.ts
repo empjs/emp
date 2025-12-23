@@ -15,12 +15,12 @@ export default defineConfig(store => {
         },
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.10.3/output/sdk.js`,
+            lib: `https://unpkg.com/@empjs/share@3.12.0/output/sdk.js`,
             // lib: `http://${ip}:2100/sdk.js`,
           },
           framework: {
-            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
-            global: 'EMP_ADAPTER_REACT',
+            libs: [`https://unpkg.com/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.${store.mode}.umd.js`],
+            global: 'BIGO_NOVA_REACT',
           },
           setExternals: externalReact,
         },
@@ -39,7 +39,7 @@ export default defineConfig(store => {
     ],
     build: {
       polyfill: {
-        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
+        entryCdn: `https://unpkg.com/@empjs/polyfill@2026.0.2/dist/61.js`,
       },
     },
     server: {
