@@ -14,7 +14,7 @@ export const loadRemote: typeof mfRuntime.loadRemote = mf.loadRemote
 export const preloadRemote: typeof mfRuntime.preloadRemote = mf.preloadRemote
 export const loadShare: typeof mfRuntime.loadShare = mf.loadShare
 
-export const reactShare = () => {
+export const getReactShare = () => {
   const {React, ReactDOM, scope = 'default'} = win[win.EMPShareGlobalVal.frameworkLib]
   return {
     react: {

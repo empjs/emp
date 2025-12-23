@@ -1,4 +1,4 @@
-import {createInstance, reactShare, registerShared} from '@empjs/share/sdk'
+import {createInstance, getReactShare} from '@empjs/share/sdk'
 import {lazy, Suspense} from 'react'
 import Title from './Title'
 
@@ -21,7 +21,7 @@ const mf = createInstance({
       alias: 'r93',
     },
   ],
-  shared: reactShare(),
+  shared: getReactShare(),
 })
 
 const R93 = lazy(() => mf.loadRemote<any>('r93/App'))
