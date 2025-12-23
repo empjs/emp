@@ -88,7 +88,7 @@ export const routes: RouteConfig[] = processRoutes([
 
 export const RouterProviderConfig = () => {
   return (
-    <Router>
+    <Router hook={useH}>
       <Nav />
       <main>
         <Switch>

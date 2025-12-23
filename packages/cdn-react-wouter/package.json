@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cdn-react-wouter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
