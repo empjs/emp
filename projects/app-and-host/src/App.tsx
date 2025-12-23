@@ -1,13 +1,15 @@
-import rt from '@empjs/share/runtime'
+// import rt from '@empjs/share/runtime'
+
 import {lazy, Suspense} from 'react'
 import {ip, port} from './config'
+import {mf} from './index'
 
 const isEmp = true
 let Info: any
 let About: any
 if (isEmp) {
-  Info = lazy(() => rt.load('@ah/Info'))
-  About = lazy(() => rt.load('@ah/About'))
+  Info = lazy(() => mf.loadRemote<any>('@ah/Info'))
+  About = lazy(() => mf.loadRemote<any>('@ah/About'))
 } else {
   Info = lazy(() => import('src/components/Info'))
   About = lazy(() => import('src/components/About'))
