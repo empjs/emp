@@ -16,6 +16,11 @@ export default defineConfig(store => {
         exposes: {
           // './Title': './src/Title',
         },
+        // remotes: {
+        //   r91: `runtimeHost_3911@http://${ip}:3911/emp.json`,
+        //   r92: `runtimeHost_3912@http://${ip}:3912/emp.json`,
+        //   r93: `runtimeHost_3913@http://${ip}:3913/emp.json`,
+        // },
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
@@ -29,9 +34,11 @@ export default defineConfig(store => {
         dts: {
           generateTypes: false,
           consumeTypes: true,
+          displayErrorInTerminal: true,
         },
         dev: {
           disableDynamicRemoteTypeHints: false,
+          // disableHotTypesReload: false,
         },
       }),
     ],
@@ -48,6 +55,8 @@ export default defineConfig(store => {
       template: 'src/index.html',
     },
     define: {runtimeHost: `http://${ip}:3802/emp.js`, ip: `${ip}`},
-    debug: {showRsconfig: 'log.json'},
+    debug: {
+      showRsconfig: 'log.json',
+    },
   }
 })

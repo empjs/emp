@@ -18,8 +18,8 @@ export default defineConfig({
       },
       source: {
         entry: {
-          '61': 'src/61.ts',
-          c71: 'src/c71.ts',
+          '61': 'src/chrome-61/index.ts',
+          // c71: 'src/c71.ts',
         },
         define: {
           'process.env.NODE_ENV': JSON.stringify('production'),

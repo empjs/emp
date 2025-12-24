@@ -1,4 +1,5 @@
-import {createInstance, getReactShare} from '@empjs/share/sdk'
+import {createInstance as c, getReactShare} from '@empjs/share/sdk'
+import {createInstance} from '@module-federation/runtime'
 import {lazy, Suspense} from 'react'
 import Title from './Title'
 
@@ -24,9 +25,18 @@ const mf = createInstance({
   shared: getReactShare(),
 })
 
-const R93 = lazy(() => mf.loadRemote<any>('r93/App'))
-const R92 = lazy(() => mf.loadRemote<any>('r92/App'))
-const R91 = lazy(() => mf.loadRemote<any>('r91/App'))
+// mf.preloadRemote([
+//   {
+//     nameOrAlias: 'r93',
+//     resourceCategory: 'all',
+//     exposes: ['App'],
+//   },
+// ])
+// import t93 from 'r93/App'
+
+const R93 = lazy(() => mf.loadRemote('r93/App'))
+const R92 = lazy(() => mf.loadRemote('r92/App'))
+const R91 = lazy(() => mf.loadRemote('r91/App'))
 //
 const App = () => (
   <div>

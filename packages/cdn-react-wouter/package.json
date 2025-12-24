@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cdn-react-wouter",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
@@ -21,7 +21,8 @@
     "dev:bundle": "rslib build --watch",
     "dev:serve": "serve ./dist --cors -p 2200",
     "build": "rslib build",
-    "start": "serve ./dist --cors -p 2200"
+    "start": "serve ./dist --cors -p 2200",
+    "build:tsup": "tsup"
   },
   "engines": {
     "node": ">=18.0.0"

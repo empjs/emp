@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@empjs/share": "workspace:^",
-    "@module-federation/runtime": "^0.3.3",
+    "@module-federation/runtime": "^0.22.0",
     "react": "18",
     "react-dom": "18"
   },
