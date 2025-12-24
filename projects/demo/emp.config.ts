@@ -80,6 +80,7 @@ export default defineConfig(store => {
       },
       // browserslist: store.browserslistOptions.h5,
       sourcemap: true,
+      // target: 'es2017',
       // minify: false,
     },
     entries: {
