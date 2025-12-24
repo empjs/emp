@@ -20,6 +20,7 @@ class RspackPlugin {
       this.sourceMapDevToolPlugin(),
       this.tsCheckerRspackPlugin(),
       this.cssChunkingPlugin(),
+      this.esmLibraryPlugin(),
     ]
     this.beforeLifeCycle()
     await this.store.empConfig.lifeCycle.beforePlugin()
@@ -148,6 +149,10 @@ class RspackPlugin {
     if (!this.store.empConfig.debug.cssChunkingPlugin) return
     this.store.chain.plugin('CssChunkingPlugin').use(rspack.experiments.CssChunkingPlugin, [{}])
     // this.store.chain.plugin('CssChunkingPlugin').use(rspack.CssExtractRspackPlugin, [{}])
+  }
+  esmLibraryPlugin() {
+    if (!this.store.empConfig.isESM) return
+    this.store.chain.plugin('esmLibraryPlugin').use(rspack.experiments.EsmLibraryPlugin, [{}])
   }
 }
 
