@@ -37,7 +37,7 @@ export default defineConfig(store => {
           consumeTypes: true,
           displayErrorInTerminal: true,
         },
-        dev: true,
+        // dev: true,
       }),
     ],
     build: {

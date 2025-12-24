@@ -1,5 +1,5 @@
-// import {getReactShare} from '@empjs/share/sdk'
-import {createInstance} from '@module-federation/runtime'
+import {createInstance, getReactShare} from '@empjs/share/sdk'
+// import {createInstance} from '@module-federation/runtime'
 import {lazy, Suspense} from 'react'
 import Title from './Title'
 
@@ -22,7 +22,7 @@ const mf = createInstance({
       alias: 'r93',
     },
   ],
-  // shared: getReactShare(),
+  shared: getReactShare(),
 })
 
 // mf.preloadRemote([
