@@ -1,19 +1,7 @@
-[2025-12-23T22:17:48.248] [INFO] forkDevWorker - ChildProcess(72900), message: {"type":"mf_call","id":"bc53df8e-1923-4f84-a46b-4c8503c9e658","args":[{"name":"runtime_app","host":{"context":"/Users/bigo/Desktop/Develop/emp/projects/runtime-18-app","moduleFederationConfig":{"filename":"emp.js","dts":{"generateTypes":false,"consumeTypes":true,"displayErrorInTerminal":true},"dev":{"disableDynamicRemoteTypeHints":false},"name":"runtime_app","exposes":{},"implementation":"/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/@module-federation+runtime-tools@0.22.0/node_modules/@module-federation/runtime-tools/dist/index.cjs.cjs","runtimePlugins":["/Users/bigo/Desktop/Develop/emp/node_modules/.pnpm/@module-federation+dts-plugin@0.22.0_typescript@5.9.3/node_modules/@module-federation/dts-plugin/dist/dynamic-remote-type-hints-plugin.js"]},"typesFolder":"@mf-types","abortOnError":false,"consumeAPITypes":true},"extraOptions":{},"disableLiveReload":false,"disableHotTypesReload":false}]} 
-[2025-12-23T22:17:48.251] [INFO] Module Federation DTS - Publisher:runtime_app Trying to connect to ws://172.19.146.10:16322...
-[2025-12-23T22:17:48.254] [INFO] forkDevWorker - ChildProcess(72900), message: {"type":"mf_call","id":"bc53df8e-1923-4f84-a46b-4c8503c9e658","args":[null,"update"]} 
-[2025-12-23T22:17:48.255] [INFO] updateTypes - options: {
-  "updateMode": "POSITIVE",
-  "remoteName": "runtime_app"
-};
-hostName: runtime_app
-[2025-12-23T22:17:48.255] [INFO] forkDevWorker - remoteModule runtime_app receive devWorker update, start typesManager.updateTypes 
-[2025-12-23T22:17:48.258] [INFO] Module Federation DTS - Current pid: 72900, publisher:runtime_app connected to ws://172.19.146.10:16322, starting service...
-[2025-12-23T22:20:58.194] [INFO] forkDevWorker - ChildProcess(72900), message: {"type":"mf_call","id":"bc53df8e-1923-4f84-a46b-4c8503c9e658","args":[null,"update"]} 
-[2025-12-23T22:20:58.196] [INFO] forkDevWorker - remoteModule runtime_app receive devWorker update, start typesManager.updateTypes 
-[2025-12-23T22:20:58.202] [INFO] updateTypes - options: {
-  "updateMode": "POSITIVE",
-  "remoteName": "runtime_app"
-};
-hostName: runtime_app
-[2025-12-23T22:20:58.199] [INFO] Module Federation DTS - update run, runtime_app module update, updateKind: RELOAD_PAGE, updateMode: POSITIVE, updateSourcePaths: undefined
-[2025-12-23T22:20:58.205] [INFO] Module Federation DTS - update run, runtime_app module update, updateKind: UPDATE_TYPE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-24T17:29:56.797] [INFO] Broker - ADD_PUBLISHER action received 
+[2025-12-24T17:29:56.797] [INFO] Broker - [ADD_PUBLISHER] mf :runtime_app:172.19.146.10 Adding Publisher Succeed
+[2025-12-24T17:42:09.042] [INFO] Broker - NOTIFY_WEB_CLIENT action received 
+[2025-12-24T17:42:09.048] [WARN] Broker - [NOTIFY_WEB_CLIENT] mf :runtime_app has not been added, this action will be ignored
+[2025-12-24T17:42:09.050] [INFO] Broker - UPDATE_PUBLISHER action received 
+[2025-12-24T17:42:09.052] [WARN] Publisher - [BroadCast] runtime_app's subscribe is empty
+[2025-12-24T17:42:09.051] [INFO] Broker - [UPDATE_PUBLISHER] mf :runtime_app:172.19.146.10 update, and notify subscribers to update

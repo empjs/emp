@@ -9,7 +9,7 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: `runtime_app`,
-        manifest: true,
+        // manifest: true,
         // experiments: {
         //   asyncStartup: true,
         // },
@@ -28,6 +28,7 @@ export default defineConfig(store => {
           },
           runtime: {
             lib: `http://${store.server.ip}:2100/sdk.js`,
+            // lib: `https://unpkg.com/@empjs/share@3.12.0/output/sdk.js`,
           },
           setExternals: externalReact,
         },
@@ -36,10 +37,7 @@ export default defineConfig(store => {
           consumeTypes: true,
           displayErrorInTerminal: true,
         },
-        dev: {
-          disableDynamicRemoteTypeHints: false,
-          // disableHotTypesReload: false,
-        },
+        dev: true,
       }),
     ],
     build: {

@@ -491,16 +491,14 @@
       "name": "RspackModuleFederationPlugin",
       "_options": {
         "filename": "emp.js",
-        "manifest": {
-          "fileName": "emp.json"
-        },
+        "manifest": false,
         "dts": {
           "generateTypes": false,
           "consumeTypes": true,
           "displayErrorInTerminal": true
         },
         "dev": {
-          "disableDynamicRemoteTypeHints": false
+          "disableDynamicRemoteTypeHints": true
         },
         "name": "runtime_app",
         "exposes": {}
