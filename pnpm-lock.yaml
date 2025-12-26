@@ -1480,14 +1480,61 @@ importers:
         specifier: '19'
         version: 19.2.3(@types/react@19.2.7)
 
+  projects/rtHost:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '19'
+        version: 19.2.3
+      react-dom:
+        specifier: '19'
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.7)
+
+  projects/rtProvider:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '19'
+        version: 19.2.3
+      react-dom:
+        specifier: '19'
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.7)
+
   projects/runtime-18-app:
     dependencies:
       '@empjs/share':
         specifier: workspace:^
         version: link:../../packages/emp-share
-      '@module-federation/runtime':
-        specifier: ^0.22.0
-        version: 0.22.0
       react:
         specifier: '18'
         version: 18.3.1
@@ -1532,62 +1579,6 @@ importers:
       '@types/react-dom':
         specifier: '18'
         version: 18.3.7(@types/react@18.3.27)
-
-  projects/runtimeHost:
-    dependencies:
-      react:
-        specifier: '19'
-        version: 19.2.3
-      react-dom:
-        specifier: '19'
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@module-federation/rspack':
-        specifier: 0.22.0
-        version: 0.22.0(@rspack/core@1.7.0-beta.1(@swc/helpers@0.5.17))(typescript@5.9.3)
-      '@module-federation/runtime':
-        specifier: 0.22.0
-        version: 0.22.0
-      '@types/react':
-        specifier: '19'
-        version: 19.2.7
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.7)
-
-  projects/runtimeProvider:
-    dependencies:
-      react:
-        specifier: '19'
-        version: 19.2.3
-      react-dom:
-        specifier: '19'
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@module-federation/rspack':
-        specifier: 0.22.0
-        version: 0.22.0(@rspack/core@1.7.0-beta.1(@swc/helpers@0.5.17))(typescript@5.9.3)
-      '@module-federation/runtime':
-        specifier: 0.22.0
-        version: 0.22.0
-      '@types/react':
-        specifier: '19'
-        version: 19.2.7
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.7)
 
   projects/shadcn-ui:
     dependencies:

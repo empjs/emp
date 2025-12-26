@@ -1,7 +1,7 @@
-const App = (props: {name?: string; debug?: string; status?: string}) => {
+const App = (props: {name?: string; debug?: boolean; status?: string}) => {
   console.log('props', props)
   if (props.debug) {
-    console.log('debug', props.debug)
+    console.log('debug ', props.debug)
   }
   return (
     <div>

@@ -217,20 +217,21 @@ export class EmpShare {
       const op = store.deepAssign<ModuleFederationPluginOptions & {empRuntime: any}>(
         {
           filename: 'emp.js',
-          manifest: false,
-          dts: false,
-          dev: {
-            disableDynamicRemoteTypeHints: true,
-          },
+          // manifest: false,
+          // dts: false,
+          // dev: {
+          //   disableDynamicRemoteTypeHints: true,
+          // },
         },
         o,
       )
       //
-      if (o.dev === false) op.dev = false
+      // if (o.dev === false) op.dev = false
       //
       if (op.empRuntime) {
         delete op.empRuntime
       }
+      console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])
     }
   }

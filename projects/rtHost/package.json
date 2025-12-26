@@ -1,5 +1,5 @@
 {
-  "name": "runtime-host",
+  "name": "rt-host",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,13 +14,12 @@
   },
   "dependencies": {
     "react": "19",
-    "react-dom": "19"
+    "react-dom": "19",
+    "@empjs/share": "workspace:^"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-react": "workspace:*",
-    "@module-federation/runtime": "0.22.0",
-    "@module-federation/rspack": "0.22.0",
     "@types/react": "19",
     "@types/react-dom": "19"
   }
