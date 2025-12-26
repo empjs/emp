@@ -1,5 +1,6 @@
 import rspack, {type SourceMapDevToolPluginOptions} from '@rspack/core'
 import fs from 'fs'
+import path from 'path'
 import type {GlobalStore} from 'src/store'
 import type {RsdoctorRspackPluginOptions} from 'src/types/config'
 import {TsCheckerRspackPlugin} from 'ts-checker-rspack-plugin'
@@ -152,7 +153,16 @@ class RspackPlugin {
   }
   esmLibraryPlugin() {
     if (!this.store.empConfig.isESM) return
-    this.store.chain.plugin('esmLibraryPlugin').use(rspack.experiments.EsmLibraryPlugin, [{}])
+    const src = path.resolve(this.store.root, 'src')
+    // console.log('src', src)
+    this.store.chain.plugin('esmLibraryPlugin').use(rspack.experiments.EsmLibraryPlugin, [
+      {
+        preserveModules: src,
+      },
+    ])
+    this.store.chain.optimization.merge({
+      runtimeChunk: true,
+    })
   }
 }
 
