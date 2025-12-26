@@ -1,0 +1,102 @@
+[2025-12-26T18:07:08.737] [INFO] forkDevWorker - ChildProcess(61401), message: {"type":"mf_call","id":"bcc5ec9d-4c2f-44f2-ad8a-6d8ee9c86efc","args":[{"name":"runtimeHost","remote":{"context":"/Users/bigo/Desktop/Develop/emp-workspace/emp/projects/runtimeHost","outputDir":"dist","moduleFederationConfig":{"name":"runtimeHost","shared":{"react":{"singleton":true},"react-dom":{"singleton":true}},"implementation":"/Users/bigo/Desktop/Develop/emp-workspace/emp/node_modules/.pnpm/@module-federation+runtime-tools@0.22.0/node_modules/@module-federation/runtime-tools/dist/index.cjs.cjs","runtimePlugins":["/Users/bigo/Desktop/Develop/emp-workspace/emp/node_modules/.pnpm/@module-federation+dts-plugin@0.22.0_typescript@5.9.3/node_modules/@module-federation/dts-plugin/dist/dynamic-remote-type-hints-plugin.js"]},"hostRemoteTypesFolder":"@mf-types","compileInChildProcess":true,"typesFolder":".dev-server"},"host":{"context":"/Users/bigo/Desktop/Develop/emp-workspace/emp/projects/runtimeHost","moduleFederationConfig":{"name":"runtimeHost","shared":{"react":{"singleton":true},"react-dom":{"singleton":true}},"implementation":"/Users/bigo/Desktop/Develop/emp-workspace/emp/node_modules/.pnpm/@module-federation+runtime-tools@0.22.0/node_modules/@module-federation/runtime-tools/dist/index.cjs.cjs","runtimePlugins":["/Users/bigo/Desktop/Develop/emp-workspace/emp/node_modules/.pnpm/@module-federation+dts-plugin@0.22.0_typescript@5.9.3/node_modules/@module-federation/dts-plugin/dist/dynamic-remote-type-hints-plugin.js"]},"typesFolder":"@mf-types","abortOnError":false,"consumeAPITypes":true},"extraOptions":{},"disableLiveReload":false,"disableHotTypesReload":false}]} 
+[2025-12-26T18:07:08.753] [INFO] forkDevWorker - runtimeHost module generateTypes done, localServerAddress:  http://172.19.146.10:63876
+[2025-12-26T18:07:08.753] [INFO] Module Federation DTS - Publisher:runtimeHost Trying to connect to ws://172.19.146.10:16322...
+[2025-12-26T18:07:08.757] [INFO] Module Federation DTS - Current pid: 61401, publisher:runtimeHost connected to ws://172.19.146.10:16322, starting service...
+[2025-12-26T18:07:13.646] [INFO] forkDevWorker - ChildProcess(61401), message: {"type":"mf_call","id":"bcc5ec9d-4c2f-44f2-ad8a-6d8ee9c86efc","args":[null,"update"]} 
+[2025-12-26T18:07:13.649] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:13.652] [INFO] updateTypes - options: {
+  "updateMode": "POSITIVE",
+  "remoteName": "runtimeHost"
+};
+hostName: runtimeHost
+[2025-12-26T18:07:13.656] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: UPDATE_TYPE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:13.647] [INFO] forkDevWorker - remoteModule runtimeHost receive devWorker update, start typesManager.updateTypes 
+[2025-12-26T18:07:38.251] [INFO] Module Federation DTS - runtimeHost Receive broker FETCH_TYPES, payload as follows: {
+  "name": "runtimeProvider",
+  "url": "http://localhost:4001/mf-manifest.json",
+  "alias": "runtimeProvider"
+}.
+[2025-12-26T18:07:38.254] [INFO] forkDevWorker - sync remote module runtimeHost, types to runtimeHost,typesManager.updateTypes run
+[2025-12-26T18:07:38.255] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: PASSIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:38.257] [INFO] updateTypes - options: {
+  "updateMode": "PASSIVE",
+  "remoteName": "runtimeHost",
+  "remoteTarPath": "",
+  "remoteInfo": {
+    "name": "runtimeProvider",
+    "url": "http://localhost:4001/mf-manifest.json",
+    "alias": "runtimeProvider"
+  }
+};
+hostName: runtimeHost
+[2025-12-26T18:07:38.253] [INFO] Module Federation DTS - fetchDynamicRemoteTypes: remoteInfo: {"name":"runtimeProvider","url":"http://localhost:4001/mf-manifest.json","alias":"runtimeProvider"}
+[2025-12-26T18:07:38.263] [INFO] consumeTypes - start request manifest
+[2025-12-26T18:07:38.258] [INFO] updateTypes - loadedRemoteInfo: undefined
+[2025-12-26T18:07:38.259] [INFO] updateTypes - remoteInfo: undefined
+[2025-12-26T18:07:38.268] [INFO] updateTypes - end request manifest, this.updatedRemoteInfos[updatedRemoteInfo.name]: {
+  "name": "http://localhost:4001/mf-manifest.json",
+  "url": "http://localhost:4001/mf-manifest.json",
+  "zipUrl": "http://localhost:4001/@mf-types.zip",
+  "apiTypeUrl": "http://localhost:4001/@mf-types.d.ts",
+  "alias": "runtimeProvider"
+}
+[2025-12-26T18:07:38.270] [INFO] updateTypes - consumeTypes start
+[2025-12-26T18:07:38.302] [INFO] downloadTypesArchive - zip.extractAllTo success destinationPath: /Users/bigo/Desktop/Develop/emp-workspace/emp/projects/runtimeHost/@mf-types/runtimeProvider; url: http://localhost:4001/@mf-types.zip
+[2025-12-26T18:07:38.311] [INFO] downloadAPITypes - success
+[2025-12-26T18:07:38.315] [INFO] updateTypes - consumeTypes start
+[2025-12-26T18:07:38.313] [INFO] updateTypes - consumeTypes end
+[2025-12-26T18:07:38.328] [INFO] downloadTypesArchive - zip.extractAllTo success destinationPath: /Users/bigo/Desktop/Develop/emp-workspace/emp/projects/runtimeHost/@mf-types/runtimeProvider; url: http://localhost:4001/@mf-types.zip
+[2025-12-26T18:07:38.332] [INFO] downloadAPITypes - success
+[2025-12-26T18:07:38.333] [INFO] updateTypes - consumeTypes end
+[2025-12-26T18:07:44.940] [INFO] forkDevWorker - ChildProcess(61401), message: {"type":"mf_call","id":"bcc5ec9d-4c2f-44f2-ad8a-6d8ee9c86efc","args":[null,"update"]} 
+[2025-12-26T18:07:44.945] [INFO] updateTypes - options: {
+  "updateMode": "POSITIVE",
+  "remoteName": "runtimeHost"
+};
+hostName: runtimeHost
+[2025-12-26T18:07:44.941] [INFO] forkDevWorker - remoteModule runtimeHost receive devWorker update, start typesManager.updateTypes 
+[2025-12-26T18:07:44.943] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:44.951] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: UPDATE_TYPE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:48.363] [INFO] forkDevWorker - ChildProcess(61401), message: {"type":"mf_call","id":"bcc5ec9d-4c2f-44f2-ad8a-6d8ee9c86efc","args":[null,"update"]} 
+[2025-12-26T18:07:48.367] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:48.373] [INFO] updateTypes - options: {
+  "updateMode": "POSITIVE",
+  "remoteName": "runtimeHost"
+};
+hostName: runtimeHost
+[2025-12-26T18:07:48.364] [INFO] forkDevWorker - remoteModule runtimeHost receive devWorker update, start typesManager.updateTypes 
+[2025-12-26T18:07:48.380] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: UPDATE_TYPE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:49.730] [INFO] forkDevWorker - ChildProcess(61401), message: {"type":"mf_call","id":"bcc5ec9d-4c2f-44f2-ad8a-6d8ee9c86efc","args":[null,"update"]} 
+[2025-12-26T18:07:49.735] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:49.739] [INFO] updateTypes - options: {
+  "updateMode": "POSITIVE",
+  "remoteName": "runtimeHost"
+};
+hostName: runtimeHost
+[2025-12-26T18:07:49.732] [INFO] forkDevWorker - remoteModule runtimeHost receive devWorker update, start typesManager.updateTypes 
+[2025-12-26T18:07:49.746] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: UPDATE_TYPE, updateMode: POSITIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:54.181] [INFO] Module Federation DTS - fetchDynamicRemoteTypes: remoteInfo: {"name":"runtimeProvider","url":"http://localhost:4001/mf-manifest.json","alias":"runtimeProvider"}
+[2025-12-26T18:07:54.182] [INFO] forkDevWorker - sync remote module runtimeHost, types to runtimeHost,typesManager.updateTypes run
+[2025-12-26T18:07:54.183] [INFO] Module Federation DTS - update run, runtimeHost module update, updateKind: RELOAD_PAGE, updateMode: PASSIVE, updateSourcePaths: undefined
+[2025-12-26T18:07:54.185] [INFO] updateTypes - loadedRemoteInfo: undefined
+[2025-12-26T18:07:54.184] [INFO] updateTypes - options: {
+  "updateMode": "PASSIVE",
+  "remoteName": "runtimeHost",
+  "remoteTarPath": "",
+  "remoteInfo": {
+    "name": "runtimeProvider",
+    "url": "http://localhost:4001/mf-manifest.json",
+    "alias": "runtimeProvider"
+  }
+};
+hostName: runtimeHost
+[2025-12-26T18:07:54.179] [INFO] Module Federation DTS - runtimeHost Receive broker FETCH_TYPES, payload as follows: {
+  "name": "runtimeProvider",
+  "url": "http://localhost:4001/mf-manifest.json",
+  "alias": "runtimeProvider"
+}.
+[2025-12-26T18:07:54.186] [INFO] updateTypes - consumeTypes start
+[2025-12-26T18:07:54.185] [INFO] updateTypes - remoteInfo: undefined
+[2025-12-26T18:07:54.209] [INFO] downloadTypesArchive - zip.extractAllTo success destinationPath: /Users/bigo/Desktop/Develop/emp-workspace/emp/projects/runtimeHost/@mf-types/runtimeProvider; url: http://localhost:4001/@mf-types.zip
+[2025-12-26T18:07:54.211] [INFO] downloadAPITypes - success
+[2025-12-26T18:07:54.212] [INFO] updateTypes - consumeTypes end

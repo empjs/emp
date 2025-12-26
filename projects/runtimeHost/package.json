@@ -1,0 +1,27 @@
+{
+  "name": "runtime-host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze"
+  },
+  "dependencies": {
+    "react": "19",
+    "react-dom": "19"
+  },
+  "devDependencies": {
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@module-federation/runtime": "0.22.0",
+    "@module-federation/rspack": "0.22.0",
+    "@types/react": "19",
+    "@types/react-dom": "19"
+  }
+}
