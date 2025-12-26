@@ -30,23 +30,25 @@ export default defineConfig(store => {
       // const swcReactCompiler = require('@swc/react-compiler')
       // console.log('swcReactCompiler', swcReactCompiler)
       // config.plugin('swc-react-compiler').use(swcReactCompiler, [{}])
-      config.optimization.splitChunks({
-        cacheGroups: {
-          // 完全自定义的规则
-          react: {
-            test: /node_modules[\\/](react|react-dom)/,
-            name: 'lib-react',
-            priority: 20,
-          },
-          antd: {
-            test: /node_modules[\\/](antd|@ant-design)/,
-            name: 'lib-antd',
-            priority: 15,
-          },
-          common: {
-            test: /node_modules/,
-            name: 'lib-common',
-            priority: 5,
+      config.optimization.merge({
+        splitChunks: {
+          cacheGroups: {
+            // 完全自定义的规则
+            react: {
+              test: /node_modules[\\/](react|react-dom)/,
+              name: 'lib-react',
+              priority: 20,
+            },
+            antd: {
+              test: /node_modules[\\/](antd|@ant-design)/,
+              name: 'lib-antd',
+              priority: 15,
+            },
+            common: {
+              test: /node_modules/,
+              name: 'lib-common',
+              priority: 5,
+            },
           },
         },
       })
@@ -80,7 +82,7 @@ export default defineConfig(store => {
       },
       // browserslist: store.browserslistOptions.h5,
       sourcemap: true,
-      // target: 'es2017',
+      target: 'es2017',
       // minify: false,
     },
     entries: {

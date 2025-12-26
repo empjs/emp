@@ -180,6 +180,10 @@ export type BuildType = {
    */
   target?: JscTarget
   /**
+   * 是否用 ESM
+   */
+  useESM?: boolean
+  /**
    * 注入兼容代码
    * module federation 入口 建议使用  entry
    * @default false

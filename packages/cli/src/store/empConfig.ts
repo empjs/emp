@@ -45,9 +45,10 @@ export class EmpConfig {
    * 是否启动 esm 模块
    * @default true
    */
-  public isESM = false
-  public checkIsESM(target: string) {
-    return ['es3', 'es5'].indexOf(target) === -1
+  // public isESM = false
+  get isESM() {
+    const isCjs = ['es3', 'es5'].indexOf(this.store.empConfig.build.target) === 1
+    return !isCjs && this.store.empConfig.build.useESM
   }
   public lifeCycle!: LifeCycle
   async setup(store: GlobalStore) {
@@ -61,7 +62,7 @@ export class EmpConfig {
     this.lifeCycle = new LifeCycle(this.store.empOptions.lifeCycle)
     await this.lifeCycle.afterGetEmpOptions()
     // 是否启动 is ESM
-    this.isESM = this.checkIsESM(this.build.target)
+    // this.isESM = this.checkIsESM(this.build.target)
     if (this.store.empOptions.target) {
       this.target = this.store.empOptions.target
       if (Array.isArray(this.target) && !this.target.includes(this.build.target)) {
@@ -159,6 +160,7 @@ export class EmpConfig {
         minOptions: {},
         cssminOptions: {},
         target: 'es5',
+        useESM: false,
         polyfill: {
           mode: undefined,
           entryCdn: undefined,
