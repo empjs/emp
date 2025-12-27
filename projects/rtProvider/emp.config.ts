@@ -1,7 +1,8 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
-// import {ModuleFederationPlugin} from '@module-federation/rspack'
-import {externalReact, pluginRspackEmpShare} from '@empjs/share'
+import {pluginRspackEmpShare} from '@empjs/share'
+
+const globalVal = 'BIGO_NOVA_REACT'
 export default defineConfig(store => {
   return {
     plugins: [
@@ -22,13 +23,20 @@ export default defineConfig(store => {
         },
         empRuntime: {
           framework: {
-            global: 'EMP_ADAPTER_REACT',
-            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.0/dist/reactRouter.${store.mode}.umd.js`],
+            global: globalVal,
+            libs: [`https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.2/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.12.0/output/sdk.js`,
+            lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.12.0/output/sdk.js`,
           },
-          setExternals: externalReact,
+          setExternals(o) {
+            o.react = `${globalVal}.React`
+            o['react-dom'] = `${globalVal}.ReactDOM`
+            o['react/jsx-dev-runtime'] = `${globalVal}`
+            o['react/jsx-runtime'] = `${globalVal}`
+            o['react-dom/client'] = `${globalVal}`
+            o.wouter = `${globalVal}.Wouter`
+          },
         },
       }),
     ],

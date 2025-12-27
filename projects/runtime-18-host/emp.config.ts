@@ -8,15 +8,17 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: `runtimeHost_${port}`,
+        manifest: true,
         exposes: {
           './App': './src/App',
         },
-        // remotes: {
-        //   runtimeApp: `runtimeApp@http://${store.server.ip}:3801/emp.js`,
-        // },
+        shared: {
+          react: {
+            singleton: true,
+          },
+        },
         empRuntime: {
           runtime: {
-            // lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
             lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           framework: {
@@ -25,17 +27,6 @@ export default defineConfig(store => {
           },
           setExternals: externalReact,
         },
-        manifest: true,
-        dts: true,
-        // dts: {
-        //   generateTypes: {
-        //     generateAPITypes: true,
-        //     abortOnError: true,
-        //     extractThirdParty: true,
-        //     extractRemoteTypes: true,
-        //     compileInChildProcess: true,
-        //   },
-        // },
       }),
     ],
     build: {

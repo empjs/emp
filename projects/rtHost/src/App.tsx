@@ -1,8 +1,7 @@
-import {getInstance, loadRemote} from '@empjs/share/sdk'
+import {loadRemote, registerRemotes} from '@empjs/share/sdk'
 import {lazy, Suspense} from 'react'
 
-const mf = getInstance()
-mf?.registerRemotes([
+registerRemotes([
   {
     name: 'rtProvider',
     entry: 'http://localhost:4001/emp.json',

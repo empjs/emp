@@ -231,7 +231,7 @@ export class EmpShare {
       if (op.empRuntime) {
         delete op.empRuntime
       }
-      console.log('op', op)
+      // console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])
     }
   }

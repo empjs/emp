@@ -56,10 +56,15 @@
     "@commitlint/config-conventional": "^17.8.0",
     "@empjs/biome-config": "workspace:^",
     "@rslib/core": "^0.18.3",
+    "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
     "serve": "14.2.5",
     "tsup": "8.5.0",
-    "typescript": "^5.9.2",
-    "@types/node": "^24.9.2"
+    "typescript": "^5.9.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@module-federation/rspack>@module-federation/dts-plugin": "npm:@empjs/module-federation-dts-plugin@0.22.0"
+    }
   }
 }

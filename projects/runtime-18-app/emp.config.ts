@@ -2,42 +2,28 @@ import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 export default defineConfig(store => {
-  const ip = store.getLanIp()
   const port = 3801
+  const host = `localhost`
   return {
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
         name: `runtime_app`,
-        // manifest: true,
-        // experiments: {
-        //   asyncStartup: true,
-        // },
-        exposes: {
-          // './Title': './src/Title',
+        shared: {
+          react: {
+            singleton: true,
+          },
         },
-        // remotes: {
-        //   r91: `runtimeHost_3911@http://${ip}:3911/emp.json`,
-        //   r92: `runtimeHost_3912@http://${ip}:3912/emp.json`,
-        //   r93: `runtimeHost_3913@http://${ip}:3913/emp.json`,
-        // },
         empRuntime: {
           framework: {
             global: 'EMP_ADAPTER_REACT',
             libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            lib: `http://${store.server.ip}:2100/sdk.js`,
-            // lib: `https://unpkg.com/@empjs/share@3.12.0/output/sdk.js`,
+            lib: `http://${host}:2100/sdk.js`,
           },
           setExternals: externalReact,
         },
-        dts: {
-          generateTypes: false,
-          consumeTypes: true,
-          displayErrorInTerminal: true,
-        },
-        // dev: true,
       }),
     ],
     build: {
@@ -52,9 +38,9 @@ export default defineConfig(store => {
     html: {
       template: 'src/index.html',
     },
-    define: {runtimeHost: `http://${ip}:3802/emp.js`, ip: `${ip}`},
+    define: {runtimeHost: `http://${host}:3802/emp.js`, ip: `${store.server.ip}`},
     debug: {
-      showRsconfig: 'log.json',
+      // showRsconfig: 'log.json',
     },
   }
 })

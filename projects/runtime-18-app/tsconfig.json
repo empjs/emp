@@ -6,5 +6,5 @@
       "*": ["./@mf-types/*"]
     }
   },
-  "include": ["src", "./@mf-types/*"]
+  "include": ["src", "@mf-types"]
 }
