@@ -26,6 +26,10 @@ export default defineConfig(store => {
             singleton: true,
           },
         },
+        dts: {
+          consumeTypes: true,
+          generateTypes: false,
+        },
         empRuntime: {
           framework: {
             global: globalVal,

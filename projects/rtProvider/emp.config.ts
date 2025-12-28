@@ -21,6 +21,7 @@ export default defineConfig(store => {
             singleton: true,
           },
         },
+        dev: false,
         empRuntime: {
           framework: {
             global: globalVal,

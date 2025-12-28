@@ -13,33 +13,35 @@ export default defineConfig(store => {
           './Info': './src/components/Info',
           './About': './src/components/About',
         },
+        shared: {
+          react: {
+            singleton: true,
+          },
+        },
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.12.0/output/sdk.js`,
-            // lib: `http://${ip}:2100/sdk.js`,
+            // lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.12.0/output/sdk.js`,
+            lib: `http://localhost:2100/sdk.js`,
           },
           framework: {
-            libs: [`https://unpkg.com/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.${store.mode}.umd.js`],
+            libs: [`https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.${store.mode}.umd.js`],
             global: 'BIGO_NOVA_REACT',
           },
           setExternals: externalReact,
         },
         manifest: true,
-        // dts: true,
-        // dts: {
-        //   generateTypes: {
-        //     generateAPITypes: true,
-        //     abortOnError: true,
-        //     extractThirdParty: true,
-        //     extractRemoteTypes: true,
-        //     compileInChildProcess: true,
-        //   },
-        // },
+        // dts: port === '3712',
+        dev: port === '3710',
+        // dev: true,
+        dts: {
+          consumeTypes: port === '3710',
+          generateTypes: port === '3712',
+        },
       }),
     ],
     build: {
       polyfill: {
-        entryCdn: `https://unpkg.com/@empjs/polyfill@2026.0.2/dist/61.js`,
+        entryCdn: `https://cdn.jsdelivr.net/npm/@empjs/polyfill@2026.0.2/dist/61.js`,
       },
     },
     server: {

@@ -1,15 +1,14 @@
-// import rt from '@empjs/share/runtime'
+import {loadRemote} from '@empjs/share/sdk'
 
 import {lazy, Suspense} from 'react'
 import {ip, port} from './config'
-import {mf} from './index'
 
 const isEmp = true
-let Info: any
-let About: any
+let Info
+let About
 if (isEmp) {
-  Info = lazy(() => mf.loadRemote<any>('@ah/Info'))
-  About = lazy(() => mf.loadRemote<any>('@ah/About'))
+  Info = lazy(() => loadRemote('@ah/Info'))
+  About = lazy(() => loadRemote('@ah/About'))
 } else {
   Info = lazy(() => import('src/components/Info'))
   About = lazy(() => import('src/components/About'))
