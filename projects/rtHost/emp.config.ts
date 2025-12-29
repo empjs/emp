@@ -1,7 +1,7 @@
 import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 // import {ModuleFederationPlugin} from '@module-federation/rspack'
-import {externalReact, pluginRspackEmpShare} from '@empjs/share'
+import {pluginRspackEmpShare} from '@empjs/share'
 
 const globalVal = 'BIGO_NOVA_REACT'
 export default defineConfig(store => {
