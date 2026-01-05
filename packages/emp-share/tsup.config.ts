@@ -1,5 +1,7 @@
 import {defineConfig, Options} from 'tsup'
 import {shareGlobalName} from './src/helper/config'
+
+const aim_target = 'es2015' // es2018 es2015
 export default defineConfig(({watch}): Options[] => {
   return [
     {
@@ -13,6 +15,7 @@ export default defineConfig(({watch}): Options[] => {
         react: 'src/framework/react/index.ts',
         vue: 'src/framework/vue/index.ts',
       },
+      target: aim_target,
       format: ['esm', 'cjs'],
       splitting: false,
       sourcemap: true,
@@ -32,8 +35,8 @@ export default defineConfig(({watch}): Options[] => {
         // sdkPolyfill: 'src/library/sdkPolyfill.ts',
         // full: 'src/library/full.ts',
       } as any,
-      // target: 'es5',
-      target: 'es2017',
+      target: aim_target,
+      // target: 'es2018',
       format: ['iife'],
       platform: 'browser',
       treeshake: true,
