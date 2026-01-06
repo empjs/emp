@@ -66,10 +66,10 @@ class RspackCommon {
          */
         lazyBarrel: true,
         // https://rspack.rs/zh/blog/announcing-1-5#%E5%B8%B8%E9%87%8F%E5%86%85%E8%81%94%E4%BC%98%E5%8C%96
-        inlineConst: true,
-        inlineEnum: true,
+        // inlineConst: true, // 已废弃 如需关闭该行为，可通过 optimization.inlineExports 来控制
+        // inlineEnum: true, // 已废弃 使用 collectTypeScriptInfo.exportedEnum 控制是否收集导出的 enum 信息 , 使用 optimization.inlineExports 来控制是否内联 enum
         // https://rspack.rs/zh/config/experiments#experimentstypereexportspresence
-        typeReexportsPresence: true,
+        // typeReexportsPresence: true, // 已废弃 类型重导出存在性检查现在由 module.parser.javascript.typeReexportsPresence 和 builtin:swc-loader collectTypeScriptInfo.typeExports 控制。
         outputModule: this.store.empConfig.isESM, //将尽可能输出符合 ECMAScript 语法的代码
         topLevelAwait: true,
         asyncWebAssembly: true,
