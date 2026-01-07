@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-lightningcss",
-  "version": "3.4.1",
+  "version": "3.11.0",
   "description": "emp v3 lightningcss",
   "type": "module",
   "files": ["dist"],
