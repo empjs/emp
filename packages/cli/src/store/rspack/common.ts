@@ -64,7 +64,7 @@ class RspackCommon {
          * 自动识别无副作用的 barrel 文件，对其中的重导出进行延迟构建优化，只在真正需要时才会解析和构建相关模块
          * https://rspack.rs/zh/blog/announcing-1-5#barrel-%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96
          */
-        lazyBarrel: true,
+        // lazyBarrel: true,
         // https://rspack.rs/zh/blog/announcing-1-5#%E5%B8%B8%E9%87%8F%E5%86%85%E8%81%94%E4%BC%98%E5%8C%96
         // inlineConst: true, // 已废弃 如需关闭该行为，可通过 optimization.inlineExports 来控制
         // inlineEnum: true, // 已废弃 使用 collectTypeScriptInfo.exportedEnum 控制是否收集导出的 enum 信息 , 使用 optimization.inlineExports 来控制是否内联 enum
