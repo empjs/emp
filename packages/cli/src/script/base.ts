@@ -1,3 +1,4 @@
+import {rspackVersion} from '@rspack/core'
 import logger from 'src/helper/logger'
 import {clearConsole} from 'src/helper/utils'
 import store from 'src/store'
@@ -15,7 +16,8 @@ export class BaseScript {
     // if (store.debug.clearLog) {
     //   clearConsole()
     // }
-    logger.title(`${cliAction}`)
+    store.empConfig.showLogTitle({cliAction, cliOptions, rspackVersion, empVersion: store.empPkg.version})
+
     logger.time(timeCliRunTag)
     await this.run()
     this.processExit()

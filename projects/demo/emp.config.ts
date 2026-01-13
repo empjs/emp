@@ -2,10 +2,21 @@ import {defineConfig} from '@empjs/cli'
 import pluginlightningcss, {postcss} from '@empjs/plugin-lightningcss'
 import pluginReact from '@empjs/plugin-react'
 
+const logoStr = `
+███╗   ██╗ ██████╗ ██╗   ██╗ █████╗ 
+████╗  ██║██╔═══██╗██║   ██║██╔══██╗
+██╔██╗ ██║██║   ██║██║   ██║███████║
+██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══██║
+██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║
+╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝.WEB`
+
 // import pluginShare from '@empjs/share'
 const port = 8000
 export default defineConfig(store => {
   return {
+    showLogTitle: (o: any) => {
+      console.log(logoStr)
+    },
     // autoDevBase: true,
     server: {
       // server: {

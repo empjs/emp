@@ -428,6 +428,11 @@ export type EmpOptions = {
    * 详情 https://github.com/rspack-contrib/ts-checker-rspack-plugin
    */
   tsCheckerRspackPlugin?: TsCheckerRspackPluginOptions | boolean
+  /**
+   * 是否显示日志标题
+   * @default undefined
+   */
+  showLogTitle?: (o?: any) => void
 }
 export type Override<What, With> = Omit<What, keyof With> & With
 export type InjectTagsType = InjectTagsTypeItem[]

@@ -432,5 +432,12 @@ export class EmpConfig {
     }
     return autoPages
   }
+  public showLogTitle(o: any) {
+    if (this.store.empOptions.showLogTitle) {
+      this.store.empOptions.showLogTitle(o)
+    } else {
+      logger.title(`${o.cliAction}`)
+    }
+  }
 }
 export default new EmpConfig()
