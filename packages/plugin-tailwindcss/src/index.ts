@@ -1,11 +1,13 @@
 import type {GlobalStore} from '@empjs/cli'
 import autoprefixer from 'autoprefixer'
 import path from 'path'
+import type {AcceptedPlugin} from 'postcss'
 import {TailwindcssOptions} from './types.js'
 export default (
   tailwindcssOptions?: TailwindcssOptions,
   autoprefixerOptions?: autoprefixer.Options,
   presetEnvFeature?: Record<string, boolean>,
+  customPostcssPlugins?: AcceptedPlugin[],
 ) => {
   return {
     name: '@empjs/plugin-tailwindcss',
@@ -59,6 +61,12 @@ export default (
       }
 
       postcssPlugins.push(autoprefixer(autoprefixerOptions))
+
+      // 追加用户自定义的 postcss 插件
+      if (customPostcssPlugins && customPostcssPlugins.length > 0) {
+        postcssPlugins.push(...customPostcssPlugins)
+      }
+
       // console.log('postcssPlugins', JSON.stringify(postcssPlugins))
       chain.module
         .rule(store.chainName.rule.css)
