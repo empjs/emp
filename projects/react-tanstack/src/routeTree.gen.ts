@@ -8,12 +8,12 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as UsersRouteImport } from './routes/users'
-import { Route as InfoRouteImport } from './routes/info'
-import { Route as DynamicRouteImport } from './routes/dynamic'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as UserIdRouteImport } from './routes/user.$id'
+import {Route as rootRouteImport} from './routes/__root'
+import {Route as DynamicRouteImport} from './routes/dynamic'
+import {Route as IndexRouteImport} from './routes/index'
+import {Route as InfoRouteImport} from './routes/info'
+import {Route as UserIdRouteImport} from './routes/user.$id'
+import {Route as UsersRouteImport} from './routes/users'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -126,6 +126,4 @@ const rootRouteChildren: RootRouteChildren = {
   UsersRoute: UsersRoute,
   UserIdRoute: UserIdRoute,
 }
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()

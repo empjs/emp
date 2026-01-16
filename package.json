@@ -42,10 +42,7 @@
     "cloudflare:mf-vue2": "cross-env DEPLOY=cloudflare pnpm --filter vue-2-project --filter vue-2-base build",
     "cloudflare:mf-vue3": "cross-env DEPLOY=cloudflare pnpm --filter vue-3-project --filter vue-3-base build",
     "cloudflare:react-19-tanstack": "cross-env DEPLOY=cloudflare pnpm --filter react-19-tanstack build",
-    "lint": "biome check . --fix",
-    "check": "biome check .",
-    "lint:css": "biome check --css-formatter-enabled=true --css-linter-enabled=true ./ --fix",
-    "biome": "biome"
+    "lint": "biome check --write"
   },
   "engines": {
     "node": ">=18.0.0",

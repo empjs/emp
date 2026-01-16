@@ -4,4 +4,3 @@ import Info from '../Info'
 export const Route = createFileRoute('/info')({
   component: Info,
 })
-

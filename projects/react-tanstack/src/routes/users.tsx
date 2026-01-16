@@ -4,4 +4,3 @@ import {UserList} from '../User'
 export const Route = createFileRoute('/users')({
   component: UserList,
 })
-

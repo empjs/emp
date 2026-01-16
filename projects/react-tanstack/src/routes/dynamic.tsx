@@ -4,4 +4,3 @@ import DynamicPage from '../DynamicPage'
 export const Route = createFileRoute('/dynamic')({
   component: DynamicPage,
 })
-
