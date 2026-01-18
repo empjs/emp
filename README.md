@@ -40,10 +40,12 @@
 
 ### 在 IDE / Agent 中的使用方式
 
-- 每个技能使用独立目录并在其中放置 `SKILL.md`，例如 `.opencode/skills/emp-best-practices/SKILL.md`。
-- OpenCode 会从当前仓库向上搜索 `.opencode/skills/*/SKILL.md` 以及用户目录 `~/.config/opencode/skills/*/SKILL.md` 中的技能定义，并在需要时按需加载。
-- 在本仓库中，可通过 `.opencode/skills/emp-best-practices/SKILL.md` 或镜像目录 `.trae/skills/emp-best-practices/SKILL.md` 手动浏览索引，再跳转到 `references/*` 下的参考文档。
-- 在 Cursor 等支持 AI 的编辑器中，直接打开本仓库并在对话中引用上述路径（如 `.opencode/skills/emp-best-practices/SKILL.md`），即可让助手聚焦 EMP 最佳实践相关内容回答问题。
+- **Project config**: `.opencode/skills/<name>/SKILL.md`
+- **Global config**: `~/.config/opencode/skills/<name>/SKILL.md`
+- **Project Claude-compatible**: `.claude/skills/<name>/SKILL.md`
+- **Global Claude-compatible**: `~/.claude/skills/<name>/SKILL.md`
+
+在 Cursor 等支持 AI 的编辑器中，直接打开本仓库并在对话中引用上述路径（如 `.opencode/skills/emp-best-practices/SKILL.md`），即可让助手聚焦 EMP 最佳实践相关内容回答问题。
 
 [npm-version-src]: https://img.shields.io/npm/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/@empjs/cli
