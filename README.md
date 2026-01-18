@@ -33,30 +33,17 @@
 ### 技能内容结构
 
 - 核心指南  
-  - 架构与基础使用：`references/core/README.md`  
-  - 故障排除与调试：`references/core/troubleshooting.md`
 - 模块联邦与架构  
-  - 模块联邦与 CDN 集成：`references/architecture/module-federation-cdn.md`  
-  - 同项目多端口运行时共享：`references/architecture/multi-port-runtime-sharing.md`
 - 多框架互调  
-  - 概览与模式：`references/interop/framework-interop-guide.md`  
-  - 实现细节与配置：`references/interop/framework-interop-implementation.md`  
-  - React 侧互调实践：`references/interop/framework-interop-react.md`  
-  - Vue 侧互调实践：`references/interop/framework-interop-vue.md`
 - 插件系统  
-  - 插件使用场景与组合：`references/plugins/plugin-usage-guide.md`  
-  - 插件开发与扩展：`references/plugins/plugin-development.md`  
-  - 框架插件清单 (React/Vue)：`references/plugins/framework-plugins.md`  
-  - CSS / 样式插件清单：`references/plugins/css-plugins.md`
 - 性能与样式  
-  - 构建性能优化：`references/performance/build-optimization.md`  
-  - TailwindCSS 集成技巧：`references/performance/tailwindcss-integration.md`
 
 ### 在 IDE / Agent 中的使用方式
 
-- 在 Trae 或其他支持技能的 IDE 中打开本仓库时，可以启用 `emp-best-practices` 技能，让 Agent 优先从上述文档中检索答案，而不是扫描整个仓库。
-- 如果只关注某一类能力（例如「多框架互调」或「插件开发」），Agent 会根据当前问题只加载对应子目录下的文档，降低上下文体积。
-- 手工查阅时，可以先打开 `.trae/skills/emp-best-practices/SKILL.md` 查看索引，再跳转到对应的 `references/*` 文档。
+- 每个技能使用独立目录并在其中放置 `SKILL.md`，例如 `.opencode/skills/emp-best-practices/SKILL.md`。
+- OpenCode 会从当前仓库向上搜索 `.opencode/skills/*/SKILL.md` 以及用户目录 `~/.config/opencode/skills/*/SKILL.md` 中的技能定义，并在需要时按需加载。
+- 在本仓库中，可通过 `.opencode/skills/emp-best-practices/SKILL.md` 或镜像目录 `.trae/skills/emp-best-practices/SKILL.md` 手动浏览索引，再跳转到 `references/*` 下的参考文档。
+- 在 Cursor 等支持 AI 的编辑器中，直接打开本仓库并在对话中引用上述路径（如 `.opencode/skills/emp-best-practices/SKILL.md`），即可让助手聚焦 EMP 最佳实践相关内容回答问题。
 
 [npm-version-src]: https://img.shields.io/npm/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/@empjs/cli
