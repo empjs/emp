@@ -35,6 +35,7 @@ remotes: {
   mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
 }
 ```
+> 💡 更多配置细节请参考 [模块联邦与 CDN 集成](../architecture/module-federation-cdn.md)。
 
 #### 版本冲突
 **症状**: React 多实例错误或类型不匹配
@@ -50,6 +51,7 @@ shared: {
   },
 }
 ```
+> 💡 跨框架版本问题请参考 [多框架互调指南](../interop/framework-interop-guide.md)。
 
 ### 2. 构建性能问题
 
@@ -81,6 +83,7 @@ export default defineConfig(store => {
   }
 })
 ```
+> 💡 更多优化技巧请参考 [构建性能优化](../performance/build-optimization.md)。
 
 #### 内存溢出
 **症状**: JavaScript heap out of memory
@@ -235,6 +238,7 @@ pluginTailwindcss({
   ],
 })
 ```
+> 💡 更多样式配置请参考 [TailwindCSS 集成](../performance/tailwindcss-integration.md)。
 
 ### 9. 依赖冲突
 

@@ -142,6 +142,37 @@ export default defineConfig(store => {
 })
 ```
 
+## 🔄 高级用法：动态插件加载
+
+### 自动框架检测
+
+```typescript
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import Vue2 from '@empjs/plugin-vue2'
+import Vue3 from '@empjs/plugin-vue3'
+
+export default defineConfig(store => {
+  // 自动检测项目框架
+  const deps = store.pkg.dependencies || {}
+  
+  let frameworkPlugin
+  if (deps.react) {
+    frameworkPlugin = pluginReact()
+  } else if (deps.vue) {
+    // 检测 Vue 版本
+    const vueVersion = deps.vue.match(/\d+/)?.[0]
+    frameworkPlugin = parseInt(vueVersion) >= 3 ? Vue3() : Vue2()
+  } else {
+    throw new Error('No supported framework detected')
+  }
+  
+  return {
+    plugins: [frameworkPlugin]
+  }
+})
+```
+
 ## 🛡️ 最佳实践总结
 
 ### 配置原则

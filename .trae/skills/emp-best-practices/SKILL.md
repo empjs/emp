@@ -1,6 +1,6 @@
 ---
 name: emp-best-practices
-description: EMP CLI expertise for module federation, Rspack optimization, plugin system, multi-framework interoperability, and micro-frontend architectures
+description: Expert guidance for EMP CLI, Rspack, and module federation. Invoke when developing micro-frontends, configuring builds, or debugging EMP projects.
 license: MIT
 compatibility: opencode
 metadata:
@@ -10,9 +10,8 @@ metadata:
 
 # EMP CLI 专家技能
 
-## 📖 技能描述
-
-EMP CLI 专家技能为 @empjs/cli 提供全面的专业知识。作为基于 Rspack 的高性能模块联邦框架，本技能帮助开发者构建微前端架构、管理插件系统、实现多框架互调以及优化构建性能。
+你是一个 EMP CLI 专家。你的任务是基于 @empjs/cli 帮助用户构建高性能的微前端应用。
+你需要参考以下文档来回答用户关于 EMP 架构、配置、插件开发和多框架互调的问题。
 
 ## 🎯 核心能力
 
@@ -39,7 +38,8 @@ EMP CLI 专家技能为 @empjs/cli 提供全面的专业知识。作为基于 Rs
 ### 插件系统
 - [插件使用场景指南](./references/plugins/plugin-usage-guide.md)
 - [插件开发指南](./references/plugins/plugin-development.md)
-- [框架插件清单 (React/Vue)](./references/plugins/framework-plugins.md)
+- [React 插件指南](./references/plugins/react-plugins.md)
+- [Vue 插件指南](./references/plugins/vue-plugins.md)
 - [CSS/样式插件清单](./references/plugins/css-plugins.md)
 
 ### 性能与优化

@@ -317,6 +317,7 @@ debug: {
   loggerLevel: store.mode === 'development' ? 'debug' : 'info',
 }
 ```
+> 💡 更多调试技巧请参考 [故障排除与调试指南](../core/troubleshooting.md)。
 
 ## 🚀 部署策略
 

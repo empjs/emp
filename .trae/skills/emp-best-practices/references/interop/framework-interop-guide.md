@@ -5,12 +5,14 @@
 ## 目录
 
 - [核心概念](#核心概念)
+- [安装依赖](#安装依赖)
 - [配置要求](#配置要求)
 - [React 互调](#react-互调)
 - [Vue 2 互调](#vue-2-互调)
 - [Vue 3 互调](#vue-3-互调)
+- [常见问题](#常见问题)
 
-## 核心概念
+## 💡 核心概念
 
 EMP 的互调方案基于 **Bridge Component** 模式：
 
@@ -18,7 +20,22 @@ EMP 的互调方案基于 **Bridge Component** 模式：
 2.  **Bridge Component**: 使用特定框架的 Bridge 函数（如 `createBridgeComponent`）将原始组件包装，处理生命周期、Props 传递和挂载逻辑。
 3.  **Host Component**: 使用 Host 框架的 Adapter 函数（如 `createRemoteAppComponent`）将 Bridge 组件转换为 Host 可识别的组件。
 
-## 配置要求
+## 📦 安装依赖
+
+根据你的项目需求，安装对应的 Bridge 库：
+
+```bash
+# Host 是 React，需要加载 Vue 3 组件
+npm install @empjs/bridge-react @empjs/bridge-vue3
+
+# Host 是 React，需要加载 Vue 2 组件
+npm install @empjs/bridge-react @empjs/bridge-vue2
+
+# Host 是 Vue 3，需要加载 React 组件
+npm install @empjs/bridge-vue3 @empjs/bridge-react
+```
+
+## ⚙️ 配置要求
 
 在 `emp.config.ts` 中，需要配置 `empRuntime` 以注入必要的全局变量和运行时库。
 
@@ -35,10 +52,11 @@ export default defineConfig(store => {
           framework: {
             // 定义全局变量名，用于访问适配器
             global: 'EMP_ADAPTER_REACT',
-            // 注入 CDN 依赖
+            // 注入 CDN 依赖 (Vue 运行时等)
             libs: [
                `https://unpkg.com/@empjs/cdn-vue@0.2.1/dist/vueRouter.${store.mode}.umd.js`,
-               // 其他必要的库...
+               // 确保 Vue 核心库也被引入
+               `https://unpkg.com/vue@3.2.47/dist/vue.global.js`,
             ],
           },
         },
@@ -48,7 +66,7 @@ export default defineConfig(store => {
 })
 ```
 
-## React 互调
+## ⚛️ React 互调
 
 ### 加载不同版本的 React 组件
 
@@ -69,7 +87,7 @@ const BridgeComponent = createBridgeComponent(RemoteApp, EMP_ADAPTER_REACT)
 export const RemoteReactComponent = createRemoteAppComponent(BridgeComponent, { React })
 ```
 
-## Vue 2 互调
+## 🟢 Vue 2 互调
 
 ### React 加载 Vue 2 组件
 
@@ -97,7 +115,7 @@ export const ReactVue2Hello = createVue2Bridge(HelloVue, {
 })
 ```
 
-## Vue 3 互调
+## ⚡ Vue 3 互调
 
 ### React 加载 Vue 3 组件
 
@@ -123,7 +141,7 @@ const BridgeComponent = createBridgeComponent(Vue3App, {
 export const ReactVue3App = createRemoteAppComponent(BridgeComponent, { React })
 ```
 
-## 最佳实践
+## 🌟 最佳实践
 
 1.  **样式隔离**：建议使用 CSS Modules 或 Shadow DOM 来避免不同框架间的样式冲突。
 2.  **上下文共享**：对于 Router 和 Store，尽量在 Host 端统一管理，或者通过 Props/Event Bus 显式传递状态，避免复杂的上下文嵌套。
@@ -140,3 +158,7 @@ const App = () => (
   </ErrorBoundary>
 )
 ```
+
+## ❓ 常见问题
+
+遇到类型错误或加载失败？请查看 [故障排除与调试](../core/troubleshooting.md#7-typescript-类型错误) 指南。
