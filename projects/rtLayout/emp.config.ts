@@ -8,16 +8,11 @@ export default defineConfig(store => {
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
-        name: 'rtProvider',
+        name: 'rtLayout',
         manifest: true,
         exposes: {
           './App': './src/App',
-        },
-        remotes: {
-          rtLayout: '$@http://localhost:4004/emp.json',
-        },
-        forceRemotes: {
-          rtLayout: '$@http://127.0.0.1:4004/emp.json',
+          './logo': './src/logo',
         },
         shared: {
           react: {
@@ -48,7 +43,7 @@ export default defineConfig(store => {
       }),
     ],
     server: {
-      port: 4001,
+      port: 4004,
       open: false,
     },
     // chain(chain) {

@@ -30,6 +30,9 @@ export default defineConfig(store => {
           consumeTypes: true,
           generateTypes: false,
         },
+        forceRemotes: {
+          rtLayout: '$@http://127.0.0.1:4004/emp.json',
+        },
         empRuntime: {
           framework: {
             global: globalVal,

@@ -76,6 +76,7 @@ export type frameworkOptions = {
 
 export type EMPPluginShareType = ModuleFederationPluginOptions & {
   empRuntime?: EMPSHARERuntimeOptions
+  forceRemotes?: {[key: string]: string}
 }
 
 export type ExternalsItemType = {

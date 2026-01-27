@@ -14,9 +14,9 @@ const logoStr = `
 const port = 8000
 export default defineConfig(store => {
   return {
-    showLogTitle: (o: any) => {
-      console.log(logoStr)
-    },
+    // showLogTitle: (o: any) => {
+    //   console.log(logoStr)
+    // },
     // autoDevBase: true,
     server: {
       // server: {
@@ -77,7 +77,7 @@ export default defineConfig(store => {
       // showPerformance: true,
       // showRsconfig: 'wp.json',
       // loggerLevel: 'debug',
-      clearLog: false,
+      // clearLog: false,
       // progress: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志

@@ -10,6 +10,7 @@ export default defineConfig(({watch}): Options[] => {
         runtime: 'src/runtime/index.ts',
         sdk: 'src/runtime/sdk.ts',
         mfRuntime: 'src/runtime/mfRuntime.ts',
+        forceRemote: 'src/plugins/rspack/runtimePlugin/forceRemote.ts',
         adapter: 'src/adapter/index.ts',
         rspack: 'src/plugins/rspack/index.ts',
         react: 'src/framework/react/index.ts',
@@ -32,6 +33,7 @@ export default defineConfig(({watch}): Options[] => {
       outDir: 'output',
       entry: {
         sdk: 'src/library/sdk.ts',
+        wSdk: 'src/library/wSdk.ts',
         // sdkPolyfill: 'src/library/sdkPolyfill.ts',
         // full: 'src/library/full.ts',
       } as any,

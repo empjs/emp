@@ -9,13 +9,20 @@ export class DevServer implements DevServerType {
   private server: any = null
   public isServerStarted = false
 
-  async setup(compiler: Compiler, rspackConfig: RspackOptions, store: GlobalStore, onReady: any = () => {}) {
-    if (!rspackConfig.devServer) return logger.warn('rspackConfig.devServer need!')
+  async setup(
+    compiler: Compiler,
+    rspackConfig: RspackOptions,
+    store: GlobalStore,
+    onReady: (result?: unknown) => void = () => {},
+  ): Promise<void> {
+    if (!rspackConfig.devServer) {
+      logger.warn('rspackConfig.devServer need!')
+      return
+    }
     const app = new RspackDevServer(rspackConfig.devServer, compiler)
     await app.start()
     app.middleware?.waitUntilValid(onReady)
     this.server = app
-    return app
   }
 
   async beforeCompiler(rspackConfig: any) {
