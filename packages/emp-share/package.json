@@ -140,8 +140,8 @@
   "author": "Ken",
   "dependencies": {
     "@empjs/module-federation-rspack": "0.22.5",
-    "@module-federation/runtime": "0.22.0",
-    "@module-federation/sdk": "0.22.0",
+    "@module-federation/runtime": "0.23.0",
+    "@module-federation/sdk": "0.23.0",
     "core-js": "^3.46.0"
   },
   "devDependencies": {
