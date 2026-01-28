@@ -75,6 +75,25 @@ export type frameworkOptions = {
 }
 
 /**
+ * runtime beforeRegisterRemote 收到的 remote 对象结构（与 @module-federation/runtime Remote 兼容）
+ */
+export type RemoteInfoForForce = {
+  /** 唯一标识，如 @nova/bigolive-common，用于匹配 forceRemotes key（优先于 name） */
+  alias?: string
+  /** 占位名，如 $1，可能重名；插件会为占位名生成唯一 name */
+  name?: string
+  /** 入口地址（与 url、manifest 三选一） */
+  entry?: string
+  url?: string
+  manifest?: string
+  /** 版本（可选）；若缺失则从 entry/url/manifest 中解析 */
+  version?: string
+  externalType?: string
+  shareScope?: string
+  type?: string
+}
+
+/**
  * 单项配置：仅替换 URL 中 `key@oldVer` 的版本部分
  * @example "17.0.0"
  */
@@ -87,7 +106,8 @@ export type ForceRemoteVersion = string
 export type ForceRemoteVersionOption = { version: string }
 
 /**
- * 单项配置：整入口替换（key 为 remote name 时生效，直接替换该 remote 的 entry/url/manifest）
+ * 单项配置：整入口替换（key 匹配 remote 的 alias 或 name 时生效，直接替换该 remote 的 entry/url/manifest）
+ * 匹配时优先用 alias（唯一标识，如 @nova/bigolive-common），避免 name 为 $1 等占位符导致重名
  * @example { entry: "https://cdn.example.com/app1.js" }
  */
 export type ForceRemoteEntryOption = { entry: string }
@@ -95,7 +115,7 @@ export type ForceRemoteEntryOption = { entry: string }
 /**
  * forceRemotes 每项：版本替换 或 整入口替换
  * - string / { version }：对所有 remote 的 entry/url/manifest 中 `key@xxx` 做版本替换
- * - { entry }：对名为 key 的 remote 做整入口替换
+ * - { entry }：key 为 remote 的 alias（优先）或 name 时，对该 remote 做整入口替换
  */
 export type ForceRemoteItem = ForceRemoteVersion | ForceRemoteVersionOption | ForceRemoteEntryOption
 
