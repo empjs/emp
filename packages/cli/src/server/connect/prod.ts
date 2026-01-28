@@ -34,6 +34,21 @@ export class ProdServer {
     // 配置 proxy 代理
     // console.log('store.server.proxy', store.empConfig.server.proxy)
     if (store.empConfig.server.proxy && Array.isArray(store.empConfig.server.proxy)) {
+      const proxyPaths = store.empConfig.server.proxy.flatMap((p: any) =>
+        Array.isArray(p.context) ? p.context : [p.context],
+      )
+      // 仅对命中代理路径的请求去掉 HTTP/2 伪头，避免 http-proxy 复制到 outgoing 时触 ERR_INVALID_HTTP_TOKEN；非代理请求不删，保证 connect 的 parseUrl(req) 不丢 pathname
+      app.use((req: any, _res: any, next: any) => {
+        const h = req.headers
+        const pathVal = (h && h[':path']) ?? req.url
+        if (pathVal != null && req.url == null) req.url = pathVal
+        if (h && typeof pathVal === 'string' && proxyPaths.some((c: string) => pathVal.startsWith(c))) {
+          for (const name of Object.keys(h)) {
+            if (name.startsWith(':')) delete h[name]
+          }
+        }
+        next()
+      })
       store.empConfig.server.proxy.forEach((proxyItem: any) => {
         const {context, ...options} = proxyItem
         // context 可以是字符串或字符串数组

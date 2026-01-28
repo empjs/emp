@@ -9,6 +9,7 @@
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
+    "bd": "emp build --doctor",
     "emp": "emp"
   },
   "keywords": [],

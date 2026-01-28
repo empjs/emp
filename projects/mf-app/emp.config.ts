@@ -9,19 +9,19 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: store.uniqueName,
-        // experiments: {
-        //   asyncStartup: true,
-        // },
-        shared: {
-          react: {
-            singleton: true,
-            requiredVersion: '18',
-          },
-          'react-dom': {
-            singleton: true,
-            requiredVersion: '18',
-          },
+        experiments: {
+          asyncStartup: true,
         },
+        // shared: {
+        //   react: {
+        //     singleton: true,
+        //     requiredVersion: '18',
+        //   },
+        //   'react-dom': {
+        //     singleton: true,
+        //     requiredVersion: '18',
+        //   },
+        // },
         remotes: {
           mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
         },
