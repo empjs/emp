@@ -3,6 +3,7 @@ import fsp from 'node:fs/promises'
 import compression from 'compression'
 import connect from 'connect'
 import cors from 'cors'
+import {createProxyMiddleware} from 'http-proxy-middleware'
 import http2 from 'http2'
 import path from 'path'
 import serveStatic from 'serve-static'
@@ -29,6 +30,23 @@ export class ProdServer {
       return store.logger.sysError(`emp serve must be executed after emp build,${store.outDir} not exist!`)
     }
     const staticRoot = store.resolve(store.rsConfig.output?.path as any)
+
+    // 配置 proxy 代理
+    // console.log('store.server.proxy', store.empConfig.server.proxy)
+    if (store.empConfig.server.proxy && Array.isArray(store.empConfig.server.proxy)) {
+      store.empConfig.server.proxy.forEach((proxyItem: any) => {
+        const {context, ...options} = proxyItem
+        // context 可以是字符串或字符串数组
+        // 在 http-proxy-middleware v2.x 中，使用 pathFilter 来指定要代理的路径
+        app.use(
+          createProxyMiddleware({
+            ...options,
+            pathFilter: context,
+          }) as connect.NextHandleFunction,
+        )
+      })
+    }
+
     app.use(serveStatic(staticRoot))
 
     // 默认入口 适配 single spa

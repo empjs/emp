@@ -13,7 +13,8 @@
     "dev:doctor": "emp dev --doctor",
     "emp": "emp",
     "cra": "pnpm create emp",
-    "lint": "biome check . --fix"
+    "lint": "biome check . --fix",
+    "api": "node test-server.js"
   },
   "keywords": [],
   "author": "",

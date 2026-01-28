@@ -29,6 +29,16 @@ export default defineConfig(store => {
       port,
       open: false,
       // https: true,
+      // Proxy 配置 - 用于测试 emp dev 和 emp serve 的代理功能
+      // 注意: @rspack/dev-server 要求 proxy 必须是数组格式
+      proxy: [
+        {
+          context: ['/api'],
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+          // pathRewrite: {'^/api': ''}, // 如果需要重写路径，可以取消注释
+        },
+      ],
     },
     html: {
       template: 'src/index.html',
@@ -77,7 +87,7 @@ export default defineConfig(store => {
       // showPerformance: true,
       // showRsconfig: 'wp.json',
       // loggerLevel: 'debug',
-      // clearLog: false,
+      clearLog: false,
       // progress: false,
       // infrastructureLogging: {
       //   level: 'verbose', // 或 'log'，verbose 会输出更详细的日志
@@ -103,6 +113,9 @@ export default defineConfig(store => {
       'work/index.ts': {
         title: 'work Page',
         template: 'src/work/index.html',
+      },
+      'proxy-test.tsx': {
+        title: 'Proxy Test - EMP',
       },
     },
     resolve: {
