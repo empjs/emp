@@ -74,9 +74,36 @@ export type frameworkOptions = {
   libs?: string[]
 }
 
+/**
+ * 单项配置：仅替换 URL 中 `key@oldVer` 的版本部分
+ * @example "17.0.0"
+ */
+export type ForceRemoteVersion = string
+
+/**
+ * 单项配置：显式指定仅替换版本（与 string 等价，便于扩展）
+ * @example { version: "17.0.0" }
+ */
+export type ForceRemoteVersionOption = { version: string }
+
+/**
+ * 单项配置：整入口替换（key 为 remote name 时生效，直接替换该 remote 的 entry/url/manifest）
+ * @example { entry: "https://cdn.example.com/app1.js" }
+ */
+export type ForceRemoteEntryOption = { entry: string }
+
+/**
+ * forceRemotes 每项：版本替换 或 整入口替换
+ * - string / { version }：对所有 remote 的 entry/url/manifest 中 `key@xxx` 做版本替换
+ * - { entry }：对名为 key 的 remote 做整入口替换
+ */
+export type ForceRemoteItem = ForceRemoteVersion | ForceRemoteVersionOption | ForceRemoteEntryOption
+
+export type ForceRemoteOptions = Record<string, ForceRemoteItem>
+
 export type EMPPluginShareType = ModuleFederationPluginOptions & {
   empRuntime?: EMPSHARERuntimeOptions
-  forceRemotes?: {[key: string]: string}
+  forceRemotes?: ForceRemoteOptions
 }
 
 export type ExternalsItemType = {

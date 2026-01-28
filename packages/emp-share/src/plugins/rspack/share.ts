@@ -4,6 +4,7 @@ import {deepAssign} from 'src/helper'
 import {shareGlobalName} from 'src/helper/config'
 import {ModuleFederationPlugin} from 'src/helper/rspack'
 import {EmpShareRemoteLibPlugin} from './plugin'
+import {registerRemotes} from './runtimePlugin/registerRemotes'
 import type {
   EMPPluginShareType,
   ExternalsItemType,
@@ -232,9 +233,14 @@ export class EmpShare {
       if (op.empRuntime) {
         delete op.empRuntime
       }
+      /**
+       * 注册 forceRemotes
+       */
       if (o.forceRemotes) {
+        //
         const forceRemotes = {...o.forceRemotes}
-        console.log('forceRemotes', forceRemotes)
+        //
+        registerRemotes(store, o.forceRemotes)
         delete o.forceRemotes
         op.runtimePlugins?.push([require.resolve(path.join(__dirname, 'forceRemote')), forceRemotes])
       }
