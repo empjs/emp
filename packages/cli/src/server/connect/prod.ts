@@ -3,8 +3,9 @@ import fsp from 'node:fs/promises'
 import compression from 'compression'
 import connect from 'connect'
 import cors from 'cors'
+import http from 'http'
 import {createProxyMiddleware} from 'http-proxy-middleware'
-import http2 from 'http2'
+import https from 'https'
 import path from 'path'
 import serveStatic from 'serve-static'
 import {parse} from 'url'
@@ -31,24 +32,8 @@ export class ProdServer {
     }
     const staticRoot = store.resolve(store.rsConfig.output?.path as any)
 
-    // 配置 proxy 代理
-    // console.log('store.server.proxy', store.empConfig.server.proxy)
+    // 配置 proxy 代理（对齐 dev server 方式）
     if (store.empConfig.server.proxy && Array.isArray(store.empConfig.server.proxy)) {
-      const proxyPaths = store.empConfig.server.proxy.flatMap((p: any) =>
-        Array.isArray(p.context) ? p.context : [p.context],
-      )
-      // 仅对命中代理路径的请求去掉 HTTP/2 伪头，避免 http-proxy 复制到 outgoing 时触 ERR_INVALID_HTTP_TOKEN；非代理请求不删，保证 connect 的 parseUrl(req) 不丢 pathname
-      app.use((req: any, _res: any, next: any) => {
-        const h = req.headers
-        const pathVal = (h && h[':path']) ?? req.url
-        if (pathVal != null && req.url == null) req.url = pathVal
-        if (h && typeof pathVal === 'string' && proxyPaths.some((c: string) => pathVal.startsWith(c))) {
-          for (const name of Object.keys(h)) {
-            if (name.startsWith(':')) delete h[name]
-          }
-        }
-        next()
-      })
       store.empConfig.server.proxy.forEach((proxyItem: any) => {
         const {context, ...options} = proxyItem
         // context 可以是字符串或字符串数组
@@ -84,19 +69,19 @@ export class ProdServer {
 
     if (store.server.isHttps) {
       const {key, cert} = await store.server.getcert()
-      const http2Server = http2.createSecureServer(
+      // 使用 HTTPS (HTTP/1.1) 而非 HTTP/2，避免伪头部字段问题，对齐 dev server
+      const httpsServer = https.createServer(
         typeof store.server.isHttps !== 'boolean'
           ? store.server.isHttps
           : {
               key,
               cert,
-              allowHTTP1: true,
             },
         app as any,
       )
-      http2Server.listen(store.server.port, onReady)
+      httpsServer.listen(store.server.port, onReady)
     } else {
-      const server = require('http').createServer(app)
+      const server = http.createServer(app)
       server.listen(store.server.port, onReady)
     }
   }
