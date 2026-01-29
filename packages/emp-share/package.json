@@ -47,6 +47,16 @@
         "default": "./dist/mfRuntime.cjs"
       }
     },
+    "./forceRemote": {
+      "import": {
+        "types": "./dist/forceRemote.d.ts",
+        "default": "./dist/forceRemote.js"
+      },
+      "require": {
+        "types": "./dist/forceRemote.d.cts",
+        "default": "./dist/forceRemote.cjs"
+      }
+    },
     "./sdk": {
       "import": {
         "types": "./dist/sdk.d.ts",

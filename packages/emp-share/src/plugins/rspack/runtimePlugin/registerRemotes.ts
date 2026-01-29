@@ -1,4 +1,5 @@
 import {type GlobalStore} from '@empjs/cli'
+import {shareForceRemote} from 'src/helper/config'
 import {ForceRemoteOptions} from '../types'
 
 export const registerRemotes = (store: GlobalStore, forceRemotes: ForceRemoteOptions) => {
@@ -6,7 +7,7 @@ export const registerRemotes = (store: GlobalStore, forceRemotes: ForceRemoteOpt
     store.injectTags(
       [
         {
-          innerHTML: `window.EMP_FORCE_REMOTES = ${JSON.stringify(forceRemotes)};`,
+          innerHTML: `window.${shareForceRemote} = ${JSON.stringify(forceRemotes)};`,
           tagName: 'script',
           pos: 'head',
         },

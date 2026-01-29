@@ -1,7 +1,6 @@
 import type {GlobalStore} from '@empjs/cli'
-import path from 'path'
 import {deepAssign} from 'src/helper'
-import {shareGlobalName} from 'src/helper/config'
+import {shareGlobalName, shareGlobalVal} from 'src/helper/config'
 import {ModuleFederationPlugin} from 'src/helper/rspack'
 import {EmpShareRemoteLibPlugin} from './plugin'
 import {registerRemotes} from './runtimePlugin/registerRemotes'
@@ -96,7 +95,7 @@ export class EmpShare {
       injectHtml.push({
         // type: 'js',
         tagName: 'script',
-        innerHTML: `EMPShareGlobalVal=${JSON.stringify(injectData)}`,
+        innerHTML: `window.${shareGlobalVal}=${JSON.stringify(injectData)}`,
       })
     }
   }
@@ -242,7 +241,9 @@ export class EmpShare {
         //
         registerRemotes(store, o.forceRemotes)
         delete o.forceRemotes
-        op.runtimePlugins?.push([require.resolve(path.join(__dirname, 'forceRemote')), forceRemotes])
+        // op.runtimePlugins?.push([require.resolve(path.join(__dirname, 'forceRemote')), forceRemotes])
+        // console.log('require.resolve("@empjs/share/forceRemote")', require.resolve('@empjs/share/forceRemote'))
+        op.runtimePlugins?.push([require.resolve('@empjs/share/forceRemote'), forceRemotes])
       }
       // console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])

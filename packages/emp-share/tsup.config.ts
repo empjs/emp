@@ -16,6 +16,7 @@ export default defineConfig(({watch}): Options[] => {
         react: 'src/framework/react/index.ts',
         vue: 'src/framework/vue/index.ts',
       },
+      external: ['@empjs/share/forceRemote'],
       target: aim_target,
       format: ['esm', 'cjs'],
       splitting: false,
@@ -33,7 +34,8 @@ export default defineConfig(({watch}): Options[] => {
       outDir: 'output',
       entry: {
         sdk: 'src/library/sdk.ts',
-        wSdk: 'src/library/wSdk.ts',
+        // wSdk: 'src/library/wSdk.ts',
+        // forceRemote: 'src/plugins/rspack/runtimePlugin/forceRemote.ts',
         // sdkPolyfill: 'src/library/sdkPolyfill.ts',
         // full: 'src/library/full.ts',
       } as any,
