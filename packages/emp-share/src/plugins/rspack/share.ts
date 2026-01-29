@@ -236,14 +236,9 @@ export class EmpShare {
        * 注册 forceRemotes
        */
       if (o.forceRemotes) {
-        //
-        const forceRemotes = {...o.forceRemotes}
-        //
         registerRemotes(store, o.forceRemotes)
         delete o.forceRemotes
-        // op.runtimePlugins?.push([require.resolve(path.join(__dirname, 'forceRemote')), forceRemotes])
-        // console.log('require.resolve("@empjs/share/forceRemote")', require.resolve('@empjs/share/forceRemote'))
-        op.runtimePlugins?.push([require.resolve('@empjs/share/forceRemote'), forceRemotes])
+        op.runtimePlugins?.push(require.resolve('@empjs/share/forceRemote'))
       }
       // console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])
