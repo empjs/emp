@@ -1,8 +1,6 @@
 {
   // 标记为嵌套配置，不是根配置
   "root": false,
-  // 引用 Biome 配置的 JSON Schema，提供代码提示和验证
-  // "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
   "$schema": "node_modules/@biomejs/biome/schema.json",
   // 文件处理配置
   "files": {
@@ -117,7 +115,8 @@
         "useOptionalChain": "off", // 关闭：强制使用可选链
         "useLiteralKeys": "off", // 关闭：强制使用字面量键
         "noUselessTernary": "off", // 关闭：禁止无用的三元表达式
-        "noUselessFragments": "off"
+        "noUselessFragments": "off",
+        "noThisInStatic": "off"
       },
       // 正确性规则
       "correctness": {
