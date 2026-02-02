@@ -18,6 +18,9 @@ export default defineConfig(store => {
       }),
       pluginRspackEmpShare({
         name: 'rtHost',
+        experiments: {
+          asyncStartup: true,
+        },
         shared: {
           react: {
             singleton: true,

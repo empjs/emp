@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "emp dev -ev aa=1 -ev bb=2 -ev cc=3",
+    "dev:debug": "FEDERATION_DEBUG=true emp dev -ev aa=1 -ev bb=2 -ev cc=3",
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",

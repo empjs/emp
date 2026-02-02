@@ -1,7 +1,1 @@
-// import('src/bootstrap')
-import {createRoot} from 'react-dom/client'
-import App from 'src/App'
-
-const dom = document.getElementById('emp-root')!
-const root = createRoot(dom)
-root.render(<App />)
+import('src/bootstrap')

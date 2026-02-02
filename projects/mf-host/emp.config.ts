@@ -12,7 +12,6 @@ export default defineConfig(store => {
       pluginReact(),
       pluginRspackEmpShare({
         name: 'mfHost',
-        // dts: true,
         // shared: {
         //   react: {
         //     singleton: true,

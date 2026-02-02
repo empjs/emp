@@ -1,4 +1,4 @@
-import {registerRemotes} from '@empjs/share/sdk'
+// import {registerRemotes} from '@empjs/share/sdk'
 
 // registerRemotes([
 //   {

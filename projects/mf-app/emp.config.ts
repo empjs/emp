@@ -12,18 +12,16 @@ export default defineConfig(store => {
         experiments: {
           asyncStartup: true,
         },
-        // shared: {
-        //   react: {
-        //     singleton: true,
-        //     requiredVersion: '18',
-        //   },
-        //   'react-dom': {
-        //     singleton: true,
-        //     requiredVersion: '18',
-        //   },
-        // },
+        shared: {
+          react: {
+            singleton: true,
+          },
+          'react-dom': {
+            singleton: true,
+          },
+        },
         remotes: {
-          mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
+          // mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
         },
         empRuntime: {
           framework: {
@@ -31,11 +29,12 @@ export default defineConfig(store => {
             // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],
             // libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.development.umd.js`],
             // libs: [`https://unpkg.com/@empjs/cdn-react@0.19.1/dist/reactRouter.${store.mode}.umd.js`],
-            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.1/dist/react.${store.mode}.umd.js`],
+            // libs: [`https://unpkg.com/@empjs/cdn-react@0.19.1/dist/react.${store.mode}.umd.js`],
+            libs: [`https://unpkg.com/@empjs/cdn-react@0.19.1/dist/react.development.umd.js`],
             // libs: [`http://${store.server.ip}:1900/reactRouter.${store.mode}.umd.js`],
           },
           runtime: {
-            // lib: `https://unpkg.com/@empjs/share@3.10.0-beta.6/output/sdk.js`,
+            // lib: `https://unpkg.com/@empjs/share@3.13.7/output/sdk.js`,
             lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           setExternals: (o, global) => {
@@ -44,13 +43,13 @@ export default defineConfig(store => {
             return o
           },
         },
-        // dts: {
-        //   consumeTypes: true,
-        // },
+        dts: {
+          consumeTypes: true,
+        },
         // experiments: {
         //   federationRuntime: 'hoisted',
         // },
-        // manifest: true,
+        manifest: true,
         // dataPrefetch: true,
       }),
     ],

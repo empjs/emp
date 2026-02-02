@@ -1,6 +1,22 @@
 import {createInstance, loadRemote, registerRemotes} from '@empjs/share/sdk'
 import {lazy, Suspense, useCallback, useState} from 'react'
 
+registerRemotes([
+  {
+    name: 'rtProvider',
+    entry: 'http://localhost:4001/emp.json',
+  },
+])
+
+setTimeout(() => {
+  registerRemotes([
+    {
+      name: 'rtLayout',
+      entry: 'http://127.0.0.1:4004/emp.json',
+    },
+  ])
+}, 5000)
+
 // const mf = createInstance({
 //   name: 'rtHost',
 //   remotes: [
@@ -21,17 +37,18 @@ const App = () => {
 
   const handleAddRemote = useCallback(() => {
     // Use React.lazy to wrap dynamic import for Suspense
-    registerRemotes([
-      {
-        name: 'rtProvider',
-        entry: 'http://localhost:4001/emp.json',
-      },
-      // {
-      //   name: 'rtLayout',
-      //   entry: 'http://127.0.0.1:4004/emp.json',
-      // },
-    ])
+    // registerRemotes([
+    //   {
+    //     name: 'rtProvider',
+    //     entry: 'http://localhost:4001/emp.json',
+    //   },
+    //   // {
+    //   //   name: 'rtLayout',
+    //   //   entry: 'http://127.0.0.1:4004/emp.json',
+    //   // },
+    // ])
     const RemoteComponent = lazy(() => loadRemote('rtProvider/App'))
+    const LayoutComponent = lazy(() => loadRemote('rtLayout/App'))
     setComponents(prev => [...prev, <RemoteComponent key={prev.length} />])
   }, [setComponents])
 
