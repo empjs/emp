@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cli",
-  "version": "3.12.2",
+  "version": "3.12.3",
   "description": "emp",
   "license": "MIT",
   "type": "module",

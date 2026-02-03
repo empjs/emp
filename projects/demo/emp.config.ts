@@ -28,7 +28,7 @@ export default defineConfig(store => {
       // },
       port,
       open: false,
-      https: true,
+      // https: true,
       // Proxy 配置 - 用于测试 emp dev 和 emp serve 的代理功能
       // 注意: @rspack/dev-server 要求 proxy 必须是数组格式
       proxy: [
