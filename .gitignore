@@ -13,3 +13,4 @@ projects/e-svga*
 doc_build
 
 .rslib
+.cursor/debug.log

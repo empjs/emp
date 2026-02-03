@@ -249,7 +249,19 @@ export class EmpConfig {
       this.store.server.httpsType = 'h2'
       delete this.store.empOptions.server.http2
     }
-    return this.assign(sf, this.store.empOptions.server)
+    const merged = this.assign(sf, this.store.empOptions.server)
+    // 跨 IP 热更：当 host 为 0.0.0.0/:: 时，用 LAN IP 设置 client.webSocketURL，否则 rspack 会按 host 生成 WS URL 导致跨设备访问时热更失效
+    const isUnspecifiedHost = merged.host === '0.0.0.0' || merged.host === '::'
+    const {server} = this.store
+    if (this.store.isDev && isUnspecifiedHost && server?.ip) {
+      const client = (merged.client ??= {}) as { webSocketURL?: string }
+      if (!client.webSocketURL) {
+        const protocol = server.isHttps ? 'wss' : 'ws'
+        const port = merged.port ?? server.port ?? 8000
+        client.webSocketURL = `${protocol}://${server.ip}:${port}/ws`
+      }
+    }
+    return merged
   }
   get css() {
     const cb: Required<EmpOptions['css']> = this.assign(

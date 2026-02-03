@@ -109,12 +109,13 @@ export class StoreServer {
       this.port = store.empOptions.server.port
     }
     this.port = await getPorts(this.port)
+    const webSocketURL = `${this.isHttps ? 'wss' : 'ws'}://${this.host}:${this.port}/ws`
     store.empOptions.base = `${this.protocol}://${this.host}:${this.port}/`
     store.empOptions.server = store.deepAssign(
       {
         // host: host,//允许所有host 访问
         port: this.port,
-        client: {webSocketURL: `${this.isHttps ? 'wss' : 'ws'}://${this.host}:${this.port}/ws`},
+        client: { webSocketURL },
       },
       store.empOptions.server,
     )
