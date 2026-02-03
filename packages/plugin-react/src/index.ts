@@ -79,6 +79,7 @@ export default (o: PluginReactType = {}) => {
           library,
           // injectEntry: false,
           // injectLoader: false,
+          reloadOnRuntimeErrors: true,
         }
 
         store.chain.plugin('plugin-react-refresh').use(require.resolve('@rspack/plugin-react-refresh'), [op])

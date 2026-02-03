@@ -6,7 +6,7 @@ import Bound from './Bound'
 registerRemotes([
   {
     name: 'mfHost',
-    entry: 'http://localhost:6001/emp.json',
+    entry: 'http://172.19.159.24:6001/emp.json',
   },
 ])
 

@@ -62,4 +62,5 @@ export type PluginReactConfigType = {
    * @default true
    */
   injectEntry?: boolean
+  reloadOnRuntimeErrors?: boolean
 }
