@@ -21,7 +21,7 @@ export default defineConfig(store => {
           },
         },
         remotes: {
-          // mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
+          mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
         },
         empRuntime: {
           framework: {

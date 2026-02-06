@@ -12,7 +12,8 @@
 
 + 🔑 基于Rspack + Module Federation + Typescript、聚焦高性能 & 微前端
 + 🛠️ 多种开发需求、支持开箱即用。
-+ 🔩 通用的插件、共享 webpackChain 插件接口.
++ 🔩 通用的插件、共享 webpackChain 插件接口。
++ 📦 **状态管理**：[@empjs/valtio](https://valtio.empjs.dev/) —— Valtio 增强版，更少样板、更强类型、内置历史与派生。
 
 ## 文档
 + 🚀 [快速开始](https://empjs.dev/guide/start/quick-start.html)
@@ -22,30 +23,22 @@
 + 🎨 [官网Github](https://github.com/empjs/official)
 + 🎯 [工程初始化](https://github.com/empjs/create-emp)
 
-## EMP CLI Best Practices Skill
+## EMP Skills
 
-本仓库内置了一个针对 EMP CLI 的最佳实践技能，位于：
+本仓库内置 EMP 全栈技能，位于 `.cursor/skills/emp/`，内容已本地化，整合项目脚手架、emp.config、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。
 
-- `.trae/skills/emp-best-practices`
-
-该技能为下列场景提供结构化的参考文档，方便在 IDE（如 Trae）中按需、按主题加载，减少不必要的上下文与 token 消耗。
-
-### 技能内容结构
-
-- 核心指南  
-- 模块联邦与架构  
-- 多框架互调  
-- 插件系统  
-- 性能与样式  
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| **emp** | `.cursor/skills/emp` | EMP 全栈：项目配置、插件、Tailwind、微前端、valtio、性能优化 |
+| **emp-best-practices** | `.trae/skills/emp-best-practices` | EMP CLI 最佳实践、模块联邦、多框架互调、插件、性能 |
 
 ### 在 IDE / Agent 中的使用方式
 
-- **Project config**: `.opencode/skills/<name>/SKILL.md`
-- **Global config**: `~/.config/opencode/skills/<name>/SKILL.md`
-- **Project Claude-compatible**: `.claude/skills/<name>/SKILL.md`
-- **Global Claude-compatible**: `~/.claude/skills/<name>/SKILL.md`
+- **Cursor**: 对话中引用 `@.cursor/skills/emp/SKILL.md`
+- **Trae / OpenCode**: `.trae/skills/<name>/SKILL.md`
+- **Claude**: `.claude/skills/<name>/SKILL.md`
 
-在 Cursor 等支持 AI 的编辑器中，直接打开本仓库并在对话中引用上述路径（如 `.opencode/skills/emp-best-practices/SKILL.md`），即可让助手聚焦 EMP 最佳实践相关内容回答问题。
+在 Cursor 中引用 `@.cursor/skills/emp/SKILL.md`，即可让助手聚焦 EMP 全栈技能回答问题。
 
 [npm-version-src]: https://img.shields.io/npm/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/@empjs/cli
