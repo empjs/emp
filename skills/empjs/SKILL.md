@@ -1,13 +1,32 @@
 ---
-name: emp
-description: EMP 全栈技能：React 项目脚手架、emp.config.ts 配置、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。适用于创建 EMP 应用、配置模块联邦、状态管理、性能优化等场景。
+name: empjs
+description: EMP 全栈技能：React 19 脚手架脚本、emp.config.ts 配置、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。适用于创建 EMP 应用、配置模块联邦、状态管理、性能优化等场景。
 ---
 
 # EMP 全栈技能
 
 整合 EMP React 项目、微前端、Tailwind v4、状态管理、性能优化于一体。全部内容已本地化。
 
-## 一、快速开始
+## 一、React 19 Startkit 脚手架
+
+快速创建 EMP React 19 项目。在项目根目录执行：
+
+```bash
+node skills/empjs/scripts/create-emp-react19.js <项目名> [目标目录]
+```
+
+示例：
+
+```bash
+node skills/empjs/scripts/create-emp-react19.js my-app
+node skills/empjs/scripts/create-emp-react19.js my-app ./projects
+```
+
+生成后执行 `cd <项目名> && pnpm install && pnpm dev`。
+
+生成结构：`package.json`、`emp.config.ts`、`tsconfig.json`、`src/index.html`、`src/index.tsx`、`src/bootstrap.tsx`、`src/App.tsx`、`src/style.css`、`src/global.d.ts`。
+
+## 二、快速开始
 
 ### 最少配置
 
@@ -29,8 +48,7 @@ project/
 ├── emp.config.ts
 ├── package.json
 ├── src/
-│   ├── index.html    # 含 <div id="root"></div>
-│   └── index.tsx     # import('./bootstrap')
+│   └── index.tsx     
 └── tsconfig.json     # extends: "@empjs/cli/tsconfig/react"
 ```
 
@@ -42,7 +60,7 @@ pnpm build    # 构建
 pnpm start    # 预览
 ```
 
-## 二、package.json scripts 补全
+## 三、package.json scripts 补全
 
 ```json
 {
@@ -70,7 +88,7 @@ pnpm start    # 预览
 }
 ```
 
-## 三、emp.config.ts 核心配置
+## 四、emp.config.ts 核心配置
 
 | 配置 | 说明 | 默认 |
 |------|------|------|
@@ -81,7 +99,7 @@ pnpm start    # 预览
 
 详见 [references/empconfig.md](references/empconfig.md)。
 
-## 四、插件
+## 五、插件
 
 ### 必需
 
@@ -93,7 +111,7 @@ pnpm start    # 预览
 - `@empjs/plugin-lightningcss`：LightningCSS，px_to_rem、px_to_viewport
 - `@empjs/share`：模块联邦共享
 
-## 五、Tailwind v4
+## 六、Tailwind v4
 
 ```bash
 pnpm add @empjs/plugin-tailwindcss tailwindcss
@@ -110,7 +128,7 @@ plugins: [pluginReact(), pluginTailwindcss()]
 
 详见 [references/tailwind-v4.md](references/tailwind-v4.md)。
 
-## 六、微前端 empRuntime
+## 七、微前端 empRuntime
 
 ### 标准 React 模板
 
@@ -152,7 +170,7 @@ const Host = lazy(() => loadRemote('mfHost/App'))
 
 详见 [references/runtime-build.md](references/runtime-build.md)。
 
-## 七、状态管理 @empjs/valtio
+## 八、状态管理 @empjs/valtio
 
 ```bash
 pnpm add @empjs/valtio
@@ -165,9 +183,9 @@ pnpm add @empjs/valtio
 
 **调用闭环**：读用 `snap`，写用 `store.set` / `store.update`。勿直接读 `store.xxx` 做渲染。
 
-详见 [references/valtio-usage.md](references/valtio-usage.md)、[references/valtio-api.md](references/valtio-api.md)。
+完整指南见 [references/valtio-skill.md](references/valtio-skill.md)，用法见 [references/valtio-usage.md](references/valtio-usage.md)，API 见 [references/valtio-api.md](references/valtio-api.md)，示例见 [references/valtio-examples.md](references/valtio-examples.md)。
 
-## 八、React 性能优化
+## 九、React 性能优化
 
 **状态管理**：用 valtio 替代 useState/useReducer/useCallback。
 
@@ -180,14 +198,23 @@ pnpm add @empjs/valtio
 
 详见 [references/react-performance.md](references/react-performance.md)。
 
-## 九、参考索引
+## 十、参考索引
 
 | 文档 | 内容 |
 |------|------|
 | [empconfig.md](references/empconfig.md) | emp.config.ts 完整配置 |
 | [tailwind-v4.md](references/tailwind-v4.md) | Tailwind v4 配置 |
 | [runtime-build.md](references/runtime-build.md) | empRuntime、remotes、polyfill |
-| [valtio-usage.md](references/valtio-usage.md) | valtio 用法 |
-| [valtio-api.md](references/valtio-api.md) | valtio API |
+| [valtio-skill.md](references/valtio-skill.md) | @empjs/valtio 完整使用指南（本地化自 valtio-best-practices） |
+| [valtio-usage.md](references/valtio-usage.md) | valtio 按用法说明 |
+| [valtio-api.md](references/valtio-api.md) | valtio API 与类型 |
+| [valtio-examples.md](references/valtio-examples.md) | valtio 示例索引 |
 | [react-performance.md](references/react-performance.md) | React 性能规则 |
-| [examples.md](examples.md) | 配置示例 |
+| [examples.md](references/examples.md) | 配置示例 |
+| [startkit.md](references/startkit.md) | React 19 脚手架说明 |
+
+### 脚本
+
+| 脚本 | 用途 |
+|------|------|
+| [scripts/create-emp-react19.js](scripts/create-emp-react19.js) | 创建 EMP React 19 项目脚手架 |

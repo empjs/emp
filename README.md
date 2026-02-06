@@ -25,20 +25,20 @@
 
 ## EMP Skills
 
-本仓库内置 EMP 全栈技能，位于 `.cursor/skills/emp/`，内容已本地化，整合项目脚手架、emp.config、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。
+本仓库内置 EMP 全栈技能，位于 `skills/empjs/`，内容已本地化，整合项目脚手架、emp.config、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。技能目录服务所有模型（Cursor、Trae、Claude 等）。
 
 | 技能 | 路径 | 说明 |
 |------|------|------|
-| **emp** | `.cursor/skills/emp` | EMP 全栈：项目配置、插件、Tailwind、微前端、valtio、性能优化 |
+| **empjs** | `skills/empjs` | EMP 全栈：项目配置、插件、Tailwind、微前端、valtio、性能优化 |
 | **emp-best-practices** | `.trae/skills/emp-best-practices` | EMP CLI 最佳实践、模块联邦、多框架互调、插件、性能 |
 
 ### 在 IDE / Agent 中的使用方式
 
-- **Cursor**: 对话中引用 `@.cursor/skills/emp/SKILL.md`
+- **Cursor**: 对话中引用 `@skills/empjs/SKILL.md`
 - **Trae / OpenCode**: `.trae/skills/<name>/SKILL.md`
 - **Claude**: `.claude/skills/<name>/SKILL.md`
 
-在 Cursor 中引用 `@.cursor/skills/emp/SKILL.md`，即可让助手聚焦 EMP 全栈技能回答问题。
+在 Cursor 中引用 `@skills/empjs/SKILL.md`，即可让助手聚焦 EMP 全栈技能回答问题。
 
 [npm-version-src]: https://img.shields.io/npm/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/@empjs/cli
