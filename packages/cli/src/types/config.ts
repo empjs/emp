@@ -223,6 +223,11 @@ export interface HtmlType extends HtmlRspackPluginOptions {
    */
   favicon?: string
   /**
+   * 自定义挂载节点的 id，默认为 'emp-root'
+   * @default 'emp-root'
+   */
+  mountId?: string
+  /**
    * 网站语言
    */
   lang?: string
