@@ -1,6 +1,6 @@
 ---
 name: empjs
-description: EMP 全栈技能：React 19 脚手架脚本、emp.config.ts 配置、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。适用于创建 EMP 应用、配置模块联邦、状态管理、性能优化等场景。
+description: Scaffold React 19 projects, configure emp.config.ts, integrate Tailwind v4, set up empRuntime micro-frontends, and manage state with @empjs/valtio. Use when creating new EMP apps, configuring module federation remotes, setting up state management, or optimizing React performance.
 ---
 
 # EMP 全栈技能
@@ -22,7 +22,7 @@ node skills/empjs/scripts/create-emp-react19.js my-app
 node skills/empjs/scripts/create-emp-react19.js my-app ./projects
 ```
 
-生成后执行 `cd <项目名> && pnpm install && pnpm dev`。
+生成后执行 `cd <项目名> && pnpm install && pnpm dev`。验证：浏览器打开 `http://localhost:8000` 确认页面加载正常。
 
 生成结构：`package.json`、`emp.config.ts`、`tsconfig.json`、`src/index.html`、`src/index.tsx`、`src/bootstrap.tsx`、`src/App.tsx`、`src/style.css`、`src/global.d.ts`。
 
@@ -55,9 +55,9 @@ project/
 ### 启动命令
 
 ```bash
-pnpm dev      # 开发
-pnpm build    # 构建
-pnpm start    # 预览
+pnpm dev      # 开发 — 验证: 浏览器访问 localhost:端口号
+pnpm build    # 构建 — 验证: dist/ 目录生成且包含 index.html
+pnpm start    # 预览 — 验证: 生产构建在浏览器正常渲染
 ```
 
 ## 三、package.json scripts 补全
