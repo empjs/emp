@@ -9,6 +9,7 @@ projects/e-svga*
 .idea
 .emp-cache
 @mf-types
+.mf
 .output
 doc_build
 
