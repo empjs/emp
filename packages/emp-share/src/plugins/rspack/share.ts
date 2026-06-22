@@ -1,6 +1,7 @@
 import type {GlobalStore} from '@empjs/cli'
 import {deepAssign} from 'src/helper'
 import {shareGlobalName, shareGlobalVal} from 'src/helper/config'
+import {resolvePackageExport} from 'src/helper/resolvePackageExport'
 import {ModuleFederationPlugin} from 'src/helper/rspack'
 import {EmpShareRemoteLibPlugin} from './plugin'
 import {registerRemotes} from './runtimePlugin/registerRemotes'
@@ -238,7 +239,8 @@ export class EmpShare {
       if (o.forceRemotes) {
         registerRemotes(store, o.forceRemotes)
         delete o.forceRemotes
-        op.runtimePlugins?.push(require.resolve('@empjs/share/forceRemote'))
+        op.runtimePlugins ??= []
+        op.runtimePlugins.push(resolvePackageExport('@empjs/share/forceRemote'))
       }
       // console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])
