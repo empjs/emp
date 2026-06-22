@@ -21,7 +21,7 @@
     "@types/react-dom": "19"
   },
   "dependencies": {
-    "@empjs/share": "^3.11.3",
+    "@empjs/share": "workspace:^",
     "react": "^19.2.3",
     "wouter": "^3.9.0"
   }

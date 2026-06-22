@@ -1066,8 +1066,8 @@ Run:
 ```bash
 pnpm --filter mf-host build
 pnpm --filter mf-app build
-pnpm --filter rtHost build
-pnpm --filter rtProvider build
+pnpm --filter ./projects/rtHost build
+pnpm --filter ./projects/rtProvider build
 ```
 
 Expected: all pass.
