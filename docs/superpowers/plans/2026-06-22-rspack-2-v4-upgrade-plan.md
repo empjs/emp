@@ -946,22 +946,22 @@ pnpm --filter mf-app build
 
 Expected: PASS. Do not change the `pluginRspackEmpShare(...)` call signature in `projects/mf-app/emp.config.ts`.
 
-- [ ] **Step 3: Build `rtHost`**
+- [ ] **Step 3: Build `rt-host`**
 
 Run:
 
 ```bash
-pnpm --filter rtHost build
+pnpm --filter rt-host build
 ```
 
 Expected: PASS and `forceRemotes` path resolution does not throw.
 
-- [ ] **Step 4: Build `rtProvider`**
+- [ ] **Step 4: Build `rt-provider`**
 
 Run:
 
 ```bash
-pnpm --filter rtProvider build
+pnpm --filter rt-provider build
 ```
 
 Expected: PASS. The runtime plugin and external runtime injection remain compatible.
