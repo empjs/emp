@@ -36,7 +36,7 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@empjs/share": "^3.11.3",
+    "@empjs/share": "workspace:*",
     "@tanstack/react-router": "^1.141.8",
     "react": "19.2.3",
     "react-dom": "19.2.3",
