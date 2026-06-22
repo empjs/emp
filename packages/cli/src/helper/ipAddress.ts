@@ -1,6 +1,6 @@
-import chalk from 'chalk'
 import {gray} from 'src/helper/color'
 import url from 'url'
+import chalk from './chalk'
 import {getLanIp} from './utils'
 
 type IpAdressOpt = {

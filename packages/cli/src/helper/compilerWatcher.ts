@@ -1,8 +1,8 @@
 import type {Compiler} from '@rspack/core'
-import chalk from 'chalk'
 import path from 'path'
 import type {DevServer} from '../server/connect/dev'
 import {logDone, logStart} from './buildPrint'
+import chalk from './chalk'
 
 // 源文件过滤条件
 const SRC_FILE_REGEX = /\/src\//

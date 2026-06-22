@@ -1,7 +1,7 @@
 import {ip} from 'address'
-import chalk from 'chalk'
 import {gateway4sync} from 'default-gateway'
 import fs from 'fs-extra'
+import chalk from './chalk'
 export const getLanIp = () => {
   const defaultIp = '127.0.0.1'
   try {

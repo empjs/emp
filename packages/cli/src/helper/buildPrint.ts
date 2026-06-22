@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type {Stats, StatsAsset} from '@rspack/core'
-import chalk from 'chalk'
 import {gzipSizeSync} from 'gzip-size'
 import {blue, gray, green, magenta, red, white, yellow} from 'src/helper/color'
 import store from 'src/store'
+import chalk from './chalk'
 import logger from './logger'
 import {timeFormat} from './utils'
 // RegExp

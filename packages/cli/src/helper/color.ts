@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk from './chalk'
 export const lightGreen = chalk.hex('#1abc9c')
 export const green = chalk.hex('#16a085')
 export const lightCyan = chalk.hex('#2ecc71')

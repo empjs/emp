@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk from './chalk'
 import {glob} from 'glob'
 import color from './color'
 
