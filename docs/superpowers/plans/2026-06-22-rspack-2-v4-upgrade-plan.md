@@ -31,7 +31,7 @@
 - Modify: `package.json`  
   负责根 workspace 版本、`packageManager`、Node/pnpm engines。
 - Modify: `packages/*/package.json`  
-  负责发布包 v4 版本、Node engines、Rspack 2 / Module Federation 2.x 依赖。
+  负责主发布面 v4 版本、所有发布包 Node engines、Rspack 2 / Module Federation 2.x 依赖。
 - Modify: `pnpm-lock.yaml`  
   由 `pnpm install --lockfile-only` 或 `pnpm install` 生成，负责锁定依赖树。
 
@@ -104,7 +104,7 @@
 
 **Interfaces:**
 - Consumes: approved spec `docs/superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
-- Produces: all workspace package manifests declare v4-compatible version and Node engine constraints.
+- Produces: main release package manifests declare version `4.0.0`; CDN/lib variant packages keep their existing semantic versions; all `@empjs/*` package manifests declare Node engine `>=22.12.0`.
 
 - [ ] **Step 1: Run the failing baseline check**
 
@@ -121,6 +121,19 @@ const packageFiles = fs
   .map(name => path.join('packages', name, 'package.json'))
   .filter(file => fs.existsSync(file))
 
+const keepOwnVersionDirs = new Set([
+  'packages/cdn-react-17/package.json',
+  'packages/cdn-react-18/package.json',
+  'packages/cdn-react-19/package.json',
+  'packages/cdn-react-19-tanstack-router/package.json',
+  'packages/cdn-react-wouter/package.json',
+  'packages/cdn-vue-2/package.json',
+  'packages/cdn-vue-3/package.json',
+  'packages/cdn-vue-router-pinia/package.json',
+  'packages/lib-react-17/package.json',
+  'packages/lib-vue-2/package.json',
+])
+
 const failures = []
 
 if (root.version !== '4.0.0') failures.push(`package.json version expected 4.0.0, got ${root.version}`)
@@ -133,7 +146,9 @@ if (root.engines?.pnpm !== '10.x') failures.push(`root pnpm engine expected 10.x
 for (const file of packageFiles) {
   const pkg = JSON.parse(fs.readFileSync(file, 'utf8'))
   if (!pkg.name?.startsWith('@empjs/')) continue
-  if (pkg.version !== '4.0.0') failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
+  if (!keepOwnVersionDirs.has(file) && pkg.version !== '4.0.0') {
+    failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
+  }
   if (pkg.engines?.node !== '>=22.12.0') failures.push(`${file} node engine expected >=22.12.0`)
 }
 
@@ -145,7 +160,7 @@ console.log('v4 manifest baseline OK')
 NODE
 ```
 
-Expected: FAIL with current versions such as `@empjs/cli` `3.12.4` and root engine `>=18.0.0`.
+Expected: FAIL with current versions such as `@empjs/cli` `3.12.4` and root engine `>=18.0.0`. CDN and lib variant package versions are not expected to fail on version, only on Node engine if outdated.
 
 - [ ] **Step 2: Apply the minimal manifest baseline update**
 
@@ -170,19 +185,32 @@ root.packageManager = 'pnpm@10.33.0'
 root.engines = {...root.engines, node: '>=22.12.0', pnpm: '10.x'}
 writeJson('package.json', root)
 
+const keepOwnVersionDirs = new Set([
+  'packages/cdn-react-17/package.json',
+  'packages/cdn-react-18/package.json',
+  'packages/cdn-react-19/package.json',
+  'packages/cdn-react-19-tanstack-router/package.json',
+  'packages/cdn-react-wouter/package.json',
+  'packages/cdn-vue-2/package.json',
+  'packages/cdn-vue-3/package.json',
+  'packages/cdn-vue-router-pinia/package.json',
+  'packages/lib-react-17/package.json',
+  'packages/lib-vue-2/package.json',
+])
+
 for (const dir of fs.readdirSync('packages')) {
   const file = path.join('packages', dir, 'package.json')
   if (!fs.existsSync(file)) continue
   const pkg = readJson(file)
   if (!pkg.name?.startsWith('@empjs/')) continue
-  pkg.version = '4.0.0'
+  if (!keepOwnVersionDirs.has(file)) pkg.version = '4.0.0'
   pkg.engines = {...pkg.engines, node: '>=22.12.0'}
   writeJson(file, pkg)
 }
 NODE
 ```
 
-Expected: package manifests are rewritten with `version: "4.0.0"` and Node engine `>=22.12.0`.
+Expected: main release package manifests are rewritten with `version: "4.0.0"`; CDN/lib variant package versions are preserved; all `@empjs/*` package manifests get Node engine `>=22.12.0`.
 
 - [ ] **Step 3: Run baseline check again**
 
@@ -199,6 +227,19 @@ const packageFiles = fs
   .map(name => path.join('packages', name, 'package.json'))
   .filter(file => fs.existsSync(file))
 
+const keepOwnVersionDirs = new Set([
+  'packages/cdn-react-17/package.json',
+  'packages/cdn-react-18/package.json',
+  'packages/cdn-react-19/package.json',
+  'packages/cdn-react-19-tanstack-router/package.json',
+  'packages/cdn-react-wouter/package.json',
+  'packages/cdn-vue-2/package.json',
+  'packages/cdn-vue-3/package.json',
+  'packages/cdn-vue-router-pinia/package.json',
+  'packages/lib-react-17/package.json',
+  'packages/lib-vue-2/package.json',
+])
+
 const failures = []
 if (root.version !== '4.0.0') failures.push(`package.json version expected 4.0.0, got ${root.version}`)
 if (root.packageManager !== 'pnpm@10.33.0') failures.push(`package.json packageManager expected pnpm@10.33.0`)
@@ -208,7 +249,9 @@ if (root.engines?.pnpm !== '10.x') failures.push(`root pnpm engine expected 10.x
 for (const file of packageFiles) {
   const pkg = JSON.parse(fs.readFileSync(file, 'utf8'))
   if (!pkg.name?.startsWith('@empjs/')) continue
-  if (pkg.version !== '4.0.0') failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
+  if (!keepOwnVersionDirs.has(file) && pkg.version !== '4.0.0') {
+    failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
+  }
   if (pkg.engines?.node !== '>=22.12.0') failures.push(`${file} node engine expected >=22.12.0`)
 }
 
