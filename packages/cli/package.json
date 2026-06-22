@@ -105,8 +105,8 @@
   "dependencies": {
     "@empjs/chain": "workspace:*",
     "@rsdoctor/rspack-plugin": "1.5.0",
-    "@rspack/core": "1.7.4",
-    "@rspack/dev-server": "1.2.1",
+    "@rspack/core": "^2.0.0",
+    "@rspack/dev-server": "^2.0.0",
     "@swc/helpers": "^0.5.18",
     "@vue/tsconfig": "^0.8.1",
     "address": "^2.0.2",

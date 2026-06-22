@@ -174,10 +174,10 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@empjs/module-federation-rspack": "0.22.5",
-    "@module-federation/runtime": "0.23.0",
-    "@module-federation/sdk": "0.23.0",
-    "core-js": "^3.46.0"
+    "@module-federation/runtime": "^2.5.1",
+    "@module-federation/sdk": "^2.5.1",
+    "core-js": "^3.46.0",
+    "@module-federation/rspack": "^2.5.1"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
