@@ -153,9 +153,10 @@ class RspackPlugin {
   }
   esmLibraryPlugin() {
     if (!this.store.empConfig.isESM) return
+    const EsmLibraryPlugin = rspack.experiments?.EsmLibraryPlugin
+    if (!EsmLibraryPlugin) return
     const src = path.resolve(this.store.root, 'src')
-    // console.log('src', src)
-    this.store.chain.plugin('esmLibraryPlugin').use(rspack.experiments.EsmLibraryPlugin, [
+    this.store.chain.plugin('esmLibraryPlugin').use(EsmLibraryPlugin, [
       {
         preserveModules: src,
       },

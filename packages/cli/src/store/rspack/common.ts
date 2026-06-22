@@ -1,4 +1,4 @@
-import {ExperimentCacheOptions} from '@rspack/core'
+import type {CacheOptions} from '@rspack/core'
 import fs from 'fs-extra'
 import {getBuildDependencies} from 'src/helper/loadConfig'
 import type {GlobalStore} from 'src/store'
@@ -21,12 +21,12 @@ class RspackCommon {
   /**
    * 适配缓存多样性设置
    */
-  get cache(): ExperimentCacheOptions {
+  get cache(): CacheOptions {
     // return this.store.empConfig.cache
     if (this.store.empConfig.cache === false) {
       return false
     }
-    let defaultCache: ExperimentCacheOptions = {
+    let defaultCache: CacheOptions = {
       type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
       buildDependencies: getBuildDependencies(),
       version: this.store.empConfig.server.port

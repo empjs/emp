@@ -1,5 +1,9 @@
+import {createRequire} from 'node:module'
 import type {GlobalStore} from '@empjs/cli'
 import type {PluginReactConfigType, PluginReactType} from './types'
+
+const requireFromPackage = createRequire(import.meta.url)
+const resolvePackageExport = (specifier: string) => requireFromPackage.resolve(specifier)
 
 //
 export default (o: PluginReactType = {}) => {
@@ -82,7 +86,7 @@ export default (o: PluginReactType = {}) => {
           reloadOnRuntimeErrors: true,
         }
 
-        store.chain.plugin('plugin-react-refresh').use(require.resolve('@rspack/plugin-react-refresh'), [op])
+        store.chain.plugin('plugin-react-refresh').use(resolvePackageExport('@rspack/plugin-react-refresh'), [op])
       }
       /** ======================
        * swc svgr 配置
@@ -102,7 +106,7 @@ export default (o: PluginReactType = {}) => {
                   resourceQuery: exp,
                   use: [
                     {
-                      loader: require.resolve('@svgr/webpack'),
+                      loader: resolvePackageExport('@svgr/webpack'),
                       options: {},
                     },
                   ],
