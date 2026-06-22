@@ -4,8 +4,14 @@
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -31,11 +37,17 @@
         "default": "./dist/runtime.cjs"
       }
     },
-    "./*": ["./*", "./*.d.ts"]
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
   },
   "typesVersions": {
     "*": {
-      "*": ["./dist/*", "./*"]
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
     }
   },
   "scripts": {
@@ -49,7 +61,7 @@
     "start": "serve ./dist --cors -p 1800"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.12.0"
   },
   "author": "doerme",
   "dependencies": {

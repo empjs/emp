@@ -1,11 +1,16 @@
 {
   "name": "@empjs/plugin-postcss",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "emp postcss plugin",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -14,7 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["postcss"],
+  "keywords": [
+    "postcss"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -34,7 +41,7 @@
     "dev": "tsup --watch"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.12.0"
   },
   "author": "Ken",
   "devDependencies": {

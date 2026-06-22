@@ -4,8 +4,15 @@
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme",
+    "ron0115"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -24,7 +31,7 @@
     "start": "serve ./dist --cors -p 2200"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.12.0"
   },
   "author": "Ken",
   "dependencies": {

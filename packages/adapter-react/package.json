@@ -1,11 +1,18 @@
 {
   "name": "@empjs/adapter-react",
-  "version": "0.0.1",
+  "version": "4.0.0",
   "description": "emp react adapter",
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "maintainers": ["xuhongbin", "ckken", "doerme", "ron0115"],
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme",
+    "ron0115"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -33,7 +40,7 @@
     "build": "rslib build"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.12.0"
   },
   "author": "Ken",
   "dependencies": {},

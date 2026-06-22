@@ -1,6 +1,6 @@
 {
   "name": "@empjs/biome-config",
-  "version": "2.3.11",
+  "version": "4.0.0",
   "main": "biome.jsonc",
   "type": "module",
   "bin": {
@@ -10,8 +10,13 @@
     ".": "./biome.jsonc",
     "./biome": "./biome.jsonc"
   },
-  "maintainers": ["ckken@qq.com"],
-  "files": ["biome.jsonc", "bin"],
+  "maintainers": [
+    "ckken@qq.com"
+  ],
+  "files": [
+    "biome.jsonc",
+    "bin"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -22,5 +27,8 @@
   },
   "dependencies": {
     "@biomejs/biome": "2.3.13"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

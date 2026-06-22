@@ -1,11 +1,22 @@
 {
   "name": "@empjs/cli",
-  "version": "3.12.4",
+  "version": "4.0.0",
   "description": "emp",
   "license": "MIT",
   "type": "module",
-  "files": ["dist", "bin", "resource", "template", "types", "tsconfig"],
-  "maintainers": ["xuhongbin", "ckken", "doerme"],
+  "files": [
+    "dist",
+    "bin",
+    "resource",
+    "template",
+    "types",
+    "tsconfig"
+  ],
+  "maintainers": [
+    "xuhongbin",
+    "ckken",
+    "doerme"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -15,7 +26,11 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": ["rspack", "rust", "typescript"],
+  "keywords": [
+    "rspack",
+    "rust",
+    "typescript"
+  ],
   "bin": {
     "emp": "./bin/emp.js"
   },
@@ -69,7 +84,7 @@
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.12.0"
   },
   "author": "Ken",
   "devDependencies": {

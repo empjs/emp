@@ -1,8 +1,10 @@
 {
   "name": "@empjs/eslint-config-react",
-  "version": "1.0.1",
+  "version": "4.0.0",
   "main": "index.js",
-  "maintainers": ["ckken@qq.com"],
+  "maintainers": [
+    "ckken@qq.com"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -22,5 +24,8 @@
     "eslint-plugin-react-native": "^4.1.0",
     "eslint-plugin-unused-imports": "^3.1.0",
     "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

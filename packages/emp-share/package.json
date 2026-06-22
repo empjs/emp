@@ -1,11 +1,16 @@
 {
   "name": "@empjs/share",
-  "version": "3.13.8",
+  "version": "4.0.0",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",
-  "files": ["dist", "output"],
-  "maintainers": ["ckken@qq.com"],
+  "files": [
+    "dist",
+    "output"
+  ],
+  "maintainers": [
+    "ckken@qq.com"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empjs/emp.git",
@@ -124,16 +129,36 @@
   },
   "typesVersions": {
     "*": {
-      ".": ["./dist/index.d.ts"],
-      "runtime": ["./dist/runtime.d.ts"],
-      "mfRuntime": ["./dist/mfRuntime.d.ts"],
-      "sdk": ["./dist/sdk.d.ts"],
-      "adapter": ["./dist/adapter.d.ts"],
-      "adapterVue": ["./dist/adapter.d.ts"],
-      "rspack": ["./dist/rspack.d.ts"],
-      "library": ["./output/index.d.ts"],
-      "react": ["./dist/react.d.ts"],
-      "vue": ["./dist/vue.d.ts"]
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "runtime": [
+        "./dist/runtime.d.ts"
+      ],
+      "mfRuntime": [
+        "./dist/mfRuntime.d.ts"
+      ],
+      "sdk": [
+        "./dist/sdk.d.ts"
+      ],
+      "adapter": [
+        "./dist/adapter.d.ts"
+      ],
+      "adapterVue": [
+        "./dist/adapter.d.ts"
+      ],
+      "rspack": [
+        "./dist/rspack.d.ts"
+      ],
+      "library": [
+        "./output/index.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ],
+      "vue": [
+        "./dist/vue.d.ts"
+      ]
     }
   },
   "scripts": {
@@ -145,7 +170,7 @@
     "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.12.0"
   },
   "author": "Ken",
   "dependencies": {
