@@ -19,23 +19,14 @@ const libraryEntries = {
 
 const declarationEntryShims = [
   {file: 'dist/runtime.d.ts', target: './runtime/index', defaultExport: true},
-  {file: 'dist/runtime.d.cts', target: './runtime/index', defaultExport: true},
   {file: 'dist/mfRuntime.d.ts', target: './runtime/mfRuntime'},
-  {file: 'dist/mfRuntime.d.cts', target: './runtime/mfRuntime'},
   {file: 'dist/sdk.d.ts', target: './runtime/sdk'},
-  {file: 'dist/sdk.d.cts', target: './runtime/sdk'},
   {file: 'dist/forceRemote.d.ts', target: './plugins/rspack/runtimePlugin/forceRemote', defaultExport: true},
-  {file: 'dist/forceRemote.d.cts', target: './plugins/rspack/runtimePlugin/forceRemote', defaultExport: true},
   {file: 'dist/adapter.d.ts', target: './adapter/index'},
-  {file: 'dist/adapter.d.cts', target: './adapter/index'},
   {file: 'dist/adapterVue.d.ts', target: './adapter/index'},
-  {file: 'dist/adapterVue.d.cts', target: './adapter/index'},
   {file: 'dist/rspack.d.ts', target: './plugins/rspack/index', defaultExport: true},
-  {file: 'dist/rspack.d.cts', target: './plugins/rspack/index', defaultExport: true},
   {file: 'dist/react.d.ts', target: './framework/react/index'},
-  {file: 'dist/react.d.cts', target: './framework/react/index'},
   {file: 'dist/vue.d.ts', target: './framework/vue/index'},
-  {file: 'dist/vue.d.cts', target: './framework/vue/index'},
   {file: 'output/sdk.d.ts', target: './library/sdk'},
 ]
 
@@ -47,13 +38,13 @@ function writeDeclarationEntryShims() {
   }
 }
 
-function getLibraryConfig(format: 'esm' | 'cjs', isDev: boolean): LibConfig {
+function getLibraryConfig(isDev: boolean): LibConfig {
   return {
-    id: `dist-${format}`,
-    format,
+    id: 'dist-esm',
+    format: 'esm',
     bundle: true,
     syntax,
-    dts: format === 'cjs' ? {autoExtension: true} : true,
+    dts: true,
     source: {
       tsconfigPath: './tsconfig.json',
       entry: libraryEntries,
@@ -65,6 +56,7 @@ function getLibraryConfig(format: 'esm' | 'cjs', isDev: boolean): LibConfig {
     output: {
       target: 'node',
       sourceMap: true,
+      cleanDistPath: true,
       minify: !isDev,
       legalComments: 'none',
       externals: ['@empjs/share/forceRemote'],
@@ -145,7 +137,7 @@ export default defineConfig(({envMode}): RslibConfig => {
   const isDev = envMode === 'development'
 
   return {
-    lib: [getLibraryConfig('esm', isDev), getLibraryConfig('cjs', isDev), getBrowserSdkConfig(isDev)],
+    lib: [getLibraryConfig(isDev), getBrowserSdkConfig(isDev)],
     output: {
       target: 'web',
     },

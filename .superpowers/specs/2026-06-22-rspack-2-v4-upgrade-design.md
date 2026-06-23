@@ -2,7 +2,7 @@
 
 ## 摘要
 
-EMP v4 用于承载这次构建底座大版本升级：最低运行环境提升到 Node 22，包管理器统一到 pnpm 10，核心构建器升级到 Rspack 2，并把 Module Federation 迁移到官方 2.x Rspack 集成链路。
+EMP v4 用于承载这次构建底座大版本升级：最低运行环境对齐 Rspack 2 的 Node `^20.19.0 || >=22.12.0` 要求，包管理器统一到 pnpm 10，核心构建器升级到 Rspack 2，并把 Module Federation 迁移到官方 2.x Rspack 集成链路。
 
 这次升级同时清理 `@empjs/share` 对历史 fork 包 `@empjs/module-federation-rspack` 的依赖。后续 `@empjs/share` 应直接基于官方 Module Federation Rspack 插件实现 EMP 的封装能力。
 
@@ -11,7 +11,7 @@ EMP v4 定位为 **ESM-first**，不是 **ESM-only**。v4 会保留 CJS exports 
 ## 目标
 
 - 以 EMP v4 作为 Rspack 2 迁移的大版本发布线。
-- 开发环境和发布包 engines 统一要求 Node `>=22.12.0`。
+- 开发环境和发布包 engines 统一要求 Node `^20.19.0 || >=22.12.0`。
 - 根工程 pnpm 统一到 `10.x`。
 - `@empjs/cli` 升级到 Rspack 2 兼容依赖。
 - `@empjs/share` 移除 `@empjs/module-federation-rspack` fork 依赖。
@@ -46,12 +46,12 @@ EMP v4 是这次迁移的大版本线。
 
 - 根工程增加或更新 `packageManager`，统一到 pnpm 10，例如 `pnpm@10.33.0`。
 - 对外发布包进入 `4.0.0` 版本线。至少包括 `@empjs/cli`、`@empjs/share`、核心插件包、`@empjs/chain` 等 v4 发布面。
-- 根工程和发布包 engines 的 Node 要求统一为 `>=22.12.0`。
+- 根工程和发布包 engines 的 Node 要求统一为 `^20.19.0 || >=22.12.0`。
 - 根工程 engines 的 pnpm 要求统一为 `10.x`。
 
 v4 的 breaking changes 明确为：
 
-- Node 22 基线。
+- Node `^20.19.0 || >=22.12.0` 基线。
 - pnpm 10 基线。
 - Rspack 2 运行时和配置兼容。
 - `@empjs/share` 使用官方 Module Federation 2.x Rspack 集成。
@@ -113,13 +113,13 @@ pluginRspackEmpShare({
 resolvePackageExport('@empjs/share/forceRemote')
 ```
 
-这个 helper 可以使用 Node 22 兼容的 ESM 解析能力，例如 `import.meta.resolve(...)`，并在需要传给 Rspack 插件选项时把 `file://` URL 归一成文件系统路径。
+这个 helper 可以使用 Node 20.19+ / 22.12+ 兼容的 ESM 解析能力，例如 `import.meta.resolve(...)`，并在需要传给 Rspack 插件选项时把 `file://` URL 归一成文件系统路径。
 
 这样可以保持 `forceRemotes` 行为稳定，同时避免在联邦插件逻辑里散落多个 `require.resolve(...)`。
 
 ## Rspack 2 兼容检查点
 
-Rspack 2 是 pure ESM，官方 Node 要求为 `^20.19.0 || >=22.12.0`。EMP v4 选择 Node 22 作为最低基线。
+Rspack 2 是 pure ESM，官方 Node 要求为 `^20.19.0 || >=22.12.0`。EMP v4 采用同一最低运行基线。
 
 实施时必须逐项审计这些配置和 API：
 
@@ -150,7 +150,7 @@ EMP v4 应声明为 ESM-first，不应声明为 ESM-only。
 
 推荐发布路径：
 
-- `v4.0.0`：Node 22、pnpm 10、Rspack 2、Module Federation 2.x、ESM-first、保留 CJS 兼容。
+- `v4.0.0`：Node `^20.19.0 || >=22.12.0`、pnpm 10、Rspack 2、Module Federation 2.x、ESM-first、保留 CJS 兼容。
 - `v4.x`：逐步替换低风险的内部 `require.resolve(...)` 和 `require(...)` 热点。
 - `v5` 候选：当下游插件、示例项目、文档和包消费矩阵都通过 ESM-only 验证后，再考虑真正 ESM-only。
 
@@ -165,7 +165,7 @@ pnpm -v
 
 期望结果：
 
-- Node 满足 `>=22.12.0`。
+- Node 满足 `^20.19.0 || >=22.12.0`。
 - pnpm 为 `10.x`。
 
 依赖检查：

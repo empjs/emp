@@ -1,53 +1,131 @@
 <p align="center">
-    <img width="100%" src="docs/assets/banner.jpg" alt="emp">
+  <img src="docs/assets/emp-v4-logo.png" width="220" alt="EMP v4">
 </p>
 
-# EMP ⚡ 3.0
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![github][github-src]][github-href]
-[![node][node-src]][node-href]
+<h1 align="center">EMP v4</h1>
 
-<b>下一代构建实现微前端 高性能解决方案、力争配置尽可能保持一致，开箱即用。</b>
+<p align="center">
+  <em>基于 Rspack 2 的微前端构建工具。配置保持熟悉，底层换成新的引擎。</em>
+</p>
 
-+ 🔑 基于Rspack + Module Federation + Typescript、聚焦高性能 & 微前端
-+ 🛠️ 多种开发需求、支持开箱即用。
-+ 🔩 通用的插件、共享 webpackChain 插件接口。
-+ 📦 **状态管理**：[@empjs/valtio](https://valtio.empjs.dev/) —— Valtio 增强版，更少样板、更强类型、内置历史与派生。
+<p align="center">
+  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli?style=flat-square&color=111111&label=%40empjs%2Fcli" alt="npm version"></a>
+  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/dm/@empjs/cli?style=flat-square&color=111111&label=downloads" alt="npm downloads"></a>
+  <a href="https://github.com/empjs/emp"><img src="https://img.shields.io/github/stars/empjs/emp?style=flat-square&color=111111&label=stars" alt="GitHub stars"></a>
+  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli?style=flat-square&color=111111&label=node" alt="Node version"></a>
+  <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="MIT license">
+</p>
+
+<p align="center">
+  <strong>Node ^20.19.0 || >=22.12.0 · pnpm 10 · Rspack 2 · Module Federation 2.x</strong>
+</p>
+
+---
+
+EMP 是面向微前端项目的构建工具。它把 Rspack、Module Federation、TypeScript 和常用框架插件收在一套配置里，业务项目不需要自己拼完整的联邦运行时。
+
+v4 的重点是升级底座：`@empjs/cli` 切到 Rspack 2，`@empjs/share` 改用官方 Module Federation 2.x 包，同时保留 `pluginRspackEmpShare(...)` 这条用户侧 API。
+
+## 一个配置
+
+```ts
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+import pluginRspackEmpShare from '@empjs/share/rspack'
+
+export default defineConfig(() => ({
+  plugins: [
+    pluginReact(),
+    pluginRspackEmpShare({
+      name: 'host',
+      remotes: {
+        remote: 'remote@http://localhost:6002/emp.json',
+      },
+      shared: {
+        react: {singleton: true},
+        'react-dom': {singleton: true},
+      },
+      manifest: true,
+      dts: true,
+    }),
+  ],
+}))
+```
+
+## v4 改了什么
+
+- 构建器升级到 Rspack 2。
+- Module Federation 使用官方 2.x 依赖，不再依赖历史 fork 包。
+- 包管理器基线为 pnpm 10。
+- 发布包采用 ESM-first 形态，同时保留 CJS 兼容出口。
+- 现有 `pluginRspackEmpShare(...)` 调用不需要重写。
+
+## 安装
+
+创建项目：
+
+```bash
+pnpm create emp@latest
+cd <your-app>
+pnpm dev
+```
+
+已有项目可以直接使用 CLI：
+
+```json
+{
+  "scripts": {
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve",
+    "stat": "emp build --analyze"
+  }
+}
+```
+
+## 常用命令
+
+在本仓库调试：
+
+```bash
+pnpm install
+pnpm emp
+pnpm emp:build
+pnpm mf
+pnpm mf:prod
+```
+
+`@empjs/cli` 对外提供：
+
+```bash
+emp dev
+emp build
+emp serve
+emp build --analyze
+```
+
+## 包结构
+
+| 包 | 说明 |
+| --- | --- |
+| `@empjs/cli` | 配置加载、开发服务、生产构建、本地预览 |
+| `@empjs/chain` | Rspack chain 封装和插件序列化 |
+| `@empjs/share` | Module Federation 封装、runtime facade、框架适配 |
+| `@empjs/plugin-react` | React 和 React Refresh 接入 |
+| `@empjs/plugin-vue2` / `@empjs/plugin-vue3` | Vue 接入 |
+| `@empjs/plugin-lightningcss` | Lightning CSS 接入 |
+| `@empjs/plugin-tailwindcss*` | Tailwind 不同版本线的接入 |
+| `@empjs/biome-config` | 共享 Biome 配置和 CLI 代理 |
 
 ## 文档
-+ 🚀 [快速开始](https://empjs.dev/guide/start/quick-start.html)
-+ 🍭 [配置总览](https://empjs.dev/config/index.html)
-+ 📦 [插件总览](https://empjs.dev/plugin/)
-+ 📚 [交流区](https://github.com/empjs/emp/discussions/364)
-+ 🎨 [官网Github](https://github.com/empjs/official)
-+ 🎯 [工程初始化](https://github.com/empjs/create-emp)
 
-## EMP Skills
+- [快速开始](https://empjs.dev/guide/start/quick-start.html)
+- [配置总览](https://empjs.dev/config/index.html)
+- [插件总览](https://empjs.dev/plugin/)
+- [交流区](https://github.com/empjs/emp/discussions/364)
+- [官网仓库](https://github.com/empjs/official)
+- [项目脚手架](https://github.com/empjs/create-emp)
 
-本仓库内置 EMP 全栈技能，位于 `skills/empjs/`，内容已本地化，整合项目脚手架、emp.config、Tailwind v4、微前端 empRuntime、@empjs/valtio 状态管理、React 性能优化。技能目录服务所有模型（Cursor、Trae、Claude 等）。
+## QQ 交流群
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| **empjs** | `skills/empjs` | EMP 全栈：项目配置、插件、Tailwind、微前端、valtio、性能优化 |
-| **emp-best-practices** | `.trae/skills/emp-best-practices` | EMP CLI 最佳实践、模块联邦、多框架互调、插件、性能 |
-
-### 在 IDE / Agent 中的使用方式
-
-- **Cursor**: 对话中引用 `@skills/empjs/SKILL.md`
-- **Trae / OpenCode**: `.trae/skills/<name>/SKILL.md`
-- **Claude**: `.claude/skills/<name>/SKILL.md`
-
-在 Cursor 中引用 `@skills/empjs/SKILL.md`，即可让助手聚焦 EMP 全栈技能回答问题。
-
-[npm-version-src]: https://img.shields.io/npm/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
-[npm-version-href]: https://npmjs.com/package/@empjs/cli
-[npm-downloads-src]: https://img.shields.io/npm/dm/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
-[npm-downloads-href]: https://npmjs.com/package/@empjs/cli
-[github-src]: https://img.shields.io/badge/github-@emp/cli-blue?style=flat&colorA=18181B&colorB=F0DB4F
-[github-href]: https://github.com/empjs/emp
-[node-src]: https://img.shields.io/node/v/@empjs/cli?style=flat&colorA=18181B&colorB=F0DB4F
-[node-href]: https://nodejs.org/en/about/previous-releases
-
-## QQ 交流群 
-<img width="200" src="docs/assets/qq.jpeg" />
+<img width="200" src="docs/assets/qq.jpeg" alt="EMP QQ group" />

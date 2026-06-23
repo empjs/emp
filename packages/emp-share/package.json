@@ -23,108 +23,58 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./runtime": {
-      "import": {
-        "types": "./dist/runtime.d.ts",
-        "default": "./dist/runtime.js"
-      },
-      "require": {
-        "types": "./dist/runtime.d.cts",
-        "default": "./dist/runtime.cjs"
-      }
+      "types": "./dist/runtime.d.ts",
+      "import": "./dist/runtime.js",
+      "default": "./dist/runtime.js"
     },
     "./mfRuntime": {
-      "import": {
-        "types": "./dist/mfRuntime.d.ts",
-        "default": "./dist/mfRuntime.js"
-      },
-      "require": {
-        "types": "./dist/mfRuntime.d.cts",
-        "default": "./dist/mfRuntime.cjs"
-      }
+      "types": "./dist/mfRuntime.d.ts",
+      "import": "./dist/mfRuntime.js",
+      "default": "./dist/mfRuntime.js"
     },
     "./forceRemote": {
-      "import": {
-        "types": "./dist/forceRemote.d.ts",
-        "default": "./dist/forceRemote.js"
-      },
-      "require": {
-        "types": "./dist/forceRemote.d.cts",
-        "default": "./dist/forceRemote.cjs"
-      }
+      "types": "./dist/forceRemote.d.ts",
+      "import": "./dist/forceRemote.js",
+      "default": "./dist/forceRemote.js"
     },
     "./sdk": {
-      "import": {
-        "types": "./dist/sdk.d.ts",
-        "default": "./dist/sdk.js"
-      },
-      "require": {
-        "types": "./dist/sdk.d.cts",
-        "default": "./dist/sdk.cjs"
-      }
+      "types": "./dist/sdk.d.ts",
+      "import": "./dist/sdk.js",
+      "default": "./dist/sdk.js"
     },
     "./adapter": {
-      "import": {
-        "types": "./dist/adapter.d.ts",
-        "default": "./dist/adapter.js"
-      },
-      "require": {
-        "types": "./dist/adapter.d.cts",
-        "default": "./dist/adapter.cjs"
-      }
+      "types": "./dist/adapter.d.ts",
+      "import": "./dist/adapter.js",
+      "default": "./dist/adapter.js"
     },
     "./adapterVue": {
-      "import": {
-        "types": "./dist/adapterVue.d.ts",
-        "default": "./dist/adapterVue.js"
-      },
-      "require": {
-        "types": "./dist/adapterVue.d.cts",
-        "default": "./dist/adapterVue.cjs"
-      }
+      "types": "./dist/adapterVue.d.ts",
+      "import": "./dist/adapterVue.js",
+      "default": "./dist/adapterVue.js"
     },
     "./rspack": {
-      "import": {
-        "types": "./dist/rspack.d.ts",
-        "default": "./dist/rspack.js"
-      },
-      "require": {
-        "types": "./dist/rspack.d.cts",
-        "default": "./dist/rspack.cjs"
-      }
+      "types": "./dist/rspack.d.ts",
+      "import": "./dist/rspack.js",
+      "default": "./dist/rspack.js"
     },
     "./library": {
       "types": "./output/sdk.d.ts",
       "default": "./output/sdk.js"
     },
     "./react": {
-      "import": {
-        "types": "./dist/react.d.ts",
-        "default": "./dist/react.js"
-      },
-      "require": {
-        "types": "./dist/react.d.cts",
-        "default": "./dist/react.cjs"
-      }
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "default": "./dist/react.js"
     },
     "./vue": {
-      "import": {
-        "types": "./dist/vue.d.ts",
-        "default": "./dist/vue.js"
-      },
-      "require": {
-        "types": "./dist/vue.d.cts",
-        "default": "./dist/vue.cjs"
-      }
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.js",
+      "default": "./dist/vue.js"
     }
   },
   "typesVersions": {
@@ -166,11 +116,12 @@
     "dev:lib-dev": "rslib build --watch --env-mode development",
     "dev:serve": "serve ./output --cors -p 2100",
     "build": "rslib build --env-mode production",
+    "test": "node test/dts-runtime-pkgs.test.mjs && node test/esm-only-publish.test.mjs",
     "start": "serve ./output --cors -p 2100",
     "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^20.19.0 || >=22.12.0"
   },
   "author": "Ken",
   "dependencies": {

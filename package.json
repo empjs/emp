@@ -46,7 +46,7 @@
     "lint": "biome check --write"
   },
   "engines": {
-    "node": ">=22.12.0",
+    "node": "^20.19.0 || >=22.12.0",
     "pnpm": "10.x"
   },
   "devDependencies": {

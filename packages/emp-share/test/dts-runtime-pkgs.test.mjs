@@ -49,6 +49,11 @@ await pluginRspackEmpShare({
   remotes: {
     app: 'app@http://localhost:3001/emp.json',
   },
+  forceRemotes: {
+    app: {
+      entry: 'http://localhost:3002/emp.json',
+    },
+  },
   dts: {
     consumeTypes: true,
   },
@@ -64,3 +69,5 @@ assert.ok(mfPlugin, 'expected ModuleFederationPlugin to be registered')
 
 const [mfOptions] = mfPlugin.args
 assert.deepEqual(mfOptions.dts.consumeTypes.runtimePkgs, ['@empjs/share/sdk'])
+assert.equal(mfOptions.runtimePlugins.length, 1)
+assert.match(mfOptions.runtimePlugins[0], /dist\/forceRemote\.js$/)

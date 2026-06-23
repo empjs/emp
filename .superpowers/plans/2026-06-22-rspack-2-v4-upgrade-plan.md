@@ -3,16 +3,16 @@
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 > Subagent dispatch must follow `.superpowers/subagents.md`; this plan's constraints below are binding additions for the EMP v4 / Rspack 2 migration.
 
-**Goal:** 将 EMP 升级到 v4 大版本线，统一 Node 22 / pnpm 10 基线，迁移到 Rspack 2 和官方 Module Federation 2.x，同时保留 CJS 兼容出口。
+**Goal:** 将 EMP 升级到 v4 大版本线，统一 Node `^20.19.0 || >=22.12.0` / pnpm 10 基线，迁移到 Rspack 2 和官方 Module Federation 2.x，同时保留 CJS 兼容出口。
 
 **Architecture:** 先用 manifest 和 lockfile 迁移建立 v4 依赖基线，再在 `@empjs/share` 内部用薄 adapter 切换官方 Module Federation Rspack 插件。CLI 和 React 插件只做 Rspack 2 必需兼容修正，最后用核心包构建、示例构建、ESM/CJS 双入口验证收口。
 
-**Tech Stack:** Node `>=22.12.0`, pnpm `10.x`, TypeScript, Rslib, Rspack 2, `@module-federation/rspack`, `@module-federation/runtime`, `@module-federation/sdk`.
+**Tech Stack:** Node `^20.19.0 || >=22.12.0`, pnpm `10.x`, TypeScript, Rslib, Rspack 2, `@module-federation/rspack`, `@module-federation/runtime`, `@module-federation/sdk`.
 
 ## Global Constraints
 
 - EMP v4 是这次迁移的大版本线。
-- 开发环境和发布包 engines 统一要求 Node `>=22.12.0`。
+- 开发环境和发布包 engines 统一要求 Node `^20.19.0 || >=22.12.0`。
 - 根工程 pnpm 统一到 `10.x`。
 - `@empjs/cli` 升级到 Rspack 2 兼容依赖。
 - `@empjs/share` 移除 `@empjs/module-federation-rspack` fork 依赖。
@@ -51,7 +51,7 @@
 - Modify: `packages/emp-share/src/helper/rspack.ts`  
   负责导出官方 Module Federation Rspack 插件。
 - Create: `packages/emp-share/src/helper/resolvePackageExport.ts`  
-  负责 Node 22 ESM package export 路径解析。
+  负责 Node 20.19+ / 22.12+ ESM package export 路径解析。
 - Modify: `packages/emp-share/src/plugins/rspack/share.ts`  
   负责用解析 helper 替换 `forceRemotes` 的 `require.resolve('@empjs/share/forceRemote')`。
 - Modify: `packages/emp-share/src/plugins/rspack/types.ts`  
@@ -115,7 +115,7 @@
 
 **Interfaces:**
 - Consumes: approved spec `.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
-- Produces: main release package manifests declare version `4.0.0`; CDN/lib variant packages keep their existing semantic versions; all `@empjs/*` package manifests declare Node engine `>=22.12.0`.
+- Produces: main release package manifests declare version `4.0.0`; CDN/lib variant packages keep their existing semantic versions; all `@empjs/*` package manifests declare Node engine `^20.19.0 || >=22.12.0`.
 
 - [ ] **Step 1: Run the failing baseline check**
 
@@ -151,7 +151,7 @@ if (root.version !== '4.0.0') failures.push(`package.json version expected 4.0.0
 if (root.packageManager !== 'pnpm@10.33.0') {
   failures.push(`package.json packageManager expected pnpm@10.33.0, got ${root.packageManager}`)
 }
-if (root.engines?.node !== '>=22.12.0') failures.push(`root node engine expected >=22.12.0`)
+if (root.engines?.node !== '^20.19.0 || >=22.12.0') failures.push(`root node engine expected ^20.19.0 || >=22.12.0`)
 if (root.engines?.pnpm !== '10.x') failures.push(`root pnpm engine expected 10.x`)
 
 for (const file of packageFiles) {
@@ -160,7 +160,7 @@ for (const file of packageFiles) {
   if (!keepOwnVersionDirs.has(file) && pkg.version !== '4.0.0') {
     failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
   }
-  if (pkg.engines?.node !== '>=22.12.0') failures.push(`${file} node engine expected >=22.12.0`)
+  if (pkg.engines?.node !== '^20.19.0 || >=22.12.0') failures.push(`${file} node engine expected ^20.19.0 || >=22.12.0`)
 }
 
 if (failures.length) {
@@ -193,7 +193,7 @@ function writeJson(file, value) {
 const root = readJson('package.json')
 root.version = '4.0.0'
 root.packageManager = 'pnpm@10.33.0'
-root.engines = {...root.engines, node: '>=22.12.0', pnpm: '10.x'}
+root.engines = {...root.engines, node: '^20.19.0 || >=22.12.0', pnpm: '10.x'}
 writeJson('package.json', root)
 
 const keepOwnVersionDirs = new Set([
@@ -215,13 +215,13 @@ for (const dir of fs.readdirSync('packages')) {
   const pkg = readJson(file)
   if (!pkg.name?.startsWith('@empjs/')) continue
   if (!keepOwnVersionDirs.has(file)) pkg.version = '4.0.0'
-  pkg.engines = {...pkg.engines, node: '>=22.12.0'}
+  pkg.engines = {...pkg.engines, node: '^20.19.0 || >=22.12.0'}
   writeJson(file, pkg)
 }
 NODE
 ```
 
-Expected: main release package manifests are rewritten with `version: "4.0.0"`; CDN/lib variant package versions are preserved; all `@empjs/*` package manifests get Node engine `>=22.12.0`.
+Expected: main release package manifests are rewritten with `version: "4.0.0"`; CDN/lib variant package versions are preserved; all `@empjs/*` package manifests get Node engine `^20.19.0 || >=22.12.0`.
 
 - [ ] **Step 3: Run baseline check again**
 
@@ -254,7 +254,7 @@ const keepOwnVersionDirs = new Set([
 const failures = []
 if (root.version !== '4.0.0') failures.push(`package.json version expected 4.0.0, got ${root.version}`)
 if (root.packageManager !== 'pnpm@10.33.0') failures.push(`package.json packageManager expected pnpm@10.33.0`)
-if (root.engines?.node !== '>=22.12.0') failures.push(`root node engine expected >=22.12.0`)
+if (root.engines?.node !== '^20.19.0 || >=22.12.0') failures.push(`root node engine expected ^20.19.0 || >=22.12.0`)
 if (root.engines?.pnpm !== '10.x') failures.push(`root pnpm engine expected 10.x`)
 
 for (const file of packageFiles) {
@@ -263,7 +263,7 @@ for (const file of packageFiles) {
   if (!keepOwnVersionDirs.has(file) && pkg.version !== '4.0.0') {
     failures.push(`${file} version expected 4.0.0, got ${pkg.version}`)
   }
-  if (pkg.engines?.node !== '>=22.12.0') failures.push(`${file} node engine expected >=22.12.0`)
+  if (pkg.engines?.node !== '^20.19.0 || >=22.12.0') failures.push(`${file} node engine expected ^20.19.0 || >=22.12.0`)
 }
 
 if (failures.length) {
@@ -1023,7 +1023,7 @@ node -v
 pnpm -v
 ```
 
-Expected: Node is `>=22.12.0`; pnpm is `10.x`.
+Expected: Node is `^20.19.0 || >=22.12.0`; pnpm is `10.x`.
 
 - [ ] **Step 2: Verify dependency tree**
 
@@ -1109,7 +1109,7 @@ Expected: no diff. If this command prints a diff, pause implementation and creat
 ## Self-Review
 
 **Spec coverage:**  
-The plan covers Node 22 and pnpm 10 baseline in Task 1, Rspack 2 dependency migration in Task 2, `@empjs/share` fork removal and official Federation plugin migration in Task 3, Rspack 2 source compatibility in Task 4, CJS compatibility in Task 5, representative Module Federation examples in Task 6, and final package/lockfile/install-tree verification in Task 7.
+The plan covers Node `^20.19.0 || >=22.12.0` and pnpm 10 baseline in Task 1, Rspack 2 dependency migration in Task 2, `@empjs/share` fork removal and official Federation plugin migration in Task 3, Rspack 2 source compatibility in Task 4, CJS compatibility in Task 5, representative Module Federation examples in Task 6, and final package/lockfile/install-tree verification in Task 7.
 
 **Placeholder scan:**  
 No placeholder markers or vague test instructions remain. Every task includes exact paths, commands, and expected results.
