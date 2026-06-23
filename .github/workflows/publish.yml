@@ -13,6 +13,9 @@ on:
         required: false
         type: string
         default: '@empjs/cli'
+  push:
+    tags:
+      - 'empjs-cli-v*'
 
 permissions:
   contents: read
@@ -25,6 +28,8 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_PACKAGE: ${{ github.event.inputs.package || '@empjs/cli' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -54,9 +59,9 @@ jobs:
         run: pnpm empbuild
 
       - name: Publish dry-run
-        if: ${{ inputs.dry_run }}
-        run: pnpm release:publish:dry -- --skip-build --package "${{ inputs.package }}"
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: pnpm release:publish:dry -- --skip-build --package "$RELEASE_PACKAGE"
 
       - name: Publish to npm
-        if: ${{ !inputs.dry_run }}
-        run: pnpm release:publish -- --yes --skip-build --package "${{ inputs.package }}"
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.dry_run }}
+        run: pnpm release:publish -- --yes --skip-build --package "$RELEASE_PACKAGE"
