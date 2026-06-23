@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import {spawn} from 'node:child_process'
+import {join} from 'node:path'
 import process from 'node:process'
 import {
   applyInternalVersion,
   buildPackCommands,
   buildPublishCommands,
   createReleasePlan,
+  ensureDir,
   prependChangelog,
   renderChangelogEntry,
   validateReleasePlan,
@@ -17,8 +19,8 @@ Usage:
   node scripts/release.mjs check [--root <dir>]
   node scripts/release.mjs version <version> [--root <dir>]
   node scripts/release.mjs changelog [--version <version>] [--date <yyyy-mm-dd>] [--tag <tag>] [--registry <url>]
-  node scripts/release.mjs pack [--dry-run] [--yes] [--skip-build]
-  node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>]
+  node scripts/release.mjs pack [--dry-run] [--yes] [--skip-build] [--package <name>]
+  node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>] [--package <name>]
 
 Defaults:
   --tag alpha
@@ -44,6 +46,7 @@ const parseArgs = (argv) => {
     else if (arg === '--date') options.date = rest[++i]
     else if (arg === '--tag') options.tag = rest[++i]
     else if (arg === '--registry') options.registry = rest[++i]
+    else if (arg === '--package') options.packageName = rest[++i]
     else if (arg === '--dry-run') options.dryRun = true
     else if (arg === '--no-dry-run') options.dryRun = false
     else if (arg === '--yes') options.yes = true
@@ -139,7 +142,11 @@ const main = async () => {
   if (options.command === 'pack') {
     const dryRun = options.dryRun ?? !options.yes
     await runBuild(options.skipBuild)
-    for (const command of buildPackCommands(plan, {dryRun, yes: options.yes})) {
+    for (const command of buildPackCommands(plan, {
+      dryRun,
+      yes: options.yes,
+      packageName: options.packageName,
+    })) {
       await runCommand(command)
     }
     return
@@ -147,12 +154,16 @@ const main = async () => {
 
   if (options.command === 'publish') {
     const dryRun = options.dryRun ?? !options.yes
+    const packDir = join(options.root, '.release', 'npm')
     await runBuild(options.skipBuild)
+    if (!dryRun) await ensureDir(packDir)
     for (const command of buildPublishCommands(plan, {
       dryRun,
       yes: options.yes,
       tag: options.tag,
       registry: options.registry,
+      packDir,
+      packageName: options.packageName,
     })) {
       await runCommand(command)
     }

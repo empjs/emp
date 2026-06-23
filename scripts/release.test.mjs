@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import {execFile as execFileCallback} from 'node:child_process'
 import {mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {dirname, join} from 'node:path'
 import test from 'node:test'
 import {promisify} from 'node:util'
 import {fileURLToPath} from 'node:url'
@@ -17,6 +17,7 @@ import {
 
 const execFile = promisify(execFileCallback)
 const releaseCli = fileURLToPath(new URL('./release.mjs', import.meta.url))
+const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 
 const createFixture = async () => {
   const root = await mkdtemp(join(tmpdir(), 'emp-release-'))
@@ -179,7 +180,7 @@ test('renderChangelogEntry and prependChangelog create a concise release-notes e
   })
 })
 
-test('buildPublishCommands is dry-run by default and blocks real publish without confirmation', async () => {
+test('buildPublishCommands dry-runs with pnpm and publishes packed tarballs with npm', async () => {
   await withFixture(async (root) => {
     const plan = await createReleasePlan(root)
     const dryRunCommands = buildPublishCommands(plan, {
@@ -213,7 +214,30 @@ test('buildPublishCommands is dry-run by default and blocks real publish without
     )
 
     const publishCommands = buildPublishCommands(plan, {dryRun: false, yes: true, tag: 'internal'})
-    assert.equal(publishCommands.some((command) => command.includes('--dry-run')), false)
+    assert.equal(publishCommands.length, 6)
+    assert.deepEqual(publishCommands[0].slice(0, 4), ['pnpm', '--filter', '@empjs/chain', 'pack'])
+    assert.equal(publishCommands[0].includes('--out'), true)
+    assert.match(publishCommands[0].at(-1), /empjs-chain-4\.0\.0\.tgz$/)
+    assert.deepEqual(publishCommands[1].slice(0, 2), ['npm', 'publish'])
+    assert.match(publishCommands[1][2], /empjs-chain-4\.0\.0\.tgz$/)
+    assert.equal(publishCommands[1].includes('--tag'), true)
+    assert.equal(publishCommands[1].includes('internal'), true)
+    assert.equal(publishCommands[1].includes('--access'), true)
+    assert.equal(publishCommands[1].includes('public'), true)
+    assert.equal(publishCommands[1].includes('--dry-run'), false)
+    assert.equal(publishCommands.some((command) => command[0] === 'pnpm' && command.includes('publish')), false)
+
+    const cliCommands = buildPublishCommands(plan, {
+      dryRun: false,
+      yes: true,
+      tag: 'alpha',
+      packageName: '@empjs/cli',
+    })
+    assert.equal(cliCommands.length, 2)
+    assert.deepEqual(cliCommands[0].slice(0, 4), ['pnpm', '--filter', '@empjs/cli', 'pack'])
+    assert.match(cliCommands[0].at(-1), /empjs-cli-4\.0\.0\.tgz$/)
+    assert.deepEqual(cliCommands[1].slice(0, 3), ['npm', 'publish', cliCommands[0].at(-1)])
+    assert.equal(cliCommands[1].includes('alpha'), true)
   })
 })
 
@@ -227,4 +251,17 @@ test('release CLI check prints scoped package summary', async () => {
     assert.match(stdout, /@empjs\/cli/)
     assert.doesNotMatch(stdout, /projects\/demo/)
   })
+})
+
+test('trusted publisher workflow uses publish.yml and alpha release automation', async () => {
+  const workflow = await readFile(join(repoRoot, '.github/workflows/publish.yml'), 'utf8')
+
+  assert.match(workflow, /name:\s*Publish/)
+  assert.match(workflow, /id-token:\s*write/)
+  assert.match(workflow, /node-version:\s*['"]?24/)
+  assert.match(workflow, /default:\s*['"]@empjs\/cli['"]/)
+  assert.match(workflow, /corepack prepare pnpm@10\.33\.0 --activate/)
+  assert.match(workflow, /pnpm release:publish -- --yes --skip-build --package/)
+  assert.doesNotMatch(workflow, /NPM_TOKEN/)
+  assert.doesNotMatch(workflow, /publish-alpha\.yml/)
 })

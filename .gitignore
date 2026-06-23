@@ -11,6 +11,7 @@ projects/e-svga*
 @mf-types
 .mf
 .output
+.release/
 doc_build
 .codegraph/
 

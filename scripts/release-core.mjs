@@ -29,6 +29,20 @@ const exists = async (filePath) => {
 
 const toPosixPath = (path) => path.split('\\').join('/')
 
+const tarballFileName = (pkg) => `${pkg.name.replace(/^@/, '').replace(/\//g, '-')}-${pkg.version}.tgz`
+
+const selectInternalPackages = (plan, packageName) => {
+  const selectedName = packageName?.trim()
+  if (!selectedName) return plan.internalPackages
+
+  const selectedPackages = plan.internalPackages.filter((pkg) => pkg.name === selectedName)
+  if (!selectedPackages.length) {
+    throw new Error(`${selectedName} is not in the internal release set`)
+  }
+
+  return selectedPackages
+}
+
 const hasIndependentVersion = (pkg) => INDEPENDENT_PREFIXES.some((prefix) => pkg.name.startsWith(prefix))
 
 const classifyPackage = (pkg) => {
@@ -211,12 +225,27 @@ export const buildPublishCommands = (plan, options = {}) => {
   const tag = options.tag ?? DEFAULT_TAG
   const access = options.access ?? DEFAULT_ACCESS
   const registry = options.registry ?? process.env.RELEASE_REGISTRY
+  const packDir = options.packDir ?? join(plan.rootDir, '.release', 'npm')
+  const internalPackages = selectInternalPackages(plan, options.packageName)
 
   if (!dryRun && !options.yes) {
     throw new Error('Real publish requires yes: true')
   }
 
-  return plan.internalPackages.map((pkg) => {
+  if (!dryRun) {
+    return internalPackages.flatMap((pkg) => {
+      const tarballPath = join(packDir, tarballFileName(pkg))
+      const publishCommand = ['npm', 'publish', tarballPath, '--tag', tag, '--access', access]
+      if (registry) publishCommand.push('--registry', registry)
+
+      return [
+        ['pnpm', '--filter', pkg.name, 'pack', '--out', tarballPath],
+        publishCommand,
+      ]
+    })
+  }
+
+  return internalPackages.map((pkg) => {
     const command = [
       'pnpm',
       '--filter',
@@ -238,11 +267,12 @@ export const buildPublishCommands = (plan, options = {}) => {
 
 export const buildPackCommands = (plan, options = {}) => {
   const dryRun = options.dryRun ?? true
+  const internalPackages = selectInternalPackages(plan, options.packageName)
   if (!dryRun && !options.yes) {
     throw new Error('Real pack requires yes: true')
   }
 
-  return plan.internalPackages.map((pkg) => {
+  return internalPackages.map((pkg) => {
     const command = ['pnpm', '--filter', pkg.name, 'pack']
     if (dryRun) command.push('--dry-run')
     return command
