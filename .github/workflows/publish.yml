@@ -15,7 +15,7 @@ on:
         default: '@empjs/cli'
   push:
     tags:
-      - 'empjs-cli-v*'
+      - 'empjs-*-v*'
 
 permissions:
   contents: read
@@ -28,11 +28,20 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      RELEASE_PACKAGE: ${{ github.event.inputs.package || '@empjs/cli' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Resolve release package
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            tag="${GITHUB_REF_NAME}"
+            package_name="${tag#empjs-}"
+            package_name="${package_name%-v*}"
+            echo "RELEASE_PACKAGE=@empjs/$package_name" >> "$GITHUB_ENV"
+          else
+            echo "RELEASE_PACKAGE=${{ github.event.inputs.package || '@empjs/cli' }}" >> "$GITHUB_ENV"
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v6
