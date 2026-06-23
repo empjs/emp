@@ -9,15 +9,16 @@
 </p>
 
 <p align="center">
-  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli?style=flat-square&color=111111&label=%40empjs%2Fcli" alt="npm version"></a>
-  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/dm/@empjs/cli?style=flat-square&color=111111&label=downloads" alt="npm downloads"></a>
-  <a href="https://github.com/empjs/emp"><img src="https://img.shields.io/github/stars/empjs/emp?style=flat-square&color=111111&label=stars" alt="GitHub stars"></a>
-  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli?style=flat-square&color=111111&label=node" alt="Node version"></a>
+  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli?style=flat-square&color=111111&label=%40empjs%2Fcli" alt="@empjs/cli npm version"></a>
+  <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/Rspack-2-2563eb?style=flat-square" alt="Rspack 2"></a>
+  <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/Module%20Federation-2.x-0f766e?style=flat-square" alt="Module Federation 2.x"></a>
+  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/badge/Node-%5E20.19.0%20%7C%7C%20%3E%3D22.12.0-339933?style=flat-square" alt="Node ^20.19.0 || >=22.12.0"></a>
+  <img src="https://img.shields.io/badge/pnpm-10-f69220?style=flat-square" alt="pnpm 10">
   <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="MIT license">
 </p>
 
 <p align="center">
-  <strong>Node ^20.19.0 || >=22.12.0 · pnpm 10 · Rspack 2 · Module Federation 2.x</strong>
+  <strong>微前端联邦 · Rspack 构建 · 共享依赖治理 · 框架插件生态</strong>
 </p>
 
 ---
