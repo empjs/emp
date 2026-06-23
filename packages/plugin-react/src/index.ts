@@ -1,5 +1,6 @@
 import {createRequire} from 'node:module'
 import type {GlobalStore} from '@empjs/cli'
+import {ReactRefreshRspackPlugin} from '@rspack/plugin-react-refresh'
 import type {PluginReactConfigType, PluginReactType} from './types'
 
 const requireFromPackage = createRequire(import.meta.url)
@@ -86,7 +87,7 @@ export default (o: PluginReactType = {}) => {
           reloadOnRuntimeErrors: true,
         }
 
-        store.chain.plugin('plugin-react-refresh').use(resolvePackageExport('@rspack/plugin-react-refresh'), [op])
+        store.chain.plugin('plugin-react-refresh').use(ReactRefreshRspackPlugin, [op])
       }
       /** ======================
        * swc svgr 配置

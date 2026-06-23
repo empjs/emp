@@ -38,7 +38,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "node test/react-refresh-plugin.test.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

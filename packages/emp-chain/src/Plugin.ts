@@ -1,6 +1,22 @@
 import ChainedMap from './ChainedMap'
 import Orderable from './Orderable'
 
+function definePluginMetadata(config: any, metadata: Record<string, any>) {
+  for (const [key, value] of Object.entries(metadata)) {
+    const descriptor = Object.getOwnPropertyDescriptor(config, key)
+    if (descriptor && descriptor.configurable === false) continue
+
+    try {
+      Object.defineProperty(config, key, {
+        value,
+        configurable: true,
+      })
+    } catch {
+      // Metadata is only used by Config.toString(); it should not block a real plugin config.
+    }
+  }
+}
+
 class PluginBase extends ChainedMap {
   name: string
   type: string
@@ -78,12 +94,12 @@ class PluginBase extends ChainedMap {
 
     const config = init(plugin, args)
 
-    Object.defineProperties(config, {
-      __pluginName: {value: this.name},
-      __pluginType: {value: this.type},
-      __pluginArgs: {value: args},
-      __pluginConstructorName: {value: constructorName},
-      __pluginPath: {value: pluginPath},
+    definePluginMetadata(config, {
+      __pluginName: this.name,
+      __pluginType: this.type,
+      __pluginArgs: args,
+      __pluginConstructorName: constructorName,
+      __pluginPath: pluginPath,
     })
 
     return config

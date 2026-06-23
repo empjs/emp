@@ -52,7 +52,7 @@
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
     "@empjs/biome-config": "workspace:^",
-    "@rslib/core": "^0.18.3",
+    "@rslib/core": "^0.23.0",
     "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
     "serve": "14.2.5",

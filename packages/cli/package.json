@@ -77,10 +77,12 @@
     }
   },
   "scripts": {
-    "dev": "tsup --watch --env.ENV dev",
-    "build": "tsup --env.ENV prod",
-    "dev-rs": "rslib build --watch --env-mode development",
-    "build-rs": "rslib build --env-mode production",
+    "dev": "rslib build --watch --env-mode development",
+    "build": "rslib build --env-mode production",
+    "dev-rs": "pnpm run dev",
+    "build-rs": "pnpm run build",
+    "dev:tsup": "tsup --watch --env.ENV dev",
+    "build:tsup": "tsup --env.ENV prod",
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {

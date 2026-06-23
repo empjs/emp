@@ -42,7 +42,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "node test/plugin-metadata.test.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

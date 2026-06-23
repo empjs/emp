@@ -3,6 +3,7 @@ import path from 'node:path'
 import util from 'node:util'
 import type {Configuration as RsConfig, RspackOptions} from '@rspack/core'
 import {rspack} from '@rspack/core'
+import {empRoot} from 'src/helper/empRoot'
 import {getEmpConfigPath, getTsConfig} from 'src/helper/loadConfig'
 import logger from 'src/helper/logger'
 import {clearConsole, deepAssign, getLanIp, vCompare} from 'src/helper/utils'
@@ -37,7 +38,7 @@ export class GlobalStore {
    * emp 内部根路径
    * @default empRoot
    */
-  public empRoot = path.resolve(__dirname, __filename).replace(`${path.sep}dist${path.sep}index.js`, '')
+  public empRoot = empRoot
   /**
    * emp 执行代码路径
    */

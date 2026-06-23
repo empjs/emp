@@ -1,3 +1,3 @@
 declare module '@rspack/plugin-react-refresh' {
-  export default any
+  export const ReactRefreshRspackPlugin: any
 }

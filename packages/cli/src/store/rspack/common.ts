@@ -70,24 +70,11 @@ class RspackCommon {
         // inlineEnum: true, // 已废弃 使用 collectTypeScriptInfo.exportedEnum 控制是否收集导出的 enum 信息 , 使用 optimization.inlineExports 来控制是否内联 enum
         // https://rspack.rs/zh/config/experiments#experimentstypereexportspresence
         // typeReexportsPresence: true, // 已废弃 类型重导出存在性检查现在由 module.parser.javascript.typeReexportsPresence 和 builtin:swc-loader collectTypeScriptInfo.typeExports 控制。
-        outputModule: this.store.empConfig.isESM, //将尽可能输出符合 ECMAScript 语法的代码
-        topLevelAwait: true,
         asyncWebAssembly: true,
         css: true,
-        // 用于控制是否开启 Rspack 未来的默认行为
-        rspackFuture: {
-          // 用于在生成产物中注入当前使用的 Rspack 信息
-          bundlerInfo: {force: false},
-        },
-        // 缓存设置
-        cache: this.cache,
-        // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
-        incremental: 'advance-silent',
-        // 如果你的项目中包含较多的动态引用，开启后可以显著降低 code splitting 阶段耗时 https://rspack.rs/zh/config/experiments#experimentsparallelcodesplitting
-        // parallelCodeSplitting: this.store.empConfig.debug.parallelCodeSplitting,
-        // 对应的 loader 会被发送到 worker threads 执行 https://rspack.rs/zh/config/experiments#experimentsparallelloader
-        parallelLoader: true,
       },
+      // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
+      incremental: 'advance-silent',
       /**
        * 懒编译，对提高多入口应用（MPA）或大型单页面应用（SPA）的 dev 启动性能会非常有帮助
        * https://rspack.rs/zh/config/lazy-compilation#lazycompilation
@@ -97,7 +84,7 @@ class RspackCommon {
       infrastructureLogging: this.store.empConfig.debug.infrastructureLogging,
       context: this.store.root,
       mode: this.store.mode,
-      cache: !!this.store.empConfig.cache,
+      cache: this.cache,
       // devtool: this.store.empConfig.build.sourcemap ? 'source-map' : false, //Recommended
       devtool: this.store.empConfig.build.sourcemap.js, //Recommended
       // devtool: false,
@@ -114,7 +101,12 @@ class RspackCommon {
       //         //   },
       //         // },
       //       },
-      output: this.store.empConfig.output,
+      output: {
+        ...this.store.empConfig.output,
+        // 用于在生成产物中注入当前使用的 Rspack 信息
+        bundlerInfo: {force: false},
+        module: this.store.empConfig.output.module || this.store.empConfig.isESM,
+      },
       resolve: this.store.empConfig.resolve,
       externals: this.store.empConfig.externals,
       ignoreWarnings: this.store.empConfig.ignoreWarnings,
