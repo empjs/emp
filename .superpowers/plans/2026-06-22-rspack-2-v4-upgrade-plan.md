@@ -1,6 +1,7 @@
 # EMP v4 Rspack 2 升级 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> Subagent dispatch must follow `.superpowers/subagents.md`; this plan's constraints below are binding additions for the EMP v4 / Rspack 2 migration.
 
 **Goal:** 将 EMP 升级到 v4 大版本线，统一 Node 22 / pnpm 10 基线，迁移到 Rspack 2 和官方 Module Federation 2.x，同时保留 CJS 兼容出口。
 
@@ -24,6 +25,7 @@
 
 ## Subagent Dispatch Constraints
 
+- 遵循 `.superpowers/subagents.md` 的项目级 subagent 调用规则。
 - Codex 主控制器保留任务拆分、上下文裁剪、冲突裁决、review gate 和最终 Go / No-Go 判断。
 - `gpt-5.4-mini` 只用于边界明确但需要代码理解的小型实现、局部 bugfix 和任务级审阅。
 - `gpt-5.3-codex-spark` 只用于机械修改、检索、命令执行、文档同步和重复性验证。
