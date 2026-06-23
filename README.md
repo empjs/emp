@@ -22,109 +22,27 @@
 
 ---
 
-EMP 是面向微前端项目的构建工具。它把 Rspack、Module Federation、TypeScript 和常用框架插件收在一套配置里，业务项目可以少维护联邦运行时细节。
+EMP 是面向微前端工程的构建工具。它把 Rspack 2、Module Federation 2、TypeScript 能力和常用框架插件收在一套配置模型里，让 host、remote、shared、manifest、类型声明和运行时适配都由工具链统一处理。
 
-v4 主要更新在构建和联邦依赖：`@empjs/cli` 切到 Rspack 2，`@empjs/share` 改用官方 Module Federation 2.x 包，同时保留 `pluginRspackEmpShare(...)` 这条用户侧 API。
+v4 的重点是换到新的构建与联邦底座，同时尽量保留 EMP 既有的使用习惯。业务项目可以继续围绕 EMP 插件组织配置，把更多精力放在模块拆分、依赖共享和应用交付上。
 
-## 配置示例
+## 核心功能
 
-```ts
-import {defineConfig} from '@empjs/cli'
-import pluginReact from '@empjs/plugin-react'
-import pluginRspackEmpShare from '@empjs/share/rspack'
+- 微前端联邦：封装 host、remote、shared、runtime、manifest 和类型声明生成。
+- Rspack 构建：覆盖开发服务、生产构建、本地预览和构建分析等常见流程。
+- 框架插件：提供 React、Vue 2、Vue 3、Tailwind CSS、Lightning CSS 等接入能力。
+- 共享依赖治理：统一处理单例依赖、版本协商和运行时加载，减少重复配置。
+- 工程化基础：提供 CLI、chain 配置层、共享 Biome 配置和包内类型声明。
 
-export default defineConfig(() => ({
-  plugins: [
-    pluginReact(),
-    pluginRspackEmpShare({
-      name: 'host',
-      remotes: {
-        remote: 'remote@http://localhost:6002/emp.json',
-      },
-      shared: {
-        react: {singleton: true},
-        'react-dom': {singleton: true},
-      },
-      manifest: true,
-      dts: true,
-    }),
-  ],
-}))
-```
+## v4 优势
 
-## v4 改了什么
+- Rspack 2 构建基础：获得新的性能和能力，同时沿用 webpack 生态里熟悉的配置模型。
+- 官方 Module Federation：`@empjs/share` 使用官方 2.x 包，减少历史 fork 带来的维护成本。
+- 平滑迁移：保留 `pluginRspackEmpShare(...)` 这条用户侧 API，已有项目不需要重写联邦配置。
+- ESM-first 发布：包产物转向现代 ESM 形态，同时保留必要的 CJS 兼容出口。
+- Node 生态对齐：Node 基线跟随 ESM-only 工具链要求，覆盖 `require(esm)` 默认启用后的运行环境。
 
-- 构建器升级到 Rspack 2。
-- Module Federation 使用官方 2.x 依赖，不再依赖历史 fork 包。
-- 包管理器基线为 pnpm 10。
-- 发布包采用 ESM-first 形态，同时保留 CJS 兼容出口。
-- 现有 `pluginRspackEmpShare(...)` 调用不需要重写。
 
-## 安装
-
-创建项目：
-
-```bash
-pnpm create emp@latest
-cd <your-app>
-pnpm dev
-```
-
-已有项目可以直接使用 CLI：
-
-```json
-{
-  "scripts": {
-    "dev": "emp dev",
-    "build": "emp build",
-    "start": "emp serve",
-    "stat": "emp build --analyze"
-  }
-}
-```
-
-## 常用命令
-
-在本仓库调试：
-
-```bash
-pnpm install
-pnpm emp
-pnpm emp:build
-pnpm mf
-pnpm mf:prod
-```
-
-`@empjs/cli` 对外提供：
-
-```bash
-emp dev
-emp build
-emp serve
-emp build --analyze
-```
-
-## 包结构
-
-| 包 | 说明 |
-| --- | --- |
-| `@empjs/cli` | 配置加载、开发服务、生产构建、本地预览 |
-| `@empjs/chain` | Rspack chain 封装和插件序列化 |
-| `@empjs/share` | Module Federation 封装、runtime facade、框架适配 |
-| `@empjs/plugin-react` | React 和 React Refresh 接入 |
-| `@empjs/plugin-vue2` / `@empjs/plugin-vue3` | Vue 接入 |
-| `@empjs/plugin-lightningcss` | Lightning CSS 接入 |
-| `@empjs/plugin-tailwindcss*` | Tailwind 不同版本线的接入 |
-| `@empjs/biome-config` | 共享 Biome 配置和 CLI 代理 |
-
-## 文档
-
-- [快速开始](https://empjs.dev/guide/start/quick-start.html)
-- [配置总览](https://empjs.dev/config/index.html)
-- [插件总览](https://empjs.dev/plugin/)
-- [交流区](https://github.com/empjs/emp/discussions/364)
-- [官网仓库](https://github.com/empjs/official)
-- [项目脚手架](https://github.com/empjs/create-emp)
 
 ## QQ 交流群
 
