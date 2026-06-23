@@ -6,7 +6,7 @@
 
 **Architecture:** 先用 manifest 和 lockfile 迁移建立 v4 依赖基线，再在 `@empjs/share` 内部用薄 adapter 切换官方 Module Federation Rspack 插件。CLI 和 React 插件只做 Rspack 2 必需兼容修正，最后用核心包构建、示例构建、ESM/CJS 双入口验证收口。
 
-**Tech Stack:** Node `>=22.12.0`, pnpm `10.x`, TypeScript, tsup, Rspack 2, `@module-federation/rspack`, `@module-federation/runtime`, `@module-federation/sdk`.
+**Tech Stack:** Node `>=22.12.0`, pnpm `10.x`, TypeScript, Rslib, Rspack 2, `@module-federation/rspack`, `@module-federation/runtime`, `@module-federation/sdk`.
 
 ## Global Constraints
 
@@ -21,6 +21,15 @@
 - v4 不做全仓 ESM-only。
 - 不重构整个 `@empjs/chain` API。
 - 验证矩阵必须覆盖 package 声明、lockfile 和实际安装树，避免三者不一致。
+
+## Subagent Dispatch Constraints
+
+- Codex 主控制器保留任务拆分、上下文裁剪、冲突裁决、review gate 和最终 Go / No-Go 判断。
+- `gpt-5.4-mini` 只用于边界明确但需要代码理解的小型实现、局部 bugfix 和任务级审阅。
+- `gpt-5.3-codex-spark` 只用于机械修改、检索、命令执行、文档同步和重复性验证。
+- 不把架构裁决、跨包 API 取舍、依赖入口选择、ESM-only / CJS 兼容取舍、最终整体验收下放给轻量子 agent。
+- 每个 subagent brief 必须写清模型、修改范围、验证命令、禁止项和遇到 API 选型或范围扩大时返回 `NEEDS_CONTEXT` 的停止条件。
+- Reviewer 的 global constraints block 必须从本 plan 的 `Global Constraints` 和本节复制绑定要求，不从会话历史或临时总结推断。
 
 ---
 
@@ -61,7 +70,7 @@
 
 **验证和文档**
 
-- Read: `docs/superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`  
+- Read: `.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`  
   默认不修改；如果实现证明 spec 判断错误，暂停实施并先更新设计或计划。
 - Create: no extra long-lived scripts.  
   所有计划里的 Node checks 默认用 inline `node <<'NODE'` 执行。
@@ -103,7 +112,7 @@
 - Modify: `packages/plugin-vue3/package.json`
 
 **Interfaces:**
-- Consumes: approved spec `docs/superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
+- Consumes: approved spec `.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
 - Produces: main release package manifests declare version `4.0.0`; CDN/lib variant packages keep their existing semantic versions; all `@empjs/*` package manifests declare Node engine `>=22.12.0`.
 
 - [ ] **Step 1: Run the failing baseline check**
@@ -993,7 +1002,7 @@ Expected: commit only if source/config changes were required. If all examples pa
 ### Task 7: Final dependency and release-surface verification
 
 **Files:**
-- Read: `docs/superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
+- Read: `.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md`
 - Read: `README.md`
 - Read: `packages/cli/README.md`
 - Read: `packages/emp-share/README.md`
@@ -1081,14 +1090,14 @@ git status --short
 git diff --stat HEAD
 ```
 
-Expected: no unexpected files. Ignore pre-existing untracked files that are unrelated to this migration, such as `docs/superpowers/specs/2026-06-22-codex-model-aware-subagents.md`.
+Expected: no unexpected files.
 
 - [ ] **Step 7: Confirm no documentation patch is pending**
 
 Run:
 
 ```bash
-git diff -- README.md packages/cli/README.md packages/emp-share/README.md docs/superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md
+git diff -- README.md packages/cli/README.md packages/emp-share/README.md .superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md
 ```
 
 Expected: no diff. If this command prints a diff, pause implementation and create a separate docs task before committing documentation changes.
