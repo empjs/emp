@@ -25,9 +25,9 @@
   "types": "dist/vueRouter.d.ts",
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
-    "dev:bundle": "tsup --watch",
+    "dev:bundle": "rslib build --watch",
     "dev:serve": "serve ./dist --cors -p 2300",
-    "build": "tsup",
+    "build": "rslib build",
     "start": "serve ./dist --cors -p 2300"
   },
   "engines": {

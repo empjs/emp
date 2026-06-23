@@ -27,8 +27,7 @@
     "dev:lib-dev": "rslib build --watch",
     "dev:serve": "serve ./dist --cors -p 9011",
     "build": "rslib build",
-    "start": "serve ./dist --cors -p 9011",
-    "build:t": "tsup"
+    "start": "serve ./dist --cors -p 9011"
   },
   "engines": {
     "node": ">=22.12.0"

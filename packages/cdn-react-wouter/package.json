@@ -28,8 +28,7 @@
     "dev:bundle": "rslib build --watch",
     "dev:serve": "serve ./dist --cors -p 2200",
     "build": "rslib build",
-    "start": "serve ./dist --cors -p 2200",
-    "build:tsup": "tsup"
+    "start": "serve ./dist --cors -p 2200"
   },
   "engines": {
     "node": ">=22.12.0"

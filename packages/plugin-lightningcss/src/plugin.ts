@@ -19,7 +19,7 @@ const uselightningcssLoader = async (store: GlobalStore, o: PluginLightningcssOp
     const rule = chain.module.rule(ruleName)
     const useLightningcss = rule
       .use('lightningcss')
-      .loader(path.resolve(__dirname, 'loader.cjs'))
+      .loader(path.resolve(__dirname, 'loader.js'))
       .options(loaderOptions)
     if (['sass', 'less'].includes(ruleName)) {
       useLightningcss.before(`${ruleName}Loader`)

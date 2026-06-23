@@ -76,8 +76,6 @@
     "build": "rslib build --env-mode production",
     "dev-rs": "pnpm run dev",
     "build-rs": "pnpm run build",
-    "dev:tsup": "tsup --watch --env.ENV dev",
-    "build:tsup": "tsup --env.ENV prod",
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {

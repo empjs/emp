@@ -15,6 +15,12 @@ import type {
 import {getRuntimeLib} from './utils'
 
 const exp = /^([0-9a-zA-Z_\s]+)@(.*)/
+const empShareRuntimeTypePkgs = ['@empjs/share/sdk']
+
+function mergeRuntimeTypePkgs(runtimePkgs: string[] = []) {
+  return Array.from(new Set([...empShareRuntimeTypePkgs, ...runtimePkgs]))
+}
+
 export class EmpShare {
   private op: EMPPluginShareType
   private store: GlobalStore
@@ -216,6 +222,7 @@ export class EmpShare {
     const o = this.op
     const {store} = this
     if (o.name) {
+      this.setDtsRuntimePkgs()
       const op = store.deepAssign<ModuleFederationPluginOptions & {empRuntime: any}>(
         {
           filename: 'emp.js',
@@ -245,6 +252,20 @@ export class EmpShare {
       // console.log('op', op)
       store.chain.plugin('plugin-emp-share').use(ModuleFederationPlugin, [op])
     }
+  }
+  private setDtsRuntimePkgs() {
+    if (!this.op.empRuntime || this.op.dts === false) return
+
+    const dts = this.op.dts === true || this.op.dts == null ? {} : {...(this.op.dts as any)}
+    if (dts.consumeTypes === false) {
+      this.op.dts = dts
+      return
+    }
+
+    const consumeTypes = dts.consumeTypes === true || dts.consumeTypes == null ? {} : {...dts.consumeTypes}
+    consumeTypes.runtimePkgs = mergeRuntimeTypePkgs(consumeTypes.runtimePkgs)
+    dts.consumeTypes = consumeTypes
+    this.op.dts = dts
   }
   private setShareLib() {
     if (!this.op.empRuntime) return

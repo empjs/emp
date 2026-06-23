@@ -9,7 +9,7 @@ import Plugin from './Plugin'
 import Resolve from './Resolve'
 import ResolveLoader from './ResolveLoader'
 
-export default class Config extends ChainedMap {
+class Config extends ChainedMap {
   devServer: DevServer
   entryPoints: ChainedMap
   module: Module
@@ -169,3 +169,6 @@ export default class Config extends ChainedMap {
     return super.merge(obj, [...omit, ...omissions, 'entry', 'plugin'])
   }
 }
+
+export default Config
+export {Config as 'module.exports'}

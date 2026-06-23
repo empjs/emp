@@ -71,9 +71,6 @@ importers:
       '@types/react-dom':
         specifier: ^17.0.0
         version: 17.0.26(@types/react@17.0.93)
-      tsup:
-        specifier: ^8.3.5
-        version: 8.5.0(@swc/core@1.15.41(@swc/helpers@0.5.23))(jiti@2.7.0)(postcss@8.5.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.7.2
         version: 5.9.3

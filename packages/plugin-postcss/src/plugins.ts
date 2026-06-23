@@ -38,6 +38,6 @@ export const plugins = {
       },
       ...o,
     }
-    return [require.resolve('./pxtovw.cjs'), o]
+    return [require.resolve('./pxtovw.js'), o]
   },
 }

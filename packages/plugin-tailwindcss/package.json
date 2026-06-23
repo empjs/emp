@@ -23,33 +23,23 @@
     "vue",
     "vue2"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./tailwindcss": {
-      "import": {
-        "types": "./dist/tailwindcss.d.ts",
-        "default": "./dist/tailwindcss.js"
-      },
-      "require": {
-        "types": "./dist/tailwindcss.d.cts",
-        "default": "./dist/tailwindcss.cjs"
-      }
+      "types": "./dist/tailwindcss.d.ts",
+      "import": "./dist/tailwindcss.js",
+      "default": "./dist/tailwindcss.js"
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "rslib build --env-mode production",
+    "dev": "rslib build --watch --env-mode development"
   },
   "engines": {
     "node": ">=22.12.0"

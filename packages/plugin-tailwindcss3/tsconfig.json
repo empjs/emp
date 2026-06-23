@@ -1,14 +1,22 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["es2023", "DOM"],
+    "lib": [
+      "es2023",
+      "DOM"
+    ],
     "outDir": "dist",
     "baseUrl": "./",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "paths": {
-      "src/*": ["./src/*"]
-    }
+      "src/*": [
+        "./src/*"
+      ]
+    },
+    "rootDir": "src"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

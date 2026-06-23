@@ -26,6 +26,7 @@
     "emp:build": "pnpm --filter @empjs/cli --filter @empjs/plugin-react --filter @empjs/plugin-vue2 --filter @empjs/plugin-vue3 --filter @empjs/plugin-lightningcss --filter @empjs/plugin-postcss --filter @empjs/share build",
     "esm": "pnpm --filter esm-react-host --filter esm-react-app dev",
     "esm:prod": "pnpm --filter esm-react-host --filter esm-react-app build && pnpm --filter esm-react-host --filter esm-react-app start",
+    "rt": "pnpm --filter rt-host --filter rt-layout dev",
     "mf": "pnpm --filter mf-host --filter mf-app dev",
     "mf:prod": "pnpm --filter mf-host --filter mf-app build && pnpm --filter mf-host --filter mf-app start",
     "vue2": "pnpm --filter vue-2-base --filter vue-2-project dev",

@@ -19,7 +19,7 @@ export default (tailwindConfig?: TailwindConfig, options?: autoprefixer.Options)
         },
         plugins: [],
       }
-      tailwindConfig = store.deepAssign<TailwindConfig>(tailwindConfigDefault, tailwindConfig)
+      const resolvedTailwindConfig = store.deepAssign<TailwindConfig>(tailwindConfigDefault, tailwindConfig)
       // console.log('tailwindConfig', tailwindConfig)
       //
       chain.module
@@ -29,7 +29,7 @@ export default (tailwindConfig?: TailwindConfig, options?: autoprefixer.Options)
         .loader(require.resolve('postcss-loader'))
         .options({
           postcssOptions: {
-            plugins: [tailwindcss(tailwindConfig), autoprefixer(options)],
+            plugins: [tailwindcss(resolvedTailwindConfig), autoprefixer(options)],
           },
           sourceMap: store.isDev,
         })

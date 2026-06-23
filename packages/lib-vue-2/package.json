@@ -21,21 +21,25 @@
     "access": "public"
   },
   "main": "dist/runtime.umd.js",
-  "types": "dist/plugin.d.ts",
+  "module": "dist/runtime.js",
+  "types": "dist/runtime.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/plugin.d.ts",
-      "default": "./dist/plugin.js"
+      "types": "./dist/runtime.d.ts",
+      "import": "./dist/runtime.js",
+      "require": "./dist/runtime.cjs",
+      "default": "./dist/runtime.umd.js"
     },
     "./runtime": {
       "import": {
         "types": "./dist/runtime.d.ts",
-        "default": "./dist/runtime.mjs"
+        "default": "./dist/runtime.js"
       },
       "require": {
         "types": "./dist/runtime.d.cts",
         "default": "./dist/runtime.cjs"
-      }
+      },
+      "default": "./dist/runtime.umd.js"
     },
     "./*": [
       "./*",
@@ -51,12 +55,12 @@
     }
   },
   "scripts": {
-    "dev": "pnpm run /^dev:.*/",
-    "dev:development": "tsup --watch --env.NODE_ENV development",
-    "dev:production": "tsup --watch --env.NODE_ENV production",
-    "build": "pnpm run /^build:.*/",
-    "build:development": "tsup --env.NODE_ENV development",
-    "build:production": "tsup --env.NODE_ENV production",
+    "dev": "rslib build --watch --env-mode development",
+    "dev:development": "rslib build --watch --env-mode development --lib runtime-umd-development",
+    "dev:production": "rslib build --watch --env-mode production --lib runtime-umd-production",
+    "build": "rslib build --env-mode production",
+    "build:development": "rslib build --env-mode development --lib runtime-umd-development",
+    "build:production": "rslib build --env-mode production --lib runtime-umd-production",
     "dev:serve": "serve ./dist --cors -p 1800",
     "start": "serve ./dist --cors -p 1800"
   },

@@ -25,9 +25,9 @@
   "types": "dist/reactRouter.d.ts",
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
-    "dev:bundle": "tsup --watch",
+    "dev:bundle": "rslib build --watch",
     "dev:serve": "serve ./dist --cors -p 1700",
-    "build": "tsup",
+    "build": "rslib build",
     "start": "serve ./dist --cors -p 1700"
   },
   "engines": {
@@ -43,7 +43,6 @@
     "@swc/core": "^1.10.4",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   }
 }

@@ -145,13 +145,13 @@
         "./dist/adapter.d.ts"
       ],
       "adapterVue": [
-        "./dist/adapter.d.ts"
+        "./dist/adapterVue.d.ts"
       ],
       "rspack": [
         "./dist/rspack.d.ts"
       ],
       "library": [
-        "./output/index.d.ts"
+        "./output/sdk.d.ts"
       ],
       "react": [
         "./dist/react.d.ts"
@@ -163,9 +163,9 @@
   },
   "scripts": {
     "dev": "pnpm --filter @empjs/share run /^dev:.*/",
-    "dev:lib-dev": "tsup --watch",
+    "dev:lib-dev": "rslib build --watch --env-mode development",
     "dev:serve": "serve ./output --cors -p 2100",
-    "build": "tsup",
+    "build": "rslib build --env-mode production",
     "start": "serve ./output --cors -p 2100",
     "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
   },

@@ -1,5 +1,8 @@
 import {defineConfig, type LibConfig} from '@rslib/core'
-import path from 'path'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 function getLibConfig(env: 'development' | 'production'): LibConfig {
   const isProd = env === 'production'
