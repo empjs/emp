@@ -1,6 +1,6 @@
 {
   "name": "@empjs/cli",
-  "version": "4.0.0-alpha.1",
+  "version": "4.0.0-alpha.2",
   "description": "emp",
   "license": "MIT",
   "type": "module",
@@ -121,9 +121,9 @@
     "less-loader": "^12.2.0",
     "open": "10.2.0",
     "sass-embedded": "1.93.2",
-    "sass-loader": "16.0.5",
+    "sass-loader": "17.0.0",
     "serve-static": "2.2.0",
-    "ts-checker-rspack-plugin": "1.1.6",
+    "ts-checker-rspack-plugin": "1.4.0",
     "typescript-plugin-css-modules": "5.2.0",
     "webpack-bundle-analyzer": "4.10.2"
   }

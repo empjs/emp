@@ -59,7 +59,7 @@ class RspackCommon {
          * 观察:导致 二次启动后 热更新失效
          * https://rspack.rs/zh/blog/announcing-1-5#%E6%9B%B4%E5%BF%AB%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%91%E5%90%AC%E5%99%A8
          */
-        nativeWatcher: true,
+        nativeWatcher: this.store.empConfig.debug.nativeWatcher,
         /**
          * 自动识别无副作用的 barrel 文件，对其中的重导出进行延迟构建优化，只在真正需要时才会解析和构建相关模块
          * https://rspack.rs/zh/blog/announcing-1-5#barrel-%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96
@@ -71,15 +71,14 @@ class RspackCommon {
         // https://rspack.rs/zh/config/experiments#experimentstypereexportspresence
         // typeReexportsPresence: true, // 已废弃 类型重导出存在性检查现在由 module.parser.javascript.typeReexportsPresence 和 builtin:swc-loader collectTypeScriptInfo.typeExports 控制。
         asyncWebAssembly: true,
-        css: true,
       },
       // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
-      incremental: 'advance-silent',
+      incremental: this.store.empConfig.build.incremental,
       /**
        * 懒编译，对提高多入口应用（MPA）或大型单页面应用（SPA）的 dev 启动性能会非常有帮助
        * https://rspack.rs/zh/config/lazy-compilation#lazycompilation
        */
-      lazyCompilation: this.store.isDev,
+      lazyCompilation: this.store.empConfig.build.lazyCompilation,
       target: this.store.empConfig.target, // default [web,es5]
       infrastructureLogging: this.store.empConfig.debug.infrastructureLogging,
       context: this.store.root,

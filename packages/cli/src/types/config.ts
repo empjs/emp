@@ -57,7 +57,12 @@ export type DebugType = {
    * https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
    * 启用 CssChunkingPlugin 后，SplitChunksPlugin 将不再处理 CSS 模块。 这意味着 optimization.splitChunks 等配置对 CSS 模块将不再生效，所有 CSS 模块的代码分割逻辑完全由 CssChunkingPlugin 处理。
    */
-  cssChunkingPlugin?: boolean
+  cssChunkingPlugin?: boolean | Record<string, any>
+  /**
+   * 是否启用 Rspack 原生文件监听器。
+   * @default true
+   */
+  nativeWatcher?: boolean
 }
 // devServer Type
 export type ServerType = devServerConfig & {
@@ -175,6 +180,16 @@ export type BuildType = {
    */
   minOptions?: SwcJsMinimizerRspackPluginOptions
   cssminOptions?: CssminOptionsType
+  /**
+   * Rspack incremental build 配置。
+   * @default 'advance-silent'
+   */
+  incremental?: RsConfig['incremental']
+  /**
+   * Rspack lazy compilation 配置。
+   * @default development mode true
+   */
+  lazyCompilation?: RsConfig['lazyCompilation']
   /**
    * 生成代码 参考 https://swc.rs/docs/configuring-swc#jsctarget
    */

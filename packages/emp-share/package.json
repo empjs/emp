@@ -1,6 +1,6 @@
 {
   "name": "@empjs/share",
-  "version": "4.0.0-alpha.1",
+  "version": "4.0.0-alpha.2",
   "description": "emp share and runtime",
   "license": "MIT",
   "type": "module",
@@ -116,7 +116,7 @@
     "dev:lib-dev": "rslib build --watch --env-mode development",
     "dev:serve": "serve ./output --cors -p 2100",
     "build": "rslib build --env-mode production",
-    "test": "node test/dts-runtime-pkgs.test.mjs && node test/esm-only-publish.test.mjs",
+    "test": "node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/esm-only-publish.test.mjs",
     "start": "serve ./output --cors -p 2100",
     "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
   },
@@ -125,10 +125,11 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@module-federation/runtime": "^2.5.1",
-    "@module-federation/sdk": "^2.5.1",
-    "core-js": "^3.46.0",
-    "@module-federation/rspack": "^2.5.1"
+    "@module-federation/rspack": "^2.6.0",
+    "@module-federation/runtime": "^2.6.0",
+    "@module-federation/runtime-tools": "^2.6.0",
+    "@module-federation/sdk": "^2.6.0",
+    "core-js": "^3.46.0"
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",

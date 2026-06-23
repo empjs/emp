@@ -130,6 +130,7 @@ export class EmpConfig {
         showScriptDebug: false,
         // parallelCodeSplitting: true,
         cssChunkingPlugin: true,
+        nativeWatcher: true,
         warnRuleAsWarning: true,
       },
       this.store.empOptions.debug,
@@ -159,6 +160,8 @@ export class EmpConfig {
         minify: !this.store.isDev,
         minOptions: {},
         cssminOptions: {},
+        incremental: 'advance-silent',
+        lazyCompilation: this.store.isDev,
         target: 'es5',
         useESM: false,
         polyfill: {
