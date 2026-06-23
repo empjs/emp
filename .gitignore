@@ -16,3 +16,4 @@ doc_build
 
 .rslib
 .cursor/debug.log
+.playwright-cli
