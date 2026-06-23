@@ -5,7 +5,7 @@
 <h1 align="center">EMP v4</h1>
 
 <p align="center">
-  <em>基于 Rspack 2 的微前端构建工具。配置保持熟悉，底层换成新的引擎。</em>
+  <em>Rspack 2 驱动的微前端构建工具，保留熟悉的 EMP 配置。</em>
 </p>
 
 <p align="center">
@@ -22,11 +22,11 @@
 
 ---
 
-EMP 是面向微前端项目的构建工具。它把 Rspack、Module Federation、TypeScript 和常用框架插件收在一套配置里，业务项目不需要自己拼完整的联邦运行时。
+EMP 是面向微前端项目的构建工具。它把 Rspack、Module Federation、TypeScript 和常用框架插件收在一套配置里，业务项目可以少维护联邦运行时细节。
 
-v4 的重点是升级底座：`@empjs/cli` 切到 Rspack 2，`@empjs/share` 改用官方 Module Federation 2.x 包，同时保留 `pluginRspackEmpShare(...)` 这条用户侧 API。
+v4 主要更新在构建和联邦依赖：`@empjs/cli` 切到 Rspack 2，`@empjs/share` 改用官方 Module Federation 2.x 包，同时保留 `pluginRspackEmpShare(...)` 这条用户侧 API。
 
-## 一个配置
+## 配置示例
 
 ```ts
 import {defineConfig} from '@empjs/cli'
