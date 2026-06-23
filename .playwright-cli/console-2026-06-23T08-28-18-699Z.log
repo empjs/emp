@@ -1,0 +1,17 @@
+[     417ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.development.umd.js:0
+[   34293ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://172.19.158.28:3710/index.cccb2ce5caa1e5b3.hot-update.json:0
+[   34341ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.development.umd.js:0
+[   39183ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3712/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3712/emp.js:10442
+[   39183ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3712/emp.js:11261
+[   39184ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.97378863.js:11008
+[   39184ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.97378863.js:11827
+[   41207ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3712/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3712/emp.js:10442
+[   41208ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3712/emp.js:11261
+[   41239ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.97378863.js:11008
+[   41239ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.97378863.js:11827
+[   45279ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.97378863.js:11008
+[   45279ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.97378863.js:11827
+[   45279ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3712/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3712/emp.js:10442
+[   45280ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3712/emp.js:11261
+[   53342ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://172.19.158.28:3710/index.293e64f62f30c875.hot-update.json:0
+[   53401ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.development.umd.js:0

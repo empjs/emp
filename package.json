@@ -1,6 +1,6 @@
 {
   "name": "emp-workspace",
-  "version": "4.0.0",
+  "version": "4.0.0-alpha.1",
   "description": "emp workspace",
   "main": "index.js",
   "type": "module",
@@ -43,7 +43,13 @@
     "cloudflare:mf-vue2": "cross-env DEPLOY=cloudflare pnpm --filter vue-2-project --filter vue-2-base build",
     "cloudflare:mf-vue3": "cross-env DEPLOY=cloudflare pnpm --filter vue-3-project --filter vue-3-base build",
     "cloudflare:react-19-tanstack": "cross-env DEPLOY=cloudflare pnpm --filter react-19-tanstack build",
-    "lint": "biome check --write"
+    "lint": "biome check --write",
+    "release:check": "node scripts/release.mjs check",
+    "release:version": "node scripts/release.mjs version",
+    "release:changelog": "node scripts/release.mjs changelog",
+    "release:pack": "node scripts/release.mjs pack",
+    "release:publish:dry": "node scripts/release.mjs publish --dry-run",
+    "release:publish": "node scripts/release.mjs publish"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0",

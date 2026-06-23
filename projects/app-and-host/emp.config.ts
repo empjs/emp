@@ -21,7 +21,7 @@ export default defineConfig(store => {
         empRuntime: {
           runtime: {
             // lib: `https://cdn.jsdelivr.net/npm/@empjs/share@3.12.0/output/sdk.js`,
-            lib: `http://localhost:2100/sdk.js`,
+            lib: `http://${ip}:2100/sdk.js`,
           },
           framework: {
             libs: [`https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.${store.mode}.umd.js`],

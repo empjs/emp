@@ -12,6 +12,7 @@ projects/e-svga*
 .mf
 .output
 doc_build
+.codegraph/
 
 .rslib
 .cursor/debug.log

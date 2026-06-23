@@ -1,0 +1,42 @@
+[     546ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.development.umd.js:0
+[     601ms] Error: Cannot find module '@empjs/share/sdk'
+    at __rspack_missing_module (http://172.19.158.28:3710/js/index.662459d3.js:424:53)
+    at ./src/index.tsx (http://172.19.158.28:3710/js/index.662459d3.js:424:144)
+    at __webpack_require__ (http://172.19.158.28:3710/js/index.662459d3.js:13292:29)
+    at __webpack_require__.x (http://172.19.158.28:3710/js/index.662459d3.js:13314:27)
+    at __webpack_require__.x (http://172.19.158.28:3710/js/index.662459d3.js:14741:10)
+    at http://172.19.158.28:3710/js/index.662459d3.js:14749:47
+    at http://172.19.158.28:3710/js/index.662459d3.js:14750:3
+[     572ms] [ERROR] [rspack-dev-server] Errors while compiling. Reload prevented. @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[     572ms] [ERROR] [rspack-dev-server] ERROR in ./src/App.tsx 3:1-47
+  × Module not found: Can't resolve '@empjs/share/sdk' in '/Users/Bigo/Desktop/develop/fontend-workspace/emp/projects/app-and-host/src'
+   ╭─[3:0]
+ 1 │ var _this = this;
+ 2 │ import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+ 3 │ import { loadRemote } from '@empjs/share/sdk';
+   · ──────────────────────────────────────────────
+ 4 │ import { lazy, Suspense } from 'react';
+ 5 │ import { ip, port } from './config';
+   ╰────
+ @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[     572ms] [ERROR] [rspack-dev-server] ERROR in ./src/index.tsx 7:1-16
+  × Module not found: Can't resolve '@empjs/share/sdk' in '/Users/Bigo/Desktop/develop/fontend-workspace/emp/projects/app-and-host/src'
+   ╭─[7:0]
+ 5 │ // console.log(window.origin)
+ 6 │ var remotePort = window.origin.includes('3712') ? 3710 : 3712;
+ 7 │ registerRemotes([
+   · ───────────────
+ 8 │     {
+ 9 │         name: "app_host_".concat(remotePort),
+   ╰────
+ @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[  181492ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.662459d3.js:10893
+[  181492ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[  183494ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.662459d3.js:10893
+[  183494ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[  187552ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.662459d3.js:10893
+[  187553ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[  195614ms] [ERROR] WebSocket connection to 'ws://172.19.158.28:3710/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://172.19.158.28:3710/js/index.662459d3.js:10893
+[  195614ms] [ERROR] [rspack-dev-server] Event @ http://172.19.158.28:3710/js/index.662459d3.js:11712
+[  211684ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://172.19.158.28:3710/index.ab9b6fe4c8324fd3.hot-update.json:0
+[  211739ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://cdn.jsdelivr.net/npm/@empjs/cdn-react-wouter@0.0.4/dist/reactRouter.development.umd.js:0
