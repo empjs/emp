@@ -27,6 +27,18 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
+  apps/rspack2-modern-module:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+
+  apps/rspack2-optimization:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+
   packages/adapter-react: {}
 
   packages/biome-config:
