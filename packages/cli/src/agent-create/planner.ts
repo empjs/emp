@@ -2,12 +2,21 @@ import path from 'node:path'
 import type {CreateIntent, CreateOptions, CreateProjectPlan} from './types'
 import {createTemplateFiles} from './templates'
 
+function assertP0Intent(remotes: readonly unknown[]): void {
+  if (remotes.length !== 1) {
+    throw new Error('P0 仅支持单 host + 单 remote')
+  }
+}
+
 export function createProjectPlan(
   intent: CreateIntent,
   options: CreateOptions,
 ): CreateProjectPlan {
+  assertP0Intent(intent.remotes)
+
   const rootDir = path.resolve(options.targetDir)
   const rootName = path.basename(rootDir)
+  const [remote] = intent.remotes
   const planWithoutFiles: Omit<CreateProjectPlan, 'files'> = {
     rootName,
     rootDir,
@@ -21,9 +30,9 @@ export function createProjectPlan(
         port: 3000,
       },
       {
-        name: intent.remotes[0].name,
+        name: remote.name,
         role: 'remote',
-        framework: intent.remotes[0].framework,
+        framework: remote.framework,
         port: 3001,
       },
     ],
