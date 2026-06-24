@@ -65,6 +65,28 @@ describe('createProjectPlan', () => {
       build: expect.any(String),
       verify: expect.any(String),
     })
+    expect(rootPackageJson.packageManager).toBe('pnpm@10.33.0')
+    expect(rootPackageJson.engines).toEqual({
+      node: '^20.19.0 || >=22.12.0',
+      pnpm: '10.x',
+    })
+
+    const hostPackageJson = JSON.parse(fileContent('apps/host/package.json'))
+    expect(hostPackageJson.dependencies).toMatchObject({
+      '@empjs/bridge-react': expect.any(String),
+      '@empjs/bridge-vue3': expect.any(String),
+      vue: expect.any(String),
+    })
+
+    const hostApp = fileContent('apps/host/src/App.tsx')
+    expect(hostApp).toContain('createRemoteAppComponent')
+    expect(hostApp).toContain('createBridgeComponent')
+    expect(hostApp).toContain("@empjs/bridge-react")
+    expect(hostApp).toContain("@empjs/bridge-vue3")
+    expect(hostApp).toContain("import * as Vue from 'vue'")
+
+    const remoteTypes = fileContent('apps/host/src/remotes.d.ts')
+    expect(remoteTypes).not.toContain('ComponentType')
 
     expect(fileContent('pnpm-workspace.yaml')).toContain('- apps/*')
 

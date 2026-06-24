@@ -14,6 +14,11 @@ function rootPackageJson(plan: PlannedProject): string {
     version: '0.0.0',
     private: true,
     type: 'module',
+    packageManager: 'pnpm@10.33.0',
+    engines: {
+      node: '^20.19.0 || >=22.12.0',
+      pnpm: '10.x',
+    },
     scripts: {
       dev: 'pnpm --parallel --filter "./apps/*" dev',
       build: 'pnpm --filter "./apps/*" build',
@@ -66,11 +71,14 @@ function hostPackageJson(): string {
       start: 'emp serve',
     },
     dependencies: {
+      '@empjs/bridge-react': EMP_VERSION,
+      '@empjs/bridge-vue3': EMP_VERSION,
       '@empjs/cli': EMP_VERSION,
       '@empjs/plugin-react': EMP_VERSION,
       '@empjs/share': EMP_VERSION,
       react: '^19.0.0',
       'react-dom': '^19.0.0',
+      vue: '^3.5.21',
     },
     devDependencies: {
       '@types/react': '^19.0.0',
@@ -153,9 +161,7 @@ export default defineConfig({
 
 function hostRemoteTypes(): string {
   return `declare module 'user/App' {
-  import type {ComponentType} from 'react'
-
-  const App: ComponentType
+  const App: unknown
   export default App
 }
 `
@@ -172,8 +178,15 @@ createRoot(document.getElementById('root')!).render(<App />)
 
 function hostApp(): string {
   return `import React from 'react'
+import * as Vue from 'vue'
+import {createRemoteAppComponent} from '@empjs/bridge-react'
+import {createBridgeComponent} from '@empjs/bridge-vue3'
 
-const RemoteApp = React.lazy(() => import('user/App'))
+const RemoteApp = React.lazy(async () => {
+  const module = await import('user/App')
+  const BridgeComponent = createBridgeComponent(module.default, {Vue})
+  return {default: createRemoteAppComponent(BridgeComponent, {React})}
+})
 
 export default function App() {
   return (

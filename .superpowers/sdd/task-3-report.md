@@ -98,3 +98,67 @@ Result: passed with no whitespace errors.
 - Did not modify `AGENTS.md`, `README.md`, `.superpowers/plans/*`, `projects/**`, or `website/**`.
 - Did not change generator, executor, or CLI command wiring.
 - User pre-existing changes remain untouched.
+
+## Review Fix: Vue Remote Bridge
+
+Follow-up review findings were fixed in the template generator.
+
+Changed files:
+
+- `packages/cli/src/agent-create/templates.ts`
+- `packages/cli/test/agent-create-planner.test.ts`
+- `.superpowers/sdd/task-3-report.md`
+
+RED evidence:
+
+```bash
+pnpm --filter @empjs/cli test:real:planner
+```
+
+Result: failed as expected before the template fix.
+
+```text
+expected undefined to be 'pnpm@10.33.0'
+```
+
+GREEN evidence:
+
+```bash
+pnpm --filter @empjs/cli test:real:planner
+```
+
+Result: passed.
+
+```text
+testFiles: 1
+tests: 2
+passedTests: 2
+failedTests: 0
+```
+
+```bash
+pnpm test:real:cli
+```
+
+Result: passed.
+
+```text
+testFiles: 2
+tests: 8
+passedTests: 8
+failedTests: 0
+```
+
+```bash
+git diff --check
+```
+
+Result: passed with no whitespace errors.
+
+Fix notes:
+
+- Root generated `package.json` now includes `packageManager: pnpm@10.33.0` and the required Node/pnpm engines.
+- Host generated `package.json` now includes `@empjs/bridge-react`, `@empjs/bridge-vue3`, and `vue`.
+- Host generated `App.tsx` now wraps the Vue `user/App` remote with `createBridgeComponent()` and `createRemoteAppComponent()`.
+- Host generated `remotes.d.ts` now declares `user/App` as `unknown` instead of a React `ComponentType`.
+- This review fix supersedes the earlier note that cross-framework bridge behavior was not implemented in Task 3.
