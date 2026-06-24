@@ -50,3 +50,39 @@ DONE
 - Did not modify `AGENTS.md`, `README.md`, `.superpowers/plans/2026-06-24-agent-first-create-plan.md`, `projects/**`, or `website/**`.
 - Parser checks framework and role adjacency, so `Vue 主应用 + React 子应用` is not accepted merely because the input contains both framework names and both role words.
 - Staging should include only Task 1 files listed above.
+
+## Review Fix Report - 2026-06-24
+
+### Scope
+
+- Fixed review finding: `parseCreateIntent` now rejects near-match framework tokens and extra host/remote role mentions.
+- Fixed review finding: root test entry now covers `@empjs/cli test:real` via `test:cli` and `test:real:cli`.
+
+### RED Evidence
+
+- Command: `pnpm --filter @empjs/cli test:real:intent`
+- Result: exit 1.
+- Expected failures:
+  - `rejects near-match React framework tokens`: `preact host with vue remote` did not throw.
+  - `rejects multiple Vue remotes`: `React host with vue remote and another vue remote` did not throw.
+- Summary: `tests: 6`, `failedTests: 2`, `passedTests: 4`.
+
+### GREEN Evidence
+
+- Command: `pnpm --filter @empjs/cli test:real:intent`
+- Result: exit 0, `tests: 6`, `passedTests: 6`.
+- Command: `pnpm test:real:cli`
+- Result: exit 0, root entry ran `@empjs/cli test:real`, `tests: 6`, `passedTests: 6`.
+
+### Command Summary
+
+- `pnpm --filter @empjs/cli test:real:intent`: RED exit 1 before fix, GREEN exit 0 after fix.
+- `pnpm test:real:cli`: exit 0.
+- `git diff --check`: exit 0.
+
+### Changed Files
+
+- `packages/cli/src/agent-create/intent.ts`
+- `packages/cli/test/agent-create-intent.test.ts`
+- `package.json`
+- `.superpowers/sdd/task-1-report.md`

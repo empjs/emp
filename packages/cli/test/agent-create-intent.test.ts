@@ -25,4 +25,16 @@ describe('parseCreateIntent', () => {
       /P0 仅支持 React 主应用 \+ Vue 子应用/,
     )
   })
+
+  test('rejects near-match React framework tokens', () => {
+    expect(() => parseCreateIntent('preact host with vue remote')).toThrow(
+      /P0 仅支持 React 主应用 \+ Vue 子应用/,
+    )
+  })
+
+  test('rejects multiple Vue remotes', () => {
+    expect(() => parseCreateIntent('React host with vue remote and another vue remote')).toThrow(
+      /P0 仅支持单 host \+ 单 remote/,
+    )
+  })
 })
