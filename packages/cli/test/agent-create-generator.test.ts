@@ -39,6 +39,36 @@ describe('generateProject', () => {
     })
   })
 
+  test('rejects dry-run generated file paths that escape rootDir', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'demo')
+      const plan = createPlan(targetDir)
+      const unsafePlan: CreateProjectPlan = {
+        ...plan,
+        files: [{path: '../escaped.txt', content: 'escape'}],
+      }
+
+      await expect(generateProject(unsafePlan, {dryRun: true})).rejects.toThrow(
+        /文件路径不能逃逸目标目录/,
+      )
+    })
+  })
+
+  test('rejects dry-run absolute generated file paths', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'demo')
+      const plan = createPlan(targetDir)
+      const unsafePlan: CreateProjectPlan = {
+        ...plan,
+        files: [{path: path.join(tmpRoot, 'absolute.txt'), content: 'escape'}],
+      }
+
+      await expect(generateProject(unsafePlan, {dryRun: true})).rejects.toThrow(
+        /文件路径必须是相对路径/,
+      )
+    })
+  })
+
   test('writes planned project files in write mode', async () => {
     await withTempDir(async tmpRoot => {
       const targetDir = path.join(tmpRoot, 'demo')
@@ -97,6 +127,25 @@ describe('generateProject', () => {
       await expect(generateProject(unsafePlan, {dryRun: false})).rejects.toThrow(
         /文件路径必须是相对路径/,
       )
+    })
+  })
+
+  test('does not create earlier safe files when a later generated path is unsafe', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'demo')
+      const plan = createPlan(targetDir)
+      const unsafePlan: CreateProjectPlan = {
+        ...plan,
+        files: [
+          {path: 'safe.txt', content: 'safe'},
+          {path: '../escaped.txt', content: 'escape'},
+        ],
+      }
+
+      await expect(generateProject(unsafePlan, {dryRun: false})).rejects.toThrow(
+        /文件路径不能逃逸目标目录/,
+      )
+      await expect(fs.stat(path.join(targetDir, 'safe.txt'))).rejects.toThrow(/ENOENT/)
     })
   })
 })

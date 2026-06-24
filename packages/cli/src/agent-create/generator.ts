@@ -37,6 +37,11 @@ export async function generateProject(
   plan: CreateProjectPlan,
   options: {dryRun: boolean},
 ): Promise<GeneratedFile[]> {
+  const resolvedFiles = plan.files.map(file => ({
+    file,
+    absolutePath: resolveGeneratedPath(plan.rootDir, file.path),
+  }))
+
   if (options.dryRun) {
     return plan.files
   }
@@ -45,8 +50,7 @@ export async function generateProject(
     throw new Error('目标目录已存在且非空，EMP 不会覆盖已有项目')
   }
 
-  for (const file of plan.files) {
-    const absolutePath = resolveGeneratedPath(plan.rootDir, file.path)
+  for (const {file, absolutePath} of resolvedFiles) {
     await fs.mkdir(path.dirname(absolutePath), {recursive: true})
     await fs.writeFile(absolutePath, file.content, 'utf8')
   }
