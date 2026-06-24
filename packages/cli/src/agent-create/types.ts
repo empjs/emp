@@ -7,3 +7,33 @@ export interface CreateIntent {
   host: {framework: 'react'; name: 'host'}
   remotes: Array<{framework: 'vue'; name: 'user'}>
 }
+
+export interface CreateOptions {
+  targetDir: string
+  dryRun: boolean
+  install: boolean
+  dev: boolean
+  verify: boolean
+  json: boolean
+}
+
+export interface CreateAppPlan {
+  name: string
+  role: AppRole
+  framework: Framework
+  port: number
+}
+
+export interface GeneratedFile {
+  path: string
+  content: string
+}
+
+export interface CreateProjectPlan {
+  rootName: string
+  rootDir: string
+  intent: CreateIntent
+  packageManager: 'pnpm'
+  apps: CreateAppPlan[]
+  files: GeneratedFile[]
+}
