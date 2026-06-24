@@ -294,6 +294,9 @@ importers:
         specifier: 4.10.2
         version: 4.10.2
     devDependencies:
+      '@rstest/core':
+        specifier: 0.10.6
+        version: 0.10.6(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0)
       '@types/compression':
         specifier: ^1.7.2
         version: 1.8.1
@@ -2111,7 +2114,7 @@ importers:
         version: 1.0.3
       rspress:
         specifier: ^1.45.3
-        version: 1.47.1(tslib@2.8.1)(webpack@5.107.2)
+        version: 1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))
       rspress-plugin-sitemap:
         specifier: ^1.1.1
         version: 1.2.1
@@ -4139,6 +4142,19 @@ packages:
     resolution: {integrity: sha512-AgVIDPb+RbM2MTbX9YiwmBU7fsI6YJhPmjLL6b5QYD07c0HjFouzUFw27SLOshZWsQYG1HbXkF1i34lIpBCkjQ==}
     engines: {node: '>=14.17.6'}
 
+  '@rstest/core@0.10.6':
+    resolution: {integrity: sha512-nX61dw2Tnxfwy/jGZEuNbh2tzapgaH6Iwj4Aw5d2wxUwxptUL3ddUxFF5M1ZSWoLEVG30VaPg3ITzrSo5sdbTg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    peerDependencies:
+      happy-dom: ^20.8.3
+      jsdom: '*'
+    peerDependenciesMeta:
+      happy-dom:
+        optional: true
+      jsdom:
+        optional: true
+
   '@selderee/plugin-htmlparser2@0.11.0':
     resolution: {integrity: sha512-P33hHGdldxGabLFjPPpaTxVolMrzrcegejx+0GxjrIb9Zv48D8yAIA/QTDR2dFl7Uz7urX8aX6+5bCZslr+gWQ==}
 
@@ -4596,6 +4612,9 @@ packages:
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
 
+  '@types/chai@5.2.3':
+    resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
+
   '@types/compression@1.8.1':
     resolution: {integrity: sha512-kCFuWS0ebDbmxs0AXYn6e2r2nrGAb5KwQhknjSPSPgJcGd8+HVSILlUyFhGqML2gk39HcG7D1ydW9/qpYkN00Q==}
 
@@ -4607,6 +4626,9 @@ packages:
 
   '@types/debug@4.1.13':
     resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
+
+  '@types/deep-eql@4.0.2':
+    resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
   '@types/default-gateway@7.2.2':
     resolution: {integrity: sha512-35C93fYQlnLKLASkMPoxRvok4fENwB3By9clRLd2I/08n/XRl0pCdf7EB17K5oMMwZu8NBYA8i66jH5r/LYBKA==}
@@ -5384,6 +5406,10 @@ packages:
 
   assert@1.5.1:
     resolution: {integrity: sha512-zzw1uCAgLbsKwBfFc8CX78DDg+xZeBksSO3vwVIDDN5i94eOrPsSSyiVhmsSABFDM/OcpE2aagCat9dnWQLG1A==}
+
+  assertion-error@2.0.1:
+    resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
+    engines: {node: '>=12'}
 
   assign-symbols@1.0.0:
     resolution: {integrity: sha512-Q+JC7Whu8HhmTdBph/Tq59IoRtoy6KAm5zzPv00WdujX82lbAL8K7WVjne7vdCsAmbF4AYaDOPyO3k0kl8qIrw==}
@@ -12567,11 +12593,11 @@ snapshots:
       '@jsonjoy.com/codegen': 17.67.0(tslib@2.8.1)
       tslib: 2.8.1
 
-  '@mdx-js/loader@2.3.0(webpack@5.107.2)':
+  '@mdx-js/loader@2.3.0(webpack@5.107.2(postcss@8.5.6))':
     dependencies:
       '@mdx-js/mdx': 2.3.0
       source-map: 0.7.6
-      webpack: 5.107.2
+      webpack: 5.107.2(postcss@8.5.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -13377,9 +13403,9 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 2.0.8(@module-federation/runtime-tools@2.6.0)(@swc/helpers@0.5.23)
 
-  '@rspress/core@1.47.1(tslib@2.8.1)(webpack@5.107.2)':
+  '@rspress/core@1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))':
     dependencies:
-      '@mdx-js/loader': 2.3.0(webpack@5.107.2)
+      '@mdx-js/loader': 2.3.0(webpack@5.107.2(postcss@8.5.6))
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/react': 2.3.0(react@18.3.1)
       '@rsbuild/core': 1.3.22
@@ -13506,6 +13532,14 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-helmet-async: 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-syntax-highlighter: 15.6.6(react@18.3.1)
+
+  '@rstest/core@0.10.6(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0)':
+    dependencies:
+      '@rsbuild/core': 2.0.15(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0)
+      '@types/chai': 5.2.3
+    transitivePeerDependencies:
+      - '@module-federation/runtime-tools'
+      - core-js
 
   '@selderee/plugin-htmlparser2@0.11.0':
     dependencies:
@@ -13934,6 +13968,11 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/node': 24.13.2
 
+  '@types/chai@5.2.3':
+    dependencies:
+      '@types/deep-eql': 4.0.2
+      assertion-error: 2.0.1
+
   '@types/compression@1.8.1':
     dependencies:
       '@types/express': 5.0.6
@@ -13950,6 +13989,8 @@ snapshots:
   '@types/debug@4.1.13':
     dependencies:
       '@types/ms': 2.1.0
+
+  '@types/deep-eql@4.0.2': {}
 
   '@types/default-gateway@7.2.2': {}
 
@@ -15198,6 +15239,8 @@ snapshots:
     dependencies:
       object.assign: 4.1.7
       util: 0.10.4
+
+  assertion-error@2.0.1: {}
 
   assign-symbols@1.0.0: {}
 
@@ -20486,10 +20529,10 @@ snapshots:
 
   rspress-plugin-sitemap@1.2.1: {}
 
-  rspress@1.47.1(tslib@2.8.1)(webpack@5.107.2):
+  rspress@1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6)):
     dependencies:
       '@rsbuild/core': 1.3.22
-      '@rspress/core': 1.47.1(tslib@2.8.1)(webpack@5.107.2)
+      '@rspress/core': 1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))
       '@rspress/shared': 1.47.1
       cac: 6.7.14
       chokidar: 3.6.0
@@ -21350,7 +21393,6 @@ snapshots:
       webpack: 5.107.2(postcss@8.5.6)
     optionalDependencies:
       postcss: 8.5.6
-    optional: true
 
   terser-webpack-plugin@5.6.1(webpack@5.107.2):
     dependencies:
@@ -22197,7 +22239,6 @@ snapshots:
       - lightningcss
       - postcss
       - uglify-js
-    optional: true
 
   which-boxed-primitive@1.1.1:
     dependencies:

@@ -77,6 +77,8 @@
     "dev-rs": "pnpm run dev",
     "build-rs": "pnpm run build",
     "test": "node test/rslib-node-target.test.mjs && node test/cli-options.test.mjs && node test/config-file-discovery.test.mjs && node test/build-watch-shape.test.mjs && node test/lifecycle-order.test.mjs && pnpm run build && node test/cli-help.test.mjs && node test/rspack2-features-shape.test.mjs && node test/rspack-config-shape.test.mjs",
+    "test:real": "rstest run",
+    "test:real:intent": "rstest run test/agent-create-intent.test.ts",
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {
@@ -84,6 +86,7 @@
   },
   "author": "Ken",
   "devDependencies": {
+    "@rstest/core": "0.10.6",
     "@types/compression": "^1.7.2",
     "@types/connect": "^3.4.38",
     "@types/cors": "^2.8.12",
