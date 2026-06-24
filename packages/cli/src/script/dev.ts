@@ -1,11 +1,10 @@
 import {type RspackOptions, rspack} from '@rspack/core'
 import chokidar from 'chokidar'
 import fs from 'fs'
-import path from 'path'
-import chalk from 'src/helper/chalk'
 import {logger} from 'src/helper'
-import {printBuildDone, printBuildStart, timeDone} from 'src/helper/buildPrint'
+import {printBuildDone, printBuildStart} from 'src/helper/buildPrint'
 import {setupCompilerWatcher} from 'src/helper/compilerWatcher'
+import {getEmpConfigCandidatePaths} from 'src/helper/loadConfig'
 import {deepAssign} from 'src/helper/utils'
 import {BaseScript} from 'src/script/base'
 import {DevServer} from 'src/server'
@@ -13,9 +12,6 @@ import store, {type GlobalStore} from 'src/store'
 
 const empDevServer = new DevServer()
 class DevScript extends BaseScript {
-  // 用于存储关闭时需要执行的清理函数
-  private closeHooks: Array<() => void> = []
-
   get stats() {
     return {
       all: store.empConfig.debug.devShowAllLog,
@@ -88,7 +84,7 @@ class DevScript extends BaseScript {
       const watcher = setupCompilerWatcher(compiler, empDevServer)
 
       // 添加到关闭钩子中，确保资源被正确清理
-      this.closeHooks.push(() => watcher.cleanup())
+      this.addCloseHook(() => watcher.cleanup())
 
       if (isRestart) {
         logger.debug(`[EMP] Dev server restarted successfully`)
@@ -99,44 +95,47 @@ class DevScript extends BaseScript {
   }
 
   private watchConfigFile() {
-    const configPath = path.resolve(process.cwd(), 'emp.config.ts')
-    if (!fs.existsSync(configPath)) return
+    const configPaths = getEmpConfigCandidatePaths(process.cwd())
+    const existingConfigPath = store.rootPaths.empConfig
+    if (!existingConfigPath) return
 
-    logger.debug(`[EMP] Watching for changes in emp.config.ts...`)
-    let previousContent = fs.readFileSync(configPath, 'utf-8')
+    logger.debug(`[EMP] Watching for changes in ${existingConfigPath}...`)
+    let previousContent = fs.readFileSync(existingConfigPath, 'utf-8')
 
-    chokidar
-      .watch(configPath, {
-        ignored: /(^|[/\\])\../, // ignore dotfiles
-        persistent: true,
-      })
-      .on('change', async filePath => {
-        // 检查文件内容是否有实际变化（避免空保存触发重启）
-        const currentContent = fs.readFileSync(configPath, 'utf-8')
-        if (previousContent === currentContent) {
-          logger.debug(`[EMP] 配置文件无实际变更（空保存），跳过重启`)
-          return
+    const configWatcher = chokidar.watch(configPaths, {
+      ignored: /(^|[/\\])\../, // ignore dotfiles
+      persistent: true,
+      ignoreInitial: true,
+    })
+    this.addCloseHook(() => configWatcher.close())
+    configWatcher.on('change', async filePath => {
+      // 检查文件内容是否有实际变化（避免空保存触发重启）
+      const currentContent = fs.readFileSync(filePath, 'utf-8')
+      if (filePath === existingConfigPath && previousContent === currentContent) {
+        logger.debug(`[EMP] 配置文件无实际变更（空保存），跳过重启`)
+        return
+      }
+
+      previousContent = currentContent
+      logger.debug(`[EMP] Config file changed: ${filePath}`)
+
+      // 清除require缓存，确保重新加载配置文件
+      Object.keys(require.cache).forEach(id => {
+        if (id.includes('emp.config') || id.includes('emp-config')) {
+          delete require.cache[id]
         }
-
-        previousContent = currentContent
-        logger.debug(`[EMP] Config file changed: ${filePath}`)
-
-        // 清除require缓存，确保重新加载配置文件
-        Object.keys(require.cache).forEach(id => {
-          if (id.includes('emp.config')) {
-            delete require.cache[id]
-          }
-        })
-
-        // 重启服务
-        logger.debug(`[EMP] 配置文件已变更，正在重启服务...`)
-        // 执行所有清理钩子
-        this.executeCloseHooks()
-        await empDevServer.close()
-        await store.setup()
-        logger.debug('[EMP] 重启服务完成，新配置如下:', store.empConfig.debug)
-        await this.startDevServer(true) // 以重启模式启动服务器
       })
+
+      // 重启服务
+      logger.debug(`[EMP] 配置文件已变更，正在重启服务...`)
+      // 执行所有清理钩子
+      await this.executeCloseHooks()
+      await empDevServer.close()
+      await store.setup()
+      logger.debug('[EMP] 重启服务完成，新配置如下:', store.empConfig.debug)
+      await this.startDevServer(true) // 以重启模式启动服务器
+      this.watchConfigFile()
+    })
   }
 
   override async run() {
@@ -145,27 +144,6 @@ class DevScript extends BaseScript {
 
     // 启动配置文件监听
     this.watchConfigFile()
-  }
-
-  // 记录上次构建完成时间，避免重复输出
-  private lastBuildTime = 0
-
-  /**
-   * 执行所有关闭钩子函数
-   */
-  private executeCloseHooks() {
-    if (this.closeHooks.length > 0) {
-      logger.debug(`[EMP] 执行 ${this.closeHooks.length} 个Hook...`)
-      for (const hook of this.closeHooks) {
-        try {
-          hook()
-        } catch (error) {
-          logger.error('[EMP] 执行清理钩子时出错:', error)
-        }
-      }
-      // 清空钩子列表
-      this.closeHooks = []
-    }
   }
 }
 

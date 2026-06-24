@@ -5,6 +5,27 @@ import store from 'src/store'
 import {CliActionType, CliOptionsType} from 'src/types/env'
 //
 export class BaseScript {
+  private static isSigintRegistered = false
+  protected closeHooks: Array<() => void | Promise<void>> = []
+
+  protected addCloseHook(hook: () => void | Promise<void>) {
+    this.closeHooks.push(hook)
+  }
+
+  protected async executeCloseHooks() {
+    if (this.closeHooks.length > 0) {
+      logger.debug(`[EMP] 执行 ${this.closeHooks.length} 个Hook...`)
+      for (const hook of this.closeHooks) {
+        try {
+          await hook()
+        } catch (error) {
+          logger.error('[EMP] 执行清理钩子时出错:', error)
+        }
+      }
+      this.closeHooks = []
+    }
+  }
+
   // 实现整体生命周期运转
   async setup(cliAction?: CliActionType, cliOptions?: CliOptionsType) {
     const timeCliTag = `${cliAction}.setup`
@@ -26,7 +47,10 @@ export class BaseScript {
   }
   async run() {}
   processExit() {
-    process.on('SIGINT', function () {
+    if (BaseScript.isSigintRegistered) return
+    BaseScript.isSigintRegistered = true
+    process.once('SIGINT', async () => {
+      await this.executeCloseHooks()
       process.exit()
     })
   }

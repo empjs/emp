@@ -1,6 +1,6 @@
 import {defineConfig, type RslibConfig} from '@rslib/core'
 
-const node22Syntax = ['node >= 22.12.0']
+const nodeSyntax = ['node >= 20.19.0']
 const esmShims = {
   __filename: true,
   __dirname: true,
@@ -16,7 +16,7 @@ export default defineConfig(({envMode}): RslibConfig => {
         id: 'node-esm',
         bundle: true,
         format: 'esm',
-        syntax: node22Syntax,
+        syntax: nodeSyntax,
         shims: {
           esm: esmShims,
         },

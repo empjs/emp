@@ -76,6 +76,7 @@
     "build": "rslib build --env-mode production",
     "dev-rs": "pnpm run dev",
     "build-rs": "pnpm run build",
+    "test": "node test/rslib-node-target.test.mjs && node test/cli-options.test.mjs && node test/config-file-discovery.test.mjs && node test/build-watch-shape.test.mjs && node test/lifecycle-order.test.mjs && pnpm run build && node test/cli-help.test.mjs && node test/rspack-config-shape.test.mjs",
     "ph": "pnpm publish --no-git-checks"
   },
   "engines": {
@@ -94,6 +95,7 @@
     "@types/webpack": "^5.28.4",
     "@types/webpack-bundle-analyzer": "^4.6.2",
     "@types/webpack-sources": "^3.2.2",
+    "@vue/tsconfig": "^0.8.1",
     "chokidar": "^4.0.3",
     "vue": "^3.5.21"
   },
@@ -103,7 +105,6 @@
     "@rspack/core": "^2.0.0",
     "@rspack/dev-server": "^2.0.0",
     "@swc/helpers": "^0.5.18",
-    "@vue/tsconfig": "^0.8.1",
     "address": "^2.0.2",
     "chalk": "^5.3.0",
     "commander": "11.1.0",

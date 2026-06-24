@@ -23,6 +23,9 @@ export const DEFAULT_CONFIG_FILES = [
   'emp.config.cts',
 ]
 
+export const getEmpConfigCandidatePaths = (root = store.root) =>
+  DEFAULT_CONFIG_FILES.map(filename => path.resolve(root, filename))
+
 //
 // console.log('pkg.version', pkg.version)
 export const loadConfig = createJiti(__filename, {
@@ -41,18 +44,20 @@ export const loadConfig = createJiti(__filename, {
 export const getEmpConfigPath = async () => {
   const timeTag = 'store.getEmpConfigPath'
   logger.time(timeTag)
-  const paths = DEFAULT_CONFIG_FILES.map(filename => path.resolve(store.root, filename))
-  const exists = await Promise.all(
-    paths.map(p =>
-      fs.promises.access(p).then(
-        () => true,
-        () => false,
+  try {
+    const paths = getEmpConfigCandidatePaths(store.root)
+    const exists = await Promise.all(
+      paths.map(p =>
+        fs.promises.access(p).then(
+          () => true,
+          () => false,
+        ),
       ),
-    ),
-  )
-  const empConfigPath = paths.find((_, i) => exists[i])
-  logger.timeEnd(timeTag)
-  return empConfigPath
+    )
+    return paths.find((_, i) => exists[i])
+  } finally {
+    logger.timeEnd(timeTag)
+  }
 }
 
 export const getTsConfig = async () => {

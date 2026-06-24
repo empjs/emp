@@ -43,6 +43,7 @@
     "cloudflare:mf-vue2": "cross-env DEPLOY=cloudflare pnpm --filter vue-2-project --filter vue-2-base build",
     "cloudflare:mf-vue3": "cross-env DEPLOY=cloudflare pnpm --filter vue-3-project --filter vue-3-base build",
     "cloudflare:react-19-tanstack": "cross-env DEPLOY=cloudflare pnpm --filter react-19-tanstack build",
+    "test:cli": "pnpm --filter @empjs/cli test",
     "lint": "biome check --write",
     "release:check": "node scripts/release.mjs check",
     "release:version": "node scripts/release.mjs version",

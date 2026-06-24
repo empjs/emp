@@ -10,22 +10,18 @@ class RspackPlugin {
   public store!: GlobalStore
   async setup(store: GlobalStore) {
     this.store = store
-    const runFuns = [
-      this.define(),
-      this.anylayze(),
-      this.progress(),
-      this.copy(),
-      ///////////////////////
-      this.minify(),
-      this.redoctor(),
-      this.sourceMapDevToolPlugin(),
-      this.tsCheckerRspackPlugin(),
-      this.cssChunkingPlugin(),
-      this.esmLibraryPlugin(),
-    ]
     this.beforeLifeCycle()
     await this.store.empConfig.lifeCycle.beforePlugin()
-    await Promise.all(runFuns)
+    await this.define()
+    await this.anylayze()
+    await this.progress()
+    await this.copy()
+    this.minify()
+    this.redoctor()
+    this.sourceMapDevToolPlugin()
+    this.tsCheckerRspackPlugin()
+    this.cssChunkingPlugin()
+    this.esmLibraryPlugin()
     await this.store.empConfig.lifeCycle.afterPlugin()
   }
   beforeLifeCycle() {

@@ -55,8 +55,12 @@ export class LifeCycle {
   /**
    * 产物构建完成后
    */
-  async afterBulid() {
+  async afterBuild() {
+    if (this.op.afterBuild) await this.op.afterBuild()
     if (this.op.afterBulid) await this.op.afterBulid()
+  }
+  async afterBulid() {
+    await this.afterBuild()
   }
   /**
    * devServer启动前

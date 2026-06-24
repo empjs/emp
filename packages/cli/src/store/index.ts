@@ -104,7 +104,7 @@ export class GlobalStore {
   public entries: {[chunkName: string]: RspackOptions['entry']} = {} // 获取所有入口名称
   public debug!: EmpConfig['debug']
   public cliAction!: CliActionType
-  public cliOptions: CliOptionsType
+  public cliOptions: CliOptionsType = {}
   // 获取 emp-config路径 以及 tsconfig 路径
   public rootPaths: StoreRootPaths = {
     empConfig: undefined,
