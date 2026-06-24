@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="assets/emp-v4-logo.png" />
+    <title>EMP v4 完成功能与推进建议</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7f8;
+        --paper: #ffffff;
+        --ink: #171717;
+        --muted: #616873;
+        --line: #d9dee5;
+        --soft: #eef1f4;
+        --soft-2: #f8fafc;
+        --accent: #155eef;
+        --accent-soft: #e9f0ff;
+        --ok: #0f766e;
+        --warn: #a16207;
+        --risk: #b42318;
+        --code: #0f172a;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.72;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      aside {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        border-right: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.88);
+        padding: 24px 18px;
+        overflow: auto;
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand strong {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      nav {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: 18px;
+      }
+
+      nav a {
+        border-radius: 6px;
+        color: #293241;
+        font-size: 14px;
+        padding: 8px 10px;
+      }
+
+      nav a:hover {
+        background: var(--soft);
+        text-decoration: none;
+      }
+
+      main {
+        min-width: 0;
+        padding: 36px;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+
+      header {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        line-height: 1.32;
+        margin: 0;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(28px, 4vw, 42px);
+      }
+
+      h2 {
+        font-size: 24px;
+        padding-top: 4px;
+      }
+
+      h3 {
+        font-size: 17px;
+      }
+
+      p {
+        margin: 10px 0 0;
+      }
+
+      .lead {
+        color: #2b3340;
+        max-width: 880px;
+        margin-top: 14px;
+      }
+
+      .meta-grid,
+      .summary-grid,
+      .direction-grid,
+      .risk-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 22px;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .direction-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .risk-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat,
+      .card,
+      .callout {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .stat {
+        padding: 14px;
+      }
+
+      .stat b {
+        display: block;
+        font-size: 20px;
+        line-height: 1.3;
+      }
+
+      .stat span {
+        color: var(--muted);
+        display: block;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      section {
+        margin-top: 24px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .card p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: #c8d7ff;
+        padding: 16px 18px;
+      }
+
+      .callout strong {
+        color: #0b3b9d;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .badge {
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 12px;
+        line-height: 1;
+        min-height: 24px;
+        padding: 5px 9px;
+        white-space: nowrap;
+      }
+
+      .badge.ok {
+        background: #ecfdf5;
+        border-color: #b7ead7;
+        color: var(--ok);
+      }
+
+      .badge.warn {
+        background: #fffbeb;
+        border-color: #f4d98c;
+        color: var(--warn);
+      }
+
+      .badge.risk {
+        background: #fff1f0;
+        border-color: #f3b6ad;
+        color: var(--risk);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 10px;
+      }
+
+      .milestone {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 120px minmax(0, 1fr);
+        padding: 14px 16px;
+      }
+
+      .milestone .date {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .milestone strong {
+        display: block;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 11px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--soft);
+        color: #2d3440;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      td {
+        font-size: 14px;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .status {
+        border-radius: 999px;
+        display: inline-block;
+        font-size: 12px;
+        line-height: 1;
+        padding: 5px 8px;
+        white-space: nowrap;
+      }
+
+      .status.done {
+        background: #ecfdf5;
+        color: var(--ok);
+      }
+
+      .status.local {
+        background: #fffbeb;
+        color: var(--warn);
+      }
+
+      .status.next {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .status.risk {
+        background: #fff1f0;
+        color: var(--risk);
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 0;
+        padding-left: 1.2em;
+      }
+
+      li {
+        margin: 4px 0;
+      }
+
+      code {
+        background: #edf0f3;
+        border-radius: 4px;
+        color: #172033;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 0.92em;
+        padding: 2px 5px;
+      }
+
+      pre {
+        background: var(--code);
+        border-radius: 8px;
+        color: #e5e7eb;
+        overflow: auto;
+        padding: 14px 16px;
+        white-space: pre-wrap;
+      }
+
+      pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .small {
+        font-size: 13px;
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          display: block;
+        }
+
+        aside {
+          height: auto;
+          position: relative;
+        }
+
+        nav {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        main {
+          padding: 22px;
+        }
+
+        .meta-grid,
+        .summary-grid,
+        .direction-grid,
+        .risk-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 620px) {
+        main {
+          padding: 16px;
+        }
+
+        header,
+        .card,
+        .callout {
+          padding: 16px;
+        }
+
+        nav {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          display: block;
+        }
+
+        .section-head p {
+          margin-top: 6px;
+        }
+
+        .milestone {
+          grid-template-columns: 1fr;
+        }
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        tr {
+          border-bottom: 1px solid var(--line);
+        }
+
+        td {
+          border-bottom: 0;
+          padding: 9px 12px;
+        }
+
+        td::before {
+          color: var(--muted);
+          content: attr(data-label);
+          display: block;
+          font-size: 12px;
+          margin-bottom: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="brand">
+          <strong>EMP v4</strong>
+          <span>完成功能与推进建议</span>
+        </div>
+        <nav aria-label="页面目录">
+          <a href="#summary">结论</a>
+          <a href="#completed">已完成功能</a>
+          <a href="#alpha">Alpha 版本记录</a>
+          <a href="#local">本地待收口</a>
+          <a href="#next">推进建议</a>
+          <a href="#risks">风险与边界</a>
+          <a href="#evidence">证据索引</a>
+        </nav>
+      </aside>
+
+      <main>
+        <div class="page">
+          <header id="summary">
+            <p class="eyebrow">基于当前 live checkout 生成 · 2026-06-24 · branch: <code>v4</code></p>
+            <h1>EMP v4 已完成能力与后续推进方向</h1>
+            <p class="lead">
+              当前 v4 主体迁移已经进入 alpha 阶段：Rspack 2、Module Federation 2.x、ESM-first/CJS
+              兼容、统一 alpha 发布自动化和核心构建验证已经完成。本轮已完成 Tailwind 4.3.1 本地验收、
+              <code>empRuntime.version</code> 隔离实现，以及 <code>rtProvider</code> DTS 复验；真实发布仍只走
+              dry-run 门禁，不执行 npm publish。
+            </p>
+            <div class="meta-grid">
+              <div class="stat">
+                <b>4.0.0-alpha.2</b>
+                <span>当前根 workspace 版本</span>
+              </div>
+              <div class="stat">
+                <b>pnpm 10.33.0</b>
+                <span>根 packageManager 与验证基线</span>
+              </div>
+              <div class="stat">
+                <b>Node ^20.19.0 || >=22.12.0</b>
+                <span>v4 对齐 Rspack 2 的运行基线</span>
+              </div>
+              <div class="stat">
+                <b>CodeGraph ready</b>
+                <span>索引状态 ready，4715 nodes / 7682 edges</span>
+              </div>
+            </div>
+          </header>
+
+          <section>
+            <div class="summary-grid">
+              <div class="card">
+                <h3>整体结论</h3>
+                <p>
+                  v4 已完成从旧构建底座到 Rspack 2 和官方 Module Federation 2.x 的核心迁移，并保留
+                  <code>pluginRspackEmpShare(...)</code> 用户侧 API。
+                </p>
+                <div class="badge-row">
+                  <span class="badge ok">Rspack 2</span>
+                  <span class="badge ok">MF 2.x</span>
+                  <span class="badge ok">ESM-first</span>
+                </div>
+              </div>
+              <div class="card">
+                <h3>发布状态</h3>
+                <p>
+                  <code>CHANGELOG.md</code> 已记录 <code>4.0.0-alpha.1</code> 和
+                  <code>4.0.0-alpha.2</code>。本轮 <code>release:check</code> 和
+                  <code>release:publish:dry -- --skip-build</code> 已通过，真实 publish 仍需要显式确认。
+                </p>
+                <div class="badge-row">
+                  <span class="badge ok">dry-run pass</span>
+                  <span class="badge ok">alpha tag</span>
+                  <span class="badge warn">真实发布需确认</span>
+                </div>
+              </div>
+              <div class="card">
+                <h3>当前注意点</h3>
+                <p>
+                  工作区仍存在 Tailwind v4 升级相关未提交改动，但已完成 4.3.1 解析和示例构建验收。
+                  <code>empRuntime.version</code> 已落地到 <code>@empjs/share</code>，DTS 告警当前复验未复现。
+                </p>
+                <div class="badge-row">
+                  <span class="badge warn">Tailwind 未提交</span>
+                  <span class="badge ok">version isolation</span>
+                  <span class="badge ok">DTS 复验通过</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="completed">
+            <div class="section-head">
+              <h2>已完成功能</h2>
+              <p>按当前仓库文件、task report 和 changelog 归纳。</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>能力</th>
+                  <th>当前状态</th>
+                  <th>完成内容</th>
+                  <th>主要证据</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="能力">v4 工具链与版本基线</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    根工程进入 <code>4.0.0-alpha.2</code>，包管理固定为 <code>pnpm@10.33.0</code>，
+                    engines 对齐 <code>^20.19.0 || >=22.12.0</code>。核心 <code>@empjs/*</code>
+                    包进入 v4 alpha 版本线，CDN 和 legacy runtime 包保持独立版本线。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>package.json</code>、<code>CHANGELOG.md</code>、<code>.superpowers/sdd/task-1-report.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力">Rspack 2 迁移</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    <code>@empjs/cli</code> 升级到 <code>@rspack/core ^2.0.0</code> 和
+                    <code>@rspack/dev-server ^2.0.0</code>，React refresh 插件升级到 2.x。CLI 已移除
+                    废弃 CSS experiment，并暴露 <code>nativeWatcher</code>、<code>incremental</code>、
+                    <code>lazyCompilation</code> 构建开关。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>packages/cli/package.json</code>、<code>packages/plugin-react/package.json</code>、
+                    <code>CHANGELOG.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力">官方 Module Federation 2.x 接入</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    <code>@empjs/share</code> 移除历史 fork 包，改用
+                    <code>@module-federation/rspack</code>、<code>runtime</code>、<code>sdk</code>、
+                    <code>runtime-tools</code> 2.x。<code>forceRemotes</code> runtime plugin 路径解析改为
+                    <code>createRequire</code> 方案，避免 CJS 产物中 <code>import.meta.resolve</code> 崩溃。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>packages/emp-share/package.json</code>、<code>packages/emp-share/src/helper/rspack.ts</code>、
+                    <code>.superpowers/sdd/task-3-fix-report.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力">ESM-first 与 CJS 兼容</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    v4 明确为 ESM-first，不做全仓 ESM-only。CLI 针对 <code>chalk@5</code> 增加本地 shim，
+                    解决 <code>dist/index.cjs</code> require 时 <code>hex</code> 方法缺失的问题。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md</code>、
+                    <code>.superpowers/sdd/task-5-fix-report.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力">核心构建与示例验证</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    <code>@empjs/chain</code>、<code>@empjs/cli</code>、<code>@empjs/share</code>、
+                    <code>@empjs/plugin-react</code> 构建通过。<code>mf-host</code>、<code>mf-app</code>、
+                    <code>rtHost</code>、<code>rtProvider</code> 构建通过并产出 manifest。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>.superpowers/sdd/task-6-final-report.md</code>、<code>.superpowers/sdd/task-7-report.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力">统一 alpha 发布自动化</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    新增 <code>release:check</code>、<code>release:version</code>、<code>release:changelog</code>、
+                    <code>release:pack</code>、<code>release:publish:dry</code>、<code>release:publish</code>。
+                    发布范围默认只包含核心内部包，排除 <code>projects/**</code>、<code>website</code>、
+                    <code>@empjs/cdn-*</code> 和 <code>@empjs/lib-*</code>。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>scripts/release-core.mjs</code>、<code>scripts/release.mjs</code>、
+                    <code>.superpowers/plans/2026-06-23-emp-internal-release-automation.md</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="能力"><code>empRuntime.version</code> 版本隔离</td>
+                  <td data-label="当前状态"><span class="status done">已完成</span></td>
+                  <td data-label="完成内容">
+                    <code>@empjs/share</code> 新增 <code>empRuntime.version?: boolean</code>。开启后从当前项目
+                    <code>package.json</code> 的 <code>name + version</code> 派生实际 share name，同步用于
+                    Module Federation <code>name</code>、Rspack <code>output.uniqueName</code>，并在业务未设置
+                    <code>css.prifixName</code> 时覆盖 CSS Modules 前缀。
+                  </td>
+                  <td data-label="主要证据">
+                    <code>packages/emp-share/src/plugins/rspack/share.ts</code>、
+                    <code>packages/emp-share/test/version-isolation.test.mjs</code>、
+                    <code>packages/emp-share/README.md</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="alpha">
+            <div class="section-head">
+              <h2>Alpha 版本记录</h2>
+              <p>来自当前 <code>CHANGELOG.md</code>。</p>
+            </div>
+            <div class="timeline">
+              <div class="milestone">
+                <div class="date">2026-06-23</div>
+                <div>
+                  <strong>4.0.0-alpha.1</strong>
+                  <p>
+                    完成 EMP v4 alpha 包发布准备：根 workspace 与 19 个核心 <code>@empjs/*</code>
+                    包对齐到 alpha 版本线；发布命令默认 dry-run；统一版本发布排除示例站点、CDN
+                    包和 legacy runtime 包。
+                  </p>
+                </div>
+              </div>
+              <div class="milestone">
+                <div class="date">2026-06-23</div>
+                <div>
+                  <strong>4.0.0-alpha.2</strong>
+                  <p>
+                    优化 <code>@empjs/cli</code> 的 Rspack 2 默认配置，补齐构建开关；对齐
+                    <code>@empjs/share</code> 的 Module Federation runtime 依赖到 <code>^2.6.0</code>
+                    版本线。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="local">
+            <div class="section-head">
+              <h2>本地待收口</h2>
+              <p>当前 checkout 中已出现但不应混入无关提交的事项。</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>事项</th>
+                  <th>状态</th>
+                  <th>说明</th>
+                  <th>建议处理</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="事项">Tailwind v4 最新版本升级</td>
+                  <td data-label="状态"><span class="status local">已验证未提交</span></td>
+                  <td data-label="说明">
+                    工作区中 <code>@empjs/plugin-tailwindcss</code>、两个 TanStack 示例和
+                    <code>pnpm-lock.yaml</code> 已从 Tailwind <code>4.1.17</code> 线更新到
+                    <code>4.3.1</code>。本轮已确认安装树解析到 <code>4.3.1</code>，插件和 7 个 v4 示例构建通过。
+                  </td>
+                  <td data-label="建议处理">
+                    保持为单独变更，提交前只需复核 changelog/版本策略，不和其他依赖线混合。
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="事项"><code>emp-share</code> 版本隔离</td>
+                  <td data-label="状态"><span class="status done">已实现</span></td>
+                  <td data-label="说明">
+                    <code>empRuntime.version: true</code> 已实现并加入回归测试。该开关派生
+                    <code>package.name + package.version</code>，同时隔离 MF container scope 和 CSS Modules className。
+                  </td>
+                  <td data-label="建议处理">
+                    继续通过 <code>pnpm --filter @empjs/share test</code> 和示例构建纳入 release dry-run 前置门禁。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="next">
+            <div class="section-head">
+              <h2>建议推进方向</h2>
+              <p>按优先级从发布收口到能力增强排列。</p>
+            </div>
+            <div class="direction-grid">
+              <div class="card">
+                <h3>1. 收口 alpha.3 发布候选</h3>
+                <p>
+                  当前 Tailwind v4 升级、<code>empRuntime.version</code> 和 release dry-run 门禁已经完成本轮验收。
+                  下一步如需正式 alpha.3，应单独确认版本号、changelog 和 npm registry。
+                </p>
+                <ul>
+                  <li><code>pnpm --filter @empjs/plugin-tailwindcss build</code> 已通过</li>
+                  <li>Tailwind v4 示例构建矩阵已通过，保留既有 CSS/postcss warning 记录</li>
+                  <li><code>pnpm release:check</code> 和 <code>pnpm release:publish:dry -- --skip-build</code> 已通过</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>2. 完成 <code>empRuntime.version</code> 隔离</h3>
+                <p>
+                  该能力已从建议推进项进入实现态，用于解决同页多版本共享包加载时 container scope 和
+                  CSS Modules className 互相覆盖的问题。后续重点是放进 alpha 包验证矩阵。
+                </p>
+                <ul>
+                  <li><code>packages/emp-share/test/version-isolation.test.mjs</code> 已新增</li>
+                  <li>公共 API 仅新增 <code>empRuntime.version?: boolean</code></li>
+                  <li><code>filename: "emp.js"</code> 和 legacy 行为保持不变</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>3. 持续观察 MF DTS 告警</h3>
+                <p>
+                  <code>projects/rtProvider</code> 本轮复验已输出
+                  <code>Federated types created correctly</code>，没有复现 <code>#TYPE-001</code>。该项暂不需要源码修复。
+                </p>
+                <ul>
+                  <li>继续保留 <code>pnpm --filter ./projects/rtProvider build</code> 为发布前检查</li>
+                  <li>如果再次出现 <code>#TYPE-001</code>，再单独定位类型声明输入</li>
+                  <li>当前不扩大到 DTS 生成代码修改</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>4. 完善迁移文档和消费侧验收</h3>
+                <p>
+                  当前 README 已说明 v4 定位。下一步建议补齐业务消费视角的迁移清单，降低 alpha 包试用成本。
+                </p>
+                <ul>
+                  <li>Node/pnpm 基线说明</li>
+                  <li>Rspack 2 常见 peer warning 解释</li>
+                  <li><code>pluginRspackEmpShare(...)</code> 兼容承诺和新能力示例</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="risks">
+            <div class="section-head">
+              <h2>风险与边界</h2>
+              <p>不把 build pass 误当成所有产品面都完成。</p>
+            </div>
+            <div class="risk-grid">
+              <div class="callout">
+                <strong>DTS 告警当前未复现，但保留发布前复验。</strong>
+                <p>
+                  <code>rtProvider</code> 本轮构建输出 <code>Federated types created correctly</code>。
+                  旧记录中的 <code>#TYPE-001</code> 不再作为当前阻断项，但发布前仍应保留该构建命令。
+                </p>
+              </div>
+              <div class="callout">
+                <strong>真实 publish 仍需要显式确认。</strong>
+                <p>
+                  发布脚本已经具备保护：dry-run 为默认路径，真实发布必须传入确认参数。后续正式发包前还应复核
+                  npm registry、dist-tag、包范围和 changelog。
+                </p>
+              </div>
+              <div class="callout">
+                <strong>CDN 和 legacy runtime 继续独立版本线。</strong>
+                <p>
+                  当前统一 v4 范围不包含 <code>@empjs/cdn-*</code> 和 <code>@empjs/lib-*</code>。
+                  如果未来要纳入，需要单独定义版本策略和消费兼容矩阵。
+                </p>
+              </div>
+              <div class="callout">
+                <strong>v4 是 ESM-first，不是 ESM-only。</strong>
+                <p>
+                  当前仍保留 CJS exports 和 CJS 构建产物。不要在同一个 alpha 里叠加全仓 ESM-only
+                  改造，否则会放大迁移风险。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section id="evidence">
+            <div class="section-head">
+              <h2>证据索引</h2>
+              <p>本页只基于当前 checkout 和本地验证记录整理。</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>证据</th>
+                  <th>用途</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="证据"><code>README.md</code></td>
+                  <td data-label="用途">v4 定位、核心功能、Rspack 2 和 Module Federation 2.x 对外描述。</td>
+                </tr>
+                <tr>
+                  <td data-label="证据"><code>CHANGELOG.md</code></td>
+                  <td data-label="用途">alpha.1、alpha.2 已发布记录和验证命令。</td>
+                </tr>
+                <tr>
+                  <td data-label="证据"><code>package.json</code>、<code>packages/**/package.json</code></td>
+                  <td data-label="用途">版本线、engines、pnpm 基线、核心依赖版本。</td>
+                </tr>
+                <tr>
+                  <td data-label="证据"><code>scripts/release-core.mjs</code>、<code>scripts/release.mjs</code></td>
+                  <td data-label="用途">发布范围分类、dry-run 默认、真实发布确认、changelog 和 pack/publish 命令生成。</td>
+                </tr>
+                <tr>
+                  <td data-label="证据"><code>.superpowers/sdd/progress.md</code>、<code>.superpowers/sdd/task-*-report.md</code></td>
+                  <td data-label="用途">v4 Rspack 2 七个任务完成状态、构建验证、CJS 修复和已知风险。</td>
+                </tr>
+                <tr>
+                  <td data-label="证据"><code>.superpowers/specs/2026-06-23-emp-share-version-isolation-design.md</code></td>
+                  <td data-label="用途"><code>empRuntime.version</code> 的目标、API、边界和测试建议。</td>
+                </tr>
+              </tbody>
+            </table>
+            <pre><code>本次生成前的关键环境事实：
+- branch: v4...origin/v4 [ahead 3]
+- codebase-memory-mcp: enabled, project status ready
+- .trellis/: not present
+- 当前有未提交 Tailwind 相关改动，本页未修改这些文件</code></pre>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -6,6 +6,10 @@ export type EMPSHARERuntimeOptions = {
    */
   shareLib?: {[key: string]: string | string[] | {entry: string; global: string; type: string}}
   /**
+   * Derive Module Federation name and CSS Modules prefix from package name + version.
+   */
+  version?: boolean
+  /**
    * UI框架 全局命名
    */
   frameworkGlobal?: string

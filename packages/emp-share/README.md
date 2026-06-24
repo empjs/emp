@@ -116,6 +116,26 @@ pluginRspackEmpShare({
 
 如果不传 `runtime.lib`，插件会把 `@empjs/share/library` 内置到构建入口；如果传入远程地址，插件会自动注入 `<script>` 并把 `@module-federation/runtime`、`@module-federation/sdk` external 到指定全局 runtime。
 
+### `empRuntime.version`
+
+`empRuntime.version: true` 会从当前项目 `package.json` 的 `name` 和 `version` 派生共享包实际名称，用于隔离同页多版本共享包：
+
+```ts
+pluginRspackEmpShare({
+  name: 'bigolive-common',
+  empRuntime: {
+    version: true,
+    runtime: {
+      lib: 'http://localhost:2100/sdk.js',
+    },
+  },
+})
+```
+
+派生规则为 `` `${pkg.name}_${pkg.version}`.replace(/@/g, '').replace(/[^\w_]/g, '_') ``。启用后插件会把派生值同时用于 Module Federation `name`、Rspack `output.uniqueName`，并在业务未显式配置 `css.prifixName` 时用于 CSS Modules className 前缀。
+
+该能力只接受布尔值，不支持手写版本号；缺少 `package.json` 的 `name` 或 `version` 时会回退到原有 `name` 行为。文件名仍是 `emp.js`，直接用 `scope@url/emp.js` 消费时需要使用派生后的实际 scope。
+
 ## `@empjs/share/sdk` 类型
 
 业务代码推荐通过 `@empjs/share/sdk` 调用 Module Federation runtime：

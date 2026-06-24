@@ -17,6 +17,12 @@ import {getRuntimeLib} from './utils'
 const exp = /^([0-9a-zA-Z_\s]+)@(.*)/
 const empShareRuntimeTypePkgs = ['@empjs/share/sdk']
 
+type VersionedShareName = {
+  enabled: boolean
+  baseName: string
+  effectiveName: string
+}
+
 function mergeRuntimeTypePkgs(runtimePkgs: string[] = []) {
   return Array.from(new Set([...empShareRuntimeTypePkgs, ...runtimePkgs]))
 }
@@ -208,14 +214,59 @@ export class EmpShare {
       injectHtml.push({tagName: 'script', pos: 'head', attributes: {src: this.rt.lib}})
     }
   }
-  private setMfName() {
-    if (this.op.name) {
-      this.op.name = this.store.encodeVarName(this.op.name)
-      if (this.op.name !== this.store.empConfig.output.uniqueName) {
-        this.store.chain.output.set('uniqueName', this.op.name)
+  private getVersionedShareName(): VersionedShareName {
+    const baseName = this.op.name ? this.store.encodeVarName(this.op.name) : (this.store.empConfig.output.uniqueName ?? '')
+    const pkg = (this.store as GlobalStore & {pkg?: {name?: string; version?: string}}).pkg
+    const shouldVersion = this.op.empRuntime?.version === true
+
+    if (!shouldVersion || !pkg?.name || !pkg.version) {
+      return {
+        enabled: false,
+        baseName,
+        effectiveName: baseName,
       }
-    } else {
-      this.op.name = this.store.empConfig.output.uniqueName
+    }
+
+    return {
+      enabled: true,
+      baseName,
+      effectiveName: `${pkg.name}_${pkg.version}`.replace(/@/g, '').replace(/[^\w_]/g, '_'),
+    }
+  }
+  private setCssModulesPrefix(name: string) {
+    if (this.store.empConfig.css?.prifixName) return
+
+    const localIdentName = this.store.isDev ? `${name}-[id]-[local]-[hash:base64:8]` : `${name}-[local]-[hash:5]`
+
+    this.store.chain.merge({
+      module: {
+        generator: {
+          'css/auto': {
+            exportsConvention: 'as-is',
+            exportsOnly: false,
+            localIdentName,
+            esModule: true,
+          },
+          'css/module': {
+            exportsConvention: 'as-is',
+            exportsOnly: false,
+            localIdentName,
+            esModule: true,
+          },
+        },
+      },
+    })
+  }
+  private setMfName() {
+    const name = this.getVersionedShareName()
+    this.op.name = name.effectiveName
+
+    if (this.op.name !== this.store.empConfig.output.uniqueName) {
+      this.store.chain.output.set('uniqueName', this.op.name)
+    }
+
+    if (name.enabled) {
+      this.setCssModulesPrefix(name.effectiveName)
     }
   }
   private setMF() {
