@@ -37,3 +37,26 @@ export interface CreateProjectPlan {
   apps: CreateAppPlan[]
   files: GeneratedFile[]
 }
+
+export interface VerificationCheck {
+  name: string
+  status: CheckStatus
+  message: string
+}
+
+export interface CommandResult {
+  name: string
+  command: string
+  status: CheckStatus
+  exitCode: number | null
+  stdout: string
+  stderr: string
+}
+
+export interface EmpCreateReport {
+  status: CheckStatus
+  rootDir: string
+  apps: Array<{name: string; role: AppRole; framework: Framework; url: string}>
+  checks: VerificationCheck[]
+  commands: CommandResult[]
+}
