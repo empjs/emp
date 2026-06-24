@@ -1,6 +1,5 @@
 import rspack, {type SourceMapDevToolPluginOptions} from '@rspack/core'
 import fs from 'fs'
-import path from 'path'
 import type {GlobalStore} from 'src/store'
 import type {RsdoctorRspackPluginOptions} from 'src/types/config'
 import {TsCheckerRspackPlugin} from 'ts-checker-rspack-plugin'
@@ -21,7 +20,6 @@ class RspackPlugin {
     this.sourceMapDevToolPlugin()
     this.tsCheckerRspackPlugin()
     this.cssChunkingPlugin()
-    this.esmLibraryPlugin()
     await this.store.empConfig.lifeCycle.afterPlugin()
   }
   beforeLifeCycle() {
@@ -148,22 +146,6 @@ class RspackPlugin {
     if (!options) return
     this.store.chain.plugin('CssChunkingPlugin').use(rspack.experiments.CssChunkingPlugin, [options])
     // this.store.chain.plugin('CssChunkingPlugin').use(rspack.CssExtractRspackPlugin, [{}])
-  }
-  esmLibraryPlugin() {
-    if (!this.store.empConfig.isESM) return
-    const {EsmLibraryPlugin} = rspack.experiments as typeof rspack.experiments & {
-      EsmLibraryPlugin?: any
-    }
-    if (!EsmLibraryPlugin) return
-    const src = path.resolve(this.store.root, 'src')
-    this.store.chain.plugin('esmLibraryPlugin').use(EsmLibraryPlugin, [
-      {
-        preserveModules: src,
-      },
-    ])
-    this.store.chain.optimization.merge({
-      runtimeChunk: true,
-    })
   }
 }
 

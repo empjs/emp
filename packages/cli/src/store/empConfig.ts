@@ -164,6 +164,7 @@ export class EmpConfig {
         lazyCompilation: this.store.isDev,
         target: 'es5',
         useESM: false,
+        rspack: {},
         polyfill: {
           mode: undefined,
           entryCdn: undefined,
@@ -305,25 +306,26 @@ export class EmpConfig {
       // Rspack 会在 CSS 中添加一些元信息，用以解析 CSS modules，此配置决定是否压缩元信息。
       // cssHeadDataCompression: false,// DeprecationWarning: cssHeadDataCompression is not used now
     }
-    // 添加后 ESM 样式失效 待观察
-    // if (this.isESM) {an
-    //   output = this.assign(
-    //     {
-    //       chunkFormat: 'module',
-    //       chunkLoading: 'import',
-    //       library: {
-    //         type: 'module',
-    //       },
-    //     },
-    //     output,
-    //   )
-    // }
-    // console.log('output', output)
     // 防止清除 dist目录 导致 类型文件丢失
     // if (this.store.isDev && this.store.empConfig.empShare.dts !== false) {
     //   output.clean = false
     // }
-    return this.assign(output, this.store.empOptions.output)
+    const mergedOutput = this.assign(output, this.store.empOptions.output)
+    if (this.store.empConfig.isESM) {
+      const library =
+        mergedOutput.library && typeof mergedOutput.library === 'object' && !Array.isArray(mergedOutput.library)
+          ? mergedOutput.library
+          : {}
+      mergedOutput.module = true
+      mergedOutput.library = this.assign(
+        {
+          type: 'modern-module',
+          preserveModules: this.store.resolve(this.store.empConfig.appSrc),
+        },
+        library,
+      )
+    }
+    return mergedOutput
   }
   get define() {
     let dlist: any = {mode: this.store.mode, env: this.store.cliOptions.env}

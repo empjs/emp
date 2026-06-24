@@ -11,6 +11,7 @@ import type {
   Configuration as RsConfig,
   RuleSetRule,
   SourceMapDevToolPluginOptions,
+  SwcLoaderOptions,
   // SwcCssMinimizerRspackPlugin,
   SwcJsMinimizerRspackPluginOptions,
 } from '@rspack/core'
@@ -126,6 +127,38 @@ export type SourceMapType = {
   css: boolean
   devToolPluginOptions?: SourceMapDevToolPluginOptions
 }
+export type CssResolveImportType = boolean | ((context: {
+  url: string
+  media: string | undefined
+  resourcePath: string
+  supports: string | undefined
+  layer: string | undefined
+}) => boolean)
+export type Rspack2BuildOptions = {
+  /**
+   * Rspack 2 experiments 显式开关。实验能力不默认开启，避免改变业务语义。
+   */
+  experiments?: Pick<NonNullable<RsConfig['experiments']>, 'pureFunctions' | 'deferImport'>
+  /**
+   * Rspack splitChunks 透传配置，用于接入 enforceSizeThreshold 等 Rspack 2 分包能力。
+   */
+  splitChunks?: Exclude<NonNullable<NonNullable<RsConfig['optimization']>['splitChunks']>, false>
+  /**
+   * Rspack parser 透传配置。
+   */
+  parser?: {
+    javascript?: {
+      pureFunctions?: string[]
+    }
+    css?: {
+      resolveImport?: CssResolveImportType
+    }
+  }
+  /**
+   * builtin:swc-loader 的 Rspack 扩展配置。
+   */
+  swc?: Pick<SwcLoaderOptions, 'detectSyntax' | 'transformImport'>
+}
 //
 export type BuildType = {
   /**
@@ -152,7 +185,7 @@ export type BuildType = {
    * named 使用有意义、方便调试的内容当作模块 id。此选项会在开发环境下默认开启。
    * deterministic 使用对模块标识符哈希后的数字当作模块 id，有益于长期缓存。此选项会在生产环境下默认开启。
    */
-  moduleIds?: 'named' | 'deterministic'
+  moduleIds?: false | 'natural' | 'named' | 'deterministic' | 'hashed'
   /**
    * chunkIds
    * @default named|deterministic
@@ -213,6 +246,10 @@ export type BuildType = {
     }
     preserveAllComments?: boolean
   }
+  /**
+   * Rspack 2 新能力的显式配置入口。
+   */
+  rspack?: Rspack2BuildOptions
 }
 export type JscTarget =
   | 'es3'

@@ -65,6 +65,11 @@ class RspackModule {
   }
   private rspackParser() {
     const namedExports = false
+    const parserOptions = this.store.empConfig.build.rspack.parser
+    const cssParserOptions = {
+      namedExports,
+      ...parserOptions?.css,
+    }
     this.store.chain.merge({
       module: {
         parser: {
@@ -75,11 +80,12 @@ class RspackModule {
             dynamicImportPreload: false,
             url: true,
             importMeta: true,
+            ...parserOptions?.javascript,
           },
           // CSS 模块的解析器选项
-          css: {namedExports},
-          'css/auto': {namedExports},
-          'css/module': {namedExports},
+          css: cssParserOptions,
+          'css/auto': cssParserOptions,
+          'css/module': cssParserOptions,
         },
       },
     })
@@ -125,6 +131,7 @@ class RspackModule {
     return `${major}.${minor}`
   }
   private swcOptions(lang: string): SwcLoaderOptions {
+    const rspackSwcOptions = this.store.empConfig.build.rspack.swc
     const op: any = {
       jsc: deepAssign(this.swcJsc(lang), {...this.store.empConfig.build.swcConfig}),
       /**
@@ -133,6 +140,15 @@ class RspackModule {
        */
       // Source Type
       isModule: 'unknown',
+    }
+    if (rspackSwcOptions?.detectSyntax !== undefined) {
+      op.detectSyntax = rspackSwcOptions.detectSyntax
+      if (rspackSwcOptions.detectSyntax === 'auto') {
+        delete op.jsc.parser
+      }
+    }
+    if (rspackSwcOptions?.transformImport) {
+      op.transformImport = rspackSwcOptions.transformImport
     }
     if (this.isPolyfill) {
       delete op.jsc.target

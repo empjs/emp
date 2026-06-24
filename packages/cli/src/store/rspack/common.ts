@@ -71,6 +71,7 @@ class RspackCommon {
         // https://rspack.rs/zh/config/experiments#experimentstypereexportspresence
         // typeReexportsPresence: true, // 已废弃 类型重导出存在性检查现在由 module.parser.javascript.typeReexportsPresence 和 builtin:swc-loader collectTypeScriptInfo.typeExports 控制。
         asyncWebAssembly: true,
+        ...this.store.empConfig.build.rspack.experiments,
       },
       // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
       incremental: this.store.empConfig.build.incremental,
@@ -170,10 +171,13 @@ class RspackCommon {
         'multiple'：为每个入口点生成一个独立的运行时 chunk，适用于多入口应用。
        */
       // runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'async', // 仅针对异步引入的模块进行优化，确保这些模块在需要时被分离出来，而不是在初始加载时全部打包
-        cacheGroups: {},
-      },
+      splitChunks: this.store.deepAssign(
+        {
+          chunks: 'async', // 仅针对异步引入的模块进行优化，确保这些模块在需要时被分离出来，而不是在初始加载时全部打包
+          cacheGroups: {},
+        },
+        this.store.empConfig.build.rspack.splitChunks,
+      ),
       // 代码分包优化：提升缓存命中率与首屏加载速度
 
       // splitChunks: {

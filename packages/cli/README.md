@@ -115,6 +115,45 @@ export default defineConfig(store => {
 })
 ```
 
+### Rspack 2 配置入口
+`build.rspack` 用于显式接入 Rspack 2 的新增能力。EMP 不会默认开启高风险实验能力，业务需要按场景配置。
+
+```js
+import {defineConfig} from '@empjs/cli'
+
+export default defineConfig(() => {
+  return {
+    build: {
+      // ESM library 输出会自动使用 output.library.type = 'modern-module'
+      useESM: true,
+      target: 'es2018',
+      // Rspack 2 支持 hashed module id；默认仍保持 development=named、production=deterministic
+      moduleIds: 'hashed',
+      rspack: {
+        // 函数级 tree-shaking；错误标记 pure function 会删除实际有副作用调用
+        experiments: {pureFunctions: true},
+        // 大 chunk 强制拆分阈值；会影响请求数量和产物拆分形态
+        splitChunks: {chunks: 'all', enforceSizeThreshold: 80000},
+        parser: {
+          javascript: {
+            // 给第三方库或不可改源码手动声明纯函数名
+            pureFunctions: ['createPureValue'],
+          },
+          css: {
+            // false 时保留 CSS @import，交给浏览器或下游工具处理
+            resolveImport: false,
+          },
+        },
+        swc: {
+          // 让 builtin:swc-loader 按文件扩展名推断 JS/TS/JSX/TSX parser
+          detectSyntax: 'auto',
+        },
+      },
+    },
+  }
+})
+```
+
 ### React 与模块联邦配置示例
 ```js
 import {defineConfig} from '@empjs/cli'
