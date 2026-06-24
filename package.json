@@ -48,6 +48,7 @@
     "apps:check": "node scripts/apps.mjs check",
     "apps:bench": "node scripts/apps.mjs bench",
     "lint": "biome check --write",
+    "check:rslib-presets": "node scripts/check-rslib-presets.mjs",
     "release:check": "node scripts/release.mjs check",
     "release:version": "node scripts/release.mjs version",
     "release:changelog": "node scripts/release.mjs changelog",
