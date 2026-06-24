@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli?style=flat-square&color=111111&label=%40empjs%2Fcli" alt="@empjs/cli npm version"></a>
+  <a href="https://npmjs.com/package/@empjs/cli?activeTab=versions"><img src="https://img.shields.io/npm/v/@empjs/cli/alpha?style=flat-square&color=111111&label=%40empjs%2Fcli%40alpha" alt="@empjs/cli alpha version"></a>
   <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/Rspack-2-2563eb?style=flat-square" alt="Rspack 2"></a>
   <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/Module%20Federation-2.x-0f766e?style=flat-square" alt="Module Federation 2.x"></a>
   <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/badge/Node-%5E20.19.0%20%7C%7C%20%3E%3D22.12.0-339933?style=flat-square" alt="Node ^20.19.0 || >=22.12.0"></a>
@@ -26,6 +26,8 @@
 EMP 是面向微前端工程的构建工具。它把 Rspack 2、Module Federation 2、TypeScript 能力和常用框架插件收在一套配置模型里，让 host、remote、shared、manifest、类型声明和运行时适配都由工具链统一处理。
 
 v4 的重点是换到新的构建与联邦底座，同时尽量保留 EMP 既有的使用习惯。业务项目可以继续围绕 EMP 插件组织配置，把更多精力放在模块拆分、依赖共享和应用交付上。
+
+当前 v4 发布版本以 npm 的 `@empjs/cli@alpha` dist-tag 为准，README 不再维护手写版本号。
 
 ## 核心功能
 
