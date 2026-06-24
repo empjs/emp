@@ -6,7 +6,7 @@ import {generateProject} from '../src/agent-create/generator'
 import {parseCreateIntent} from '../src/agent-create/intent'
 import {createProjectPlan} from '../src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from '../src/agent-create/report'
-import type {CreateProjectPlan} from '../src/agent-create/types'
+import type {CommandResult, CreateProjectPlan} from '../src/agent-create/types'
 import {verifyGeneratedProject} from '../src/agent-create/verify'
 
 const createPlan = (targetDir: string): CreateProjectPlan =>
@@ -74,6 +74,28 @@ describe('agent-create verification report', () => {
         name: 'host-config',
         status: 'failed',
       })
+
+      const report = buildCreateReport(plan, checks, [])
+
+      expect(report.status).toBe('failed')
     })
+  })
+
+  test('marks report failed when a command fails', () => {
+    const plan = createPlan(path.join(os.tmpdir(), 'emp-agent-command-failure'))
+    const commands: CommandResult[] = [
+      {
+        name: 'install',
+        command: 'pnpm install',
+        status: 'failed',
+        exitCode: 1,
+        stdout: '',
+        stderr: 'install failed',
+      },
+    ]
+
+    const report = buildCreateReport(plan, [], commands)
+
+    expect(report.status).toBe('failed')
   })
 })

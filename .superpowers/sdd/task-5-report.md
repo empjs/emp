@@ -64,3 +64,38 @@
 - `buildCreateReport(plan, checks, [])` 使用带 commands 参数的签名。
 - 未修改未授权文件；已有无关改动未 revert、未删除、未格式化。
 - 未执行 `pnpm ci:verify` / `pnpm empbuild`；本任务改动范围是包级 agent-create verifier/report，已按 brief 执行 `@empjs/cli test:real` 和 `git diff --check`。
+
+## Fix Report - 2026-06-25
+
+### Reviewer Finding
+
+- `buildCreateReport()` 的失败聚合规则缺少测试保护。
+- 需要覆盖 failed check 和 failed command 都会让 `report.status` 变为 `failed`。
+
+### Changes
+
+- `packages/cli/test/agent-create-verify.test.ts`
+  - 在已有 `host-config` 缺失失败用例中补充 `buildCreateReport(plan, checks, [])`，断言 `report.status === 'failed'`。
+  - 新增 synthetic failed command 最小用例，断言 failed command 会让 report failed。
+
+### Verification
+
+- 命令：`pnpm --filter @empjs/cli exec rstest run --include 'test/agent-create-verify.test.ts'`
+- 结果：通过。
+- 摘要：
+  - testFiles: 1
+  - tests: 3
+  - passedTests: 3
+  - failedTests: 0
+
+- 命令：`git diff --check`
+- 结果：通过，无输出。
+
+### Self Check
+
+- 只修改 Task brief 允许的测试文件和本报告文件。
+- 未修改 `packages/cli/src/**` 生产代码。
+- 已保留开始前存在的无关改动：
+  - `.superpowers/sdd/task-4-report.md`
+  - `.superpowers/plans/2026-06-24-agent-first-create-plan.md`
+- 本次新增测试直接覆盖 reviewer 指出的聚合缺口；当前实现已满足新增断言。
