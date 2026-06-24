@@ -78,6 +78,7 @@
     "build-rs": "pnpm run build",
     "test": "node test/rslib-node-target.test.mjs && node test/cli-options.test.mjs && node test/config-file-discovery.test.mjs && node test/build-watch-shape.test.mjs && node test/lifecycle-order.test.mjs && pnpm run build && node test/cli-help.test.mjs && node test/rspack2-features-shape.test.mjs && node test/rspack-config-shape.test.mjs",
     "test:real": "rstest run",
+    "test:real:generator": "rstest run test/agent-create-generator.test.ts",
     "test:real:intent": "rstest run test/agent-create-intent.test.ts",
     "test:real:planner": "rstest run test/agent-create-planner.test.ts",
     "ph": "pnpm publish --no-git-checks"
