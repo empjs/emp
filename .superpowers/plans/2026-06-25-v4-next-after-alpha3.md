@@ -102,7 +102,7 @@ Add a root script such as `test:apps` or `apps:check` that runs only determinist
 
 Expected: the script is bounded enough for CI and does not publish, serve indefinitely, or depend on local caches.
 
-Result: added `apps:acceptance`, which builds `@empjs/chain`, runs the existing `emp:build` app-facing package build set, runs `apps:check`, and then runs the selected path-filtered build set. The chain and app-facing package builds are required because clean CI runners do not have package `dist/` outputs before app builds.
+Result: added `apps:acceptance`, which first runs the complete `pnpm empbuild`, then runs `apps:check`, and then runs the selected path-filtered build set. The full package build is required because clean CI runners do not have package `dist/` outputs before app builds, and selected examples can depend on any workspace plugin package.
 
 - [x] **Step 3: Wire CI**
 
@@ -124,7 +124,7 @@ pnpm apps:acceptance
 
 Expected: all pass locally, then remote CI passes on `v4`.
 
-Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed an explicit CLI build before app builds. Second remote run `28159386049` proved the CLI build needs chain declaration output first. Third remote run `28159517415` proved selected apps also need app-facing plugin package `dist/` outputs. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
+Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed package dist outputs before app builds. Follow-up runs `28159386049`, `28159517415`, and `28159690192` showed that maintaining a hand-picked package prerequisite list is brittle, so `apps:acceptance` now reuses the complete package build gate. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
 
 ### Task 3: Remove Beta-Blocking Build Warnings
 

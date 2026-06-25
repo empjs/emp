@@ -104,23 +104,14 @@ if (exists('package.json')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
   const appsAcceptance = pkg.scripts?.['apps:acceptance'] ?? ''
-  if (!appsAcceptance.includes('pnpm --filter @empjs/chain build')) {
-    failures.push('package.json apps:acceptance must build @empjs/chain before app-facing packages')
-  }
-  if (
-    appsAcceptance.includes('pnpm emp:build') &&
-    appsAcceptance.indexOf('pnpm --filter @empjs/chain build') > appsAcceptance.indexOf('pnpm emp:build')
-  ) {
-    failures.push('package.json apps:acceptance builds @empjs/chain after app-facing packages')
-  }
-  if (!appsAcceptance.includes('pnpm emp:build')) {
-    failures.push('package.json apps:acceptance must build app-facing packages before app builds')
+  if (!appsAcceptance.includes('pnpm empbuild')) {
+    failures.push('package.json apps:acceptance must run full pnpm empbuild before app builds')
   }
   if (
     appsAcceptance.includes('--filter ./apps/rspack2-modern-module') &&
-    appsAcceptance.indexOf('pnpm emp:build') > appsAcceptance.indexOf('--filter ./apps/rspack2-modern-module')
+    appsAcceptance.indexOf('pnpm empbuild') > appsAcceptance.indexOf('--filter ./apps/rspack2-modern-module')
   ) {
-    failures.push('package.json apps:acceptance builds app-facing packages after app builds')
+    failures.push('package.json apps:acceptance runs pnpm empbuild after app builds')
   }
   if (!appsAcceptance.includes('pnpm apps:check')) {
     failures.push('package.json apps:acceptance must run pnpm apps:check before app builds')
