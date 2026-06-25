@@ -210,7 +210,7 @@ Expected: no matches and exit code 1.
 - Produces: commit `chore(release): prepare 4.0.0-alpha.3`.
 - Produces: `origin/v4` updated.
 
-- [ ] **Step 1: Inspect and stage scoped changes**
+- [x] **Step 1: Inspect and stage scoped changes**
 
 Run:
 
@@ -221,7 +221,7 @@ git diff --stat
 
 Expected: only release/CI/plan/changelog files are changed.
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 Run:
 
@@ -232,7 +232,7 @@ git commit -m "chore(release): prepare 4.0.0-alpha.3"
 
 Expected: commit succeeds.
 
-- [ ] **Step 3: Push**
+- [x] **Step 3: Push**
 
 Run:
 
@@ -241,6 +241,8 @@ git push origin v4
 ```
 
 Expected: `origin/v4` advances to the new commit.
+
+Result: release preparation and clean-runner CI fixes were synced to `origin/v4` through commits `93895a11`, `bdcd044f`, and `5e632d26`.
 
 ### Task 6: Verify Remote CI And Publish npm
 
@@ -251,7 +253,7 @@ Expected: `origin/v4` advances to the new commit.
 - Consumes: `gh run list`, `gh run watch`, `gh workflow run`.
 - Produces: passing CI run and publish workflow result.
 
-- [ ] **Step 1: Watch CI for pushed commit**
+- [x] **Step 1: Watch CI for pushed commit**
 
 Run:
 
@@ -262,7 +264,9 @@ gh run watch <ci-run-id> --repo empjs/emp --exit-status
 
 Expected: CI run for the new commit completes successfully.
 
-- [ ] **Step 2: Trigger publish workflow**
+Result: GitHub Actions run `28150567762` completed successfully with both `verify` and `build` jobs passing on commit `5e632d26`.
+
+- [x] **Step 2: Trigger publish workflow**
 
 Run:
 
@@ -272,7 +276,9 @@ gh workflow run Publish --repo empjs/emp --ref v4 -f dry_run=false -f package=
 
 Expected: workflow dispatch is accepted.
 
-- [ ] **Step 3: Watch publish workflow**
+Result: Publish workflow dispatch created run `28150622949`.
+
+- [x] **Step 3: Watch publish workflow**
 
 Run:
 
@@ -283,7 +289,9 @@ gh run watch <publish-run-id> --repo empjs/emp --exit-status
 
 Expected: publish workflow completes successfully.
 
-- [ ] **Step 4: Verify npm dist-tags**
+Result: Publish run `28150622949` completed successfully after `release.test`, `release:check`, `empbuild`, and `Publish to npm`.
+
+- [x] **Step 4: Verify npm dist-tags**
 
 Run:
 
@@ -294,6 +302,8 @@ npm view @empjs/share dist-tags --json
 
 Expected: both show `"alpha": "4.0.0-alpha.3"`.
 
+Result: all 19 internal packages with version `4.0.0-alpha.3` show npm dist-tag `alpha=4.0.0-alpha.3`.
+
 ### Task 7: Next-Step Plan
 
 **Files:**
@@ -302,7 +312,7 @@ Expected: both show `"alpha": "4.0.0-alpha.3"`.
 **Interfaces:**
 - Produces: concrete next plan after alpha.3.
 
-- [ ] **Step 1: Write next plan**
+- [x] **Step 1: Write next plan**
 
 Create a concise plan covering:
 
