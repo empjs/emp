@@ -104,6 +104,15 @@ if (exists('package.json')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
   const appsAcceptance = pkg.scripts?.['apps:acceptance'] ?? ''
+  if (!appsAcceptance.includes('pnpm --filter @empjs/chain build')) {
+    failures.push('package.json apps:acceptance must build @empjs/chain before @empjs/cli')
+  }
+  if (
+    appsAcceptance.includes('pnpm emp:prod') &&
+    appsAcceptance.indexOf('pnpm --filter @empjs/chain build') > appsAcceptance.indexOf('pnpm emp:prod')
+  ) {
+    failures.push('package.json apps:acceptance builds @empjs/chain after @empjs/cli')
+  }
   if (!appsAcceptance.includes('pnpm emp:prod')) {
     failures.push('package.json apps:acceptance must build @empjs/cli before app builds')
   }
