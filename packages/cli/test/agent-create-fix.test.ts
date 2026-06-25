@@ -32,7 +32,7 @@ async function withGeneratedProject<T>(
 }
 
 describe('fixGeneratedProject', () => {
-  test('regenerates emp-report.json when the report check failed and the report is missing', async () => {
+  test('regenerates a passed emp-report.json when only the report check failed and the report is missing', async () => {
     await withGeneratedProject(async plan => {
       const reportPath = path.join(plan.rootDir, 'emp-report.json')
       await fs.rm(reportPath, {force: true})
@@ -47,6 +47,32 @@ describe('fixGeneratedProject', () => {
 
       const reportJson = JSON.parse(await fs.readFile(reportPath, 'utf8'))
       expect(reportJson.status).toBe('passed')
+      expect(reportJson.checks).toEqual([])
+    })
+  })
+
+  test('preserves non-report failed checks when regenerating a missing report', async () => {
+    await withGeneratedProject(async plan => {
+      const reportPath = path.join(plan.rootDir, 'emp-report.json')
+      await fs.rm(reportPath, {force: true})
+      const hostConfigCheck = {
+        name: 'host-config',
+        status: 'failed' as const,
+        message: 'host 未配置 user remote',
+      }
+
+      const fixes = await fixGeneratedProject(plan, [
+        {name: 'report', status: 'failed', message: 'emp-report.json 缺失'},
+        hostConfigCheck,
+      ])
+
+      expect(fixes).toEqual([
+        {name: 'report', status: 'applied', message: '已重新生成 emp-report.json'},
+      ])
+
+      const reportJson = JSON.parse(await fs.readFile(reportPath, 'utf8'))
+      expect(reportJson.status).toBe('failed')
+      expect(reportJson.checks).toEqual([hostConfigCheck])
     })
   })
 

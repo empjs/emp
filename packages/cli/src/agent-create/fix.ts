@@ -3,8 +3,15 @@ import path from 'node:path'
 import {buildCreateReport} from './report'
 import type {CreateProjectPlan, FixResult, VerificationCheck} from './types'
 
-async function writeReportIfMissing(plan: CreateProjectPlan): Promise<boolean> {
-  const report = buildCreateReport(plan, [], [])
+async function writeReportIfMissing(
+  plan: CreateProjectPlan,
+  checks: VerificationCheck[],
+): Promise<boolean> {
+  const report = buildCreateReport(
+    plan,
+    checks.filter(check => check.name !== 'report'),
+    [],
+  )
   const reportPath = path.join(report.rootDir, 'emp-report.json')
 
   await fs.mkdir(path.dirname(reportPath), {recursive: true})
@@ -34,7 +41,7 @@ export async function fixGeneratedProject(
     return []
   }
 
-  if (!(await writeReportIfMissing(plan))) {
+  if (!(await writeReportIfMissing(plan, checks))) {
     return [{name: 'report', status: 'skipped', message: 'emp-report.json 已存在，未覆盖'}]
   }
 
