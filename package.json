@@ -51,6 +51,7 @@
     "ci:verify": "pnpm workflow:check && pnpm test:cli && pnpm test:packages && pnpm test:rules && pnpm release:check && pnpm check:rslib-presets",
     "apps:list": "node scripts/apps.mjs list",
     "apps:check": "node scripts/apps.mjs check",
+    "apps:acceptance": "pnpm apps:check && pnpm --filter ./apps/rspack2-modern-module --filter ./apps/rspack2-optimization --filter ./projects/mf-host --filter ./projects/mf-app --filter ./projects/vue-3-base --filter ./projects/vue-3-project --filter ./projects/tailwind-4 build",
     "apps:bench": "node scripts/apps.mjs bench",
     "lint": "biome check --write",
     "check:rslib-presets": "node scripts/check-rslib-presets.mjs",

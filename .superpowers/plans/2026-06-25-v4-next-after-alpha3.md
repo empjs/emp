@@ -31,29 +31,35 @@
 - Produces: package tests that build their required dist files before execution.
 - Produces: workflow guards that fail before CI when a new dist-dependent package test omits its build step.
 
-- [ ] **Step 1: Inventory dist-dependent tests**
+- [x] **Step 1: Inventory dist-dependent tests**
 
 Run:
 
 ```bash
-rg -n "dist/|\\.\\./dist|node_modules/@empjs/.*/dist" packages/*/test packages/*/tests
+rg -n "dist/|\\.\\./dist|node_modules/@empjs/.*/dist" packages --glob 'packages/**/test/**' --glob 'packages/**/tests/**'
 ```
 
 Expected: every dist-dependent test is mapped to the package script that builds it.
 
-- [ ] **Step 2: Add missing package-level build prerequisites**
+Result: found 7 dist references across `packages/cli`, `packages/emp-chain`, `packages/emp-share`, and `packages/plugin-react`. The original zsh glob form was replaced with stable `rg --glob` filters.
+
+- [x] **Step 2: Add missing package-level build prerequisites**
 
 Update only affected package scripts so `pnpm --filter <package> test` is self-contained from a clean checkout.
 
 Expected: package tests do not rely on root script ordering or stale local artifacts.
 
-- [ ] **Step 3: Extend workflow guard**
+Result: no additional package script change was required. Existing package scripts already build before dist-dependent tests.
+
+- [x] **Step 3: Extend workflow guard**
 
 Update `scripts/emp-workflow-check.mjs` to catch newly identified dist-dependent test scripts that do not build first.
 
 Expected: `pnpm workflow:check` fails before implementation and passes after package scripts are fixed.
 
-- [ ] **Step 4: Validate**
+Result: existing workflow guards already cover `test:cli`, `packages/emp-share`, `packages/emp-chain`, and `packages/plugin-react`.
+
+- [x] **Step 4: Validate**
 
 Run:
 
@@ -63,6 +69,8 @@ pnpm ci:verify
 ```
 
 Expected: both pass locally and on GitHub Actions.
+
+Result: `pnpm workflow:check` and `pnpm ci:verify` passed locally after the inventory and plan command correction.
 
 ### Task 2: Add App Acceptance Builds To CI
 
@@ -75,7 +83,7 @@ Expected: both pass locally and on GitHub Actions.
 - Produces: a bounded app acceptance command that proves v4 packages work in representative projects.
 - Produces: CI coverage for the selected app acceptance command.
 
-- [ ] **Step 1: Select representative apps**
+- [x] **Step 1: Select representative apps**
 
 Run:
 
@@ -86,29 +94,37 @@ rg -n "\"build\"|\"dev\"|\"test\"" projects apps examples package.json
 
 Expected: choose the smallest set that covers CLI creation output, React, Vue, Module Federation, and Tailwind integration.
 
-- [ ] **Step 2: Create root acceptance script**
+Result: selected 7 bounded builds: `apps/rspack2-modern-module`, `apps/rspack2-optimization`, `projects/mf-host`, `projects/mf-app`, `projects/vue-3-base`, `projects/vue-3-project`, and `projects/tailwind-4`.
+
+- [x] **Step 2: Create root acceptance script**
 
 Add a root script such as `test:apps` or `apps:check` that runs only deterministic builds or smoke checks.
 
 Expected: the script is bounded enough for CI and does not publish, serve indefinitely, or depend on local caches.
 
-- [ ] **Step 3: Wire CI**
+Result: added `apps:acceptance`, which runs `apps:check` and the selected path-filtered build set.
+
+- [x] **Step 3: Wire CI**
 
 Add the app acceptance script to CI after `pnpm ci:verify` or as a separate job with the same Node and pnpm setup.
 
 Expected: push CI proves both package verification and representative app builds.
 
-- [ ] **Step 4: Validate**
+Result: added a dedicated CI `apps` job that runs `pnpm apps:acceptance`.
+
+- [x] **Step 4: Validate**
 
 Run:
 
 ```bash
 pnpm workflow:check
 pnpm ci:verify
-pnpm apps:check
+pnpm apps:acceptance
 ```
 
 Expected: all pass locally, then remote CI passes on `v4`.
+
+Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
 
 ### Task 3: Remove Beta-Blocking Build Warnings
 

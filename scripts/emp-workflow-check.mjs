@@ -103,6 +103,23 @@ if (exists('package.json')) {
   if (!pkg.scripts?.['ci:verify']?.includes('pnpm workflow:check')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
+  const appsAcceptance = pkg.scripts?.['apps:acceptance'] ?? ''
+  if (!appsAcceptance.includes('pnpm apps:check')) {
+    failures.push('package.json apps:acceptance must run pnpm apps:check before app builds')
+  }
+  for (const filter of [
+    './apps/rspack2-modern-module',
+    './apps/rspack2-optimization',
+    './projects/mf-host',
+    './projects/mf-app',
+    './projects/vue-3-base',
+    './projects/vue-3-project',
+    './projects/tailwind-4',
+  ]) {
+    if (!appsAcceptance.includes(`--filter ${filter}`)) {
+      failures.push(`package.json apps:acceptance missing app filter: ${filter}`)
+    }
+  }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {
     failures.push('package.json test:cli must build @empjs/chain before @empjs/cli tests for clean CI')
@@ -114,6 +131,8 @@ if (exists('package.json')) {
     failures.push('package.json test:cli builds @empjs/chain after @empjs/cli tests')
   }
 }
+
+requireText('.github/workflows/ci.yml', 'pnpm apps:acceptance')
 
 if (exists('packages/emp-share/package.json')) {
   const sharePkg = JSON.parse(read('packages/emp-share/package.json'))
