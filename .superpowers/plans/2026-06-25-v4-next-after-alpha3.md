@@ -124,7 +124,7 @@ pnpm apps:acceptance
 
 Expected: all pass locally, then remote CI passes on `v4`.
 
-Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed package dist outputs before app builds. Follow-up runs `28159386049`, `28159517415`, and `28159690192` showed that maintaining a hand-picked package prerequisite list is brittle, so `apps:acceptance` now reuses the complete package build gate. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
+Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed package dist outputs before app builds. Follow-up runs `28159386049`, `28159517415`, and `28159690192` showed that maintaining a hand-picked package prerequisite list is brittle, so `apps:acceptance` now reuses the complete package build gate. Remote run `28159924701` passed with `verify`, `build`, and `apps` all green. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
 
 ### Task 3: Remove Beta-Blocking Build Warnings
 
