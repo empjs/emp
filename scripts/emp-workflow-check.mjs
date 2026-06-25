@@ -103,6 +103,16 @@ if (exists('package.json')) {
   if (!pkg.scripts?.['ci:verify']?.includes('pnpm workflow:check')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
+  const testCli = pkg.scripts?.['test:cli'] ?? ''
+  if (!testCli.includes('pnpm --filter @empjs/chain build')) {
+    failures.push('package.json test:cli must build @empjs/chain before @empjs/cli tests for clean CI')
+  }
+  if (
+    testCli.includes('pnpm --filter @empjs/cli test') &&
+    testCli.indexOf('pnpm --filter @empjs/chain build') > testCli.indexOf('pnpm --filter @empjs/cli test')
+  ) {
+    failures.push('package.json test:cli builds @empjs/chain after @empjs/cli tests')
+  }
 }
 
 if (exists('docs/superpowers')) failures.push('docs/superpowers must not be used')

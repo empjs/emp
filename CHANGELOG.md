@@ -1,5 +1,36 @@
 # Changelog
 
+## 4.0.0-alpha.3 - 2026-06-25
+
+### Highlights
+
+- Add the agent-first `emp create` flow in `@empjs/cli`, including intent parsing, project generation, command execution, verification, JSON reports, fixer support, dynamic ports, dev readiness probes, and atomic failed-report writes.
+- Add `empRuntime.version: true` in `@empjs/share` to isolate same-page multi-version Module Federation scopes and CSS Modules prefixes.
+- Ship Tailwind 4.3.1 alignment for `@empjs/plugin-tailwindcss` and keep the release scope limited to the 19 core internal packages.
+
+### What's Changed
+
+#### New Features
+
+- feat(cli): add agent-first project creation, verification, report, and fixer flows.
+- feat(share): add opt-in `empRuntime.version` isolation for shared runtime packages.
+- feat(workflow): add repo-local workflow gates, PR review assets, and CI verification entrypoints.
+
+#### Build
+
+- chore(release): align root workspace and 19 core `@empjs/*` packages to `4.0.0-alpha.3`.
+- chore(ci): make `pnpm test:cli` build `@empjs/chain` before CLI tests so clean GitHub runners do not depend on stale local `dist/`.
+- chore(release): keep `projects/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` out of the unified release set.
+
+#### Tests
+
+- test(cli): cover agent create planning, generation, command execution, failed reports, fixer behavior, and real CLI flows with Rstest.
+- test(share): cover legacy and versioned `empRuntime.version` behavior, including CSS Modules prefix preservation and package metadata fallback.
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-alpha.3`.
+
 ## 4.0.0-alpha.2 - 2026-06-23
 
 ### Highlights
