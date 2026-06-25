@@ -7,7 +7,7 @@ const DEFAULT_TAG = 'alpha'
 const DEFAULT_ACCESS = 'public'
 const REQUIRED_NODE_ENGINE = '^20.19.0 || >=22.12.0'
 const PACKAGE_JSON = 'package.json'
-const WORKSPACE_ROOTS = ['packages', 'projects', 'website']
+const WORKSPACE_ROOTS = ['packages', 'apps', 'website']
 const INDEPENDENT_PREFIXES = ['@empjs/cdn-', '@empjs/lib-']
 
 const sortByName = (packages) => [...packages].sort((a, b) => a.name.localeCompare(b.name))
@@ -47,7 +47,7 @@ const hasIndependentVersion = (pkg) => INDEPENDENT_PREFIXES.some((prefix) => pkg
 
 const classifyPackage = (pkg) => {
   if (pkg.dir === '.') return 'root'
-  if (pkg.dir === 'website' || pkg.dir.startsWith('projects/')) return 'workspace'
+  if (pkg.dir === 'website' || pkg.dir.startsWith('apps/')) return 'workspace'
   if (pkg.dir.startsWith('packages/') && pkg.name.startsWith(INTERNAL_SCOPE) && !pkg.private) {
     return hasIndependentVersion(pkg) ? 'independent' : 'internal'
   }
@@ -153,7 +153,7 @@ export const validateReleasePlan = (plan) => {
     if (pkg.version !== root.version) {
       errors.push(`${pkg.file} version ${pkg.version} does not match root version ${root.version}`)
     }
-    if (pkg.dir.startsWith('projects/') || pkg.dir === 'website') {
+    if (pkg.dir.startsWith('apps/') || pkg.dir === 'website') {
       errors.push(`${pkg.file} must not be in the internal publish set`)
     }
   }
@@ -201,7 +201,7 @@ export const renderChangelogEntry = (plan, options = {}) => {
 #### Build
 
 - chore(release): publish with pnpm 10 workspace filters and dist-tag \`${tag}\`.
-- chore(release): exclude \`projects/**\`, \`website\`, \`@empjs/cdn-*\`, and \`@empjs/lib-*\` from the unified release set.
+- chore(release): exclude \`apps/**\`, \`website\`, \`@empjs/cdn-*\`, and \`@empjs/lib-*\` from the unified release set.
 
 #### Full Changelog
 

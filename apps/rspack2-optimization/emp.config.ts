@@ -8,9 +8,6 @@ export default defineConfig(() => {
       target: 'es2018',
       moduleIds: 'hashed',
       rspack: {
-        experiments: {
-          pureFunctions: true,
-        },
         splitChunks: {
           chunks: 'all',
           enforceSizeThreshold: 80000,

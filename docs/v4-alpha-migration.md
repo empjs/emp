@@ -35,7 +35,7 @@ For Vue projects, use the matching framework plugin:
 pnpm add -D @empjs/cli@alpha @empjs/plugin-vue3@alpha @empjs/share@alpha
 ```
 
-Do not move CDN or legacy runtime packages to the unified v4 version line. `@empjs/cdn-*` and `@empjs/lib-*` remain independent package lines, and example or website workspaces under `projects/**` and `website` are not part of the alpha publish set.
+Do not move CDN or legacy runtime packages to the unified v4 version line. `@empjs/cdn-*` and `@empjs/lib-*` remain independent package lines, and example or website workspaces under `apps/**` and `website` are not part of the alpha publish set.
 
 ## Release Scope
 

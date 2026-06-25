@@ -106,14 +106,15 @@ export async function runBench({apps, cwd = repoRoot, dryRun = false} = {}) {
   const results = []
 
   for (const app of selected) {
-    const command = `pnpm --filter ${app.name} build`
+    const filter = `./apps/${app.dir}`
+    const command = `pnpm --filter ${filter} build`
     const startedAt = Date.now()
     let exitCode = 0
     let stdout = ''
     let stderr = ''
     if (!dryRun) {
       try {
-        const result = await execFile('pnpm', ['--filter', app.name, 'build'], {
+        const result = await execFile('pnpm', ['--filter', filter, 'build'], {
           cwd,
           maxBuffer: 1024 * 1024 * 20,
         })

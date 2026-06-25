@@ -21,7 +21,7 @@
 
 - chore(release): align root workspace and 19 core `@empjs/*` packages to `4.0.0-alpha.3`.
 - chore(ci): make `pnpm test:cli` build `@empjs/chain` before CLI tests so clean GitHub runners do not depend on stale local `dist/`.
-- chore(release): keep `projects/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` out of the unified release set.
+- chore(release): keep `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` out of the unified release set.
 
 #### Tests
 
@@ -76,7 +76,7 @@
 #### Build
 
 - chore(release): publish with pnpm 10 workspace filters and dist-tag `alpha`.
-- chore(release): exclude `projects/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` from the unified release set.
+- chore(release): exclude `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` from the unified release set.
 
 #### Full Changelog
 

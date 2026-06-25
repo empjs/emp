@@ -36,7 +36,7 @@ const createFixture = async () => {
   })
   await writeFile(
     join(root, 'pnpm-workspace.yaml'),
-    "packages:\n  - packages/**\n  - projects/**\n  - website\n",
+    "packages:\n  - packages/**\n  - apps/**\n  - website\n",
   )
   await writeJson('packages/cli/package.json', {
     name: '@empjs/cli',
@@ -65,8 +65,12 @@ const createFixture = async () => {
     version: '0.17.0',
     publishConfig: {access: 'public'},
   })
-  await writeJson('projects/demo/package.json', {
+  await writeJson('apps/demo/package.json', {
     name: 'demo',
+    version: '1.0.0',
+  })
+  await writeJson('apps/fake/package.json', {
+    name: '@empjs/fake-app',
     version: '1.0.0',
   })
   await writeJson('website/package.json', {
@@ -99,8 +103,10 @@ test('createReleasePlan scopes internal release packages to core packages only',
       plan.independentPackages.map((pkg) => pkg.name),
       ['@empjs/cdn-react', '@empjs/lib-react'],
     )
-    assert.equal(plan.workspacePackages.some((pkg) => pkg.dir.startsWith('projects/')), true)
-    assert.equal(plan.internalPackages.some((pkg) => pkg.dir.startsWith('projects/')), false)
+    assert.equal(plan.workspacePackages.some((pkg) => pkg.dir.startsWith('apps/')), true)
+    assert.equal(plan.internalPackages.some((pkg) => pkg.dir.startsWith('apps/')), false)
+    assert.equal(plan.workspacePackages.some((pkg) => pkg.name === '@empjs/fake-app'), true)
+    assert.equal(plan.internalPackages.some((pkg) => pkg.name === '@empjs/fake-app'), false)
     assert.equal(plan.internalPackages.some((pkg) => pkg.dir === 'website'), false)
     assert.deepEqual(validateReleasePlan(plan), [])
   })
@@ -142,7 +148,7 @@ test('applyInternalVersion updates root and internal packages without touching i
     const rootPkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
     const cliPkg = JSON.parse(await readFile(join(root, 'packages/cli/package.json'), 'utf8'))
     const cdnPkg = JSON.parse(await readFile(join(root, 'packages/cdn-react-19/package.json'), 'utf8'))
-    const demoPkg = JSON.parse(await readFile(join(root, 'projects/demo/package.json'), 'utf8'))
+    const demoPkg = JSON.parse(await readFile(join(root, 'apps/demo/package.json'), 'utf8'))
 
     assert.equal(rootPkg.version, '4.1.0-internal.0')
     assert.equal(cliPkg.version, '4.1.0-internal.0')
@@ -171,7 +177,7 @@ test('renderChangelogEntry and prependChangelog create a concise release-notes e
     assert.doesNotMatch(entry, /自动化验证/)
     assert.doesNotMatch(entry, /@empjs\/cli/)
     assert.doesNotMatch(entry, /@empjs\/cdn-react/)
-    assert.doesNotMatch(entry, /projects\/demo/)
+    assert.doesNotMatch(entry, /apps\/demo/)
     assert.doesNotMatch(entry, /TODO|TBD/)
 
     await prependChangelog(root, entry)
@@ -202,7 +208,7 @@ test('buildPublishCommands dry-runs with pnpm and publishes packed tarballs with
       assert.equal(command.includes('--tag'), true)
       assert.equal(command.includes('internal'), true)
       assert.equal(command.includes('https://npm.internal.example/'), true)
-      assert.equal(command.some((part) => part.includes('projects/')), false)
+      assert.equal(command.some((part) => part.includes('apps/')), false)
       assert.equal(command.some((part) => part.includes('website')), false)
       assert.equal(command.some((part) => part.includes('cdn-react')), false)
       assert.equal(command.some((part) => part.includes('lib-react')), false)
@@ -247,9 +253,9 @@ test('release CLI check prints scoped package summary', async () => {
 
     assert.match(stdout, /Internal packages: 3/)
     assert.match(stdout, /Independent packages: 2/)
-    assert.match(stdout, /Workspace packages: 2/)
+    assert.match(stdout, /Workspace packages: 3/)
     assert.match(stdout, /@empjs\/cli/)
-    assert.doesNotMatch(stdout, /projects\/demo/)
+    assert.doesNotMatch(stdout, /apps\/demo/)
   })
 })
 

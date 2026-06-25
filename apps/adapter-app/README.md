@@ -1,6 +1,4 @@
-# EMP 微前端
-
-> 实现Vue2、Vue3、React各版本调用方案
+# EMP微前端实现Vue2、Vue3、React各版本调用方案
 
 ## 引言
 
@@ -257,7 +255,7 @@ function SafeComponent() {
 
 > EMP 微前端框架中实现跨框架组件集成，特别是如何在 React 17 应用中使用 React 18、Vue 2 和 Vue 3 组件。
 
-![image.png](/image.png)
+![image.png](./image.png)
 
 ## 1. 项目设置和依赖安装
 

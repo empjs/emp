@@ -46,7 +46,7 @@
 ## 目录边界
 
 - 默认可修改范围只限于当前任务直接相关文件；所有改动都必须能在最终回复中解释目的和验证结果。
-- `projects/**` 和 `website` 默认是示例或站点，不参与发布包范围；除非任务明确要求示例/站点，否则不要修改。
+- `apps/**` 和 `website` 默认是示例、验收项目或站点，不参与发布包范围；除非任务明确要求示例/站点/验收矩阵，否则不要修改。
 - `packages/cdn-*` 和 `packages/lib-*` 默认保持独立版本线；除非用户明确要求纳入统一版本或迁移范围，否则不要改版本、发布配置或依赖线。
 - `.github/workflows/publish.yml` 只在发布流程任务中修改；普通 CI、PR、review 自动化优先修改 `.github/workflows/ci.yml`、`.github/pull_request_template.md` 和 `.github/CODEOWNERS`。
 - `pnpm-lock.yaml` 只在依赖、package 范围或安装结果确实变化时修改；不要为了格式化或无关任务重写 lockfile。
@@ -98,7 +98,7 @@
 ## EMP 发布与包管理约束
 
 - 包管理默认使用 `pnpm@10.33.0`，遵守根 `packageManager` 与 `engines`。
-- `packages/**` 是发布包主范围；`projects/**` 和 `website` 默认视为示例或站点，不进入自动发布。
+- `packages/**` 是发布包主范围；`apps/**` 和 `website` 默认视为示例、验收项目或站点，不进入自动发布。
 - 内部统一版本优先覆盖 v4 核心包：`@empjs/cli`、`@empjs/chain`、`@empjs/share`、`@empjs/plugin-*`、`@empjs/bridge-*`、`@empjs/adapter-*`、`@empjs/polyfill`、配置包。
 - `@empjs/cdn-*`、`@empjs/lib-*` 这类 CDN / legacy runtime 包默认保持独立版本线，除非用户明确要求纳入统一版本。
 - 发布脚本必须支持 dry-run，并且真实 publish 必须有显式确认参数。
@@ -108,7 +108,7 @@
 
 - 完成前至少运行与改动相关的最小验证命令。
 - 发布自动化变更至少验证：
-  - package 范围不会包含 `projects/**`、`website`
+  - package 范围不会包含 `apps/**`、`website`
   - dry-run publish 命令不会真实发包
   - changelog 生成或更新结果可复现
 - 最终回复要包含：改动文件、验证命令与结果、遗留风险或未执行项。

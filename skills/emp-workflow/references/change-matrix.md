@@ -17,7 +17,7 @@ Default writable areas:
 
 Ask for explicit user confirmation before changing:
 
-- `projects/**`
+- `apps/**`
 - `website/**`
 - `packages/cdn-*/**`
 - `packages/lib-*/**`
@@ -86,4 +86,4 @@ Every implementation should leave a reviewable trail:
 - CI workflow must not contain `NODE_AUTH_TOKEN`, `npm publish`, or `release:publish`.
 - Publish workflow may publish only through explicit release paths.
 - `release:check` must keep automatic internal release scope under `packages/**`.
-- `projects/**` and `website/**` are examples or sites, not automatic publish scope.
+- `apps/**` and `website/**` are examples or sites, not automatic publish scope.

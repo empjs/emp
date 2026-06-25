@@ -18,7 +18,7 @@ npm install @empjs/adapter-react
 
 ## 使用
 
-[DEMO](https://github.com/empjs/emp/blob/main/projects/adapter-app/src/App.tsx)
+[DEMO](https://github.com/empjs/emp/blob/main/apps/adapter-app/src/App.tsx)
 
 ### 基础用法
 

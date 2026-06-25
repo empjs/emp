@@ -89,7 +89,7 @@ for (const heading of [
   requireText('AGENTS.md', heading)
 }
 
-for (const protectedPath of ['projects/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*']) {
+for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*']) {
   requireText('AGENTS.md', protectedPath)
 }
 
@@ -119,11 +119,11 @@ if (exists('package.json')) {
   for (const filter of [
     './apps/rspack2-modern-module',
     './apps/rspack2-optimization',
-    './projects/mf-host',
-    './projects/mf-app',
-    './projects/vue-3-base',
-    './projects/vue-3-project',
-    './projects/tailwind-4',
+    './apps/mf-host',
+    './apps/mf-app',
+    './apps/vue-3-base',
+    './apps/vue-3-project',
+    './apps/tailwind-4',
   ]) {
     if (!appsAcceptance.includes(`--filter ${filter}`)) {
       failures.push(`package.json apps:acceptance missing app filter: ${filter}`)

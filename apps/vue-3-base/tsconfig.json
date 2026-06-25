@@ -1,0 +1,12 @@
+{
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
+  "compilerOptions": {
+    "lib": ["ES2016", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "types": ["@empjs/cli/types/vue"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

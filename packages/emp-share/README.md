@@ -250,5 +250,5 @@ pnpm --filter mf-app dev
 完成后检查：
 
 ```bash
-rg 'declare module "@empjs/share/sdk"' projects/mf-app/@mf-types/index.d.ts
+rg 'declare module "@empjs/share/sdk"' apps/mf-app/@mf-types/index.d.ts
 ```

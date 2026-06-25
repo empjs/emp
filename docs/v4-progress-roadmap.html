@@ -673,7 +673,7 @@
                   <td data-label="完成内容">
                     新增 <code>release:check</code>、<code>release:version</code>、<code>release:changelog</code>、
                     <code>release:pack</code>、<code>release:publish:dry</code>、<code>release:publish</code>。
-                    发布范围默认只包含核心内部包，排除 <code>projects/**</code>、<code>website</code>、
+                    发布范围默认只包含核心内部包，排除 <code>apps/**</code>、<code>website</code>、
                     <code>@empjs/cdn-*</code> 和 <code>@empjs/lib-*</code>。
                   </td>
                   <td data-label="主要证据">
@@ -806,11 +806,11 @@
               <div class="card">
                 <h3>3. 持续观察 MF DTS 告警</h3>
                 <p>
-                  <code>projects/rtProvider</code> 本轮复验已输出
+                  <code>apps/rtProvider</code> 本轮复验已输出
                   <code>Federated types created correctly</code>，没有复现 <code>#TYPE-001</code>。该项暂不需要源码修复。
                 </p>
                 <ul>
-                  <li>继续保留 <code>pnpm --filter ./projects/rtProvider build</code> 为发布前检查</li>
+                  <li>继续保留 <code>pnpm --filter ./apps/rtProvider build</code> 为发布前检查</li>
                   <li>如果再次出现 <code>#TYPE-001</code>，再单独定位类型声明输入</li>
                   <li>当前不扩大到 DTS 生成代码修改</li>
                 </ul>

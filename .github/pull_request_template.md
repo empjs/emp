@@ -6,7 +6,7 @@
 
 ## Directory Boundary Check
 
-- [ ] I did not modify `projects/**` or `website/**` unless this PR is explicitly about examples/sites.
+- [ ] I did not modify `apps/**` or `website/**` unless this PR is explicitly about examples/sites/acceptance apps.
 - [ ] I did not modify `packages/cdn-*` or `packages/lib-*` version lines unless explicitly requested.
 - [ ] I did not create or continue `docs/superpowers/**`.
 - [ ] I did not commit generated output, caches, or local indexes.
@@ -22,7 +22,7 @@
 ## Release Safety
 
 - [ ] CI workflow contains no `NODE_AUTH_TOKEN`, `npm publish`, or `release:publish`.
-- [ ] Release scope excludes `projects/**` and `website/**`.
+- [ ] Release scope excludes `apps/**` and `website/**`.
 - [ ] Dry-run publish behavior was checked when release automation changed.
 
 ## Review

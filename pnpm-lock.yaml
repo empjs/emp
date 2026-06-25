@@ -27,6 +27,793 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
+  apps/adapter-app:
+    dependencies:
+      '@empjs/bridge-react':
+        specifier: workspace:^
+        version: link:../../packages/bridge-react
+      '@empjs/bridge-vue2':
+        specifier: workspace:^
+        version: link:../../packages/bridge-vue2
+      '@empjs/bridge-vue3':
+        specifier: workspace:^
+        version: link:../../packages/bridge-vue3
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '17'
+        version: 17.0.2
+      react-dom:
+        specifier: '17'
+        version: 17.0.2(react@17.0.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '17'
+        version: 17.0.93
+      '@types/react-dom':
+        specifier: '17'
+        version: 17.0.26(@types/react@17.0.93)
+
+  apps/adapter-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/adapter-vue2-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
+
+  apps/adapter-vue3-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
+      vue:
+        specifier: ^3.6.0-alpha.2
+        version: 3.6.0-beta.16(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.5.1
+        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
+  apps/app-and-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '18'
+        version: 18.3.1
+      react-dom:
+        specifier: '18'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '18'
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: '18'
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/auto-pages:
+    dependencies:
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.3.1
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/daisyui-demo:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+      daisyui:
+        specifier: ^5.0.18
+        version: 5.5.23
+
+  apps/demo:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^6.1.0
+        version: 6.2.5(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      antd:
+        specifier: ^5.27.6
+        version: 5.29.3(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.3
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@swc/react-compiler':
+        specifier: ^1.13.21
+        version: 1.15.41
+      '@types/react':
+        specifier: ^19.2.2
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.2
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/emp-window-demo:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '18'
+        version: 18.3.1
+      react-dom:
+        specifier: '18'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '18'
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: '18'
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/es5-import-demo:
+    dependencies:
+      es-toolkit:
+        specifier: ^1.39.5
+        version: 1.48.1
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+
+  apps/esm-react-app:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/esm-react-host:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/lib-main:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/lib-react:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/local-build-remote-dev-demo:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/mf-app:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/mf-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      core-js:
+        specifier: ^3.36.1
+        version: 3.49.0
+      mobx:
+        specifier: ^6.12.3
+        version: 6.16.1
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.2.2(mobx@6.16.1)(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/mf-split-chunk:
+    dependencies:
+      core-js:
+        specifier: ^3.36.1
+        version: 3.49.0
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/mf-v3-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      core-js:
+        specifier: ^3.36.1
+        version: 3.49.0
+      mobx:
+        specifier: ^6.12.3
+        version: 6.16.1
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.2.2(mobx@6.16.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/mobile-vw-rem:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/plugin-postcss':
+        specifier: workspace:*
+        version: link:../../packages/plugin-postcss
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/old-func-demo:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/pixi-js-demo:
+    dependencies:
+      pixi.js:
+        specifier: ^8.1.5
+        version: 8.19.0
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+
+  apps/proxy-demo:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.2.6
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: ^5.10.3
+        version: 5.29.3(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/react-16-adapter-18:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      mobx:
+        specifier: ^6.12.3
+        version: 6.16.1
+      mobx-react:
+        specifier: ^9.1.1
+        version: 9.2.2(mobx@6.16.1)(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
+      react:
+        specifier: '16'
+        version: 16.14.0
+      react-dom:
+        specifier: '16'
+        version: 16.14.0(react@16.14.0)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^16.9.9
+        version: 16.14.70
+      '@types/react-dom':
+        specifier: ^16.9.9
+        version: 16.9.25(@types/react@16.14.70)
+
+  apps/react-18-runtime:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '18'
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: '18'
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/react-19-runtime:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      abortcontroller-polyfill:
+        specifier: ^1.7.8
+        version: 1.7.8
+      react-router-dom:
+        specifier: ^6
+        version: 6.30.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/react-19-tanstack:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      '@tanstack/react-router':
+        specifier: ^1.131.47
+        version: 1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      tailwindcss:
+        specifier: 4.3.1
+        version: 4.3.1
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@tanstack/react-router-devtools':
+        specifier: ^1.133.3
+        version: 1.167.0(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.171.13)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@tanstack/router-plugin':
+        specifier: ^1.133.4
+        version: 1.168.18(@rsbuild/core@2.0.15(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0))(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.107.2)
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/react-eager-app:
+    dependencies:
+      react:
+        specifier: 17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: 17.0.2
+        version: 17.0.2(react@17.0.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '17'
+        version: 17.0.93
+      '@types/react-dom':
+        specifier: '17'
+        version: 17.0.26(@types/react@17.0.93)
+
+  apps/react-eager-host:
+    dependencies:
+      react:
+        specifier: 17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: 17.0.2
+        version: 17.0.2(react@17.0.2)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '17'
+        version: 17.0.93
+      '@types/react-dom':
+        specifier: '17'
+        version: 17.0.26(@types/react@17.0.93)
+
+  apps/react-router-demo:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.30.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/react-tanstack:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      '@tanstack/react-router':
+        specifier: ^1.131.47
+        version: 1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      tailwindcss:
+        specifier: 4.3.1
+        version: 4.3.1
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@tanstack/react-router-devtools':
+        specifier: ^1.133.3
+        version: 1.167.0(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.171.13)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@tanstack/router-plugin':
+        specifier: ^1.133.4
+        version: 1.168.18(@rsbuild/core@2.0.15(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0))(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.107.2)
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/react-wouter:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: ^19.2.3
+        version: 19.2.3
+      wouter:
+        specifier: ^3.9.0
+        version: 3.10.0(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
   apps/rspack2-modern-module:
     devDependencies:
       '@empjs/cli':
@@ -38,6 +825,613 @@ importers:
       '@empjs/cli':
         specifier: workspace:*
         version: link:../../packages/cli
+
+  apps/rtHost:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '19'
+        version: 19.2.3
+      react-dom:
+        specifier: '19'
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/rtLayout:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '19'
+        version: 19.2.3
+      react-dom:
+        specifier: '19'
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/rtProvider:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '19'
+        version: 19.2.3
+      react-dom:
+        specifier: '19'
+        version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '19'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: '19'
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/runtime-18-app:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '18'
+        version: 18.3.1
+      react-dom:
+        specifier: '18'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '18'
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: '18'
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/runtime-18-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      react:
+        specifier: '18'
+        version: 18.3.1
+      react-dom:
+        specifier: '18'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: '18'
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: '18'
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/shadcn-ui:
+    dependencies:
+      '@radix-ui/react-icons':
+        specifier: ^1.3.0
+        version: 1.3.2(react@18.3.1)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.314.0
+        version: 0.314.0(react@18.3.1)
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.22(postcss@8.5.15)
+      tailwind-merge:
+        specifier: ^2.2.1
+        version: 2.6.1
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.19
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.19)
+
+  apps/tailwind-2:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss2':
+        specifier: workspace:*
+        version: link:../../packages/plugin-tailwindcss2
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/tailwind-3:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss3':
+        specifier: workspace:*
+        version: link:../../packages/plugin-tailwindcss3
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/tailwind-4:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/tailwind-4-polyfill:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/tailwind-demo:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-postcss':
+        specifier: workspace:*
+        version: link:../../packages/plugin-postcss
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.22(postcss@8.5.6)
+      postcss:
+        specifier: ^8.4.33
+        version: 8.5.6
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.19
+
+  apps/tailwindcss-app:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/tailwindcss-host:
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@empjs/plugin-tailwindcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-tailwindcss
+      '@empjs/share':
+        specifier: workspace:*
+        version: link:../../packages/emp-share
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.17)
+
+  apps/unpkg-demo:
+    dependencies:
+      '@module-federation/runtime':
+        specifier: ^0.0.11
+        version: 0.0.11
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/unpkg-lib:
+    dependencies:
+      '@module-federation/runtime':
+        specifier: ^0.0.11
+        version: 0.0.11
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-react':
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      '@types/react':
+        specifier: ^18.2.30
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.14
+        version: 18.3.7(@types/react@18.3.31)
+
+  apps/vue-2-base:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
+
+  apps/vue-2-element:
+    dependencies:
+      element-ui:
+        specifier: ^2.15.6
+        version: 2.15.14(vue@2.7.16)
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+
+  apps/vue-2-project:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
+
+  apps/vue-2-stylus:
+    dependencies:
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-stylus':
+        specifier: workspace:*
+        version: link:../../packages/plugin-stylus
+      '@empjs/plugin-vue2':
+        specifier: workspace:*
+        version: link:../../packages/plugin-vue2
+
+  apps/vue-3-base:
+    dependencies:
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      ant-design-vue:
+        specifier: ^4.1.2
+        version: 4.2.6(vue@3.5.38(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.21
+        version: 3.5.38(typescript@5.9.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+      '@vue/tsconfig':
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+
+  apps/vue-3-project:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      ant-design-vue:
+        specifier: ^4.1.2
+        version: 4.2.6(vue@3.5.38(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.38(typescript@5.9.3)
+      vue-router:
+        specifier: '4'
+        version: 4.6.4(vue@3.5.38(typescript@5.9.3))
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
+  apps/vue-3-with-vue-2:
+    dependencies:
+      vue:
+        specifier: ^3.4.20
+        version: 3.5.38(typescript@5.9.3)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-lightningcss':
+        specifier: workspace:^
+        version: link:../../packages/plugin-lightningcss
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
+  apps/vue3-app:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
+      vue:
+        specifier: ^3.6.0-alpha.2
+        version: 3.6.0-beta.16(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.5.1
+        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
+  apps/vue3-host:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
+      vue:
+        specifier: ^3.6.0-alpha.2
+        version: 3.6.0-beta.16(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.5.1
+        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue3':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue3
+
+  apps/vue3-in-vue2:
+    dependencies:
+      '@empjs/share':
+        specifier: workspace:^
+        version: link:../../packages/emp-share
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: '3'
+        version: 3.6.5(vue@2.7.16)
+      vuex:
+        specifier: '3'
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@empjs/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@empjs/plugin-vue2':
+        specifier: workspace:^*
+        version: link:../../packages/plugin-vue2
 
   packages/adapter-react: {}
 
@@ -698,1400 +2092,6 @@ importers:
         specifier: workspace:*
         version: link:../cli
 
-  projects/adapter-app:
-    dependencies:
-      '@empjs/bridge-react':
-        specifier: workspace:^
-        version: link:../../packages/bridge-react
-      '@empjs/bridge-vue2':
-        specifier: workspace:^
-        version: link:../../packages/bridge-vue2
-      '@empjs/bridge-vue3':
-        specifier: workspace:^
-        version: link:../../packages/bridge-vue3
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '17'
-        version: 17.0.2
-      react-dom:
-        specifier: '17'
-        version: 17.0.2(react@17.0.2)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '17'
-        version: 17.0.93
-      '@types/react-dom':
-        specifier: '17'
-        version: 17.0.26(@types/react@17.0.93)
-
-  projects/adapter-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/adapter-vue2-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      element-ui:
-        specifier: ^2.15.14
-        version: 2.15.14(vue@2.7.16)
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue2':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue2
-
-  projects/adapter-vue3-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
-      vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-beta.16(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  projects/app-and-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '18'
-        version: 18.3.1
-      react-dom:
-        specifier: '18'
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '18'
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: '18'
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/auto-pages:
-    dependencies:
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.3.1
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/daisyui-demo:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-      daisyui:
-        specifier: ^5.0.18
-        version: 5.5.23
-
-  projects/demo:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^6.1.0
-        version: 6.2.5(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      antd:
-        specifier: ^5.27.6
-        version: 5.29.3(luxon@3.7.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      react:
-        specifier: ^19.2.0
-        version: 19.2.3
-      react-dom:
-        specifier: ^19.2.0
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@swc/react-compiler':
-        specifier: ^1.13.21
-        version: 1.15.41
-      '@types/react':
-        specifier: ^19.2.2
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19.2.2
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/emp-window-demo:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '18'
-        version: 18.3.1
-      react-dom:
-        specifier: '18'
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '18'
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: '18'
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/es5-import-demo:
-    dependencies:
-      es-toolkit:
-        specifier: ^1.39.5
-        version: 1.48.1
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-
-  projects/esm-react-app:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/esm-react-host:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/lib-main:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/lib-react:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/local-build-remote-dev-demo:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/mf-app:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/mf-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      core-js:
-        specifier: ^3.36.1
-        version: 3.49.0
-      mobx:
-        specifier: ^6.12.3
-        version: 6.16.1
-      mobx-react:
-        specifier: ^9.1.1
-        version: 9.2.2(mobx@6.16.1)(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/mf-split-chunk:
-    dependencies:
-      core-js:
-        specifier: ^3.36.1
-        version: 3.49.0
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/mf-v3-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      core-js:
-        specifier: ^3.36.1
-        version: 3.49.0
-      mobx:
-        specifier: ^6.12.3
-        version: 6.16.1
-      mobx-react:
-        specifier: ^9.1.1
-        version: 9.2.2(mobx@6.16.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ^18
-        version: 18.3.1
-      react-dom:
-        specifier: ^18
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/mobile-vw-rem:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-postcss':
-        specifier: workspace:*
-        version: link:../../packages/plugin-postcss
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/old-func-demo:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/pixi-js-demo:
-    dependencies:
-      pixi.js:
-        specifier: ^8.1.5
-        version: 8.19.0
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-
-  projects/proxy-demo:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^5.2.6
-        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: ^5.10.3
-        version: 5.29.3(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/react-16-adapter-18:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      mobx:
-        specifier: ^6.12.3
-        version: 6.16.1
-      mobx-react:
-        specifier: ^9.1.1
-        version: 9.2.2(mobx@6.16.1)(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
-      react:
-        specifier: '16'
-        version: 16.14.0
-      react-dom:
-        specifier: '16'
-        version: 16.14.0(react@16.14.0)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^16.9.9
-        version: 16.14.70
-      '@types/react-dom':
-        specifier: ^16.9.9
-        version: 16.9.25(@types/react@16.14.70)
-
-  projects/react-18-runtime:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '18'
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: '18'
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/react-19-runtime:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      abortcontroller-polyfill:
-        specifier: ^1.7.8
-        version: 1.7.8
-      react-router-dom:
-        specifier: ^6
-        version: 6.30.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/react-19-tanstack:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      '@tanstack/react-router':
-        specifier: ^1.131.47
-        version: 1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      tailwindcss:
-        specifier: 4.3.1
-        version: 4.3.1
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@tanstack/react-router-devtools':
-        specifier: ^1.133.3
-        version: 1.167.0(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.171.13)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@tanstack/router-plugin':
-        specifier: ^1.133.4
-        version: 1.168.18(@rsbuild/core@2.0.15(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0))(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.107.2)
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/react-eager-app:
-    dependencies:
-      react:
-        specifier: 17.0.2
-        version: 17.0.2
-      react-dom:
-        specifier: 17.0.2
-        version: 17.0.2(react@17.0.2)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '17'
-        version: 17.0.93
-      '@types/react-dom':
-        specifier: '17'
-        version: 17.0.26(@types/react@17.0.93)
-
-  projects/react-eager-host:
-    dependencies:
-      react:
-        specifier: 17.0.2
-        version: 17.0.2
-      react-dom:
-        specifier: 17.0.2
-        version: 17.0.2(react@17.0.2)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '17'
-        version: 17.0.93
-      '@types/react-dom':
-        specifier: '17'
-        version: 17.0.26(@types/react@17.0.93)
-
-  projects/react-router-demo:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.30.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/react-tanstack:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      '@tanstack/react-router':
-        specifier: ^1.131.47
-        version: 1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      tailwindcss:
-        specifier: 4.3.1
-        version: 4.3.1
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@tanstack/react-router-devtools':
-        specifier: ^1.133.3
-        version: 1.167.0(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.171.13)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@tanstack/router-plugin':
-        specifier: ^1.133.4
-        version: 1.168.18(@rsbuild/core@2.0.15(@module-federation/runtime-tools@2.6.0)(core-js@3.49.0))(@tanstack/react-router@1.170.16(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(webpack@5.107.2)
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/react-wouter:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: ^19.2.3
-        version: 19.2.3
-      wouter:
-        specifier: ^3.9.0
-        version: 3.10.0(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/rtHost:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '19'
-        version: 19.2.3
-      react-dom:
-        specifier: '19'
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/rtLayout:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '19'
-        version: 19.2.3
-      react-dom:
-        specifier: '19'
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/rtProvider:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '19'
-        version: 19.2.3
-      react-dom:
-        specifier: '19'
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '19'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: '19'
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/runtime-18-app:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '18'
-        version: 18.3.1
-      react-dom:
-        specifier: '18'
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '18'
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: '18'
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/runtime-18-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      react:
-        specifier: '18'
-        version: 18.3.1
-      react-dom:
-        specifier: '18'
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: '18'
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: '18'
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/shadcn-ui:
-    dependencies:
-      '@radix-ui/react-icons':
-        specifier: ^1.3.0
-        version: 1.3.2(react@18.3.1)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.1
-      clsx:
-        specifier: ^2.1.0
-        version: 2.1.1
-      lucide-react:
-        specifier: ^0.314.0
-        version: 0.314.0(react@18.3.1)
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-      autoprefixer:
-        specifier: ^10.4.16
-        version: 10.4.22(postcss@8.5.15)
-      tailwind-merge:
-        specifier: ^2.2.1
-        version: 2.6.1
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.19
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.19)
-
-  projects/tailwind-2:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss2':
-        specifier: workspace:*
-        version: link:../../packages/plugin-tailwindcss2
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/tailwind-3:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss3':
-        specifier: workspace:*
-        version: link:../../packages/plugin-tailwindcss3
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/tailwind-4:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/tailwind-4-polyfill:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/tailwind-demo:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-postcss':
-        specifier: workspace:*
-        version: link:../../packages/plugin-postcss
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-      autoprefixer:
-        specifier: ^10.4.16
-        version: 10.4.22(postcss@8.5.6)
-      postcss:
-        specifier: ^8.4.33
-        version: 8.5.6
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.19
-
-  projects/tailwindcss-app:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/tailwindcss-host:
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@empjs/plugin-tailwindcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-tailwindcss
-      '@empjs/share':
-        specifier: workspace:*
-        version: link:../../packages/emp-share
-      '@types/react':
-        specifier: ^19
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.17)
-
-  projects/unpkg-demo:
-    dependencies:
-      '@module-federation/runtime':
-        specifier: ^0.0.11
-        version: 0.0.11
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/unpkg-lib:
-    dependencies:
-      '@module-federation/runtime':
-        specifier: ^0.0.11
-        version: 0.0.11
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-react':
-        specifier: workspace:*
-        version: link:../../packages/plugin-react
-      '@types/react':
-        specifier: ^18.2.30
-        version: 18.3.31
-      '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.3.7(@types/react@18.3.31)
-
-  projects/vue-2-base:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      element-ui:
-        specifier: ^2.15.14
-        version: 2.15.14(vue@2.7.16)
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue2':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue2
-
-  projects/vue-2-element:
-    dependencies:
-      element-ui:
-        specifier: ^2.15.6
-        version: 2.15.14(vue@2.7.16)
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue2':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue2
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-
-  projects/vue-2-project:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue2':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue2
-
-  projects/vue-2-stylus:
-    dependencies:
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-stylus':
-        specifier: workspace:*
-        version: link:../../packages/plugin-stylus
-      '@empjs/plugin-vue2':
-        specifier: workspace:*
-        version: link:../../packages/plugin-vue2
-
-  projects/vue-3-base:
-    dependencies:
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      ant-design-vue:
-        specifier: ^4.1.2
-        version: 4.2.6(vue@3.5.38(typescript@5.9.3))
-      vue:
-        specifier: ^3.5.21
-        version: 3.5.38(typescript@5.9.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-      '@vue/tsconfig':
-        specifier: ^0.7.0
-        version: 0.7.0(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
-
-  projects/vue-3-project:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      ant-design-vue:
-        specifier: ^4.1.2
-        version: 4.2.6(vue@3.5.38(typescript@5.9.3))
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.38(typescript@5.9.3)
-      vue-router:
-        specifier: '4'
-        version: 4.6.4(vue@3.5.38(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  projects/vue-3-with-vue-2:
-    dependencies:
-      vue:
-        specifier: ^3.4.20
-        version: 3.5.38(typescript@5.9.3)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-lightningcss':
-        specifier: workspace:^
-        version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  projects/vue3-app:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
-      vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-beta.16(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  projects/vue3-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
-      vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-beta.16(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  projects/vue3-in-vue2:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      vue:
-        specifier: ^2.7.14
-        version: 2.7.16
-      vue-router:
-        specifier: '3'
-        version: 3.6.5(vue@2.7.16)
-      vuex:
-        specifier: '3'
-        version: 3.6.2(vue@2.7.16)
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue2':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue2
-
   website:
     dependencies:
       antd:
@@ -2114,7 +2114,7 @@ importers:
         version: 1.0.3
       rspress:
         specifier: ^1.45.3
-        version: 1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))
+        version: 1.47.1(tslib@2.8.1)(webpack@5.107.2)
       rspress-plugin-sitemap:
         specifier: ^1.1.1
         version: 1.2.1
@@ -12593,11 +12593,11 @@ snapshots:
       '@jsonjoy.com/codegen': 17.67.0(tslib@2.8.1)
       tslib: 2.8.1
 
-  '@mdx-js/loader@2.3.0(webpack@5.107.2(postcss@8.5.6))':
+  '@mdx-js/loader@2.3.0(webpack@5.107.2)':
     dependencies:
       '@mdx-js/mdx': 2.3.0
       source-map: 0.7.6
-      webpack: 5.107.2(postcss@8.5.6)
+      webpack: 5.107.2
     transitivePeerDependencies:
       - supports-color
 
@@ -13403,9 +13403,9 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 2.0.8(@module-federation/runtime-tools@2.6.0)(@swc/helpers@0.5.23)
 
-  '@rspress/core@1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))':
+  '@rspress/core@1.47.1(tslib@2.8.1)(webpack@5.107.2)':
     dependencies:
-      '@mdx-js/loader': 2.3.0(webpack@5.107.2(postcss@8.5.6))
+      '@mdx-js/loader': 2.3.0(webpack@5.107.2)
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/react': 2.3.0(react@18.3.1)
       '@rsbuild/core': 1.3.22
@@ -20529,10 +20529,10 @@ snapshots:
 
   rspress-plugin-sitemap@1.2.1: {}
 
-  rspress@1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6)):
+  rspress@1.47.1(tslib@2.8.1)(webpack@5.107.2):
     dependencies:
       '@rsbuild/core': 1.3.22
-      '@rspress/core': 1.47.1(tslib@2.8.1)(webpack@5.107.2(postcss@8.5.6))
+      '@rspress/core': 1.47.1(tslib@2.8.1)(webpack@5.107.2)
       '@rspress/shared': 1.47.1
       cac: 6.7.14
       chokidar: 3.6.0
@@ -21393,6 +21393,7 @@ snapshots:
       webpack: 5.107.2(postcss@8.5.6)
     optionalDependencies:
       postcss: 8.5.6
+    optional: true
 
   terser-webpack-plugin@5.6.1(webpack@5.107.2):
     dependencies:
@@ -22239,6 +22240,7 @@ snapshots:
       - lightningcss
       - postcss
       - uglify-js
+    optional: true
 
   which-boxed-primitive@1.1.1:
     dependencies:
