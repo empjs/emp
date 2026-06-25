@@ -102,7 +102,7 @@ Add a root script such as `test:apps` or `apps:check` that runs only determinist
 
 Expected: the script is bounded enough for CI and does not publish, serve indefinitely, or depend on local caches.
 
-Result: added `apps:acceptance`, which builds `@empjs/chain`, builds `@empjs/cli`, runs `apps:check`, and then runs the selected path-filtered build set. The chain and CLI builds are required because clean CI runners do not have `packages/cli/dist/index.js` or chain declaration output before app builds.
+Result: added `apps:acceptance`, which builds `@empjs/chain`, runs the existing `emp:build` app-facing package build set, runs `apps:check`, and then runs the selected path-filtered build set. The chain and app-facing package builds are required because clean CI runners do not have package `dist/` outputs before app builds.
 
 - [x] **Step 3: Wire CI**
 
@@ -124,7 +124,7 @@ pnpm apps:acceptance
 
 Expected: all pass locally, then remote CI passes on `v4`.
 
-Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed an explicit CLI build before app builds. Second remote run `28159386049` proved the CLI build needs chain declaration output first. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
+Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` passed. First remote run `28159210423` proved the app job needed an explicit CLI build before app builds. Second remote run `28159386049` proved the CLI build needs chain declaration output first. Third remote run `28159517415` proved selected apps also need app-facing plugin package `dist/` outputs. `projects/vue-3-base` still emits an MF DTS warning and asset-size warning but exits 0.
 
 ### Task 3: Remove Beta-Blocking Build Warnings
 
