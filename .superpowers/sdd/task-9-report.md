@@ -356,10 +356,98 @@ Result: passed.
 
 ### Commit
 
-- Commit hash: reported in final response after the commit is created. A commit cannot reliably embed its own final hash inside tracked content.
+- Commit hash: `ced76145dce9241af0a116b8370fd5273c47fded`
 
 ### Concerns
 
 - `.codex/config.toml` is still absent in this checkout.
 - Existing unrelated worktree changes were preserved and not included in this fix: `.superpowers/sdd/task-4-report.md` and `.superpowers/plans/2026-06-24-agent-first-create-plan.md`.
-- `verifyGeneratedProject` still contains a default-port host-config check outside this follow-up scope, so create runtime normalizes that specific check when dynamic ports are assigned and the generated host config contains the resolved remote URL.
+- Follow-up review found that `verifyGeneratedProject` still contained a default-port host-config check and `create.ts` normalized that failed check at runtime; fixed in the review follow-up below.
+
+## Follow-up Review Fix: Dynamic Port Verifier
+
+### Review Findings Fixed
+
+- Recorded the original Task 9 follow-up commit hash: `ced76145dce9241af0a116b8370fd5273c47fded`.
+- Updated `verifyGeneratedProject(plan)` to validate host remote URLs from `plan.apps` remote `name` and `port` values instead of hard-coding `user@http://localhost:3001/emp.js`.
+- Removed `normalizeDynamicPortChecks()` and its call from `packages/cli/src/script/create.ts`; dynamic port correctness is now verified at the source.
+
+### RED
+
+```bash
+pnpm --filter @empjs/cli test:real:verify
+```
+
+Result: failed as expected before implementation.
+
+- Test files: 1
+- Tests: 4
+- Failed tests: 1
+- Failure: `agent-create verification report > verifies host config against the planned remote name and port`
+- Expected `host-config` to pass for `profile@http://localhost:4301/emp.js`; actual status was `failed`.
+
+### GREEN
+
+```bash
+pnpm --filter @empjs/cli test:real:verify
+```
+
+Result: passed.
+
+- Test files: 1
+- Tests: 4
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 45
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 45
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test
+```
+
+Result: passed.
+
+- Existing `.mjs` package checks passed.
+- The script also ran package build successfully.
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+Result: passed.
+
+- `rslib build --env-mode production`
+- Declaration files generated successfully.
+
+```bash
+git diff --check
+```
+
+Result: passed.
+
+### Commit
+
+- Code fix commit hash: `bf3da4bf6cd96d826bab31dace508ecdd9870b4a`
+
+### Concerns
+
+- `.codex/config.toml` is still absent in this checkout.
+- Existing unrelated worktree changes were preserved and not included in this fix: `.superpowers/sdd/task-4-report.md` and `.superpowers/plans/2026-06-24-agent-first-create-plan.md`.
+- The report entry recording `bf3da4bf6cd96d826bab31dace508ecdd9870b4a` is committed separately because a commit cannot contain its own final hash in a tracked file.
