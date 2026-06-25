@@ -4,6 +4,7 @@ import {generateProject} from 'src/agent-create/generator'
 import {parseCreateIntent} from 'src/agent-create/intent'
 import {createProjectPlan} from 'src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
+import {runCreateCommands} from 'src/agent-create/executor'
 import type {CreateOptions, CreateProjectPlan, EmpCreateReport, GeneratedFile} from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
@@ -207,9 +208,16 @@ export async function runCreateCommand(
     const intent = parseCreateIntent(intentText)
     plan = createProjectPlan(intent, createOptions)
     files = await generateProject(plan, {dryRun: plan.options.dryRun})
+    const commandResults = plan.options.dryRun
+      ? []
+      : await runCreateCommands(plan, {
+          install: plan.options.install,
+          verify: plan.options.verify,
+          dev: plan.options.dev,
+        })
     const checks =
       plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
-    report = buildCreateReport(plan, checks, [])
+    report = buildCreateReport(plan, checks, commandResults)
 
     if (!plan.options.dryRun) {
       await writeCreateReport(report)

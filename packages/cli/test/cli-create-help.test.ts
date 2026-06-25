@@ -89,6 +89,7 @@ describe('emp create CLI', () => {
       expect(result.files).toContain('emp.intent.yaml')
       expect(result.files).toContain('apps/host/emp.config.ts')
       expect(result.files).toContain('apps/user/emp.config.ts')
+      expect(result.report.commands).toEqual([])
       await expect(fs.stat(targetDir)).rejects.toThrow(/ENOENT/)
     })
   })
@@ -104,6 +105,7 @@ describe('emp create CLI', () => {
         targetDir,
         '--skip-install',
         '--skip-dev',
+        '--skip-verify',
         '--json',
       ])
 
@@ -114,7 +116,23 @@ describe('emp create CLI', () => {
 
       expect(result.report.status).toBe('passed')
       expect(reportJson.status).toBe('passed')
-      expect(reportJson.commands).toEqual([])
+      expect(reportJson.commands).toEqual([
+        expect.objectContaining({
+          name: 'install',
+          command: 'pnpm install',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'build',
+          command: 'pnpm build',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'dev',
+          command: 'pnpm dev',
+          status: 'skipped',
+        }),
+      ])
     })
   })
 
@@ -154,6 +172,8 @@ describe('emp create CLI', () => {
         'React 主应用 + Vue 子应用',
         '--dir',
         targetDir,
+        '--skip-install',
+        '--skip-dev',
         '--skip-verify',
         '--json',
       ])
@@ -165,6 +185,23 @@ describe('emp create CLI', () => {
 
       expect(result.report.status).toBe('passed')
       expect(result.report.checks).toEqual([])
+      expect(result.report.commands).toEqual([
+        expect.objectContaining({
+          name: 'install',
+          command: 'pnpm install',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'build',
+          command: 'pnpm build',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'dev',
+          command: 'pnpm dev',
+          status: 'skipped',
+        }),
+      ])
       expect(reportJson.status).toBe('passed')
       expect(reportJson.checks).toEqual([])
     })
