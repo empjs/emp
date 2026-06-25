@@ -233,7 +233,7 @@ Result: `git diff --check` and `pnpm workflow:check` passed for the docs update.
 **Interfaces:**
 - Produces: a beta gate that maintainers can execute before cutting `4.0.0-beta.0`.
 
-- [ ] **Step 1: Consolidate gate commands**
+- [x] **Step 1: Consolidate gate commands**
 
 Use this minimum gate:
 
@@ -249,17 +249,68 @@ pnpm release:publish:dry -- --skip-build
 
 Expected: the beta gate includes both local and remote verification requirements.
 
-- [ ] **Step 2: Add remote requirements**
+Result: beta gate now requires the local command set below. `pnpm release:publish:dry -- --skip-build` was executed locally and produced dry-run publish commands for all 19 internal packages without publishing anything.
+
+- [x] **Step 2: Add remote requirements**
 
 Require a green push CI run and a successful publish workflow dry-run before any beta real publish.
 
 Expected: beta cannot ship from local-only evidence.
 
-- [ ] **Step 3: Add npm verification requirements**
+Result: beta gate now requires a green push CI run with `verify`, `build`, and `apps`, plus a successful `Publish` workflow dispatch with `dry_run=true` before any real beta publish.
+
+- [x] **Step 3: Add npm verification requirements**
 
 Require `npm view` checks for all internal packages and representative sample install checks.
 
 Expected: beta verification proves registry state after publish.
+
+Result: beta gate now requires `npm view` checks for every internal package after publish, alpha/beta dist-tag checks, and representative clean install/build checks for React, Vue, Module Federation, and Tailwind users.
+
+## Beta Readiness Gate
+
+Before cutting `4.0.0-beta.0`, run this gate from a clean `v4` checkout:
+
+```bash
+git diff --check
+pnpm workflow:check
+pnpm test:rules
+pnpm release:check
+pnpm ci:verify
+pnpm empbuild
+pnpm apps:acceptance
+pnpm release:publish:dry -- --skip-build
+```
+
+Required local result:
+
+- `release:check` reports root version `4.0.0-beta.0`, 19 internal packages, and unchanged independent package scope.
+- `empbuild` finishes without beta-blocking package build warnings.
+- `apps:acceptance` finishes; known example-only warnings must be documented or fixed before beta.
+- `release:publish:dry -- --skip-build` only prints dry-run publish commands and does not create npm versions.
+
+Required remote result:
+
+- Push CI on `v4` is green for `verify`, `build`, and `apps`.
+- `Publish` workflow is manually dispatched on `v4` with `dry_run=true` and finishes successfully.
+- The dry-run workflow uses `.github/workflows/publish.yml`; no npm token or publish step may be added to `.github/workflows/ci.yml`.
+
+Required npm verification after a real beta publish:
+
+```bash
+npm view @empjs/cli dist-tags version versions --json
+npm view @empjs/share dist-tags version versions --json
+npm view @empjs/plugin-react dist-tags version versions --json
+```
+
+Then repeat equivalent `npm view <package> dist-tags version versions --json` checks for all 19 internal packages from `pnpm release:check`. Each package must expose `4.0.0-beta.0` under the intended beta dist-tag, while `@empjs/cdn-*` and `@empjs/lib-*` remain on their independent lines.
+
+Representative consumer checks:
+
+- Create or update one clean React app with `@empjs/cli@beta`, `@empjs/plugin-react@beta`, and `@empjs/share@beta`, then run its build.
+- Create or update one clean Vue app with `@empjs/plugin-vue3@beta`, then run its build.
+- Verify one Module Federation host/remote pair with manifest and type output.
+- Verify one Tailwind 4 project build with the beta plugin line.
 
 ## Self-Review
 
