@@ -166,17 +166,37 @@ async function writeFailedCreateReportIfAbsent(
 
   await fs.mkdir(path.dirname(reportPath), {recursive: true})
 
+  const tempPath = `${reportPath}.${process.pid}.${Date.now()}.${Math.random()
+    .toString(36)
+    .slice(2)}.tmp`
+  let tempCreated = false
+
   try {
-    await fs.writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, {
+    await fs.writeFile(tempPath, `${JSON.stringify(report, null, 2)}\n`, {
       encoding: 'utf8',
       flag: 'wx',
     })
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'EEXIST') {
-      return
-    }
+    tempCreated = true
 
-    throw error
+    try {
+      await fs.link(tempPath, reportPath)
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'EEXIST') {
+        return
+      }
+
+      throw error
+    }
+  } finally {
+    if (tempCreated) {
+      try {
+        await fs.unlink(tempPath)
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+          throw error
+        }
+      }
+    }
   }
 }
 

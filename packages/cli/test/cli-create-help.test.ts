@@ -8,7 +8,7 @@ import {beforeAll, describe, expect, test} from '@rstest/core'
 import {buildCreateReport} from '../src/agent-create/report'
 import {parseCreateIntent} from '../src/agent-create/intent'
 import {createProjectPlan} from '../src/agent-create/planner'
-import {applyCreateReportExitStatus} from '../src/script/create'
+import {applyCreateReportExitStatus, runCreateCommand} from '../src/script/create'
 
 const execFile = promisify(execFileCallback)
 const repoRoot = path.resolve(import.meta.dirname, '../../..')
@@ -707,6 +707,68 @@ describe('emp create CLI', () => {
         ]),
       )
       await expect(fs.readFile(reportPath, 'utf8')).resolves.toBe(existingReport)
+    })
+  })
+
+  test('writes fallback failed report through a temporary file before publishing final path', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'fallback-atomic-app')
+      const reportPath = path.join(targetDir, 'emp-report.json')
+      const originalWriteFile = fs.writeFile
+      const previousExitCode = process.exitCode
+      const previousLog = console.log
+      const writeTargets: string[] = []
+      const directFinalWrites: string[] = []
+
+      try {
+        process.exitCode = undefined
+        console.log = () => {}
+        fs.writeFile = (async (...args: Parameters<typeof fs.writeFile>) => {
+          const [file] = args
+          const filePath =
+            typeof file === 'string'
+              ? file
+              : file instanceof URL
+                ? file.pathname
+                : Buffer.isBuffer(file)
+                  ? file.toString()
+                  : undefined
+
+          if (filePath) {
+            const absoluteFilePath = path.resolve(filePath)
+            writeTargets.push(absoluteFilePath)
+
+            if (absoluteFilePath === reportPath) {
+              directFinalWrites.push(absoluteFilePath)
+              throw new Error('direct final report write blocked')
+            }
+          }
+
+          return originalWriteFile(...args)
+        }) as typeof fs.writeFile
+
+        await runCreateCommand('React 主应用', {dir: targetDir, json: true})
+
+        expect(process.exitCode).toBe(1)
+        expect(directFinalWrites).toEqual([])
+        expect(writeTargets).toEqual(
+          expect.arrayContaining([
+            expect.stringMatching(/emp-report\.json\..+\.tmp$/),
+          ]),
+        )
+
+        const reportJson = JSON.parse(await fs.readFile(reportPath, 'utf8'))
+        expect(reportJson.status).toBe('failed')
+        expect(reportJson.checks).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({name: 'create', status: 'failed'}),
+          ]),
+        )
+      } finally {
+        fs.writeFile = originalWriteFile
+        console.log = previousLog
+        process.exitCode = previousExitCode
+      }
     })
   })
 

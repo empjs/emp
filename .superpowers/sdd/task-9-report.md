@@ -638,3 +638,85 @@ Result: passed.
 
 - Built `@empjs/chain`, `@empjs/cli`, lib, plugin, CDN, and bridge packages.
 - Existing CDN `DefinePlugin` `process.env.NODE_ENV` conflict warnings remained non-blocking.
+
+## Final-Fix Review Fix: Atomic Failed Create Report
+
+### Review Finding Fixed
+
+- `writeFailedCreateReportIfAbsent()` no longer writes directly to final `emp-report.json`.
+- Failed fallback reports are now written to a same-directory temporary file, published with `link(temp, emp-report.json)`, and the temporary file is removed afterward.
+- Existing `emp-report.json` is still preserved: `EEXIST` from publishing the final path is treated as "report already exists" and does not overwrite user-owned content.
+
+### RED
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts --testNamePattern 'writes fallback failed report through a temporary file before publishing final path'
+```
+
+Result: failed as expected before implementation.
+
+- Test files: 1
+- Tests: 16
+- Failed tests: 1
+- Failure: the fallback path attempted to write the final `emp-report.json` directly.
+
+### GREEN
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts --testNamePattern 'writes fallback failed report through a temporary file before publishing final path'
+```
+
+Result: passed.
+
+- Test files: 1
+- Tests: 16
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 51
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 51
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test
+```
+
+Result: passed.
+
+- Existing `.mjs` package checks passed.
+- The script also ran package build successfully.
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+Result: passed.
+
+- `rslib build --env-mode production`
+- Declaration files generated successfully.
+
+```bash
+git diff --check
+```
+
+Result: passed.
+
+### Concerns
+
+- `.codex/config.toml` and `.codex/hooks.json` are absent in this checkout.
+- Existing unrelated worktree changes were preserved and are not part of this fix, including `AGENTS.md`, root `package.json`, `.github/*`, `scripts/emp-workflow-check.mjs`, `skills/`, and `.superpowers/plans/2026-06-25-emp-workflow-completion.md`.
