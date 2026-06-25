@@ -95,6 +95,6 @@ emp create "React 主应用 + Vue 子应用" --json
 
 ## 失败处理
 
-- 非空目录：直接失败，避免误写；`emp-report.json` 会记录失败原因。
+- 非空目录：直接失败，避免误写；如果可以新建失败报告，`emp-report.json` 会记录失败原因，已有 `emp-report.json` 不会被覆盖。
 - 命令失败会在 `commands` 中保留 `failed` 状态与退出码、stdout/stderr，便于问题定位。
 - 静态校验失败会在 `checks` 中返回对应项并令报告状态为 `failed`。

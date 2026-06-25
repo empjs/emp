@@ -15,9 +15,10 @@
 
 - 结果：通过。
 
-## Commit
+## Commits
 
 - `2bbee350`（创建 `agent-first-create` 文档与本次报告初始内容，提交信息：`docs(cli): document agent first create flow`）
+- `e1a0d782`（补齐本报告的提交记录，提交信息：`docs(cli): record task 10 commit hash`）
 
 ## Remaining Concerns
 
