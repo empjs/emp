@@ -118,3 +118,29 @@
 ## 边界
 - RED 阶段旧实现忽略注入后短暂启动过 `packages/cli` 下的 `pnpm dev`，已确认 cwd 后终止残留进程。
 - `pnpm-lock.yaml` 曾被 RED 阶段真实 `pnpm install` 触碰，已精确恢复，最终 diff 不包含该文件。
+
+---
+
+# Task 7 Reviewer Test Coverage Fix Report
+
+状态：DONE
+
+## Reviewer Findings 覆盖
+- dev `error` 分支已覆盖：`returns failed dev result when the dev command emits an error` 使用不存在的 dev command 触发 `spawn` 的异步 `error` 事件，断言 `status: failed`、`exitCode: null`、`stderr` 包含可消费错误信息。
+- install passed + build failed 短路已覆盖：`skips dev and does not start dev command when build command fails` 注入 install passed / build failed，断言 calls 为 `['install', 'build']`，dev result 为 skipped；若 `startDevCommandForCreate` 被调用，测试会直接失败。
+- 本轮不需要修改 `packages/cli/src/agent-create/executor.ts`；现有实现已支持 `runCommandForCreate` / `startDevCommandForCreate` 注入和 build failed 短路。
+
+## RED / GREEN
+- 命令：`pnpm --filter @empjs/cli exec rstest run test/agent-create-executor.test.ts`
+- 结果：直接 GREEN，1 个 testFile，7 个 tests。
+- 说明：当前实现已自然满足两个 reviewer 分支；本轮测试补齐会在删除 dev `error` 监听、删除 `stderr` 错误返回、或删除 build failed 后 dev 短路时失败。
+
+## 验证
+- `pnpm --filter @empjs/cli exec rstest run test/agent-create-executor.test.ts`：通过，1 个 testFile，7 个 tests。
+- `pnpm --filter @empjs/cli exec rstest run test/agent-create-executor.test.ts test/cli-create-help.test.ts`：通过，2 个 testFiles，17 个 tests。
+- `pnpm --filter @empjs/cli build`：通过。
+- `pnpm --filter @empjs/cli test:real`：通过，6 个 testFiles，36 个 tests。
+
+## 边界
+- dev `error` 分支通过不存在命令触发，不启动长期 dev 服务。
+- build failed 短路测试只验证 executor 的命令编排，不重复覆盖 CLI report 输出链路。

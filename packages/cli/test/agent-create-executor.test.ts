@@ -122,6 +122,27 @@ describe('agent-create command executor', () => {
     })
   })
 
+  test('returns failed dev result when the dev command emits an error', async () => {
+    await withTempDir(async tmpRoot => {
+      const missingCommand = `emp-agent-create-missing-dev-command-${Date.now()}`
+
+      const result = await startDevCommandForCreate(
+        {rootDir: tmpRoot},
+        {
+          command: missingCommand,
+          args: ['dev'],
+          startupWindowMs: 500,
+        },
+      )
+
+      expect(result.name).toBe('dev')
+      expect(result.command).toBe(`${missingCommand} dev`)
+      expect(result.status).toBe('failed')
+      expect(result.exitCode).toBe(null)
+      expect(result.stderr).toMatch(/ENOENT|not found|spawn/)
+    })
+  })
+
   test('skips build and dev when install command fails', async () => {
     const calls: string[] = []
     const failedInstall: CommandResult = {
@@ -173,6 +194,55 @@ describe('agent-create command executor', () => {
         exitCode: null,
         stdout: '',
         stderr: '由于前置命令 install 失败，已跳过',
+      },
+    ])
+  })
+
+  test('skips dev and does not start dev command when build command fails', async () => {
+    const calls: string[] = []
+    const passedInstall: CommandResult = {
+      name: 'install',
+      command: 'pnpm install',
+      status: 'passed',
+      exitCode: 0,
+      stdout: 'install ok',
+      stderr: '',
+    }
+    const failedBuild: CommandResult = {
+      name: 'build',
+      command: 'pnpm build',
+      status: 'failed',
+      exitCode: 1,
+      stdout: '',
+      stderr: 'build failed',
+    }
+
+    const results = await runCreateCommands(
+      {rootDir: process.cwd()},
+      {install: true, verify: true, dev: true},
+      {
+        runCommandForCreate: async input => {
+          calls.push(input.name)
+          return input.name === 'install' ? passedInstall : failedBuild
+        },
+        startDevCommandForCreate: async () => {
+          calls.push('dev')
+          throw new Error('dev command should not start after build failure')
+        },
+      },
+    )
+
+    expect(calls).toEqual(['install', 'build'])
+    expect(results).toEqual([
+      passedInstall,
+      failedBuild,
+      {
+        name: 'dev',
+        command: 'pnpm dev',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '由于前置命令 build 失败，已跳过',
       },
     ])
   })
