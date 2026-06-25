@@ -3,6 +3,7 @@ import {generateProject} from 'src/agent-create/generator'
 import {parseCreateIntent} from 'src/agent-create/intent'
 import {createProjectPlan} from 'src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
+import type {EmpCreateReport} from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
 export interface CreateCommandOptions {
@@ -12,6 +13,34 @@ export interface CreateCommandOptions {
   skipDev?: boolean
   skipVerify?: boolean
   json?: boolean
+}
+
+export function applyCreateReportExitStatus(
+  report: EmpCreateReport,
+  reportPath: string,
+  json: boolean,
+): void {
+  if (report.status !== 'failed') {
+    return
+  }
+
+  process.exitCode = 1
+
+  if (json) {
+    return
+  }
+
+  console.log('EMP 新项目创建失败')
+  console.log(`目录: ${report.rootDir}`)
+  console.log(`报告: ${reportPath}`)
+
+  for (const check of report.checks.filter(item => item.status === 'failed')) {
+    console.log(`失败检查: ${check.name} - ${check.message}`)
+  }
+
+  for (const command of report.commands.filter(item => item.status === 'failed')) {
+    console.log(`失败命令: ${command.name} - ${command.command}`)
+  }
 }
 
 export async function runCreateCommand(
@@ -29,16 +58,17 @@ export async function runCreateCommand(
     json: Boolean(options.json),
   })
 
-  const files = await generateProject(plan, {dryRun: Boolean(options.dryRun)})
-  const checks = options.skipVerify || options.dryRun ? [] : await verifyGeneratedProject(plan)
+  const files = await generateProject(plan, {dryRun: plan.options.dryRun})
+  const checks =
+    plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
   const report = buildCreateReport(plan, checks, [])
   const reportPath = path.join(plan.rootDir, 'emp-report.json')
 
-  if (!options.dryRun) {
+  if (!plan.options.dryRun) {
     await writeCreateReport(report)
   }
 
-  if (options.json) {
+  if (plan.options.json) {
     console.log(
       JSON.stringify(
         {
@@ -51,13 +81,19 @@ export async function runCreateCommand(
         2,
       ),
     )
+    applyCreateReportExitStatus(report, reportPath, true)
     return
   }
 
-  console.log(options.dryRun ? 'EMP create dry-run 完成' : 'EMP 新项目创建完成')
+  applyCreateReportExitStatus(report, reportPath, false)
+  if (report.status === 'failed') {
+    return
+  }
+
+  console.log(plan.options.dryRun ? 'EMP create dry-run 完成' : 'EMP 新项目创建完成')
   console.log(`目录: ${plan.rootDir}`)
   console.log(`文件数: ${files.length}`)
-  if (!options.dryRun) {
+  if (!plan.options.dryRun) {
     console.log(`报告: ${reportPath}`)
   }
 }

@@ -16,11 +16,13 @@ export function createProjectPlan(
 
   const rootDir = path.resolve(options.targetDir)
   const rootName = path.basename(rootDir)
+  const planOptions: CreateOptions = {...options}
   const [remote] = intent.remotes
   const planWithoutFiles: Omit<CreateProjectPlan, 'files'> = {
     rootName,
     rootDir,
     intent,
+    options: planOptions,
     packageManager: 'pnpm',
     apps: [
       {

@@ -33,6 +33,7 @@ export interface CreateProjectPlan {
   rootName: string
   rootDir: string
   intent: CreateIntent
+  options: CreateOptions
   packageManager: 'pnpm'
   apps: CreateAppPlan[]
   files: GeneratedFile[]

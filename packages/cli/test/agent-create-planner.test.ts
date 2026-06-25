@@ -17,10 +17,12 @@ describe('createProjectPlan', () => {
   test('plans React host and Vue user remote from parsed intent', () => {
     const intent = parseCreateIntent('React 主应用 + Vue 子应用')
     const targetDir = path.join(process.cwd(), '.tmp/agent-create-demo')
-    const plan = createProjectPlan(intent, createOptions(targetDir))
+    const options = createOptions(targetDir)
+    const plan = createProjectPlan(intent, options)
 
     expect(plan.rootName).toBe('agent-create-demo')
     expect(plan.rootDir).toBe(path.resolve(targetDir))
+    expect(plan.options).toEqual(options)
     expect(plan.packageManager).toBe('pnpm')
     expect(plan.apps).toEqual([
       {name: 'host', role: 'host', framework: 'react', port: 3000},
