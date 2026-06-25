@@ -28,9 +28,19 @@ export function buildCreateReport(
 }
 
 export async function writeCreateReport(report: EmpCreateReport): Promise<void> {
-  await fs.writeFile(
-    path.join(report.rootDir, 'emp-report.json'),
-    `${JSON.stringify(report, null, 2)}\n`,
-    'utf8',
+  const reportPath = path.join(report.rootDir, 'emp-report.json')
+  const tempPath = path.join(
+    report.rootDir,
+    `emp-report.json.${process.pid}.${Date.now()}.tmp`,
   )
+
+  await fs.mkdir(report.rootDir, {recursive: true})
+
+  try {
+    await fs.writeFile(tempPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
+    await fs.rename(tempPath, reportPath)
+  } catch (error) {
+    await fs.rm(tempPath, {force: true}).catch(() => {})
+    throw error
+  }
 }

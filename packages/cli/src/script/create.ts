@@ -6,10 +6,12 @@ import {assignAvailableCreatePorts, createProjectPlan} from 'src/agent-create/pl
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
 import {runCreateCommands} from 'src/agent-create/executor'
 import type {
+  CommandResult,
   CreateOptions,
   CreateProjectPlan,
   EmpCreateReport,
   GeneratedFile,
+  VerificationCheck,
 } from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
@@ -58,25 +60,22 @@ function formatCreateError(error: unknown): string {
   return String(error)
 }
 
-function buildFailedCreateReport(plan: CreateProjectPlan, error: unknown): EmpCreateReport {
+function failedCheck(name: string, error: unknown): VerificationCheck {
   return {
+    name,
     status: 'failed',
-    rootDir: plan.rootDir,
-    apps: plan.apps.map(app => ({
-      name: app.name,
-      role: app.role,
-      framework: app.framework,
-      url: `http://localhost:${app.port}`,
-    })),
-    checks: [
-      {
-        name: 'create',
-        status: 'failed',
-        message: formatCreateError(error),
-      },
-    ],
-    commands: [],
+    message: formatCreateError(error),
   }
+}
+
+function buildFailedCreateReport(
+  plan: CreateProjectPlan,
+  error: unknown,
+  checks: VerificationCheck[] = [],
+  commands: CommandResult[] = [],
+  checkName = 'create',
+): EmpCreateReport {
+  return buildCreateReport(plan, [...checks, failedCheck(checkName, error)], commands)
 }
 
 function resolveCreateOptions(options: CreateCommandOptions): CreateOptions {
@@ -128,15 +127,17 @@ function appendReportWriteFailure(
   report: EmpCreateReport,
   reportPath: string,
   error: unknown,
+  action = '写入失败报告失败',
 ): EmpCreateReport {
   return {
     ...report,
+    status: 'failed',
     checks: [
       ...report.checks,
       {
         name: 'report',
         status: 'failed',
-        message: `写入失败报告失败: ${reportPath} - ${formatCreateError(error)}`,
+        message: `${action}: ${reportPath} - ${formatCreateError(error)}`,
       },
     ],
   }
@@ -207,30 +208,42 @@ export async function runCreateCommand(
   let plan = buildFallbackCreatePlan(intentText, createOptions)
   const reportPath = path.join(plan.rootDir, 'emp-report.json')
   let files: GeneratedFile[] = []
+  let commandResults: CommandResult[] = []
+  let checks: VerificationCheck[] = []
   let report: EmpCreateReport
+  let failureCheckName = 'create'
 
   try {
     const intent = parseCreateIntent(intentText)
     plan = await assignAvailableCreatePorts(createProjectPlan(intent, createOptions))
     files = await generateProject(plan, {dryRun: plan.options.dryRun})
-    const commandResults = plan.options.dryRun
+    failureCheckName = 'commands'
+    commandResults = plan.options.dryRun
       ? []
       : await runCreateCommands(plan, {
           install: plan.options.install,
           verify: plan.options.verify,
           dev: plan.options.dev,
         })
-    const checks =
-      plan.options.verify && !plan.options.dryRun
-        ? await verifyGeneratedProject(plan)
-        : []
+    failureCheckName = 'verify'
+    checks =
+      plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
     report = buildCreateReport(plan, checks, commandResults)
 
     if (!plan.options.dryRun) {
-      await writeCreateReport(report)
+      try {
+        await writeCreateReport(report)
+      } catch (writeError) {
+        report = appendReportWriteFailure(
+          report,
+          reportPath,
+          writeError,
+          '写入创建报告失败',
+        )
+      }
     }
   } catch (error) {
-    report = buildFailedCreateReport(plan, error)
+    report = buildFailedCreateReport(plan, error, checks, commandResults, failureCheckName)
 
     if (!plan.options.dryRun) {
       try {

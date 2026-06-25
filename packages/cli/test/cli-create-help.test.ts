@@ -83,21 +83,58 @@ function killDevProcess(stdout: string): void {
   }
 }
 
-async function createFakePnpmBin(tmpRoot: string): Promise<string> {
+interface FakePnpmOptions {
+  buildScript?: string
+}
+
+async function createFakePnpmBin(
+  tmpRoot: string,
+  options: FakePnpmOptions = {},
+): Promise<string> {
   const binDir = path.join(tmpRoot, 'bin')
   const pnpmPath = path.join(binDir, 'pnpm')
   const script = `#!/usr/bin/env node
+const fs = require('node:fs')
+const http = require('node:http')
+const path = require('node:path')
 const command = process.argv[2]
 if (command === 'install') {
   process.stdout.write('fake install ok\\n')
   process.exit(0)
 }
 if (command === 'build') {
+  ${options.buildScript ?? ''}
   process.stdout.write('fake build ok\\n')
   process.exit(0)
 }
 if (command === 'dev') {
-  process.stdout.write('fake dev ready\\n')
+  const intentYaml = fs.readFileSync(path.join(process.cwd(), 'emp.intent.yaml'), 'utf8')
+  const hostMatch = /role: host[\\s\\S]*?port: (\\d+)/.exec(intentYaml)
+  const remoteMatch = /role: remote[\\s\\S]*?port: (\\d+)/.exec(intentYaml)
+  const hostPort = Number(hostMatch && hostMatch[1])
+  const remotePort = Number(remoteMatch && remoteMatch[1])
+  if (!hostPort || !remotePort) {
+    process.stderr.write('fake dev could not read planned ports\\n')
+    process.exit(1)
+  }
+  http
+    .createServer((request, response) => {
+      response.writeHead(200, {'content-type': 'text/html'})
+      response.end('<main>fake host ready</main>')
+    })
+    .listen(hostPort, '127.0.0.1')
+  http
+    .createServer((request, response) => {
+      if (request.url && request.url.startsWith('/emp.js')) {
+        response.writeHead(200, {'content-type': 'application/javascript'})
+        response.end('globalThis.__EMP_FAKE_REMOTE__ = true;')
+        return
+      }
+      response.writeHead(404, {'content-type': 'text/plain'})
+      response.end('not found')
+    })
+    .listen(remotePort, '127.0.0.1')
+  process.stdout.write('fake dev ready host=' + hostPort + ' remote=' + remotePort + '\\n')
   setInterval(() => {}, 1000)
 } else {
   process.stderr.write('unsupported fake pnpm command: ' + process.argv.slice(2).join(' ') + '\\n')
@@ -169,6 +206,16 @@ describe('emp create CLI', () => {
     expect(stdout).toMatch(/--skip-dev/)
     expect(stdout).toMatch(/--skip-verify/)
     expect(stdout).toMatch(/--json/)
+  })
+
+  test('documents passed status as no failed executed steps rather than all steps executed', async () => {
+    const docs = await fs.readFile(
+      path.join(repoRoot, 'packages/cli/docs/agent-first-create.md'),
+      'utf8',
+    )
+
+    expect(docs).toContain('没有失败的已执行步骤')
+    expect(docs).toContain('不代表对应检查或命令已经执行通过')
   })
 
   test('prints dry-run JSON with planned files without creating targetDir', async () => {
@@ -333,6 +380,126 @@ describe('emp create CLI', () => {
       }
     })
   }, 30_000)
+
+  test('preserves command results when static verification throws after commands ran', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'verify-throws-app')
+      const fakePnpmBin = await createFakePnpmBin(tmpRoot, {
+        buildScript:
+          "fs.rmSync(path.join(process.cwd(), 'pnpm-workspace.yaml'), {force: true}); fs.mkdirSync(path.join(process.cwd(), 'pnpm-workspace.yaml'));",
+      })
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli(
+          [
+            'create',
+            'React 主应用 + Vue 子应用',
+            '--dir',
+            targetDir,
+            '--skip-dev',
+            '--json',
+          ],
+          {
+            env: {
+              ...process.env,
+              PATH: `${fakePnpmBin}${path.delimiter}${process.env.PATH ?? ''}`,
+            },
+            timeout: 10_000,
+          },
+        )
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      const reportJson = JSON.parse(
+        await fs.readFile(path.join(targetDir, 'emp-report.json'), 'utf8'),
+      )
+
+      expect(result.report.status).toBe('failed')
+      expect(result.report.commands).toEqual([
+        expect.objectContaining({name: 'install', command: 'pnpm install', status: 'passed'}),
+        expect.objectContaining({name: 'build', command: 'pnpm build', status: 'passed'}),
+        expect.objectContaining({name: 'dev', command: 'pnpm dev', status: 'skipped'}),
+      ])
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            name: 'verify',
+            status: 'failed',
+            message: expect.stringMatching(/EISDIR|illegal operation|directory/i),
+          }),
+        ]),
+      )
+      expect(reportJson.commands).toEqual(result.report.commands)
+      expect(reportJson.checks).toEqual(result.report.checks)
+    })
+  })
+
+  test('preserves checks and command results when report writing fails after verification', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'report-write-fails-app')
+      const fakePnpmBin = await createFakePnpmBin(tmpRoot, {
+        buildScript: "fs.mkdirSync(path.join(process.cwd(), 'emp-report.json'));",
+      })
+      const reportPath = path.join(targetDir, 'emp-report.json')
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli(
+          [
+            'create',
+            'React 主应用 + Vue 子应用',
+            '--dir',
+            targetDir,
+            '--skip-dev',
+            '--json',
+          ],
+          {
+            env: {
+              ...process.env,
+              PATH: `${fakePnpmBin}${path.delimiter}${process.env.PATH ?? ''}`,
+            },
+            timeout: 10_000,
+          },
+        )
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      const reportPathStat = await fs.stat(reportPath)
+
+      expect(reportPathStat.isDirectory()).toBe(true)
+      expect(result.report.status).toBe('failed')
+      expect(result.report.commands).toEqual([
+        expect.objectContaining({name: 'install', command: 'pnpm install', status: 'passed'}),
+        expect.objectContaining({name: 'build', command: 'pnpm build', status: 'passed'}),
+        expect.objectContaining({name: 'dev', command: 'pnpm dev', status: 'skipped'}),
+      ])
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({name: 'root-package', status: 'passed'}),
+          expect.objectContaining({name: 'workspace', status: 'passed'}),
+          expect.objectContaining({name: 'intent', status: 'passed'}),
+          expect.objectContaining({name: 'host-config', status: 'passed'}),
+          expect.objectContaining({name: 'remote-config', status: 'passed'}),
+          expect.objectContaining({
+            name: 'report',
+            status: 'failed',
+            message: expect.stringContaining('写入创建报告失败'),
+          }),
+        ]),
+      )
+    })
+  })
 
   test('marks process failed and prints failure summary for failed reports', () => {
     const previousExitCode = process.exitCode

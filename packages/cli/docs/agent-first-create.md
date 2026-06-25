@@ -91,7 +91,7 @@ emp create "React 主应用 + Vue 子应用" --json
     - `remote-config`（Remote 暴露 `./App`）
 - `commands`：命令执行结果（`install` / `build` / `dev`）
 
-整体 `status` 为 `passed` 表示静态校验和命令全部通过；出现失败时为 `failed`。
+整体 `status` 为 `passed` 表示“没有失败的已执行步骤”；`skipped` 命令和空 `checks` / `commands` 不代表对应检查或命令已经执行通过。出现失败时为 `failed`，并在对应 `checks` 或 `commands` 项中保留原因。
 
 ## 失败处理
 

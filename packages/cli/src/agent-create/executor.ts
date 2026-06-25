@@ -1,6 +1,8 @@
 import {execFile as execFileCallback, spawn} from 'node:child_process'
 import type {ChildProcess} from 'node:child_process'
 import fs from 'node:fs'
+import http from 'node:http'
+import https from 'node:https'
 import os from 'node:os'
 import path from 'node:path'
 import {promisify} from 'node:util'
@@ -9,6 +11,9 @@ import type {CommandResult, CreateOptions, CreateProjectPlan} from './types'
 const execFile = promisify(execFileCallback)
 const commandBufferLimit = 1024 * 1024 * 10
 const devLogBufferLimit = 1024 * 128
+const defaultDevStartupWindowMs = 1000
+const defaultDevReadinessTimeoutMs = 10_000
+const defaultDevReadinessPollIntervalMs = 250
 
 interface CreateCommandInput {
   name: string
@@ -22,12 +27,16 @@ interface StartDevCommandOptions {
   command?: string
   args?: string[]
   startupWindowMs?: number
+  readinessTimeoutMs?: number
+  readinessPollIntervalMs?: number
 }
+
+type CreateDevPlan = Pick<CreateProjectPlan, 'rootDir'> & Partial<Pick<CreateProjectPlan, 'apps'>>
 
 interface CreateCommandRuntime {
   runCommandForCreate?: (input: CreateCommandInput) => Promise<CommandResult>
   startDevCommandForCreate?: (
-    plan: Pick<CreateProjectPlan, 'rootDir'>,
+    plan: CreateDevPlan,
     options?: StartDevCommandOptions,
   ) => Promise<CommandResult>
   devCommand?: StartDevCommandOptions
@@ -83,6 +92,120 @@ function appendDevMessage(output: string, message: string): string {
   return output ? `${output.trimEnd()}\n${message}` : message
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function plannedDevProbeUrls(plan: CreateDevPlan): string[] {
+  const apps = plan.apps ?? []
+  const host = apps.find(app => app.role === 'host')
+  const remotes = apps.filter(app => app.role === 'remote')
+  const urls: string[] = []
+
+  if (host) {
+    urls.push(`http://localhost:${host.port}/`)
+  }
+
+  for (const remote of remotes) {
+    urls.push(`http://localhost:${remote.port}/emp.js`)
+  }
+
+  return urls
+}
+
+function probeHttpUrl(url: string, timeoutMs: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url)
+    const client = parsedUrl.protocol === 'https:' ? https : http
+    const request = client.get(parsedUrl, response => {
+      const statusCode = response.statusCode ?? 0
+      response.resume()
+      response.once('end', () => {
+        if (statusCode >= 200 && statusCode < 400) {
+          resolve()
+          return
+        }
+
+        reject(new Error(`HTTP ${statusCode}`))
+      })
+    })
+
+    request.setTimeout(timeoutMs, () => {
+      request.destroy(new Error(`timeout after ${timeoutMs}ms`))
+    })
+    request.once('error', reject)
+  })
+}
+
+async function probeDevUrls(urls: string[], requestTimeoutMs: number): Promise<string[]> {
+  const results = await Promise.all(
+    urls.map(async url => {
+      try {
+        await probeHttpUrl(url, requestTimeoutMs)
+        return null
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        return `${url} (${message})`
+      }
+    }),
+  )
+
+  return results.filter((result): result is string => Boolean(result))
+}
+
+async function waitForDevReadiness(
+  plan: CreateDevPlan,
+  options: StartDevCommandOptions,
+): Promise<{ok: true; message: string} | {ok: false; message: string}> {
+  const urls = plannedDevProbeUrls(plan)
+  const timeoutMs = options.readinessTimeoutMs ?? defaultDevReadinessTimeoutMs
+  const pollIntervalMs = options.readinessPollIntervalMs ?? defaultDevReadinessPollIntervalMs
+  const requestTimeoutMs = Math.min(1000, Math.max(50, pollIntervalMs))
+
+  if (urls.length === 0) {
+    return {
+      ok: false,
+      message: 'readiness probe failed: create plan does not include host/remote app URLs',
+    }
+  }
+
+  const deadline = Date.now() + timeoutMs
+  let failures = urls.map(url => `${url} (not probed)`)
+
+  while (Date.now() <= deadline) {
+    failures = await probeDevUrls(urls, requestTimeoutMs)
+    if (failures.length === 0) {
+      return {ok: true, message: `readiness probes passed: ${urls.join(', ')}`}
+    }
+
+    const remainingMs = deadline - Date.now()
+    if (remainingMs <= 0) {
+      break
+    }
+
+    await delay(Math.min(pollIntervalMs, remainingMs))
+  }
+
+  return {
+    ok: false,
+    message: `readiness probe failed after ${timeoutMs}ms: ${failures.join('; ')}`,
+  }
+}
+
+function terminateDevProcess(child: ChildProcess): void {
+  if (!child.pid) {
+    return
+  }
+
+  try {
+    process.kill(-child.pid, 'SIGTERM')
+  } catch {
+    try {
+      process.kill(child.pid, 'SIGTERM')
+    } catch {}
+  }
+}
+
 export async function runCommandForCreate(input: CreateCommandInput): Promise<CommandResult> {
   const command = commandText(input.command, input.args)
 
@@ -116,12 +239,12 @@ export async function runCommandForCreate(input: CreateCommandInput): Promise<Co
 }
 
 export async function startDevCommandForCreate(
-  plan: Pick<CreateProjectPlan, 'rootDir'>,
+  plan: CreateDevPlan,
   options: StartDevCommandOptions = {},
 ): Promise<CommandResult> {
   const devCommand = options.command ?? 'pnpm'
   const devArgs = options.args ?? ['dev']
-  const startupWindowMs = options.startupWindowMs ?? 1000
+  const startupWindowMs = options.startupWindowMs ?? defaultDevStartupWindowMs
   const command = commandText(devCommand, devArgs)
   const logDir = fs.mkdtempSync(path.join(os.tmpdir(), 'emp-create-dev-'))
   const stdoutPath = path.join(logDir, 'stdout.log')
@@ -199,21 +322,56 @@ export async function startDevCommandForCreate(
     child.once('exit', onExit)
 
     timer = setTimeout(() => {
-      settle({
-        name: 'dev',
-        command,
-        status: 'passed',
-        exitCode: null,
-        stdout: appendDevMessage(readDevLog(stdoutPath), `pid=${child.pid}`),
-        stderr: readDevLog(stderrPath),
-      })
-      child.unref()
+      void (async () => {
+        try {
+          const readiness = await waitForDevReadiness(plan, options)
+          if (!readiness.ok) {
+            if (!settled) {
+              terminateDevProcess(child)
+            }
+            settle({
+              name: 'dev',
+              command,
+              status: 'failed',
+              exitCode: null,
+              stdout: appendDevMessage(readDevLog(stdoutPath), `pid=${child.pid}`),
+              stderr: appendDevMessage(readDevLog(stderrPath), readiness.message),
+            })
+            return
+          }
+
+          child.unref()
+          settle({
+            name: 'dev',
+            command,
+            status: 'passed',
+            exitCode: null,
+            stdout: appendDevMessage(readDevLog(stdoutPath), `pid=${child.pid}`),
+            stderr: readDevLog(stderrPath),
+          })
+        } catch (error) {
+          if (!settled) {
+            terminateDevProcess(child)
+          }
+          settle({
+            name: 'dev',
+            command,
+            status: 'failed',
+            exitCode: null,
+            stdout: appendDevMessage(readDevLog(stdoutPath), `pid=${child.pid}`),
+            stderr: appendDevMessage(
+              readDevLog(stderrPath),
+              error instanceof Error ? error.message : String(error),
+            ),
+          })
+        }
+      })()
     }, startupWindowMs)
   })
 }
 
 export async function runCreateCommands(
-  plan: Pick<CreateProjectPlan, 'rootDir'>,
+  plan: Pick<CreateProjectPlan, 'rootDir' | 'apps'>,
   options: Pick<CreateOptions, 'install' | 'verify' | 'dev'>,
   runtime: CreateCommandRuntime = {},
 ): Promise<CommandResult[]> {

@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, test} from '@rstest/core'
@@ -28,6 +29,65 @@ async function withTempDir<T>(callback: (tmpRoot: string) => Promise<T>): Promis
   } finally {
     await fs.rm(tmpRoot, {recursive: true, force: true})
   }
+}
+
+async function getAvailablePort(): Promise<number> {
+  const server = net.createServer()
+
+  await new Promise<void>((resolve, reject) => {
+    server.once('error', reject)
+    server.listen(0, '127.0.0.1', () => {
+      server.off('error', reject)
+      resolve()
+    })
+  })
+
+  const address = server.address()
+  const port = typeof address === 'object' && address ? address.port : 0
+
+  await new Promise<void>(resolve => {
+    server.close(() => resolve())
+  })
+
+  return port
+}
+
+function pidFromOutput(output: string): number | undefined {
+  const match = /pid=(\d+)/.exec(output)
+  return match ? Number(match[1]) : undefined
+}
+
+function isPidRunning(pid: number): boolean {
+  try {
+    process.kill(pid, 0)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function terminatePid(pid: number): void {
+  try {
+    process.kill(-pid, 'SIGTERM')
+  } catch {
+    try {
+      process.kill(pid, 'SIGTERM')
+    } catch {}
+  }
+}
+
+async function waitForPidExit(pid: number, timeoutMs = 1000): Promise<boolean> {
+  const deadline = Date.now() + timeoutMs
+
+  while (Date.now() < deadline) {
+    if (!isPidRunning(pid)) {
+      return true
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 25))
+  }
+
+  return !isPidRunning(pid)
 }
 
 describe('agent-create command executor', () => {
@@ -162,6 +222,47 @@ describe('agent-create command executor', () => {
       expect(result.status).toBe('failed')
       expect(result.exitCode).toBe(null)
       expect(result.stderr).toMatch(/ENOENT|not found|spawn/)
+    })
+  })
+
+  test('fails dev readiness and terminates a long-running process that does not listen on planned ports', async () => {
+    await withTempDir(async tmpRoot => {
+      const hostPort = await getAvailablePort()
+      const remotePort = await getAvailablePort()
+      let pid: number | undefined
+
+      try {
+        const result = await startDevCommandForCreate(
+          {
+            rootDir: tmpRoot,
+            apps: [
+              {name: 'host', role: 'host', framework: 'react', port: hostPort},
+              {name: 'user', role: 'remote', framework: 'vue', port: remotePort},
+            ],
+          },
+          {
+            command: process.execPath,
+            args: ['-e', "process.stdout.write('fake dev alive\\n'); setInterval(() => {}, 1000)"],
+            startupWindowMs: 20,
+            readinessTimeoutMs: 120,
+            readinessPollIntervalMs: 20,
+          },
+        )
+
+        pid = pidFromOutput(result.stdout)
+
+        expect(result.status).toBe('failed')
+        expect(result.stdout).toContain('fake dev alive')
+        expect(result.stderr).toMatch(/readiness probe failed/)
+        expect(result.stderr).toContain(`http://localhost:${hostPort}/`)
+        expect(result.stderr).toContain(`http://localhost:${remotePort}/emp.js`)
+        expect(pid).toBeDefined()
+        expect(await waitForPidExit(pid as number)).toBe(true)
+      } finally {
+        if (pid && isPidRunning(pid)) {
+          terminatePid(pid)
+        }
+      }
     })
   })
 

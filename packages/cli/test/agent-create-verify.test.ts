@@ -65,6 +65,50 @@ describe('agent-create verification report', () => {
     })
   })
 
+  test('writes emp-report.json through a temporary file before rename', async () => {
+    await withGeneratedProject(async plan => {
+      const checks = await verifyGeneratedProject(plan)
+      const report = buildCreateReport(plan, checks, [])
+      const patchedFs = fs as unknown as {
+        writeFile: typeof fs.writeFile
+        rename: typeof fs.rename
+      }
+      const originalWriteFile = patchedFs.writeFile
+      const originalRename = patchedFs.rename
+      const writeTargets: string[] = []
+      const renameTargets: Array<[string, string]> = []
+
+      patchedFs.writeFile = (async (...args: Parameters<typeof fs.writeFile>) => {
+        writeTargets.push(String(args[0]))
+        return originalWriteFile(...args)
+      }) as typeof fs.writeFile
+      patchedFs.rename = (async (...args: Parameters<typeof fs.rename>) => {
+        renameTargets.push([String(args[0]), String(args[1])])
+        return originalRename(...args)
+      }) as typeof fs.rename
+
+      try {
+        await writeCreateReport(report)
+      } finally {
+        patchedFs.writeFile = originalWriteFile
+        patchedFs.rename = originalRename
+      }
+
+      expect(writeTargets.some(filePath => /emp-report\.json\.\d+\.\d+\.tmp$/.test(filePath))).toBe(
+        true,
+      )
+      expect(
+        renameTargets.some(
+          ([from, to]) =>
+            /emp-report\.json\.\d+\.\d+\.tmp$/.test(from) && to.endsWith('emp-report.json'),
+        ),
+      ).toBe(true)
+      await expect(fs.readFile(path.join(plan.rootDir, 'emp-report.json'), 'utf8')).resolves.toMatch(
+        /"status": "passed"/,
+      )
+    })
+  })
+
   test('verifies host config against the planned remote name and port', async () => {
     const tmpRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'emp-agent-verify-'))
     try {

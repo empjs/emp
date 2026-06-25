@@ -451,3 +451,190 @@ Result: passed.
 - `.codex/config.toml` is still absent in this checkout.
 - Existing unrelated worktree changes were preserved and not included in this fix: `.superpowers/sdd/task-4-report.md` and `.superpowers/plans/2026-06-24-agent-first-create-plan.md`.
 - The report entry recording `bf3da4bf6cd96d826bab31dace508ecdd9870b4a` is committed separately because a commit cannot contain its own final hash in a tracked file.
+
+## Final Whole-Branch Review Fix: Dev Readiness and Report Preservation
+
+### Review Findings Fixed
+
+- `dev` no longer passes only because the process survives the startup window. After startup, `startDevCommandForCreate()` probes the planned host URL `http://localhost:<hostPort>/` and each remote URL `http://localhost:<remotePort>/emp.js`.
+- If readiness probes fail, the detached dev process group is terminated and the `dev` command result is marked `failed` with captured stdout/stderr.
+- `runCreateCommand()` now preserves collected `commandResults` and `checks` when static verify or report writing fails after install/build/dev have run.
+- `writeCreateReport()` now writes through `emp-report.json.<pid>.<timestamp>.tmp` and renames to `emp-report.json`.
+- `agent-first-create.md` now clarifies that overall `passed` means there are no failed executed steps; skipped or absent steps were not executed.
+
+### RED
+
+```bash
+pnpm --filter @empjs/cli test:real:executor
+```
+
+Result: failed as expected before implementation.
+
+- Test files: 1
+- Tests: 10
+- Failed tests: 1
+- Failure: `fails dev readiness and terminates a long-running process that does not listen on planned ports`
+- Actual old behavior: `dev` returned `passed` for a long-running process that did not listen on host/remote ports.
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: failed as expected before implementation.
+
+- Test files: 7
+- Tests: 50
+- Failed tests: 5
+- Failures:
+  - non-listening dev process was marked `passed`
+  - atomic report write contract did not use temp file + rename
+  - docs lacked the clarified `passed` status contract
+  - verify exception after commands lost collected command results
+  - report write exception after verification lost collected checks and command results
+
+```bash
+pnpm --filter @empjs/cli test:real:verify
+```
+
+Result: failed as expected before implementation.
+
+- Test files: 1
+- Tests: 5
+- Failed tests: 1
+- Failure: `writes emp-report.json through a temporary file before rename`
+
+### GREEN
+
+```bash
+pnpm --filter @empjs/cli test:real:executor
+```
+
+Result: passed.
+
+- Test files: 1
+- Tests: 10
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real:verify
+```
+
+Result: passed.
+
+- Test files: 1
+- Tests: 5
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 50
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 50
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test
+```
+
+Result: passed.
+
+- Existing `.mjs` checks passed.
+- The script also ran package build successfully.
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+Result: passed.
+
+- `rslib build --env-mode production`
+- Declaration files generated successfully.
+
+### Live CLI Checks
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dir "$TMP/dry-run-app" --dry-run --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- Commands: `0`
+- Target directory was not created.
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dir "$TMP/static-app" --skip-install --skip-dev --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- Static checks: 5
+- Commands: `install:skipped`, `build:skipped`, `dev:skipped`
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dir "$TMP/live-app" --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- Commands: `install:passed`, `build:passed`, `dev:passed`
+- App ports in this run: host `3001`, remote `3003`
+- Reported dev pid: `95199`; killed via process group and confirmed terminated.
+
+### Change Summary
+
+- `packages/cli/src/agent-create/executor.ts`
+  - Added dev readiness probes for planned host and remote URLs.
+  - Added readiness timeout/poll options for fast regression coverage.
+  - Added process-group termination when readiness fails.
+- `packages/cli/src/agent-create/report.ts`
+  - Changed report writes to temp-file + rename.
+- `packages/cli/src/script/create.ts`
+  - Preserves command results and checks across verify/report exceptions.
+  - Appends `verify` or `report` failed checks instead of rebuilding empty failed reports.
+- `packages/cli/test/*`
+  - Added regressions for non-listening dev, atomic report writes, verify exception preservation, report write preservation, and status contract docs.
+- `packages/cli/docs/agent-first-create.md`
+  - Clarified `passed` status semantics for skipped and dry-run flows.
+
+### Concerns
+
+- `.codex/config.toml` and `.codex/hooks.json` are absent in this checkout.
+- `pnpm empbuild` passed with existing CDN package `DefinePlugin` `process.env.NODE_ENV` conflict warnings; the command exited 0.
+
+### Additional Root Verification
+
+```bash
+pnpm ci:verify
+```
+
+Result: passed.
+
+- Covered CLI legacy tests, CLI `test:real` 50/50, package tests, release rules, release check, and Rslib preset check.
+
+```bash
+pnpm empbuild
+```
+
+Result: passed.
+
+- Built `@empjs/chain`, `@empjs/cli`, lib, plugin, CDN, and bridge packages.
+- Existing CDN `DefinePlugin` `process.env.NODE_ENV` conflict warnings remained non-blocking.
