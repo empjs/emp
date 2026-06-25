@@ -104,6 +104,15 @@ if (exists('package.json')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
   const appsAcceptance = pkg.scripts?.['apps:acceptance'] ?? ''
+  if (!appsAcceptance.includes('pnpm emp:prod')) {
+    failures.push('package.json apps:acceptance must build @empjs/cli before app builds')
+  }
+  if (
+    appsAcceptance.includes('--filter ./apps/rspack2-modern-module') &&
+    appsAcceptance.indexOf('pnpm emp:prod') > appsAcceptance.indexOf('--filter ./apps/rspack2-modern-module')
+  ) {
+    failures.push('package.json apps:acceptance builds @empjs/cli after app builds')
+  }
   if (!appsAcceptance.includes('pnpm apps:check')) {
     failures.push('package.json apps:acceptance must run pnpm apps:check before app builds')
   }
