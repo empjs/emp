@@ -115,6 +115,20 @@ if (exists('package.json')) {
   }
 }
 
+if (exists('packages/emp-share/package.json')) {
+  const sharePkg = JSON.parse(read('packages/emp-share/package.json'))
+  const shareTest = sharePkg.scripts?.test ?? ''
+  if (!shareTest.includes('pnpm run build')) {
+    failures.push('packages/emp-share package test must build dist before importing dist/rspack.js')
+  }
+  if (
+    shareTest.includes('node test/') &&
+    shareTest.indexOf('pnpm run build') > shareTest.indexOf('node test/')
+  ) {
+    failures.push('packages/emp-share package test builds dist after tests')
+  }
+}
+
 if (exists('docs/superpowers')) failures.push('docs/superpowers must not be used')
 
 if (exists('skills')) {

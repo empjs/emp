@@ -116,7 +116,7 @@
     "dev:lib-dev": "rslib build --watch --env-mode development",
     "dev:serve": "serve ./output --cors -p 2100",
     "build": "rslib build --env-mode production",
-    "test": "node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/version-isolation.test.mjs && node test/esm-only-publish.test.mjs",
+    "test": "pnpm run build && node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/version-isolation.test.mjs && node test/esm-only-publish.test.mjs",
     "start": "serve ./output --cors -p 2100",
     "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
   },
