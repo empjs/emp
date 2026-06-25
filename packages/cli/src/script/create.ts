@@ -4,7 +4,7 @@ import {generateProject} from 'src/agent-create/generator'
 import {parseCreateIntent} from 'src/agent-create/intent'
 import {createProjectPlan} from 'src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
-import type {CreateProjectPlan, EmpCreateReport, GeneratedFile} from 'src/agent-create/types'
+import type {CreateOptions, CreateProjectPlan, EmpCreateReport, GeneratedFile} from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
 export interface CreateCommandOptions {
@@ -73,6 +73,69 @@ function buildFailedCreateReport(plan: CreateProjectPlan, error: unknown): EmpCr
   }
 }
 
+function resolveCreateOptions(options: CreateCommandOptions): CreateOptions {
+  return {
+    targetDir: path.resolve(options.dir ?? 'emp-app'),
+    dryRun: Boolean(options.dryRun),
+    install: !options.skipInstall,
+    dev: !options.skipDev,
+    verify: !options.skipVerify,
+    json: Boolean(options.json),
+  }
+}
+
+function buildFallbackCreatePlan(
+  intentText: string,
+  options: CreateOptions,
+): CreateProjectPlan {
+  const rootDir = path.resolve(options.targetDir)
+
+  return {
+    rootName: path.basename(rootDir),
+    rootDir,
+    intent: {
+      raw: intentText.trim(),
+      host: {framework: 'react', name: 'host'},
+      remotes: [{framework: 'vue', name: 'user'}],
+    },
+    options: {...options, targetDir: rootDir},
+    packageManager: 'pnpm',
+    apps: [
+      {
+        name: 'host',
+        role: 'host',
+        framework: 'react',
+        port: 3000,
+      },
+      {
+        name: 'user',
+        role: 'remote',
+        framework: 'vue',
+        port: 3001,
+      },
+    ],
+    files: [],
+  }
+}
+
+function appendReportWriteFailure(
+  report: EmpCreateReport,
+  reportPath: string,
+  error: unknown,
+): EmpCreateReport {
+  return {
+    ...report,
+    checks: [
+      ...report.checks,
+      {
+        name: 'report',
+        status: 'failed',
+        message: `写入失败报告失败: ${reportPath} - ${formatCreateError(error)}`,
+      },
+    ],
+  }
+}
+
 async function pathExists(filePath: string): Promise<boolean> {
   try {
     await fs.access(filePath)
@@ -90,12 +153,13 @@ async function writeFailedCreateReportIfAbsent(
   report: EmpCreateReport,
   reportPath: string,
 ): Promise<void> {
-  try {
-    if (await pathExists(reportPath)) {
-      return
-    }
+  if (await pathExists(reportPath)) {
+    return
+  }
 
-    await fs.mkdir(path.dirname(reportPath), {recursive: true})
+  await fs.mkdir(path.dirname(reportPath), {recursive: true})
+
+  try {
     await fs.writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, {
       encoding: 'utf8',
       flag: 'wx',
@@ -104,6 +168,8 @@ async function writeFailedCreateReportIfAbsent(
     if ((error as NodeJS.ErrnoException).code === 'EEXIST') {
       return
     }
+
+    throw error
   }
 }
 
@@ -131,22 +197,15 @@ export async function runCreateCommand(
   intentText: string,
   options: CreateCommandOptions = {},
 ): Promise<void> {
-  const intent = parseCreateIntent(intentText)
-  const targetDir = path.resolve(options.dir ?? 'emp-app')
-  const plan = createProjectPlan(intent, {
-    targetDir,
-    dryRun: Boolean(options.dryRun),
-    install: !options.skipInstall,
-    dev: !options.skipDev,
-    verify: !options.skipVerify,
-    json: Boolean(options.json),
-  })
-
+  const createOptions = resolveCreateOptions(options)
+  let plan = buildFallbackCreatePlan(intentText, createOptions)
   const reportPath = path.join(plan.rootDir, 'emp-report.json')
   let files: GeneratedFile[] = []
   let report: EmpCreateReport
 
   try {
+    const intent = parseCreateIntent(intentText)
+    plan = createProjectPlan(intent, createOptions)
     files = await generateProject(plan, {dryRun: plan.options.dryRun})
     const checks =
       plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
@@ -159,7 +218,11 @@ export async function runCreateCommand(
     report = buildFailedCreateReport(plan, error)
 
     if (!plan.options.dryRun) {
-      await writeFailedCreateReportIfAbsent(report, reportPath)
+      try {
+        await writeFailedCreateReportIfAbsent(report, reportPath)
+      } catch (writeError) {
+        report = appendReportWriteFailure(report, reportPath, writeError)
+      }
     }
   }
 

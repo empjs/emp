@@ -213,4 +213,105 @@ describe('emp create CLI', () => {
       expect(reportJson.status).toBe('failed')
     })
   })
+
+  test('prints structured failed JSON for invalid create intent without stack trace', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'invalid-intent-app')
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli(['create', 'React 主应用', '--dir', targetDir, '--json'])
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+      expect(error?.stderr ?? '').not.toMatch(/\n\s+at\s+/)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      expect(result.report.status).toBe('failed')
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({name: 'create', status: 'failed'}),
+        ]),
+      )
+      expect(result.report.rootDir).toBe(targetDir)
+      expect(result.reportPath).toBe(path.join(targetDir, 'emp-report.json'))
+      await expect(fs.stat(path.join(targetDir, 'apps/host/emp.config.ts'))).rejects.toThrow(
+        /ENOENT/,
+      )
+    })
+  })
+
+  test('does not overwrite existing emp-report.json when create fails', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'existing-report-app')
+      const reportPath = path.join(targetDir, 'emp-report.json')
+      const existingReport = '{"status":"passed","rootDir":"user-owned"}\n'
+
+      await fs.mkdir(targetDir, {recursive: true})
+      await fs.writeFile(reportPath, existingReport, 'utf8')
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli([
+          'create',
+          'React 主应用 + Vue 子应用',
+          '--dir',
+          targetDir,
+          '--json',
+        ])
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+      expect(error?.stderr ?? '').not.toMatch(/\n\s+at\s+/)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      expect(result.report.status).toBe('failed')
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({name: 'create', status: 'failed'}),
+        ]),
+      )
+      await expect(fs.readFile(reportPath, 'utf8')).resolves.toBe(existingReport)
+    })
+  })
+
+  test('includes report write failure when failed report cannot be written', async () => {
+    await withTempDir(async tmpRoot => {
+      const blockedParent = path.join(tmpRoot, 'blocked-parent')
+      const targetDir = path.join(blockedParent, 'child-app')
+
+      await fs.writeFile(blockedParent, 'not a directory\n', 'utf8')
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli(['create', 'React 主应用', '--dir', targetDir, '--json'])
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+      expect(error?.stderr ?? '').not.toMatch(/\n\s+at\s+/)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      expect(result.report.status).toBe('failed')
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({name: 'create', status: 'failed'}),
+          expect.objectContaining({
+            name: 'report',
+            status: 'failed',
+            message: expect.stringContaining('写入失败报告失败'),
+          }),
+        ]),
+      )
+      await expect(fs.stat(path.join(targetDir, 'emp-report.json'))).rejects.toThrow()
+    })
+  })
 })

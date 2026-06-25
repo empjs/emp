@@ -261,6 +261,18 @@ git diff --check
 
 结果：通过，无 whitespace error。
 
+```bash
+pnpm ci:verify
+```
+
+结果：通过，覆盖 CLI 旧测试、CLI `test:real` 28/28、package 测试、rules、release check 和 rslib preset check。
+
+```bash
+pnpm empbuild
+```
+
+结果：通过。构建日志里保留既有 CDN 包 `DefinePlugin` NODE_ENV 冲突 warning，但命令 exit 0。
+
 ## Changed Files
 
 - `packages/cli/src/script/create.ts`
@@ -273,3 +285,83 @@ git diff --check
 - 非空目录失败用例确认 `existing.txt` 内容保持不变，且没有生成 `apps/host/emp.config.ts`。
 - 失败 JSON 中 `report.status === "failed"`，`reportPath` 指向目标目录 `emp-report.json`，磁盘失败报告同样为 failed。
 - codebase-memory-mcp 当前项目索引状态为 ready；代码定位优先使用 `search_graph` / `get_code_snippet`，配置和报告读取使用本地命令补充。
+
+---
+
+## Fix Report: Intent Failure Handling (2026-06-25)
+
+## Status
+
+Passed. 已修复第三轮 reviewer findings：`parseCreateIntent` / `createProjectPlan` 失败纳入统一 failed report 输出；failed report 写盘只吞 `EEXIST`；已有 `emp-report.json` 不会被失败报告覆盖。
+
+## RED
+
+先新增真实子进程用例后运行：
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：失败，符合预期。
+
+- 1 file / 8 tests，1 failed。
+- `prints structured failed JSON for invalid create intent without stack trace` 失败于 stderr 仍包含 Node stack trace。
+- 新增 `does not overwrite existing emp-report.json when create fails` 锁住已有 report 不覆盖行为。
+
+## GREEN
+
+实现内容：
+
+- `runCreateCommand` 先 resolve `CreateOptions` 和 targetDir，并构造 fallback plan，保证 parse/plan 失败也能输出结构化 JSON。
+- `parseCreateIntent`、`createProjectPlan`、`generateProject`、verify、report 写入统一纳入 `try/catch`。
+- fallback plan 仅用于 failed report / JSON 输出，`files` 为空，不生成模板文件。
+- `writeFailedCreateReportIfAbsent` 仅对 `EEXIST` 返回；其它写盘错误重新抛出。
+- failed report 写盘失败时追加 `{ name: "report", status: "failed" }` 检查，JSON/terminal 输出会包含写入失败信息。
+- 新增真实 CLI 用例覆盖 failed report 写盘失败：目标父路径是文件时，stdout 仍为结构化 failed JSON，且包含 `写入失败报告失败`。
+
+聚焦测试复跑：
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：通过，1 file / 9 tests passed。
+
+## Verification
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+结果：通过，`dist/create.js` 和声明文件生成成功。
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：通过，1 file / 9 tests passed。
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+结果：通过，5 files / 28 tests passed。
+
+```bash
+git diff --check
+```
+
+结果：通过，无 whitespace error。
+
+## Changed Files
+
+- `packages/cli/src/script/create.ts`
+- `packages/cli/test/cli-create-help.test.ts`
+- `.superpowers/sdd/task-6-report.md`
+
+## Self Check
+
+- 本轮只修改用户允许的 3 个文件；未触碰既有无关改动 `.superpowers/sdd/task-4-report.md` 和 `.superpowers/plans/2026-06-24-agent-first-create-plan.md`。
+- 非法意图 `React 主应用 --json` 现在 exit code 1，stdout 可 parse，`report.status === "failed"`，stderr 不含 Node stack trace。
+- 非法意图和 failed report 写盘失败路径不会生成模板文件。
+- 非空目录且已有 `emp-report.json` 时，旧 report 内容保持不变。
