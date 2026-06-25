@@ -1,0 +1,10 @@
+# Default EMP workflow ownership. Keep this file small so review routing stays predictable.
+* @ckken
+
+# Workflow and release gates require the default owner.
+.github/ @ckken
+AGENTS.md @ckken
+skills/ @ckken
+scripts/ @ckken
+package.json @ckken
+pnpm-lock.yaml @ckken

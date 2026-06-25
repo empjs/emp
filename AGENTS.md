@@ -34,6 +34,34 @@
   4. `superpowers:verification-before-completion`：完成前做独立验证，不用“应该可以”代替结果。
 - 简单文档或规范变更可以不创建完整计划，但仍要遵守读现状、最小改动、真实验证。
 
+## 项目级 Skill 约定
+
+- EMP 项目级 Skill 统一放在 `skills/<skill-name>/`，每个 Skill 必须包含 `SKILL.md`；不要放到 `.superpowers/`、`docs/superpowers/` 或全局 `~/.codex/skills/` 里。
+- 新建或更新项目级 Skill 时，必须先加载并遵循 `skill-creator`；新建 Skill 默认使用 `skill-creator` 提供的 `init_skill.py` 初始化到 `skills/`，不要手写完整模板。
+- Skill 名称必须使用小写字母、数字和连字符，目录名与 `SKILL.md` frontmatter 的 `name` 保持一致。
+- `SKILL.md` frontmatter 只保留 `name` 和 `description`；`description` 必须写清能力和触发场景。正文保持精简，详细资料拆到 `references/`，确定性脚本放 `scripts/`，输出模板或资源放 `assets/`。
+- 推荐生成并维护 `agents/openai.yaml`；除 `SKILL.md`、`agents/openai.yaml` 和必要的 `scripts/`、`references/`、`assets/` 外，不新增 README、安装指南、变更日志等额外说明文件。
+- Skill 完成或更新后必须运行 `skill-creator` 的 `quick_validate.py <skill-dir>`；如果包含脚本，还必须至少运行代表性脚本验证，并在最终回复中说明验证结果。
+
+## 目录边界
+
+- 默认可修改范围只限于当前任务直接相关文件；所有改动都必须能在最终回复中解释目的和验证结果。
+- `projects/**` 和 `website` 默认是示例或站点，不参与发布包范围；除非任务明确要求示例/站点，否则不要修改。
+- `packages/cdn-*` 和 `packages/lib-*` 默认保持独立版本线；除非用户明确要求纳入统一版本或迁移范围，否则不要改版本、发布配置或依赖线。
+- `.github/workflows/publish.yml` 只在发布流程任务中修改；普通 CI、PR、review 自动化优先修改 `.github/workflows/ci.yml`、`.github/pull_request_template.md` 和 `.github/CODEOWNERS`。
+- `pnpm-lock.yaml` 只在依赖、package 范围或安装结果确实变化时修改；不要为了格式化或无关任务重写 lockfile。
+- 禁止新建或继续使用 `docs/superpowers/`；Superpowers 长期计划和规格放 `.superpowers/plans/`、`.superpowers/specs/`，执行记录放 `.superpowers/sdd/`。
+- 禁止提交生成物、缓存或本地索引，包括 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codebase-memory/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rspack-cache/`。
+
+## Git / PR / Review 闭环
+
+- 开始改动前确认分支、远端关系和未提交改动；当前分支如果有用户改动，必须保留并基于现状继续。
+- 不做未授权的 force push、reset、checkout 覆盖或大范围 clean；需要破坏性操作时先取得明确授权。
+- 每个 PR 必须使用 `.github/pull_request_template.md`，写清改动范围、未触碰的保护目录、验证命令、跳过项和风险。
+- `.github/CODEOWNERS` 是默认 review 路由；workflow、Skill、脚本、package 和 lockfile 变更必须请求 CODEOWNERS review。
+- 实现型任务完成后要形成 review package：核心 diff、验证输出、目录边界确认和剩余风险；不能只用“已完成”替代证据。
+- push / PR 前至少确认 `pnpm workflow:check`、`git diff --check` 和与改动类型匹配的测试命令；涉及构建链路时还必须运行或说明未运行 `pnpm empbuild` 的风险。
+
 ## 统一真实测试策略
 
 - EMP 测试默认以真实验收/集成测试为主，覆盖真实 CLI、Rspack/Rslib 构建、Module Federation、运行时、示例 app、产物文件、HTTP 服务和浏览器行为；不要为了覆盖率新增只验证内部函数的纯单测。
