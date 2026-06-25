@@ -193,3 +193,83 @@ git diff --check
 - `--skip-install`、`--skip-dev`、`--skip-verify`、`--json` 已通过 `CreateOptions` 落到 `plan.options`，Task 7 可从 plan 读取。
 - failed report 的 exit status helper 用真实 `buildCreateReport(...)` report 对象测试。
 - `--skip-verify --json` 使用真实 CLI 执行，并确认磁盘 report 已生成、checks 为空。
+
+---
+
+## Fix Report: Orchestration Failure Report (2026-06-25)
+
+## Status
+
+Passed. 已修复 `runCreateCommand` 在 `generateProject` / verify / report 写入阶段抛错时的未捕获异常问题；真实 CLI failure mode 现在输出结构化 JSON 或中文失败摘要，并设置 `exitCode = 1`。
+
+## RED
+
+先新增真实子进程端到端失败用例：
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：失败，符合预期。
+
+- 1 file / 6 tests，1 failed。
+- 新增用例 `prints structured failed report when target directory is not empty` 失败于 `JSON.parse(error.stdout)`。
+- 失败原因是非空目标目录触发未捕获异常，stdout 为空，不是测试环境或命令拼写问题。
+
+## GREEN
+
+实现内容：
+
+- `runCreateCommand` 捕获 generate / verify / report 写入阶段异常。
+- 异常时构造 `status: "failed"` 的 `EmpCreateReport`，`checks` 包含 `{ name: "create", status: "failed", message }`。
+- JSON 模式输出 `{ plan, files, report, reportPath }`，并通过 `applyCreateReportExitStatus(..., true)` 设置失败退出码。
+- 非 JSON 模式复用中文失败摘要输出，不再泄露未捕获异常栈。
+- 非 dry-run 失败时仅在 `emp-report.json` 不存在时写失败报告；写入使用 `flag: "wx"`，避免覆盖已有 report。
+- dry-run 失败路径不写任何文件。
+
+聚焦测试复跑：
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：通过，1 file / 6 tests passed。
+
+## Verification
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+结果：通过，`dist/create.js` 和声明文件生成成功。
+
+```bash
+pnpm --filter @empjs/cli exec rstest run test/cli-create-help.test.ts
+```
+
+结果：通过，1 file / 6 tests passed。
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+结果：通过，5 files / 25 tests passed。
+
+```bash
+git diff --check
+```
+
+结果：通过，无 whitespace error。
+
+## Changed Files
+
+- `packages/cli/src/script/create.ts`
+- `packages/cli/test/cli-create-help.test.ts`
+- `.superpowers/sdd/task-6-report.md`
+
+## Self Check
+
+- 本轮只修改用户允许的 3 个文件；未触碰既有无关改动 `.superpowers/sdd/task-4-report.md` 和 `.superpowers/plans/2026-06-24-agent-first-create-plan.md`。
+- 非空目录失败用例确认 `existing.txt` 内容保持不变，且没有生成 `apps/host/emp.config.ts`。
+- 失败 JSON 中 `report.status === "failed"`，`reportPath` 指向目标目录 `emp-report.json`，磁盘失败报告同样为 failed。
+- codebase-memory-mcp 当前项目索引状态为 ready；代码定位优先使用 `search_graph` / `get_code_snippet`，配置和报告读取使用本地命令补充。

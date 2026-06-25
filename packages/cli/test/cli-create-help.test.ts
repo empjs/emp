@@ -13,6 +13,12 @@ const execFile = promisify(execFileCallback)
 const repoRoot = path.resolve(import.meta.dirname, '../../..')
 const cliPath = path.join(repoRoot, 'packages/cli/bin/emp.js')
 
+interface ExecFileError extends Error {
+  code?: number
+  stdout?: string
+  stderr?: string
+}
+
 async function runCli(args: string[], cwd = repoRoot) {
   return execFile(process.execPath, [cliPath, ...args], {
     cwd,
@@ -161,6 +167,50 @@ describe('emp create CLI', () => {
       expect(result.report.checks).toEqual([])
       expect(reportJson.status).toBe('passed')
       expect(reportJson.checks).toEqual([])
+    })
+  })
+
+  test('prints structured failed report when target directory is not empty', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'non-empty-app')
+      const existingFile = path.join(targetDir, 'existing.txt')
+      const reportPath = path.join(targetDir, 'emp-report.json')
+
+      await fs.mkdir(targetDir, {recursive: true})
+      await fs.writeFile(existingFile, 'user-owned content\n', 'utf8')
+
+      let error: ExecFileError | undefined
+      try {
+        await runCli([
+          'create',
+          'React 主应用 + Vue 子应用',
+          '--dir',
+          targetDir,
+          '--json',
+        ])
+      } catch (caught) {
+        error = caught as ExecFileError
+      }
+
+      expect(error).toBeDefined()
+      expect(error?.code).toBe(1)
+
+      const result = JSON.parse(error?.stdout ?? '')
+      expect(result.report.status).toBe('failed')
+      expect(result.reportPath).toBe(reportPath)
+      expect(result.report.checks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({name: 'create', status: 'failed'}),
+        ]),
+      )
+
+      await expect(fs.readFile(existingFile, 'utf8')).resolves.toBe('user-owned content\n')
+      await expect(fs.stat(path.join(targetDir, 'apps/host/emp.config.ts'))).rejects.toThrow(
+        /ENOENT/,
+      )
+
+      const reportJson = JSON.parse(await fs.readFile(reportPath, 'utf8'))
+      expect(reportJson.status).toBe('failed')
     })
   })
 })

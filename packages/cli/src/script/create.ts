@@ -1,9 +1,10 @@
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import {generateProject} from 'src/agent-create/generator'
 import {parseCreateIntent} from 'src/agent-create/intent'
 import {createProjectPlan} from 'src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
-import type {EmpCreateReport} from 'src/agent-create/types'
+import type {CreateProjectPlan, EmpCreateReport, GeneratedFile} from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
 export interface CreateCommandOptions {
@@ -43,6 +44,89 @@ export function applyCreateReportExitStatus(
   }
 }
 
+function formatCreateError(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message
+  }
+
+  return String(error)
+}
+
+function buildFailedCreateReport(plan: CreateProjectPlan, error: unknown): EmpCreateReport {
+  return {
+    status: 'failed',
+    rootDir: plan.rootDir,
+    apps: plan.apps.map(app => ({
+      name: app.name,
+      role: app.role,
+      framework: app.framework,
+      url: `http://localhost:${app.port}`,
+    })),
+    checks: [
+      {
+        name: 'create',
+        status: 'failed',
+        message: formatCreateError(error),
+      },
+    ],
+    commands: [],
+  }
+}
+
+async function pathExists(filePath: string): Promise<boolean> {
+  try {
+    await fs.access(filePath)
+    return true
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return false
+    }
+
+    throw error
+  }
+}
+
+async function writeFailedCreateReportIfAbsent(
+  report: EmpCreateReport,
+  reportPath: string,
+): Promise<void> {
+  try {
+    if (await pathExists(reportPath)) {
+      return
+    }
+
+    await fs.mkdir(path.dirname(reportPath), {recursive: true})
+    await fs.writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, {
+      encoding: 'utf8',
+      flag: 'wx',
+    })
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'EEXIST') {
+      return
+    }
+  }
+}
+
+function printCreateResult(
+  plan: CreateProjectPlan,
+  files: GeneratedFile[],
+  report: EmpCreateReport,
+  reportPath: string,
+): void {
+  console.log(
+    JSON.stringify(
+      {
+        plan,
+        files: files.map(file => file.path),
+        report,
+        reportPath,
+      },
+      null,
+      2,
+    ),
+  )
+}
+
 export async function runCreateCommand(
   intentText: string,
   options: CreateCommandOptions = {},
@@ -58,29 +142,29 @@ export async function runCreateCommand(
     json: Boolean(options.json),
   })
 
-  const files = await generateProject(plan, {dryRun: plan.options.dryRun})
-  const checks =
-    plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
-  const report = buildCreateReport(plan, checks, [])
   const reportPath = path.join(plan.rootDir, 'emp-report.json')
+  let files: GeneratedFile[] = []
+  let report: EmpCreateReport
 
-  if (!plan.options.dryRun) {
-    await writeCreateReport(report)
+  try {
+    files = await generateProject(plan, {dryRun: plan.options.dryRun})
+    const checks =
+      plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
+    report = buildCreateReport(plan, checks, [])
+
+    if (!plan.options.dryRun) {
+      await writeCreateReport(report)
+    }
+  } catch (error) {
+    report = buildFailedCreateReport(plan, error)
+
+    if (!plan.options.dryRun) {
+      await writeFailedCreateReportIfAbsent(report, reportPath)
+    }
   }
 
   if (plan.options.json) {
-    console.log(
-      JSON.stringify(
-        {
-          plan,
-          files: files.map(file => file.path),
-          report,
-          reportPath,
-        },
-        null,
-        2,
-      ),
-    )
+    printCreateResult(plan, files, report, reportPath)
     applyCreateReportExitStatus(report, reportPath, true)
     return
   }
