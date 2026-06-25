@@ -52,8 +52,10 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
     },
     tools: {
       rspack: config => {
+        config.mode = env
         // 基础优化设置
         if (config.optimization) {
+          config.optimization.nodeEnv = env
           config.optimization.removeAvailableModules = false
           config.optimization.removeEmptyChunks = false
           config.optimization.splitChunks = false

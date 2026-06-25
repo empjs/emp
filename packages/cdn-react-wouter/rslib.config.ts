@@ -38,7 +38,9 @@ function getLibConfig(env: 'development' | 'production'): LibConfig {
     },
     tools: {
       rspack: config => {
+        config.mode = env
         config.optimization = {
+          nodeEnv: env,
           moduleIds: 'natural',
           chunkIds: 'natural',
         }

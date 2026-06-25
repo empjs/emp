@@ -137,7 +137,7 @@ Result: local `pnpm workflow:check`, `pnpm ci:verify`, `pnpm apps:acceptance`, a
 - Produces: `pnpm empbuild` output without known beta-blocking warnings.
 - Produces: warning regression checks where practical.
 
-- [ ] **Step 1: Capture warning baseline**
+- [x] **Step 1: Capture warning baseline**
 
 Run:
 
@@ -147,19 +147,25 @@ pnpm empbuild
 
 Expected: baseline includes only the current CDN `DefinePlugin process.env.NODE_ENV` conflicts and `plugin-tailwindcss` `postcss-import` external warning.
 
-- [ ] **Step 2: Fix CDN define conflicts**
+Result: baseline `pnpm empbuild` reproduced CDN `DefinePlugin process.env.NODE_ENV` conflicts in all 8 `packages/cdn-*` builds. The previously suspected `packages/plugin-tailwindcss` `postcss-import` external warning did not reproduce in the current checkout.
+
+- [x] **Step 2: Fix CDN define conflicts**
 
 Normalize environment definition ownership in the affected CDN packages.
 
 Expected: no duplicated or conflicting `process.env.NODE_ENV` definitions during build.
 
-- [ ] **Step 3: Fix Tailwind external warning**
+Result: aligned each CDN lib's Rspack `mode` and `optimization.nodeEnv` with its development/production output env, so the explicit `source.define['process.env.NODE_ENV']` no longer conflicts with Rspack defaults.
+
+- [x] **Step 3: Fix Tailwind external warning**
 
 Resolve the `postcss-import` external type warning without changing runtime semantics for Tailwind users.
 
 Expected: `packages/plugin-tailwindcss` builds without the external warning.
 
-- [ ] **Step 4: Validate**
+Result: no code change was needed because the `postcss-import` external warning was not present in the captured baseline or follow-up `empbuild` logs.
+
+- [x] **Step 4: Validate**
 
 Run:
 
@@ -169,6 +175,8 @@ pnpm ci:verify
 ```
 
 Expected: both pass and the known warning baseline is cleared.
+
+Result: `pnpm empbuild`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff --check` all passed locally. Log scans for `Build warning`, `DefinePlugin`, `Conflicting values`, `postcss-import`, and `external` returned no matches for the package build and CI verification logs. `pnpm apps:acceptance` still reports the previously documented `projects/vue-3-base` Module Federation DTS warning and asset-size warning, but it exits 0 and is outside this CDN package warning cleanup.
 
 ### Task 4: Prepare Alpha Consumer Migration Evidence
 
