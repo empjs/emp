@@ -129,6 +129,21 @@ if (exists('packages/emp-share/package.json')) {
   }
 }
 
+for (const packageFile of ['packages/emp-chain/package.json', 'packages/plugin-react/package.json']) {
+  if (!exists(packageFile)) continue
+  const packageManifest = JSON.parse(read(packageFile))
+  const packageTest = packageManifest.scripts?.test ?? ''
+  if (!packageTest.includes('pnpm run build')) {
+    failures.push(`${packageFile} test must build dist before importing package dist files`)
+  }
+  if (
+    packageTest.includes('node test/') &&
+    packageTest.indexOf('pnpm run build') > packageTest.indexOf('node test/')
+  ) {
+    failures.push(`${packageFile} test builds dist after tests`)
+  }
+}
+
 if (exists('docs/superpowers')) failures.push('docs/superpowers must not be used')
 
 if (exists('skills')) {

@@ -38,7 +38,7 @@
   "scripts": {
     "build": "rslib build --env-mode production",
     "dev": "rslib build --watch --env-mode development",
-    "test": "node test/plugin-metadata.test.mjs"
+    "test": "pnpm run build && node test/plugin-metadata.test.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
