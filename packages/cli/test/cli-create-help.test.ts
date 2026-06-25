@@ -52,6 +52,28 @@ function createFailedReport(targetDir: string) {
   )
 }
 
+function createFailedCommandReport(targetDir: string) {
+  const plan = createProjectPlan(parseCreateIntent('React 主应用 + Vue 子应用'), {
+    targetDir,
+    dryRun: false,
+    install: true,
+    dev: true,
+    verify: true,
+    json: false,
+  })
+
+  return buildCreateReport(plan, [], [
+    {
+      name: 'install',
+      command: 'pnpm install',
+      status: 'failed',
+      exitCode: 1,
+      stdout: '',
+      stderr: 'install failed',
+    },
+  ])
+}
+
 describe('emp create CLI', () => {
   beforeAll(async () => {
     await execFile('pnpm', ['--filter', '@empjs/cli', 'build'], {
@@ -157,6 +179,33 @@ describe('emp create CLI', () => {
       expect(process.exitCode).toBe(1)
       expect(messages.join('\n')).toMatch(/EMP 新项目创建失败/)
       expect(messages.join('\n')).toContain(reportPath)
+    } finally {
+      console.log = previousLog
+      process.exitCode = previousExitCode
+    }
+  })
+
+  test('marks process failed when create report contains a failed command result', () => {
+    const previousExitCode = process.exitCode
+    const previousLog = console.log
+    const messages: string[] = []
+    const reportPath = path.join(os.tmpdir(), 'emp-report.json')
+
+    try {
+      process.exitCode = undefined
+      console.log = (...args: unknown[]) => {
+        messages.push(args.join(' '))
+      }
+
+      const report = createFailedCommandReport(path.join(os.tmpdir(), 'failed-command-app'))
+
+      expect(report.status).toBe('failed')
+
+      applyCreateReportExitStatus(report, reportPath, false)
+
+      expect(process.exitCode).toBe(1)
+      expect(messages.join('\n')).toMatch(/EMP 新项目创建失败/)
+      expect(messages.join('\n')).toContain('失败命令: install - pnpm install')
     } finally {
       console.log = previousLog
       process.exitCode = previousExitCode

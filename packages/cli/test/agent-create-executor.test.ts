@@ -1,13 +1,15 @@
+import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, test} from '@rstest/core'
 import {
   runCommandForCreate,
   runCreateCommands,
+  startDevCommandForCreate,
 } from '../src/agent-create/executor'
 import {parseCreateIntent} from '../src/agent-create/intent'
 import {createProjectPlan} from '../src/agent-create/planner'
-import type {CreateProjectPlan} from '../src/agent-create/types'
+import type {CommandResult, CreateProjectPlan} from '../src/agent-create/types'
 
 const createPlan = (targetDir: string): CreateProjectPlan =>
   createProjectPlan(parseCreateIntent('React 主应用 + Vue 子应用'), {
@@ -18,6 +20,15 @@ const createPlan = (targetDir: string): CreateProjectPlan =>
     verify: false,
     json: true,
   })
+
+async function withTempDir<T>(callback: (tmpRoot: string) => Promise<T>): Promise<T> {
+  const tmpRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'emp-agent-executor-'))
+  try {
+    return await callback(tmpRoot)
+  } finally {
+    await fs.rm(tmpRoot, {recursive: true, force: true})
+  }
+}
 
 describe('agent-create command executor', () => {
   test('returns skipped install build and dev command results when all commands are disabled', async () => {
@@ -90,5 +101,79 @@ describe('agent-create command executor', () => {
     expect(result.exitCode).toBe(7)
     expect(result.stdout).toContain('visible stdout')
     expect(result.stderr).toContain('visible stderr')
+  })
+
+  test('returns failed dev result when the dev process exits during startup window', async () => {
+    await withTempDir(async tmpRoot => {
+      const result = await startDevCommandForCreate(
+        {rootDir: tmpRoot},
+        {
+          command: process.execPath,
+          args: ['-e', 'process.exit(7)'],
+          startupWindowMs: 50,
+        },
+      )
+
+      expect(result.name).toBe('dev')
+      expect(result.command).toBe(`${process.execPath} -e process.exit(7)`)
+      expect(result.status).toBe('failed')
+      expect(result.exitCode).toBe(7)
+      expect(result.stderr).toMatch(/exited before startup window/)
+    })
+  })
+
+  test('skips build and dev when install command fails', async () => {
+    const calls: string[] = []
+    const failedInstall: CommandResult = {
+      name: 'install',
+      command: 'pnpm install',
+      status: 'failed',
+      exitCode: 1,
+      stdout: '',
+      stderr: 'install failed',
+    }
+
+    const results = await runCreateCommands(
+      {rootDir: process.cwd()},
+      {install: true, verify: true, dev: true},
+      {
+        runCommandForCreate: async input => {
+          calls.push(input.name)
+          return failedInstall
+        },
+        startDevCommandForCreate: async () => {
+          calls.push('dev')
+          return {
+            name: 'dev',
+            command: 'pnpm dev',
+            status: 'passed',
+            exitCode: null,
+            stdout: 'pid=1',
+            stderr: '',
+          }
+        },
+      },
+    )
+
+    expect(calls).toEqual(['install'])
+    expect(results).toEqual([
+      failedInstall,
+      {
+        name: 'build',
+        command: 'pnpm build',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '由于前置命令 install 失败，已跳过',
+      },
+      {
+        name: 'dev',
+        command: 'pnpm dev',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '由于前置命令 install 失败，已跳过',
+      },
+    ])
   })
 })

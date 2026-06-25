@@ -1,4 +1,5 @@
 import {execFile as execFileCallback, spawn} from 'node:child_process'
+import type {ChildProcess} from 'node:child_process'
 import {promisify} from 'node:util'
 import type {CommandResult, CreateOptions, CreateProjectPlan} from './types'
 
@@ -11,6 +12,21 @@ interface CreateCommandInput {
   args: string[]
   cwd: string
   timeoutMs: number
+}
+
+interface StartDevCommandOptions {
+  command?: string
+  args?: string[]
+  startupWindowMs?: number
+}
+
+interface CreateCommandRuntime {
+  runCommandForCreate?: (input: CreateCommandInput) => Promise<CommandResult>
+  startDevCommandForCreate?: (
+    plan: Pick<CreateProjectPlan, 'rootDir'>,
+    options?: StartDevCommandOptions,
+  ) => Promise<CommandResult>
+  devCommand?: StartDevCommandOptions
 }
 
 interface ExecFileFailure extends Error {
@@ -40,6 +56,10 @@ function skipped(name: string, command: string, reason: string): CommandResult {
     stdout: '',
     stderr: reason,
   }
+}
+
+function skippedAfterFailure(name: string, command: string, failedCommand: CommandResult): CommandResult {
+  return skipped(name, command, `由于前置命令 ${failedCommand.name} 失败，已跳过`)
 }
 
 export async function runCommandForCreate(input: CreateCommandInput): Promise<CommandResult> {
@@ -74,35 +94,105 @@ export async function runCommandForCreate(input: CreateCommandInput): Promise<Co
   }
 }
 
-export function startDevCommandForCreate(
+export async function startDevCommandForCreate(
   plan: Pick<CreateProjectPlan, 'rootDir'>,
-): CommandResult {
-  const child = spawn('pnpm', ['dev'], {
-    cwd: plan.rootDir,
-    detached: true,
-    stdio: 'ignore',
-  })
-  child.unref()
+  options: StartDevCommandOptions = {},
+): Promise<CommandResult> {
+  const devCommand = options.command ?? 'pnpm'
+  const devArgs = options.args ?? ['dev']
+  const startupWindowMs = options.startupWindowMs ?? 1000
+  const command = commandText(devCommand, devArgs)
 
-  return {
-    name: 'dev',
-    command: 'pnpm dev',
-    status: 'passed',
-    exitCode: null,
-    stdout: `pid=${child.pid}`,
-    stderr: '',
+  let child: ChildProcess
+
+  try {
+    child = spawn(devCommand, devArgs, {
+      cwd: plan.rootDir,
+      detached: true,
+      stdio: 'ignore',
+    })
+  } catch (error) {
+    return {
+      name: 'dev',
+      command,
+      status: 'failed',
+      exitCode: null,
+      stdout: '',
+      stderr: error instanceof Error ? error.message : String(error),
+    }
   }
+
+  return new Promise(resolve => {
+    let settled = false
+    let timer: NodeJS.Timeout
+
+    const cleanup = () => {
+      clearTimeout(timer)
+      child.off('error', onError)
+      child.off('exit', onExit)
+    }
+
+    const settle = (result: CommandResult) => {
+      if (settled) {
+        return
+      }
+
+      settled = true
+      cleanup()
+      resolve(result)
+    }
+
+    const onError = (error: Error) => {
+      settle({
+        name: 'dev',
+        command,
+        status: 'failed',
+        exitCode: null,
+        stdout: '',
+        stderr: error.message,
+      })
+    }
+
+    const onExit = (code: number | null, signal: NodeJS.Signals | null) => {
+      settle({
+        name: 'dev',
+        command,
+        status: 'failed',
+        exitCode: code,
+        stdout: '',
+        stderr: `dev command exited before startup window (code=${code ?? 'null'}, signal=${signal ?? 'null'})`,
+      })
+    }
+
+    child.once('error', onError)
+    child.once('exit', onExit)
+
+    timer = setTimeout(() => {
+      settle({
+        name: 'dev',
+        command,
+        status: 'passed',
+        exitCode: null,
+        stdout: `pid=${child.pid}`,
+        stderr: '',
+      })
+      child.unref()
+    }, startupWindowMs)
+  })
 }
 
 export async function runCreateCommands(
   plan: Pick<CreateProjectPlan, 'rootDir'>,
   options: Pick<CreateOptions, 'install' | 'verify' | 'dev'>,
+  runtime: CreateCommandRuntime = {},
 ): Promise<CommandResult[]> {
   const results: CommandResult[] = []
+  const runCommand = runtime.runCommandForCreate ?? runCommandForCreate
+  const startDevCommand = runtime.startDevCommandForCreate ?? startDevCommandForCreate
 
   results.push(
     options.install
-      ? await runCommandForCreate({
+      ? await runCommand({
           name: 'install',
           command: 'pnpm',
           args: ['install'],
@@ -112,9 +202,16 @@ export async function runCreateCommands(
       : skipped('install', 'pnpm install', '已通过 --skip-install 跳过'),
   )
 
+  const installResult = results[0]
+  if (installResult?.status === 'failed') {
+    results.push(skippedAfterFailure('build', 'pnpm build', installResult))
+    results.push(skippedAfterFailure('dev', 'pnpm dev', installResult))
+    return results
+  }
+
   results.push(
     options.verify
-      ? await runCommandForCreate({
+      ? await runCommand({
           name: 'build',
           command: 'pnpm',
           args: ['build'],
@@ -124,9 +221,15 @@ export async function runCreateCommands(
       : skipped('build', 'pnpm build', '已通过 --skip-verify 跳过'),
   )
 
+  const buildResult = results[1]
+  if (buildResult?.status === 'failed') {
+    results.push(skippedAfterFailure('dev', 'pnpm dev', buildResult))
+    return results
+  }
+
   results.push(
     options.dev
-      ? startDevCommandForCreate(plan)
+      ? await startDevCommand(plan, runtime.devCommand)
       : skipped('dev', 'pnpm dev', '已通过 --skip-dev 跳过'),
   )
 
