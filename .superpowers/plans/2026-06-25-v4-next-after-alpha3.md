@@ -189,13 +189,15 @@ Result: `pnpm empbuild`, `pnpm ci:verify`, `pnpm apps:acceptance`, and `git diff
 - Produces: consumer-facing guidance for alpha users.
 - Produces: verified commands that prove the migration guidance works.
 
-- [ ] **Step 1: Document supported alpha path**
+- [x] **Step 1: Document supported alpha path**
 
 Cover Node and pnpm baselines, Rspack 2 expectations, Module Federation behavior, `empRuntime.version`, and the agent-first `emp create` flow.
 
 Expected: a user can identify whether to install `@empjs/*@alpha` and which package lines remain independent.
 
-- [ ] **Step 2: Add command evidence**
+Result: added `docs/v4-alpha-migration.md` and linked it from `README.md` and `CHANGELOG.md`. The guide covers `@alpha` installs, Node/pnpm baselines, Rspack 2 expectations, Module Federation 2 behavior, `empRuntime.version`, agent-first `emp create`, the 19-package internal release scope, and independent `@empjs/cdn-*` / `@empjs/lib-*` package lines. Registry checks confirmed `@empjs/cli`, `@empjs/share`, and `@empjs/plugin-react` all resolve `alpha` to `4.0.0-alpha.3`, while `latest` remains on 3.x.
+
+- [x] **Step 2: Add command evidence**
 
 Run and record:
 
@@ -207,7 +209,9 @@ pnpm empbuild
 
 Expected: migration notes point to current verified commands, not assumptions.
 
-- [ ] **Step 3: Validate docs**
+Result: `pnpm release:check` passed with root version `4.0.0-alpha.3`, 19 internal packages, 10 independent packages, and 58 workspace packages. `pnpm ci:verify` and `pnpm empbuild` also passed after the migration guide was added.
+
+- [x] **Step 3: Validate docs**
 
 Run:
 
@@ -217,6 +221,8 @@ pnpm workflow:check
 ```
 
 Expected: docs are format-clean and workflow rules still pass.
+
+Result: `git diff --check` and `pnpm workflow:check` passed for the docs update.
 
 ### Task 5: Define Beta Readiness Gate
 

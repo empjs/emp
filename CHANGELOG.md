@@ -7,6 +7,7 @@
 - Add the agent-first `emp create` flow in `@empjs/cli`, including intent parsing, project generation, command execution, verification, JSON reports, fixer support, dynamic ports, dev readiness probes, and atomic failed-report writes.
 - Add `empRuntime.version: true` in `@empjs/share` to isolate same-page multi-version Module Federation scopes and CSS Modules prefixes.
 - Ship Tailwind 4.3.1 alignment for `@empjs/plugin-tailwindcss` and keep the release scope limited to the 19 core internal packages.
+- Add consumer migration guidance in `docs/v4-alpha-migration.md`, including the alpha install path, package scope, Rspack 2 notes, Module Federation behavior, and validation commands.
 
 ### What's Changed
 

@@ -29,6 +29,8 @@ v4 的重点是换到新的构建与联邦底座，同时尽量保留 EMP 既有
 
 当前 v4 发布版本以 npm 的 `@empjs/cli@alpha` dist-tag 为准，README 不再维护手写版本号。
 
+Alpha 试用和迁移步骤见 [EMP v4 Alpha Migration Guide](docs/v4-alpha-migration.md)。
+
 ## 核心功能
 
 - 微前端联邦：封装 host、remote、shared、runtime、manifest 和类型声明生成。
