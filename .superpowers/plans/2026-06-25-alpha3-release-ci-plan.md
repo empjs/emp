@@ -322,7 +322,7 @@ Create a concise plan covering:
 - update consumer migration docs for alpha users
 - define beta readiness gates
 
-- [ ] **Step 2: Validate documentation changes**
+- [x] **Step 2: Validate documentation changes**
 
 Run:
 
@@ -332,6 +332,8 @@ pnpm workflow:check
 ```
 
 Expected: pass.
+
+Result: `git diff --check` and `pnpm workflow:check` passed before committing the next-step plan.
 
 ## Self-Review
 
