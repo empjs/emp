@@ -10,7 +10,6 @@ import type {
   CreateProjectPlan,
   EmpCreateReport,
   GeneratedFile,
-  VerificationCheck,
 } from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
@@ -180,31 +179,6 @@ async function writeFailedCreateReportIfAbsent(
   }
 }
 
-async function normalizeDynamicPortChecks(
-  plan: CreateProjectPlan,
-  checks: VerificationCheck[],
-): Promise<VerificationCheck[]> {
-  const remote = plan.apps.find(app => app.role === 'remote')
-  if (!remote || remote.port === 3001) {
-    return checks
-  }
-
-  const hostConfig = await fs
-    .readFile(path.join(plan.rootDir, 'apps/host/emp.config.ts'), 'utf8')
-    .catch(() => '')
-  const dynamicRemoteUrl = `${remote.name}@http://localhost:${remote.port}/emp.js`
-
-  if (!hostConfig.includes(dynamicRemoteUrl)) {
-    return checks
-  }
-
-  return checks.map(check =>
-    check.name === 'host-config' && check.status === 'failed'
-      ? {...check, status: 'passed', message: 'host 已配置 user remote'}
-      : check,
-  )
-}
-
 function printCreateResult(
   plan: CreateProjectPlan,
   files: GeneratedFile[],
@@ -248,7 +222,7 @@ export async function runCreateCommand(
         })
     const checks =
       plan.options.verify && !plan.options.dryRun
-        ? await normalizeDynamicPortChecks(plan, await verifyGeneratedProject(plan))
+        ? await verifyGeneratedProject(plan)
         : []
     report = buildCreateReport(plan, checks, commandResults)
 

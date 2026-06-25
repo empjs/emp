@@ -6,6 +6,7 @@ import {generateProject} from '../src/agent-create/generator'
 import {parseCreateIntent} from '../src/agent-create/intent'
 import {createProjectPlan} from '../src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from '../src/agent-create/report'
+import {createTemplateFiles} from '../src/agent-create/templates'
 import type {CommandResult, CreateProjectPlan} from '../src/agent-create/types'
 import {verifyGeneratedProject} from '../src/agent-create/verify'
 
@@ -62,6 +63,51 @@ describe('agent-create verification report', () => {
       )
       expect(reportJson.status).toBe('passed')
     })
+  })
+
+  test('verifies host config against the planned remote name and port', async () => {
+    const tmpRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'emp-agent-verify-'))
+    try {
+      const basePlan = createPlan(path.join(tmpRoot, 'demo'))
+      const apps = basePlan.apps.map(app => {
+        if (app.role === 'host') {
+          return {...app, port: 4300}
+        }
+
+        if (app.role === 'remote') {
+          return {...app, name: 'profile', port: 4301}
+        }
+
+        return app
+      })
+      const planWithoutFiles: Omit<CreateProjectPlan, 'files'> = {
+        rootName: basePlan.rootName,
+        rootDir: basePlan.rootDir,
+        intent: basePlan.intent,
+        options: basePlan.options,
+        packageManager: basePlan.packageManager,
+        apps,
+      }
+      const plan: CreateProjectPlan = {
+        ...planWithoutFiles,
+        files: createTemplateFiles(planWithoutFiles),
+      }
+
+      await generateProject(plan, {dryRun: false})
+
+      const checks = await verifyGeneratedProject(plan)
+      const hostConfig = await fs.readFile(path.join(plan.rootDir, 'apps/host/emp.config.ts'), 'utf8')
+
+      expect(hostConfig).toContain('profile@http://localhost:4301/emp.js')
+      expect(hostConfig).not.toContain('user@http://localhost:3001/emp.js')
+      expect(checks.find(check => check.name === 'host-config')).toMatchObject({
+        name: 'host-config',
+        status: 'passed',
+      })
+      expect(checks.every(check => check.status === 'passed')).toBe(true)
+    } finally {
+      await fs.rm(tmpRoot, {recursive: true, force: true})
+    }
   })
 
   test('marks host-config failed when generated host config is missing', async () => {

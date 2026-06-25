@@ -14,6 +14,28 @@ async function fileIncludes(rootDir: string, relativePath: string, pattern: RegE
   }
 }
 
+async function fileIncludesAll(
+  rootDir: string,
+  relativePath: string,
+  expectedValues: string[],
+): Promise<boolean> {
+  try {
+    const content = await fs.readFile(path.join(rootDir, relativePath), 'utf8')
+    return expectedValues.every(value => content.includes(value))
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return false
+    }
+    throw error
+  }
+}
+
+function plannedRemoteUrls(plan: CreateProjectPlan): string[] {
+  return plan.apps
+    .filter(app => app.role === 'remote')
+    .map(app => `${app.name}@http://localhost:${app.port}/emp.js`)
+}
+
 function passed(name: string, message: string): VerificationCheck {
   return {name, status: 'passed', message}
 }
@@ -45,10 +67,12 @@ export async function verifyGeneratedProject(plan: CreateProjectPlan): Promise<V
       : failed('intent', 'emp.intent.yaml 缺少 host/remote 意图'),
   )
 
+  const remoteUrls = plannedRemoteUrls(plan)
   checks.push(
-    (await fileIncludes(plan.rootDir, 'apps/host/emp.config.ts', /user@http:\/\/localhost:3001\/emp\.js/))
-      ? passed('host-config', 'host 已配置 user remote')
-      : failed('host-config', 'host 未配置 user remote'),
+    remoteUrls.length > 0 &&
+      (await fileIncludesAll(plan.rootDir, 'apps/host/emp.config.ts', remoteUrls))
+      ? passed('host-config', `host 已配置计划 remote: ${remoteUrls.join(', ')}`)
+      : failed('host-config', `host 未配置计划 remote: ${remoteUrls.join(', ')}`),
   )
 
   checks.push(
