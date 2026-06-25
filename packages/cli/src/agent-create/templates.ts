@@ -40,19 +40,31 @@ function workspaceYaml(): string {
 `
 }
 
+function appByRole(plan: PlannedProject, role: 'host' | 'remote') {
+  const app = plan.apps.find(item => item.role === role)
+  if (!app) {
+    throw new Error(`缺少 ${role} 应用计划`)
+  }
+
+  return app
+}
+
 function intentYaml(plan: PlannedProject): string {
+  const host = appByRole(plan, 'host')
+  const remote = appByRole(plan, 'remote')
+
   return `name: ${plan.rootName}
 intent: ${JSON.stringify(plan.intent.raw)}
 packageManager: pnpm
 apps:
-  - name: host
-    role: host
-    framework: react
-    port: 3000
-  - name: user
-    role: remote
-    framework: vue
-    port: 3001
+  - name: ${host.name}
+    role: ${host.role}
+    framework: ${host.framework}
+    port: ${host.port}
+  - name: ${remote.name}
+    role: ${remote.role}
+    framework: ${remote.framework}
+    port: ${remote.port}
 shared:
   react: singleton
   react-dom: singleton
@@ -111,7 +123,10 @@ function remotePackageJson(): string {
   })
 }
 
-function hostConfig(): string {
+function hostConfig(plan: PlannedProject): string {
+  const host = appByRole(plan, 'host')
+  const remote = appByRole(plan, 'remote')
+
   return `import {defineConfig} from '@empjs/cli'
 import pluginReact from '@empjs/plugin-react'
 import {pluginRspackEmpShare} from '@empjs/share/rspack'
@@ -119,13 +134,13 @@ import {pluginRspackEmpShare} from '@empjs/share/rspack'
 export default defineConfig({
   appEntry: 'main.tsx',
   html: {mountId: 'root'},
-  server: {port: 3000},
+  server: {port: ${host.port}},
   plugins: [
     pluginReact(),
     pluginRspackEmpShare({
-      name: 'host',
+      name: '${host.name}',
       remotes: {
-        user: 'user@http://localhost:3001/emp.js',
+        ${remote.name}: '${remote.name}@http://localhost:${remote.port}/emp.js',
       },
       shared: {
         react: {singleton: true},
@@ -137,7 +152,9 @@ export default defineConfig({
 `
 }
 
-function remoteConfig(): string {
+function remoteConfig(plan: PlannedProject): string {
+  const remote = appByRole(plan, 'remote')
+
   return `import {defineConfig} from '@empjs/cli'
 import pluginVue from '@empjs/plugin-vue3'
 import {pluginRspackEmpShare} from '@empjs/share/rspack'
@@ -145,11 +162,11 @@ import {pluginRspackEmpShare} from '@empjs/share/rspack'
 export default defineConfig({
   appEntry: 'main.ts',
   html: {mountId: 'app'},
-  server: {port: 3001},
+  server: {port: ${remote.port}},
   plugins: [
     pluginVue(),
     pluginRspackEmpShare({
-      name: 'user',
+      name: '${remote.name}',
       exposes: {
         './App': './src/App.vue',
       },
@@ -225,12 +242,12 @@ export function createTemplateFiles(plan: PlannedProject): GeneratedFile[] {
     {path: 'pnpm-workspace.yaml', content: workspaceYaml()},
     {path: 'emp.intent.yaml', content: intentYaml(plan)},
     {path: 'apps/host/package.json', content: hostPackageJson()},
-    {path: 'apps/host/emp.config.ts', content: hostConfig()},
+    {path: 'apps/host/emp.config.ts', content: hostConfig(plan)},
     {path: 'apps/host/src/main.tsx', content: hostMain()},
     {path: 'apps/host/src/App.tsx', content: hostApp()},
     {path: 'apps/host/src/remotes.d.ts', content: hostRemoteTypes()},
     {path: 'apps/user/package.json', content: remotePackageJson()},
-    {path: 'apps/user/emp.config.ts', content: remoteConfig()},
+    {path: 'apps/user/emp.config.ts', content: remoteConfig(plan)},
     {path: 'apps/user/src/main.ts', content: remoteMain()},
     {path: 'apps/user/src/App.vue', content: remoteApp()},
   ]

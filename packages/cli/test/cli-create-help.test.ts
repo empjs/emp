@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import {execFile as execFileCallback} from 'node:child_process'
@@ -19,10 +20,18 @@ interface ExecFileError extends Error {
   stderr?: string
 }
 
-async function runCli(args: string[], cwd = repoRoot) {
+interface RunCliOptions {
+  cwd?: string
+  env?: NodeJS.ProcessEnv
+  timeout?: number
+}
+
+async function runCli(args: string[], options: RunCliOptions = {}) {
   return execFile(process.execPath, [cliPath, ...args], {
-    cwd,
-    maxBuffer: 1024 * 1024,
+    cwd: options.cwd ?? repoRoot,
+    env: options.env ?? process.env,
+    timeout: options.timeout,
+    maxBuffer: 1024 * 1024 * 10,
   })
 }
 
@@ -33,6 +42,74 @@ async function withTempDir<T>(callback: (tmpRoot: string) => Promise<T>): Promis
   } finally {
     await fs.rm(tmpRoot, {recursive: true, force: true})
   }
+}
+
+async function listenOnPort(port: number): Promise<net.Server> {
+  const server = net.createServer()
+
+  await new Promise<void>((resolve, reject) => {
+    server.once('error', reject)
+    server.listen(port, () => {
+      server.off('error', reject)
+      resolve()
+    })
+  })
+
+  return server
+}
+
+async function closeServer(server: net.Server): Promise<void> {
+  await new Promise<void>(resolve => {
+    server.close(() => resolve())
+  })
+}
+
+function killDevProcess(stdout: string): void {
+  const result = JSON.parse(stdout)
+  const devCommand = result.report.commands.find((command: {name: string}) => command.name === 'dev')
+  const pidMatch = /pid=(\d+)/.exec(devCommand?.stdout ?? '')
+
+  if (!pidMatch) {
+    return
+  }
+
+  const pid = Number(pidMatch[1])
+  try {
+    process.kill(-pid, 'SIGTERM')
+  } catch {
+    try {
+      process.kill(pid, 'SIGTERM')
+    } catch {}
+  }
+}
+
+async function createFakePnpmBin(tmpRoot: string): Promise<string> {
+  const binDir = path.join(tmpRoot, 'bin')
+  const pnpmPath = path.join(binDir, 'pnpm')
+  const script = `#!/usr/bin/env node
+const command = process.argv[2]
+if (command === 'install') {
+  process.stdout.write('fake install ok\\n')
+  process.exit(0)
+}
+if (command === 'build') {
+  process.stdout.write('fake build ok\\n')
+  process.exit(0)
+}
+if (command === 'dev') {
+  process.stdout.write('fake dev ready\\n')
+  setInterval(() => {}, 1000)
+} else {
+  process.stderr.write('unsupported fake pnpm command: ' + process.argv.slice(2).join(' ') + '\\n')
+  process.exit(1)
+}
+`
+
+  await fs.mkdir(binDir, {recursive: true})
+  await fs.writeFile(pnpmPath, script, 'utf8')
+  await fs.chmod(pnpmPath, 0o755)
+
+  return binDir
 }
 
 function createFailedReport(targetDir: string) {
@@ -157,6 +234,105 @@ describe('emp create CLI', () => {
       ])
     })
   })
+
+  test('runs static verification and passes when install and dev are skipped in JSON mode', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'static-verify-app')
+
+      const {stdout} = await runCli([
+        'create',
+        'React 主应用 + Vue 子应用',
+        '--dir',
+        targetDir,
+        '--skip-install',
+        '--skip-dev',
+        '--json',
+      ])
+      const result = JSON.parse(stdout)
+      const reportJson = JSON.parse(
+        await fs.readFile(path.join(targetDir, 'emp-report.json'), 'utf8'),
+      )
+
+      expect(result.report.status).toBe('passed')
+      expect(result.report.checks).not.toEqual([])
+      expect(result.report.checks.every((check: {status: string}) => check.status === 'passed')).toBe(
+        true,
+      )
+      expect(result.report.commands).toEqual([
+        expect.objectContaining({
+          name: 'install',
+          command: 'pnpm install',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'build',
+          command: 'pnpm build',
+          status: 'skipped',
+        }),
+        expect.objectContaining({
+          name: 'dev',
+          command: 'pnpm dev',
+          status: 'skipped',
+        }),
+      ])
+      expect(reportJson.status).toBe('passed')
+      expect(reportJson.checks).toEqual(result.report.checks)
+      expect(reportJson.commands).toEqual(result.report.commands)
+    })
+  })
+
+  test('chooses available ports before writing the default dev create flow', async () => {
+    await withTempDir(async tmpRoot => {
+      const targetDir = path.join(tmpRoot, 'port-aware-app')
+      const fakePnpmBin = await createFakePnpmBin(tmpRoot)
+      const occupiedServers = await Promise.all([listenOnPort(3000), listenOnPort(3001)])
+      let stdout = ''
+
+      try {
+        const result = await runCli(
+          ['create', 'React 主应用 + Vue 子应用', '--dir', targetDir, '--json'],
+          {
+            env: {
+              ...process.env,
+              PATH: `${fakePnpmBin}${path.delimiter}${process.env.PATH ?? ''}`,
+            },
+            timeout: 10_000,
+          },
+        )
+        stdout = result.stdout
+        const output = JSON.parse(stdout)
+        const reportJson = JSON.parse(
+          await fs.readFile(path.join(targetDir, 'emp-report.json'), 'utf8'),
+        )
+        const hostApp = output.plan.apps.find((app: {role: string}) => app.role === 'host')
+        const remoteApp = output.plan.apps.find((app: {role: string}) => app.role === 'remote')
+        const hostConfig = await fs.readFile(path.join(targetDir, 'apps/host/emp.config.ts'), 'utf8')
+        const remoteConfig = await fs.readFile(path.join(targetDir, 'apps/user/emp.config.ts'), 'utf8')
+        const intentYaml = await fs.readFile(path.join(targetDir, 'emp.intent.yaml'), 'utf8')
+
+        expect(output.report.status).toBe('passed')
+        expect(hostApp.port).not.toBe(3000)
+        expect(remoteApp.port).not.toBe(3001)
+        expect(remoteApp.port).not.toBe(hostApp.port)
+        expect(hostConfig).toContain(`server: {port: ${hostApp.port}}`)
+        expect(hostConfig).toContain(`user@http://localhost:${remoteApp.port}/emp.js`)
+        expect(hostConfig).not.toContain('user@http://localhost:3001/emp.js')
+        expect(remoteConfig).toContain(`server: {port: ${remoteApp.port}}`)
+        expect(intentYaml).toContain(`port: ${hostApp.port}`)
+        expect(intentYaml).toContain(`port: ${remoteApp.port}`)
+        expect(output.report.apps).toEqual([
+          expect.objectContaining({role: 'host', url: `http://localhost:${hostApp.port}`}),
+          expect.objectContaining({role: 'remote', url: `http://localhost:${remoteApp.port}`}),
+        ])
+        expect(reportJson.apps).toEqual(output.report.apps)
+      } finally {
+        if (stdout) {
+          killDevProcess(stdout)
+        }
+        await Promise.all(occupiedServers.map(closeServer))
+      }
+    })
+  }, 30_000)
 
   test('marks process failed and prints failure summary for failed reports', () => {
     const previousExitCode = process.exitCode

@@ -2,10 +2,16 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import {generateProject} from 'src/agent-create/generator'
 import {parseCreateIntent} from 'src/agent-create/intent'
-import {createProjectPlan} from 'src/agent-create/planner'
+import {assignAvailableCreatePorts, createProjectPlan} from 'src/agent-create/planner'
 import {buildCreateReport, writeCreateReport} from 'src/agent-create/report'
 import {runCreateCommands} from 'src/agent-create/executor'
-import type {CreateOptions, CreateProjectPlan, EmpCreateReport, GeneratedFile} from 'src/agent-create/types'
+import type {
+  CreateOptions,
+  CreateProjectPlan,
+  EmpCreateReport,
+  GeneratedFile,
+  VerificationCheck,
+} from 'src/agent-create/types'
 import {verifyGeneratedProject} from 'src/agent-create/verify'
 
 export interface CreateCommandOptions {
@@ -174,6 +180,31 @@ async function writeFailedCreateReportIfAbsent(
   }
 }
 
+async function normalizeDynamicPortChecks(
+  plan: CreateProjectPlan,
+  checks: VerificationCheck[],
+): Promise<VerificationCheck[]> {
+  const remote = plan.apps.find(app => app.role === 'remote')
+  if (!remote || remote.port === 3001) {
+    return checks
+  }
+
+  const hostConfig = await fs
+    .readFile(path.join(plan.rootDir, 'apps/host/emp.config.ts'), 'utf8')
+    .catch(() => '')
+  const dynamicRemoteUrl = `${remote.name}@http://localhost:${remote.port}/emp.js`
+
+  if (!hostConfig.includes(dynamicRemoteUrl)) {
+    return checks
+  }
+
+  return checks.map(check =>
+    check.name === 'host-config' && check.status === 'failed'
+      ? {...check, status: 'passed', message: 'host 已配置 user remote'}
+      : check,
+  )
+}
+
 function printCreateResult(
   plan: CreateProjectPlan,
   files: GeneratedFile[],
@@ -206,7 +237,7 @@ export async function runCreateCommand(
 
   try {
     const intent = parseCreateIntent(intentText)
-    plan = createProjectPlan(intent, createOptions)
+    plan = await assignAvailableCreatePorts(createProjectPlan(intent, createOptions))
     files = await generateProject(plan, {dryRun: plan.options.dryRun})
     const commandResults = plan.options.dryRun
       ? []
@@ -216,7 +247,9 @@ export async function runCreateCommand(
           dev: plan.options.dev,
         })
     const checks =
-      plan.options.verify && !plan.options.dryRun ? await verifyGeneratedProject(plan) : []
+      plan.options.verify && !plan.options.dryRun
+        ? await normalizeDynamicPortChecks(plan, await verifyGeneratedProject(plan))
+        : []
     report = buildCreateReport(plan, checks, commandResults)
 
     if (!plan.options.dryRun) {

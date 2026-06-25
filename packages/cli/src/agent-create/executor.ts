@@ -1,10 +1,14 @@
 import {execFile as execFileCallback, spawn} from 'node:child_process'
 import type {ChildProcess} from 'node:child_process'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import {promisify} from 'node:util'
 import type {CommandResult, CreateOptions, CreateProjectPlan} from './types'
 
 const execFile = promisify(execFileCallback)
 const commandBufferLimit = 1024 * 1024 * 10
+const devLogBufferLimit = 1024 * 128
 
 interface CreateCommandInput {
   name: string
@@ -62,6 +66,23 @@ function skippedAfterFailure(name: string, command: string, failedCommand: Comma
   return skipped(name, command, `由于前置命令 ${failedCommand.name} 失败，已跳过`)
 }
 
+function skippedAfterSkippedInstall(name: string, command: string): CommandResult {
+  return skipped(name, command, `由于依赖安装已跳过，已跳过 ${name} 命令`)
+}
+
+function readDevLog(filePath: string): string {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8')
+    return content.length > devLogBufferLimit ? content.slice(-devLogBufferLimit) : content
+  } catch {
+    return ''
+  }
+}
+
+function appendDevMessage(output: string, message: string): string {
+  return output ? `${output.trimEnd()}\n${message}` : message
+}
+
 export async function runCommandForCreate(input: CreateCommandInput): Promise<CommandResult> {
   const command = commandText(input.command, input.args)
 
@@ -102,6 +123,11 @@ export async function startDevCommandForCreate(
   const devArgs = options.args ?? ['dev']
   const startupWindowMs = options.startupWindowMs ?? 1000
   const command = commandText(devCommand, devArgs)
+  const logDir = fs.mkdtempSync(path.join(os.tmpdir(), 'emp-create-dev-'))
+  const stdoutPath = path.join(logDir, 'stdout.log')
+  const stderrPath = path.join(logDir, 'stderr.log')
+  const stdoutFd = fs.openSync(stdoutPath, 'a')
+  const stderrFd = fs.openSync(stderrPath, 'a')
 
   let child: ChildProcess
 
@@ -109,9 +135,11 @@ export async function startDevCommandForCreate(
     child = spawn(devCommand, devArgs, {
       cwd: plan.rootDir,
       detached: true,
-      stdio: 'ignore',
+      stdio: ['ignore', stdoutFd, stderrFd],
     })
   } catch (error) {
+    fs.closeSync(stdoutFd)
+    fs.closeSync(stderrFd)
     return {
       name: 'dev',
       command,
@@ -121,6 +149,8 @@ export async function startDevCommandForCreate(
       stderr: error instanceof Error ? error.message : String(error),
     }
   }
+  fs.closeSync(stdoutFd)
+  fs.closeSync(stderrFd)
 
   return new Promise(resolve => {
     let settled = false
@@ -148,19 +178,20 @@ export async function startDevCommandForCreate(
         command,
         status: 'failed',
         exitCode: null,
-        stdout: '',
-        stderr: error.message,
+        stdout: readDevLog(stdoutPath),
+        stderr: appendDevMessage(readDevLog(stderrPath), error.message),
       })
     }
 
     const onExit = (code: number | null, signal: NodeJS.Signals | null) => {
+      const exitMessage = `dev command exited before startup window (code=${code ?? 'null'}, signal=${signal ?? 'null'})`
       settle({
         name: 'dev',
         command,
         status: 'failed',
         exitCode: code,
-        stdout: '',
-        stderr: `dev command exited before startup window (code=${code ?? 'null'}, signal=${signal ?? 'null'})`,
+        stdout: readDevLog(stdoutPath),
+        stderr: appendDevMessage(readDevLog(stderrPath), exitMessage),
       })
     }
 
@@ -173,8 +204,8 @@ export async function startDevCommandForCreate(
         command,
         status: 'passed',
         exitCode: null,
-        stdout: `pid=${child.pid}`,
-        stderr: '',
+        stdout: appendDevMessage(readDevLog(stdoutPath), `pid=${child.pid}`),
+        stderr: readDevLog(stderrPath),
       })
       child.unref()
     }, startupWindowMs)
@@ -206,6 +237,24 @@ export async function runCreateCommands(
   if (installResult?.status === 'failed') {
     results.push(skippedAfterFailure('build', 'pnpm build', installResult))
     results.push(skippedAfterFailure('dev', 'pnpm dev', installResult))
+    return results
+  }
+
+  if (installResult?.status === 'skipped') {
+    results.push(
+      options.verify
+        ? skipped(
+            'build',
+            'pnpm build',
+            '由于依赖安装已跳过，已跳过 build 命令；静态 verify 仍会执行',
+          )
+        : skipped('build', 'pnpm build', '已通过 --skip-verify 跳过'),
+    )
+    results.push(
+      options.dev
+        ? skippedAfterSkippedInstall('dev', 'pnpm dev')
+        : skipped('dev', 'pnpm dev', '已通过 --skip-dev 跳过'),
+    )
     return results
   }
 

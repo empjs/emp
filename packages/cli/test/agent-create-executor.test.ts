@@ -122,6 +122,28 @@ describe('agent-create command executor', () => {
     })
   })
 
+  test('captures dev stdout and stderr when the dev process exits during startup window', async () => {
+    await withTempDir(async tmpRoot => {
+      const result = await startDevCommandForCreate(
+        {rootDir: tmpRoot},
+        {
+          command: process.execPath,
+          args: [
+            '-e',
+            "process.stdout.write('visible stdout\\n'); process.stderr.write('visible stderr\\n'); setTimeout(() => process.exit(7), 20)",
+          ],
+          startupWindowMs: 200,
+        },
+      )
+
+      expect(result.status).toBe('failed')
+      expect(result.exitCode).toBe(7)
+      expect(result.stdout).toContain('visible stdout')
+      expect(result.stderr).toContain('visible stderr')
+      expect(result.stderr).toMatch(/exited before startup window/)
+    })
+  })
+
   test('returns failed dev result when the dev command emits an error', async () => {
     await withTempDir(async tmpRoot => {
       const missingCommand = `emp-agent-create-missing-dev-command-${Date.now()}`
@@ -194,6 +216,56 @@ describe('agent-create command executor', () => {
         exitCode: null,
         stdout: '',
         stderr: '由于前置命令 install 失败，已跳过',
+      },
+    ])
+  })
+
+  test('skips build when install was intentionally skipped even if verify remains enabled', async () => {
+    const calls: string[] = []
+
+    const results = await runCreateCommands(
+      {rootDir: process.cwd()},
+      {install: false, verify: true, dev: false},
+      {
+        runCommandForCreate: async input => {
+          calls.push(input.name)
+          return {
+            name: input.name,
+            command: `${input.command} ${input.args.join(' ')}`,
+            status: 'passed',
+            exitCode: 0,
+            stdout: `${input.name} should not run`,
+            stderr: '',
+          }
+        },
+      },
+    )
+
+    expect(calls).toEqual([])
+    expect(results).toEqual([
+      {
+        name: 'install',
+        command: 'pnpm install',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '已通过 --skip-install 跳过',
+      },
+      {
+        name: 'build',
+        command: 'pnpm build',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '由于依赖安装已跳过，已跳过 build 命令；静态 verify 仍会执行',
+      },
+      {
+        name: 'dev',
+        command: 'pnpm dev',
+        status: 'skipped',
+        exitCode: null,
+        stdout: '',
+        stderr: '已通过 --skip-dev 跳过',
       },
     ])
   })

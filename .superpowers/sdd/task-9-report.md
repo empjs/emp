@@ -225,3 +225,141 @@ Result: passed.
 - The requested write-mode static acceptance does not pass with only `--skip-install --skip-dev` because build is still executed after skipping install.
 - The default e2e path reaches install and build successfully, but dev exits before the startup window with status `failed`.
 - No CLI source changes were made because this task was scoped to `packages/cli/package.json` and this report only.
+
+## Follow-up Fix: Agent-first Create Acceptance
+
+### RED
+
+```bash
+pnpm --filter @empjs/cli test:real:executor
+```
+
+Result: failed as expected.
+
+- `captures dev stdout and stderr when the dev process exits during startup window`: `stdout` was empty because `startDevCommandForCreate` used ignored stdio.
+- `skips build when install was intentionally skipped even if verify remains enabled`: `runCreateCommands` still invoked `build`.
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: failed as expected.
+
+- The new CLI `--skip-install --skip-dev --json` acceptance failed because `pnpm build` still ran without dependencies.
+- The default dev-flow port test failed before the fix because generated output still used occupied default ports.
+
+Additional RED guard:
+
+```bash
+pnpm --filter @empjs/cli exec rstest 'test/cli-create-help.test.ts' --testNamePattern 'emp create CLI > chooses available ports before writing the default dev create flow'
+```
+
+Result: failed as expected while a stale `user@http://localhost:3001/emp.js` verifier hint was still present in generated host config. The final implementation removes that stale URL from generated files.
+
+### GREEN
+
+```bash
+pnpm --filter @empjs/cli test:real:executor
+```
+
+Result: passed.
+
+- Test files: 1
+- Tests: 9
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real:create
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 44
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test:real
+```
+
+Result: passed.
+
+- Test files: 7
+- Tests: 44
+- Failed tests: 0
+
+```bash
+pnpm --filter @empjs/cli test
+```
+
+Result: passed.
+
+- Existing `.mjs` package checks passed.
+- The script also ran package build successfully.
+
+```bash
+pnpm --filter @empjs/cli build
+```
+
+Result: passed.
+
+- `rslib build --env-mode production`
+- Declaration files generated successfully.
+
+```bash
+git diff --check
+```
+
+Result: passed.
+
+### Live CLI Checks
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dry-run --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- Commands: none, as expected for dry-run.
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dir "$TMP/demo" --skip-install --skip-dev --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- Static checks: `root-package`, `workspace`, `intent`, `host-config`, `remote-config` all passed.
+- Commands: `install` skipped, `build` skipped, `dev` skipped.
+
+```bash
+node packages/cli/bin/emp.js create "React 主应用 + Vue 子应用" --dir "$TMP/demo" --json
+```
+
+Result: passed.
+
+- Exit code: 0
+- Report status: `passed`
+- App URLs: host `http://localhost:3001`, remote `http://localhost:3003` in the final live run, reflecting currently available ports.
+- Commands: `install` passed, `build` passed, `dev` passed.
+- Reported dev pid: `65166`; killed via process group and confirmed not alive afterward.
+
+### Change Summary
+
+- `--skip-install` now skips build command execution even when static verify remains enabled; static verify still runs from generated files.
+- Non-dry-run dev-enabled create flow now resolves available host/remote ports before writing files and regenerates templates from that updated plan.
+- Generated `emp.intent.yaml`, host remote config, remote server config, and report app URLs use the same resolved ports.
+- `startDevCommandForCreate` now captures startup stdout/stderr through detached log files and reports early-exit output without keeping attached pipes that block CLI exit.
+
+### Commit
+
+- Commit hash: reported in final response after the commit is created. A commit cannot reliably embed its own final hash inside tracked content.
+
+### Concerns
+
+- `.codex/config.toml` is still absent in this checkout.
+- Existing unrelated worktree changes were preserved and not included in this fix: `.superpowers/sdd/task-4-report.md` and `.superpowers/plans/2026-06-24-agent-first-create-plan.md`.
+- `verifyGeneratedProject` still contains a default-port host-config check outside this follow-up scope, so create runtime normalizes that specific check when dynamic ports are assigned and the generated host config contains the resolved remote URL.
