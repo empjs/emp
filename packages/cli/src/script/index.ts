@@ -45,6 +45,23 @@ export default async function runScript() {
     })
 
   /**
+   * Agent-first 创建项目
+   */
+  program
+    .command('create <intent>')
+    .description('创建 EMP 新项目')
+    .option('--dir <dir>', '目标目录，默认 emp-app')
+    .option('--dry-run', '只输出将要生成的文件，不写入磁盘')
+    .option('--skip-install', '跳过依赖安装')
+    .option('--skip-dev', '跳过自动启动')
+    .option('--skip-verify', '跳过自动验证')
+    .option('--json', '输出 JSON 结果')
+    .action(async (intentText, o) => {
+      const {runCreateCommand} = await import('src/script/create')
+      await runCreateCommand(intentText, o)
+    })
+
+  /**
    * 拉取 remote d.ts
    */
   registerUnsupportedCommand(program, 'dts', '拉取 remote 项目的 d.ts')
