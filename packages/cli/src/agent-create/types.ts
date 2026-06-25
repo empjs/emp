@@ -45,6 +45,12 @@ export interface VerificationCheck {
   message: string
 }
 
+export interface FixResult {
+  name: string
+  status: 'applied' | 'skipped'
+  message: string
+}
+
 export interface CommandResult {
   name: string
   command: string
