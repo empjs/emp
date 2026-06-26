@@ -191,4 +191,14 @@ describe('legacy apps rules coverage', () => {
     const rootPackage = JSON.parse(await fs.promises.readFile(join(repoRoot, 'package.json'), 'utf8'))
     expect(rootPackage.devDependencies?.serve).toBeUndefined()
   })
+
+  test('CI apps job installs Playwright Chromium before browser acceptance', async () => {
+    const ciWorkflow = await fs.promises.readFile(join(repoRoot, '.github/workflows/ci.yml'), 'utf8')
+    const playwrightInstallIndex = ciWorkflow.indexOf('pnpm exec playwright install --with-deps chromium')
+    const appsAcceptanceIndex = ciWorkflow.indexOf('pnpm apps:acceptance')
+
+    expect(playwrightInstallIndex).toBeGreaterThanOrEqual(0)
+    expect(appsAcceptanceIndex).toBeGreaterThanOrEqual(0)
+    expect(playwrightInstallIndex).toBeLessThan(appsAcceptanceIndex)
+  })
 })
