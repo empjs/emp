@@ -19,12 +19,6 @@ export const COMPAT_APP_GROUPS = {
 }
 
 export const MERGE_CANDIDATES = [
-  {
-    group: 'library-output',
-    canonical: ['packages/cdn-*', 'packages/lib-*', 'packages/emp-share'],
-    removeAfterCovered: ['lib-main', 'lib-react', 'unpkg-demo', 'unpkg-lib'],
-    requiredEvidence: ['Rslib package build passes', 'static service serves a library/runtime asset over HTTP'],
-  },
 ]
 
 export function getDuplicatePackageNames(apps) {

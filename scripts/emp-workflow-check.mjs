@@ -123,6 +123,9 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm test:apps:mf')) {
     failures.push('package.json apps:acceptance must run pnpm test:apps:mf for P0 Module Federation browser smoke')
   }
+  if (!appsAcceptance.includes('pnpm test:library-output')) {
+    failures.push('package.json apps:acceptance must run pnpm test:library-output for package-level library output smoke')
+  }
   const testAppsSingle = pkg.scripts?.['test:apps:single'] ?? ''
   if (!testAppsSingle.includes('rstest run --config rstest.config.ts scripts/apps.acceptance.test.ts')) {
     failures.push('package.json test:apps:single must run scripts/apps.acceptance.test.ts with root Rstest config')
@@ -130,6 +133,10 @@ if (exists('package.json')) {
   const testAppsMf = pkg.scripts?.['test:apps:mf'] ?? ''
   if (!testAppsMf.includes('rstest run --config rstest.config.ts scripts/apps.mf-browser.test.ts')) {
     failures.push('package.json test:apps:mf must run scripts/apps.mf-browser.test.ts with root Rstest config')
+  }
+  const testLibraryOutput = pkg.scripts?.['test:library-output'] ?? ''
+  if (!testLibraryOutput.includes('rstest run --config rstest.config.ts scripts/library-output.smoke.test.ts')) {
+    failures.push('package.json test:library-output must run scripts/library-output.smoke.test.ts with root Rstest config')
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {

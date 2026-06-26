@@ -48,13 +48,11 @@ describe('apps catalog rules', () => {
 
   test('remaining duplicate package names stay cataloged during cleanup', async () => {
     const apps = await discoverApps(repoRoot)
-    expect(getDuplicatePackageNames(apps)).toEqual({
-      'unpkg-lib': ['unpkg-demo', 'unpkg-lib'],
-    })
+    expect(getDuplicatePackageNames(apps)).toEqual({})
   })
 
   test('merge candidates require evidence before deletion', () => {
-    expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual(['library-output'])
+    expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual([])
     expect(MERGE_CANDIDATES.every(candidate => candidate.requiredEvidence.length > 0)).toBe(true)
   })
 })
