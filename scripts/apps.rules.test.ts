@@ -49,7 +49,6 @@ describe('apps catalog rules', () => {
   test('remaining duplicate package names stay cataloged during cleanup', async () => {
     const apps = await discoverApps(repoRoot)
     expect(getDuplicatePackageNames(apps)).toEqual({
-      'tailwind-demo': ['tailwind-4', 'tailwind-4-polyfill', 'tailwind-demo', 'tailwindcss-app'],
       'unpkg-lib': ['unpkg-demo', 'unpkg-lib'],
       'vue-3-project': ['vue-3-project', 'vue3-app', 'vue3-host'],
     })
@@ -58,7 +57,6 @@ describe('apps catalog rules', () => {
   test('merge candidates require evidence before deletion', () => {
     expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual([
       'vue3-pinia-router',
-      'tailwind-default-v4',
       'library-output',
     ])
     expect(MERGE_CANDIDATES.every(candidate => candidate.requiredEvidence.length > 0)).toBe(true)

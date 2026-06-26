@@ -27,12 +27,6 @@ export const MERGE_CANDIDATES = [
     requiredEvidence: ['vue-3-project build passes', 'canonical Vue 3 route or source contains Pinia/router coverage'],
   },
   {
-    group: 'tailwind-default-v4',
-    canonical: ['tailwind-4'],
-    removeAfterCovered: ['tailwind-4-polyfill', 'tailwind-demo', 'tailwindcss-app', 'tailwindcss-host'],
-    requiredEvidence: ['tailwind-4 build passes', 'CSS artifact exists and Tailwind v4 package is used'],
-  },
-  {
     group: 'library-output',
     canonical: ['packages/cdn-*', 'packages/lib-*', 'packages/emp-share'],
     removeAfterCovered: ['lib-main', 'lib-react', 'unpkg-demo', 'unpkg-lib'],

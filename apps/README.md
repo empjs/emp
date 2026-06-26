@@ -39,7 +39,6 @@ Compat apps 不进入默认 `apps:acceptance`，只在相关能力变更或 rele
 | 候选组 | 目标 |
 | --- | --- |
 | `vue3-app` / `vue3-host` -> `vue-3-base` / `vue-3-project` | 保留必要 Pinia/router 信号后删除旧 Vue3 重复组 |
-| Tailwind duplicate group -> `tailwind-4` | 默认只保留 v4，v2/v3 降为 legacy compat |
 | `lib-*` / `unpkg-*` apps -> Rslib/CDN package smoke | 不再用 MF app pair 证明库产物 |
 
 ## Completed Merges
@@ -47,6 +46,7 @@ Compat apps 不进入默认 `apps:acceptance`，只在相关能力变更或 rele
 | 合并项 | 验收 |
 | --- | --- |
 | `react-tanstack` -> `react-19-tanstack` | `react-19-tanstack` 保留 `/router-lab` 与 `/router-lab/$id`，由 `pnpm test:apps:single` 断言 route tree |
+| Tailwind duplicate group -> `tailwind-4` | `tailwind-4` 保留 v4 插件和 CSS 产物断言，`tailwind-2` / `tailwind-3` 保留为 legacy compat |
 
 ## 命令
 

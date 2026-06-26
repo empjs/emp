@@ -35,6 +35,14 @@ describe('default apps real acceptance', () => {
       const distFiles = readdirSync(join(repoRoot, 'apps', appDir, 'dist'), {recursive: true})
       expect(distFiles.length).toBeGreaterThan(0)
 
+      if (appDir === 'tailwind-4') {
+        const pkg = JSON.parse(readFileSync(join(repoRoot, 'apps', appDir, 'package.json'), 'utf8'))
+        expect(pkg.devDependencies?.['@empjs/plugin-tailwindcss']).toBe('workspace:^')
+        expect(pkg.devDependencies?.['@empjs/plugin-tailwindcss2']).toBeUndefined()
+        expect(pkg.devDependencies?.['@empjs/plugin-tailwindcss3']).toBeUndefined()
+        expect(distFiles.some(file => String(file).startsWith('css/') && String(file).endsWith('.css'))).toBe(true)
+      }
+
       if (appDir === 'react-19-tanstack') {
         const routeTree = readFileSync(join(repoRoot, 'apps', appDir, 'src/routeTree.gen.ts'), 'utf8')
         expect(routeTree).toContain("'/router-lab'")
