@@ -25,15 +25,14 @@ export default defineConfig(store => {
           },
           framework: {
             libs: [
-              `https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
-              // `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js`,
-              `https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.prod.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.1/dist/vueRouter.${store.mode}.umd.js`,
             ],
-            global: 'window',
+            global: 'EMP_ADAPTER_VUE',
           },
           setExternals(o) {
-            o['vue'] = `Vue`
-            o['vue-router'] = `VueRouter`
+            o['vue'] = `EMP_ADAPTER_VUE.Vue`
+            o['vue-router'] = `EMP_ADAPTER_VUE.VueRouter`
+            o['pinia'] = `EMP_ADAPTER_VUE.Pinia`
             return o
           },
         },

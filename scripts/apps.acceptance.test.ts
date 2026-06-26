@@ -43,6 +43,33 @@ describe('default apps real acceptance', () => {
         expect(distFiles.some(file => String(file).startsWith('css/') && String(file).endsWith('.css'))).toBe(true)
       }
 
+      if (appDir === 'vue-3-base') {
+        const pkg = JSON.parse(readFileSync(join(repoRoot, 'apps', appDir, 'package.json'), 'utf8'))
+        const config = readFileSync(join(repoRoot, 'apps', appDir, 'emp.config.ts'), 'utf8')
+        const countStore = readFileSync(join(repoRoot, 'apps', appDir, 'src/components/piniaCounterStore.ts'), 'utf8')
+        const piniaCount = readFileSync(join(repoRoot, 'apps', appDir, 'src/components/PiniaCount.vue'), 'utf8')
+
+        expect(pkg.dependencies?.pinia).toBe('^3.0.3')
+        expect(config).toContain('@empjs/cdn-vue-router-pinia')
+        expect(config).toContain("'./PiniaCount'")
+        expect(config).toContain("o['pinia'] = `EMP_ADAPTER_VUE.Pinia`")
+        expect(countStore).toContain('defineStore')
+        expect(piniaCount).toContain('storeToRefs')
+      }
+
+      if (appDir === 'vue-3-project') {
+        const pkg = JSON.parse(readFileSync(join(repoRoot, 'apps', appDir, 'package.json'), 'utf8'))
+        const config = readFileSync(join(repoRoot, 'apps', appDir, 'emp.config.ts'), 'utf8')
+        const bootstrap = readFileSync(join(repoRoot, 'apps', appDir, 'src/bootstrap.ts'), 'utf8')
+        const home = readFileSync(join(repoRoot, 'apps', appDir, 'src/Home.vue'), 'utf8')
+
+        expect(pkg.dependencies?.pinia).toBe('^3.0.3')
+        expect(config).toContain('@empjs/cdn-vue-router-pinia')
+        expect(config).toContain("o['pinia'] = `EMP_ADAPTER_VUE.Pinia`")
+        expect(bootstrap).toContain('createPinia')
+        expect(home).toContain('@v3/PiniaCount')
+      }
+
       if (appDir === 'react-19-tanstack') {
         const routeTree = readFileSync(join(repoRoot, 'apps', appDir, 'src/routeTree.gen.ts'), 'utf8')
         expect(routeTree).toContain("'/router-lab'")

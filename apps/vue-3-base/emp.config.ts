@@ -23,11 +23,15 @@ export default defineConfig(store => {
           },
           framework: {
             libs: [
-              `https://cdn.jsdelivr.net/npm/vue@3.5.21/dist/vue.runtime.global${store.mode === 'production' ? '.prod' : ''}.min.js`,
+              `https://unpkg.com/@empjs/cdn-vue-router-pinia@3.5.1/dist/vueRouter.${store.mode}.umd.js`,
             ],
-            global: 'window',
+            global: 'EMP_ADAPTER_VUE',
           },
-          setExternals: externalVue,
+          setExternals(o) {
+            externalVue(o, 'EMP_ADAPTER_VUE')
+            o['pinia'] = `EMP_ADAPTER_VUE.Pinia`
+            return o
+          },
         },
         exposes: {
           './ButtonComponent': './src/components/ButtonComponent',
@@ -36,6 +40,7 @@ export default defineConfig(store => {
           './TsxScript': './src/components/TsxScript',
           './Antd': './src/Antd',
           './Home': './src/Home',
+          './PiniaCount': './src/components/PiniaCount',
         },
         name: 'vue3Base',
       }),

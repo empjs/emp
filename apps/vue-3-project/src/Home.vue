@@ -5,6 +5,8 @@
 		<TableComponent/>
 		<h2>vue3Base/JSXComponent</h2>
 		<JSXComponent/>
+		<h2>vue3Base/PiniaCount</h2>
+		<PiniaCount name="remote"/>
 		<TsxScript attr1="aaa" :attr2="true"/>
 		<ButtonComponent attr1="bbb" :attr2="true"/>
 	</div>
@@ -19,6 +21,7 @@
 <script lang="ts" setup>
 	import ButtonComponent from '@v3/ButtonComponent'
 	import JSXComponent from '@v3/JSXComponent'
+	import PiniaCount from '@v3/PiniaCount'
 	import TableComponent from '@v3/TableComponent'
 	import TsxScript from '@v3/TsxScript'
 	//

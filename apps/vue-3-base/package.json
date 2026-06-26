@@ -13,6 +13,7 @@
     "@empjs/plugin-lightningcss": "workspace:^",
     "@empjs/share": "workspace:^",
     "ant-design-vue": "^4.1.2",
+    "pinia": "^3.0.3",
     "vue": "^3.5.21"
   },
   "scripts": {

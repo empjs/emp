@@ -1184,6 +1184,9 @@ importers:
       ant-design-vue:
         specifier: ^4.1.2
         version: 4.2.6(vue@3.5.38(typescript@5.9.3))
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       vue:
         specifier: ^3.5.21
         version: 3.5.38(typescript@5.9.3)
@@ -1206,6 +1209,9 @@ importers:
       ant-design-vue:
         specifier: ^4.1.2
         version: 4.2.6(vue@3.5.38(typescript@5.9.3))
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       vue:
         specifier: ^3.5.13
         version: 3.5.38(typescript@5.9.3)
@@ -1232,50 +1238,6 @@ importers:
       '@empjs/plugin-lightningcss':
         specifier: workspace:^
         version: link:../../packages/plugin-lightningcss
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  apps/vue3-app:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
-      vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-beta.16(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@empjs/plugin-vue3':
-        specifier: workspace:^*
-        version: link:../../packages/plugin-vue3
-
-  apps/vue3-host:
-    dependencies:
-      '@empjs/share':
-        specifier: workspace:^
-        version: link:../../packages/emp-share
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.6.0-beta.16(typescript@5.9.3))
-      vue:
-        specifier: ^3.6.0-alpha.2
-        version: 3.6.0-beta.16(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.4(vue@3.6.0-beta.16(typescript@5.9.3))
-    devDependencies:
-      '@empjs/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
       '@empjs/plugin-vue3':
         specifier: workspace:^*
         version: link:../../packages/plugin-vue3

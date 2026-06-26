@@ -50,15 +50,11 @@ describe('apps catalog rules', () => {
     const apps = await discoverApps(repoRoot)
     expect(getDuplicatePackageNames(apps)).toEqual({
       'unpkg-lib': ['unpkg-demo', 'unpkg-lib'],
-      'vue-3-project': ['vue-3-project', 'vue3-app', 'vue3-host'],
     })
   })
 
   test('merge candidates require evidence before deletion', () => {
-    expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual([
-      'vue3-pinia-router',
-      'library-output',
-    ])
+    expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual(['library-output'])
     expect(MERGE_CANDIDATES.every(candidate => candidate.requiredEvidence.length > 0)).toBe(true)
   })
 })

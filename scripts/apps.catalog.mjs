@@ -12,7 +12,6 @@ export const DEFAULT_APP_ACCEPTANCE = [
 export const COMPAT_APP_GROUPS = {
   'tailwind-legacy': ['tailwind-2', 'tailwind-3'],
   vue2: ['vue-2-base', 'vue-2-project', 'vue-2-element', 'vue-2-stylus'],
-  'vue3-pinia-router': ['vue3-app', 'vue3-host'],
   'react-runtime-legacy': ['react-16-adapter-18', 'react-18-runtime', 'runtime-18-app', 'runtime-18-host'],
   adapter: ['adapter-app', 'adapter-host', 'adapter-vue2-host', 'adapter-vue3-host', 'vue3-in-vue2'],
   'runtime-layout': ['rtHost', 'rtLayout', 'rtProvider', 'emp-window-demo'],
@@ -20,12 +19,6 @@ export const COMPAT_APP_GROUPS = {
 }
 
 export const MERGE_CANDIDATES = [
-  {
-    group: 'vue3-pinia-router',
-    canonical: ['vue-3-base', 'vue-3-project'],
-    removeAfterCovered: ['vue3-app', 'vue3-host'],
-    requiredEvidence: ['vue-3-project build passes', 'canonical Vue 3 route or source contains Pinia/router coverage'],
-  },
   {
     group: 'library-output',
     canonical: ['packages/cdn-*', 'packages/lib-*', 'packages/emp-share'],

@@ -16,6 +16,7 @@
 		<ButtonComponent/>
 		<JSXComponent/>
 		<Count/>
+		<PiniaCount name="base"/>
 		<TsxScript/>
 	</div>
 </template>
@@ -30,6 +31,7 @@
 	import ButtonComponent from './components/ButtonComponent.vue'
 	import Count from './components/Count.vue'
 	import JSXComponent from './components/JSXComponent'
+	import PiniaCount from './components/PiniaCount.vue'
 	import TableComponent from './components/TableComponent.vue'
 	import TsxScript from './components/TsxScript.vue'
 	// import Logo from './logo.svg?component'
