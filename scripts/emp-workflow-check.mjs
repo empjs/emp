@@ -120,9 +120,16 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm test:apps:single')) {
     failures.push('package.json apps:acceptance must run pnpm test:apps:single for canonical app builds')
   }
+  if (!appsAcceptance.includes('pnpm test:apps:mf')) {
+    failures.push('package.json apps:acceptance must run pnpm test:apps:mf for P0 Module Federation browser smoke')
+  }
   const testAppsSingle = pkg.scripts?.['test:apps:single'] ?? ''
   if (!testAppsSingle.includes('rstest run --config rstest.config.ts scripts/apps.acceptance.test.ts')) {
     failures.push('package.json test:apps:single must run scripts/apps.acceptance.test.ts with root Rstest config')
+  }
+  const testAppsMf = pkg.scripts?.['test:apps:mf'] ?? ''
+  if (!testAppsMf.includes('rstest run --config rstest.config.ts scripts/apps.mf-browser.test.ts')) {
+    failures.push('package.json test:apps:mf must run scripts/apps.mf-browser.test.ts with root Rstest config')
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {
