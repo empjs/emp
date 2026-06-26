@@ -8,10 +8,17 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import {Route as rootRouteImport} from './routes/__root'
-import {Route as IndexRouteImport} from './routes/index'
-import {Route as React19RouteImport} from './routes/react-19'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as RouterLabRouteImport } from './routes/router-lab'
+import { Route as React19RouteImport } from './routes/react-19'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as RouterLabIdRouteImport } from './routes/router-lab.$id'
 
+const RouterLabRoute = RouterLabRouteImport.update({
+  id: '/router-lab',
+  path: '/router-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const React19Route = React19RouteImport.update({
   id: '/react-19',
   path: '/react-19',
@@ -22,35 +29,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RouterLabIdRoute = RouterLabIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => RouterLabRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/react-19': typeof React19Route
+  '/router-lab': typeof RouterLabRouteWithChildren
+  '/router-lab/$id': typeof RouterLabIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/react-19': typeof React19Route
+  '/router-lab': typeof RouterLabRouteWithChildren
+  '/router-lab/$id': typeof RouterLabIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/react-19': typeof React19Route
+  '/router-lab': typeof RouterLabRouteWithChildren
+  '/router-lab/$id': typeof RouterLabIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/react-19'
+  fullPaths: '/' | '/react-19' | '/router-lab' | '/router-lab/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/react-19'
-  id: '__root__' | '/' | '/react-19'
+  to: '/' | '/react-19' | '/router-lab' | '/router-lab/$id'
+  id: '__root__' | '/' | '/react-19' | '/router-lab' | '/router-lab/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   React19Route: typeof React19Route
+  RouterLabRoute: typeof RouterLabRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/router-lab': {
+      id: '/router-lab'
+      path: '/router-lab'
+      fullPath: '/router-lab'
+      preLoaderRoute: typeof RouterLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/react-19': {
       id: '/react-19'
       path: '/react-19'
@@ -65,11 +91,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/router-lab/$id': {
+      id: '/router-lab/$id'
+      path: '/$id'
+      fullPath: '/router-lab/$id'
+      preLoaderRoute: typeof RouterLabIdRouteImport
+      parentRoute: typeof RouterLabRoute
+    }
   }
 }
+
+interface RouterLabRouteChildren {
+  RouterLabIdRoute: typeof RouterLabIdRoute
+}
+
+const RouterLabRouteChildren: RouterLabRouteChildren = {
+  RouterLabIdRoute: RouterLabIdRoute,
+}
+
+const RouterLabRouteWithChildren = RouterLabRoute._addFileChildren(
+  RouterLabRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   React19Route: React19Route,
+  RouterLabRoute: RouterLabRouteWithChildren,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

@@ -19,6 +19,10 @@ function startProcess(command: string, args: string[]) {
   return {child, output}
 }
 
+function startPnpm(args: string[]) {
+  return startProcess('corepack', ['pnpm@10.33.0', ...args])
+}
+
 async function stopProcess(processHandle: ReturnType<typeof startProcess>) {
   if (processHandle.child.exitCode !== null || !processHandle.child.pid) return
   try {
@@ -48,9 +52,9 @@ async function waitForHttp(url: string, timeoutMs = 60000) {
 describe('P0 Module Federation browser smoke', () => {
   test('mf-app renders mf-host remote through emp-share runtime', async () => {
     const processes = [
-      startProcess('pnpm', ['--filter', '@empjs/share', 'start']),
-      startProcess('pnpm', ['--filter', './apps/mf-host', 'dev']),
-      startProcess('pnpm', ['--filter', './apps/mf-app', 'dev']),
+      startPnpm(['--filter', '@empjs/share', 'start']),
+      startPnpm(['--filter', './apps/mf-host', 'dev']),
+      startPnpm(['--filter', './apps/mf-app', 'dev']),
     ]
     let browser: Browser | undefined
 

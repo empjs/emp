@@ -46,10 +46,9 @@ describe('apps catalog rules', () => {
     await expect(validateApps(apps)).resolves.toEqual([])
   })
 
-  test('known duplicate package names are cataloged before cleanup', async () => {
+  test('remaining duplicate package names stay cataloged during cleanup', async () => {
     const apps = await discoverApps(repoRoot)
     expect(getDuplicatePackageNames(apps)).toEqual({
-      'react-19-tanstack': ['react-19-tanstack', 'react-tanstack'],
       'tailwind-demo': ['tailwind-4', 'tailwind-4-polyfill', 'tailwind-demo', 'tailwindcss-app'],
       'unpkg-lib': ['unpkg-demo', 'unpkg-lib'],
       'vue-3-project': ['vue-3-project', 'vue3-app', 'vue3-host'],
@@ -58,7 +57,6 @@ describe('apps catalog rules', () => {
 
   test('merge candidates require evidence before deletion', () => {
     expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual([
-      'react-tanstack',
       'vue3-pinia-router',
       'tailwind-default-v4',
       'library-output',

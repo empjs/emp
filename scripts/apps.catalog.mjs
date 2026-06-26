@@ -21,12 +21,6 @@ export const COMPAT_APP_GROUPS = {
 
 export const MERGE_CANDIDATES = [
   {
-    group: 'react-tanstack',
-    canonical: ['react-19-tanstack'],
-    removeAfterCovered: ['react-tanstack'],
-    requiredEvidence: ['react-19-tanstack build passes', 'route artifact includes static and dynamic route coverage'],
-  },
-  {
     group: 'vue3-pinia-router',
     canonical: ['vue-3-base', 'vue-3-project'],
     removeAfterCovered: ['vue3-app', 'vue3-host'],

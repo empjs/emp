@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@rstest/core'
 import {execFile as execFileCallback} from 'node:child_process'
-import {existsSync, readdirSync} from 'node:fs'
+import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
 import {DEFAULT_APP_ACCEPTANCE} from './apps.catalog.mjs'
@@ -22,7 +22,7 @@ const expectedArtifacts: Record<string, string[]> = {
 describe('default apps real acceptance', () => {
   for (const appDir of DEFAULT_APP_ACCEPTANCE) {
     test(`${appDir} builds and emits expected artifacts`, async () => {
-      const result = await execFile('pnpm', ['--filter', `./apps/${appDir}`, 'build'], {
+      const result = await execFile('corepack', ['pnpm@10.33.0', '--filter', `./apps/${appDir}`, 'build'], {
         cwd: repoRoot,
         maxBuffer: 1024 * 1024 * 20,
       })
@@ -34,6 +34,12 @@ describe('default apps real acceptance', () => {
 
       const distFiles = readdirSync(join(repoRoot, 'apps', appDir, 'dist'), {recursive: true})
       expect(distFiles.length).toBeGreaterThan(0)
+
+      if (appDir === 'react-19-tanstack') {
+        const routeTree = readFileSync(join(repoRoot, 'apps', appDir, 'src/routeTree.gen.ts'), 'utf8')
+        expect(routeTree).toContain("'/router-lab'")
+        expect(routeTree).toContain("'/router-lab/$id'")
+      }
     }, 120000)
   }
 })
