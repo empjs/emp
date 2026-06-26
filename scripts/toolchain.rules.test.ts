@@ -12,10 +12,10 @@ describe('toolchain version contract', () => {
     expect(pkg.devDependencies.typescript).toBe('7.0.1-rc')
     expect(pkg.devDependencies['@typescript/native-preview']).toBe('7.0.0-dev.20260624.1')
     expect(pkg.scripts['test:ts7']).toBe(
-      'corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/cli/tsconfig.json',
+      'corepack pnpm --filter @empjs/chain build && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/cli/tsconfig.json',
     )
     expect(pkg.scripts['test:tsgo']).toBe(
-      'corepack pnpm dlx --package @typescript/native-preview@7.0.0-dev.20260624.1 tsgo --noEmit --pretty false --project packages/cli/tsconfig.json',
+      'corepack pnpm --filter @empjs/chain build && corepack pnpm dlx --package @typescript/native-preview@7.0.0-dev.20260624.1 tsgo --noEmit --pretty false --project packages/cli/tsconfig.json',
     )
   })
 
