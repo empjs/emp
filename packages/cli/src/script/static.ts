@@ -12,6 +12,7 @@ export type StaticCommandOptions = {
   cert?: string
   key?: string
   headers?: string[]
+  index?: string[]
   open?: boolean
   json?: boolean
   compression?: string | boolean
@@ -44,6 +45,7 @@ export function normalizeStaticOptions(root: string | undefined, options: Static
     cert: options.cert,
     key: options.key,
     headers: parseHeaders(options.headers),
+    index: options.index,
     compression: parseCompression(options.compression),
   }
 }

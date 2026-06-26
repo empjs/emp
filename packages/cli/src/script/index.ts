@@ -51,6 +51,7 @@ export default async function runScript() {
     .option('-p, --port <port>', '服务端口，默认随机可用端口')
     .option('--cors', '启用 Access-Control-Allow-Origin: *')
     .option('--spa [entry]', '启用 SPA fallback，默认 index.html')
+    .option('--index <files...>', '目录 index 候选文件，按顺序匹配')
     .option('--https', '使用 EMP 默认证书启动 HTTPS')
     .option('--cert <cert>', 'HTTPS cert 文件路径')
     .option('--key <key>', 'HTTPS key 文件路径')

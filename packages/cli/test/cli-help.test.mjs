@@ -26,4 +26,5 @@ const {stdout: staticHelp} = await execFile(
 assert.match(staticHelp, /Static file server/)
 assert.match(staticHelp, /--cors/)
 assert.match(staticHelp, /--spa/)
+assert.match(staticHelp, /--index <files\.\.\.>/)
 assert.match(staticHelp, /--https/)

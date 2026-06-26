@@ -11,6 +11,7 @@ export type StaticServeOptions = {
   port?: number
   cors?: boolean
   spa?: boolean | string
+  index?: string[]
   https?: boolean
   cert?: string
   key?: string

@@ -14,14 +14,19 @@ import {describe, expect, it} from '@rstest/core'
 import {startStaticServer} from '../src/server/static/createStaticServer'
 
 const largeJs = 'window.__EMP_STATIC__ = "cloudflare-compression";\n'.repeat(200)
+const sourceTs = 'export const answer: number = 42\n'
 
 async function withFixture(run: (root: string) => Promise<void>) {
   const root = await mkdtemp(join(tmpdir(), 'emp-static-'))
   try {
     await mkdir(join(root, 'assets'), {recursive: true})
+    await mkdir(join(root, 'docs'), {recursive: true})
     await writeFile(join(root, 'index.html'), '<html><body>fallback</body></html>')
     await writeFile(join(root, 'assets', 'sdk.js'), largeJs)
+    await writeFile(join(root, 'assets', 'source.ts'), sourceTs)
     await writeFile(join(root, 'assets', 'tiny.js'), 'x')
+    await writeFile(join(root, 'docs', 'home.html'), '<html><body>docs home</body></html>')
+    await writeFile(join(root, 'docs', 'index.html'), '<html><body>docs index</body></html>')
     await run(root)
   } finally {
     await rm(root, {recursive: true, force: true})
@@ -81,6 +86,20 @@ describe('startStaticServer', () => {
     })
   })
 
+  it('opens TypeScript source files as readable text files', async () => {
+    await withFixture(async root => {
+      const server = await startStaticServer({root, host: '127.0.0.1', port: 0})
+      try {
+        const response = await requestRaw(`${server.urls.localUrlForBrowser}assets/source.ts`)
+        expect(response.statusCode).toBe(200)
+        expect(response.headers['content-type']).toContain('text/plain')
+        expect(response.body.toString()).toBe(sourceTs)
+      } finally {
+        await server.close()
+      }
+    })
+  })
+
   it('returns spa fallback only when spa is enabled', async () => {
     await withFixture(async root => {
       const server = await startStaticServer({root, host: '127.0.0.1', port: 0, spa: 'index.html'})
@@ -100,6 +119,63 @@ describe('startStaticServer', () => {
       try {
         const response = await requestRaw(`${server.urls.localUrlForBrowser}missing.js`)
         expect(response.statusCode).toBe(404)
+      } finally {
+        await server.close()
+      }
+    })
+  })
+
+  it('serves directory requests from the first matching index candidate', async () => {
+    await withFixture(async root => {
+      const server = await startStaticServer({
+        root,
+        host: '127.0.0.1',
+        port: 0,
+        index: ['home.html', 'index.html'],
+      })
+      try {
+        const response = await requestRaw(`${server.urls.localUrlForBrowser}docs/`)
+        expect(response.statusCode).toBe(200)
+        expect(response.headers['content-type']).toContain('text/html')
+        expect(response.body.toString()).toBe('<html><body>docs home</body></html>')
+      } finally {
+        await server.close()
+      }
+    })
+  })
+
+  it('renders a styled directory listing when no index candidate exists', async () => {
+    await withFixture(async root => {
+      const server = await startStaticServer({
+        root,
+        host: '127.0.0.1',
+        port: 0,
+        index: ['missing.html'],
+      })
+      try {
+        const response = await requestRaw(`${server.urls.localUrlForBrowser}assets/`)
+        const html = response.body.toString()
+
+        expect(response.statusCode).toBe(200)
+        expect(response.headers['content-type']).toContain('text/html')
+        expect(html).toContain('EMP Static Index')
+        expect(html).toContain('class="emp-static-index"')
+        expect(html).toContain('class="emp-static-shell"')
+        expect(html).toContain('class="emp-static-grid"')
+        expect(html).toContain('class="emp-static-card"')
+        expect(html).toContain('<svg class="emp-static-svg"')
+        expect(html).toContain('emp-static-file-card')
+        expect(html).toContain('emp-static-kind-js')
+        expect(html).toContain('emp-static-kind-ts')
+        expect(html).toContain('class="emp-static-badge">JS</span>')
+        expect(html).toContain('class="emp-static-badge">TS</span>')
+        expect(html).toContain('href="/assets/sdk.js"')
+        expect(html).toContain('href="/assets/source.ts"')
+        expect(html).toContain('sdk.js')
+        expect(html).toContain('source.ts')
+        expect(html).toContain('tiny.js')
+        expect(html).toContain('Size')
+        expect(html).toContain('Modified')
       } finally {
         await server.close()
       }
