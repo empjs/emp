@@ -50,6 +50,11 @@ const createFixture = async () => {
     publishConfig: {access: 'public'},
     devDependencies: {'@empjs/cli': 'workspace:*'},
   })
+  await writeJson('packages/plugin-new/package.json', {
+    name: '@empjs/plugin-new',
+    version: '4.0.0',
+    publishConfig: {access: 'public'},
+  })
   await writeJson('packages/cdn-react-19/package.json', {
     name: '@empjs/cdn-react',
     version: '0.19.2',
@@ -101,6 +106,8 @@ describe('release rules', () => {
       expect(plan.internalPackages.some(pkg => pkg.dir.startsWith('apps/'))).toBe(false)
       expect(plan.workspacePackages.some(pkg => pkg.name === '@empjs/fake-app')).toBe(true)
       expect(plan.internalPackages.some(pkg => pkg.name === '@empjs/fake-app')).toBe(false)
+      expect(plan.workspacePackages.some(pkg => pkg.name === '@empjs/plugin-new')).toBe(true)
+      expect(plan.internalPackages.some(pkg => pkg.name === '@empjs/plugin-new')).toBe(false)
       expect(plan.internalPackages.some(pkg => pkg.dir === 'website')).toBe(false)
       expect(validateReleasePlan(plan)).toEqual([])
     })
@@ -246,10 +253,37 @@ describe('release rules', () => {
 
       expect(stdout).toMatch(/Internal packages: 3/)
       expect(stdout).toMatch(/Independent packages: 2/)
-      expect(stdout).toMatch(/Workspace packages: 3/)
+      expect(stdout).toMatch(/Workspace packages: 4/)
       expect(stdout).toMatch(/@empjs\/cli/)
       expect(stdout).not.toMatch(/apps\/demo/)
     })
+  })
+
+  test('current repository internal release set stays explicitly bounded', async () => {
+    const plan = await createReleasePlan(repoRoot)
+
+    expect(plan.internalPackages.map(pkg => pkg.name)).toEqual([
+      '@empjs/adapter-react',
+      '@empjs/biome-config',
+      '@empjs/bridge-react',
+      '@empjs/bridge-vue2',
+      '@empjs/bridge-vue3',
+      '@empjs/chain',
+      '@empjs/cli',
+      '@empjs/eslint-config-react',
+      '@empjs/plugin-lightningcss',
+      '@empjs/plugin-postcss',
+      '@empjs/plugin-react',
+      '@empjs/plugin-stylus',
+      '@empjs/plugin-tailwindcss',
+      '@empjs/plugin-tailwindcss2',
+      '@empjs/plugin-tailwindcss3',
+      '@empjs/plugin-vue2',
+      '@empjs/plugin-vue3',
+      '@empjs/polyfill',
+      '@empjs/share',
+    ])
+    expect(plan.internalPackages).toHaveLength(19)
   })
 
   test('release CLI defaults to beta and runs pnpm through the pinned package manager', async () => {

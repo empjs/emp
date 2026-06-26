@@ -12,7 +12,7 @@
 
 #### New Features
 
-- feat(release): add unified alpha release automation for core `@empjs/*` packages.
+- feat(release): add unified prerelease automation for core `@empjs/*` packages.
 - feat(release): generate guarded npm publish commands with dry-run by default.
 
 #### Build

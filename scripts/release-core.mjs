@@ -9,6 +9,27 @@ const REQUIRED_NODE_ENGINE = '^20.19.0 || >=22.12.0'
 const PACKAGE_JSON = 'package.json'
 const WORKSPACE_ROOTS = ['packages', 'apps', 'website']
 const INDEPENDENT_PREFIXES = ['@empjs/cdn-', '@empjs/lib-']
+const INTERNAL_RELEASE_PACKAGES = new Set([
+  '@empjs/adapter-react',
+  '@empjs/biome-config',
+  '@empjs/bridge-react',
+  '@empjs/bridge-vue2',
+  '@empjs/bridge-vue3',
+  '@empjs/chain',
+  '@empjs/cli',
+  '@empjs/eslint-config-react',
+  '@empjs/plugin-lightningcss',
+  '@empjs/plugin-postcss',
+  '@empjs/plugin-react',
+  '@empjs/plugin-stylus',
+  '@empjs/plugin-tailwindcss',
+  '@empjs/plugin-tailwindcss2',
+  '@empjs/plugin-tailwindcss3',
+  '@empjs/plugin-vue2',
+  '@empjs/plugin-vue3',
+  '@empjs/polyfill',
+  '@empjs/share',
+])
 
 const sortByName = (packages) => [...packages].sort((a, b) => a.name.localeCompare(b.name))
 
@@ -49,7 +70,8 @@ const classifyPackage = (pkg) => {
   if (pkg.dir === '.') return 'root'
   if (pkg.dir === 'website' || pkg.dir.startsWith('apps/')) return 'workspace'
   if (pkg.dir.startsWith('packages/') && pkg.name.startsWith(INTERNAL_SCOPE) && !pkg.private) {
-    return hasIndependentVersion(pkg) ? 'independent' : 'internal'
+    if (hasIndependentVersion(pkg)) return 'independent'
+    return INTERNAL_RELEASE_PACKAGES.has(pkg.name) ? 'internal' : 'workspace'
   }
   return 'workspace'
 }
@@ -195,7 +217,7 @@ export const renderChangelogEntry = (plan, options = {}) => {
 
 #### New Features
 
-- feat(release): add unified alpha release automation for core \`@empjs/*\` packages.
+- feat(release): add unified prerelease automation for core \`@empjs/*\` packages.
 - feat(release): generate guarded npm publish commands with dry-run by default.
 
 #### Build
