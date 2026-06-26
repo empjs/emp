@@ -10,6 +10,7 @@ import {
   createReleasePlan,
   prependChangelog,
   renderChangelogEntry,
+  resolveReleaseSelection,
   validateReleasePlan,
 } from './release-core.mjs'
 
@@ -247,6 +248,36 @@ describe('release rules', () => {
     })
   })
 
+  test('release selection publishes changed packages for prerelease tags and all packages for release tags', async () => {
+    await withFixture(async root => {
+      const plan = await createReleasePlan(root)
+      const betaSelection = resolveReleaseSelection(plan, {
+        tag: 'beta',
+        changedFiles: ['packages/cli/src/index.ts'],
+      })
+      const latestSelection = resolveReleaseSelection(plan, {
+        tag: 'latest',
+        changedFiles: ['packages/cli/src/index.ts'],
+      })
+      const appOnlySelection = resolveReleaseSelection(plan, {
+        tag: 'beta',
+        changedFiles: ['apps/demo/src/App.tsx', 'website/src/index.tsx'],
+      })
+
+      expect(betaSelection.mode).toBe('changed')
+      expect(betaSelection.packages.map(pkg => pkg.name)).toEqual(['@empjs/cli'])
+      expect(betaSelection.changedFiles).toEqual(['packages/cli/src/index.ts'])
+      expect(latestSelection.mode).toBe('all')
+      expect(latestSelection.packages.map(pkg => pkg.name)).toEqual([
+        '@empjs/chain',
+        '@empjs/cli',
+        '@empjs/plugin-react',
+      ])
+      expect(appOnlySelection.mode).toBe('changed')
+      expect(appOnlySelection.packages).toEqual([])
+    })
+  })
+
   test('release CLI check prints scoped package summary', async () => {
     await withFixture(async root => {
       const {stdout} = await execFile(process.execPath, [releaseCli, 'check', '--root', root])
@@ -307,15 +338,35 @@ describe('release rules', () => {
     expect(workflow).toMatch(/default:\s*['"]{2}/)
     expect(workflow).toMatch(/default:\s*['"]beta['"]/)
     expect(workflow).toMatch(/RELEASE_TAG=\$release_tag/)
+    expect(workflow).toMatch(/changed_since:/)
+    expect(workflow).toMatch(/force_all:/)
+    expect(workflow).toMatch(/CHANGED_SINCE=\$changed_since/)
+    expect(workflow).toMatch(/FORCE_ALL=\$\{\{ github\.event\.inputs\.force_all \|\| false \}\}/)
     expect(workflow).toMatch(/corepack prepare pnpm@10\.33\.0 --activate/)
     expect(workflow).toMatch(/pnpm test:rules/)
     expect(workflow).not.toMatch(/node --test scripts\/release\.test\.mjs/)
     expect(workflow).toMatch(/args=\(--yes --skip-build\)/)
     expect(workflow).toMatch(/args\+=\(--package "\$RELEASE_PACKAGE"\)/)
+    expect(workflow).toMatch(/args\+=\(--changed-since "\$CHANGED_SINCE"\)/)
+    expect(workflow).toMatch(/args\+=\(--force-all\)/)
     expect(workflow).toMatch(/pnpm release:publish:dry -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
     expect(workflow).toMatch(/pnpm release:publish -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
     expect(workflow).not.toMatch(/\|\| ['"]@empjs\/cli['"]/)
     expect(workflow).not.toMatch(/NPM_TOKEN/)
     expect(workflow).not.toMatch(/publish-alpha\.yml/)
+  })
+
+  test('agent finish automation runs local CI before safe non-force push', async () => {
+    const rootPackage = JSON.parse(await readFile(join(repoRoot, 'package.json'), 'utf8'))
+    const source = await readFile(join(repoRoot, 'scripts/agent-finish.mjs'), 'utf8')
+
+    expect(rootPackage.scripts?.['agent:finish']).toBe('node scripts/agent-finish.mjs')
+    expect(source).toMatch(/pnpm ci:verify/)
+    expect(source).toMatch(/git diff --check/)
+    expect(source).toMatch(/git add -A/)
+    expect(source).toMatch(/git commit -m/)
+    expect(source).toMatch(/git push origin/)
+    expect(source).toMatch(/allow-protected-branch/)
+    expect(source).not.toMatch(/--force/)
   })
 })

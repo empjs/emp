@@ -18,6 +18,16 @@ on:
         required: false
         type: string
         default: 'beta'
+      changed_since:
+        description: Base ref for changed-package publishing.
+        required: false
+        type: string
+        default: ''
+      force_all:
+        description: Publish all internal packages even when changed_since is set.
+        required: false
+        type: boolean
+        default: false
   push:
     tags:
       - 'empjs-*-v*'
@@ -53,6 +63,13 @@ jobs:
             exit 1
           fi
           echo "RELEASE_TAG=$release_tag" >> "$GITHUB_ENV"
+          changed_since="${{ github.event.inputs.changed_since }}"
+          if [[ -n "$changed_since" && ! "$changed_since" =~ ^[A-Za-z0-9._/@:-]+$ ]]; then
+            echo "Invalid changed_since ref: $changed_since" >&2
+            exit 1
+          fi
+          echo "CHANGED_SINCE=$changed_since" >> "$GITHUB_ENV"
+          echo "FORCE_ALL=${{ github.event.inputs.force_all || false }}" >> "$GITHUB_ENV"
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -85,6 +102,12 @@ jobs:
           if [[ -n "$RELEASE_PACKAGE" ]]; then
             args+=(--package "$RELEASE_PACKAGE")
           fi
+          if [[ -n "$CHANGED_SINCE" ]]; then
+            args+=(--changed-since "$CHANGED_SINCE")
+          fi
+          if [[ "$FORCE_ALL" == "true" ]]; then
+            args+=(--force-all)
+          fi
           pnpm release:publish:dry -- --tag "$RELEASE_TAG" "${args[@]}"
 
       - name: Publish to npm
@@ -93,5 +116,11 @@ jobs:
           args=(--yes --skip-build)
           if [[ -n "$RELEASE_PACKAGE" ]]; then
             args+=(--package "$RELEASE_PACKAGE")
+          fi
+          if [[ -n "$CHANGED_SINCE" ]]; then
+            args+=(--changed-since "$CHANGED_SINCE")
+          fi
+          if [[ "$FORCE_ALL" == "true" ]]; then
+            args+=(--force-all)
           fi
           pnpm release:publish -- --tag "$RELEASE_TAG" "${args[@]}"

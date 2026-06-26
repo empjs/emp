@@ -52,11 +52,11 @@ const toPosixPath = (path) => path.split('\\').join('/')
 
 const tarballFileName = (pkg) => `${pkg.name.replace(/^@/, '').replace(/\//g, '-')}-${pkg.version}.tgz`
 
-const selectInternalPackages = (plan, packageName) => {
+const selectInternalPackages = (plan, packageName, packages = plan.internalPackages) => {
   const selectedName = packageName?.trim()
-  if (!selectedName) return plan.internalPackages
+  if (!selectedName) return packages
 
-  const selectedPackages = plan.internalPackages.filter((pkg) => pkg.name === selectedName)
+  const selectedPackages = packages.filter((pkg) => pkg.name === selectedName)
   if (!selectedPackages.length) {
     throw new Error(`${selectedName} is not in the internal release set`)
   }
@@ -156,6 +156,49 @@ export const createReleasePlan = async (rootDir) => {
   }
 }
 
+export const isUnifiedReleaseTag = (tag, version) => {
+  const normalizedTag = String(tag ?? '').trim()
+  if (normalizedTag === 'latest' || normalizedTag === 'release') return true
+  if (normalizedTag) return false
+  return Boolean(version && !String(version).includes('-'))
+}
+
+const normalizeChangedFile = (file) => toPosixPath(String(file ?? '').trim()).replace(/^\.\//, '')
+
+export const resolveReleaseSelection = (plan, options = {}) => {
+  const changedFiles = Array.isArray(options.changedFiles)
+    ? options.changedFiles.map(normalizeChangedFile).filter(Boolean)
+    : undefined
+  const allInternalPackages = plan.internalPackages
+
+  if (options.packageName) {
+    return {
+      mode: 'package',
+      packages: selectInternalPackages(plan, options.packageName, allInternalPackages),
+      changedFiles: changedFiles ?? [],
+    }
+  }
+
+  if (options.forceAll || !changedFiles || isUnifiedReleaseTag(options.tag, options.version ?? plan.rootPackage.version)) {
+    return {
+      mode: 'all',
+      packages: allInternalPackages,
+      changedFiles: changedFiles ?? [],
+    }
+  }
+
+  const changedPackages = allInternalPackages.filter((pkg) => {
+    const packageDir = `${pkg.dir}/`
+    return changedFiles.some((file) => file === pkg.file || file.startsWith(packageDir))
+  })
+
+  return {
+    mode: 'changed',
+    packages: changedPackages,
+    changedFiles,
+  }
+}
+
 export const validateReleasePlan = (plan) => {
   const errors = []
   const root = plan.rootPackage
@@ -248,7 +291,7 @@ export const buildPublishCommands = (plan, options = {}) => {
   const access = options.access ?? DEFAULT_ACCESS
   const registry = options.registry ?? process.env.RELEASE_REGISTRY
   const packDir = options.packDir ?? join(plan.rootDir, '.release', 'npm')
-  const internalPackages = selectInternalPackages(plan, options.packageName)
+  const internalPackages = selectInternalPackages(plan, options.packageName, options.packages)
 
   if (!dryRun && !options.yes) {
     throw new Error('Real publish requires yes: true')
@@ -289,7 +332,7 @@ export const buildPublishCommands = (plan, options = {}) => {
 
 export const buildPackCommands = (plan, options = {}) => {
   const dryRun = options.dryRun ?? true
-  const internalPackages = selectInternalPackages(plan, options.packageName)
+  const internalPackages = selectInternalPackages(plan, options.packageName, options.packages)
   if (!dryRun && !options.yes) {
     throw new Error('Real pack requires yes: true')
   }

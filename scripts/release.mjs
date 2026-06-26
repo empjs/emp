@@ -10,6 +10,7 @@ import {
   ensureDir,
   prependChangelog,
   renderChangelogEntry,
+  resolveReleaseSelection,
   validateReleasePlan,
 } from './release-core.mjs'
 
@@ -19,8 +20,8 @@ Usage:
   node scripts/release.mjs check [--root <dir>]
   node scripts/release.mjs version <version> [--root <dir>]
   node scripts/release.mjs changelog [--version <version>] [--date <yyyy-mm-dd>] [--tag <tag>] [--registry <url>]
-  node scripts/release.mjs pack [--dry-run] [--yes] [--skip-build] [--package <name>]
-  node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>] [--package <name>]
+  node scripts/release.mjs pack [--dry-run] [--yes] [--skip-build] [--package <name>] [--changed-since <ref>] [--force-all]
+  node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>] [--package <name>] [--changed-since <ref>] [--force-all]
 
 Defaults:
   --tag beta
@@ -35,6 +36,7 @@ const parseArgs = (argv) => {
     dryRun: undefined,
     yes: false,
     skipBuild: false,
+    forceAll: false,
     tag: process.env.RELEASE_TAG ?? 'beta',
     registry: process.env.RELEASE_REGISTRY,
   }
@@ -47,10 +49,12 @@ const parseArgs = (argv) => {
     else if (arg === '--tag') options.tag = rest[++i]
     else if (arg === '--registry') options.registry = rest[++i]
     else if (arg === '--package') options.packageName = rest[++i]
+    else if (arg === '--changed-since') options.changedSince = rest[++i]
     else if (arg === '--dry-run') options.dryRun = true
     else if (arg === '--no-dry-run') options.dryRun = false
     else if (arg === '--yes') options.yes = true
     else if (arg === '--skip-build') options.skipBuild = true
+    else if (arg === '--force-all') options.forceAll = true
     else if (arg === '--help' || arg === '-h') options.help = true
     else options.positional.push(arg)
   }
@@ -86,6 +90,36 @@ const runCommand = (command, options = {}) =>
     })
   })
 
+const collectChangedFiles = (root, changedSince) =>
+  new Promise((resolve, reject) => {
+    if (!changedSince) {
+      resolve(undefined)
+      return
+    }
+
+    const child = spawn('git', ['diff', '--name-only', `${changedSince}...HEAD`], {
+      cwd: root,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    })
+    let stdout = ''
+    let stderr = ''
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk
+    })
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk
+    })
+    child.on('error', reject)
+    child.on('exit', (code) => {
+      if (code === 0) {
+        resolve(stdout.split(/\r?\n/).map((line) => line.trim()).filter(Boolean))
+        return
+      }
+
+      reject(new Error(`git diff failed for --changed-since ${changedSince}:\n${stderr.trim()}`))
+    })
+  })
+
 const printPlan = (plan) => {
   console.log(`Root version: ${plan.rootPackage.version}`)
   console.log(`Internal packages: ${plan.internalPackages.length}`)
@@ -94,6 +128,14 @@ const printPlan = (plan) => {
   }
   console.log(`Independent packages: ${plan.independentPackages.length}`)
   console.log(`Workspace packages: ${plan.workspacePackages.length}`)
+}
+
+const printSelection = (selection) => {
+  console.log(`Release selection: ${selection.mode}`)
+  console.log(`Selected packages: ${selection.packages.length}`)
+  for (const pkg of selection.packages) {
+    console.log(`  - ${pkg.name} (${pkg.dir})`)
+  }
 }
 
 const runBuild = async (skipBuild, packageManager) => {
@@ -153,11 +195,20 @@ const main = async () => {
 
   if (options.command === 'pack') {
     const dryRun = options.dryRun ?? !options.yes
+    const changedFiles = await collectChangedFiles(options.root, options.changedSince)
+    const selection = resolveReleaseSelection(plan, {
+      tag: options.tag,
+      version: plan.rootPackage.version,
+      changedFiles,
+      forceAll: options.forceAll,
+      packageName: options.packageName,
+    })
+    printSelection(selection)
     await runBuild(options.skipBuild, packageManager)
     for (const command of buildPackCommands(plan, {
       dryRun,
       yes: options.yes,
-      packageName: options.packageName,
+      packages: selection.packages,
     })) {
       await runCommand(command, {packageManager})
     }
@@ -167,6 +218,15 @@ const main = async () => {
   if (options.command === 'publish') {
     const dryRun = options.dryRun ?? !options.yes
     const packDir = join(options.root, '.release', 'npm')
+    const changedFiles = await collectChangedFiles(options.root, options.changedSince)
+    const selection = resolveReleaseSelection(plan, {
+      tag: options.tag,
+      version: plan.rootPackage.version,
+      changedFiles,
+      forceAll: options.forceAll,
+      packageName: options.packageName,
+    })
+    printSelection(selection)
     await runBuild(options.skipBuild, packageManager)
     if (!dryRun) await ensureDir(packDir)
     for (const command of buildPublishCommands(plan, {
@@ -175,7 +235,7 @@ const main = async () => {
       tag: options.tag,
       registry: options.registry,
       packDir,
-      packageName: options.packageName,
+      packages: selection.packages,
     })) {
       await runCommand(command, {packageManager})
     }
