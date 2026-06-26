@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-tailwindcss2",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.1",
   "description": "base tailwind 2",
   "license": "MIT",
   "type": "module",

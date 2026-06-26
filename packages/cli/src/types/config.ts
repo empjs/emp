@@ -1,5 +1,4 @@
 import type {InspectOptions} from 'node:util'
-import type {RsdoctorRspackPlugin} from '@rsdoctor/rspack-plugin'
 import type {
   DevServer as devServerConfig,
   CacheOptions,
@@ -23,7 +22,7 @@ import type {TsCheckerRspackPluginOptions} from 'ts-checker-rspack-plugin/lib/pl
 import type {EMP3PluginType} from './plugin'
 
 export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
-export type RsdoctorRspackPluginOptions = ConstructorParameters<typeof RsdoctorRspackPlugin>[0]
+export type RsdoctorRspackPluginOptions = Record<string, unknown>
 // export type CssminOptionsType = ConstructorParameters<typeof SwcCssMinimizerRspackPlugin>[0]
 // export type CssminOptionsType = LightningCssMinimizerRspackPluginOptions
 export type CssminOptionsType = any
@@ -138,7 +137,7 @@ export type Rspack2BuildOptions = {
   /**
    * Rspack 2 experiments 显式开关。实验能力不默认开启，避免改变业务语义。
    */
-  experiments?: Pick<NonNullable<RsConfig['experiments']>, 'pureFunctions' | 'deferImport'>
+  experiments?: Pick<NonNullable<RsConfig['experiments']>, 'pureFunctions' | 'deferImport' | 'runtimeMode'>
   /**
    * Rspack splitChunks 透传配置，用于接入 enforceSizeThreshold 等 Rspack 2 分包能力。
    */

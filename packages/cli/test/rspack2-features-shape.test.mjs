@@ -98,3 +98,29 @@ const loadConfigForFixture = async fixtureRoot => {
   assert.ok(swcUses.length >= 2)
   assert.ok(swcUses.every(use => use.options.detectSyntax === 'auto'))
 }
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('rspack21-options', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      cache: {
+        type: 'persistent',
+        maxAge: 1000 * 60 * 60,
+        maxGenerations: 2,
+      },
+      build: {
+        rspack: {
+          experiments: {
+            runtimeMode: 'single',
+          },
+        },
+      },
+    }),
+  )
+
+  assert.equal(config.experiments.runtimeMode, 'single')
+  assert.equal(config.cache.type, 'persistent')
+  assert.equal(config.cache.maxAge, 1000 * 60 * 60)
+  assert.equal(config.cache.maxGenerations, 2)
+}

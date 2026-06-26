@@ -1,10 +1,16 @@
 {
-  "extends": "@empjs/cli/emp-tsconfig.json",
+  "extends": "@empjs/cli/tsconfig/react",
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
-      "*": ["./@mf-types/*"]
+      "src/*": [
+        "./src/*"
+      ],
+      "*": [
+        "./@mf-types/*"
+      ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

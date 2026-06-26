@@ -57,7 +57,7 @@ const store = {
   vCompare,
 }
 
-await pluginReact().rsConfig(store)
+await pluginReact({reactCompiler: {target: '19'}}).rsConfig(store)
 
 const plugins = chain.toConfig().plugins || []
 const reactRefresh = plugins.find(plugin => plugin?.ReactRefreshRspackPlugin || plugin?.constructor?.name === 'ReactRefreshRspackPlugin')
@@ -66,4 +66,15 @@ assert.ok(reactRefresh, 'expected plugin-react-refresh to be registered')
 assert.ok(
   typeof reactRefresh === 'function' || typeof reactRefresh.apply === 'function',
   `expected plugin-react-refresh to be a rspack plugin, got keys: ${Object.keys(reactRefresh).join(', ')}`,
+)
+
+const swcUses = chain
+  .toConfig()
+  .module.rules.flatMap(rule => rule.use ?? [])
+  .filter(use => use.options?.jsc?.transform)
+
+assert.ok(swcUses.length >= 2)
+assert.ok(
+  swcUses.every(use => use.options.jsc.transform.reactCompiler?.target === '19'),
+  'expected plugin-react to apply reactCompiler options to every SWC rule',
 )

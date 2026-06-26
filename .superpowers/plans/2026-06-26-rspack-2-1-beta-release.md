@@ -1,5 +1,8 @@
 # Rspack 2.1 Beta 发布实施计划
 
+> Superseded by `.superpowers/plans/2026-06-26-rspack-2-1-ts7-unified-tsconfig.md`.
+> 用户已明确要求 Rspack 2.1 与 TS7 同步更新，并统一最小化 tsconfig 体系；后续执行以新计划为准。
+
 > **给执行 Agent：** 必须使用子技能 `superpowers:subagent-driven-development`（推荐）或 `superpowers:executing-plans`，按任务逐项执行本计划。步骤使用 checkbox（`- [ ]`）语法，执行时需要持续更新状态。
 
 **Goal：** 将 EMP v4 从当前锁定的 Rspack 2.0 依赖树升级到 Rspack 2.1.0，并发布新的 EMP beta 版本。

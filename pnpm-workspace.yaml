@@ -14,3 +14,7 @@ ignoredBuiltDependencies:
   - core-js-pure
   - esbuild
   - fsevents
+
+patchedDependencies:
+  '@module-federation/dts-plugin@2.6.0': patches/@module-federation__dts-plugin@2.6.0.patch
+  rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch

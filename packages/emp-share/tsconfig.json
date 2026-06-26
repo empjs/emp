@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -11,16 +15,20 @@
     "esModuleInterop": true,
     "useUnknownInCatchVariables": false,
     "outDir": "dist",
-    "baseUrl": "./",
     "jsx": "preserve",
     "paths": {
-      "src/*": ["./src/*"]
+      "src/*": [
+        "./src/*"
+      ]
     },
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "emitDeclarationOnly": true,
-    // "allowImportingTsExtensions": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "rootDir": "src"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  "extends": "../tsconfig.rslib-bundler.json"
 }

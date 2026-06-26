@@ -1,5 +1,58 @@
 # Changelog
 
+## 4.0.0-beta.1 - 2026-06-26
+
+### Highlights
+
+- Upgrade the EMP v4 toolchain to Rspack `2.1.0` and `@rspack/dev-server` `2.1.0`.
+- Add the latest TypeScript 7 preview line used today: `typescript@7.0.1-rc` for `tsc` checks and `@typescript/native-preview@7.0.0-dev.20260624.1` for `tsgo`.
+- Minimize tracked package and app tsconfigs by routing package builds through shared Rslib baselines and app projects through `@empjs/cli/tsconfig/react` or `@empjs/cli/tsconfig/vue`.
+
+### Known Issues
+
+- `@rslib/core@0.23.0` and `rsbuild-plugin-dts@0.23.0` still peer on `typescript ^5 || ^6`; EMP keeps root `typescript@7.0.1-rc`, but patches `rsbuild-plugin-dts` to use a dedicated `typescript-rslib@npm:typescript@6.0.3` alias for declaration generation until upstream supports TS7's package exports.
+- `@module-federation/rspack@2.6.0`, `@module-federation/dts-plugin@2.6.0`, and `@vue/tsconfig@0.8.1` still warn on TS7 peer ranges during install; EMP patches `@module-federation/dts-plugin@2.6.0` to use `typescript-mf@npm:typescript@5.9.3` for its runtime TypeScript API until upstream supports TS7's package exports.
+- `html-webpack-plugin@5.6.4` still warns on `@rspack/core` peer range `0.x || 1.x` with Rspack 2.1.
+
+### What's Changed
+
+#### Build
+
+- chore(cli): upgrade direct Rspack dependencies to `@rspack/core@^2.1.0`, `@rspack/dev-server@^2.1.0`, and `@swc/helpers@^0.5.23`.
+- chore(ts): add TS7 and native tsgo verification scripts plus Rslib and Module Federation declaration-build compatibility patches.
+- chore(tsconfig): remove TS7-incompatible `baseUrl` and legacy `moduleResolution: node` / `node10` from tracked tsconfigs.
+- chore(release): align root workspace and 19 core `@empjs/*` packages to `4.0.0-beta.1`.
+
+#### New Features
+
+- feat(cli): expose Rspack 2.1 `experiments.runtimeMode` through the build option surface.
+- feat(plugin-react): expose SWC React Compiler configuration through `reactCompiler`.
+
+#### Tests
+
+- test(toolchain): lock Rspack 2.1, TS7 preview, tsgo, and Rslib compatibility expectations.
+- test(tsconfig): enforce shared tsconfig baselines and TS7-compatible compiler options.
+- test(cli): assert Rspack 2.1 build option shape.
+- test(plugin-react): assert React Compiler options reach every SWC transform in the plugin fixture.
+
+#### Verification
+
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `corepack pnpm apps:acceptance`
+- `corepack pnpm release:publish:dry -- --force-all --skip-build`
+- `git diff --check`
+- `corepack pnpm test:toolchain`
+- `corepack pnpm test:tsconfig`
+- `corepack pnpm test:ts7`
+- `corepack pnpm test:tsgo`
+- `corepack pnpm --filter @empjs/cli run build && node packages/cli/test/rspack2-features-shape.test.mjs`
+- `corepack pnpm --filter @empjs/plugin-react test`
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-beta.1`.
+
 ## 4.0.0-beta.0 - 2026-06-26
 
 ### Highlights

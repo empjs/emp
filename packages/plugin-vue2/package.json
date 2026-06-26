@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-vue2",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.1",
   "description": "emp vue2 plugin",
   "license": "MIT",
   "type": "module",

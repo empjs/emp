@@ -1,5 +1,5 @@
 {
-  "extends": ["./base"],
+  "extends": "./base.json",
   "compilerOptions": {
     "types": ["@empjs/cli/types/react"],
     "jsx": "react-jsx"

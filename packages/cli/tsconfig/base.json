@@ -1,16 +1,5 @@
 {
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules",
-        "options": {
-          "allowUnknownClassnames": true
-        },
-        "postcssOptions": {
-          "useConfig": true
-        }
-      }
-    ],
     "paths": {
       "src/*": ["./src/*"],
       "*": ["./@mf-types/*"]
@@ -24,7 +13,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": false,

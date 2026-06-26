@@ -28,6 +28,11 @@ export type PluginReactType = {
       [key: string]: string
     }
   }
+  reactCompiler?: ReactCompilerOptions
+}
+export type ReactCompilerOptions = {
+  target?: '17' | '18' | '19'
+  runtimeModule?: string
 }
 /**
  * React Refresh 插件配置选项

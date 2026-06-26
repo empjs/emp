@@ -59,6 +59,7 @@ export default (o: PluginReactType = {}) => {
           development: store.isDev,
           refresh: store.isDev && o.hmr,
         },
+        ...(o.reactCompiler ? {reactCompiler: o.reactCompiler} : {}),
       }
       const resetTransform = (op: any) => {
         op.jsc.transform = deepAssign(op.jsc.transform, transform)

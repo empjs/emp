@@ -1,14 +1,13 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.rslib-bundler.json",
   "compilerOptions": {
     "lib": [
       "es2023",
       "DOM"
     ],
     "outDir": "dist",
-    "baseUrl": "./",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "emitDeclarationOnly": true,
     "paths": {
       "src/*": [

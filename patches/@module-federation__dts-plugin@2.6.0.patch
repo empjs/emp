@@ -1,0 +1,26 @@
+diff --git a/dist/esm/expose-rpc-BiwGpqZ3.mjs b/dist/esm/expose-rpc-BiwGpqZ3.mjs
+index f4d58b17a5177df1f2944338d12d5e90a39aa4b3..53392c440a0201e24d3ae69f12fa8ba612c21c65 100644
+--- a/dist/esm/expose-rpc-BiwGpqZ3.mjs
++++ b/dist/esm/expose-rpc-BiwGpqZ3.mjs
+@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
+ import path, { dirname, extname, isAbsolute, join, normalize, relative, resolve, sep } from "path";
+ import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from "fs/promises";
+ import { utils } from "@module-federation/managers";
+-import typescript from "typescript";
++import typescript from "typescript-mf";
+ import { ENCODE_NAME_PREFIX, MANIFEST_EXT, TEMP_DIR, decodeName, getProcessEnv, inferAutoPublicPath, parseEntry } from "@module-federation/sdk";
+ import ansiColors from "ansi-colors";
+ import { Agent } from "undici";
+diff --git a/dist/expose-rpc-BNzQqY2X.js b/dist/expose-rpc-BNzQqY2X.js
+index a548bbeafd708e6535be27563a7a0508bbdc9181..ef46fcaca3fafe643f4d3776905981c0332d69b1 100644
+--- a/dist/expose-rpc-BNzQqY2X.js
++++ b/dist/expose-rpc-BNzQqY2X.js
+@@ -7,7 +7,7 @@ let path = require("path");
+ path = require_Action.__toESM(path);
+ let fs_promises = require("fs/promises");
+ let _module_federation_managers = require("@module-federation/managers");
+-let typescript = require("typescript");
++let typescript = require("typescript-mf");
+ typescript = require_Action.__toESM(typescript);
+ let _module_federation_sdk = require("@module-federation/sdk");
+ let ansi_colors = require("ansi-colors");

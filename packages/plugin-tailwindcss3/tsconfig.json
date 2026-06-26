@@ -1,12 +1,11 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.rslib-nodenext.json",
   "compilerOptions": {
     "lib": [
       "es2023",
       "DOM"
     ],
     "outDir": "dist",
-    "baseUrl": "./",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "paths": {

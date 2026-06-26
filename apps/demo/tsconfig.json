@@ -1,8 +1,11 @@
 {
   "extends": "@empjs/cli/tsconfig/react",
-  "compilerOptions": {
-    "baseUrl": "./"
-  },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "compilerOptions": {},
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

@@ -1,12 +1,23 @@
 {
-  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
+  "extends": "@empjs/cli/tsconfig/vue",
   "compilerOptions": {
-    "lib": ["ES2016", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2016",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
-    "types": ["@empjs/cli/types/vue"]
+    "types": [
+      "@empjs/cli/types/vue"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

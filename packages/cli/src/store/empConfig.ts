@@ -113,28 +113,26 @@ export class EmpConfig {
       }
     }
     //
-    return this.assign<Required<DebugType>>(
-      {
-        loggerLevel: 'info',
-        clearLog: true,
-        progress: true,
-        showRsconfig: false,
-        showPerformance: false,
-        rsdoctor,
-        infrastructureLogging: {
-          appendOnly: true,
-          level: 'warn',
-        },
-        newTreeshaking: this.store.empConfig.isESM,
-        devShowAllLog: false,
-        showScriptDebug: false,
-        // parallelCodeSplitting: true,
-        cssChunkingPlugin: true,
-        nativeWatcher: true,
-        warnRuleAsWarning: true,
+    const defaultDebug: Required<DebugType> = {
+      loggerLevel: 'info',
+      clearLog: true,
+      progress: true,
+      showRsconfig: false,
+      showPerformance: false,
+      rsdoctor,
+      infrastructureLogging: {
+        appendOnly: true,
+        level: 'warn',
       },
-      this.store.empOptions.debug,
-    )
+      newTreeshaking: this.store.empConfig.isESM,
+      devShowAllLog: false,
+      showScriptDebug: false,
+      // parallelCodeSplitting: true,
+      cssChunkingPlugin: true,
+      nativeWatcher: true,
+      warnRuleAsWarning: true,
+    }
+    return this.assign(defaultDebug, this.store.empOptions.debug)
   }
   get build() {
     const staticDir = this.store.empOptions.build?.staticDir ? `${this.store.empOptions.build?.staticDir}/` : ''
