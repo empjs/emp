@@ -104,6 +104,11 @@
 - `@empjs/cdn-*`、`@empjs/lib-*` 这类 CDN / legacy runtime 包默认保持独立版本线，除非用户明确要求纳入统一版本。
 - 发布脚本必须支持 dry-run，并且真实 publish 必须有显式确认参数。
 - changelog 需要说明版本、发布时间、发布范围、主要变更和验证命令。
+- GitHub Release / changelog / release 提交说明默认参考 Rspack Releases 格式：https://github.com/web-infra-dev/rspack/releases。
+- Release 正文结构优先使用 `## What's Changed`，按实际变更分组：`New Features`、`Performance`、`Bug Fixes`、`Refactor`、`Document`、`Other Changes`；没有内容的分组不要空挂。
+- Release 条目保持 conventional commit 风格前缀，例如 `feat`、`perf`、`fix`、`refactor`、`docs`、`chore`、`test`、`ci`；如果来自 GitHub PR，保留 `by @author in #PR` 或等价链接。
+- Release 末尾优先补 `Full Changelog` compare 链接和 `Contributors`；如果当前仓库无法准确生成贡献者或 compare 链接，不要编造，说明缺失原因。
+- 如果版本存在废弃、回滚、错误产物或兼容风险，必须在 `What's Changed` 前增加醒目的 `Warning` / `Known Issues` 段落，并写清推荐升级或规避路径。
 
 ## 验证与交付
 
