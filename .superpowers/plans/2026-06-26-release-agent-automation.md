@@ -35,7 +35,7 @@
 - Produces CLI flags: `--changed-since <ref>` and `--force-all`.
 - Consumes: existing `createReleasePlan`, `buildPublishCommands`, and `buildPackCommands`.
 
-- [ ] **Step 1: Add failing Rstest coverage**
+- [x] **Step 1: Add failing Rstest coverage**
 
 Add tests proving:
 
@@ -57,7 +57,7 @@ PATH=/Users/Bigo/Library/pnpm:$PATH pnpm test:rules
 
 Expected: FAIL because `resolveReleaseSelection` and the new flags do not exist.
 
-- [ ] **Step 2: Implement selection helpers**
+- [x] **Step 2: Implement selection helpers**
 
 In `scripts/release-core.mjs`, export:
 
@@ -71,11 +71,11 @@ export const isUnifiedReleaseTag = (tag, version) => {
 
 Add a helper that maps changed files under an internal package directory to that package and ignores `apps/**`, `website`, `packages/cdn-*`, and `packages/lib-*`.
 
-- [ ] **Step 3: Thread selection into publish/pack commands**
+- [x] **Step 3: Thread selection into publish/pack commands**
 
 Change `buildPublishCommands` and `buildPackCommands` to accept `packages` from `resolveReleaseSelection` while preserving existing `--package <name>` behavior.
 
-- [ ] **Step 4: Add CLI changed-file collection**
+- [x] **Step 4: Add CLI changed-file collection**
 
 In `scripts/release.mjs`, add `--changed-since <ref>` and use:
 
@@ -85,7 +85,7 @@ git diff --name-only <ref>...HEAD
 
 If `--changed-since` is omitted, current behavior stays full internal set.
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run:
 
@@ -108,11 +108,11 @@ Expected: tests pass; beta changed-since may narrow packages; latest changed-sin
 - Consumes: Task 1 CLI flags.
 - Produces workflow inputs: `changed_since`, `force_all`.
 
-- [ ] **Step 1: Add failing workflow rule**
+- [x] **Step 1: Add failing workflow rule**
 
 Add a Rstest assertion that `publish.yml` exposes `changed_since` and `force_all`, and passes `--changed-since "$CHANGED_SINCE"` and `--force-all` to both dry-run and real publish commands when supplied.
 
-- [ ] **Step 2: Update workflow**
+- [x] **Step 2: Update workflow**
 
 Add workflow dispatch inputs:
 
@@ -131,7 +131,7 @@ force_all:
 
 Resolve them into environment variables, validate `changed_since` only contains safe ref characters, and append arguments in both publish steps.
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 Run:
 
@@ -154,7 +154,7 @@ Expected: all pass and CI workflow still contains no publish commands.
 - Produces CLI: `pnpm agent:finish -- --message "<commit message>" [--push] [--dry-run]`.
 - Consumes: `git status --short`, `pnpm ci:verify`, `git diff --check`, `git add`, `git commit`, `git push`.
 
-- [ ] **Step 1: Add failing Rstest coverage**
+- [x] **Step 1: Add failing Rstest coverage**
 
 Add tests asserting:
 
@@ -176,7 +176,7 @@ PATH=/Users/Bigo/Library/pnpm:$PATH pnpm test:rules
 
 Expected: FAIL because script and package entry do not exist.
 
-- [ ] **Step 2: Implement dry-run first**
+- [x] **Step 2: Implement dry-run first**
 
 Create `scripts/agent-finish.mjs` with:
 
@@ -194,7 +194,7 @@ git commit -m "<message>"
 git push origin <current-branch>
 ```
 
-- [ ] **Step 3: Implement real mode**
+- [x] **Step 3: Implement real mode**
 
 Real mode must:
 
@@ -206,7 +206,7 @@ Real mode must:
 6. Push only when `--push` is present.
 7. Never use force push.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -226,7 +226,7 @@ Expected: tests pass; dry-run prints CI, diff check, commit, and non-force push 
 - Consumes: completed tasks.
 - Produces: pushed `v4` branch with remote CI green.
 
-- [ ] **Step 1: Run local gates**
+- [x] **Step 1: Run local gates**
 
 Run:
 
@@ -238,7 +238,7 @@ PATH=/Users/Bigo/Library/pnpm:$PATH pnpm release:publish:dry -- --tag latest --c
 git diff --check
 ```
 
-- [ ] **Step 2: Commit and push**
+- [x] **Step 2: Commit and push**
 
 Run:
 
@@ -248,11 +248,11 @@ git commit -m "feat(release): automate changed publish and agent finish"
 git push origin v4
 ```
 
-- [ ] **Step 3: Remote verification**
+- [x] **Step 3: Remote verification**
 
 Wait for the latest `v4` CI run to complete with `verify`, `build`, and `apps` success.
 
-- [ ] **Step 4: Stop criteria**
+- [x] **Step 4: Stop criteria**
 
 Stop only after:
 
@@ -260,3 +260,11 @@ Stop only after:
 - `agent:finish --dry-run --push` proves the finish workflow.
 - The commit is pushed to `origin/v4`.
 - Remote CI is green for the pushed commit.
+
+### Completion Evidence
+
+- Local gates passed: `pnpm test:rules`, `pnpm release:check`, `pnpm ci:verify`, `git diff --check`.
+- Release dry-runs passed for changed beta selection and full latest selection.
+- Agent finish was verified with dry-run and then used in real mode to commit and push.
+- Remote GitHub Actions run `28229394725` passed `verify`, `build`, and `apps`.
+- npm beta tag check passed for all 19 internal packages at `4.0.0-beta.0`.
