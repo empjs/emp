@@ -46,7 +46,7 @@
     "test:cli": "pnpm --filter @empjs/chain build && pnpm --filter @empjs/cli test && pnpm --filter @empjs/cli test:real",
     "test:real:cli": "pnpm --filter @empjs/cli test:real",
     "test:packages": "pnpm --filter @empjs/share test && pnpm --filter @empjs/chain test && pnpm --filter @empjs/plugin-react test",
-    "test:rules": "node --test scripts/release.test.mjs && node scripts/apps.test.mjs",
+    "test:rules": "rstest run --config rstest.config.ts",
     "workflow:check": "node scripts/emp-workflow-check.mjs",
     "ci:verify": "pnpm workflow:check && pnpm test:cli && pnpm test:packages && pnpm test:rules && pnpm release:check && pnpm check:rslib-presets",
     "apps:list": "node scripts/apps.mjs list",
@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@empjs/biome-config": "workspace:^",
+    "@rstest/core": "0.10.6",
     "@rslib/core": "^0.23.0",
     "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
