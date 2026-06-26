@@ -77,7 +77,7 @@
     "dev-rs": "pnpm run dev",
     "build-rs": "pnpm run build",
     "test": "node test/rslib-node-target.test.mjs && node test/cli-options.test.mjs && node test/config-file-discovery.test.mjs && node test/build-watch-shape.test.mjs && node test/lifecycle-order.test.mjs && pnpm run build && node test/cli-help.test.mjs && node test/rspack2-features-shape.test.mjs && node test/rspack-config-shape.test.mjs",
-    "test:real": "rstest run",
+    "test:real": "pnpm run build && rstest run",
     "test:real:create": "rstest run test/agent-create-intent.test.ts test/agent-create-planner.test.ts test/agent-create-generator.test.ts test/agent-create-verify.test.ts test/agent-create-executor.test.ts test/agent-create-fix.test.ts test/cli-create-help.test.ts",
     "test:real:create-help": "rstest run test/cli-create-help.test.ts",
     "test:real:executor": "rstest run test/agent-create-executor.test.ts",

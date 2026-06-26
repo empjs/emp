@@ -1,3 +1,4 @@
+import {existsSync, statSync} from 'node:fs'
 import openBrowser from 'src/helper/openBrowser'
 import {startStaticServer} from 'src/server/static/createStaticServer'
 import type {StaticCompressionMode, StaticHeaderMap, StaticServeOptions} from 'src/server/static/types'
@@ -34,9 +35,28 @@ function parseCompression(value: string | boolean | undefined): StaticCompressio
   return 'cloudflare'
 }
 
+function isExistingDirectory(value: string) {
+  try {
+    return existsSync(value) && statSync(value).isDirectory()
+  } catch {
+    return false
+  }
+}
+
 export function normalizeStaticOptions(root: string | undefined, options: StaticCommandOptions): StaticServeOptions {
+  let resolvedRoot = root || options.root
+  let index = options.index
+
+  if (!resolvedRoot && index && index.length > 1) {
+    const maybeRoot = index.at(-1)
+    if (maybeRoot && isExistingDirectory(maybeRoot)) {
+      resolvedRoot = maybeRoot
+      index = index.slice(0, -1)
+    }
+  }
+
   return {
-    root: root || options.root || 'dist',
+    root: resolvedRoot || 'dist',
     host: options.host || '0.0.0.0',
     port: options.port === undefined ? 0 : Number(options.port),
     cors: !!options.cors,
@@ -45,7 +65,7 @@ export function normalizeStaticOptions(root: string | undefined, options: Static
     cert: options.cert,
     key: options.key,
     headers: parseHeaders(options.headers),
-    index: options.index,
+    index,
     compression: parseCompression(options.compression),
   }
 }

@@ -254,3 +254,55 @@ PATH=/tmp/emp-corepack-bin:$PATH pnpm --filter @empjs/cli test:real -- static-se
 ```
 
 Expected: all static-server tests pass.
+
+### Task 7: CLI Index Candidate E2E Regression
+
+**Files:**
+- Modify: `packages/cli/test/static-server.test.ts`
+
+**Interfaces:**
+- Consumes: `emp static <root> --index home.html index.html --json`
+- Consumes: `emp static --index home.html index.html <root> --json`
+- Produces: a real CLI child-process regression that loads `packages/cli/src/script/index.ts` through `jiti`, proving Commander parses `--index <files...>` and the static server uses those candidates for directory requests without depending on pre-existing `dist/` output.
+
+- [x] **Step 1: Write the CLI behavior test**
+
+Add tests that spawn a Node child process, load `packages/cli/src/script/index.ts` through `jiti`, run `emp static <fixture> --host 127.0.0.1 --port 0 --json --index home.html index.html` and `emp static --host 127.0.0.1 --port 0 --json --index home.html index.html <fixture>`, parse the JSON startup payload, request `/docs/`, and verify it returns `docs/home.html`.
+
+- [x] **Step 2: Normalize variadic `--index` root recovery**
+
+When `root` is missing because Commander consumed a trailing existing directory into the variadic `--index` array, restore that directory as `root` and keep the preceding values as index candidates.
+
+- [x] **Step 3: Verify GREEN**
+
+Run:
+
+```bash
+PATH=/tmp/emp-corepack-bin:$PATH pnpm --filter @empjs/cli test:real -- static-server.test.ts
+PATH=/tmp/emp-corepack-bin:$PATH pnpm --filter @empjs/cli test
+```
+
+Expected: focused static server tests and package CLI tests pass.
+
+### Task 8: Self-Contained Real CLI Test Command
+
+**Files:**
+- Modify: `packages/cli/package.json`
+
+**Interfaces:**
+- Produces: `pnpm --filter @empjs/cli test:real -- static-server.test.ts` builds `@empjs/cli` before running Rstest, so child-process tests using `packages/cli/bin/emp.js` do not depend on stale or pre-existing `dist/` output.
+
+- [x] **Step 1: Make the real test command self-contained**
+
+Update `packages/cli/package.json` so `test:real` runs `pnpm run build && rstest run`.
+
+- [x] **Step 2: Verify from a clean CLI dist**
+
+Run:
+
+```bash
+rm -rf packages/cli/dist
+PATH=/tmp/emp-corepack-bin:$PATH pnpm --filter @empjs/cli test:real -- static-server.test.ts
+```
+
+Expected: the command rebuilds `packages/cli/dist` and the real CLI tests pass.
