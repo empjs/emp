@@ -61,8 +61,8 @@
     "build": "rslib build --env-mode production",
     "build:development": "rslib build --env-mode development --lib runtime-umd-development",
     "build:production": "rslib build --env-mode production --lib runtime-umd-production",
-    "dev:serve": "serve ./dist --cors -p 1700",
-    "start": "serve ./dist --cors -p 1700"
+    "dev:serve": "node ../../scripts/static-services.mjs start --service lib-react-17",
+    "start": "node ../../scripts/static-services.mjs start --service lib-react-17"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

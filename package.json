@@ -53,6 +53,11 @@
     "apps:check": "node scripts/apps.mjs check",
     "apps:acceptance": "pnpm empbuild && pnpm apps:check && pnpm --filter ./apps/rspack2-modern-module --filter ./apps/rspack2-optimization --filter ./apps/mf-host --filter ./apps/mf-app --filter ./apps/vue-3-base --filter ./apps/vue-3-project --filter ./apps/tailwind-4 build",
     "apps:bench": "node scripts/apps.mjs bench",
+    "static:list": "node scripts/static-services.mjs list",
+    "static:doctor": "node scripts/static-services.mjs doctor",
+    "static:start": "node scripts/static-services.mjs start",
+    "static:env": "node scripts/static-services.mjs env",
+    "cdn:serve": "node scripts/static-services.mjs start --group react-runtime",
     "lint": "biome check --write",
     "check:rslib-presets": "node scripts/check-rslib-presets.mjs",
     "release:check": "node scripts/release.mjs check",
@@ -71,7 +76,6 @@
     "@rslib/core": "^0.23.0",
     "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
-    "serve": "14.2.5",
     "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@10.33.0"

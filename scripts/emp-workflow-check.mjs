@@ -6,6 +6,7 @@ const failures = []
 
 const read = file => fs.readFileSync(path.join(root, file), 'utf8')
 const exists = file => fs.existsSync(path.join(root, file))
+const readJson = file => JSON.parse(read(file))
 
 const requireFile = file => {
   if (!exists(file)) failures.push(`missing required file: ${file}`)
@@ -96,7 +97,7 @@ for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'package
 requireNoPattern('.github/workflows/ci.yml', /NODE_AUTH_TOKEN|npm publish|release:publish/)
 
 if (exists('package.json')) {
-  const pkg = JSON.parse(read('package.json'))
+  const pkg = readJson('package.json')
   if (pkg.scripts?.['workflow:check'] !== 'node scripts/emp-workflow-check.mjs') {
     failures.push('package.json missing script: workflow:check')
   }
@@ -139,12 +140,15 @@ if (exists('package.json')) {
   ) {
     failures.push('package.json test:cli builds @empjs/chain after @empjs/cli tests')
   }
+  if (pkg.devDependencies?.serve || pkg.dependencies?.serve) {
+    failures.push('root package.json must not depend on third-party serve; use scripts/static-services.mjs and emp static')
+  }
 }
 
 requireText('.github/workflows/ci.yml', 'pnpm apps:acceptance')
 
 if (exists('packages/emp-share/package.json')) {
-  const sharePkg = JSON.parse(read('packages/emp-share/package.json'))
+  const sharePkg = readJson('packages/emp-share/package.json')
   const shareTest = sharePkg.scripts?.test ?? ''
   if (!shareTest.includes('pnpm run build')) {
     failures.push('packages/emp-share package test must build dist before importing dist/rspack.js')
@@ -159,7 +163,7 @@ if (exists('packages/emp-share/package.json')) {
 
 for (const packageFile of ['packages/emp-chain/package.json', 'packages/plugin-react/package.json']) {
   if (!exists(packageFile)) continue
-  const packageManifest = JSON.parse(read(packageFile))
+  const packageManifest = readJson(packageFile)
   const packageTest = packageManifest.scripts?.test ?? ''
   if (!packageTest.includes('pnpm run build')) {
     failures.push(`${packageFile} test must build dist before importing package dist files`)
@@ -169,6 +173,31 @@ for (const packageFile of ['packages/emp-chain/package.json', 'packages/plugin-r
     packageTest.indexOf('pnpm run build') > packageTest.indexOf('node test/')
   ) {
     failures.push(`${packageFile} test builds dist after tests`)
+  }
+}
+
+const staticScriptPackages = [
+  'packages/cdn-react-17/package.json',
+  'packages/cdn-react-18/package.json',
+  'packages/cdn-react-19/package.json',
+  'packages/cdn-react-wouter/package.json',
+  'packages/cdn-react-19-tanstack-router/package.json',
+  'packages/cdn-vue-2/package.json',
+  'packages/cdn-vue-3/package.json',
+  'packages/cdn-vue-router-pinia/package.json',
+  'packages/lib-react-17/package.json',
+  'packages/lib-vue-2/package.json',
+  'packages/emp-share/package.json',
+  'packages/emp-polyfill/package.json',
+]
+
+for (const packageFile of staticScriptPackages) {
+  if (!exists(packageFile)) continue
+  const pkg = readJson(packageFile)
+  for (const [scriptName, command] of Object.entries(pkg.scripts ?? {})) {
+    if (String(command).startsWith('serve ./')) {
+      failures.push(`${packageFile} script ${scriptName} must use scripts/static-services.mjs instead of serve ./`)
+    }
   }
 }
 

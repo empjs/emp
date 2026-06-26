@@ -44,6 +44,25 @@ export default async function runScript() {
       await serveScript.setup('serve', normalizeCliOptions(o))
     })
 
+  program
+    .command('static [root]')
+    .description('Static file server for local CDN and dist debugging')
+    .option('--host <host>', '服务 host，默认 0.0.0.0')
+    .option('-p, --port <port>', '服务端口，默认随机可用端口')
+    .option('--cors', '启用 Access-Control-Allow-Origin: *')
+    .option('--spa [entry]', '启用 SPA fallback，默认 index.html')
+    .option('--https', '使用 EMP 默认证书启动 HTTPS')
+    .option('--cert <cert>', 'HTTPS cert 文件路径')
+    .option('--key <key>', 'HTTPS key 文件路径')
+    .option('--headers <headers...>', '追加响应头，格式 key=value')
+    .option('--compression <mode>', '压缩模式，默认 cloudflare；可设 none 关闭')
+    .option('-o, --open', '打开浏览器')
+    .option('--json', '输出 JSON')
+    .action(async (root, o) => {
+      const {runStaticCommand} = await import('src/script/static')
+      await runStaticCommand(root, o)
+    })
+
   /**
    * Agent-first 创建项目
    */

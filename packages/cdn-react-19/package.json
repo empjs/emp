@@ -26,9 +26,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:bundle": "rslib build --watch",
-    "dev:serve": "serve ./dist --cors -p 1900",
+    "dev:serve": "node ../../scripts/static-services.mjs start --service cdn-react-19",
     "build": "rslib build",
-    "start": "serve ./dist --cors -p 1900"
+    "start": "node ../../scripts/static-services.mjs start --service cdn-react-19"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

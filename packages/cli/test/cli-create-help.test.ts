@@ -190,7 +190,7 @@ function createFailedCommandReport(targetDir: string) {
 
 describe('emp create CLI', () => {
   beforeAll(async () => {
-    await execFile('pnpm', ['--filter', '@empjs/cli', 'build'], {
+    await execFile('corepack', ['pnpm', '--filter', '@empjs/cli', 'build'], {
       cwd: repoRoot,
       maxBuffer: 1024 * 1024,
     })

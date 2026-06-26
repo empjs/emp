@@ -32,3 +32,18 @@ pnpm apps:check
 pnpm apps:bench -- --apps rspack2-modern-module,rspack2-optimization
 pnpm apps:acceptance
 ```
+
+## Local Static And CDN Debug
+
+本地 CDN / lib / runtime 静态服务统一走仓库根命令，不在单个 package 中安装或直接调用第三方 `serve`。
+
+```bash
+pnpm static:list
+pnpm static:start -- --service emp-share,cdn-react-18 --dry-run --json
+pnpm static:start -- --service emp-share
+pnpm static:env -- --service emp-share,cdn-react-18,emp-polyfill --mode development
+```
+
+`emp static` 默认按 Cloudflare 动态压缩行为处理本地静态资源：Brotli 优先、Gzip 回退，小响应不压缩。这样本地 CDN 调试时的传输体积更接近线上 CDN。
+
+如果多个服务共享历史端口，例如 `cdn-react-wouter` 与 `cdn-react-tanstack` 都是 `2200`，同一次启动会失败并输出 `port-conflict`。选择其中一个服务启动，或在服务清单中调整端口后再运行。

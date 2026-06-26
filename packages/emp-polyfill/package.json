@@ -25,9 +25,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:lib-dev": "rslib build --watch",
-    "dev:serve": "serve ./dist --cors -p 9011",
+    "dev:serve": "node ../../scripts/static-services.mjs start --service emp-polyfill",
     "build": "rslib build",
-    "start": "serve ./dist --cors -p 9011"
+    "start": "node ../../scripts/static-services.mjs start --service emp-polyfill"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

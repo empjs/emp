@@ -114,11 +114,11 @@
   "scripts": {
     "dev": "pnpm --filter @empjs/share run /^dev:.*/",
     "dev:lib-dev": "rslib build --watch --env-mode development",
-    "dev:serve": "serve ./output --cors -p 2100",
+    "dev:serve": "node ../../scripts/static-services.mjs start --service emp-share",
     "build": "rslib build --env-mode production",
     "test": "pnpm run build && node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/version-isolation.test.mjs && node test/esm-only-publish.test.mjs",
-    "start": "serve ./output --cors -p 2100",
-    "https": "serve ./output --cors -p 2100 --ssl-cert ../cli/resource/emp.cert --ssl-key ../cli/resource/emp.key"
+    "start": "node ../../scripts/static-services.mjs start --service emp-share",
+    "https": "node ../../scripts/static-services.mjs start --service emp-share --https"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

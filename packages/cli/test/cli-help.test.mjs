@@ -16,3 +16,14 @@ assert.match(stdout, /--hot/)
 assert.doesNotMatch(stdout, /-h, --hot/)
 assert.match(stdout, /-H, --hot/)
 assert.match(stdout, /显示帮助/)
+
+const {stdout: staticHelp} = await execFile(
+  process.execPath,
+  [path.join(repoRoot, 'packages/cli/bin/emp.js'), 'static', '--help'],
+  {cwd: repoRoot, maxBuffer: 1024 * 1024},
+)
+
+assert.match(staticHelp, /Static file server/)
+assert.match(staticHelp, /--cors/)
+assert.match(staticHelp, /--spa/)
+assert.match(staticHelp, /--https/)
