@@ -90,6 +90,23 @@ for (const heading of [
   requireText('AGENTS.md', heading)
 }
 
+requireText('AGENTS.md', '## CodeGraph 优先级')
+for (const codegraphCommand of [
+  'codegraph sync .',
+  'codegraph status .',
+  'codegraph query',
+  'codegraph node',
+  'codegraph callers',
+  'codegraph affected',
+  'codegraph explore',
+]) {
+  requireText('AGENTS.md', codegraphCommand)
+  requireText('skills/emp-workflow/SKILL.md', codegraphCommand)
+}
+for (const file of ['AGENTS.md', 'skills/emp-workflow/SKILL.md']) {
+  requireNoPattern(file, /codebase-memory-mcp/)
+}
+
 for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*']) {
   requireText('AGENTS.md', protectedPath)
 }

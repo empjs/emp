@@ -34,7 +34,6 @@ Do not create or continue:
 Never commit or preserve local caches:
 
 - `node_modules/`
-- `.codebase-memory/`
 - `.codegraph/`
 - `.turbo/`
 - `.rslib/`

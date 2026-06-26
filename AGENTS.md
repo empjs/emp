@@ -9,19 +9,20 @@
 ## 仓库状态优先
 
 - 开始任务前先确认 live checkout，不沿用历史 workflow 假设。
-- 需要先检查：当前分支、`git status --short --branch`、`AGENTS.md`、`.codex/config.toml`、`codex mcp list` 中 `codebase-memory-mcp` 是否启用、`codebase-memory-mcp` 项目索引状态。
+- 需要先检查：当前分支、`git status --short --branch`、`AGENTS.md`、`.codex/config.toml` 是否存在、`codex mcp list` 当前状态、`command -v codegraph`、`codegraph status .`。
 - 不要覆盖用户已有改动。遇到无关改动时保留；遇到相关改动时基于现状继续。
 
-## codebase-memory-mcp 优先级
+## CodeGraph 优先级
 
-- 代码发现优先使用 codebase-memory-mcp：
-  1. `search_graph`
-  2. `trace_path`
-  3. `get_code_snippet`
-  4. `query_graph`
-  5. `get_architecture`
-- 项目未索引时，先通过 `codebase-memory-mcp cli index_repository '{"repo_path":"<repo-path>"}'` 建立索引，再继续代码发现。
-- 如果 MCP 结果不足，或要查字符串、配置、脚本、文档，再退回 `rg`、`find`、`sed` 等本地工具。
+- 当前项目默认使用 CodeGraph 做代码发现、调用链和影响面判断。
+- 开始跨文件或跨包分析前先运行 `codegraph sync .`，再用 `codegraph status .` 确认索引是最新状态。
+- 代码发现优先顺序：
+  1. `codegraph query <symbol-or-topic>`：查符号、文件、入口和相似主题。
+  2. `codegraph node <symbol-or-file>`：读源码、调用方和被调用方。
+  3. `codegraph callers <symbol>` / `codegraph callees <symbol>`：确认调用链。
+  4. `codegraph affected <files...>`：根据改动文件找受影响测试。
+  5. `codegraph explore <topic>`：做模块级探索和 blast radius 梳理。
+- 如果 CodeGraph 结果不足，或要查字符串、配置、脚本、文档，再退回 `rg`、`find`、`sed` 等本地工具。
 - 使用 fallback 时要在进度或最终结果中说明原因。
 
 ## Superpowers 强制流程
@@ -51,7 +52,7 @@
 - `.github/workflows/publish.yml` 只在发布流程任务中修改；普通 CI、PR、review 自动化优先修改 `.github/workflows/ci.yml`、`.github/pull_request_template.md` 和 `.github/CODEOWNERS`。
 - `pnpm-lock.yaml` 只在依赖、package 范围或安装结果确实变化时修改；不要为了格式化或无关任务重写 lockfile。
 - 禁止新建或继续使用 `docs/superpowers/`；Superpowers 长期计划和规格放 `.superpowers/plans/`、`.superpowers/specs/`，执行记录放 `.superpowers/sdd/`。
-- 禁止提交生成物、缓存或本地索引，包括 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codebase-memory/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rspack-cache/`。
+- 禁止提交生成物、缓存或本地索引，包括 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rspack-cache/`。
 
 ## Git / PR / Review 闭环
 

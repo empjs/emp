@@ -12,13 +12,16 @@ description: EMP repository workflow guide for Codex agents. Use when working in
    - read `AGENTS.md`
    - check `.codex/config.toml` if present
    - `codex mcp list`
-   - `codebase-memory-mcp` project status
-2. Use codebase-memory-mcp for code discovery before file search:
-   - `search_graph`
-   - `trace_path`
-   - `get_code_snippet`
-   - `query_graph`
-   - `get_architecture`
+   - `command -v codegraph`
+   - `codegraph status .`
+2. Use CodeGraph for code discovery before file search:
+   - `codegraph sync .`
+   - `codegraph status .`
+   - `codegraph query <symbol-or-topic>`
+   - `codegraph node <symbol-or-file>`
+   - `codegraph callers <symbol>` / `codegraph callees <symbol>`
+   - `codegraph affected <files...>`
+   - `codegraph explore <topic>`
 3. Use local file search only for strings, configs, docs, scripts, workflows, and Skill files.
 4. Keep changes scoped to the user request. Do not rewrite unrelated user edits.
 5. Before editing, identify the minimum validation commands from `references/change-matrix.md`.
