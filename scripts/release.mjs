@@ -23,7 +23,7 @@ Usage:
   node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>] [--package <name>]
 
 Defaults:
-  --tag alpha
+  --tag beta
 `
 
 const parseArgs = (argv) => {
@@ -35,7 +35,7 @@ const parseArgs = (argv) => {
     dryRun: undefined,
     yes: false,
     skipBuild: false,
-    tag: process.env.RELEASE_TAG ?? 'alpha',
+    tag: process.env.RELEASE_TAG ?? 'beta',
     registry: process.env.RELEASE_REGISTRY,
   }
 
@@ -60,19 +60,29 @@ const parseArgs = (argv) => {
 
 const quote = (part) => (/[\s"'$]/.test(part) ? JSON.stringify(part) : part)
 
+const resolveCommand = (command, options = {}) => {
+  const packageManager = options.packageManager
+  if (command[0] === 'pnpm' && packageManager) {
+    return ['corepack', packageManager, ...command.slice(1)]
+  }
+
+  return command
+}
+
 const runCommand = (command, options = {}) =>
   new Promise((resolve, reject) => {
-    console.log(`$ ${command.map(quote).join(' ')}`)
+    const resolvedCommand = resolveCommand(command, options)
+    console.log(`$ ${resolvedCommand.map(quote).join(' ')}`)
     if (options.printOnly) {
       resolve()
       return
     }
 
-    const child = spawn(command[0], command.slice(1), {stdio: 'inherit'})
+    const child = spawn(resolvedCommand[0], resolvedCommand.slice(1), {stdio: 'inherit'})
     child.on('error', reject)
     child.on('exit', (code) => {
       if (code === 0) resolve()
-      else reject(new Error(`Command failed with exit code ${code}: ${command.join(' ')}`))
+      else reject(new Error(`Command failed with exit code ${code}: ${resolvedCommand.join(' ')}`))
     })
   })
 
@@ -86,13 +96,13 @@ const printPlan = (plan) => {
   console.log(`Workspace packages: ${plan.workspacePackages.length}`)
 }
 
-const runBuild = async (skipBuild) => {
+const runBuild = async (skipBuild, packageManager) => {
   if (skipBuild) {
     console.log('Skip build: true')
     return
   }
 
-  await runCommand(['pnpm', 'empbuild'])
+  await runCommand(['pnpm', 'empbuild'], {packageManager})
 }
 
 const main = async () => {
@@ -119,6 +129,8 @@ const main = async () => {
     throw new Error(`Release validation failed:\n${errors.map((error) => `- ${error}`).join('\n')}`)
   }
 
+  const packageManager = plan.rootPackage.manifest.packageManager
+
   if (options.command === 'version') {
     const version = options.positional[0] ?? options.version
     if (!version) throw new Error('version command requires a version')
@@ -141,13 +153,13 @@ const main = async () => {
 
   if (options.command === 'pack') {
     const dryRun = options.dryRun ?? !options.yes
-    await runBuild(options.skipBuild)
+    await runBuild(options.skipBuild, packageManager)
     for (const command of buildPackCommands(plan, {
       dryRun,
       yes: options.yes,
       packageName: options.packageName,
     })) {
-      await runCommand(command)
+      await runCommand(command, {packageManager})
     }
     return
   }
@@ -155,7 +167,7 @@ const main = async () => {
   if (options.command === 'publish') {
     const dryRun = options.dryRun ?? !options.yes
     const packDir = join(options.root, '.release', 'npm')
-    await runBuild(options.skipBuild)
+    await runBuild(options.skipBuild, packageManager)
     if (!dryRun) await ensureDir(packDir)
     for (const command of buildPublishCommands(plan, {
       dryRun,
@@ -165,7 +177,7 @@ const main = async () => {
       packDir,
       packageName: options.packageName,
     })) {
-      await runCommand(command)
+      await runCommand(command, {packageManager})
     }
     return
   }

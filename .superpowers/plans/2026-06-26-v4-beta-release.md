@@ -57,16 +57,22 @@ Files:
 
 - Root and package version files touched by the existing release version script.
 - Changelog files touched by the existing release version script.
+- `scripts/release.mjs`
+- `scripts/release-core.mjs`
+- `scripts/release.rules.test.ts`
+- `.github/workflows/publish.yml`
 
 Steps:
 
 1. Inspect the release version command behavior enough to confirm the intended beta version path.
-2. Run the existing version command to prepare `4.0.0-beta.0`.
-3. Review the diff to confirm only release metadata and version files changed.
-4. Run `pnpm release:check` and `pnpm release:publish:dry -- --skip-build`.
-5. Run the relevant local gates after the version change.
-6. Commit and push the beta prep commit to `v4`.
-7. Confirm the remote CI run for the beta prep commit reaches green.
+2. Add Rstest coverage proving default publish commands and publish workflow use beta dist-tag semantics.
+3. Update release defaults and publish workflow so dry-run and real publish pass `--tag beta` unless another explicit tag is supplied.
+4. Run the existing version command to prepare `4.0.0-beta.0`.
+5. Review the diff to confirm only release metadata, release automation, and version files changed.
+6. Run `pnpm release:check` and `pnpm release:publish:dry -- --skip-build`.
+7. Run the relevant local gates after the version change.
+8. Commit and push the beta prep commit to `v4`.
+9. Confirm the remote CI run for the beta prep commit reaches green.
 
 # Task 3: Publish Dry-Run
 

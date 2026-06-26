@@ -190,7 +190,7 @@ describe('release rules', () => {
       })
       const defaultCommands = buildPublishCommands(plan, {dryRun: true})
 
-      expect(defaultCommands.some(command => command.includes('alpha'))).toBe(true)
+      expect(defaultCommands.some(command => command.includes('beta'))).toBe(true)
 
       expect(dryRunCommands).toHaveLength(3)
       for (const command of dryRunCommands) {
@@ -252,7 +252,16 @@ describe('release rules', () => {
     })
   })
 
-  test('trusted publisher workflow uses publish.yml and alpha release automation', async () => {
+  test('release CLI defaults to beta and runs pnpm through the pinned package manager', async () => {
+    const releaseSource = await readFile(releaseCli, 'utf8')
+
+    expect(releaseSource).toMatch(/tag:\s*process\.env\.RELEASE_TAG \?\? ['"]beta['"]/)
+    expect(releaseSource).toMatch(/const resolveCommand/)
+    expect(releaseSource).toMatch(/command\[0\] === ['"]pnpm['"]/)
+    expect(releaseSource).toMatch(/\['corepack', packageManager, \.\.\.command\.slice\(1\)\]/)
+  })
+
+  test('trusted publisher workflow uses publish.yml and beta release automation', async () => {
     const workflow = await readFile(join(repoRoot, '.github/workflows/publish.yml'), 'utf8')
 
     expect(workflow).toMatch(/name:\s*Publish/)
@@ -262,10 +271,15 @@ describe('release rules', () => {
     expect(workflow).toMatch(/tag="[^"]*\$\{GITHUB_REF_NAME\}"/)
     expect(workflow).toMatch(/RELEASE_PACKAGE=@empjs\/\$package_name/)
     expect(workflow).toMatch(/default:\s*['"]{2}/)
+    expect(workflow).toMatch(/default:\s*['"]beta['"]/)
+    expect(workflow).toMatch(/RELEASE_TAG=\$release_tag/)
     expect(workflow).toMatch(/corepack prepare pnpm@10\.33\.0 --activate/)
+    expect(workflow).toMatch(/pnpm test:rules/)
+    expect(workflow).not.toMatch(/node --test scripts\/release\.test\.mjs/)
     expect(workflow).toMatch(/args=\(--yes --skip-build\)/)
     expect(workflow).toMatch(/args\+=\(--package "\$RELEASE_PACKAGE"\)/)
-    expect(workflow).toMatch(/pnpm release:publish -- "\$\{args\[@\]\}"/)
+    expect(workflow).toMatch(/pnpm release:publish:dry -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
+    expect(workflow).toMatch(/pnpm release:publish -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
     expect(workflow).not.toMatch(/\|\| ['"]@empjs\/cli['"]/)
     expect(workflow).not.toMatch(/NPM_TOKEN/)
     expect(workflow).not.toMatch(/publish-alpha\.yml/)

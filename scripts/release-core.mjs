@@ -3,7 +3,7 @@ import {access, mkdir, readFile, readdir, writeFile} from 'node:fs/promises'
 import {dirname, join, relative} from 'node:path'
 
 const INTERNAL_SCOPE = '@empjs/'
-const DEFAULT_TAG = 'alpha'
+const DEFAULT_TAG = 'beta'
 const DEFAULT_ACCESS = 'public'
 const REQUIRED_NODE_ENGINE = '^20.19.0 || >=22.12.0'
 const PACKAGE_JSON = 'package.json'
@@ -187,7 +187,7 @@ export const renderChangelogEntry = (plan, options = {}) => {
 
 ### Highlights
 
-- Publish EMP v4 alpha packages to \`${registry}\` with dist-tag \`${tag}\`.
+- Publish EMP v4 beta packages to \`${registry}\` with dist-tag \`${tag}\`.
 - Align the root workspace and ${plan.internalPackages.length} core \`@empjs/*\` packages to \`${version}\`.
 - Keep CDN and legacy runtime package lines independent for framework-specific runtime delivery.
 

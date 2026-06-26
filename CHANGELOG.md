@@ -1,5 +1,29 @@
 # Changelog
 
+## 4.0.0-beta.0 - 2026-06-26
+
+### Highlights
+
+- Publish EMP v4 beta packages to `默认 npm registry` with dist-tag `beta`.
+- Align the root workspace and 19 core `@empjs/*` packages to `4.0.0-beta.0`.
+- Keep CDN and legacy runtime package lines independent for framework-specific runtime delivery.
+
+### What's Changed
+
+#### New Features
+
+- feat(release): add unified alpha release automation for core `@empjs/*` packages.
+- feat(release): generate guarded npm publish commands with dry-run by default.
+
+#### Build
+
+- chore(release): publish with pnpm 10 workspace filters and dist-tag `beta`.
+- chore(release): exclude `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` from the unified release set.
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-beta.0`.
+
 ## 4.0.0-alpha.3 - 2026-06-25
 
 ### Highlights
