@@ -117,18 +117,12 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm apps:check')) {
     failures.push('package.json apps:acceptance must run pnpm apps:check before app builds')
   }
-  for (const filter of [
-    './apps/rspack2-modern-module',
-    './apps/rspack2-optimization',
-    './apps/mf-host',
-    './apps/mf-app',
-    './apps/vue-3-base',
-    './apps/vue-3-project',
-    './apps/tailwind-4',
-  ]) {
-    if (!appsAcceptance.includes(`--filter ${filter}`)) {
-      failures.push(`package.json apps:acceptance missing app filter: ${filter}`)
-    }
+  if (!appsAcceptance.includes('pnpm test:apps:single')) {
+    failures.push('package.json apps:acceptance must run pnpm test:apps:single for canonical app builds')
+  }
+  const testAppsSingle = pkg.scripts?.['test:apps:single'] ?? ''
+  if (!testAppsSingle.includes('rstest run --config rstest.config.ts scripts/apps.acceptance.test.ts')) {
+    failures.push('package.json test:apps:single must run scripts/apps.acceptance.test.ts with root Rstest config')
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {

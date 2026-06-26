@@ -9,20 +9,39 @@
 - app 名称必须表达验收能力，不使用泛化名称。
 - 每个 app 必须能通过 `node scripts/apps.mjs check`。
 
-## 验收用例矩阵
+## Default Acceptance
 
-| 能力域 | apps | 验证重点 | 最小命令 |
+默认验收只保留最小代表用例，避免 59 个 app 全量构建。新增能力先判断是否能归入现有 canonical app；不能覆盖时再增加专项或 compat 用例。
+
+| 能力域 | canonical subject | 验证重点 | 命令 |
 | --- | --- | --- | --- |
-| Module Federation | `mf-host`, `mf-app`, `app-and-host`, `mf-split-chunk`, `mf-v3-host` | remote/host、split chunk、v3 host、类型产物 | `pnpm --filter ./apps/mf-host --filter ./apps/mf-app build` |
-| Vue 2/3 | `vue-2-base`, `vue-2-element`, `vue-2-project`, `vue-2-stylus`, `vue-3-base`, `vue-3-project`, `vue-3-with-vue-2`, `vue3-host`, `vue3-app` | Vue 插件、remote 暴露、DTS、跨版本消费、跨版本组合 | `pnpm --filter ./apps/vue-3-base --filter ./apps/vue-3-project build` |
-| React Runtime | `react-16-adapter-18`, `react-18-runtime`, `react-19-runtime`, `runtime-18-app`, `runtime-18-host` | React 16/18/19 运行时兼容、runtime remote | `pnpm --filter ./apps/react-19-runtime --filter ./apps/runtime-18-host build` |
-| Adapter | `adapter-app`, `adapter-host`, `adapter-vue2-host`, `adapter-vue3-host`, `vue3-in-vue2` | React/Vue adapter、跨框架挂载与宿主消费 | `pnpm --filter ./apps/adapter-app --filter ./apps/adapter-host build` |
-| CSS / Tailwind | `tailwind-2`, `tailwind-3`, `tailwind-4`, `tailwind-4-polyfill`, `tailwind-demo`, `tailwindcss-app`, `tailwindcss-host`, `daisyui-demo`, `mobile-vw-rem`, `shadcn-ui` | Tailwind 版本矩阵、CSS module、polyfill、组件样式 | `pnpm --filter ./apps/tailwind-4 build` |
-| Routing | `react-router-demo`, `react-tanstack`, `react-19-tanstack`, `react-wouter`, `auto-pages` | 文件路由、动态路由、Wouter/TanStack Router | `pnpm --filter ./apps/react-router-demo --filter ./apps/react-tanstack build` |
-| Proxy / Assets | `demo`, `proxy-demo`, `local-build-remote-dev-demo`, `pixi-js-demo` | proxy、资源处理、本地 remote、非 React/Vue 入口 | `pnpm --filter ./apps/demo --filter ./apps/proxy-demo build` |
-| Rspack 2 Baseline | `rspack2-modern-module`, `rspack2-optimization` | Rspack 2 ESM library、parser、SWC loader、优化配置 | `pnpm --filter ./apps/rspack2-modern-module --filter ./apps/rspack2-optimization build` |
-| CDN / Unpkg Runtime | `unpkg-demo`, `unpkg-lib`, `lib-main`, `lib-react`, `esm-react-app`, `esm-react-host` | CDN external、unpkg runtime、ESM/CJS 消费 | `pnpm --filter ./apps/unpkg-demo --filter ./apps/esm-react-host build` |
-| Legacy / Runtime Layout | `old-func-demo`, `rtHost`, `rtLayout`, `rtProvider`, `emp-window-demo`, `react-eager-host`, `react-eager-app`, `es5-import-demo` | legacy API、layout/provider、window runtime、eager import、ES5 import | `pnpm --filter ./apps/rtHost --filter ./apps/emp-window-demo build` |
+| Rspack 2 Baseline | `rspack2-modern-module`, `rspack2-optimization` | 现代模块输出、优化配置和基础构建链路 | `pnpm test:apps:single` |
+| React Module Federation | `mf-host`, `mf-app`, `@empjs/share` | remote/host manifest、runtime sdk、类型产物 | `pnpm test:apps:single`；P0 浏览器联动后续由 `pnpm test:apps:mf` 承载 |
+| Vue 3 Module Federation | `vue-3-base`, `vue-3-project` | Vue 3 remote exposes、consumer 配置和 manifest | `pnpm test:apps:single` |
+| Tailwind CSS v4 | `tailwind-4` | 默认 Tailwind 支持只保留 v4 canonical | `pnpm test:apps:single` |
+| React 19 Router/Query | `react-19-tanstack` | React 19、TanStack Router、Tailwind v4 组合 | `pnpm test:apps:single` |
+
+## Compat Packs
+
+Compat apps 不进入默认 `apps:acceptance`，只在相关能力变更或 release 前专项触发。
+
+| 能力域 | apps | 触发条件 |
+| --- | --- | --- |
+| Tailwind legacy | `tailwind-2`, `tailwind-3` | 修改 Tailwind v2/v3 plugin 或 legacy CSS 兼容时 |
+| Vue 2 / adapter | `vue-2-*`, `vue3-in-vue2`, `adapter-*` | 修改 Vue2、Vue bridge、adapter 或跨框架挂载时 |
+| React legacy/runtime | `react-16-adapter-18`, `react-18-runtime`, `runtime-18-*` | 修改 React adapter、runtime version isolation 或 CDN React 18 时 |
+| Runtime layout/provider | `rtHost`, `rtLayout`, `rtProvider`, `emp-window-demo` | 修改 runtime provider、layout、window runtime 或 force remote 时 |
+| Assets / proxy / routing examples | `demo`, `proxy-demo`, `auto-pages`, `mobile-vw-rem`, `pixi-js-demo`, `react-router-demo`, `react-wouter`, `shadcn-ui`, `daisyui-demo` | 修改对应 assets、proxy、routing、UI 样式集成时 |
+| Library / CDN transition | `lib-main`, `lib-react`, `unpkg-demo`, `unpkg-lib` | 迁移完成前保留；后续由 Rslib/CDN package smoke 替代 |
+
+## Merge Candidates
+
+| 候选组 | 目标 |
+| --- | --- |
+| `react-tanstack` -> `react-19-tanstack` | 保留一个动态路由信号后删除旧 TanStack demo |
+| `vue3-app` / `vue3-host` -> `vue-3-base` / `vue-3-project` | 保留必要 Pinia/router 信号后删除旧 Vue3 重复组 |
+| Tailwind duplicate group -> `tailwind-4` | 默认只保留 v4，v2/v3 降为 legacy compat |
+| `lib-*` / `unpkg-*` apps -> Rslib/CDN package smoke | 不再用 MF app pair 证明库产物 |
 
 ## 命令
 
