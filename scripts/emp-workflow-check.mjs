@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import {ROOT_RSTEST_CONFIG, ROOT_TEST_PACKAGE_SCRIPTS, ROOT_TEST_TARGETS, rootTestCommand} from './root-test-targets.mjs'
 
 const root = process.cwd()
 const failures = []
@@ -76,6 +77,9 @@ for (const file of [
   'skills/emp-workflow/agents/openai.yaml',
   'skills/emp-workflow/references/change-matrix.md',
   'scripts/emp-workflow-check.mjs',
+  'scripts/root-test-targets.mjs',
+  'scripts/run-root-test.mjs',
+  ROOT_RSTEST_CONFIG,
 ]) {
   requireFile(file)
 }
@@ -143,17 +147,14 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm test:library-output')) {
     failures.push('package.json apps:acceptance must run pnpm test:library-output for package-level library output smoke')
   }
-  const testAppsSingle = pkg.scripts?.['test:apps:single'] ?? ''
-  if (!testAppsSingle.includes('rstest run --config rstest.config.ts test/apps.acceptance.test.ts')) {
-    failures.push('package.json test:apps:single must run test/apps.acceptance.test.ts with root Rstest config')
+  for (const [scriptName, targetName] of Object.entries(ROOT_TEST_PACKAGE_SCRIPTS)) {
+    const expectedCommand = rootTestCommand(targetName)
+    if (pkg.scripts?.[scriptName] !== expectedCommand) {
+      failures.push(`package.json ${scriptName} must run ${expectedCommand}`)
+    }
   }
-  const testAppsMf = pkg.scripts?.['test:apps:mf'] ?? ''
-  if (!testAppsMf.includes('rstest run --config rstest.config.ts test/apps.mf-browser.test.ts')) {
-    failures.push('package.json test:apps:mf must run test/apps.mf-browser.test.ts with root Rstest config')
-  }
-  const testLibraryOutput = pkg.scripts?.['test:library-output'] ?? ''
-  if (!testLibraryOutput.includes('rstest run --config rstest.config.ts test/library-output.smoke.test.ts')) {
-    failures.push('package.json test:library-output must run test/library-output.smoke.test.ts with root Rstest config')
+  for (const file of ROOT_TEST_TARGETS.all) {
+    requireFile(file)
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {
