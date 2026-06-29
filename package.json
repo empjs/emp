@@ -83,15 +83,14 @@
   },
   "devDependencies": {
     "@empjs/biome-config": "workspace:^",
-    "@rslib/core": "^0.23.0",
+    "@rslib/core": "^0.23.1",
     "@rstest/core": "0.10.6",
     "@types/node": "^24.9.2",
     "@typescript/native-preview": "7.0.0-dev.20260624.1",
     "cross-env": "^7.0.3",
     "playwright": "1.61.1",
     "typescript": "7.0.1-rc",
-    "typescript-mf": "npm:typescript@5.9.3",
-    "typescript-rslib": "npm:typescript@6.0.3"
+    "typescript-mf": "npm:typescript@5.9.3"
   },
   "packageManager": "pnpm@10.33.0"
 }
