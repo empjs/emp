@@ -8,8 +8,6 @@ const nodeEsmPackages = [
   'packages/plugin-react/rslib.config.ts',
   'packages/plugin-stylus/rslib.config.ts',
   'packages/plugin-tailwindcss/rslib.config.ts',
-  'packages/plugin-tailwindcss2/rslib.config.ts',
-  'packages/plugin-tailwindcss3/rslib.config.ts',
   'packages/plugin-vue2/rslib.config.ts',
   'packages/plugin-vue3/rslib.config.ts',
 ]
@@ -18,13 +16,13 @@ let failed = false
 
 for (const file of nodeEsmPackages) {
   const content = readFileSync(file, 'utf8')
-  if (!content.includes("from '../../scripts/rslib-presets.mjs'")) {
-    console.error(`${file}: missing shared rslib preset import`)
+  if (!content.includes("from '@empjs/rslib-presets'")) {
+    console.error(`${file}: missing @empjs/rslib-presets import`)
     failed = true
   }
   for (const duplicate of ['node22Syntax', 'nodeSyntax', 'esmShims']) {
     if (content.includes(`const ${duplicate}`)) {
-      console.error(`${file}: duplicate ${duplicate} should live in scripts/rslib-presets.mjs`)
+      console.error(`${file}: duplicate ${duplicate} should live in packages/rslib-presets/index.mjs`)
       failed = true
     }
   }

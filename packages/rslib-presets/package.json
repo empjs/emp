@@ -1,0 +1,12 @@
+{
+  "name": "@empjs/rslib-presets",
+  "version": "4.0.0-beta.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "dependencies": {
+    "@rslib/core": "^0.23.1"
+  }
+}

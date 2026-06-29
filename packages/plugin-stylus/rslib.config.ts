@@ -1,3 +1,3 @@
-import {defineNodeEsmConfig} from '../../scripts/rslib-presets.mjs'
+import {defineNodeEsmConfig} from '@empjs/rslib-presets'
 
 export default defineNodeEsmConfig()

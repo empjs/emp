@@ -1,6 +1,6 @@
 # 引入样式资源
 
-EMP 内置多种常用的样式资源处理方式，包括 Sass 预处理器、PostCSS、CSS Modules、CSS 内联和 CSS 压缩。
+EMP 内置多种常用的样式资源处理方式，包括 Sass 预处理器、CSS Modules、CSS 内联和 CSS 压缩。PostCSS 作为显式扩展插件接入，适合需要复用 PostCSS 生态插件的项目。
 
 除此之外，EMP 也提供了多个配置项来自定义样式资源的处理规则。
 
@@ -8,47 +8,38 @@ EMP 内置多种常用的样式资源处理方式，包括 Sass 预处理器、P
 
 EMP目前内置了社区流行的 CSS 预处理器之一：`Sass`。默认情况下，你不需要对 Sass 进行任何配置。目前您无法对其进行任何配置。
 
-## 使用 PostCSS
+## 使用 PostCSS 扩展
 
-EMP 内置了 PostCSS 来转换 CSS 代码。你可以通过以下方式来配置 PostCSS：
+EMP v4 默认样式链路不强制依赖 PostCSS。只有当项目需要 `autoprefixer`、`pxtorem`、`pxtovw` 或其他 PostCSS 插件时，才需要安装并注册 `@empjs/plugin-postcss`。
 
-1. EMP 使用 `postcss-load-config` 来加载当前项目根目录下的 PostCSS 配置文件，比如：
+如果只是需要浏览器前缀、现代 CSS 转换或 CSS 压缩，优先评估 `@empjs/plugin-lightningcss`。它基于 `build.browserslist` 处理目标环境，通常可以替代传统 `autoprefixer` 链路。
 
-```js title="postcss.config.js"
-module.exports = {
-  'postcss-px-to-viewport': {
-    viewportWidth: 375,
-  },
-};
-```
-
-2. 通过 EMP 的 `css.postcss` 选项来配置 postcss-loader，该选项支持通过函数来修改内置配置，比如：
+需要显式接入 PostCSS 时，可以在插件中维护 `postcssOptions.plugins`：
 
 ```js title="emp.config.js"
+import pluginPostcss, {postcss as postcssPlugins} from '@empjs/plugin-postcss'
+
 export default defineConfig(store => {
   return {
-    css: {
-      postcss: opts => {
-        const viewportPlugin = require('postcss-px-to-viewport')({
-          viewportWidth: 375,
-        })
-        opts.postcssOptions.plugins.push(viewportPlugin)
-      },
-    },
+    plugins: [
+      pluginPostcss({
+        postcssOptions: {
+          plugins: [
+            postcssPlugins.autoprefixer(),
+            postcssPlugins.pxtovw({}),
+          ],
+        },
+      }),
+    ],
   }
 })
 ```
 
-当你同时配置 `postcss.config.js` 文件和 `css.postcss` 选项时，两者都会生效，并且 `css.postcss` 的优先级更高。
+### PostCSS 支持边界
 
-### 内置 PostCSS 插件
-
-EMP 内置了 [autoprefixer](https://github.com/postcss/autoprefixer) 插件，来自动补齐 CSS 的浏览器前缀。
-如果你需要配置目标浏览器，可以使用 [browserslist](https://rsbuild.dev/zh/guide/advanced/browserslist) 进行配置。
-
-:::tip 💡 TIP
-如果你的项目中已经注册了 autoprefixer 插件，EMP 不会再次注册 autoprefixer 插件。
-:::
+- Tailwind v4 默认使用 `@empjs/plugin-tailwindcss`，不需要通过 PostCSS 注册 `tailwindcss`。
+- Tailwind 2/3 项目若暂不迁移到 v4，可通过 `@empjs/plugin-postcss` 显式保留 PostCSS 链路。
+- 任意 PostCSS 生态插件都需要通过 `@empjs/plugin-postcss` 显式接入。
 
 ## 使用CSS Modules
 

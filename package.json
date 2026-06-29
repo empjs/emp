@@ -75,6 +75,7 @@
   },
   "devDependencies": {
     "@empjs/biome-config": "workspace:^",
+    "@empjs/rslib-presets": "workspace:*",
     "@rslib/core": "^0.23.1",
     "@rstest/core": "0.10.6",
     "@types/node": "^24.9.2",

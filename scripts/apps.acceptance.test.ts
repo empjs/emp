@@ -8,6 +8,25 @@ import {DEFAULT_APP_ACCEPTANCE} from './apps.catalog.mjs'
 const execFile = promisify(execFileCallback)
 const repoRoot = process.cwd()
 
+function readDistCss(appDir: string): string {
+  const distCssDir = join(repoRoot, 'apps', appDir, 'dist', 'css')
+  if (!existsSync(distCssDir)) {
+    return ''
+  }
+
+  const cssFiles = readdirSync(distCssDir, {recursive: true})
+  return cssFiles
+    .filter(file => String(file).endsWith('.css'))
+    .map(file => readFileSync(join(distCssDir, String(file)), 'utf8'))
+    .join('\n')
+}
+
+function assertNoDefaultTailwindPostcssWarning(stderr: string) {
+  expect(stderr).not.toContain('postcss-is-pseudo-class')
+  expect(stderr).not.toContain('postcss-loader')
+  expect(stderr).not.toContain('@tailwindcss/postcss')
+}
+
 const expectedArtifacts: Record<string, string[]> = {
   'rspack2-modern-module': ['dist/index.html'],
   'rspack2-optimization': ['dist/index.html'],
@@ -41,6 +60,12 @@ describe('default apps real acceptance', () => {
         expect(pkg.devDependencies?.['@empjs/plugin-tailwindcss2']).toBeUndefined()
         expect(pkg.devDependencies?.['@empjs/plugin-tailwindcss3']).toBeUndefined()
         expect(distFiles.some(file => String(file).startsWith('css/') && String(file).endsWith('.css'))).toBe(true)
+        assertNoDefaultTailwindPostcssWarning(result.stderr)
+
+        const css = readDistCss(appDir)
+        expect(css).toContain('--tw')
+        expect(css).toContain('.grid')
+        expect(css).toContain('.bg-')
       }
 
       if (appDir === 'vue-3-base') {
@@ -74,6 +99,11 @@ describe('default apps real acceptance', () => {
         const routeTree = readFileSync(join(repoRoot, 'apps', appDir, 'src/routeTree.gen.ts'), 'utf8')
         expect(routeTree).toContain("'/router-lab'")
         expect(routeTree).toContain("'/router-lab/$id'")
+        assertNoDefaultTailwindPostcssWarning(result.stderr)
+
+        const css = readDistCss(appDir)
+        expect(css).toContain('.tailwind-react-contaner')
+        expect(css).toContain('group-hover')
       }
     }, 120000)
   }

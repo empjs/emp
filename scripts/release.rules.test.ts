@@ -307,14 +307,14 @@ describe('release rules', () => {
       '@empjs/plugin-react',
       '@empjs/plugin-stylus',
       '@empjs/plugin-tailwindcss',
-      '@empjs/plugin-tailwindcss2',
-      '@empjs/plugin-tailwindcss3',
       '@empjs/plugin-vue2',
       '@empjs/plugin-vue3',
       '@empjs/polyfill',
       '@empjs/share',
     ])
-    expect(plan.internalPackages).toHaveLength(19)
+    expect(plan.internalPackages).toHaveLength(17)
+    expect(plan.packages.map(pkg => pkg.name)).not.toContain('@empjs/plugin-tailwindcss2')
+    expect(plan.packages.map(pkg => pkg.name)).not.toContain('@empjs/plugin-tailwindcss3')
   })
 
   test('release CLI defaults to beta and runs pnpm through the pinned package manager', async () => {

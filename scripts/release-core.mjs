@@ -23,8 +23,6 @@ const INTERNAL_RELEASE_PACKAGES = new Set([
   '@empjs/plugin-react',
   '@empjs/plugin-stylus',
   '@empjs/plugin-tailwindcss',
-  '@empjs/plugin-tailwindcss2',
-  '@empjs/plugin-tailwindcss3',
   '@empjs/plugin-vue2',
   '@empjs/plugin-vue3',
   '@empjs/polyfill',

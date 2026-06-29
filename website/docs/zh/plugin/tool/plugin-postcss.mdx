@@ -1,5 +1,17 @@
 # Postcss 插件
 
+`@empjs/plugin-postcss` 是一个显式的 PostCSS 扩展入口，用于接入额外的 PostCSS 转换插件（如 `autoprefixer`、`pxtorem`、`pxtovw`）。它不再作为 Tailwind v4 默认接入路径。
+
+## 支持程度与替代路径
+
+| 场景 | 当前支持 | 推荐路径 |
+| --- | --- | --- |
+| Tailwind v4 默认接入 | 不再走 PostCSS | 使用 `@empjs/plugin-tailwindcss`，默认由 `@tailwindcss/webpack` 处理 |
+| Tailwind 2/3 兼容 | 保留 PostCSS | 使用 `@empjs/plugin-postcss` 显式接入项目自有的 `tailwindcss` / `autoprefixer` 配置 |
+| CSS 前缀、压缩、现代 CSS 转换 | 可替代 | 优先使用 `@empjs/plugin-lightningcss`，按 `build.browserslist` 控制目标环境 |
+| `px` 转 `rem` / `vw` | 可替代或保留 | 优先评估 `@empjs/plugin-lightningcss` 的 visitor；需要严格复用 PostCSS 插件行为时再使用本插件 |
+| 任意 PostCSS 生态插件 | 显式支持 | 使用 `@empjs/plugin-postcss` 并自行维护 `postcssOptions.plugins` |
+
 ## 快速开始
 
 ### 安装插件
@@ -17,7 +29,7 @@ export default defineConfig(store => {
       pluginPostcss({
         postcssOptions: {
           plugins: [
-            postcssPlugins.autoprefixer(), 
+            postcssPlugins.autoprefixer(),
            /**
             * px to vw
             * 默认值
@@ -30,7 +42,7 @@ export default defineConfig(store => {
             minPixelValue: 0
            * 可通过传入参数进行替换
            */
-            postcssPlugins.pxtovw({}), 
+            postcssPlugins.pxtovw({}),
            /**
             * px to rem
             * 默认值
@@ -50,7 +62,7 @@ export default defineConfig(store => {
             landscapeWidth: 568,
            * 可通过传入参数进行替换
            */
-            postcssPlugins.pxtorem({}), 
+            postcssPlugins.pxtorem({}),
             ],
         },
       }),
@@ -59,9 +71,33 @@ export default defineConfig(store => {
 })
 
 ```
-### Postcss 内置方法 
+### 示例：接入常见 PostCSS 能力
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginPostcss, {postcss as postcssPlugins} from '@empjs/plugin-postcss'
+export default defineConfig(store => {
+  return {
+    plugins:[
+      pluginPostcss({
+        postcssOptions: {
+          plugins: [
+            postcssPlugins.autoprefixer(),
+            /** px to vw */
+            postcssPlugins.pxtovw({}),
+            /** px to rem */
+            postcssPlugins.pxtorem({}),
+            ],
+        },
+      }),
+    ],
+  }
+})
+
+```
+
+### 说明
+
 + `postcss.autoprefixer` 兼容性设置 集成于 `autoprefixer`
 + `postcss.pxtorem` px转rem 集成于 `postcss-pxtorem`
 + `postcss.pxtovw` px转vw 集成于 `@empjs/postcss-px-to-viewport`
-
-

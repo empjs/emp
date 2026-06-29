@@ -39,7 +39,7 @@ Do not move CDN or legacy runtime packages to the unified v4 version line. `@emp
 
 ## Release Scope
 
-`4.0.0-alpha.3` aligns the root workspace and 19 core internal packages:
+`4.0.0-alpha.3` aligns the root workspace and 17 core internal packages:
 
 - `@empjs/adapter-react`
 - `@empjs/biome-config`
@@ -54,8 +54,6 @@ Do not move CDN or legacy runtime packages to the unified v4 version line. `@emp
 - `@empjs/plugin-react`
 - `@empjs/plugin-stylus`
 - `@empjs/plugin-tailwindcss`
-- `@empjs/plugin-tailwindcss2`
-- `@empjs/plugin-tailwindcss3`
 - `@empjs/plugin-vue2`
 - `@empjs/plugin-vue3`
 - `@empjs/polyfill`

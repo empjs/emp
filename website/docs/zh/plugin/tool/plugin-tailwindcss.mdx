@@ -25,6 +25,54 @@ export default defineConfig(store => {
 
 ```
 
+### 默认接入说明
+
+v4 默认链路使用 `@tailwindcss/webpack` 作为处理器，并内置到 EMP 的 CSS 规则链路中。通常不需要新增 `postcss.config.*`。
+
+如果项目还需要 `autoprefixer`、`pxtorem`、`pxtovw` 或其他 PostCSS 插件，请将它们作为显式扩展接入。优先评估 `@empjs/plugin-lightningcss`；需要复用 PostCSS 插件生态时，再组合使用 `@empjs/plugin-postcss`。
+
+### 插件选项
+
+`pluginTailwindcss` 支持两个可选参数：
+
+- `base`：传入自定义基础路径，默认使用工程根路径（`store.root`）
+- `optimize`：优化开关，默认在生产环境开启（`!store.isDev`）
+  - 支持 `boolean` 或 `{ minify?: boolean }`
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginTailwindcss from '@empjs/plugin-tailwindcss'
+
+export default defineConfig(store => {
+  return {
+    plugins:[
+      pluginTailwindcss({
+        // 选用项：按需覆盖默认值
+        base: store.resolve('src'),
+        optimize: {
+          minify: true,
+        },
+      }),
+    ],
+  }
+})
+
+```
+
+```ts title="emp-config.js"
+import {defineConfig} from '@empjs/cli'
+import pluginTailwindcss from '@empjs/plugin-tailwindcss'
+
+export default defineConfig(store => {
+  return {
+    plugins:[
+      pluginTailwindcss(),
+    ],
+  }
+})
+
+```
+
 ### 引入样式
 ```css title="style.css"
 @import "tailwindcss";

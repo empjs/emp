@@ -1,5 +1,5 @@
 import {execFileSync} from 'node:child_process'
-import {readFileSync} from 'node:fs'
+import {existsSync, readFileSync} from 'node:fs'
 import {describe, expect, test} from '@rstest/core'
 
 const trackedTsconfigs = execFileSync('git', ['ls-files'], {encoding: 'utf8'})
@@ -7,6 +7,7 @@ const trackedTsconfigs = execFileSync('git', ['ls-files'], {encoding: 'utf8'})
   .split('\n')
   .filter(file => /(^|\/)tsconfig[^/]*\.json$/.test(file))
   .filter(file => file.startsWith('packages/') || file.startsWith('apps/'))
+  .filter(file => existsSync(file))
 
 const stripJsonComments = (text: string) =>
   text
