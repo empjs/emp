@@ -30,18 +30,20 @@ describe('toolchain version contract', () => {
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
   })
 
-  test('declaration tooling uses explicit TypeScript compatibility aliases', () => {
+  test('declaration tooling uses TS7-aware Rslib and Module Federation compatibility alias', () => {
     const pkg = readJson('package.json')
     const workspace = readText('pnpm-workspace.yaml')
-    const rslibPatch = readText('patches/rsbuild-plugin-dts.patch')
+    const lockfile = readText('pnpm-lock.yaml')
     const mfPatch = readText('patches/@module-federation__dts-plugin@2.6.0.patch')
 
+    expect(pkg.devDependencies['@rslib/core']).toBe('^0.23.1')
     expect(pkg.devDependencies['typescript-mf']).toBe('npm:typescript@5.9.3')
-    expect(pkg.devDependencies['typescript-rslib']).toBe('npm:typescript@6.0.3')
+    expect(pkg.devDependencies['typescript-rslib']).toBeUndefined()
     expect(workspace).toContain('patchedDependencies:')
     expect(workspace).toContain("'@module-federation/dts-plugin@2.6.0': patches/@module-federation__dts-plugin@2.6.0.patch")
-    expect(workspace).toContain('rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch')
-    expect(rslibPatch).toContain('utils_require("typescript-rslib")')
+    expect(workspace).not.toContain('rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch')
+    expect(lockfile).toContain('rsbuild-plugin-dts@0.23.1')
+    expect(lockfile).toContain('typescript: ^5 || ^6 || ^7.0.1-0')
     expect(mfPatch).toContain('from "typescript-mf"')
     expect(mfPatch).toContain('require("typescript-mf")')
   })
