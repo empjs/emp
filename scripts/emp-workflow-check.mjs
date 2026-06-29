@@ -8,6 +8,20 @@ const failures = []
 const read = file => fs.readFileSync(path.join(root, file), 'utf8')
 const exists = file => fs.existsSync(path.join(root, file))
 const readJson = file => JSON.parse(read(file))
+const normalizePath = file => file.split(path.sep).join('/')
+
+const listFiles = dir => {
+  const base = path.join(root, dir)
+  if (!fs.existsSync(base)) return []
+
+  const files = []
+  for (const entry of fs.readdirSync(base, {withFileTypes: true})) {
+    const relativePath = path.join(dir, entry.name)
+    if (entry.isDirectory()) files.push(...listFiles(relativePath))
+    else if (entry.isFile()) files.push(normalizePath(relativePath))
+  }
+  return files
+}
 
 const requireFile = file => {
   if (!exists(file)) failures.push(`missing required file: ${file}`)
@@ -153,8 +167,27 @@ if (exists('package.json')) {
       failures.push(`package.json ${scriptName} must run ${expectedCommand}`)
     }
   }
+  const rootTargetFiles = ROOT_TEST_TARGETS.all
+  const duplicateRootTargetFiles = rootTargetFiles.filter((file, index) => rootTargetFiles.indexOf(file) !== index)
+  if (duplicateRootTargetFiles.length > 0) {
+    failures.push(`ROOT_TEST_TARGETS contains duplicate root test files: ${duplicateRootTargetFiles.join(', ')}`)
+  }
   for (const file of ROOT_TEST_TARGETS.all) {
     requireFile(file)
+  }
+  const expectedRootTestFiles = new Set(rootTargetFiles)
+  const actualRootTestFiles = listFiles('test')
+    .filter(file => file.endsWith('.test.ts'))
+    .sort()
+  for (const file of actualRootTestFiles) {
+    if (!expectedRootTestFiles.has(file)) {
+      failures.push(`root test file must be listed in ROOT_TEST_TARGETS: ${file}`)
+    }
+  }
+  for (const file of expectedRootTestFiles) {
+    if (!actualRootTestFiles.includes(file)) {
+      failures.push(`ROOT_TEST_TARGETS references missing root test file: ${file}`)
+    }
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''
   if (!testCli.includes('pnpm --filter @empjs/chain build')) {
