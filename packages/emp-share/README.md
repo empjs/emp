@@ -164,12 +164,12 @@ declare module '@empjs/share/sdk' {
 
 ```ts
 pluginRspackEmpShare({
-  name: 'rtHost',
+  name: 'mfApp',
   remotes: {
-    rtLayout: '$@http://localhost:4004/emp.json',
+    mfHost: '$@http://localhost:6001/emp.json',
   },
   forceRemotes: {
-    rtLayout: '$@http://127.0.0.1:4004/emp.json',
+    mfHost: '$@http://127.0.0.1:6001/emp.json',
   },
 })
 ```

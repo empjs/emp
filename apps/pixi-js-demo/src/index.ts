@@ -1,5 +1,0 @@
-import './common.css'
-// import './fish'
-// import './animate'
-// import './base'
-import './partcycle'

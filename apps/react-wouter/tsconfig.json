@@ -1,7 +1,0 @@
-{
-  "extends": "@empjs/cli/tsconfig/react",
-  "compilerOptions": {},
-  "include": [
-    "src"
-  ]
-}

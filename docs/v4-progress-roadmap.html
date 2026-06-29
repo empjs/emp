@@ -523,7 +523,7 @@
             <p class="lead">
               当前 v4 主体迁移已经进入 alpha 阶段：Rspack 2、Module Federation 2.x、ESM-first/CJS
               兼容、统一 alpha 发布自动化和核心构建验证已经完成。本轮已完成 Tailwind 4.3.1 本地验收、
-              <code>empRuntime.version</code> 隔离实现，以及 <code>rtProvider</code> DTS 复验；真实发布仍只走
+              <code>empRuntime.version</code> 隔离实现，以及 Module Federation DTS 复验；真实发布仍只走
               dry-run 门禁，不执行 npm publish。
             </p>
             <div class="meta-grid">
@@ -661,7 +661,7 @@
                   <td data-label="完成内容">
                     <code>@empjs/chain</code>、<code>@empjs/cli</code>、<code>@empjs/share</code>、
                     <code>@empjs/plugin-react</code> 构建通过。<code>mf-host</code>、<code>mf-app</code>、
-                    <code>rtHost</code>、<code>rtProvider</code> 构建通过并产出 manifest。
+                    <code>mf-host</code>、<code>mf-app</code> 构建通过并产出 manifest。
                   </td>
                   <td data-label="主要证据">
                     <code>.superpowers/sdd/task-6-final-report.md</code>、<code>.superpowers/sdd/task-7-report.md</code>
@@ -806,11 +806,11 @@
               <div class="card">
                 <h3>3. 持续观察 MF DTS 告警</h3>
                 <p>
-                  <code>apps/rtProvider</code> 本轮复验已输出
+                  Module Federation DTS 本轮复验已输出
                   <code>Federated types created correctly</code>，没有复现 <code>#TYPE-001</code>。该项暂不需要源码修复。
                 </p>
                 <ul>
-                  <li>继续保留 <code>pnpm --filter ./apps/rtProvider build</code> 为发布前检查</li>
+                  <li>继续保留 <code>pnpm apps:acceptance</code> 中的 MF 浏览器 smoke 为发布前检查</li>
                   <li>如果再次出现 <code>#TYPE-001</code>，再单独定位类型声明输入</li>
                   <li>当前不扩大到 DTS 生成代码修改</li>
                 </ul>
@@ -838,7 +838,7 @@
               <div class="callout">
                 <strong>DTS 告警当前未复现，但保留发布前复验。</strong>
                 <p>
-                  <code>rtProvider</code> 本轮构建输出 <code>Federated types created correctly</code>。
+                  Module Federation DTS 本轮构建输出 <code>Federated types created correctly</code>。
                   旧记录中的 <code>#TYPE-001</code> 不再作为当前阻断项，但发布前仍应保留该构建命令。
                 </p>
               </div>

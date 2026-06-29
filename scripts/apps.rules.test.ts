@@ -3,8 +3,11 @@ import {existsSync} from 'node:fs'
 import {join} from 'node:path'
 import {discoverApps, runBench, validateApps} from './apps.mjs'
 import {
+  COMPAT_APP_GROUPS,
   DEFAULT_APP_ACCEPTANCE,
   MERGE_CANDIDATES,
+  REMOVE_CANDIDATES,
+  TARGET_APP_DIRS,
   getDuplicatePackageNames,
 } from './apps.catalog.mjs'
 import {
@@ -54,6 +57,120 @@ describe('apps catalog rules', () => {
   test('merge candidates require evidence before deletion', () => {
     expect(MERGE_CANDIDATES.map(candidate => candidate.group)).toEqual([])
     expect(MERGE_CANDIDATES.every(candidate => candidate.requiredEvidence.length > 0)).toBe(true)
+  })
+
+  test('target apps surface is explicit and intentionally small', async () => {
+    const apps = await discoverApps(repoRoot)
+    const appDirs = apps.map(app => app.dir).sort()
+
+    expect(TARGET_APP_DIRS).toEqual([
+      'adapter-app',
+      'adapter-host',
+      'demo',
+      'mf-app',
+      'mf-host',
+      'react-19-tanstack',
+      'rspack2-modern-module',
+      'rspack2-optimization',
+      'tailwind-4',
+      'vue-2-base',
+      'vue-2-project',
+      'vue-3-base',
+      'vue-3-project',
+    ])
+    expect(TARGET_APP_DIRS).toHaveLength(13)
+    expect(TARGET_APP_DIRS.every(dir => appDirs.includes(dir))).toBe(true)
+  })
+
+  test('workspace app directories match the target support surface', async () => {
+    const apps = await discoverApps(repoRoot)
+    const appDirs = apps.map(app => app.dir).sort()
+
+    expect(appDirs).toEqual([...TARGET_APP_DIRS].sort())
+  })
+
+  test('old apps are grouped into explicit deletion batches', () => {
+    expect(REMOVE_CANDIDATES['batch-1-uncataloged']).toEqual([
+      'app-and-host',
+      'daisyui-demo',
+      'local-build-remote-dev-demo',
+      'mf-split-chunk',
+      'mf-v3-host',
+      'old-func-demo',
+      'react-19-runtime',
+      'react-router-demo',
+      'shadcn-ui',
+      'vue-3-with-vue-2',
+    ])
+    expect(REMOVE_CANDIDATES['batch-2-root-script-cleanup']).toEqual([
+      'esm-react-app',
+      'esm-react-host',
+      'react-eager-app',
+      'react-eager-host',
+      'react-wouter',
+      'unpkg-demo',
+    ])
+    expect(REMOVE_CANDIDATES['batch-3-compat-collapse']).toEqual([
+      'adapter-vue2-host',
+      'adapter-vue3-host',
+      'auto-pages',
+      'emp-window-demo',
+      'es5-import-demo',
+      'mobile-vw-rem',
+      'pixi-js-demo',
+      'proxy-demo',
+      'react-16-adapter-18',
+      'react-18-runtime',
+      'rtHost',
+      'rtLayout',
+      'rtProvider',
+      'runtime-18-app',
+      'runtime-18-host',
+      'tailwind-2',
+      'tailwind-3',
+      'vue-2-element',
+      'vue-2-stylus',
+      'vue3-in-vue2',
+    ])
+  })
+
+  test('compat groups only point to retained app directories', () => {
+    const compatDirs = Object.values(COMPAT_APP_GROUPS).flat()
+
+    expect(compatDirs.every(dir => TARGET_APP_DIRS.includes(dir))).toBe(true)
+  })
+
+  test('root scripts do not reference retired app projects', async () => {
+    const rootPackage = JSON.parse(await fs.promises.readFile(join(repoRoot, 'package.json'), 'utf8'))
+    const retiredApps = Object.values(REMOVE_CANDIDATES).flat()
+    const scripts = Object.entries(rootPackage.scripts ?? {})
+    const staleScripts = scripts.filter(([, command]) => {
+      const commandText = String(command)
+      return retiredApps.some(appDir => commandText.includes(appDir))
+    })
+
+    expect(staleScripts).toEqual([])
+  })
+
+  test('public docs do not recommend retired app projects', async () => {
+    const retiredApps = Object.values(REMOVE_CANDIDATES).flat()
+    const docFiles = [
+      'docs/v4-progress-roadmap.html',
+      'packages/emp-share/README.md',
+      'website/docs/zh/demo/vue2.mdx',
+      'website/docs/zh/emp/runtime.mdx',
+      'website/docs/zh/guide/basis/tailwind.mdx',
+    ]
+    const staleReferences = []
+
+    for (const docFile of docFiles) {
+      const content = await fs.promises.readFile(join(repoRoot, docFile), 'utf8')
+      for (const appDir of retiredApps) {
+        if (content.includes(appDir)) staleReferences.push({docFile, appDir})
+      }
+    }
+
+    expect(staleReferences).toEqual([])
   })
 })
 

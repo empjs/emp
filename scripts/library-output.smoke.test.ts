@@ -11,6 +11,8 @@ const repoRoot = process.cwd()
 
 const buildTargets = [
   './packages/cdn-react-18',
+  './packages/cdn-react-wouter',
+  './packages/cdn-react-19-tanstack-router',
   './packages/cdn-vue-router-pinia',
   './packages/lib-react-17',
   './packages/lib-vue-2',
@@ -20,12 +22,18 @@ const buildTargets = [
 const expectedArtifacts = [
   'packages/cdn-react-18/dist/reactRouter.development.umd.js',
   'packages/cdn-react-18/dist/reactRouter.production.umd.js',
+  'packages/cdn-react-wouter/dist/reactRouter.development.umd.js',
+  'packages/cdn-react-wouter/dist/reactRouter.production.umd.js',
+  'packages/cdn-react-19-tanstack-router/dist/reactRouter.development.umd.js',
+  'packages/cdn-react-19-tanstack-router/dist/reactRouter.production.umd.js',
   'packages/cdn-vue-router-pinia/dist/vueRouter.development.umd.js',
   'packages/cdn-vue-router-pinia/dist/vueRouter.production.umd.js',
   'packages/lib-react-17/dist/runtime.umd.js',
   'packages/lib-react-17/dist/runtime.js',
+  'packages/lib-react-17/dist/runtime.d.ts',
   'packages/lib-vue-2/dist/runtime.umd.js',
   'packages/lib-vue-2/dist/runtime.js',
+  'packages/lib-vue-2/dist/runtime.d.ts',
   'packages/emp-share/output/sdk.js',
   'packages/emp-share/dist/rspack.js',
   'packages/emp-share/dist/runtime.js',
@@ -33,6 +41,8 @@ const expectedArtifacts = [
 
 const httpSmokeTargets = [
   {serviceId: 'cdn-react-18', expectedGlobal: 'EMP_ADAPTER_REACT'},
+  {serviceId: 'cdn-react-wouter', expectedGlobal: 'BIGO_NOVA_REACT'},
+  {serviceId: 'cdn-react-tanstack', expectedGlobal: 'EMP_REACT_19_TANSTACK'},
   {serviceId: 'cdn-vue-router-pinia', expectedGlobal: 'EMP_ADAPTER_VUE'},
   {serviceId: 'lib-react-17', expectedGlobal: 'EMP_ADAPTER_REACT'},
   {serviceId: 'lib-vue-2', expectedGlobal: 'EMP_ADAPTER_VUE'},

@@ -1,6 +1,15 @@
 import {defineConfig, type LibConfig, type RslibConfig} from '@rslib/core'
+import {copyFileSync, existsSync} from 'node:fs'
 
 const syntax = 'es2015'
+
+function ensureRuntimeDeclarations() {
+  const runtimeDts = new URL('./dist/runtime.d.ts', import.meta.url)
+  const runtimeCts = new URL('./dist/runtime.d.cts', import.meta.url)
+  if (existsSync(runtimeDts) && !existsSync(runtimeCts)) {
+    copyFileSync(runtimeDts, runtimeCts)
+  }
+}
 
 function getRuntimeModuleConfig(format: 'esm' | 'cjs'): LibConfig {
   return {
@@ -8,7 +17,7 @@ function getRuntimeModuleConfig(format: 'esm' | 'cjs'): LibConfig {
     format,
     bundle: true,
     syntax,
-    dts: format === 'cjs' ? {autoExtension: true} : true,
+    dts: format === 'cjs' ? false : true,
     source: {
       tsconfigPath: './tsconfig.json',
       entry: {
@@ -105,6 +114,7 @@ export default defineConfig((): RslibConfig => ({
       name: 'success-callback',
       setup(api) {
         api.onAfterBuild(() => {
+          ensureRuntimeDeclarations()
           console.log('EMP_ADAPTER_REACT build complete')
         })
       },
