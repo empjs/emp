@@ -3,7 +3,7 @@ import {execFile as execFileCallback} from 'node:child_process'
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
-import {DEFAULT_APP_ACCEPTANCE} from './apps.catalog.mjs'
+import {DEFAULT_APP_ACCEPTANCE} from '../scripts/apps.catalog.mjs'
 
 const execFile = promisify(execFileCallback)
 const repoRoot = process.cwd()

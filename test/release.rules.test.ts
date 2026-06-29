@@ -12,7 +12,7 @@ import {
   renderChangelogEntry,
   resolveReleaseSelection,
   validateReleasePlan,
-} from './release-core.mjs'
+} from '../scripts/release-core.mjs'
 
 const execFile = promisify(execFileCallback)
 const repoRoot = process.cwd()

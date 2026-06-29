@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@rstest/core'
 import {existsSync} from 'node:fs'
 import {join} from 'node:path'
-import {discoverApps, runBench, validateApps} from './apps.mjs'
+import {discoverApps, runBench, validateApps} from '../scripts/apps.mjs'
 import {
   COMPAT_APP_GROUPS,
   DEFAULT_APP_ACCEPTANCE,
@@ -9,7 +9,7 @@ import {
   REMOVE_CANDIDATES,
   TARGET_APP_DIRS,
   getDuplicatePackageNames,
-} from './apps.catalog.mjs'
+} from '../scripts/apps.catalog.mjs'
 import {
   buildEnvLines,
   buildStaticCommand,
@@ -19,7 +19,7 @@ import {
   staticServices,
   validateStaticServices,
   waitForStaticServiceChildren,
-} from './static-services.mjs'
+} from '../scripts/static-services.mjs'
 import {EventEmitter} from 'node:events'
 import fs from 'node:fs'
 
