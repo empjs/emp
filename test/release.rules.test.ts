@@ -13,9 +13,9 @@ import {
   resolveReleaseSelection,
   validateReleasePlan,
 } from '../scripts/release-core.mjs'
+import {repoRoot} from './helpers/repo-root'
 
 const execFile = promisify(execFileCallback)
-const repoRoot = process.cwd()
 const releaseCli = join(repoRoot, 'scripts/release.mjs')
 
 const createFixture = async () => {

@@ -5,9 +5,9 @@ import {createServer} from 'node:net'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
 import {buildStaticCommand, staticServices} from '../scripts/static-services.mjs'
+import {repoRoot} from './helpers/repo-root'
 
 const execFile = promisify(execFileCallback)
-const repoRoot = process.cwd()
 
 const buildTargets = [
   './packages/cdn-react-18',

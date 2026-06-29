@@ -22,8 +22,7 @@ import {
 } from '../scripts/static-services.mjs'
 import {EventEmitter} from 'node:events'
 import fs from 'node:fs'
-
-const repoRoot = process.cwd()
+import {repoRoot} from './helpers/repo-root'
 
 describe('apps catalog rules', () => {
   test('default acceptance is intentionally small and canonical', async () => {

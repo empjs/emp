@@ -1,8 +1,8 @@
 import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, test} from '@rstest/core'
+import {repoRoot} from './helpers/repo-root'
 
-const repoRoot = process.cwd()
 const readJson = (file: string) => JSON.parse(readFileSync(join(repoRoot, file), 'utf8'))
 const readText = (file: string) => readFileSync(join(repoRoot, file), 'utf8')
 

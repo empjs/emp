@@ -4,9 +4,9 @@ import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
 import {DEFAULT_APP_ACCEPTANCE} from '../scripts/apps.catalog.mjs'
+import {repoRoot} from './helpers/repo-root'
 
 const execFile = promisify(execFileCallback)
-const repoRoot = process.cwd()
 
 function readDistCss(appDir: string): string {
   const distCssDir = join(repoRoot, 'apps', appDir, 'dist', 'css')

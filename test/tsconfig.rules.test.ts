@@ -1,13 +1,15 @@
 import {execFileSync} from 'node:child_process'
 import {existsSync, readFileSync} from 'node:fs'
+import {join} from 'node:path'
 import {describe, expect, test} from '@rstest/core'
+import {repoRoot} from './helpers/repo-root'
 
-const trackedTsconfigs = execFileSync('git', ['ls-files'], {encoding: 'utf8'})
+const trackedTsconfigs = execFileSync('git', ['ls-files'], {cwd: repoRoot, encoding: 'utf8'})
   .trim()
   .split('\n')
   .filter(file => /(^|\/)tsconfig[^/]*\.json$/.test(file))
   .filter(file => file.startsWith('packages/') || file.startsWith('apps/'))
-  .filter(file => existsSync(file))
+  .filter(file => existsSync(join(repoRoot, file)))
 
 const stripJsonComments = (text: string) =>
   text
@@ -16,7 +18,7 @@ const stripJsonComments = (text: string) =>
 
 const readTsconfig = (file: string) => {
   try {
-    return JSON.parse(stripJsonComments(readFileSync(file, 'utf8')))
+    return JSON.parse(stripJsonComments(readFileSync(join(repoRoot, file), 'utf8')))
   } catch (error) {
     throw new Error(`${file}: ${(error as Error).message}`)
   }

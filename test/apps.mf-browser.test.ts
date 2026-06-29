@@ -3,8 +3,7 @@ import {spawn} from 'node:child_process'
 import {once} from 'node:events'
 import {setTimeout as delay} from 'node:timers/promises'
 import {chromium, type Browser} from 'playwright'
-
-const repoRoot = process.cwd()
+import {repoRoot} from './helpers/repo-root'
 
 function startProcess(command: string, args: string[]) {
   const child = spawn(command, args, {
