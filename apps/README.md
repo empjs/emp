@@ -27,27 +27,19 @@ Compat apps 不进入默认 `apps:acceptance`，只在相关能力变更或 rele
 
 | 能力域 | apps | 触发条件 |
 | --- | --- | --- |
-| Tailwind legacy | `tailwind-2`, `tailwind-3` | 修改 Tailwind v2/v3 plugin 或 legacy CSS 兼容时 |
-| Vue 2 / adapter | `vue-2-*`, `vue3-in-vue2`, `adapter-*` | 修改 Vue2、Vue bridge、adapter 或跨框架挂载时 |
-| React legacy/runtime | `react-16-adapter-18`, `react-18-runtime`, `runtime-18-*` | 修改 React adapter、runtime version isolation 或 CDN React 18 时 |
-| Runtime layout/provider | `rtHost`, `rtLayout`, `rtProvider`, `emp-window-demo` | 修改 runtime provider、layout、window runtime 或 force remote 时 |
-| Assets / proxy / routing examples | `demo`, `proxy-demo`, `auto-pages`, `mobile-vw-rem`, `pixi-js-demo`, `react-router-demo`, `react-wouter`, `shadcn-ui`, `daisyui-demo` | 修改对应 assets、proxy、routing、UI 样式集成时 |
-| Library / CDN transition | `lib-main`, `lib-react`, `unpkg-demo`, `unpkg-lib` | 迁移完成前保留；后续由 Rslib/CDN package smoke 替代 |
+| Vue 2 / adapter | `vue-2-base`, `vue-2-project`, `adapter-app`, `adapter-host` | 修改 Vue2、Vue bridge、adapter 或跨框架挂载时 |
+| Manual smoke | `demo` | 修改 proxy、assets、React compiler 或临时调试链路时 |
 
-## Merge Candidates
-
-| 候选组 | 目标 |
-| --- | --- |
-当前无待合并重复 package name。`unpkg-demo` 保留为 runtime plugin / esm.sh remote demo，不归入 library-output 删除批次。
+当前无待合并重复 package name。已退休 app 只保留在 `scripts/apps.catalog.mjs` 的 `RETIRED_APP_DIRS` 中，用于防止根脚本和公开文档重新引用。
 
 ## Completed Merges
 
 | 合并项 | 验收 |
 | --- | --- |
 | `react-tanstack` -> `react-19-tanstack` | `react-19-tanstack` 保留 `/router-lab` 与 `/router-lab/$id`，由 `pnpm test:apps:single` 断言 route tree |
-| Tailwind duplicate group -> `tailwind-4` | `tailwind-4` 保留 v4 插件和 CSS 产物断言，`tailwind-2` / `tailwind-3` 保留为 legacy compat |
+| Tailwind duplicate group -> `tailwind-4` | `tailwind-4` 保留 v4 插件和 CSS 产物断言 |
 | `vue3-app` / `vue3-host` -> `vue-3-base` / `vue-3-project` | `vue-3-base` 暴露 `PiniaCount`，`vue-3-project` 安装 Pinia 并消费 `@v3/PiniaCount` |
-| `lib-main` / `lib-react` / `unpkg-lib` -> package smoke | `pnpm test:library-output` 构建并 HTTP 验证 CDN、lib runtime 和 `@empjs/share` 产物 |
+| Legacy library demos -> package smoke | `pnpm test:library-output` 构建并 HTTP 验证 CDN、lib runtime 和 `@empjs/share` 产物 |
 
 ## 命令
 

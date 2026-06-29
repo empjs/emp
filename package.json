@@ -66,8 +66,7 @@
     "release:changelog": "node scripts/release.mjs changelog",
     "release:pack": "node scripts/release.mjs pack",
     "release:publish:dry": "node scripts/release.mjs publish --dry-run",
-    "release:publish": "node scripts/release.mjs publish",
-    "agent:finish": "node scripts/agent-finish.mjs"
+    "release:publish": "node scripts/release.mjs publish"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0",

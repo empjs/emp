@@ -356,17 +356,4 @@ describe('release rules', () => {
     expect(workflow).not.toMatch(/publish-alpha\.yml/)
   })
 
-  test('agent finish automation runs local CI before safe non-force push', async () => {
-    const rootPackage = JSON.parse(await readFile(join(repoRoot, 'package.json'), 'utf8'))
-    const source = await readFile(join(repoRoot, 'scripts/agent-finish.mjs'), 'utf8')
-
-    expect(rootPackage.scripts?.['agent:finish']).toBe('node scripts/agent-finish.mjs')
-    expect(source).toMatch(/pnpm ci:verify/)
-    expect(source).toMatch(/git diff --check/)
-    expect(source).toMatch(/git add -A/)
-    expect(source).toMatch(/git commit -m/)
-    expect(source).toMatch(/git push origin/)
-    expect(source).toMatch(/allow-protected-branch/)
-    expect(source).not.toMatch(/--force/)
-  })
 })

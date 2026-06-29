@@ -68,7 +68,6 @@ describe('toolchain version contract', () => {
       'release:pack',
       'release:publish:dry',
       'release:publish',
-      'agent:finish',
     ])
   })
 
