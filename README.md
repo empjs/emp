@@ -10,11 +10,11 @@
 
 <p align="center">
   <a href="https://npmjs.com/package/@empjs/cli?activeTab=versions"><img src="https://img.shields.io/npm/v/@empjs/cli/alpha?style=flat-square&color=111111&label=%40empjs%2Fcli%40alpha" alt="@empjs/cli alpha version"></a>
-  <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/Rspack-2-2563eb?style=flat-square" alt="Rspack 2"></a>
-  <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/Module%20Federation-2.x-0f766e?style=flat-square" alt="Module Federation 2.x"></a>
-  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/badge/Node-%5E20.19.0%20%7C%7C%20%3E%3D22.12.0-339933?style=flat-square" alt="Node ^20.19.0 || >=22.12.0"></a>
-  <img src="https://img.shields.io/badge/pnpm-10-f69220?style=flat-square" alt="pnpm 10">
-  <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="MIT license">
+  <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Falpha&query=%24.dependencies%5B%22%40rspack%2Fcore%22%5D&style=flat-square&color=2563eb&label=Rspack" alt="Rspack dependency version"></a>
+  <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fshare%2Falpha&query=%24.dependencies%5B%22%40module-federation%2Fsdk%22%5D&style=flat-square&color=0f766e&label=Module%20Federation" alt="Module Federation dependency version"></a>
+  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli/alpha?style=flat-square&color=339933&label=Node" alt="Node engine version"></a>
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fempjs%2Femp%2Fv4%2Fpackage.json&query=%24.packageManager&style=flat-square&color=f69220&label=package%20manager" alt="package manager version">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Falpha&query=%24.license&style=flat-square&color=111111&label=license" alt="license">
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ EMP 是面向微前端工程的构建工具。它把 Rspack 2、Module Federatio
 
 v4 的重点是换到新的构建与联邦底座，同时尽量保留 EMP 既有的使用习惯。业务项目可以继续围绕 EMP 插件组织配置，把更多精力放在模块拆分、依赖共享和应用交付上。
 
-当前 v4 发布版本以 npm 的 `@empjs/cli@alpha` dist-tag 为准，README 不再维护手写版本号。
+当前 v4 发布版本以 npm 的 `@empjs/cli@alpha` dist-tag 为准；顶部 badge 从 npm alpha manifest 和 `v4` 分支的 `packageManager` 字段动态读取，README 不再维护手写版本号。
 
 Alpha 试用和迁移步骤见 [EMP v4 Alpha Migration Guide](docs/v4-alpha-migration.md)。
 
