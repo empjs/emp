@@ -26,7 +26,7 @@
 ## Subagent Dispatch Constraints
 
 - 遵循 `.superpowers/subagents.md` 的项目级 subagent 调用规则。
-- Codex 主控制器保留任务拆分、上下文裁剪、冲突裁决、review gate 和最终 Go / No-Go 判断。
+- Codex 主控制器保留任务拆分、上下文裁剪、冲突裁决、review gate 和最终执行取舍。
 - `gpt-5.4-mini` 只用于边界明确但需要代码理解的小型实现、局部 bugfix 和任务级审阅。
 - `gpt-5.3-codex-spark` 只用于机械修改、检索、命令执行、文档同步和重复性验证。
 - 不把架构裁决、跨包 API 取舍、依赖入口选择、ESM-only / CJS 兼容取舍、最终整体验收下放给轻量子 agent。

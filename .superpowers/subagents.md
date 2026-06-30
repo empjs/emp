@@ -6,7 +6,7 @@
 
 - 多步骤计划执行默认使用 `superpowers:subagent-driven-development`。
 - 只有任务可以拆成互不共享写入状态、互不依赖顺序的独立问题域时，才并行派发 subagent。
-- 探索性调试、跨包架构判断、公共 API 取舍、最终 Go / No-Go 结论由 Codex 主控制器保留。
+- 探索性调试、跨包架构判断、公共 API 取舍和最终执行取舍由 Codex 主控制器保留。
 - 如果当前执行者本身是被派发的 subagent，只执行 brief 指定任务，不再递归启动全局 Superpowers 流程。
 
 ## 模型分工
