@@ -88,7 +88,7 @@ describe('toolchain version contract', () => {
 
   test('cli depends on Rspack 2.1 and TS7-aware checker', () => {
     const cliPkg = readJson('packages/cli/package.json')
-    expect(cliPkg.dependencies['@rspack/core']).toBe('^2.1.0')
+    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.1')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
