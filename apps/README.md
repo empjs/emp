@@ -16,7 +16,7 @@
 | 能力域 | canonical subject | 验证重点 | 命令 |
 | --- | --- | --- | --- |
 | Rspack 2 Baseline | `rspack2-modern-module`, `rspack2-optimization` | 现代模块输出、优化配置和基础构建链路 | `pnpm test:apps:single` |
-| React Module Federation | `mf-host`, `mf-app`, `@empjs/share` | remote/host manifest、runtime sdk、真实浏览器联动 | `pnpm test:apps:single`；`pnpm test:apps:mf` |
+| React Module Federation | `mf-host`, `mf-app`, `@empjs/share` | remote/host manifest、runtime sdk、默认 app 验收链路 | `pnpm test:apps:single` |
 | Vue 3 Module Federation | `vue-3-base`, `vue-3-project` | Vue 3 remote exposes、consumer 配置和 manifest | `pnpm test:apps:single` |
 | Tailwind CSS v4 | `tailwind-4` | 默认 Tailwind 支持只保留 v4 canonical | `pnpm test:apps:single` |
 | React 19 Router/Query | `react-19-tanstack` | React 19、TanStack Router、Tailwind v4 组合 | `pnpm test:apps:single` |

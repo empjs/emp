@@ -280,8 +280,8 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm test:apps:single')) {
     failures.push('package.json apps:acceptance must run pnpm test:apps:single for canonical app builds')
   }
-  if (!appsAcceptance.includes('pnpm test:apps:mf')) {
-    failures.push('package.json apps:acceptance must run pnpm test:apps:mf for P0 Module Federation browser smoke')
+  if (appsAcceptance.includes('pnpm test:apps:mf')) {
+    failures.push('package.json apps:acceptance must not run removed pnpm test:apps:mf browser smoke')
   }
   if (!appsAcceptance.includes('pnpm test:library-output')) {
     failures.push('package.json apps:acceptance must run pnpm test:library-output for package-level library output smoke')

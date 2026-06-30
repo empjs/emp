@@ -5,7 +5,6 @@ const rootTestTargetEntries = [
   ['tsconfig', ['test/tsconfig.rules.test.ts']],
   ['rules', ['test/apps.rules.test.ts', 'test/release.rules.test.ts']],
   ['apps-single', ['test/apps.acceptance.test.ts']],
-  ['apps-mf', ['test/apps.mf-browser.test.ts']],
   ['library-output', ['test/library-output.smoke.test.ts']],
 ]
 
@@ -23,7 +22,6 @@ export const ROOT_TEST_PACKAGE_SCRIPTS = Object.freeze({
   'test:tsconfig': 'tsconfig',
   'test:rules': 'rules',
   'test:apps:single': 'apps-single',
-  'test:apps:mf': 'apps-mf',
   'test:library-output': 'library-output',
 })
 

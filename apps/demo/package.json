@@ -23,14 +23,13 @@
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-lightningcss": "workspace:^",
     "@empjs/plugin-react": "workspace:*",
-    "@swc/react-compiler": "^1.13.21",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2"
   },
   "dependencies": {
-    "@ant-design/icons": "^6.1.0",
+    "@ant-design/icons": "^6.3.2",
     "@empjs/share": "workspace:^",
-    "antd": "^5.27.6",
+    "antd": "^6.5.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   }

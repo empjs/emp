@@ -28,11 +28,13 @@ export type PluginReactType = {
       [key: string]: string
     }
   }
-  reactCompiler?: ReactCompilerOptions
+  reactCompiler?: boolean | ReactCompilerOptions
 }
 export type ReactCompilerOptions = {
   target?: '17' | '18' | '19'
   runtimeModule?: string
+  compilationMode?: 'annotation' | 'infer' | 'all'
+  [key: string]: unknown
 }
 /**
  * React Refresh 插件配置选项

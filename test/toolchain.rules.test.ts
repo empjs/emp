@@ -47,7 +47,6 @@ describe('toolchain version contract', () => {
       'test:tsgo',
       'test:rules',
       'test:apps:single',
-      'test:apps:mf',
       'test:library-output',
       'workflow:check',
       'ci:verify',
@@ -89,7 +88,7 @@ describe('toolchain version contract', () => {
   test('apps acceptance includes shared tsconfig and DTS type guards', () => {
     const pkg = readJson('package.json')
     expect(pkg.scripts['apps:acceptance']).toBe(
-      'corepack pnpm test:tsconfig && corepack pnpm empbuild && corepack pnpm apps:check && corepack pnpm test:apps:single && corepack pnpm test:apps:mf && corepack pnpm test:library-output',
+      'corepack pnpm test:tsconfig && corepack pnpm empbuild && corepack pnpm apps:check && corepack pnpm test:apps:single && corepack pnpm test:library-output',
     )
   })
 

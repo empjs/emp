@@ -34,7 +34,7 @@
   "scripts": {
     "build": "rslib build --env-mode production",
     "dev": "rslib build --watch --env-mode development",
-    "test": "pnpm run build && node test/react-refresh-plugin.test.mjs"
+    "test": "pnpm run build && node test/react-refresh-plugin.test.mjs && node test/react-compiler-types.test.mjs && node test/react-compiler-output.test.mjs && node test/react-compiler-performance.test.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

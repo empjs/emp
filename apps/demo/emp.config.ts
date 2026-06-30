@@ -48,9 +48,6 @@ export default defineConfig(store => {
     //   publicPath: `http://dev-test.yy.com:8000/`,
     // },
     chain: config => {
-      // const swcReactCompiler = require('@swc/react-compiler')
-      // console.log('swcReactCompiler', swcReactCompiler)
-      // config.plugin('swc-react-compiler').use(swcReactCompiler, [{}])
       config.optimization.merge({
         splitChunks: {
           cacheGroups: {
@@ -75,7 +72,9 @@ export default defineConfig(store => {
       })
     },
     plugins: [
-      pluginReact(),
+      pluginReact({
+        reactCompiler: true,
+      }),
       pluginlightningcss({
         transform: {
           visitor: getCssLoader('rem'),

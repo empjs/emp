@@ -32,49 +32,63 @@ function vCompare(preVersion = '', lastVersion = '') {
   return 0
 }
 
-const chain = new Chain()
-chain.module.rule('javascript').use('swc').options({jsc: {transform: {}}})
-chain.module.rule('typescript').use('swc').options({jsc: {transform: {}}})
+function createStore() {
+  const chain = new Chain()
+  chain.module.rule('javascript').use('swc').options({jsc: {transform: {}}})
+  chain.module.rule('typescript').use('swc').options({jsc: {transform: {}}})
 
-const store = {
-  chain,
-  deepAssign,
-  empConfig: {
-    server: {
-      hot: true,
-      port: 8000,
+  return {
+    chain,
+    deepAssign,
+    empConfig: {
+      server: {
+        hot: true,
+        port: 8000,
+      },
     },
-  },
-  injectTags() {},
-  isDev: true,
-  pkg: {
-    dependencies: {
-      react: '19.2.0',
+    injectTags() {},
+    isDev: true,
+    pkg: {
+      dependencies: {
+        react: '19.2.0',
+      },
+      devDependencies: {},
     },
-    devDependencies: {},
-  },
-  uniqueName: 'demo',
-  vCompare,
+    uniqueName: 'demo',
+    vCompare,
+  }
 }
 
-await pluginReact({reactCompiler: {target: '19'}}).rsConfig(store)
+async function getSwcUses(options) {
+  const store = createStore()
+  await pluginReact(options).rsConfig(store)
 
-const plugins = chain.toConfig().plugins || []
-const reactRefresh = plugins.find(plugin => plugin?.ReactRefreshRspackPlugin || plugin?.constructor?.name === 'ReactRefreshRspackPlugin')
+  const plugins = store.chain.toConfig().plugins || []
+  const reactRefresh = plugins.find(plugin => plugin?.ReactRefreshRspackPlugin || plugin?.constructor?.name === 'ReactRefreshRspackPlugin')
 
-assert.ok(reactRefresh, 'expected plugin-react-refresh to be registered')
+  assert.ok(reactRefresh, 'expected plugin-react-refresh to be registered')
+  assert.ok(
+    typeof reactRefresh === 'function' || typeof reactRefresh.apply === 'function',
+    `expected plugin-react-refresh to be a rspack plugin, got keys: ${Object.keys(reactRefresh).join(', ')}`,
+  )
+
+  const swcUses = store.chain
+    .toConfig()
+    .module.rules.flatMap(rule => rule.use ?? [])
+    .filter(use => use.options?.jsc?.transform)
+
+  assert.ok(swcUses.length >= 2)
+  return swcUses
+}
+
+const booleanSwcUses = await getSwcUses({reactCompiler: true})
 assert.ok(
-  typeof reactRefresh === 'function' || typeof reactRefresh.apply === 'function',
-  `expected plugin-react-refresh to be a rspack plugin, got keys: ${Object.keys(reactRefresh).join(', ')}`,
+  booleanSwcUses.every(use => use.options.jsc.transform.reactCompiler === true),
+  'expected plugin-react to apply boolean reactCompiler to every SWC rule',
 )
 
-const swcUses = chain
-  .toConfig()
-  .module.rules.flatMap(rule => rule.use ?? [])
-  .filter(use => use.options?.jsc?.transform)
-
-assert.ok(swcUses.length >= 2)
+const optionsSwcUses = await getSwcUses({reactCompiler: {target: '19'}})
 assert.ok(
-  swcUses.every(use => use.options.jsc.transform.reactCompiler?.target === '19'),
+  optionsSwcUses.every(use => use.options.jsc.transform.reactCompiler?.target === '19'),
   'expected plugin-react to apply reactCompiler options to every SWC rule',
 )

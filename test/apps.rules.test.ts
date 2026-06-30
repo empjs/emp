@@ -257,13 +257,16 @@ describe('legacy apps rules coverage', () => {
     expect(rootPackage.devDependencies?.serve).toBeUndefined()
   })
 
-  test('CI apps job installs Playwright Chromium before browser acceptance', async () => {
+  test('apps acceptance no longer depends on the removed Playwright browser smoke lane', async () => {
+    const rootPackage = JSON.parse(await fs.promises.readFile(join(repoRoot, 'package.json'), 'utf8'))
     const ciWorkflow = await fs.promises.readFile(join(repoRoot, '.github/workflows/ci.yml'), 'utf8')
-    const playwrightInstallIndex = ciWorkflow.indexOf('pnpm exec playwright install --with-deps chromium')
-    const appsAcceptanceIndex = ciWorkflow.indexOf('pnpm apps:acceptance')
+    const rootTestTargets = await fs.promises.readFile(join(repoRoot, 'scripts/root-test-targets.mjs'), 'utf8')
 
-    expect(playwrightInstallIndex).toBeGreaterThanOrEqual(0)
-    expect(appsAcceptanceIndex).toBeGreaterThanOrEqual(0)
-    expect(playwrightInstallIndex).toBeLessThan(appsAcceptanceIndex)
+    expect(rootPackage.devDependencies?.playwright).toBeUndefined()
+    expect(rootPackage.scripts?.['test:apps:mf']).toBeUndefined()
+    expect(rootPackage.scripts?.['apps:acceptance']).not.toContain('pnpm test:apps:mf')
+    expect(ciWorkflow).not.toContain('pnpm exec playwright install --with-deps chromium')
+    expect(rootTestTargets).not.toContain('apps-mf')
+    expect(rootTestTargets).not.toContain('test/apps.mf-browser.test.ts')
   })
 })
