@@ -5,9 +5,13 @@
 Default writable areas:
 
 - `AGENTS.md`
+- `.codex/config.toml`
+- `.codex/hooks.json`
+- `.codex/agents/emp-*.toml`
 - `.superpowers/plans/`
 - `.superpowers/specs/`
 - `.superpowers/sdd/`
+- `.superpowers/subagents.md`
 - `skills/<skill-name>/`
 - `scripts/*.mjs`
 - `.github/workflows/ci.yml`
@@ -35,6 +39,7 @@ Never commit or preserve local caches:
 
 - `node_modules/`
 - `.codegraph/`
+- `.worktrees/`
 - `.turbo/`
 - `.rslib/`
 - `.rspack-cache/`
@@ -46,10 +51,27 @@ For any workflow or documentation-only change:
 - `git diff --check`
 - `pnpm workflow:check`
 
+For Codex trigger or Superpowers subagent rule changes:
+
+- `git diff --check`
+- `pnpm workflow:check`
+- parse `.codex/hooks.json` as JSON and smoke-test hook commands locally
+- `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` should show the repo `AGENTS.md` instructions and `.superpowers/subagents.md` rule without mentioning `codebase-memory-mcp`; this proves prompt assembly, not hook stdout execution
+- `codegraph sync . && codegraph status .` before finalizing workflow guard changes
+
 For `skills/*` changes:
 
 - `python3 /Users/Bigo/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<skill-name>`
 - `pnpm workflow:check`
+
+For `.worktrees/` or Git worktree cleanup:
+
+- `git worktree list --porcelain`
+- `du -sh .worktrees`
+- `git -C <path> status --short --branch` for every cleanup candidate
+- `git -C <path> diff --stat` for every dirty candidate
+- Use `git worktree remove <path>` for clean or explicitly confirmed candidates, then `git worktree prune`
+- Check `git merge-base --is-ancestor <branch> v4` before branch deletion; do not delete branches as part of directory cleanup unless explicitly requested
 
 For GitHub Actions, PR, review, or automation changes:
 
@@ -79,6 +101,13 @@ Every implementation should leave a reviewable trail:
 3. Tests: paste exact commands and outcomes.
 4. Review: identify whether the change needs code review, release review, or workflow review.
 5. CI: ensure PR/push CI runs `pnpm ci:verify` and `pnpm empbuild`.
+
+## Commit Rules
+
+- Commit when the user explicitly says `提交`, `push`, `改完要 push 代码`, or when release/PR closure is the requested deliverable.
+- Do not commit for read-only analysis, planning-only work, failed validation, unclear scope, or unrelated dirty worktree state.
+- Before commit: run `git status --short --branch`, stage only intended files, run `git diff --cached --check`, and run the validation commands required by this matrix.
+- For newly created workflow files, always include `git status --short --branch` or `git diff --stat --cached` in the handoff so untracked `.codex/*` / `.superpowers/*` files are not invisible to reviewers.
 
 ## Release Safety
 

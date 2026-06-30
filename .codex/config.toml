@@ -1,0 +1,7 @@
+[features]
+hooks = true
+goals = true
+multi_agent = true
+
+[agents]
+max_threads = 6

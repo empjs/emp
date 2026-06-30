@@ -10,6 +10,15 @@ const exists = file => fs.existsSync(path.join(root, file))
 const readJson = file => JSON.parse(read(file))
 const normalizePath = file => file.split(path.sep).join('/')
 
+const parseJson = file => {
+  try {
+    return readJson(file)
+  } catch (error) {
+    failures.push(`${file} is not valid JSON: ${error.message}`)
+    return null
+  }
+}
+
 const listFiles = dir => {
   const base = path.join(root, dir)
   if (!fs.existsSync(base)) return []
@@ -83,10 +92,16 @@ const checkSkill = skillDir => {
 for (const file of [
   'AGENTS.md',
   'package.json',
+  '.codex/config.toml',
+  '.codex/hooks.json',
+  '.codex/agents/emp-fast.toml',
+  '.codex/agents/emp-impl.toml',
+  '.codex/agents/emp-deep.toml',
   '.github/workflows/ci.yml',
   '.github/workflows/publish.yml',
   '.github/pull_request_template.md',
   '.github/CODEOWNERS',
+  '.superpowers/subagents.md',
   'skills/emp-workflow/SKILL.md',
   'skills/emp-workflow/agents/openai.yaml',
   'skills/emp-workflow/references/change-matrix.md',
@@ -102,10 +117,25 @@ for (const heading of [
   '## 项目级 Skill 约定',
   '## 目录边界',
   '## Git / PR / Review 闭环',
+  '## Worktree 清理规则',
   '## 自动化运行规则',
   '## 统一真实测试策略',
+  '## Codex 触发层',
+  '## 工作流决策矩阵',
 ]) {
   requireText('AGENTS.md', heading)
+}
+
+for (const text of [
+  '.superpowers/subagents.md',
+  '.codex/config.toml',
+  '.codex/hooks.json',
+  '.codex/agents/emp-fast.toml',
+  '.codex/agents/emp-impl.toml',
+  '.codex/agents/emp-deep.toml',
+  'multi_agent',
+]) {
+  requireText('AGENTS.md', text)
 }
 
 requireText('AGENTS.md', '## CodeGraph 优先级')
@@ -125,7 +155,102 @@ for (const file of ['AGENTS.md', 'skills/emp-workflow/SKILL.md']) {
   requireNoPattern(file, /codebase-memory-mcp/)
 }
 
-for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*']) {
+for (const text of ['hooks = true', 'goals = true', 'multi_agent = true', 'max_threads = 6']) {
+  requireText('.codex/config.toml', text)
+}
+
+for (const text of ['SessionStart', 'UserPromptSubmit', '.superpowers/subagents.md', '.codex/agents/emp-*.toml', 'CodeGraph', 'commit', 'push', 'worktree', '.worktrees', 'workflow gate']) {
+  requireText('.codex/hooks.json', text)
+}
+
+const hooksConfig = exists('.codex/hooks.json') ? parseJson('.codex/hooks.json') : null
+if (hooksConfig) {
+  for (const eventName of ['SessionStart', 'UserPromptSubmit']) {
+    if (!Array.isArray(hooksConfig.hooks?.[eventName])) failures.push(`.codex/hooks.json missing hooks.${eventName} array`)
+  }
+  for (const [eventName, entries] of Object.entries(hooksConfig.hooks ?? {})) {
+    if (!Array.isArray(entries)) continue
+    for (const [entryIndex, entry] of entries.entries()) {
+      if (typeof entry.matcher !== 'string') failures.push(`.codex/hooks.json ${eventName}[${entryIndex}] missing matcher`)
+      if (!Array.isArray(entry.hooks) || entry.hooks.length === 0) failures.push(`.codex/hooks.json ${eventName}[${entryIndex}] missing hooks`)
+      for (const [hookIndex, hook] of (entry.hooks ?? []).entries()) {
+        if (hook.type !== 'command') failures.push(`.codex/hooks.json ${eventName}[${entryIndex}].hooks[${hookIndex}] must be command`)
+        if (typeof hook.command !== 'string' || !hook.command.includes('EMP')) {
+          failures.push(`.codex/hooks.json ${eventName}[${entryIndex}].hooks[${hookIndex}] command must contain EMP reminder`)
+        }
+      }
+    }
+  }
+}
+
+const agentExpectations = {
+  '.codex/agents/emp-fast.toml': ['name = "emp-fast"', 'gpt-5.3-codex-spark', 'CodeGraph'],
+  '.codex/agents/emp-impl.toml': ['name = "emp-impl"', 'gpt-5.4-mini', 'NEEDS_CONTEXT'],
+  '.codex/agents/emp-deep.toml': ['name = "emp-deep"', 'gpt-5.4', 'BLOCKED'],
+}
+for (const [file, texts] of Object.entries(agentExpectations)) {
+  for (const text of texts) requireText(file, text)
+}
+
+for (const text of [
+  '.codex/hooks.json',
+  '.codex/agents/',
+  '.superpowers/subagents.md',
+  'subagent',
+  'Decision Rules',
+  'spawn_agent',
+]) {
+  requireText('skills/emp-workflow/SKILL.md', text)
+}
+
+for (const text of [
+  '## Codex 触发入口',
+  '## 实际派发方式',
+  '## 派发决策',
+  'Brief Template',
+  'Review Package Template',
+  'agent_type',
+  'Profile:',
+  'emp-fast',
+  'emp-impl',
+  'emp-deep',
+  'NEEDS_CONTEXT',
+  'BLOCKED',
+  'spawn_agent',
+]) {
+  requireText('.superpowers/subagents.md', text)
+}
+
+for (const text of ['只读审计', '实际派发方式', '.superpowers/subagents.md']) {
+  requireText('AGENTS.md', text)
+}
+
+for (const text of [
+  'git worktree list --porcelain',
+  'du -sh .worktrees',
+  'git -C <path> status --short --branch',
+  'git worktree remove <path>',
+  'git worktree prune',
+  'git merge-base --is-ancestor <branch> v4',
+  'rm -rf .worktrees',
+]) {
+  requireText('AGENTS.md', text)
+}
+
+for (const text of ['git worktree list --porcelain', 'du -sh .worktrees', 'git worktree remove <path>', 'git worktree prune']) {
+  requireText('skills/emp-workflow/SKILL.md', text)
+  requireText('skills/emp-workflow/references/change-matrix.md', text)
+}
+
+for (const text of ['parse `.codex/hooks.json`', 'prompt assembly, not hook stdout execution', 'untracked `.codex/*`']) {
+  requireText('skills/emp-workflow/references/change-matrix.md', text)
+}
+
+for (const file of ['.codex/config.toml', '.codex/hooks.json', '.codex/agents/emp-fast.toml', '.codex/agents/emp-impl.toml', '.codex/agents/emp-deep.toml', '.superpowers/subagents.md']) {
+  requireNoPattern(file, /codebase-memory-mcp/)
+}
+
+for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*', '.worktrees/']) {
   requireText('AGENTS.md', protectedPath)
 }
 
