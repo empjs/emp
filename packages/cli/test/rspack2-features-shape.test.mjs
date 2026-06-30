@@ -36,6 +36,11 @@ const loadConfigForFixture = async fixtureRoot => {
 }
 
 {
+  const {rspack} = await import(`file://${path.join(repoRoot, 'packages/cli/dist/index.js')}`)
+  assert.equal(rspack.rspackVersion, '2.1.1')
+}
+
+{
   const fixtureRoot = await createFixture('modern-module', {
     appSrc: 'src',
     appEntry: 'index.ts',
