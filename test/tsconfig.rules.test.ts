@@ -1,5 +1,5 @@
 import {execFileSync} from 'node:child_process'
-import {existsSync, readFileSync} from 'node:fs'
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
@@ -21,6 +21,19 @@ const readTsconfig = (file: string) => {
     return JSON.parse(stripJsonComments(readFileSync(join(repoRoot, file), 'utf8')))
   } catch (error) {
     throw new Error(`${file}: ${(error as Error).message}`)
+  }
+}
+
+const runTsc = (project: string) => {
+  try {
+    execFileSync('npx', ['tsc', '--noEmit', '--pretty', 'false', '--project', project], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    })
+  } catch (error) {
+    const result = error as Error & {stdout?: string; stderr?: string}
+    throw new Error([result.message, result.stdout, result.stderr].filter(Boolean).join('\n'))
   }
 }
 
@@ -79,5 +92,51 @@ describe('TS7-compatible tsconfig contract', () => {
       }
     }
     expect(offenders).toEqual([])
+  })
+
+  test('shared app baseline accepts style imports under TypeScript 7', () => {
+    const tempRoot = join(repoRoot, 'apps/mf-host/node_modules/.tmp')
+    mkdirSync(tempRoot, {recursive: true})
+    const tempDir = mkdtempSync(join(tempRoot, 'emp-tsconfig-style-'))
+
+    try {
+      const srcDir = join(tempDir, 'src')
+      mkdirSync(srcDir, {recursive: true})
+      writeFileSync(
+        join(srcDir, 'index.ts'),
+        [
+          "import classes from './app.module.scss'",
+          "import './app.css'",
+          "import './app.scss'",
+          "import './app.sass'",
+          "import './app.less'",
+          "import './app.styl'",
+          '',
+          "export const ready = Boolean(classes.wrap2 && classes['button-1'])",
+          '',
+        ].join('\n'),
+      )
+
+      for (const styleFile of ['app.module.scss', 'app.css', 'app.scss', 'app.sass', 'app.less', 'app.styl']) {
+        writeFileSync(join(srcDir, styleFile), '')
+      }
+
+      const tsconfig = join(tempDir, 'tsconfig.json')
+      writeFileSync(
+        tsconfig,
+        `${JSON.stringify(
+          {
+            extends: '@empjs/cli/tsconfig/react',
+            include: ['src'],
+          },
+          null,
+          2,
+        )}\n`,
+      )
+
+      runTsc(tsconfig)
+    } finally {
+      rmSync(tempDir, {force: true, recursive: true})
+    }
   })
 })

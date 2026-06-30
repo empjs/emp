@@ -86,6 +86,13 @@ describe('toolchain version contract', () => {
     )
   })
 
+  test('apps acceptance includes shared tsconfig and DTS type guards', () => {
+    const pkg = readJson('package.json')
+    expect(pkg.scripts['apps:acceptance']).toBe(
+      'corepack pnpm test:tsconfig && corepack pnpm empbuild && corepack pnpm apps:check && corepack pnpm test:apps:single && corepack pnpm test:apps:mf && corepack pnpm test:library-output',
+    )
+  })
+
   test('cli depends on Rspack 2.1 and TS7-aware checker', () => {
     const cliPkg = readJson('packages/cli/package.json')
     expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.1')
