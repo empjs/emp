@@ -1,5 +1,46 @@
 # Changelog
 
+## 4.0.0-beta.2 - 2026-06-30
+
+### Highlights
+
+- Upgrade the EMP CLI Rspack runtime to `@rspack/core@2.1.1` while keeping `@rspack/dev-server@2.1.0`, because `2.1.0` is still the latest dev-server release.
+- Upgrade opt-in Rsdoctor integration to `@rsdoctor/rspack-plugin@1.5.17`.
+- Review Rspack v2.1.1 release changes against EMP defaults and keep risky optimizations behind existing explicit config.
+
+### What's Changed
+
+#### Bug Fixes
+
+- fix(cli): pick up the Rspack v2.1.1 CSS runtime `link.parentNode` guard and the CJS export assignment side-effect rollback.
+
+#### Build
+
+- chore(cli): resolve the CLI direct Rspack dependency to `@rspack/core@2.1.1`.
+- chore(cli): resolve the CLI Rsdoctor plugin dependency to `@rsdoctor/rspack-plugin@1.5.17`.
+
+#### Tests
+
+- test(cli): assert the exported Rspack runtime version is `2.1.1`.
+- test(cli): add a real `--doctor` config smoke test that verifies Rsdoctor plugin injection.
+
+### Optimization Review
+
+- Rsdoctor export usage edge metadata (`dependencyId` and `loc`) is provided by upstream Rspack/Rsdoctor and does not require a new EMP public option.
+- SourceMapDevToolPlugin persistent cache is available through the existing `build.sourcemap.devToolPluginOptions` path; EMP does not enable that plugin by default.
+- CSS runtime and CJS side-effect changes are upstream runtime fixes; EMP keeps `pureFunctions`, `runtimeMode`, and tree-shaking behavior opt-in through existing config surfaces.
+
+### Verification
+
+- `npm view @rspack/core@2.1.1 version peerDependencies dependencies dist-tags --json`
+- `npm view @rspack/dev-server@2.1.0 version peerDependencies dependencies dist-tags --json`
+- `npm view @rsdoctor/rspack-plugin@1.5.17 version peerDependencies dependencies --json`
+- `corepack pnpm --filter @empjs/cli test`
+
+#### Full Changelog
+
+- Rspack upstream: https://github.com/web-infra-dev/rspack/compare/v2.1.0...v2.1.1
+
 ## 4.0.0-beta.1 - 2026-06-26
 
 ### Highlights
