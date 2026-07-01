@@ -3,7 +3,7 @@ import {TARGET_APP_DIRS} from '../scripts/apps.catalog.mjs'
 import {ROOT_BROWSER_TEST_TARGETS} from '../scripts/root-test-targets.mjs'
 
 const browserCoverage = {
-  'adapter-app': 'blocked-missing-local-remote',
+  'adapter-app': 'browser-interactive',
   'adapter-host': 'browser-smoke',
   demo: 'browser-interactive',
   'mf-app': 'browser-interactive',
@@ -34,7 +34,7 @@ describe('apps browser coverage matrix', () => {
 
   test('keeps the real browser lane focused on apps with actual interaction surface', () => {
     expect(Object.values(browserCoverage).filter(value => value === 'browser-interactive').length).toBeGreaterThanOrEqual(8)
-    expect(browserCoverage['adapter-app']).toBe('blocked-missing-local-remote')
+    expect(browserCoverage['adapter-app']).toBe('browser-interactive')
     expect(browserCoverage['rspack2-modern-module']).toBe('build-only')
   })
 

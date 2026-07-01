@@ -161,6 +161,14 @@ export const isUnifiedReleaseTag = (tag, version) => {
   return Boolean(version && !String(version).includes('-'))
 }
 
+export const defaultReleaseTagForVersion = (version) => {
+  const normalizedVersion = String(version ?? '').trim()
+  const prerelease = normalizedVersion.match(/^\d+\.\d+\.\d+-([0-9A-Za-z.-]+)/)?.[1]
+  if (!prerelease) return 'latest'
+
+  return prerelease.split('.')[0] || DEFAULT_TAG
+}
+
 const normalizeChangedFile = (file) => toPosixPath(String(file ?? '').trim()).replace(/^\.\//, '')
 
 export const resolveReleaseSelection = (plan, options = {}) => {
@@ -243,7 +251,7 @@ export const applyInternalVersion = async (plan, version) => {
 export const renderChangelogEntry = (plan, options = {}) => {
   const version = options.version ?? plan.rootPackage.version
   const date = options.date ?? new Date().toISOString().slice(0, 10)
-  const tag = options.tag ?? DEFAULT_TAG
+  const tag = options.tag ?? defaultReleaseTagForVersion(version)
   const registry = options.registry ?? process.env.RELEASE_REGISTRY ?? '默认 npm registry'
 
   return `## ${version} - ${date}

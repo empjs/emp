@@ -8,6 +8,7 @@ import {
   applyInternalVersion,
   buildPublishCommands,
   createReleasePlan,
+  defaultReleaseTagForVersion,
   prependChangelog,
   renderChangelogEntry,
   resolveReleaseSelection,
@@ -293,6 +294,8 @@ describe('release rules', () => {
   test('current repository internal release set stays explicitly bounded', async () => {
     const plan = await createReleasePlan(repoRoot)
 
+    expect(plan.rootPackage.version).toBe('4.0.0-rc.1')
+    expect(validateReleasePlan(plan)).toEqual([])
     expect(plan.internalPackages.map(pkg => pkg.name)).toEqual([
       '@empjs/adapter-react',
       '@empjs/biome-config',
@@ -313,20 +316,28 @@ describe('release rules', () => {
       '@empjs/share',
     ])
     expect(plan.internalPackages).toHaveLength(17)
+    expect(plan.internalPackages.every(pkg => pkg.version === plan.rootPackage.version)).toBe(true)
+    expect(plan.independentPackages.every(pkg => pkg.version !== plan.rootPackage.version)).toBe(true)
     expect(plan.packages.map(pkg => pkg.name)).not.toContain('@empjs/plugin-tailwindcss2')
     expect(plan.packages.map(pkg => pkg.name)).not.toContain('@empjs/plugin-tailwindcss3')
   })
 
-  test('release CLI defaults to beta and runs pnpm through the pinned package manager', async () => {
+  test('release automation derives default dist-tag from prerelease version and runs pnpm through the pinned manager', async () => {
     const releaseSource = await readFile(releaseCli, 'utf8')
 
-    expect(releaseSource).toMatch(/tag:\s*process\.env\.RELEASE_TAG \?\? ['"]beta['"]/)
+    expect(defaultReleaseTagForVersion('4.0.0-rc.1')).toBe('rc')
+    expect(defaultReleaseTagForVersion('4.0.0-beta.1')).toBe('beta')
+    expect(defaultReleaseTagForVersion('4.0.0-alpha.2')).toBe('alpha')
+    expect(defaultReleaseTagForVersion('4.0.0')).toBe('latest')
+    expect(defaultReleaseTagForVersion('4.0.0-canary.20260701')).toBe('canary')
+    expect(releaseSource).toMatch(/tag:\s*process\.env\.RELEASE_TAG/)
+    expect(releaseSource).toMatch(/options\.tag\s*=\s*options\.tag\s*\?\?\s*defaultReleaseTagForVersion/)
     expect(releaseSource).toMatch(/const resolveCommand/)
     expect(releaseSource).toMatch(/command\[0\] === ['"]pnpm['"]/)
     expect(releaseSource).toMatch(/\['corepack', packageManager, \.\.\.command\.slice\(1\)\]/)
   })
 
-  test('trusted publisher workflow uses publish.yml and beta release automation', async () => {
+  test('trusted publisher workflow uses publish.yml and derived prerelease tag automation', async () => {
     const workflow = await readFile(join(repoRoot, '.github/workflows/publish.yml'), 'utf8')
 
     expect(workflow).toMatch(/name:\s*Publish/)
@@ -336,7 +347,7 @@ describe('release rules', () => {
     expect(workflow).toMatch(/tag="[^"]*\$\{GITHUB_REF_NAME\}"/)
     expect(workflow).toMatch(/RELEASE_PACKAGE=@empjs\/\$package_name/)
     expect(workflow).toMatch(/default:\s*['"]{2}/)
-    expect(workflow).toMatch(/default:\s*['"]beta['"]/)
+    expect(workflow).toMatch(/default:\s*['"]{2}/)
     expect(workflow).toMatch(/RELEASE_TAG=\$release_tag/)
     expect(workflow).toMatch(/changed_since:/)
     expect(workflow).toMatch(/force_all:/)
@@ -349,11 +360,24 @@ describe('release rules', () => {
     expect(workflow).toMatch(/args\+=\(--package "\$RELEASE_PACKAGE"\)/)
     expect(workflow).toMatch(/args\+=\(--changed-since "\$CHANGED_SINCE"\)/)
     expect(workflow).toMatch(/args\+=\(--force-all\)/)
-    expect(workflow).toMatch(/pnpm release:publish:dry -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
-    expect(workflow).toMatch(/pnpm release:publish -- --tag "\$RELEASE_TAG" "\$\{args\[@\]\}"/)
+    expect(workflow).toMatch(/if \[\[ -n "\$RELEASE_TAG" \]\]; then/)
+    expect(workflow).toMatch(/args\+=\(--tag "\$RELEASE_TAG"\)/)
+    expect(workflow).toMatch(/pnpm release:publish:dry -- "\$\{args\[@\]\}"/)
+    expect(workflow).toMatch(/pnpm release:publish -- "\$\{args\[@\]\}"/)
     expect(workflow).not.toMatch(/\|\| ['"]@empjs\/cli['"]/)
     expect(workflow).not.toMatch(/NPM_TOKEN/)
     expect(workflow).not.toMatch(/publish-alpha\.yml/)
+  })
+
+  test('ci verify job covers the supported Node release floor and current runtime', async () => {
+    const workflow = await readFile(join(repoRoot, '.github/workflows/ci.yml'), 'utf8')
+
+    expect(workflow).toMatch(/verify:\n[\s\S]*?strategy:\n[\s\S]*?matrix:\n[\s\S]*?node-version:\s*\[['"]20\.19\.0['"], ['"]22\.12\.0['"], ['"]24['"]\]/)
+    expect(workflow).toMatch(/verify:\n[\s\S]*?node-version:\s*\$\{\{ matrix\.node-version \}\}/)
+    expect(workflow).toMatch(/build:\n[\s\S]*?node-version:\s*['"]24['"]/)
+    expect(workflow).toMatch(/apps:\n[\s\S]*?node-version:\s*['"]24['"]/)
+    expect(workflow).not.toMatch(/NODE_AUTH_TOKEN/)
+    expect(workflow).not.toMatch(/release:publish/)
   })
 
 })

@@ -9,6 +9,7 @@ const allowExistingServices = process.env.APPS_BROWSER_REUSE_SERVICES === 'true'
 const startedServicesEnvKey = 'APPS_BROWSER_STARTED_SERVICES'
 
 export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
+  'adapter-app': `http://${localhost}:7702/`,
   'adapter-host': `http://${localhost}:7701/`,
   demo: `http://${localhost}:8000/`,
   'emp-share': `http://${localhost}:2100/`,
@@ -164,6 +165,7 @@ const containerService = {
 
 const services = [
   staticService('emp-share', 'packages/emp-share/output', 2100),
+  staticService('adapter-app', 'apps/adapter-app/dist', 7702),
   staticService('adapter-host', 'apps/adapter-host/dist', 7701),
   staticService('mf-host', 'apps/mf-host/dist', 6001),
   staticService('mf-app', 'apps/mf-app/dist', 6002),
@@ -193,12 +195,13 @@ export async function buildAppsBrowserTargets() {
   await run('corepack', ['pnpm', '--filter', '@empjs/chain', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/cli', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/share', 'build'])
+  await run('corepack', ['pnpm', '--filter', './apps/vue-2-base', 'build'])
+  await run('corepack', ['pnpm', '--filter', './apps/vue-3-base', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/adapter-host', 'build'])
+  await run('corepack', ['pnpm', '--filter', './apps/adapter-app', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/mf-host', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/mf-app', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-2-base', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/vue-2-project', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-3-base', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/vue-3-project', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/react-19-tanstack', 'build'])
   await run('corepack', ['pnpm', '--filter', './apps/tailwind-4', 'build'])

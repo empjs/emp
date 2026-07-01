@@ -17,7 +17,7 @@ on:
         description: npm dist-tag for publish commands.
         required: false
         type: string
-        default: 'beta'
+        default: ''
       changed_since:
         description: Base ref for changed-package publishing.
         required: false
@@ -57,8 +57,8 @@ jobs:
           else
             echo "RELEASE_PACKAGE=${{ github.event.inputs.package }}" >> "$GITHUB_ENV"
           fi
-          release_tag="${{ github.event.inputs.tag || 'beta' }}"
-          if [[ ! "$release_tag" =~ ^[A-Za-z0-9._-]+$ ]]; then
+          release_tag="${{ github.event.inputs.tag || '' }}"
+          if [[ -n "$release_tag" && ! "$release_tag" =~ ^[A-Za-z0-9._-]+$ ]]; then
             echo "Invalid release tag: $release_tag" >&2
             exit 1
           fi
@@ -108,7 +108,10 @@ jobs:
           if [[ "$FORCE_ALL" == "true" ]]; then
             args+=(--force-all)
           fi
-          pnpm release:publish:dry -- --tag "$RELEASE_TAG" "${args[@]}"
+          if [[ -n "$RELEASE_TAG" ]]; then
+            args+=(--tag "$RELEASE_TAG")
+          fi
+          pnpm release:publish:dry -- "${args[@]}"
 
       - name: Publish to npm
         if: ${{ github.event_name != 'workflow_dispatch' || !inputs.dry_run }}
@@ -123,4 +126,7 @@ jobs:
           if [[ "$FORCE_ALL" == "true" ]]; then
             args+=(--force-all)
           fi
-          pnpm release:publish -- --tag "$RELEASE_TAG" "${args[@]}"
+          if [[ -n "$RELEASE_TAG" ]]; then
+            args+=(--tag "$RELEASE_TAG")
+          fi
+          pnpm release:publish -- "${args[@]}"

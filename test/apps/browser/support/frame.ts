@@ -3,6 +3,7 @@ import {expect, rstest} from '@rstest/core'
 export type TextMatcher = string | RegExp
 
 export const appPaths = {
+  'adapter-app': '/container-static/adapter-app/',
   'adapter-host': '/container-static/adapter-host/',
   demo: '/container-static/demo/',
   'mf-app': '/container-static/mf-app/',

@@ -1,6 +1,6 @@
 {
   "name": "emp-workspace",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0-rc.1",
   "description": "emp workspace",
   "main": "index.js",
   "type": "module",
@@ -47,6 +47,7 @@
     "test:rules": "node scripts/run-root-test.mjs rules",
     "test:apps:single": "node scripts/run-root-test.mjs apps-single",
     "test:library-output": "node scripts/run-root-test.mjs library-output",
+    "test:release:rc1": "node scripts/run-root-test.mjs release-rc1",
     "test:apps:browser": "node scripts/run-app-browser-tests.mjs",
     "test:browser:all": "corepack pnpm exec rstest run --config rstest.config.ts --browser --browser.name chromium",
     "test:browser:watch": "pnpm exec rstest watch --browser --browser.headless=false",

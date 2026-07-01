@@ -1,0 +1,12 @@
+{
+  "extends": "@empjs/cli/tsconfig/vue",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "types": ["@empjs/cli/types/vue"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -48,6 +48,7 @@ describe('toolchain version contract', () => {
       'test:rules',
       'test:apps:single',
       'test:library-output',
+      'test:release:rc1',
       'test:apps:browser',
       'test:browser:all',
       'test:browser:watch',
@@ -92,6 +93,10 @@ describe('toolchain version contract', () => {
     const pkg = readJson('package.json')
     expect(pkg.scripts['apps:acceptance']).toBe(
       'corepack pnpm test:tsconfig && corepack pnpm empbuild && corepack pnpm apps:check && corepack pnpm test:apps:single && corepack pnpm test:library-output',
+    )
+    expect(pkg.scripts['test:release:rc1']).toBe('node scripts/run-root-test.mjs release-rc1')
+    expect(readText('scripts/root-test-targets.mjs')).toContain(
+      "const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.test.ts']]]",
     )
   })
 

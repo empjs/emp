@@ -7,6 +7,7 @@ import {
   buildPackCommands,
   buildPublishCommands,
   createReleasePlan,
+  defaultReleaseTagForVersion,
   ensureDir,
   prependChangelog,
   renderChangelogEntry,
@@ -24,7 +25,7 @@ Usage:
   node scripts/release.mjs publish [--dry-run] [--yes] [--skip-build] [--tag <tag>] [--registry <url>] [--package <name>] [--changed-since <ref>] [--force-all]
 
 Defaults:
-  --tag beta
+  prerelease versions publish with their prerelease label as the default tag; stable versions default to latest
 `
 
 const parseArgs = (argv) => {
@@ -37,7 +38,7 @@ const parseArgs = (argv) => {
     yes: false,
     skipBuild: false,
     forceAll: false,
-    tag: process.env.RELEASE_TAG ?? 'beta',
+    tag: process.env.RELEASE_TAG,
     registry: process.env.RELEASE_REGISTRY,
   }
 
@@ -155,6 +156,7 @@ const main = async () => {
   }
 
   const plan = await createReleasePlan(options.root)
+  options.tag = options.tag ?? defaultReleaseTagForVersion(plan.rootPackage.version)
   const errors = validateReleasePlan(plan)
 
   if (options.command === 'check') {

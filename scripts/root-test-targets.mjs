@@ -8,7 +8,10 @@ const rootTestTargetEntries = [
   ['library-output', ['test/library-output.smoke.test.ts']],
 ]
 
+const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.test.ts']]]
+
 const appsBrowserTestFiles = [
+  'test/apps/browser/adapter-app/local-remote.browser.ts',
   'test/apps/browser/adapter-host/smoke.browser.ts',
   'test/apps/browser/demo/proxy.browser.ts',
   'test/apps/browser/mf-app/remote.browser.ts',
@@ -39,7 +42,8 @@ export const ROOT_TEST_TARGET_ORDER = Object.freeze(rootTestTargetEntries.map(([
 export const ROOT_TEST_TARGETS = Object.freeze(
   Object.fromEntries([
     ...rootTestTargetEntries,
-    ['all', rootTestTargetEntries.flatMap(([, files]) => files)],
+    ...releaseTestTargetEntries,
+    ['all', [...rootTestTargetEntries, ...releaseTestTargetEntries].flatMap(([, files]) => files)],
   ]),
 )
 
@@ -51,6 +55,7 @@ export const ROOT_TEST_PACKAGE_SCRIPTS = Object.freeze({
   'test:rules': 'rules',
   'test:apps:single': 'apps-single',
   'test:library-output': 'library-output',
+  'test:release:rc1': 'release-rc1',
 })
 
 export const ROOT_BROWSER_TEST_PACKAGE_SCRIPTS = Object.freeze({
