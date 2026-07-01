@@ -5,7 +5,7 @@ const isListCommand = process.argv.includes('list')
 const isWatchCommand = process.argv.includes('watch')
 const skipNextBrowserRebuildKey = 'APPS_BROWSER_SKIP_NEXT_REBUILD'
 const browserScope = process.env.EMP_BROWSER_SCOPE === 'apps' ? 'apps' : 'all'
-const appsBrowserTestFiles = ['test/apps/browser/**/*.browser.ts']
+const appsBrowserTestFiles = ['apps/*/test/browser/**/*.browser.ts']
 const empShareBrowserTestFiles = ['packages/emp-share/test/browser/**/*.browser.ts']
 const browserTestFiles = browserScope === 'apps' ? appsBrowserTestFiles : [...appsBrowserTestFiles, ...empShareBrowserTestFiles]
 const appsBrowserForceRerunTriggers = [
@@ -27,7 +27,8 @@ const appsBrowserForceRerunTriggers = [
   'packages/emp-share/src/**',
   'scripts/apps-browser-harness.mjs',
   'scripts/rstest-browser-mf-container.mjs',
-  'test/apps/browser/**/*.browser.ts',
+  'apps/*/test/browser/**/*.browser.ts',
+  'apps/test-support/browser/**/*.ts',
 ]
 const empShareBrowserForceRerunTriggers = ['packages/emp-share/test/browser/**/*.browser.ts', 'packages/emp-share/output/**']
 const browserForceRerunTriggers =
@@ -79,8 +80,8 @@ const browserRebuildReporter = {
 
 export default defineConfig({
   testEnvironment: 'node',
-  include: isBrowserMode ? browserTestFiles : ['test/**/*.test.ts'],
-  exclude: isBrowserMode ? [] : ['test/**/*.browser.ts', 'test/**/*.browser.test.ts'],
+  include: isBrowserMode ? browserTestFiles : ['test/**/*.test.ts', 'apps/test/**/*.test.ts'],
+  exclude: isBrowserMode ? [] : ['test/**/*.browser.ts', 'test/**/*.browser.test.ts', 'apps/**/*.browser.ts'],
   forceRerunTriggers: isBrowserMode ? browserForceRerunTriggers : undefined,
   reporters: isBrowserMode ? ['default', browserRebuildReporter] : undefined,
   browser: isBrowserMode

@@ -6,7 +6,7 @@ const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 const extraArgs = process.argv.slice(2)
 const watchHeaded = extraArgs.includes('--watch-headed')
 const forwardedArgs = extraArgs.filter(arg => arg !== '--watch-headed')
-const browserTestGlob = 'test/apps/browser/**/*.browser.ts'
+const browserTestGlob = 'apps/*/test/browser/**/*.browser.ts'
 
 function run(cmd, args) {
   console.log(`$ ${[cmd, ...args].join(' ')}`)

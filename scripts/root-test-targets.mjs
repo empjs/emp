@@ -3,26 +3,26 @@ export const ROOT_RSTEST_CONFIG = 'rstest.config.ts'
 const rootTestTargetEntries = [
   ['toolchain', ['test/toolchain.rules.test.ts']],
   ['tsconfig', ['test/tsconfig.rules.test.ts']],
-  ['rules', ['test/apps.rules.test.ts', 'test/apps.browser-coverage.test.ts', 'test/release.rules.test.ts']],
-  ['apps-single', ['test/apps.acceptance.test.ts']],
+  ['rules', ['apps/test/apps.rules.test.ts', 'apps/test/apps.browser-coverage.test.ts', 'test/release.rules.test.ts']],
+  ['apps-single', ['apps/test/apps.acceptance.test.ts']],
   ['library-output', ['test/library-output.smoke.test.ts']],
 ]
 
 const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.test.ts']]]
 
 const appsBrowserTestFiles = [
-  'test/apps/browser/adapter-app/local-remote.browser.ts',
-  'test/apps/browser/adapter-host/smoke.browser.ts',
-  'test/apps/browser/demo/proxy.browser.ts',
-  'test/apps/browser/mf-app/remote.browser.ts',
-  'test/apps/browser/mf-host/mobx.browser.ts',
-  'test/apps/browser/react-19-tanstack/react19.browser.ts',
-  'test/apps/browser/rspack2-optimization/chunk.browser.ts',
-  'test/apps/browser/tailwind-4/product-form.browser.ts',
-  'test/apps/browser/vue-2-base/interactive.browser.ts',
-  'test/apps/browser/vue-2-project/remote.browser.ts',
-  'test/apps/browser/vue-3-base/interactive.browser.ts',
-  'test/apps/browser/vue-3-project/remote.browser.ts',
+  'apps/adapter-app/test/browser/local-remote.browser.ts',
+  'apps/adapter-host/test/browser/smoke.browser.ts',
+  'apps/demo/test/browser/proxy.browser.ts',
+  'apps/mf-app/test/browser/remote.browser.ts',
+  'apps/mf-host/test/browser/mobx.browser.ts',
+  'apps/react-19-tanstack/test/browser/react19.browser.ts',
+  'apps/rspack2-optimization/test/browser/chunk.browser.ts',
+  'apps/tailwind-4/test/browser/product-form.browser.ts',
+  'apps/vue-2-base/test/browser/interactive.browser.ts',
+  'apps/vue-2-project/test/browser/remote.browser.ts',
+  'apps/vue-3-base/test/browser/interactive.browser.ts',
+  'apps/vue-3-project/test/browser/remote.browser.ts',
 ]
 
 const empShareBrowserTestFiles = [

@@ -318,7 +318,7 @@ if (exists('package.json')) {
     requireFile(file)
   }
   const expectedRootTestFiles = new Set(rootTargetFiles)
-  const actualRootTestFiles = listFiles('test')
+  const actualRootTestFiles = [...listFiles('test'), ...listFiles('apps/test')]
     .filter(file => file.endsWith('.test.ts') && !file.endsWith('.browser.test.ts') && !file.endsWith('.browser.ts'))
     .sort()
   for (const file of actualRootTestFiles) {
@@ -333,13 +333,15 @@ if (exists('package.json')) {
   }
   const browserTargetFiles = Object.values(ROOT_BROWSER_TEST_TARGETS).flat()
   const expectedBrowserTestFiles = new Set(browserTargetFiles)
-  const actualBrowserTestFiles = [...listFiles('test'), ...listFiles('packages/emp-share/test/browser')]
+  const actualBrowserTestFiles = [...listFiles('apps'), ...listFiles('packages/emp-share/test/browser')]
     .filter(file => file.endsWith('.browser.ts'))
     .sort()
   for (const file of browserTargetFiles) requireFile(file)
   for (const file of actualBrowserTestFiles) {
-    if (!file.startsWith('test/apps/browser/') && !file.startsWith('packages/emp-share/test/browser/')) {
-      failures.push(`browser test file must live under test/apps/browser/ or packages/emp-share/test/browser/: ${file}`)
+    const isAppsBrowserTest = /^apps\/[^/]+\/test\/browser\/.+\.browser\.ts$/.test(file)
+    const isEmpShareBrowserTest = file.startsWith('packages/emp-share/test/browser/')
+    if (!isAppsBrowserTest && !isEmpShareBrowserTest) {
+      failures.push(`browser test file must live under apps/<app>/test/browser/ or packages/emp-share/test/browser/: ${file}`)
     }
     if (!expectedBrowserTestFiles.has(file)) {
       failures.push(`browser test file must be listed in ROOT_BROWSER_TEST_TARGETS: ${file}`)
