@@ -11,6 +11,7 @@ const startedServicesEnvKey = 'APPS_BROWSER_STARTED_SERVICES'
 export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
   'adapter-host': `http://${localhost}:7701/`,
   demo: `http://${localhost}:8000/`,
+  'emp-share': `http://${localhost}:2100/`,
   'mf-app': `http://${localhost}:6002/`,
   'mf-host': `http://${localhost}:6001/`,
   'react-19-tanstack': `http://${localhost}:1992/`,
@@ -34,6 +35,9 @@ function spawnChild(name, cmd, args, env = {}) {
   })
   child.stdout.on('data', chunk => process.stdout.write(`[${name}] ${chunk}`))
   child.stderr.on('data', chunk => process.stderr.write(`[${name}] ${chunk}`))
+  child.stdout.unref?.()
+  child.stderr.unref?.()
+  child.unref()
   children.add(child)
   startedServiceNames.add(name)
   process.env[startedServicesEnvKey] = 'true'

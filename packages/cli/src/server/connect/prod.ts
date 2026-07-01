@@ -9,6 +9,7 @@ import https from 'https'
 import path from 'path'
 import serveStatic from 'serve-static'
 import {parse} from 'url'
+import {logger} from 'src/helper'
 
 //
 const app = connect()
@@ -21,14 +22,18 @@ export class ProdServer {
     let entry = 'index'
     const entryKeys = Object.keys(store.rsConfig.entry)
     if (entryKeys.length === 0) {
-      return store.logger.sysError(`emp serve must include entry!`)
+      logger.sysError(`emp serve must include entry!`)
+      process.exitCode = 1
+      return
     }
     if (entryKeys.includes(entry)) {
     } else {
       entry = entryKeys[0]
     }
     if (!fs.existsSync(store.outDir)) {
-      return store.logger.sysError(`emp serve must be executed after emp build,${store.outDir} not exist!`)
+      logger.sysError(`emp serve must be executed after emp build,${store.outDir} not exist!`)
+      process.exitCode = 1
+      return
     }
     const staticRoot = store.resolve(store.rsConfig.output?.path as any)
 

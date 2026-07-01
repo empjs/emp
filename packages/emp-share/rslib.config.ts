@@ -11,7 +11,7 @@ const libraryEntries = {
   mfRuntime: 'src/runtime/mfRuntime.ts',
   forceRemote: 'src/plugins/rspack/runtimePlugin/forceRemote.ts',
   adapter: 'src/adapter/index.ts',
-  adapterVue: 'src/adapter/index.ts',
+  adapterVue: 'src/adapter/vue.ts',
   rspack: 'src/plugins/rspack/index.ts',
   react: 'src/framework/react/index.ts',
   vue: 'src/framework/vue/index.ts',
@@ -23,11 +23,11 @@ const declarationEntryShims = [
   {file: 'dist/sdk.d.ts', target: './runtime/sdk'},
   {file: 'dist/forceRemote.d.ts', target: './plugins/rspack/runtimePlugin/forceRemote', defaultExport: true},
   {file: 'dist/adapter.d.ts', target: './adapter/index'},
-  {file: 'dist/adapterVue.d.ts', target: './adapter/index'},
+  {file: 'dist/adapterVue.d.ts', target: './adapter/vue'},
   {file: 'dist/rspack.d.ts', target: './plugins/rspack/index', defaultExport: true},
   {file: 'dist/react.d.ts', target: './framework/react/index'},
   {file: 'dist/vue.d.ts', target: './framework/vue/index'},
-  {file: 'output/sdk.d.ts', target: './library/sdk'},
+  {file: 'output/sdk.d.ts', target: './library/full'},
 ]
 
 function writeDeclarationEntryShims() {
@@ -88,7 +88,7 @@ function getBrowserSdkConfig(isDev: boolean): LibConfig {
     source: {
       tsconfigPath: './tsconfig.json',
       entry: {
-        sdk: 'src/library/sdk.ts',
+        sdk: 'src/library/full.ts',
       },
       define: {
         FEDERATION_ALLOW_NEW_FUNCTION: 'true',

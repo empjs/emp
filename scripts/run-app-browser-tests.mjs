@@ -12,7 +12,7 @@ function run(cmd, args) {
   console.log(`$ ${[cmd, ...args].join(' ')}`)
   const child = spawn(cmd, args, {
     cwd: repoRoot,
-    env: {...process.env, FORCE_COLOR: '0'},
+    env: {...process.env, FORCE_COLOR: '0', EMP_BROWSER_SCOPE: 'apps'},
     stdio: 'inherit',
   })
 
@@ -32,9 +32,9 @@ function run(cmd, args) {
 }
 
 if (watchHeaded) {
-  run('corepack', ['pnpm', 'exec', 'rstest', 'watch', '--browser', '--browser.headless=false', ...forwardedArgs])
+  run('corepack', ['pnpm', 'exec', 'rstest', 'watch', '--browser', '--browser.name', 'chromium', '--browser.headless=false', ...forwardedArgs])
 } else {
-  // Rstest treats positional args as test-name filters in browser mode; include comes from rstest.config.ts.
+  // Rstest treats positional args as test-name filters in browser mode; app-only include comes from EMP_BROWSER_SCOPE.
   void browserTestGlob
   run('corepack', [
     'pnpm',
@@ -44,6 +44,8 @@ if (watchHeaded) {
     '--config',
     'rstest.config.ts',
     '--browser',
+    '--browser.name',
+    'chromium',
     '--browser.headless=false',
     ...forwardedArgs,
   ])

@@ -140,7 +140,7 @@ export class EmpShare {
   private resetRuntime() {
     const {empRuntime} = this.op
     if (!empRuntime) return
-    const global = empRuntime.runtimeGlobal || shareGlobalName
+    const global = empRuntime.runtimeGlobal || empRuntime.runtime?.global || shareGlobalName
     const lib = empRuntime.runtimeLib ? empRuntime.runtimeLib : empRuntime.runtime?.lib ? empRuntime.runtime.lib : ''
     this.rt = {
       lib,
@@ -168,7 +168,6 @@ export class EmpShare {
      * 框架相关内容需要移除 share 由外部简化配置实现
      */
     if (this.fk.name === 'react' && !shareLib && this.fk.global) {
-      const version = this.fk.version
       const externalReact = {
         react: `React`,
         'react-dom': `ReactDOM`,
@@ -179,11 +178,9 @@ export class EmpShare {
       for (const [key, value] of Object.entries(externalReact)) {
         externals[key] = `${this.fk.global}.${value}`
       }
-      if ([17, 18, 19].includes(version)) {
-        externals['react-dom/client'] = this.fk.global
-        externals['react/jsx-runtime'] = this.fk.global
-        externals['react/jsx-dev-runtime'] = this.fk.global
-      }
+      externals['react-dom/client'] = this.fk.global
+      externals['react/jsx-runtime'] = this.fk.global
+      externals['react/jsx-dev-runtime'] = this.fk.global
     }
     if (shareLib) {
       externalsLib.map(v => {
@@ -291,11 +288,15 @@ export class EmpShare {
       if (op.empRuntime) {
         delete op.empRuntime
       }
+      if ('forceRemotes' in op) {
+        delete (op as any).forceRemotes
+      }
       /**
        * 注册 forceRemotes
        */
-      if (o.forceRemotes) {
-        registerRemotes(store, o.forceRemotes)
+      const forceRemotes = o.forceRemotes && Object.keys(o.forceRemotes).length > 0 ? o.forceRemotes : undefined
+      if (forceRemotes) {
+        registerRemotes(store, forceRemotes)
         delete o.forceRemotes
         op.runtimePlugins ??= []
         op.runtimePlugins.push(resolvePackageExport('@empjs/share/forceRemote'))

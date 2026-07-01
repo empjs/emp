@@ -4,8 +4,11 @@ const isBrowserMode = process.argv.some(arg => arg === '--browser' || arg.starts
 const isListCommand = process.argv.includes('list')
 const isWatchCommand = process.argv.includes('watch')
 const skipNextBrowserRebuildKey = 'APPS_BROWSER_SKIP_NEXT_REBUILD'
-const browserTestFiles = ['test/apps/browser/**/*.browser.ts']
-const browserForceRerunTriggers = [
+const browserScope = process.env.EMP_BROWSER_SCOPE === 'apps' ? 'apps' : 'all'
+const appsBrowserTestFiles = ['test/apps/browser/**/*.browser.ts']
+const empShareBrowserTestFiles = ['packages/emp-share/test/browser/**/*.browser.ts']
+const browserTestFiles = browserScope === 'apps' ? appsBrowserTestFiles : [...appsBrowserTestFiles, ...empShareBrowserTestFiles]
+const appsBrowserForceRerunTriggers = [
   'apps/*/emp*.js',
   'apps/*/emp*.ts',
   'apps/adapter-host/src/**',
@@ -26,6 +29,9 @@ const browserForceRerunTriggers = [
   'scripts/rstest-browser-mf-container.mjs',
   'test/apps/browser/**/*.browser.ts',
 ]
+const empShareBrowserForceRerunTriggers = ['packages/emp-share/test/browser/**/*.browser.ts', 'packages/emp-share/output/**']
+const browserForceRerunTriggers =
+  browserScope === 'apps' ? appsBrowserForceRerunTriggers : [...appsBrowserForceRerunTriggers, ...empShareBrowserForceRerunTriggers]
 
 if (isBrowserMode) {
   process.env.RSTEST_CONTAINER_DEV_SERVER ??= 'http://localhost:51203/'
@@ -68,10 +74,6 @@ const browserRebuildReporter = {
   onTestRunEnd: async () => {
     if (!isBrowserMode || isListCommand || isWatchCommand) return
     await cleanupAppsBrowserServicesOnce?.()
-  },
-  onExit: () => {
-    if (!isBrowserMode || isListCommand) return
-    cleanupAppsBrowserServicesNow?.()
   },
 }
 

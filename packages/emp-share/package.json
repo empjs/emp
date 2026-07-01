@@ -91,6 +91,9 @@
       "sdk": [
         "./dist/sdk.d.ts"
       ],
+      "forceRemote": [
+        "./dist/forceRemote.d.ts"
+      ],
       "adapter": [
         "./dist/adapter.d.ts"
       ],
@@ -116,7 +119,7 @@
     "dev:lib-dev": "rslib build --watch --env-mode development",
     "dev:serve": "node ../../scripts/static-services.mjs start --service emp-share",
     "build": "rslib build --env-mode production",
-    "test": "pnpm run build && node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/version-isolation.test.mjs && node test/esm-only-publish.test.mjs",
+    "test": "pnpm run build && node test/module-federation-deps.test.mjs && node test/dts-runtime-pkgs.test.mjs && node test/version-isolation.test.mjs && node test/esm-only-publish.test.mjs && node test/rspack/plugin-share-config.test.mjs && node test/rspack/force-remotes-config.test.mjs && node test/runtime/package-exports-runtime.test.mjs",
     "start": "node ../../scripts/static-services.mjs start --service emp-share",
     "https": "node ../../scripts/static-services.mjs start --service emp-share --https"
   },

@@ -48,6 +48,8 @@
     "test:apps:single": "node scripts/run-root-test.mjs apps-single",
     "test:library-output": "node scripts/run-root-test.mjs library-output",
     "test:apps:browser": "node scripts/run-app-browser-tests.mjs",
+    "test:browser:all": "corepack pnpm exec rstest run --config rstest.config.ts --browser --browser.name chromium",
+    "test:browser:watch": "pnpm exec rstest watch --browser --browser.headless=false",
     "workflow:check": "node scripts/emp-workflow-check.mjs",
     "ci:verify": "corepack pnpm workflow:check && corepack pnpm test:toolchain && corepack pnpm test:tsconfig && corepack pnpm test:ts7:packages && corepack pnpm test:tsgo && corepack pnpm test:cli && corepack pnpm test:packages && corepack pnpm test:rules && corepack pnpm release:check && corepack pnpm check:rslib-presets",
     "apps:list": "node scripts/apps.mjs list",

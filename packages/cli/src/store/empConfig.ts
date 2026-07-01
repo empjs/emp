@@ -409,6 +409,12 @@ export class EmpConfig {
       } else {
         this.store.empOptions = empOptionsFn || {}
       }
+      if (this.store.cliOptions.envVars) {
+        this.store.empOptions.define = {
+          ...(this.store.empOptions.define || {}),
+          ...this.store.cliOptions.envVars,
+        }
+      }
     } finally {
       logger.timeEnd(timeTag)
     }
