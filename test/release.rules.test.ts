@@ -353,6 +353,7 @@ describe('release rules', () => {
     expect(workflow).toMatch(/force_all:/)
     expect(workflow).toMatch(/CHANGED_SINCE=\$changed_since/)
     expect(workflow).toMatch(/FORCE_ALL=\$\{\{ github\.event\.inputs\.force_all \|\| false \}\}/)
+    expect(workflow).toMatch(/npm install -g corepack@latest/)
     expect(workflow).toMatch(/corepack prepare pnpm@10\.33\.0 --activate/)
     expect(workflow).toMatch(/pnpm test:rules/)
     expect(workflow).not.toMatch(/node --test scripts\/release\.test\.mjs/)
@@ -376,6 +377,8 @@ describe('release rules', () => {
     expect(workflow).toMatch(/verify:\n[\s\S]*?node-version:\s*\$\{\{ matrix\.node-version \}\}/)
     expect(workflow).toMatch(/build:\n[\s\S]*?node-version:\s*['"]24['"]/)
     expect(workflow).toMatch(/apps:\n[\s\S]*?node-version:\s*['"]24['"]/)
+    const setupPnpmBlocks = workflow.match(/- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.33\.0 --activate\n)/g) ?? []
+    expect(setupPnpmBlocks).toHaveLength(3)
     expect(workflow).not.toMatch(/NODE_AUTH_TOKEN/)
     expect(workflow).not.toMatch(/release:publish/)
   })

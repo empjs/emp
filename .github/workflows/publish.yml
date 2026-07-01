@@ -80,6 +80,7 @@ jobs:
 
       - name: Setup pnpm
         run: |
+          npm install -g corepack@latest
           corepack enable
           corepack prepare pnpm@10.33.0 --activate
           npm install -g npm@latest

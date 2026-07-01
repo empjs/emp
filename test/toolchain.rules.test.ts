@@ -102,10 +102,14 @@ describe('toolchain version contract', () => {
 
   test('cli depends on Rspack 2.1 and TS7-aware checker', () => {
     const cliPkg = readJson('packages/cli/package.json')
+    const cliRstestConfig = readText('packages/cli/rstest.config.ts')
     expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.1')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
+    expect(cliRstestConfig).toContain("pool: {type: 'forks', maxWorkers: 1, minWorkers: 1}")
+    expect(cliRstestConfig).toContain('maxConcurrency: 1')
+    expect(cliRstestConfig).toContain('testTimeout: 180000')
   })
 
   test('declaration tooling uses TS7-aware Rslib and Module Federation compatibility alias', () => {
