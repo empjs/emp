@@ -1,4 +1,4 @@
-import {Link} from '@tanstack/react-router'
+import {Link, Outlet} from '@tanstack/react-router'
 
 const routerLabUsers = [
   {id: 'alice', name: 'Alice', role: 'Developer'},
@@ -29,6 +29,7 @@ export function RouterLabIndex() {
           </Link>
         ))}
       </div>
+      <Outlet />
     </section>
   )
 }

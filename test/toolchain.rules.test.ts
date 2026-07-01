@@ -48,6 +48,7 @@ describe('toolchain version contract', () => {
       'test:rules',
       'test:apps:single',
       'test:library-output',
+      'test:apps:browser',
       'workflow:check',
       'ci:verify',
       'apps:list',

@@ -10,7 +10,7 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.5.3/output/sdk.js`,
+            lib: `http://${store.server.ip}:2100/sdk.js`,
           },
           framework: {
             libs: [`https://unpkg.com/@empjs/cdn-react@0.18.0/dist/reactRouter.${store.mode}.umd.js`],

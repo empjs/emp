@@ -19,21 +19,20 @@ export default defineConfig(store => {
         },
         // shared: ['vue', 'vuex'],
         empRuntime: {
-          // runtimeLib: `https://unpkg.com/@empjs/share@3.1.5/output/sdk.js`,
-          runtimeLib: `https://unpkg.com/@empjs/share@3.6.0-beta.1/output/sdk.js`,
+          runtimeLib: `http://${store.server.ip}:2100/sdk.js`,
           framework: {
             libs: [
-              `https://unpkg.com/vue@2.7.14/dist/vue.min.js`,
-              `https://unpkg.com/vuex@3.6.2/dist/vuex.min.js`,
+              `https://unpkg.com/@empjs/cdn-vue@0.2.1/dist/vueRouter.${store.mode}.umd.js`,
+              `data:text/javascript,window.Vue%3Dwindow.EMP_ADAPTER_VUE_v2.Vue%3B`,
               `https://unpkg.com/element-ui/lib/index.js`,
               `https://unpkg.com/element-ui/lib/theme-chalk/index.css`,
             ],
-            global: 'window',
+            global: 'EMP_ADAPTER_VUE_v2',
           },
           setExternals(o) {
-            o['vue'] = `Vue`
-            o['vuex'] = `Vuex`
-            o['element-ui'] = `ELEMENT`
+            o['vue'] = `EMP_ADAPTER_VUE_v2.Vue`
+            o['vuex'] = `EMP_ADAPTER_VUE_v2.Vuex`
+            o['vue-router'] = `EMP_ADAPTER_VUE_v2.VueRouter`
             // console.log(o)
             return o
           },

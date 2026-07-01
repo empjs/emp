@@ -20,7 +20,7 @@ export default defineConfig(store => {
       pluginRspackEmpShare({
         empRuntime: {
           runtime: {
-            lib: `https://unpkg.com/@empjs/share@3.5.0/output/sdk.js`,
+            lib: `http://${store.server.ip}:2100/sdk.js`,
             global: `EMP_SHARE_RUNTIME`,
           },
           framework: {

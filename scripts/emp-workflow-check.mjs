@@ -1,6 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {ROOT_RSTEST_CONFIG, ROOT_TEST_PACKAGE_SCRIPTS, ROOT_TEST_TARGETS, rootTestCommand} from './root-test-targets.mjs'
+import {
+  ROOT_BROWSER_TEST_PACKAGE_SCRIPTS,
+  ROOT_BROWSER_TEST_TARGETS,
+  ROOT_RSTEST_CONFIG,
+  ROOT_TEST_PACKAGE_SCRIPTS,
+  ROOT_TEST_TARGETS,
+  rootBrowserTestCommand,
+  rootTestCommand,
+} from './root-test-targets.mjs'
 
 const root = process.cwd()
 const failures = []
@@ -286,8 +294,17 @@ if (exists('package.json')) {
   if (!appsAcceptance.includes('pnpm test:library-output')) {
     failures.push('package.json apps:acceptance must run pnpm test:library-output for package-level library output smoke')
   }
+  if (appsAcceptance.includes('pnpm test:apps:browser')) {
+    failures.push('package.json apps:acceptance must not run apps browser E2E; keep it in a separate lane')
+  }
   for (const [scriptName, targetName] of Object.entries(ROOT_TEST_PACKAGE_SCRIPTS)) {
     const expectedCommand = rootTestCommand(targetName)
+    if (pkg.scripts?.[scriptName] !== expectedCommand) {
+      failures.push(`package.json ${scriptName} must run ${expectedCommand}`)
+    }
+  }
+  for (const [scriptName, targetName] of Object.entries(ROOT_BROWSER_TEST_PACKAGE_SCRIPTS)) {
+    const expectedCommand = rootBrowserTestCommand(targetName)
     if (pkg.scripts?.[scriptName] !== expectedCommand) {
       failures.push(`package.json ${scriptName} must run ${expectedCommand}`)
     }
@@ -302,7 +319,7 @@ if (exists('package.json')) {
   }
   const expectedRootTestFiles = new Set(rootTargetFiles)
   const actualRootTestFiles = listFiles('test')
-    .filter(file => file.endsWith('.test.ts'))
+    .filter(file => file.endsWith('.test.ts') && !file.endsWith('.browser.test.ts') && !file.endsWith('.browser.ts'))
     .sort()
   for (const file of actualRootTestFiles) {
     if (!expectedRootTestFiles.has(file)) {
@@ -312,6 +329,25 @@ if (exists('package.json')) {
   for (const file of expectedRootTestFiles) {
     if (!actualRootTestFiles.includes(file)) {
       failures.push(`ROOT_TEST_TARGETS references missing root test file: ${file}`)
+    }
+  }
+  const browserTargetFiles = Object.values(ROOT_BROWSER_TEST_TARGETS).flat()
+  const expectedBrowserTestFiles = new Set(browserTargetFiles)
+  const actualBrowserTestFiles = listFiles('test')
+    .filter(file => file.endsWith('.browser.ts'))
+    .sort()
+  for (const file of browserTargetFiles) requireFile(file)
+  for (const file of actualBrowserTestFiles) {
+    if (!file.startsWith('test/apps/browser/')) {
+      failures.push(`browser test file must live under test/apps/browser/: ${file}`)
+    }
+    if (!expectedBrowserTestFiles.has(file)) {
+      failures.push(`browser test file must be listed in ROOT_BROWSER_TEST_TARGETS: ${file}`)
+    }
+  }
+  for (const file of expectedBrowserTestFiles) {
+    if (!actualBrowserTestFiles.includes(file)) {
+      failures.push(`ROOT_BROWSER_TEST_TARGETS references missing browser test file: ${file}`)
     }
   }
   const testCli = pkg.scripts?.['test:cli'] ?? ''

@@ -4,7 +4,14 @@ import App from './App'
 
 console.log('store', store)
 
-new Vue({
-  store: store.default,
+const remoteStore = store.default ?? store
+const VueCtor = Vue.default ?? Vue
+
+if (globalThis.ELEMENT) {
+  VueCtor.use(globalThis.ELEMENT)
+}
+
+new VueCtor({
+  store: remoteStore,
   render: h => h(App),
 }).$mount('#emp-root')
