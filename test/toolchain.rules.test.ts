@@ -39,6 +39,7 @@ describe('toolchain version contract', () => {
       'test:cli',
       'test:real:cli',
       'test:packages',
+      'test:plugins',
       'test:toolchain',
       'test:tsconfig',
       'test:ts7:prepare',
@@ -100,11 +101,22 @@ describe('toolchain version contract', () => {
     )
   })
 
+  test('package tests include real plugin config coverage', () => {
+    const pkg = readJson('package.json')
+    expect(pkg.scripts['test:plugins']).toBe(
+      'corepack pnpm --filter @empjs/chain build && corepack pnpm empbuild:plugin && node scripts/run-root-test.mjs plugins',
+    )
+    expect(pkg.scripts['test:packages']).toContain('corepack pnpm test:plugins')
+    expect(readText('scripts/root-test-targets.mjs')).toContain("['plugins', ['test/plugin-config-shape.test.ts']]")
+  })
+
   test('cli depends on Rspack 2.1 and TS7-aware checker', () => {
     const cliPkg = readJson('packages/cli/package.json')
+    const reactPkg = readJson('packages/plugin-react/package.json')
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
-    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.1')
+    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.2')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
+    expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.0')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
     expect(cliRstestConfig).toContain("pool: {type: 'forks', maxWorkers: 1, minWorkers: 1}")

@@ -272,6 +272,20 @@ if (exists('package.json')) {
   if (!pkg.scripts?.['ci:verify']?.includes('pnpm workflow:check')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
+  const testPackages = pkg.scripts?.['test:packages'] ?? ''
+  if (!testPackages.includes('pnpm test:plugins')) {
+    failures.push('package.json test:packages must include pnpm test:plugins for plugin config coverage')
+  }
+  const testPlugins = pkg.scripts?.['test:plugins'] ?? ''
+  if (!testPlugins.includes('pnpm --filter @empjs/chain build')) {
+    failures.push('package.json test:plugins must build @empjs/chain before importing dist config helpers')
+  }
+  if (!testPlugins.includes('pnpm empbuild:plugin')) {
+    failures.push('package.json test:plugins must build plugin dist packages before importing them')
+  }
+  if (!testPlugins.includes('node scripts/run-root-test.mjs plugins')) {
+    failures.push('package.json test:plugins must run the plugins root test target')
+  }
   const appsAcceptance = pkg.scripts?.['apps:acceptance'] ?? ''
   if (!appsAcceptance.includes('pnpm empbuild')) {
     failures.push('package.json apps:acceptance must run full pnpm empbuild before app builds')
