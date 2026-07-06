@@ -9,7 +9,7 @@ import {
   navigateFrame,
   removeFrame,
 } from '@empjs/test-support/browser/frame'
-import {rewriteDemoApiFetch} from '@empjs/test-support/browser/demo-api'
+import {rewriteDemoApiFetch, simulateDemoApiFailure} from '@empjs/test-support/browser/demo-api'
 
 test('demo shell and proxy page keep form and API interactions working end to end', async () => {
   const frame = await loadAppFrame('demo')
@@ -46,3 +46,19 @@ test('demo shell and proxy page keep form and API interactions working end to en
     await removeFrame(frame)
   }
 }, 120000)
+
+test('demo proxy page surfaces proxy target unavailable diagnostics', async () => {
+  const frame = await loadAppFrame('demo', '/proxy-test.html')
+  try {
+    rewriteDemoApiFetch(frame)
+    simulateDemoApiFailure(frame, '/api/hello', 'proxy target unavailable: ECONNREFUSED 127.0.0.1:3001')
+
+    await expectFrameText(frame, 'EMP Proxy 功能测试')
+    await clickButton(frame, '测试 GET /api/hello')
+
+    await expectResultCard(frame, '/api/hello', 'proxy target unavailable')
+    await expectResultCard(frame, '/api/hello', 'ECONNREFUSED')
+  } finally {
+    await removeFrame(frame)
+  }
+}, 60000)

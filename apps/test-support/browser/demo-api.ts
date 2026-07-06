@@ -1,7 +1,18 @@
 import {expect} from '@rstest/core'
 
+type DemoApiWindow = Window & {
+  __empDemoApiFetchRewritten?: boolean
+  __empDemoApiFailures?: Record<string, string>
+}
+
+function requestPath(input: RequestInfo | URL) {
+  if (typeof input === 'string') return new URL(input, window.location.href).pathname
+  if (input instanceof URL) return input.pathname
+  return new URL(input.url).pathname
+}
+
 export function rewriteDemoApiFetch(frame: HTMLIFrameElement) {
-  const win = frame.contentWindow as (Window & {__empDemoApiFetchRewritten?: boolean}) | null
+  const win = frame.contentWindow as DemoApiWindow | null
   expect(win, `iframe ${frame.title} has no contentWindow`).toBeTruthy()
   if (win!.__empDemoApiFetchRewritten) return
 
@@ -24,6 +35,9 @@ export function rewriteDemoApiFetch(frame: HTMLIFrameElement) {
     )
 
   win!.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
+    const forcedFailure = win!.__empDemoApiFailures?.[requestPath(input)]
+    if (forcedFailure) return Promise.reject(new TypeError(forcedFailure))
+
     if (typeof input === 'string' && input.startsWith('/api/')) {
       if (input === '/api/error') return errorResponse()
       if (input === '/api/echo') return fetchDemoApi(input, init)
@@ -43,4 +57,10 @@ export function rewriteDemoApiFetch(frame: HTMLIFrameElement) {
     return originalFetch(input, init)
   }
   win!.__empDemoApiFetchRewritten = true
+}
+
+export function simulateDemoApiFailure(frame: HTMLIFrameElement, pathname: `/api/${string}`, message: string) {
+  const win = frame.contentWindow as DemoApiWindow | null
+  expect(win, `iframe ${frame.title} has no contentWindow`).toBeTruthy()
+  win!.__empDemoApiFailures = {...win!.__empDemoApiFailures, [pathname]: message}
 }

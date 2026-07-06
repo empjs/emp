@@ -21,3 +21,15 @@ test('vue-3-project consumes remote Vue 3 routes and Pinia component', async () 
     await removeFrame(frame)
   }
 }, 120000)
+
+test('vue-3-project supports direct hash route refresh for remote host home', async () => {
+  const frame = await loadAppFrame('vue-3-project', '/#/hostHome')
+  try {
+    await expectFrameText(frame, 'Hello App')
+    await expectFrameText(frame, /Current route path:\s*\/hostHome/)
+    await expectFrameText(frame, 'Vue 3 base Component')
+    await expectFrameText(frame, 'Host Home')
+  } finally {
+    await removeFrame(frame)
+  }
+}, 60000)

@@ -207,6 +207,12 @@ describe('default apps real acceptance', () => {
         expect(routeTree).toContain("'/router-lab/$id'")
         assertNoDefaultTailwindPostcssWarning(result.stderr)
 
+        const html = readDistText(appDir, 'index.html')
+        expect(html).toContain('href="/css/')
+        expect(html).toContain('src="/js/index.')
+        expect(html).not.toContain('href="css/')
+        expect(html).not.toContain('src="js/index.')
+
         const css = readDistCss(appDir)
         expect(css).toContain('.tailwind-react-contaner')
         expect(css).toContain('group-hover')

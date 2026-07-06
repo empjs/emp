@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs'
 import {describe, expect, test} from '@rstest/core'
 import {TARGET_APP_DIRS} from '../../scripts/apps.catalog.mjs'
 import {ROOT_BROWSER_TEST_TARGETS} from '../../scripts/root-test-targets.mjs'
@@ -20,6 +21,46 @@ const browserCoverage = {
 
 const browserTestFiles = Object.values(ROOT_BROWSER_TEST_TARGETS).flat()
 const browserTestFilesByApp = new Map<string, string[]>()
+const appsMatrixDoc = readFileSync('docs/testing/apps-feature-test-matrix.md', 'utf8')
+
+const p2BoundaryCoverage = {
+  'adapter-host': {
+    boundaries: ['remote-provider-manifest-diagnostic'],
+    files: ['apps/adapter-host/test/browser/smoke.browser.ts'],
+  },
+  demo: {
+    boundaries: ['proxy-target-unavailable-diagnostic'],
+    files: ['apps/demo/test/browser/proxy.browser.ts'],
+  },
+  'mf-host': {
+    boundaries: ['remote-provider-manifest-diagnostic'],
+    files: ['apps/mf-host/test/browser/mobx.browser.ts'],
+  },
+  'mf-app': {
+    boundaries: ['remote-consumer-manifest-diagnostic'],
+    files: ['apps/mf-app/test/browser/remote.browser.ts'],
+  },
+  'react-19-tanstack': {
+    boundaries: ['route-deep-refresh'],
+    files: ['apps/react-19-tanstack/test/browser/react19.browser.ts'],
+  },
+  'vue-2-base': {
+    boundaries: ['remote-provider-manifest-diagnostic'],
+    files: ['apps/vue-2-base/test/browser/interactive.browser.ts'],
+  },
+  'vue-2-project': {
+    boundaries: ['remote-consumer-manifest-diagnostic'],
+    files: ['apps/vue-2-project/test/browser/remote.browser.ts'],
+  },
+  'vue-3-base': {
+    boundaries: ['remote-provider-manifest-diagnostic'],
+    files: ['apps/vue-3-base/test/browser/interactive.browser.ts'],
+  },
+  'vue-3-project': {
+    boundaries: ['route-deep-refresh', 'remote-consumer-manifest-diagnostic'],
+    files: ['apps/vue-3-project/test/browser/remote.browser.ts'],
+  },
+} as const
 
 for (const file of browserTestFiles) {
   const match = file.match(/^apps\/([^/]+)\/test\/browser\//)
@@ -46,6 +87,23 @@ describe('apps browser coverage matrix', () => {
         expect(files.every(file => file.startsWith(`apps/${app}/test/browser/`))).toBe(true)
       } else {
         expect(files, `${app} must stay out of browser lane while ${coverage}`).toHaveLength(0)
+      }
+    }
+  })
+
+  test('keeps the documented P2 boundary list fully covered', () => {
+    const remainingP2Rows = appsMatrixDoc.split('\n').filter(line => line.includes('剩余 P2'))
+    expect(remainingP2Rows).toEqual([])
+  })
+
+  test('maps every P2 boundary contract to a real browser test file', () => {
+    for (const [app, contract] of Object.entries(p2BoundaryCoverage)) {
+      expect(Object.keys(browserCoverage), `${app} must stay in current apps coverage`).toContain(app)
+      expect(contract.boundaries.length, `${app} must declare at least one P2 boundary`).toBeGreaterThan(0)
+
+      const registeredFiles = browserTestFilesByApp.get(app) ?? []
+      for (const file of contract.files) {
+        expect(registeredFiles, `${app} P2 boundary must be registered in root browser targets`).toContain(file)
       }
     }
   })

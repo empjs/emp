@@ -7,7 +7,10 @@ import {tanstackRouter} from '@tanstack/router-plugin/rspack'
 // const cdnHost = 'https://cdn.jsdelivr.net/npm'
 const cdnHost = 'https://unpkg.com'
 export default defineConfig(store => {
+  const base = process.env.EMP_BROWSER_SCOPE === 'apps' ? '/container-static/react-19-tanstack/' : '/'
+
   return {
+    base,
     chain(config) {
       config.plugin('tanstack-router').use(
         tanstackRouter({

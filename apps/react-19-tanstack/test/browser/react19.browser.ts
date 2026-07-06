@@ -52,3 +52,16 @@ test('react-19-tanstack covers action state, optimistic, transition, deferred, a
     await removeFrame(frame)
   }
 }, 120000)
+
+test('react-19-tanstack supports direct route refresh for router lab detail pages', async () => {
+  const frame = await loadAppFrame('react-19-tanstack', '/router-lab/alice')
+  try {
+    await expectFrameText(frame, 'TanStack Router Lab')
+    await expectFrameText(frame, 'Alice')
+    await expectFrameText(frame, 'Route param')
+    await expectFrameText(frame, 'alice')
+    await expectLocationPath(frame, /router-lab\/alice$/)
+  } finally {
+    await removeFrame(frame)
+  }
+}, 60000)
