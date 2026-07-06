@@ -2,7 +2,7 @@ export const ROOT_RSTEST_CONFIG = 'rstest.config.ts'
 
 const rootTestTargetEntries = [
   ['toolchain', ['test/toolchain.rules.test.ts']],
-  ['plugins', ['test/plugin-config-shape.test.ts']],
+  ['plugins', ['test/plugin-config-shape.test.ts', 'test/plugin-output-coverage.test.ts']],
   ['tsconfig', ['test/tsconfig.rules.test.ts']],
   ['rules', ['apps/test/apps.rules.test.ts', 'apps/test/apps.browser-coverage.test.ts', 'test/release.rules.test.ts']],
   ['apps-single', ['apps/test/apps.acceptance.test.ts']],

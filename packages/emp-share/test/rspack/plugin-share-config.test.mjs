@@ -283,3 +283,38 @@ async function runSharePlugin(options, overrides = {}) {
 
   assert.equal(mfPlugin.args[0].dts.consumeTypes, false)
 }
+
+{
+  const {mfPlugin} = await runSharePlugin({
+    name: 'demo-share',
+    runtimePlugins: ['/project/runtime/custom-runtime-plugin.js'],
+    empRuntime: {
+      runtime: {
+        lib: 'https://cdn.example.test/runtime.js',
+      },
+    },
+  })
+
+  assert.deepEqual(mfPlugin.args[0].runtimePlugins, ['/project/runtime/custom-runtime-plugin.js'])
+}
+
+{
+  const {mfPlugin} = await runSharePlugin({
+    name: 'demo-share',
+    runtimePlugins: ['/project/runtime/custom-runtime-plugin.js'],
+    forceRemotes: {
+      mfHost: {
+        entry: 'https://cdn.example.test/mfHost/emp.js',
+      },
+    },
+    empRuntime: {
+      runtime: {
+        lib: 'https://cdn.example.test/runtime.js',
+      },
+    },
+  })
+
+  assert.equal(mfPlugin.args[0].runtimePlugins.length, 2)
+  assert.equal(mfPlugin.args[0].runtimePlugins[0], '/project/runtime/custom-runtime-plugin.js')
+  assert.match(mfPlugin.args[0].runtimePlugins[1], /dist\/forceRemote\.js$/)
+}

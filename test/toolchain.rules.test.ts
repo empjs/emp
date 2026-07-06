@@ -107,7 +107,9 @@ describe('toolchain version contract', () => {
       'corepack pnpm --filter @empjs/chain build && corepack pnpm empbuild:plugin && node scripts/run-root-test.mjs plugins',
     )
     expect(pkg.scripts['test:packages']).toContain('corepack pnpm test:plugins')
-    expect(readText('scripts/root-test-targets.mjs')).toContain("['plugins', ['test/plugin-config-shape.test.ts']]")
+    expect(readText('scripts/root-test-targets.mjs')).toContain(
+      "['plugins', ['test/plugin-config-shape.test.ts', 'test/plugin-output-coverage.test.ts']]",
+    )
   })
 
   test('cli depends on Rspack 2.1 and TS7-aware checker', () => {

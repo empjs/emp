@@ -4,6 +4,7 @@ import {join} from 'node:path'
 import {discoverApps, runBench, validateApps} from '../../scripts/apps.mjs'
 import {
   DEFAULT_APP_ACCEPTANCE,
+  LEGACY_PROJECT_DIRS,
   RETIRED_APP_DIRS,
   TARGET_APP_DIRS,
   getDuplicatePackageNames,
@@ -88,6 +89,22 @@ describe('apps catalog rules', () => {
     expect(RETIRED_APP_DIRS).toEqual([...RETIRED_APP_DIRS].sort())
     expect(RETIRED_APP_DIRS.every(dir => !appDirs.includes(dir))).toBe(true)
     expect(RETIRED_APP_DIRS.every(dir => !TARGET_APP_DIRS.includes(dir))).toBe(true)
+  })
+
+  test('legacy projects from upstream are fully classified as active or retired', () => {
+    const classifiedDirs = new Set([...TARGET_APP_DIRS, ...RETIRED_APP_DIRS])
+    const missingLegacyDirs = LEGACY_PROJECT_DIRS.filter(dir => !classifiedDirs.has(dir))
+
+    expect(LEGACY_PROJECT_DIRS).toEqual([...LEGACY_PROJECT_DIRS].sort())
+    expect(missingLegacyDirs).toEqual([])
+  })
+
+  test('legacy Tailwind and UI demos stay retired while current Tailwind coverage uses v4 apps', () => {
+    expect(RETIRED_APP_DIRS).toEqual(
+      expect.arrayContaining(['tailwind-2', 'tailwind-3', 'tailwind-demo', 'daisyui-demo', 'shadcn-ui']),
+    )
+    expect(TARGET_APP_DIRS).toEqual(expect.arrayContaining(['tailwind-4', 'react-19-tanstack']))
+    expect(TARGET_APP_DIRS).not.toEqual(expect.arrayContaining(['tailwind-2', 'tailwind-3']))
   })
 
   test('root scripts do not reference retired app projects', async () => {
