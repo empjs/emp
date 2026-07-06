@@ -269,6 +269,22 @@ const renderLogSections = commandResults =>
     )
     .join('\n')
 
+const renderBrandLockup = title => `<div class="brand-lockup">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="EMP v4" focusable="false">
+          <title>EMP v4</title>
+          <rect class="brand-mark-bg" x="3" y="3" width="58" height="58" rx="14" fill="#0f172a"></rect>
+          <path class="brand-mark-grid" d="M12 16h40M12 48h40M16 12v40M48 12v40"></path>
+          <text class="brand-mark-text" x="32" y="31" text-anchor="middle">EMP</text>
+          <rect class="brand-mark-chip" x="21" y="38" width="22" height="12" rx="6"></rect>
+          <text class="brand-mark-version" x="32" y="48" text-anchor="middle">v4</text>
+        </svg>
+        <div class="brand-copy">
+          <div class="brand-kicker">EMP V4</div>
+          <h1>${escapeHtml(title)}</h1>
+          <div class="brand-subtitle">Release acceptance evidence / REPORT</div>
+        </div>
+      </div>`
+
 export const renderAcceptanceReportHtml = model => {
   const overall = model.overallStatus
   const summary = model.commandSummary
@@ -287,29 +303,41 @@ export const renderAcceptanceReportHtml = model => {
       --line: #d9dee8;
       --soft: #f6f8fb;
       --soft-strong: #eef2f7;
+      --accent: #0f766e;
+      --accent-strong: #115e59;
+      --accent-soft: #e7f7f4;
       --green: #16803c;
       --green-bg: #eaf7ef;
       --amber: #b76a00;
       --amber-bg: #fff6df;
       --red: #cc1f1a;
       --red-bg: #fff0ef;
-      --blue: #1d5fd1;
       --shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
     }
     * { box-sizing: border-box; }
-    html { background: var(--bg); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    html { background: var(--bg); color: var(--ink); font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     body { margin: 0; background: var(--bg); font-size: 14px; line-height: 1.5; }
     main { width: min(1440px, 100%); margin: 0 auto; padding: 28px 32px 40px; }
-    header { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
-    h1 { margin: 0 0 18px; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; font-weight: 780; letter-spacing: 0; }
+    header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 360px); gap: 24px; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
+    h1 { margin: 2px 0 6px; font-size: clamp(28px, 3vw, 42px); line-height: 1.08; font-weight: 780; letter-spacing: 0; }
     h2 { margin: 0 0 12px; font-size: 18px; line-height: 1.25; font-weight: 720; letter-spacing: 0; }
     h3 { margin: 0 0 10px; font-size: 15px; line-height: 1.25; font-weight: 720; letter-spacing: 0; }
+    .brand-lockup { display: flex; align-items: center; gap: 16px; min-width: 0; margin-bottom: 18px; }
+    .brand-mark { width: 72px; height: 72px; flex: 0 0 72px; filter: drop-shadow(0 10px 18px rgba(15, 118, 110, 0.18)); }
+    .brand-mark-bg { fill: #0f172a; stroke: rgba(15, 118, 110, 0.58); stroke-width: 2; }
+    .brand-mark-grid { fill: none; stroke: rgba(45, 212, 191, 0.32); stroke-width: 1; stroke-linecap: round; }
+    .brand-mark-text { fill: #f8fafc; font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 820; }
+    .brand-mark-chip { fill: #2dd4bf; }
+    .brand-mark-version { fill: #0f172a; font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 10px; font-weight: 820; }
+    .brand-copy { min-width: 0; }
+    .brand-kicker { color: var(--accent-strong); font-size: 12px; font-weight: 820; letter-spacing: 0; }
+    .brand-subtitle { color: var(--muted); font-size: 13px; font-weight: 640; overflow-wrap: anywhere; }
     .meta-grid { display: grid; grid-template-columns: repeat(6, minmax(100px, 1fr)); gap: 14px; }
     .meta-label { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
     .meta-value { font-weight: 680; overflow-wrap: anywhere; }
     .status-card { border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 18px; background: #fff; }
     .status-card .overall { display: flex; align-items: center; gap: 14px; }
-    .shield { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; color: #fff; font-size: 30px; font-weight: 800; }
+    .shield { width: 56px; height: 56px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-size: 30px; font-weight: 800; }
     .shield.passed { background: var(--green); }
     .shield.failed { background: var(--red); }
     .shield.skipped, .shield.warning { background: var(--amber); }
@@ -335,18 +363,25 @@ export const renderAcceptanceReportHtml = model => {
     th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
     th { background: var(--soft); color: #344054; font-size: 12px; font-weight: 720; }
     td { background: #fff; }
-    code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; }
-    code { color: #175cd3; }
+    code, .mono { font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; }
+    code { color: var(--accent-strong); }
     .status { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 62px; border-radius: 7px; padding: 4px 8px; font-weight: 720; font-size: 12px; border: 1px solid currentColor; }
     .dot { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
     .status-passed { color: var(--green); background: var(--green-bg); }
     .status-failed { color: var(--red); background: var(--red-bg); }
     .status-skipped { color: var(--amber); background: var(--amber-bg); }
-    .callout { border-left: 4px solid var(--blue); background: #f4f7ff; padding: 12px 14px; color: #243b6b; }
+    .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 12px 14px; color: #164e4a; }
     .log { border: 1px solid var(--line); border-radius: 8px; margin-top: 10px; overflow: hidden; }
     .log summary { cursor: pointer; padding: 10px 12px; background: var(--soft); font-weight: 680; }
     pre { margin: 0; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; background: #0f172a; color: #e5edf9; font-size: 12px; line-height: 1.55; }
     footer { color: var(--muted); margin-top: 24px; font-size: 12px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .brand-mark { animation: brand-enter 480ms ease-out both; }
+      @keyframes brand-enter {
+        from { transform: translateY(6px) scale(0.96); }
+        to { transform: translateY(0) scale(1); }
+      }
+    }
     @media (max-width: 980px) {
       main { padding: 20px 16px 32px; }
       header, .grid { grid-template-columns: 1fr; }
@@ -362,7 +397,7 @@ export const renderAcceptanceReportHtml = model => {
   <main>
     <header>
       <div>
-        <h1>${escapeHtml(model.title)}</h1>
+        ${renderBrandLockup(model.title)}
         <div class="meta-grid">
           <div><div class="meta-label">版本</div><div class="meta-value">${escapeHtml(model.metadata.version)}</div></div>
           <div><div class="meta-label">提交</div><div class="meta-value">${escapeHtml(model.metadata.commit)}</div></div>

@@ -81,6 +81,12 @@ describe('release acceptance report', () => {
 
     expect(model.overallStatus).toBe('failed')
     expect(html).toContain('EMP v4 发布验收凭证')
+    expect(html).toContain('class="brand-lockup"')
+    expect(html).toContain('aria-label="EMP v4"')
+    expect(html).toContain('EMP V4')
+    expect(html).toContain('REPORT')
+    expect(html).toContain('Geist')
+    expect(html).not.toContain('font-family: Inter')
     expect(html).toContain('总体状态')
     expect(html).toContain('阻塞')
     expect(html).toContain('验证命令')
