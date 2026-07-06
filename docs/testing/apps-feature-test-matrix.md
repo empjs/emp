@@ -14,6 +14,8 @@
 | `corepack pnpm test:apps:single` | `apps/test/apps.acceptance.test.ts` | 默认构建验收，覆盖 8 个关键 app 的 build 和产物断言。 |
 | `corepack pnpm test:apps:browser` | `apps/*/test/browser/**/*.browser.ts` | apps 浏览器真实交互入口，当前覆盖 13 个 app。 |
 | `corepack pnpm test:rules` | apps catalog、browser coverage、release rules | 保护目标 app 清单、退休项目边界、browser test 文件映射和测试入口。 |
+| `corepack pnpm release:acceptance` | `workflow:check`、`ci:verify`、`empbuild`、`apps:acceptance`、`release:publish:dry -- --skip-build` | 生成 `.release/acceptance/index.html` 自包含验收 HTML，命令失败时仍落盘并返回非 0，用作每次发版凭证。 |
+| `corepack pnpm release:acceptance -- --include-browser` | 以上发布 gates + `test:apps:browser` | 需要把浏览器 E2E 一起纳入发版凭证时使用；默认不塞进 `apps:acceptance`，避免本地端口/浏览器环境影响基础验收。 |
 
 ## Apps 功能测试矩阵
 

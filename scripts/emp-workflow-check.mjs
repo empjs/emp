@@ -116,6 +116,7 @@ for (const file of [
   'scripts/emp-workflow-check.mjs',
   'scripts/root-test-targets.mjs',
   'scripts/run-root-test.mjs',
+  'scripts/release-acceptance-report.mjs',
   ROOT_RSTEST_CONFIG,
 ]) {
   requireFile(file)
@@ -272,6 +273,9 @@ if (exists('package.json')) {
   if (!pkg.scripts?.['ci:verify']?.includes('pnpm workflow:check')) {
     failures.push('package.json ci:verify does not include pnpm workflow:check')
   }
+  if (pkg.scripts?.['release:acceptance'] !== 'node scripts/release-acceptance-report.mjs') {
+    failures.push('package.json release:acceptance must run node scripts/release-acceptance-report.mjs')
+  }
   const testPackages = pkg.scripts?.['test:packages'] ?? ''
   if (!testPackages.includes('pnpm test:plugins')) {
     failures.push('package.json test:packages must include pnpm test:plugins for plugin config coverage')
@@ -382,6 +386,14 @@ if (exists('package.json')) {
 }
 
 requireText('.github/workflows/ci.yml', 'pnpm apps:acceptance')
+for (const text of [
+  'ROOT_TEST_TARGETS',
+  'ROOT_BROWSER_TEST_TARGETS',
+  '.release/acceptance/index.html',
+  '--include-browser',
+]) {
+  requireText('scripts/release-acceptance-report.mjs', text)
+}
 
 if (exists('packages/emp-share/package.json')) {
   const sharePkg = readJson('packages/emp-share/package.json')

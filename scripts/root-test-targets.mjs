@@ -4,7 +4,15 @@ const rootTestTargetEntries = [
   ['toolchain', ['test/toolchain.rules.test.ts']],
   ['plugins', ['test/plugin-config-shape.test.ts', 'test/plugin-output-coverage.test.ts']],
   ['tsconfig', ['test/tsconfig.rules.test.ts']],
-  ['rules', ['apps/test/apps.rules.test.ts', 'apps/test/apps.browser-coverage.test.ts', 'test/release.rules.test.ts']],
+  [
+    'rules',
+    [
+      'apps/test/apps.rules.test.ts',
+      'apps/test/apps.browser-coverage.test.ts',
+      'test/release.rules.test.ts',
+      'test/release-acceptance-report.test.ts',
+    ],
+  ],
   ['apps-single', ['apps/test/apps.acceptance.test.ts']],
   ['library-output', ['test/library-output.smoke.test.ts']],
 ]

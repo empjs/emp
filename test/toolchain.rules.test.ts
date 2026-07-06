@@ -65,6 +65,7 @@ describe('toolchain version contract', () => {
       'cdn:serve',
       'lint',
       'check:rslib-presets',
+      'release:acceptance',
       'release:check',
       'release:version',
       'release:changelog',
@@ -95,6 +96,7 @@ describe('toolchain version contract', () => {
       'corepack pnpm test:tsconfig && corepack pnpm empbuild && corepack pnpm apps:check && corepack pnpm test:apps:single && corepack pnpm test:library-output',
     )
     expect(pkg.scripts['test:release:rc1']).toBe('node scripts/run-root-test.mjs release-rc1')
+    expect(pkg.scripts['release:acceptance']).toBe('node scripts/release-acceptance-report.mjs')
     expect(readText('scripts/root-test-targets.mjs')).toContain(
       "const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.test.ts']]]",
     )

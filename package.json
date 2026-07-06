@@ -64,6 +64,7 @@
     "cdn:serve": "node scripts/static-services.mjs start --group react-runtime",
     "lint": "biome check --write",
     "check:rslib-presets": "node scripts/check-rslib-presets.mjs",
+    "release:acceptance": "node scripts/release-acceptance-report.mjs",
     "release:check": "node scripts/release.mjs check",
     "release:version": "node scripts/release.mjs version",
     "release:changelog": "node scripts/release.mjs changelog",
