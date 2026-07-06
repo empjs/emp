@@ -18,6 +18,7 @@ const appsBrowserTestFiles = [
   'apps/mf-app/test/browser/remote.browser.ts',
   'apps/mf-host/test/browser/mobx.browser.ts',
   'apps/react-19-tanstack/test/browser/react19.browser.ts',
+  'apps/rspack2-modern-module/test/browser/smoke.browser.ts',
   'apps/rspack2-optimization/test/browser/chunk.browser.ts',
   'apps/tailwind-4/test/browser/product-form.browser.ts',
   'apps/vue-2-base/test/browser/interactive.browser.ts',

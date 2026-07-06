@@ -9,7 +9,7 @@ const browserCoverage = {
   'mf-app': 'browser-interactive',
   'mf-host': 'browser-interactive',
   'react-19-tanstack': 'browser-interactive',
-  'rspack2-modern-module': 'build-only',
+  'rspack2-modern-module': 'browser-smoke',
   'rspack2-optimization': 'browser-smoke',
   'tailwind-4': 'browser-interactive',
   'vue-2-base': 'browser-interactive',
@@ -35,7 +35,7 @@ describe('apps browser coverage matrix', () => {
   test('keeps the real browser lane focused on apps with actual interaction surface', () => {
     expect(Object.values(browserCoverage).filter(value => value === 'browser-interactive').length).toBeGreaterThanOrEqual(8)
     expect(browserCoverage['adapter-app']).toBe('browser-interactive')
-    expect(browserCoverage['rspack2-modern-module']).toBe('build-only')
+    expect(browserCoverage['rspack2-modern-module']).toBe('browser-smoke')
   })
 
   test('maps every browser-covered app to at least one per-app browser test file', () => {

@@ -7,6 +7,7 @@ const children = new Set()
 const startedServiceNames = new Set()
 const allowExistingServices = process.env.APPS_BROWSER_REUSE_SERVICES === 'true'
 const startedServicesEnvKey = 'APPS_BROWSER_STARTED_SERVICES'
+const serviceFilterEnvKey = 'APPS_BROWSER_SERVICE_FILTER'
 
 export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
   'adapter-app': `http://${localhost}:7702/`,
@@ -16,6 +17,7 @@ export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
   'mf-app': `http://${localhost}:6002/`,
   'mf-host': `http://${localhost}:6001/`,
   'react-19-tanstack': `http://${localhost}:1992/`,
+  'rspack2-modern-module': `http://${localhost}:8101/`,
   'rspack2-optimization': `http://${localhost}:8102/`,
   'tailwind-4': `http://${localhost}:8104/`,
   'vue-2-base': `http://${localhost}:9001/`,
@@ -187,30 +189,54 @@ const services = [
     readyUrl: `http://${localhost}:8000/`,
   },
   staticService('tailwind-4', 'apps/tailwind-4/dist', 8104),
+  staticService('rspack2-modern-module', 'apps/rspack2-modern-module/dist', 8101),
   staticService('rspack2-optimization', 'apps/rspack2-optimization/dist', 8102),
   containerService,
 ]
 
-export async function buildAppsBrowserTargets() {
+function selectedBrowserServiceNames() {
+  return new Set(
+    (process.env[serviceFilterEnvKey] ?? '')
+      .split(',')
+      .map(name => name.trim())
+      .filter(Boolean),
+  )
+}
+
+function shouldRunNamedTarget(name, selectedNames) {
+  return selectedNames.size === 0 || selectedNames.has(name)
+}
+
+function shouldRunService(service, selectedNames) {
+  return shouldRunNamedTarget(service.name, selectedNames) || service.name === containerService.name
+}
+
+async function buildBrowserAppTarget(name, filter, args) {
+  if (shouldRunNamedTarget(name, filter)) await run('corepack', args)
+}
+
+export async function buildAppsBrowserTargets(filter = selectedBrowserServiceNames()) {
   await run('corepack', ['pnpm', '--filter', '@empjs/chain', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/cli', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/share', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-2-base', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-3-base', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/adapter-host', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/adapter-app', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/mf-host', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/mf-app', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-2-project', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/vue-3-project', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/react-19-tanstack', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/tailwind-4', 'build'])
-  await run('corepack', ['pnpm', '--filter', './apps/rspack2-optimization', 'build'])
+  await buildBrowserAppTarget('vue-2-base', filter, ['pnpm', '--filter', './apps/vue-2-base', 'build'])
+  await buildBrowserAppTarget('vue-3-base', filter, ['pnpm', '--filter', './apps/vue-3-base', 'build'])
+  await buildBrowserAppTarget('adapter-host', filter, ['pnpm', '--filter', './apps/adapter-host', 'build'])
+  await buildBrowserAppTarget('adapter-app', filter, ['pnpm', '--filter', './apps/adapter-app', 'build'])
+  await buildBrowserAppTarget('mf-host', filter, ['pnpm', '--filter', './apps/mf-host', 'build'])
+  await buildBrowserAppTarget('mf-app', filter, ['pnpm', '--filter', './apps/mf-app', 'build'])
+  await buildBrowserAppTarget('vue-2-project', filter, ['pnpm', '--filter', './apps/vue-2-project', 'build'])
+  await buildBrowserAppTarget('vue-3-project', filter, ['pnpm', '--filter', './apps/vue-3-project', 'build'])
+  await buildBrowserAppTarget('react-19-tanstack', filter, ['pnpm', '--filter', './apps/react-19-tanstack', 'build'])
+  await buildBrowserAppTarget('tailwind-4', filter, ['pnpm', '--filter', './apps/tailwind-4', 'build'])
+  await buildBrowserAppTarget('rspack2-modern-module', filter, ['pnpm', '--filter', './apps/rspack2-modern-module', 'build'])
+  await buildBrowserAppTarget('rspack2-optimization', filter, ['pnpm', '--filter', './apps/rspack2-optimization', 'build'])
 }
 
 export async function startAppsBrowserServices() {
-  await buildAppsBrowserTargets()
-  for (const service of services) await ensureService(service)
+  const selectedNames = selectedBrowserServiceNames()
+  await buildAppsBrowserTargets(selectedNames)
+  for (const service of services.filter(service => shouldRunService(service, selectedNames))) await ensureService(service)
   return {
     cleanup: cleanupAppsBrowserServices,
     proxyTargets: APP_BROWSER_PROXY_TARGETS,

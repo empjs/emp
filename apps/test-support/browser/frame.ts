@@ -9,6 +9,7 @@ export const appPaths = {
   'mf-app': '/container-static/mf-app/',
   'mf-host': '/container-static/mf-host/',
   'react-19-tanstack': '/container-static/react-19-tanstack/',
+  'rspack2-modern-module': '/container-static/rspack2-modern-module/',
   'rspack2-optimization': '/container-static/rspack2-optimization/',
   'tailwind-4': '/container-static/tailwind-4/',
   'vue-2-base': '/container-static/vue-2-base/',
