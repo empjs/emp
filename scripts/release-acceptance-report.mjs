@@ -13,6 +13,7 @@ import {
 
 const repoRootFromModule = fileURLToPath(new URL('..', import.meta.url))
 const defaultOutputFile = '.release/acceptance/index.html'
+const brandLogoPath = 'docs/assets/emp-v4-logo.png'
 
 export const DEFAULT_ACCEPTANCE_COMMANDS = Object.freeze([
   {
@@ -95,6 +96,18 @@ const formatDuration = durationMs => {
 const safeReadJson = file => {
   try {
     return JSON.parse(readFileSync(file, 'utf8'))
+  } catch {
+    return null
+  }
+}
+
+const readBrandLogo = repoRoot => {
+  try {
+    const logo = readFileSync(path.join(repoRoot, brandLogoPath))
+    return {
+      sourcePath: brandLogoPath,
+      dataUri: `data:image/png;base64,${logo.toString('base64')}`,
+    }
   } catch {
     return null
   }
@@ -197,6 +210,7 @@ export const buildAcceptanceReportModel = ({
       timeStyle: 'medium',
       timeZone: 'Asia/Shanghai',
     }).format(new Date(generatedAt)),
+    brandLogo: readBrandLogo(repoRoot),
     metadata: metadata ?? readGitMetadata(repoRoot),
     overallStatus: resolveOverallStatus(normalizedCommandResults),
     commandSummary: summarizeCommands(normalizedCommandResults),
@@ -215,22 +229,75 @@ export const buildAcceptanceReportModel = ({
 }
 
 const renderStatusBadge = status =>
-  `<span class="status status-${escapeHtml(status)}"><span class="dot"></span>${escapeHtml(statusText[status] ?? status)}</span>`
+  `<span class="release-badge release-badge-${escapeHtml(getStatusClass(status))}"><span class="release-badge-dot"></span>${escapeHtml(statusText[status] ?? status)}</span>`
+
+const getStatusClass = status => {
+  if (status === 'passed') return 'passed'
+  if (status === 'failed') return 'failed'
+  return 'skipped'
+}
+
+const getGateSubtext = status => {
+  if (status === 'passed') return '满足发布条件'
+  if (status === 'failed') return '未满足发布条件'
+  if (status === 'warning') return '存在可选项异常'
+  return '尚未执行发布命令'
+}
+
+const formatPercentValue = (value, total) => {
+  if (!total) return 0
+  return Math.round((value / total) * 100)
+}
+
+const renderCommandDistribution = summary => {
+  const width = 312
+  const passedWidth = Math.round((formatPercentValue(summary.passed, summary.total) / 100) * width)
+  const skippedWidth = Math.round((formatPercentValue(summary.skipped, summary.total) / 100) * width)
+  const failedWidth = summary.total ? Math.max(width - passedWidth - skippedWidth, 0) : 0
+  const skippedX = 24 + passedWidth
+  const failedX = skippedX + skippedWidth
+
+  return `<svg class="command-distribution" aria-label="命令结果分布" role="img" viewBox="0 0 360 168">
+    <title>命令结果分布</title>
+    <desc>通过 ${escapeHtml(summary.passed)}，跳过 ${escapeHtml(summary.skipped)}，失败 ${escapeHtml(summary.failed)}，总计 ${escapeHtml(summary.total)}</desc>
+    <rect class="chart-track" x="24" y="46" width="${escapeHtml(width)}" height="20" rx="10"></rect>
+    <rect class="chart-segment chart-passed" x="24" y="46" width="${escapeHtml(passedWidth)}" height="20" rx="10"></rect>
+    <rect class="chart-segment chart-skipped" x="${escapeHtml(skippedX)}" y="46" width="${escapeHtml(skippedWidth)}" height="20"></rect>
+    <rect class="chart-segment chart-failed" x="${escapeHtml(failedX)}" y="46" width="${escapeHtml(failedWidth)}" height="20" rx="10"></rect>
+    <g class="chart-axis">
+      <text x="24" y="102">通过 ${escapeHtml(formatPercentValue(summary.passed, summary.total))}%</text>
+      <text x="150" y="102">跳过 ${escapeHtml(formatPercentValue(summary.skipped, summary.total))}%</text>
+      <text x="274" y="102">失败 ${escapeHtml(formatPercentValue(summary.failed, summary.total))}%</text>
+    </g>
+    <g class="chart-legend">
+      <circle class="chart-dot chart-passed" cx="30" cy="132" r="4"></circle>
+      <text x="42" y="136">${escapeHtml(summary.passed)} passed</text>
+      <circle class="chart-dot chart-skipped" cx="144" cy="132" r="4"></circle>
+      <text x="156" y="136">${escapeHtml(summary.skipped)} skipped</text>
+      <circle class="chart-dot chart-failed" cx="270" cy="132" r="4"></circle>
+      <text x="282" y="136">${escapeHtml(summary.failed)} failed</text>
+    </g>
+  </svg>`
+}
 
 const renderCommandRows = commandResults =>
   commandResults
     .map(
-      result => `<tr>
-        <td><code>${escapeHtml(result.label)}</code></td>
+      (result, index) => `<tr>
+        <td><span class="step-index step-${escapeHtml(getStatusClass(result.status))}">${escapeHtml(index + 1)}</span></td>
+        <td>
+          <div class="command-name"><code>${escapeHtml(result.label)}</code><span>${escapeHtml(result.command ?? '-')}</span></div>
+        </td>
         <td>${renderStatusBadge(result.status)}</td>
         <td>${escapeHtml(result.required ? '必需' : '可选')}</td>
         <td>${escapeHtml(formatDuration(result.durationMs))}</td>
-        <td>${escapeHtml(result.exitCode ?? '-')}</td>
-        <td class="mono">${escapeHtml(result.command)}</td>
+        <td class="mono">${escapeHtml(result.startedAt ? new Intl.DateTimeFormat('zh-CN', {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Shanghai'}).format(new Date(result.startedAt)) : '-')}</td>
         <td>${escapeHtml(result.scope ?? '-')}</td>
       </tr>`,
     )
     .join('\n')
+
+const renderFileList = files => `<div class="file-list">${files.map(file => `<code>${escapeHtml(file)}</code>`).join('')}</div>`
 
 const renderTargetRows = targets =>
   targets
@@ -239,10 +306,63 @@ const renderTargetRows = targets =>
         <td><code>${escapeHtml(target.id)}</code></td>
         <td>${escapeHtml(target.fileCount)}</td>
         <td class="mono">${escapeHtml(target.command)}</td>
-        <td>${target.files.map(file => `<code>${escapeHtml(file)}</code>`).join('<br>')}</td>
+        <td>${renderFileList(target.files)}</td>
       </tr>`,
     )
     .join('\n')
+
+const renderArtifactRows = model => {
+  const totalTestFiles = model.coverageSummary.rootTestFiles + model.coverageSummary.browserTestFiles
+  const rows = [
+    {
+      name: '验收报告（本页）',
+      value: '自包含 HTML',
+      detail: model.generatedAtText,
+      action: '查看',
+    },
+    {
+      name: '测试矩阵',
+      value: `${model.rootTargets.length} 个根目标`,
+      detail: `${totalTestFiles} 个测试文件`,
+      action: '查看',
+    },
+    {
+      name: '浏览器覆盖清单',
+      value: `${model.browserTargets.length} 个目标`,
+      detail: `${model.coverageSummary.browserTestFiles} 个浏览器测试文件`,
+      action: '查看',
+    },
+    {
+      name: '未覆盖边界清单',
+      value: `${model.coverageSummary.uncoveredBoundaries} 项`,
+      detail: '来自 docs/testing/apps-feature-test-matrix.md',
+      action: '查看',
+    },
+    {
+      name: '完整提交',
+      value: model.metadata.commit,
+      detail: model.metadata.fullCommit,
+      action: '复制',
+    },
+    {
+      name: '工作区状态',
+      value: model.metadata.dirty ? '有改动' : 'clean',
+      detail: model.metadata.dirtySummary,
+      action: '查看',
+    },
+  ]
+
+  return rows
+    .map(
+      row => `<tr>
+        <td>${escapeHtml(row.name)}</td>
+        <td class="mono">${escapeHtml(row.value)}</td>
+        <td>${escapeHtml(row.detail)}</td>
+        <td><span class="link-like">${escapeHtml(row.action)}</span></td>
+      </tr>`,
+    )
+    .join('\n')
+}
 
 const renderBoundaryRows = boundaries => {
   if (boundaries.length === 0) {
@@ -258,6 +378,18 @@ const renderBoundaryRows = boundaries => {
     .join('\n')
 }
 
+const renderCoverageRows = targets =>
+  targets
+    .map(
+      target => `<tr>
+        <td><code>${escapeHtml(target.id)}</code></td>
+        <td>${escapeHtml(target.fileCount)}</td>
+        <td class="mono">${escapeHtml(target.command)}</td>
+        <td>${renderFileList(target.files)}</td>
+      </tr>`,
+    )
+    .join('\n')
+
 const renderLogSections = commandResults =>
   commandResults
     .filter(result => result.output)
@@ -269,25 +401,33 @@ const renderLogSections = commandResults =>
     )
     .join('\n')
 
-const renderBrandLockup = title => `<div class="brand-lockup">
-        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="EMP v4" focusable="false">
-          <title>EMP v4</title>
-          <rect class="brand-mark-bg" x="3" y="3" width="58" height="58" rx="14" fill="#0f172a"></rect>
-          <path class="brand-mark-grid" d="M12 16h40M12 48h40M16 12v40M48 12v40"></path>
-          <text class="brand-mark-text" x="32" y="31" text-anchor="middle">EMP</text>
-          <rect class="brand-mark-chip" x="21" y="38" width="22" height="12" rx="6"></rect>
-          <text class="brand-mark-version" x="32" y="48" text-anchor="middle">v4</text>
-        </svg>
-        <div class="brand-copy">
-          <div class="brand-kicker">EMP V4</div>
-          <h1>${escapeHtml(title)}</h1>
-          <div class="brand-subtitle">Release acceptance evidence / REPORT</div>
-        </div>
-      </div>`
+const renderBrandLogo = brandLogo => {
+  if (!brandLogo?.dataUri) {
+    return '<div class="brand-logo brand-logo-fallback" aria-label="EMP v4">EMP</div>'
+  }
+  return `<img class="brand-logo" src="${escapeHtml(brandLogo.dataUri)}" alt="EMP v4">`
+}
 
 export const renderAcceptanceReportHtml = model => {
   const overall = model.overallStatus
+  const overallClass = getStatusClass(overall)
   const summary = model.commandSummary
+  const commandPassRate = summary.total ? `${Math.round((summary.passed / summary.total) * 100)}%` : '-'
+  const commandPassRateValue = formatPercentValue(summary.passed, summary.total)
+  const totalDurationMs = model.commandResults.reduce((total, result) => total + (Number(result.durationMs) || 0), 0)
+  const totalTestFiles = model.coverageSummary.rootTestFiles + model.coverageSummary.browserTestFiles
+  const requiredTotal = model.commandResults.filter(result => result.required).length
+  const requiredPassed = model.commandResults.filter(result => result.required && result.status === 'passed').length
+  const boundaryTone = model.coverageSummary.uncoveredBoundaries > 0 ? 'failed' : 'passed'
+  const buildDate = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Shanghai',
+  })
+    .format(new Date(model.generatedAt))
+    .replaceAll('-', '')
+  const buildId = `${buildDate}.${model.metadata.commit.slice(0, 4)}`
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -297,203 +437,342 @@ export const renderAcceptanceReportHtml = model => {
   <style>
     :root {
       color-scheme: light;
-      --bg: #ffffff;
-      --ink: #111827;
-      --muted: #667085;
-      --line: #d9dee8;
-      --soft: #f6f8fb;
-      --soft-strong: #eef2f7;
+      --background: #f6f7f8;
+      --foreground: #171717;
+      --card: #ffffff;
+      --muted: #68707f;
+      --muted-foreground: #4e5664;
+      --border: #dde2e8;
+      --border-strong: #c9d0da;
+      --primary: #111111;
+      --primary-foreground: #ffffff;
+      --success: #177245;
+      --success-soft: #eaf7ef;
+      --warning: #b56503;
+      --warning-soft: #fff4df;
+      --destructive: #d92d20;
+      --destructive-soft: #fff0ee;
       --accent: #0f766e;
-      --accent-strong: #115e59;
-      --accent-soft: #e7f7f4;
-      --green: #16803c;
-      --green-bg: #eaf7ef;
-      --amber: #b76a00;
-      --amber-bg: #fff6df;
-      --red: #cc1f1a;
-      --red-bg: #fff0ef;
-      --shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+      --accent-soft: #e7f5f3;
+      --violet: #6d5dfc;
+      --violet-soft: #f0efff;
+      --shadow: 0 18px 50px rgb(17 17 17 / 0.08);
     }
     * { box-sizing: border-box; }
-    html { background: var(--bg); color: var(--ink); font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: var(--bg); font-size: 14px; line-height: 1.5; }
-    main { width: min(1440px, 100%); margin: 0 auto; padding: 28px 32px 40px; }
-    header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 360px); gap: 24px; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
-    h1 { margin: 2px 0 6px; font-size: clamp(28px, 3vw, 42px); line-height: 1.08; font-weight: 780; letter-spacing: 0; }
-    h2 { margin: 0 0 12px; font-size: 18px; line-height: 1.25; font-weight: 720; letter-spacing: 0; }
-    h3 { margin: 0 0 10px; font-size: 15px; line-height: 1.25; font-weight: 720; letter-spacing: 0; }
-    .brand-lockup { display: flex; align-items: center; gap: 16px; min-width: 0; margin-bottom: 18px; }
-    .brand-mark { width: 72px; height: 72px; flex: 0 0 72px; filter: drop-shadow(0 10px 18px rgba(15, 118, 110, 0.18)); }
-    .brand-mark-bg { fill: #0f172a; stroke: rgba(15, 118, 110, 0.58); stroke-width: 2; }
-    .brand-mark-grid { fill: none; stroke: rgba(45, 212, 191, 0.32); stroke-width: 1; stroke-linecap: round; }
-    .brand-mark-text { fill: #f8fafc; font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 820; }
-    .brand-mark-chip { fill: #2dd4bf; }
-    .brand-mark-version { fill: #0f172a; font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif; font-size: 10px; font-weight: 820; }
+    html { background: var(--background); color: var(--foreground); font-family: Geist, Satoshi, "Cabinet Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: var(--background); font-size: 14px; line-height: 1.45; overflow-x: hidden; }
+    h1, h2, h3, p { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 34px; line-height: 1.08; font-weight: 820; }
+    h2 { font-size: 18px; line-height: 1.2; font-weight: 760; }
+    h3 { font-size: 14px; line-height: 1.25; font-weight: 740; }
+    .acceptance-dashboard { min-height: 100vh; display: grid; grid-template-columns: 286px minmax(0, 1fr); background: var(--background); }
+    .dashboard-sidebar { min-width: 0; padding: 20px 18px; display: flex; flex-direction: column; gap: 18px; background: #111111; color: var(--primary-foreground); border-right: 1px solid #252525; }
+    .brand-heading { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-logo { width: 52px; height: 52px; flex: 0 0 52px; border: 1px solid rgb(255 255 255 / 0.16); border-radius: 8px; object-fit: cover; background: #ffffff; }
+    .brand-logo-fallback { display: grid; place-items: center; color: var(--foreground); font-weight: 820; }
     .brand-copy { min-width: 0; }
-    .brand-kicker { color: var(--accent-strong); font-size: 12px; font-weight: 820; letter-spacing: 0; }
-    .brand-subtitle { color: var(--muted); font-size: 13px; font-weight: 640; overflow-wrap: anywhere; }
-    .meta-grid { display: grid; grid-template-columns: repeat(6, minmax(100px, 1fr)); gap: 14px; }
-    .meta-label { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
-    .meta-value { font-weight: 680; overflow-wrap: anywhere; }
-    .status-card { border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 18px; background: #fff; }
-    .status-card .overall { display: flex; align-items: center; gap: 14px; }
-    .shield { width: 56px; height: 56px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-size: 30px; font-weight: 800; }
-    .shield.passed { background: var(--green); }
-    .shield.failed { background: var(--red); }
-    .shield.skipped, .shield.warning { background: var(--amber); }
-    .overall-text { font-size: 34px; line-height: 1; font-weight: 820; }
-    .overall-text.passed { color: var(--green); }
-    .overall-text.failed { color: var(--red); }
-    .overall-text.skipped, .overall-text.warning { color: var(--amber); }
-    .summary-list { margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .summary-list div { background: var(--soft); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
-    .summary-list span { display: block; color: var(--muted); font-size: 12px; }
-    .summary-list strong { font-size: 18px; }
-    .metric-strip { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); margin: 22px 0; }
-    .metric { padding: 18px; border-right: 1px solid var(--line); min-width: 0; }
-    .metric:last-child { border-right: 0; }
-    .metric span { display: block; color: var(--muted); font-size: 12px; }
-    .metric strong { display: block; margin-top: 6px; font-size: 28px; line-height: 1.1; }
-    .grid { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 24px; align-items: start; }
-    section { margin-top: 22px; }
-    .panel { border: 1px solid var(--line); border-radius: 8px; background: #fff; overflow: hidden; }
-    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 16px; background: var(--soft); border-bottom: 1px solid var(--line); }
-    .panel-body { padding: 16px; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
-    th { background: var(--soft); color: #344054; font-size: 12px; font-weight: 720; }
-    td { background: #fff; }
+    .brand-title { font-size: 18px; line-height: 1.1; font-weight: 820; }
+    .brand-description { margin-top: 3px; color: rgb(255 255 255 / 0.62); font-size: 12px; font-weight: 650; }
+    .sidebar-nav { display: grid; gap: 7px; }
+    .sidebar-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 10px; border: 1px solid rgb(255 255 255 / 0.08); border-radius: 8px; color: rgb(255 255 255 / 0.78); text-decoration: none; font-size: 13px; font-weight: 680; }
+    .sidebar-link strong { color: #ffffff; font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+    .sidebar-card { margin-top: auto; padding: 14px; border: 1px solid rgb(255 255 255 / 0.12); border-radius: 8px; background: rgb(255 255 255 / 0.06); display: grid; gap: 10px; }
+    .sidebar-card span { color: rgb(255 255 255 / 0.64); font-size: 12px; }
+    .sidebar-status { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .sidebar-status strong { font-size: 26px; line-height: 1; }
+    .status-word-passed { color: #5bd286; }
+    .status-word-failed { color: #ff7066; }
+    .status-word-skipped { color: #ffc15a; }
+    .dashboard-shell { min-width: 0; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .dashboard-hero { display: grid; grid-template-columns: minmax(0, 1fr) 332px; gap: 16px; align-items: stretch; }
+    .hero-copy, .hero-status, .metric-card, .dashboard-card { border: 1px solid var(--border); border-radius: 8px; background: var(--card); box-shadow: var(--shadow); }
+    .hero-copy { min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .eyebrow { color: var(--accent); font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 12px; font-weight: 780; text-transform: uppercase; }
+    .hero-copy p { max-width: 780px; color: var(--muted-foreground); font-size: 14px; }
+    .hero-status { padding: 18px; display: grid; align-content: space-between; gap: 18px; }
+    .hero-status-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .status-emblem { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 8px; color: var(--primary-foreground); font-size: 30px; line-height: 1; font-weight: 860; }
+    .status-emblem.passed { background: var(--success); }
+    .status-emblem.failed { background: var(--destructive); }
+    .status-emblem.skipped { background: var(--warning); }
+    .hero-status-word { font-size: 36px; line-height: 1; font-weight: 860; }
+    .hero-status small { color: var(--muted); font-size: 12px; }
+    .status-counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .status-counts div { padding: 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); }
+    .status-counts span { display: block; color: var(--muted); font-size: 12px; }
+    .status-counts strong { display: block; margin-top: 4px; font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 20px; line-height: 1; }
+    .meta-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .meta-item { min-width: 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); }
+    .meta-label { color: var(--muted); font-size: 12px; margin-bottom: 5px; }
+    .meta-value { font-weight: 710; overflow-wrap: anywhere; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .metric-card { min-width: 0; padding: 16px; display: grid; gap: 12px; }
+    .metric-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .metric-label { color: var(--muted); font-size: 12px; font-weight: 720; }
+    .metric-value { font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 30px; line-height: 1; font-weight: 820; }
+    .metric-sub { color: var(--muted-foreground); font-size: 12px; }
+    .metric-progress { height: 8px; border-radius: 999px; background: var(--background); overflow: hidden; }
+    .metric-progress span { display: block; width: var(--progress); height: 100%; border-radius: inherit; background: var(--accent); }
+    .metric-card-passed .metric-value, .metric-card-passed .metric-icon { color: var(--success); }
+    .metric-card-failed .metric-value, .metric-card-failed .metric-icon { color: var(--destructive); }
+    .metric-card-skipped .metric-value, .metric-card-skipped .metric-icon { color: var(--warning); }
+    .metric-card-accent .metric-value, .metric-card-accent .metric-icon { color: var(--accent); }
+    .metric-card-violet .metric-value, .metric-card-violet .metric-icon { color: var(--violet); }
+    .metric-icon { width: 26px; height: 26px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 8px; font-size: 13px; font-weight: 820; }
+    .dashboard-main-grid { display: grid; grid-template-columns: minmax(420px, 1.06fr) minmax(360px, 0.94fr); gap: 14px; align-items: start; }
+    .dashboard-card { min-width: 0; overflow: hidden; }
+    .dashboard-card-header { padding: 15px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .dashboard-card-description { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .dashboard-card-content { min-width: 0; padding: 14px 16px 16px; }
+    .chart-card .dashboard-card-content { padding-top: 10px; }
+    .command-distribution { width: 100%; height: auto; display: block; color: var(--muted); }
+    .chart-track { fill: var(--background); }
+    .chart-segment, .chart-dot { shape-rendering: geometricPrecision; }
+    .chart-passed { fill: var(--success); }
+    .chart-skipped { fill: var(--warning); }
+    .chart-failed { fill: var(--destructive); }
+    .chart-axis text, .chart-legend text { fill: var(--muted-foreground); font-size: 12px; font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; }
+    .table-scroll { width: 100%; overflow-x: auto; }
+    .dashboard-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+    .dashboard-table th, .dashboard-table td { border-bottom: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .dashboard-table th { color: var(--muted); background: var(--background); font-size: 12px; font-weight: 740; }
+    .dashboard-table tbody tr:last-child td { border-bottom: 0; }
+    .dashboard-table tbody tr:hover td { background: #fbfcfd; }
+    .command-table th:nth-child(1) { width: 52px; }
+    .command-table th:nth-child(2) { width: 28%; }
+    .command-table th:nth-child(3) { width: 98px; }
+    .command-table th:nth-child(4) { width: 80px; }
+    .command-table th:nth-child(5) { width: 92px; }
+    .command-table th:nth-child(6) { width: 102px; }
+    .artifact-table th:nth-child(1) { width: 26%; }
+    .artifact-table th:nth-child(2) { width: 18%; }
+    .artifact-table th:nth-child(3) { width: 40%; }
+    .matrix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+    .test-matrix, .coverage-table, .boundary-table { min-width: 860px; }
     code, .mono { font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; }
-    code { color: var(--accent-strong); }
-    .status { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 62px; border-radius: 7px; padding: 4px 8px; font-weight: 720; font-size: 12px; border: 1px solid currentColor; }
-    .dot { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
-    .status-passed { color: var(--green); background: var(--green-bg); }
-    .status-failed { color: var(--red); background: var(--red-bg); }
-    .status-skipped { color: var(--amber); background: var(--amber-bg); }
-    .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 12px 14px; color: #164e4a; }
-    .log { border: 1px solid var(--line); border-radius: 8px; margin-top: 10px; overflow: hidden; }
-    .log summary { cursor: pointer; padding: 10px 12px; background: var(--soft); font-weight: 680; }
-    pre { margin: 0; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; background: #0f172a; color: #e5edf9; font-size: 12px; line-height: 1.55; }
-    footer { color: var(--muted); margin-top: 24px; font-size: 12px; }
-    @media (prefers-reduced-motion: no-preference) {
-      .brand-mark { animation: brand-enter 480ms ease-out both; }
-      @keyframes brand-enter {
-        from { transform: translateY(6px) scale(0.96); }
-        to { transform: translateY(0) scale(1); }
-      }
+    code { color: var(--accent); }
+    .release-badge { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 64px; border-radius: 999px; padding: 4px 9px; font-weight: 740; font-size: 12px; border: 1px solid currentColor; white-space: nowrap; }
+    .release-badge-dot { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
+    .release-badge-passed { color: var(--success); background: var(--success-soft); }
+    .release-badge-failed { color: var(--destructive); background: var(--destructive-soft); }
+    .release-badge-skipped { color: var(--warning); background: var(--warning-soft); }
+    .step-index { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; color: var(--primary-foreground); font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 12px; font-weight: 760; }
+    .step-passed { background: var(--success); }
+    .step-failed { background: var(--destructive); }
+    .step-skipped { background: var(--warning); }
+    .command-name { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .command-name span { color: var(--muted); font-family: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 11px; overflow-wrap: anywhere; }
+    .file-list { max-height: 118px; overflow: auto; display: grid; gap: 4px; padding-right: 4px; -webkit-overflow-scrolling: touch; }
+    .file-list code { display: block; line-height: 1.4; }
+    .link-like { color: var(--accent); font-weight: 720; }
+    .log { border-top: 1px solid var(--border); overflow: hidden; }
+    .log summary { cursor: pointer; padding: 10px 12px; background: var(--background); font-weight: 680; }
+    pre { margin: 0; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; background: #111111; color: #f4f6f8; font-size: 12px; line-height: 1.5; }
+    footer { color: var(--muted); font-size: 12px; }
+    @media (max-width: 1180px) {
+      .acceptance-dashboard { grid-template-columns: 1fr; }
+      .dashboard-sidebar { border-right: 0; border-bottom: 1px solid #252525; }
+      .sidebar-card { margin-top: 0; }
+      .sidebar-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dashboard-main-grid, .matrix-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 980px) {
-      main { padding: 20px 16px 32px; }
-      header, .grid { grid-template-columns: 1fr; }
-      .meta-grid, .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .metric { border-bottom: 1px solid var(--line); }
-      .metric:nth-child(2n) { border-right: 0; }
-      .summary-list { grid-template-columns: repeat(2, 1fr); }
-      table { table-layout: auto; min-width: 760px; }
+    @media (max-width: 860px) {
+      .dashboard-shell { padding: 14px; }
+      .dashboard-hero, .dashboard-grid, .meta-strip { grid-template-columns: 1fr; }
+      .hero-copy, .hero-status, .metric-card, .dashboard-card { box-shadow: none; }
+      h1 { font-size: 28px; }
+      .hero-status-word { font-size: 31px; }
+      .status-counts { grid-template-columns: 1fr; }
+      .sidebar-nav { grid-template-columns: 1fr; }
+      .dashboard-table { table-layout: auto; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <div>
-        ${renderBrandLockup(model.title)}
-        <div class="meta-grid">
-          <div><div class="meta-label">版本</div><div class="meta-value">${escapeHtml(model.metadata.version)}</div></div>
-          <div><div class="meta-label">提交</div><div class="meta-value">${escapeHtml(model.metadata.commit)}</div></div>
-          <div><div class="meta-label">分支</div><div class="meta-value">${escapeHtml(model.metadata.branch)}</div></div>
-          <div><div class="meta-label">生成时间</div><div class="meta-value">${escapeHtml(model.generatedAtText)}</div></div>
-          <div><div class="meta-label">工作区</div><div class="meta-value">${escapeHtml(model.metadata.dirty ? '有改动' : 'clean')}</div></div>
-          <div><div class="meta-label">项目</div><div class="meta-value">${escapeHtml(model.metadata.project)}</div></div>
+  <main class="acceptance-dashboard">
+    <aside class="dashboard-sidebar" aria-label="发布验收导航">
+      <div class="brand-heading">
+        ${renderBrandLogo(model.brandLogo)}
+        <div class="brand-copy">
+          <div class="brand-title">EMP v4</div>
+          <div class="brand-description">Release Acceptance</div>
         </div>
       </div>
-      <aside class="status-card" aria-label="发布验收总体状态">
-        <div class="overall">
-          <div class="shield ${escapeHtml(overall)}">!</div>
-          <div>
-            <div class="meta-label">发布验收总体状态</div>
-            <div class="overall-text ${escapeHtml(overall)}">${escapeHtml(overallText[overall])}</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#overview">总体状态 <strong>${escapeHtml(overallText[overall])}</strong></a>
+        <a class="sidebar-link" href="#commands">验证命令 <strong>${escapeHtml(summary.total)}</strong></a>
+        <a class="sidebar-link" href="#artifacts">产物证据 <strong>HTML</strong></a>
+        <a class="sidebar-link" href="#matrix">测试矩阵 <strong>${escapeHtml(totalTestFiles)}</strong></a>
+        <a class="sidebar-link" href="#coverage">新增覆盖 <strong>${escapeHtml(model.browserTargets.length)}</strong></a>
+        <a class="sidebar-link" href="#boundaries">未覆盖边界 <strong>${escapeHtml(model.coverageSummary.uncoveredBoundaries)}</strong></a>
+      </nav>
+      <div class="sidebar-card">
+        <span>发布门禁</span>
+        <div class="sidebar-status">
+          <strong class="status-word-${escapeHtml(overallClass)}">${escapeHtml(overallText[overall])}</strong>
+          ${renderStatusBadge(overall === 'warning' ? 'skipped' : overall)}
+        </div>
+        <span>${escapeHtml(getGateSubtext(overall))}</span>
+      </div>
+    </aside>
+
+    <section class="dashboard-shell">
+      <header class="dashboard-hero" id="overview">
+        <div class="hero-copy">
+          <div class="eyebrow">Release Command Center</div>
+          <h1>${escapeHtml(model.title)}</h1>
+          <p>面向 EMP v4 发版的验收 dashboard，汇总 workflow、CI、构建、apps 验收、dry-run、浏览器覆盖、产物证据和剩余边界。</p>
+        </div>
+        <aside class="hero-status" aria-label="发布验收总体状态">
+          <div class="hero-status-top">
+            <div>
+              <small>发布验收总体状态</small>
+              <div class="hero-status-word status-word-${escapeHtml(overallClass)}">${escapeHtml(overallText[overall])}</div>
+            </div>
+            <div class="status-emblem ${escapeHtml(overallClass)}">!</div>
           </div>
-        </div>
-        <div class="summary-list">
-          <div><span>通过</span><strong>${escapeHtml(summary.passed)}</strong></div>
-          <div><span>失败</span><strong>${escapeHtml(summary.failed)}</strong></div>
-          <div><span>跳过</span><strong>${escapeHtml(summary.skipped)}</strong></div>
-          <div><span>总计</span><strong>${escapeHtml(summary.total)}</strong></div>
-        </div>
-      </aside>
-    </header>
+          <div class="status-counts">
+            <div><span>通过</span><strong>${escapeHtml(summary.passed)}</strong></div>
+            <div><span>跳过</span><strong>${escapeHtml(summary.skipped)}</strong></div>
+            <div><span>失败</span><strong>${escapeHtml(summary.failed)}</strong></div>
+          </div>
+        </aside>
+      </header>
 
-    <section class="metric-strip" aria-label="总体状态">
-      <div class="metric"><span>根测试目标</span><strong>${escapeHtml(model.coverageSummary.rootTargets)}</strong></div>
-      <div class="metric"><span>浏览器目标</span><strong>${escapeHtml(model.coverageSummary.browserTargets)}</strong></div>
-      <div class="metric"><span>根测试文件</span><strong>${escapeHtml(model.coverageSummary.rootTestFiles)}</strong></div>
-      <div class="metric"><span>浏览器测试文件</span><strong>${escapeHtml(model.coverageSummary.browserTestFiles)}</strong></div>
-      <div class="metric"><span>命令通过率</span><strong>${escapeHtml(summary.total ? `${Math.round((summary.passed / summary.total) * 100)}%` : '-')}</strong></div>
-      <div class="metric"><span>未覆盖边界</span><strong>${escapeHtml(model.coverageSummary.uncoveredBoundaries)}</strong></div>
-    </section>
+      <section class="meta-strip" aria-label="发布元信息">
+        <div class="meta-item"><div class="meta-label">版本/标签</div><div class="meta-value">${escapeHtml(model.metadata.version)}</div></div>
+        <div class="meta-item"><div class="meta-label">提交</div><div class="meta-value">${escapeHtml(model.metadata.commit)}</div></div>
+        <div class="meta-item"><div class="meta-label">分支</div><div class="meta-value">${escapeHtml(model.metadata.branch)}</div></div>
+        <div class="meta-item"><div class="meta-label">构建号</div><div class="meta-value">${escapeHtml(buildId)}</div></div>
+        <div class="meta-item"><div class="meta-label">验收时间</div><div class="meta-value">${escapeHtml(model.generatedAtText)}</div></div>
+      </section>
 
-    <div class="grid">
-      <section class="panel">
-        <div class="panel-head"><h2>验证命令</h2><span>${escapeHtml(summary.total)} 条</span></div>
-        <div class="panel-body">
-          <table>
+      <section class="dashboard-grid" aria-label="核心指标">
+        <article class="metric-card metric-card-${escapeHtml(overallClass)}">
+          <div class="metric-card-header"><span class="metric-label">发布门禁</span><span class="metric-icon">!</span></div>
+          <div class="metric-value">${escapeHtml(overallText[overall])}</div>
+          <div class="metric-sub">${escapeHtml(getGateSubtext(overall))}</div>
+        </article>
+        <article class="metric-card metric-card-${escapeHtml(overallClass)}">
+          <div class="metric-card-header"><span class="metric-label">命令通过率</span><span class="metric-icon">%</span></div>
+          <div class="metric-value">${escapeHtml(commandPassRate)}</div>
+          <div class="metric-progress"><span style="--progress: ${escapeHtml(commandPassRateValue)}%"></span></div>
+          <div class="metric-sub">${escapeHtml(summary.passed)} / ${escapeHtml(summary.total)} 通过</div>
+        </article>
+        <article class="metric-card metric-card-accent">
+          <div class="metric-card-header"><span class="metric-label">测试文件总数</span><span class="metric-icon">T</span></div>
+          <div class="metric-value">${escapeHtml(totalTestFiles)}</div>
+          <div class="metric-sub">root ${escapeHtml(model.coverageSummary.rootTestFiles)} / browser ${escapeHtml(model.coverageSummary.browserTestFiles)}</div>
+        </article>
+        <article class="metric-card metric-card-${escapeHtml(boundaryTone)}">
+          <div class="metric-card-header"><span class="metric-label">未覆盖边界</span><span class="metric-icon">B</span></div>
+          <div class="metric-value">${escapeHtml(model.coverageSummary.uncoveredBoundaries)}</div>
+          <div class="metric-sub">来自 apps 功能测试矩阵</div>
+        </article>
+      </section>
+
+      <section class="dashboard-main-grid">
+        <article class="dashboard-card chart-card">
+          <div class="dashboard-card-header">
+            <div>
+              <h2>命令结果分布</h2>
+              <div class="dashboard-card-description">必需门禁 ${escapeHtml(requiredPassed)} / ${escapeHtml(requiredTotal)} 通过，累计耗时 ${escapeHtml(formatDuration(totalDurationMs))}</div>
+            </div>
+            ${renderStatusBadge(overall === 'warning' ? 'skipped' : overall)}
+          </div>
+          <div class="dashboard-card-content">
+            ${renderCommandDistribution(summary)}
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="artifacts">
+          <div class="dashboard-card-header">
+            <div>
+              <h2>产物证据</h2>
+              <div class="dashboard-card-description">发布凭证、测试矩阵、浏览器覆盖和工作区状态</div>
+            </div>
+            <span class="release-badge release-badge-skipped">自包含</span>
+          </div>
+          <div class="table-scroll">
+            <table class="dashboard-table artifact-table">
+              <thead><tr><th>产物</th><th>数值</th><th>说明</th><th>操作</th></tr></thead>
+              <tbody>${renderArtifactRows(model)}</tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <article class="dashboard-card" id="commands">
+        <div class="dashboard-card-header">
+          <div>
+            <h2>验证命令</h2>
+            <div class="dashboard-card-description">每次发版的真实命令执行状态和输出摘要</div>
+          </div>
+          <span class="release-badge release-badge-skipped">${escapeHtml(summary.total)} 条</span>
+        </div>
+        <div class="table-scroll">
+          <table class="dashboard-table command-table">
             <thead>
-              <tr><th>命令</th><th>状态</th><th>门禁</th><th>耗时</th><th>退出码</th><th>实际命令</th><th>范围</th></tr>
+              <tr><th>#</th><th>命令</th><th>状态</th><th>门禁</th><th>耗时</th><th>开始时间</th><th>范围</th></tr>
             </thead>
             <tbody>${renderCommandRows(model.commandResults)}</tbody>
           </table>
-          ${renderLogSections(model.commandResults)}
         </div>
-      </section>
+        ${renderLogSections(model.commandResults)}
+      </article>
 
-      <section class="panel">
-        <div class="panel-head"><h2>产物证据</h2><span>自包含 HTML</span></div>
-        <div class="panel-body">
-          <div class="callout">本页由 <code>corepack pnpm release:acceptance</code> 生成。命令失败时仍会写出报告并返回非 0 退出码，作为发版阻塞凭证。</div>
-          <table style="margin-top: 12px">
-            <tbody>
-              <tr><th>完整提交</th><td class="mono">${escapeHtml(model.metadata.fullCommit)}</td></tr>
-              <tr><th>工作区状态</th><td><pre>${escapeHtml(model.metadata.dirtySummary)}</pre></td></tr>
-              <tr><th>浏览器 E2E</th><td>默认不阻塞；使用 <code>--include-browser</code> 显式纳入本报告。</td></tr>
-              <tr><th>报告策略</th><td>测试矩阵动态读取 <code>scripts/root-test-targets.mjs</code>，新增测试登记后自动出现在本页。</td></tr>
-            </tbody>
+      <article class="dashboard-card" id="matrix">
+        <div class="dashboard-card-header">
+          <div>
+            <h2>测试矩阵</h2>
+            <div class="dashboard-card-description">root-test-targets 登记的根测试目标</div>
+          </div>
+          <span class="release-badge release-badge-passed">${escapeHtml(model.coverageSummary.rootTargets)} targets</span>
+        </div>
+        <div class="table-scroll">
+          <table class="dashboard-table test-matrix">
+            <thead><tr><th>目标</th><th>文件数</th><th>命令</th><th>测试文件</th></tr></thead>
+            <tbody>${renderTargetRows(model.rootTargets)}</tbody>
           </table>
         </div>
+      </article>
+
+      <section class="matrix-grid">
+        <article class="dashboard-card" id="coverage">
+          <div class="dashboard-card-header">
+            <div>
+              <h2>新增覆盖</h2>
+              <div class="dashboard-card-description">apps 与 packages 的浏览器验收目标</div>
+            </div>
+            <span class="release-badge release-badge-passed">${escapeHtml(model.browserTargets.length)} targets</span>
+          </div>
+          <div class="table-scroll">
+            <table class="dashboard-table coverage-table">
+              <thead><tr><th>目标</th><th>文件数</th><th>命令</th><th>测试文件</th></tr></thead>
+              <tbody>${renderCoverageRows(model.browserTargets)}</tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="dashboard-card" id="boundaries">
+          <div class="dashboard-card-header">
+            <div>
+              <h2>未覆盖边界</h2>
+              <div class="dashboard-card-description">仍需关注的 apps P2 边界</div>
+            </div>
+            <span class="release-badge release-badge-${escapeHtml(boundaryTone)}">${escapeHtml(model.coverageSummary.uncoveredBoundaries)} 项</span>
+          </div>
+          <div class="table-scroll">
+            <table class="dashboard-table boundary-table">
+              <thead><tr><th>对象</th><th>边界描述</th></tr></thead>
+              <tbody>${renderBoundaryRows(model.uncoveredBoundaries)}</tbody>
+            </table>
+          </div>
+        </article>
       </section>
-    </div>
 
-    <section class="panel">
-      <div class="panel-head"><h2>测试矩阵</h2><span>root targets</span></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>目标</th><th>文件数</th><th>命令</th><th>测试文件</th></tr></thead>
-          <tbody>${renderTargetRows(model.rootTargets)}</tbody>
-        </table>
-      </div>
+      <footer>生成器：<code>scripts/release-acceptance-report.mjs</code>。默认输出：<code>${escapeHtml(defaultOutputFile)}</code>。</footer>
     </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>新增覆盖</h2><span>browser targets</span></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>目标</th><th>文件数</th><th>命令</th><th>测试文件</th></tr></thead>
-          <tbody>${renderTargetRows(model.browserTargets)}</tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>未覆盖边界</h2><span>${escapeHtml(model.coverageSummary.uncoveredBoundaries)} 项</span></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>对象</th><th>边界描述</th></tr></thead>
-          <tbody>${renderBoundaryRows(model.uncoveredBoundaries)}</tbody>
-        </table>
-      </div>
-    </section>
-
-    <footer>生成器：<code>scripts/release-acceptance-report.mjs</code>。默认输出：<code>${escapeHtml(defaultOutputFile)}</code>。</footer>
   </main>
 </body>
 </html>
