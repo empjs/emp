@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('adapter-host renders the React bridge shell and version', async () => {
   const frame = await loadAppFrame('adapter-host')

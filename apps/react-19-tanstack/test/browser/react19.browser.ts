@@ -8,7 +8,7 @@ import {
   fillByPlaceholder,
   loadAppFrame,
   removeFrame,
-} from '../../../test-support/browser/frame'
+} from '@empjs/test-support/browser/frame'
 
 test('react-19-tanstack covers action state, optimistic, transition, deferred, and router lab flows', async () => {
   const frame = await loadAppFrame('react-19-tanstack')

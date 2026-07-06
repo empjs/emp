@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, clickLink, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, clickLink, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('vue-3-project consumes remote Vue 3 routes and Pinia component', async () => {
   const frame = await loadAppFrame('vue-3-project')

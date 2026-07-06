@@ -7,7 +7,7 @@ import {
   frameDocument,
   loadAppFrame,
   removeFrame,
-} from '../../../test-support/browser/frame'
+} from '@empjs/test-support/browser/frame'
 
 test('adapter-app renders local React, Vue 2, and Vue 3 remotes through bridge adapters', async () => {
   const frame = await loadAppFrame('adapter-app')

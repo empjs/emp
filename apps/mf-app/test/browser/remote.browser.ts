@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('mf-app renders the remote host shell and updates remote state', async () => {
   const frame = await loadAppFrame('mf-app')

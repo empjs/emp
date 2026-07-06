@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, clickText, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, clickText, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('vue-2-base toggles base content and composition state', async () => {
   const frame = await loadAppFrame('vue-2-base')

@@ -45,7 +45,6 @@ describe('toolchain version contract', () => {
       'test:ts7:prepare',
       'test:ts7',
       'test:ts7:packages',
-      'test:tsgo',
       'test:rules',
       'test:apps:single',
       'test:library-output',
@@ -75,19 +74,19 @@ describe('toolchain version contract', () => {
     ])
   })
 
-  test('root pins TypeScript 7 rc and native tsgo preview', () => {
+  test('root pins TypeScript 7 rc without the unused native tsgo preview', () => {
     const pkg = readJson('package.json')
     expect(pkg.devDependencies.typescript).toBe('7.0.1-rc')
-    expect(pkg.devDependencies['@typescript/native-preview']).toBe('7.0.0-dev.20260624.1')
+    expect(pkg.devDependencies['@typescript/native-preview']).toBeUndefined()
     expect(pkg.scripts['test:ts7:prepare']).toBe(
       'corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build',
     )
     expect(pkg.scripts['test:ts7']).toBe(
       'corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/cli/tsconfig.json',
     )
-    expect(pkg.scripts['test:tsgo']).toBe(
-      'corepack pnpm test:ts7:prepare && corepack pnpm dlx --package @typescript/native-preview@7.0.0-dev.20260624.1 tsgo --noEmit --pretty false --project packages/cli/tsconfig.json',
-    )
+    expect(pkg.scripts['test:tsgo']).toBeUndefined()
+    expect(pkg.scripts['ci:verify']).not.toContain('test:tsgo')
+    expect(readText('pnpm-lock.yaml')).not.toContain('@typescript/native-preview@7.0.0-dev')
   })
 
   test('apps acceptance includes shared tsconfig and DTS type guards', () => {

@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('rspack2 optimization chunk output renders the pure value into the DOM', async () => {
   const frame = await loadAppFrame('rspack2-optimization')

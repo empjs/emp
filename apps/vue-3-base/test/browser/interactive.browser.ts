@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('vue-3-base keeps local Ant Design and Pinia interactions working', async () => {
   const frame = await loadAppFrame('vue-3-base')

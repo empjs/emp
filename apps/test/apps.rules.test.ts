@@ -107,6 +107,26 @@ describe('apps catalog rules', () => {
     expect(TARGET_APP_DIRS).not.toEqual(expect.arrayContaining(['tailwind-2', 'tailwind-3']))
   })
 
+  test('browser app tests import shared helpers through the root test support alias', async () => {
+    const rootTestTargets = await import('../../scripts/root-test-targets.mjs')
+    const browserTestFiles = [...new Set(Object.values(rootTestTargets.ROOT_BROWSER_TEST_TARGETS).flat() as string[])]
+    const rstestConfig = await fs.promises.readFile(join(repoRoot, 'rstest.config.ts'), 'utf8')
+    const nonAliasImports = []
+
+    for (const file of browserTestFiles.filter(file => file.startsWith('apps/'))) {
+      const content = await fs.promises.readFile(join(repoRoot, file), 'utf8')
+      const unsupportedImports = content
+        .split('\n')
+        .filter(line => line.includes('test-support/browser/') && !line.includes("from '@empjs/test-support/browser/"))
+      if (unsupportedImports.length > 0) nonAliasImports.push({file, unsupportedImports})
+      expect(content).toContain('@empjs/test-support/browser/frame')
+    }
+
+    expect(rstestConfig).toContain("'@empjs/test-support'")
+    expect(rstestConfig).toContain('./apps/test-support')
+    expect(nonAliasImports).toEqual([])
+  })
+
   test('root scripts do not reference retired app projects', async () => {
     const rootPackage = JSON.parse(await fs.promises.readFile(join(repoRoot, 'package.json'), 'utf8'))
     const scripts = Object.entries(rootPackage.scripts ?? {})

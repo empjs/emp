@@ -1,4 +1,5 @@
 import {defineConfig} from '@rstest/core'
+import {fileURLToPath} from 'node:url'
 
 const isBrowserMode = process.argv.some(arg => arg === '--browser' || arg.startsWith('--browser.'))
 const isListCommand = process.argv.includes('list')
@@ -33,6 +34,7 @@ const appsBrowserForceRerunTriggers = [
 const empShareBrowserForceRerunTriggers = ['packages/emp-share/test/browser/**/*.browser.ts', 'packages/emp-share/output/**']
 const browserForceRerunTriggers =
   browserScope === 'apps' ? appsBrowserForceRerunTriggers : [...appsBrowserForceRerunTriggers, ...empShareBrowserForceRerunTriggers]
+const testSupportAlias = fileURLToPath(new URL('./apps/test-support', import.meta.url))
 
 if (isBrowserMode) {
   process.env.RSTEST_CONTAINER_DEV_SERVER ??= 'http://localhost:51203/'
@@ -83,6 +85,11 @@ export default defineConfig({
   include: isBrowserMode ? browserTestFiles : ['test/**/*.test.ts', 'apps/test/**/*.test.ts'],
   exclude: isBrowserMode ? [] : ['test/**/*.browser.ts', 'test/**/*.browser.test.ts', 'apps/**/*.browser.ts'],
   forceRerunTriggers: isBrowserMode ? browserForceRerunTriggers : undefined,
+  resolve: {
+    alias: {
+      '@empjs/test-support': testSupportAlias,
+    },
+  },
   reporters: isBrowserMode ? ['default', browserRebuildReporter] : undefined,
   browser: isBrowserMode
     ? {

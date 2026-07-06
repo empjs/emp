@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {checkInput, clickButton, expectFrameText, expectInputChecked, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {checkInput, clickButton, expectFrameText, expectInputChecked, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('tailwind product form keeps size selection and add-to-bag flow on the real page', async () => {
   const frame = await loadAppFrame('tailwind-4')

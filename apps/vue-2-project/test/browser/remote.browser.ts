@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, clickText, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, clickText, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('vue-2-project renders Vue 2 remote content and remote composition state', async () => {
   const frame = await loadAppFrame('vue-2-project')

@@ -8,8 +8,8 @@ import {
   loadAppFrame,
   navigateFrame,
   removeFrame,
-} from '../../../test-support/browser/frame'
-import {rewriteDemoApiFetch} from '../../../test-support/browser/demo-api'
+} from '@empjs/test-support/browser/frame'
+import {rewriteDemoApiFetch} from '@empjs/test-support/browser/demo-api'
 
 test('demo shell and proxy page keep form and API interactions working end to end', async () => {
   const frame = await loadAppFrame('demo')

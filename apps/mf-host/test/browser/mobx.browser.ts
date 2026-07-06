@@ -1,5 +1,5 @@
 import {test} from '@rstest/core'
-import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '../../../test-support/browser/frame'
+import {clickButton, expectFrameText, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 
 test('mf-host increments the real MobX counter', async () => {
   const frame = await loadAppFrame('mf-host')
