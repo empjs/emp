@@ -1,5 +1,43 @@
 # Changelog
 
+## 4.0.0-rc.1 - 2026-07-06
+
+### Highlights
+
+- Publish EMP v4 rc packages to the npm `rc` dist-tag from the root `4.0.0-rc.1` release line.
+- Align README badges and current-version copy with the npm `@empjs/cli@rc` and `@empjs/share@rc` manifests.
+- Switch the GitHub repository default branch to `v4` so README metadata and incoming development target the v4 line by default.
+
+### What's Changed
+
+#### Build
+
+- chore(release): publish the 17 internal core `@empjs/*` packages selected by `release:check` with dist-tag `rc`.
+- chore(release): keep `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` outside the unified rc release set.
+
+#### Document
+
+- docs(readme): read the current v4 version, Rspack dependency, Module Federation dependency, Node engine, and license badges from npm `rc` manifests.
+- docs(changelog): document the rc.1 release scope, validation commands, and repository default-branch switch.
+
+#### Tests
+
+- test(cli): reserve available local ports in the create-flow port fallback test instead of assuming port 3000 is free on developer machines.
+
+### Verification
+
+- `corepack pnpm workflow:check`
+- `corepack pnpm release:check`
+- `corepack pnpm release:publish:dry -- --force-all --skip-build --tag rc`
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `corepack pnpm apps:acceptance`
+- `git diff --check`
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-rc.1`.
+
 ## 4.0.0-beta.2 - 2026-06-30
 
 ### Highlights

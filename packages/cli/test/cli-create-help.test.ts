@@ -8,6 +8,7 @@ import {beforeAll, describe, expect, test} from '@rstest/core'
 import {buildCreateReport} from '../src/agent-create/report'
 import {parseCreateIntent} from '../src/agent-create/intent'
 import {createProjectPlan} from '../src/agent-create/planner'
+import {getPorts} from '../src/helper/getPort'
 import {applyCreateReportExitStatus, runCreateCommand} from '../src/script/create'
 
 const execFile = promisify(execFileCallback)
@@ -56,6 +57,25 @@ async function listenOnPort(port: number): Promise<net.Server> {
   })
 
   return server
+}
+
+async function listenOnAvailablePort(basePort: number): Promise<{port: number; server: net.Server}> {
+  let nextPort = basePort
+
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    const port = await getPorts(nextPort)
+
+    try {
+      return {port, server: await listenOnPort(port)}
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EADDRINUSE') {
+        throw error
+      }
+      nextPort = port + 1
+    }
+  }
+
+  throw new Error(`Unable to reserve an available test port from ${basePort}`)
 }
 
 async function closeServer(server: net.Server): Promise<void> {
@@ -332,7 +352,10 @@ describe('emp create CLI', () => {
     await withTempDir(async tmpRoot => {
       const targetDir = path.join(tmpRoot, 'port-aware-app')
       const fakePnpmBin = await createFakePnpmBin(tmpRoot)
-      const occupiedServers = await Promise.all([listenOnPort(3000), listenOnPort(3001)])
+      const firstOccupied = await listenOnAvailablePort(3000)
+      const secondOccupied = await listenOnAvailablePort(firstOccupied.port + 1)
+      const occupiedPorts = [firstOccupied.port, secondOccupied.port]
+      const occupiedServers = [firstOccupied.server, secondOccupied.server]
       let stdout = ''
 
       try {
@@ -360,6 +383,10 @@ describe('emp create CLI', () => {
         expect(output.report.status).toBe('passed')
         expect(hostApp.port).not.toBe(3000)
         expect(remoteApp.port).not.toBe(3001)
+        for (const occupiedPort of occupiedPorts) {
+          expect(hostApp.port).not.toBe(occupiedPort)
+          expect(remoteApp.port).not.toBe(occupiedPort)
+        }
         expect(remoteApp.port).not.toBe(hostApp.port)
         expect(hostConfig).toContain(`server: {port: ${hostApp.port}}`)
         expect(hostConfig).toContain(`user@http://localhost:${remoteApp.port}/emp.js`)
