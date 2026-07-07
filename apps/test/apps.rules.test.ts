@@ -139,19 +139,34 @@ describe('apps catalog rules', () => {
   })
 
   test('public docs do not recommend retired app projects', async () => {
+    const collectDocs = async (dir: string): Promise<string[]> => {
+      const entries = await fs.promises.readdir(join(repoRoot, dir), {withFileTypes: true})
+      const files = await Promise.all(
+        entries.map(async entry => {
+          const entryPath = `${dir}/${entry.name}`
+          if (entry.isDirectory()) return collectDocs(entryPath)
+          return /\.(md|mdx|html)$/.test(entry.name) ? [entryPath] : []
+        }),
+      )
+      return files.flat()
+    }
+    const allowedRetiredReference = (line: string) =>
+      /不属于|不在|不再|退出|不恢复|不纳入|已退休|retired/i.test(line)
     const docFiles = [
       'docs/v4-progress-roadmap.html',
       'packages/emp-share/README.md',
-      'website/docs/zh/demo/vue2.mdx',
-      'website/docs/zh/emp/runtime.mdx',
-      'website/docs/zh/guide/basis/tailwind.mdx',
+      ...(await collectDocs('website/docs/zh')),
     ]
     const staleReferences = []
 
     for (const docFile of docFiles) {
       const content = await fs.promises.readFile(join(repoRoot, docFile), 'utf8')
+      const contentToCheck = content
+        .split('\n')
+        .filter(line => !allowedRetiredReference(line))
+        .join('\n')
       for (const appDir of RETIRED_APP_DIRS) {
-        if (content.includes(appDir)) staleReferences.push({docFile, appDir})
+        if (contentToCheck.includes(appDir)) staleReferences.push({docFile, appDir})
       }
     }
 

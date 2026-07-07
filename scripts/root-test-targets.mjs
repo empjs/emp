@@ -11,6 +11,7 @@ const rootTestTargetEntries = [
       'apps/test/apps.browser-coverage.test.ts',
       'test/release.rules.test.ts',
       'test/release-acceptance-report.test.ts',
+      'test/website.rules.test.ts',
     ],
   ],
   ['apps-single', ['apps/test/apps.acceptance.test.ts']],

@@ -76,7 +76,7 @@ const createFixture = async () => {
     version: '1.0.0',
   })
   await writeJson('website/package.json', {
-    name: '@empjs/offical',
+    name: '@empjs/website',
     version: '1.0.0',
     private: true,
   })

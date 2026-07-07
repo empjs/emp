@@ -1,21 +1,23 @@
 {
-  "extends": "@modern-js/tsconfig/base",
   "compilerOptions": {
+    "lib": ["DOM", "ES2023"],
     "jsx": "react-jsx",
-    "paths": {
-      "@hooks/*": ["./hooks/*"],
-      "@components/*": ["./components/*"],
-      "@config": ["./config"],
-      "@builtIns/*": ["./components/builtIns/*"]
-    }
+    "target": "ES2023",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noUncheckedSideEffectImports": true,
+    "isolatedModules": true,
+    "strict": true
   },
-  "include": [
-    "src",
-    "./rspress.config.ts",
-    "./docs/**/*.tsx",
-    "./docs/**/*.ts",
-    "./components/**/*.ts",
-    "./components/**/*.tsx",
-    "./theme/**/*"
-  ]
+  "include": ["docs", "rspress.config.ts"],
+  "mdx": {
+    "checkMdx": true
+  }
 }

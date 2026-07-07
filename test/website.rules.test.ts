@@ -1,0 +1,99 @@
+import {describe, expect, test} from '@rstest/core'
+import {existsSync, readdirSync, readFileSync} from 'node:fs'
+import {join} from 'node:path'
+import {repoRoot} from './helpers/repo-root'
+
+const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T
+const rootPackagePath = join(repoRoot, 'package.json')
+const websitePackagePath = join(repoRoot, 'website/package.json')
+const websiteConfigPath = join(repoRoot, 'website/rspress.config.ts')
+const websiteDocsPath = join(repoRoot, 'website/docs')
+const websiteZhPath = join(websiteDocsPath, 'zh')
+
+describe('website rebuild rules', () => {
+  test('uses the Rspress v2 workspace package without old theme dependencies', () => {
+    const pkg = readJson<{
+      name: string
+      type: string
+      private: boolean
+      scripts: Record<string, string>
+      dependencies?: Record<string, string>
+      devDependencies?: Record<string, string>
+    }>(websitePackagePath)
+    const allDeps = {...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {})}
+
+    expect(pkg.name).toBe('@empjs/website')
+    expect(pkg.type).toBe('module')
+    expect(pkg.private).toBe(true)
+    expect(pkg.scripts).toEqual({
+      dev: 'rspress dev',
+      build: 'rspress build',
+      start: 'rspress preview',
+    })
+    expect(allDeps['@rspress/core']).toBe('^2.0.16')
+    expect(allDeps['@rspress/plugin-sitemap']).toBe('^2.0.16')
+    expect(allDeps.typescript).toBe('7.0.1-rc')
+
+    for (const legacyPackage of [
+      'rspress',
+      'rspress-plugin-sitemap',
+      'tailwindcss',
+      'antd',
+      'framer-motion',
+      'rsfamily-nav-icon',
+      'react-intersection-observer',
+    ]) {
+      expect(allDeps[legacyPackage]).toBeUndefined()
+    }
+  })
+
+  test('root scripts expose website aliases and keep offical compatibility aliases', () => {
+    const rootPkg = readJson<{scripts: Record<string, string>}>(rootPackagePath)
+
+    expect(rootPkg.scripts['website:dev']).toBe('corepack pnpm --filter @empjs/website dev')
+    expect(rootPkg.scripts['website:build']).toBe('corepack pnpm --filter @empjs/website build')
+    expect(rootPkg.scripts['website:start']).toBe('corepack pnpm --filter @empjs/website start')
+    expect(rootPkg.scripts['offical:dev']).toBe('corepack pnpm --filter @empjs/website dev')
+    expect(rootPkg.scripts['offical:build']).toBe('corepack pnpm --filter @empjs/website build')
+    expect(rootPkg.scripts['offical:start']).toBe('corepack pnpm --filter @empjs/website start')
+  })
+
+  test('Rspress config uses v2 declarative navigation and AI-readable output', () => {
+    const config = readFileSync(websiteConfigPath, 'utf8')
+
+    expect(config).toContain("import {defineConfig} from '@rspress/core'")
+    expect(config).toContain("import {pluginSitemap} from '@rspress/plugin-sitemap'")
+    expect(config).toContain('llms: true')
+    expect(config).toContain("lang: 'zh'")
+    expect(config).toContain("root: path.join(__dirname, 'docs')")
+    expect(config).toContain("icon: '/emp-v4-logo.png'")
+    expect(config).toContain("light: '/emp-v4-logo.png'")
+    expect(config).not.toContain("from 'rspress/config'")
+    expect(config).not.toMatch(/\bnav\s*:/)
+    expect(config).not.toMatch(/\bsidebar\s*:/)
+  })
+
+  test('documentation tree is Chinese-only and declarative', () => {
+    const locales = readdirSync(websiteDocsPath, {withFileTypes: true})
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+      .filter(name => name !== 'public')
+
+    expect(locales).toEqual(['zh'])
+    expect(existsSync(join(websiteZhPath, '_nav.json'))).toBe(true)
+    expect(existsSync(join(websiteDocsPath, 'en'))).toBe(false)
+    expect(existsSync(join(repoRoot, 'website/docs/public/emp-v4-logo.png'))).toBe(true)
+  })
+
+  test('old Rspress 1 theme and Tailwind 3 files are removed from the rebuilt site', () => {
+    for (const removedPath of [
+      'website/theme',
+      'website/config',
+      'website/tailwind.config.js',
+      'website/postcss.config.js',
+      'website/README.md',
+    ]) {
+      expect(existsSync(join(repoRoot, removedPath))).toBe(false)
+    }
+  })
+})

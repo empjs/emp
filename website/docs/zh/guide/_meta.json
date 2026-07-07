@@ -1,22 +1,6 @@
 [
-  {
-    "type": "dir",
-    "name": "start",
-    "label": "开始"
-  },
-  {
-    "type": "dir",
-    "name": "framework",
-    "label": "框架"
-  },
-  {
-    "type": "dir",
-    "name": "basis",
-    "label": "基础"
-  },
-  {
-    "type": "dir",
-    "name": "advanced",
-    "label": "进阶"
-  }
+  "index",
+  "quick-start",
+  "create",
+  "commands"
 ]

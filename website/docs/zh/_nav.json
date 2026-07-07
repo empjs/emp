@@ -1,0 +1,41 @@
+[
+  {
+    "text": "首页",
+    "link": "/"
+  },
+  {
+    "text": "快速开始",
+    "link": "/guide/quick-start",
+    "activeMatch": "^/guide/"
+  },
+  {
+    "text": "核心能力",
+    "link": "/core/",
+    "activeMatch": "^/core/"
+  },
+  {
+    "text": "插件生态",
+    "link": "/plugins/",
+    "activeMatch": "^/plugins/"
+  },
+  {
+    "text": "配置参考",
+    "link": "/config/",
+    "activeMatch": "^/config/"
+  },
+  {
+    "text": "示例与验收",
+    "link": "/examples/",
+    "activeMatch": "^/examples/"
+  },
+  {
+    "text": "迁移发布",
+    "link": "/migration/",
+    "activeMatch": "^/(migration|release)/"
+  },
+  {
+    "text": "FAQ",
+    "link": "/faq/",
+    "activeMatch": "^/faq/"
+  }
+]
