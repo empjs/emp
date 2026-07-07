@@ -43,6 +43,16 @@ emp create "React 主应用 + Vue 子应用"
 
 ## 推荐的 Agent 使用姿势
 
+### 0. Agent 自检
+
+```bash
+emp --json doctor
+```
+
+- 本地自检，不需要账号、token 或网络请求
+- JSON 输出用于 Agent 判断 Node、pnpm、当前目录和下一步命令
+- 推荐在创建或写入项目前先运行
+
 ### 1. 指定输出目录
 
 ```bash

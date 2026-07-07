@@ -228,6 +228,31 @@ describe('emp create CLI', () => {
     expect(stdout).toMatch(/--json/)
   })
 
+  test('prints agent-friendly doctor JSON from global and command json flags', async () => {
+    const results = await Promise.all([
+      runCli(['--json', 'doctor']),
+      runCli(['doctor', '--json']),
+    ])
+
+    for (const {stdout, stderr} of results) {
+      expect(stderr).toBe('')
+      const payload = JSON.parse(stdout)
+      expect(payload.ok).toBe(true)
+      expect(payload.command).toBe('doctor')
+      expect(payload.version).toMatch(/\d+\.\d+\.\d+/)
+      expect(payload.auth).toEqual({required: false, source: 'not-required'})
+      expect(
+        payload.checks.some(
+          (check: {name: string; status: string}) =>
+            check.name === 'node' && check.status === 'passed',
+        ),
+      ).toBe(true)
+      expect(payload.nextActions).toContain(
+        'emp create "React 主应用 + Vue 子应用" --dry-run --json',
+      )
+    }
+  })
+
   test('documents passed status as no failed executed steps rather than all steps executed', async () => {
     const docs = await fs.readFile(
       path.join(repoRoot, 'packages/cli/docs/agent-first-create.md'),

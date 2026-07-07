@@ -8,6 +8,7 @@ import {normalizeCliOptions, registerCommonOptions, registerEnvOption, registerU
 export default async function runScript() {
   program.version(pkg.version, '-v, --version').usage('<command> [options]')
   program.helpOption('-h, --help', '显示帮助')
+  program.option('--json', '为支持的命令输出 JSON 结果')
   /**
    * 调试
    */
@@ -61,7 +62,24 @@ export default async function runScript() {
     .option('--json', '输出 JSON')
     .action(async (root, o) => {
       const {runStaticCommand} = await import('src/script/static')
-      await runStaticCommand(root, o)
+      await runStaticCommand(root, {
+        ...o,
+        json: Boolean(o.json || program.opts().json),
+      })
+    })
+
+  /**
+   * Agent 自检
+   */
+  program
+    .command('doctor')
+    .description('检查 EMP CLI 本地环境，输出适合 Agent 消费的自检结果')
+    .option('--json', '输出 JSON 结果')
+    .action(async o => {
+      const {runDoctorCommand} = await import('src/script/doctor')
+      await runDoctorCommand({
+        json: Boolean(o.json || program.opts().json),
+      })
     })
 
   /**
@@ -78,7 +96,10 @@ export default async function runScript() {
     .option('--json', '输出 JSON 结果')
     .action(async (intentText, o) => {
       const {runCreateCommand} = await import('src/script/create')
-      await runCreateCommand(intentText, o)
+      await runCreateCommand(intentText, {
+        ...o,
+        json: Boolean(o.json || program.opts().json),
+      })
     })
 
   /**
