@@ -1,6 +1,8 @@
 import {describe, expect, test} from '@rstest/core'
-import {existsSync, readdirSync, readFileSync} from 'node:fs'
+import {existsSync, readdirSync, readFileSync, realpathSync} from 'node:fs'
+import {createRequire} from 'node:module'
 import {join} from 'node:path'
+import {pathToFileURL} from 'node:url'
 import {repoRoot} from './helpers/repo-root'
 
 const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T
@@ -9,7 +11,7 @@ const websitePackagePath = join(repoRoot, 'website/package.json')
 const websiteConfigPath = join(repoRoot, 'website/rspress.config.ts')
 const websiteDocsPath = join(repoRoot, 'website/docs')
 const websiteZhPath = join(websiteDocsPath, 'zh')
-const websiteHomePath = join(websiteZhPath, 'index.md')
+const websiteHomePath = join(websiteZhPath, 'index.mdx')
 
 describe('website rebuild rules', () => {
   test('uses the Rspress v2 workspace package without old theme dependencies', () => {
@@ -64,28 +66,42 @@ describe('website rebuild rules', () => {
 
     expect(config).toContain("import {defineConfig} from '@rspress/core'")
     expect(config).toContain("import {pluginSitemap} from '@rspress/plugin-sitemap'")
-    expect(config).toContain("name: 'emp-homepage-design'")
-    expect(config).toContain("globalStyles: path.join(__dirname, 'docs/styles/home.css')")
     expect(config).toContain('llms: true')
     expect(config).toContain("lang: 'zh'")
     expect(config).toContain("root: path.join(__dirname, 'docs')")
     expect(config).toContain("icon: '/emp-v4-logo.png'")
     expect(config).toContain("light: '/emp-v4-logo.png'")
     expect(config).not.toContain("from 'rspress/config'")
+    expect(config).not.toContain("name: 'emp-homepage-design'")
+    expect(config).not.toContain('globalStyles')
     expect(config).not.toMatch(/\bnav\s*:/)
     expect(config).not.toMatch(/\bsidebar\s*:/)
   })
 
-  test('homepage is a product-grade Chinese entry, not a plain markdown stub', () => {
+  test('homepage uses the native Rspress home frontmatter contract', async () => {
     const home = readFileSync(websiteHomePath, 'utf8')
+    const featureCount = home.match(/\n  - title:/g)?.length ?? 0
+    const requireFromRspressCore = createRequire(
+      realpathSync(join(repoRoot, 'website/node_modules/@rspress/core/package.json')),
+    )
+    const {loadFrontMatter} = (await import(
+      pathToFileURL(requireFromRspressCore.resolve('@rspress/shared/node-utils')).href
+    )) as {
+      loadFrontMatter: (
+        source: string,
+        filepath: string,
+        root: string,
+        outputWarning?: boolean,
+      ) => {frontmatter: Record<string, any>; content: string}
+    }
+    const parsed = loadFrontMatter(home, websiteHomePath, websiteDocsPath, true)
 
     for (const requiredMarker of [
-      'class="emp-home"',
-      'data-section="hero"',
-      'data-section="metrics"',
-      'data-section="architecture"',
-      'data-section="journeys"',
-      'data-section="release"',
+      'pageType:',
+      'hero:',
+      'features:',
+      'image:',
+      'actions:',
       'Rspack 2',
       'Module Federation 2',
       '7 个插件包',
@@ -94,14 +110,23 @@ describe('website rebuild rules', () => {
       expect(home).toContain(requiredMarker)
     }
 
-    expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(true)
+    expect(parsed.frontmatter.pageType).toBe('home')
+    expect(parsed.frontmatter.hero?.name).toBe('EMP v4')
+    expect(parsed.frontmatter.features).toHaveLength(6)
+    expect(featureCount).toBeGreaterThanOrEqual(6)
+    expect(existsSync(join(websiteZhPath, 'index.md'))).toBe(false)
+    expect(home).not.toContain('class="emp-home"')
+    expect(home).not.toContain('data-section=')
+    expect(home).not.toContain('<section')
+    expect(home).not.toContain('<article')
+    expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(false)
   })
 
   test('documentation tree is Chinese-only and declarative', () => {
     const locales = readdirSync(websiteDocsPath, {withFileTypes: true})
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
-      .filter(name => name !== 'public' && name !== 'styles')
+      .filter(name => name !== 'public')
 
     expect(locales).toEqual(['zh'])
     expect(existsSync(join(websiteZhPath, '_nav.json'))).toBe(true)

@@ -2,11 +2,6 @@ import path from 'node:path'
 import {defineConfig} from '@rspress/core'
 import {pluginSitemap} from '@rspress/plugin-sitemap'
 
-const homepageDesignPlugin = () => ({
-  name: 'emp-homepage-design',
-  globalStyles: path.join(__dirname, 'docs/styles/home.css'),
-})
-
 export default defineConfig({
   base: '/',
   root: path.join(__dirname, 'docs'),
@@ -38,5 +33,5 @@ export default defineConfig({
     },
     socialLinks: [{icon: 'github', mode: 'link', content: 'https://github.com/empjs/emp'}],
   },
-  plugins: [pluginSitemap({siteUrl: 'https://empjs.dev'}), homepageDesignPlugin()],
+  plugins: [pluginSitemap({siteUrl: 'https://empjs.dev'})],
 })
