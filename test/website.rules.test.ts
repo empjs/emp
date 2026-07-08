@@ -242,6 +242,8 @@ describe('website rebuild rules', () => {
 
     expect(parsed.frontmatter.pageType).toBe('home')
     expect(parsed.frontmatter.hero?.name).toBe('EMP v4')
+    expect(parsed.frontmatter.titleSuffix).toBe('高性能、微前端构建')
+    expect(parsed.frontmatter.hero?.text).toBe('高性能、微前端构建')
     expect(parsed.frontmatter.features).toHaveLength(6)
     expect(featureCount).toBeGreaterThanOrEqual(6)
     expect(existsSync(join(websiteZhPath, 'index.md'))).toBe(false)
