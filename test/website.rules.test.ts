@@ -12,6 +12,21 @@ const websiteConfigPath = join(repoRoot, 'website/rspress.config.ts')
 const websiteDocsPath = join(repoRoot, 'website/docs')
 const websiteZhPath = join(websiteDocsPath, 'zh')
 const websiteHomePath = join(websiteZhPath, 'index.mdx')
+const websiteLogoPath = join(websiteDocsPath, 'public/emp-v4-logo.png')
+const docsLogoPath = join(repoRoot, 'docs/assets/emp-v4-logo.png')
+
+const readPngHeader = (path: string) => {
+  const png = readFileSync(path)
+  expect(png.subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a')
+  expect(png.toString('ascii', 12, 16)).toBe('IHDR')
+
+  return {
+    bitDepth: png[24],
+    colorType: png[25],
+    width: png.readUInt32BE(16),
+    height: png.readUInt32BE(20),
+  }
+}
 
 describe('website rebuild rules', () => {
   test('uses the Rspress v2 workspace package without old theme dependencies', () => {
@@ -120,6 +135,19 @@ describe('website rebuild rules', () => {
     expect(home).not.toContain('<section')
     expect(home).not.toContain('<article')
     expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(false)
+  })
+
+  test('EMP v4 logo assets keep transparent PNG backgrounds', () => {
+    for (const logoPath of [websiteLogoPath, docsLogoPath]) {
+      const header = readPngHeader(logoPath)
+
+      expect(header).toMatchObject({
+        width: 512,
+        height: 512,
+        bitDepth: 8,
+        colorType: 6,
+      })
+    }
   })
 
   test('documentation tree is Chinese-only and declarative', () => {
