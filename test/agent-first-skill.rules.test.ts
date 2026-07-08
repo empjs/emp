@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@rstest/core'
-import {existsSync, readFileSync} from 'node:fs'
+import {existsSync, readFileSync, readdirSync} from 'node:fs'
 import {join} from 'node:path'
 import {repoRoot} from './helpers/repo-root'
 
@@ -19,6 +19,7 @@ const websiteAgentFirstPath = join(repoRoot, 'website/docs/zh/guide/agent-first.
 const websiteGuideMetaPath = join(repoRoot, 'website/docs/zh/guide/_meta.json')
 const websiteHomePath = join(repoRoot, 'website/docs/zh/index.mdx')
 const websitePluginsPath = join(repoRoot, 'website/docs/zh/plugins/index.md')
+const staleNestedSkillDirs = ['.agent/skills', '.agents/skills', '.shared/skills'] as const
 
 const expectFile = (path: string) => {
   expect(existsSync(path), `${path} should exist`).toBe(true)
@@ -48,6 +49,22 @@ describe('EMP v4 Agent-First repository skill', () => {
     expect(skill).not.toMatch(/\bTODO\b|\[TODO/)
     expect(openaiYaml).toContain('display_name: "EMP v4 Agent-First"')
     expect(openaiYaml).toContain('default_prompt: "Use $emp-v4-agent-first')
+  })
+
+  test('skill folders do not ship nested compatibility skill directories', () => {
+    const skillFolders = readdirSync(join(repoRoot, 'skills'), {withFileTypes: true})
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+
+    expect(skillFolders).toEqual(['emp-v4-agent-first', 'emp-workflow'])
+
+    for (const skillFolder of skillFolders) {
+      for (const staleDir of staleNestedSkillDirs) {
+        const stalePath = join(repoRoot, 'skills', skillFolder, staleDir)
+
+        expect(existsSync(stalePath), `${skillFolder}/${staleDir} should not exist`).toBe(false)
+      }
+    }
   })
 
   test('references cover setup, federation, plugins, validation, and release usage', () => {
@@ -120,7 +137,7 @@ describe('EMP v4 Agent-First repository skill', () => {
 
     for (const marker of [
       '$emp-v4-agent-first',
-      'https://github.com/empjs/emp/tree/main/skills/emp-v4-agent-first',
+      'https://github.com/empjs/emp/tree/v4-rsbuild/skills/emp-v4-agent-first',
       'skills/emp-v4-agent-first/SKILL.md',
       'references/project-setup.md',
       'references/module-federation.md',
@@ -132,5 +149,7 @@ describe('EMP v4 Agent-First repository skill', () => {
 
     expect(guidePage).not.toContain('pluginRspackEmpShare({')
     expect(guidePage).not.toContain('plugins: [')
+    expect(guidePage).not.toContain('github.com/empjs/emp/tree/main/skills')
+    expect(guidePage).not.toContain('github.com/empjs/emp/blob/main/skills')
   })
 })
