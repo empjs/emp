@@ -5,11 +5,11 @@
   </g>
 
   <g>
-    <polygon points="310 35 172 250 246 250 176 477 356 211 284 223" fill="#FFC21A"/>
-    <polygon points="246 250 176 477 285 315 306 230" fill="#F47A08" opacity="0.78"/>
-    <polygon points="310 35 224 237 284 223" fill="#FFF06A" opacity="0.62"/>
-    <polygon points="188 250 247 250 228 309" fill="#FF9300" opacity="0.52"/>
-    <polygon points="280 247 356 211 286 314" fill="#FF9F0F" opacity="0.5"/>
+    <polygon points="335 58 184 242 262 242 150 462 358 253 280 264" fill="#FFC21A"/>
+    <polygon points="262 242 150 462 282 326 312 247" fill="#F47A08" opacity="0.78"/>
+    <polygon points="335 58 232 229 280 264" fill="#FFF06A" opacity="0.62"/>
+    <polygon points="198 242 262 242 235 302" fill="#FF9300" opacity="0.52"/>
+    <polygon points="279 262 358 253 286 324" fill="#FF9F0F" opacity="0.5"/>
   </g>
 
   <g fill="none" stroke="#14CDEB" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
