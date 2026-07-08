@@ -4,37 +4,37 @@
     "link": "/"
   },
   {
-    "text": "快速开始",
+    "text": "入门",
     "link": "/guide/quick-start",
     "activeMatch": "^/guide/"
   },
   {
-    "text": "核心能力",
+    "text": "核心",
     "link": "/core/",
     "activeMatch": "^/core/"
   },
   {
-    "text": "插件生态",
+    "text": "插件",
     "link": "/plugins/",
     "activeMatch": "^/plugins/"
   },
   {
-    "text": "配置参考",
+    "text": "配置",
     "link": "/config/",
     "activeMatch": "^/config/"
   },
   {
-    "text": "示例与验收",
+    "text": "示例",
     "link": "/examples/",
     "activeMatch": "^/examples/"
   },
   {
-    "text": "迁移发布",
+    "text": "迁移",
     "link": "/migration/",
     "activeMatch": "^/(migration|release)/"
   },
   {
-    "text": "FAQ",
+    "text": "问答",
     "link": "/faq/",
     "activeMatch": "^/faq/"
   }

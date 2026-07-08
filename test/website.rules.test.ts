@@ -13,6 +13,7 @@ const websiteConfigPath = join(repoRoot, 'website/rspress.config.ts')
 const websiteDocsPath = join(repoRoot, 'website/docs')
 const websiteZhPath = join(websiteDocsPath, 'zh')
 const websiteHomePath = join(websiteZhPath, 'index.mdx')
+const websiteNavPath = join(websiteZhPath, '_nav.json')
 const websiteLogoPath = join(websiteDocsPath, 'public/emp-v4-logo.png')
 const docsLogoPath = join(repoRoot, 'docs/assets/emp-v4-logo.png')
 
@@ -258,9 +259,19 @@ describe('website rebuild rules', () => {
       .filter(name => name !== 'public')
 
     expect(locales).toEqual(['zh'])
-    expect(existsSync(join(websiteZhPath, '_nav.json'))).toBe(true)
+    expect(existsSync(websiteNavPath)).toBe(true)
     expect(existsSync(join(websiteDocsPath, 'en'))).toBe(false)
     expect(existsSync(join(repoRoot, 'website/docs/public/emp-v4-logo.png'))).toBe(true)
+  })
+
+  test('top navigation uses compact two-character Chinese labels', () => {
+    const nav = readJson<Array<{text: string; link: string}>>(websiteNavPath)
+
+    expect(nav.map(item => item.text)).toEqual(['首页', '入门', '核心', '插件', '配置', '示例', '迁移', '问答'])
+
+    for (const item of nav) {
+      expect(item.text).toMatch(/^[\u4e00-\u9fa5]{2}$/)
+    }
   })
 
   test('old Rspress 1 theme and Tailwind 3 files are removed from the rebuilt site', () => {
