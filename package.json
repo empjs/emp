@@ -45,8 +45,8 @@
     "test:toolchain": "node scripts/run-root-test.mjs toolchain",
     "test:tsconfig": "node scripts/run-root-test.mjs tsconfig",
     "test:ts7:prepare": "corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build",
-    "test:ts7": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/cli/tsconfig.json",
-    "test:ts7:packages": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/cli/tsconfig.json && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/plugin-react/tsconfig.json && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/emp-share/tsconfig.json && corepack pnpm dlx --package typescript@7.0.1-rc tsc --noEmit --pretty false --project packages/emp-chain/tsconfig.json",
+    "test:ts7": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/cli/tsconfig.json",
+    "test:ts7:packages": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/cli/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/plugin-react/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/emp-share/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/emp-chain/tsconfig.json",
     "test:rules": "node scripts/run-root-test.mjs rules",
     "test:apps:single": "node scripts/run-root-test.mjs apps-single",
     "test:library-output": "node scripts/run-root-test.mjs library-output",
@@ -88,7 +88,7 @@
     "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
     "playwright": "1.61.1",
-    "typescript": "7.0.1-rc",
+    "typescript": "7.0.2",
     "typescript-mf": "npm:typescript@5.9.3"
   },
   "packageManager": "pnpm@10.33.0"

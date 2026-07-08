@@ -166,7 +166,7 @@ describe('website rebuild rules', () => {
     })
     expect(allDeps['@rspress/core']).toBe('^2.0.16')
     expect(allDeps['@rspress/plugin-sitemap']).toBe('^2.0.16')
-    expect(allDeps.typescript).toBe('7.0.1-rc')
+    expect(allDeps.typescript).toBe('7.0.2')
 
     for (const legacyPackage of [
       'rspress',
@@ -235,7 +235,7 @@ describe('website rebuild rules', () => {
       'actions:',
       'Rspack 2',
       'ESM 优先输出',
-      'TS 7 类型基线',
+      'TS 7 稳定类型基线',
       'Module Federation 2',
       '7 个插件包',
       '27 篇中文文档',
@@ -249,14 +249,15 @@ describe('website rebuild rules', () => {
     expect(parsed.frontmatter.titleSuffix).toBe('高性能、微前端构建')
     expect(parsed.frontmatter.hero?.text).toBe('高性能、微前端构建')
     expect(parsed.frontmatter.description).toContain('ESM 输出')
-    expect(parsed.frontmatter.description).toContain('TypeScript 7 RC')
+    expect(parsed.frontmatter.description).toContain('TypeScript 7 stable')
+    expect(home).not.toContain('TypeScript 7 RC')
     expect(parsed.frontmatter.hero?.tagline).toContain('ESM 输出')
     expect(parsed.frontmatter.hero?.tagline).toContain('TS 7 类型校验')
     expect(parsed.frontmatter.features).toHaveLength(8)
     expect(parsed.frontmatter.features.map((feature: {title: string}) => feature.title)).toEqual([
       'Rspack 2 构建底座',
       'ESM 优先输出',
-      'TS 7 类型基线',
+      'TS 7 稳定类型基线',
       'Module Federation 2',
       '7 个插件包',
       '27 篇中文文档',
