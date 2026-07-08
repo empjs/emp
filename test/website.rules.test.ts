@@ -120,7 +120,7 @@ describe('website rebuild rules', () => {
       'Rspack 2',
       'Module Federation 2',
       '7 个插件包',
-      '26 篇中文文档',
+      '27 篇中文文档',
     ]) {
       expect(home).toContain(requiredMarker)
     }

@@ -9,6 +9,7 @@ const rootTestTargetEntries = [
     [
       'apps/test/apps.rules.test.ts',
       'apps/test/apps.browser-coverage.test.ts',
+      'test/agent-first-skill.rules.test.ts',
       'test/release.rules.test.ts',
       'test/release-acceptance-report.test.ts',
       'test/website.rules.test.ts',

@@ -16,3 +16,7 @@
 3. 配置 `pluginRspackEmpShare(...)`。
 4. 运行开发服务或生产构建。
 5. 检查 manifest、类型声明和页面消费链路。
+
+## Agent-First 使用手册
+
+如果由 Agent 负责创建、配置或验收项目，优先使用仓库根目录 `skills/emp-v4-agent-first/`。官网只提供入口，完整插件配置、Module Federation 配置和发布验收清单都维护在仓库 Skill 中。
