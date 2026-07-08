@@ -14,6 +14,7 @@ const websiteDocsPath = join(repoRoot, 'website/docs')
 const websiteZhPath = join(websiteDocsPath, 'zh')
 const websiteHomePath = join(websiteZhPath, 'index.mdx')
 const websiteNavPath = join(websiteZhPath, '_nav.json')
+const websiteAppsMatrixPath = join(websiteZhPath, 'examples/apps-matrix.md')
 const websiteLogoPath = join(websiteDocsPath, 'public/emp-v4-logo.png')
 const websiteLogoSvgPath = join(websiteDocsPath, 'public/emp-v4-logo.svg')
 const docsLogoPath = join(repoRoot, 'docs/assets/emp-v4-logo.png')
@@ -314,6 +315,48 @@ describe('website rebuild rules', () => {
 
     for (const label of hiddenUtilityLabels) {
       expect(nav.some(item => item.text === label || item.text.includes(label))).toBe(false)
+    }
+  })
+
+  test('apps acceptance matrix publishes detailed verification tables', () => {
+    const matrix = readFileSync(websiteAppsMatrixPath, 'utf8')
+    const requiredCommands = [
+      'corepack pnpm apps:acceptance',
+      'corepack pnpm test:apps:single',
+      'corepack pnpm test:apps:browser',
+      'corepack pnpm test:tsconfig',
+      'corepack pnpm empbuild',
+      'corepack pnpm apps:check',
+      'corepack pnpm test:library-output',
+    ]
+    const requiredApps = [
+      'adapter-app',
+      'adapter-host',
+      'demo',
+      'mf-host',
+      'mf-app',
+      'react-19-tanstack',
+      'rspack2-modern-module',
+      'rspack2-optimization',
+      'tailwind-4',
+      'vue-2-base',
+      'vue-2-project',
+      'vue-3-base',
+      'vue-3-project',
+    ]
+
+    expect(matrix).toContain('## 验收链路')
+    expect(matrix).toContain('## App 详细验收表')
+    expect(matrix).toContain('## 边界验收')
+    expect(matrix).toContain('| 验收项 | 命令 | 验收详细内容 | 通过标准 | 失败定位 |')
+    expect(matrix).toContain('| App | 验收类型 | 验收详细内容 | 通过标准 | 测试证据 |')
+
+    for (const command of requiredCommands) {
+      expect(matrix).toContain(command)
+    }
+
+    for (const app of requiredApps) {
+      expect(matrix).toContain(`| \`${app}\` |`)
     }
   })
 
