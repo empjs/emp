@@ -234,9 +234,12 @@ describe('website rebuild rules', () => {
       'image:',
       'actions:',
       'Rspack 2',
+      'ESM 优先输出',
+      'TS 7 类型基线',
       'Module Federation 2',
       '7 个插件包',
       '27 篇中文文档',
+      'Agent-First 使用手册',
     ]) {
       expect(home).toContain(requiredMarker)
     }
@@ -245,8 +248,22 @@ describe('website rebuild rules', () => {
     expect(parsed.frontmatter.hero?.name).toBe('EMP v4')
     expect(parsed.frontmatter.titleSuffix).toBe('高性能、微前端构建')
     expect(parsed.frontmatter.hero?.text).toBe('高性能、微前端构建')
-    expect(parsed.frontmatter.features).toHaveLength(6)
-    expect(featureCount).toBeGreaterThanOrEqual(6)
+    expect(parsed.frontmatter.description).toContain('ESM 输出')
+    expect(parsed.frontmatter.description).toContain('TypeScript 7 RC')
+    expect(parsed.frontmatter.hero?.tagline).toContain('ESM 输出')
+    expect(parsed.frontmatter.hero?.tagline).toContain('TS 7 类型校验')
+    expect(parsed.frontmatter.features).toHaveLength(8)
+    expect(parsed.frontmatter.features.map((feature: {title: string}) => feature.title)).toEqual([
+      'Rspack 2 构建底座',
+      'ESM 优先输出',
+      'TS 7 类型基线',
+      'Module Federation 2',
+      '7 个插件包',
+      '27 篇中文文档',
+      'Agent-First 使用手册',
+      '发布验收证据',
+    ])
+    expect(featureCount).toBeGreaterThanOrEqual(8)
     expect(existsSync(join(websiteZhPath, 'index.md'))).toBe(false)
     expect(home).not.toContain('class="emp-home"')
     expect(home).not.toContain('data-section=')
