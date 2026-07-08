@@ -15,7 +15,9 @@ const websiteZhPath = join(websiteDocsPath, 'zh')
 const websiteHomePath = join(websiteZhPath, 'index.mdx')
 const websiteNavPath = join(websiteZhPath, '_nav.json')
 const websiteLogoPath = join(websiteDocsPath, 'public/emp-v4-logo.png')
+const websiteLogoSvgPath = join(websiteDocsPath, 'public/emp-v4-logo.svg')
 const docsLogoPath = join(repoRoot, 'docs/assets/emp-v4-logo.png')
+const docsLogoSvgPath = join(repoRoot, 'docs/assets/emp-v4-logo.svg')
 
 const readPngHeader = (path: string) => {
   const png = readFileSync(path)
@@ -261,14 +263,29 @@ describe('website rebuild rules', () => {
         colorType: 6,
       })
       expect(logo.getPixel(0, 0).a).toBe(0)
-      expect(logo.getPixel(336, 260).a).toBeGreaterThan(200)
 
-      const darkCubeDetail = logo.getPixel(326, 263)
+      const opaquePixels = logo.countPixels(pixel => pixel.a > 200)
+      const goldPixels = logo.countPixels(pixel => pixel.a > 200 && pixel.r > 220 && pixel.g > 130 && pixel.b < 90)
+      const cyanPixels = logo.countPixels(pixel => pixel.a > 200 && pixel.r < 120 && pixel.g > 100 && pixel.b > 120)
+      const nearBlackPixels = logo.countPixels(pixel => pixel.a > 200 && Math.max(pixel.r, pixel.g, pixel.b) < 80)
 
-      expect(darkCubeDetail.a).toBeGreaterThan(200)
-      expect(Math.max(darkCubeDetail.r, darkCubeDetail.g, darkCubeDetail.b)).toBeGreaterThan(80)
-      expect(logo.countPixels(pixel => pixel.a > 200 && Math.max(pixel.r, pixel.g, pixel.b) < 80)).toBe(0)
+      expect(opaquePixels).toBeGreaterThan(30000)
+      expect(goldPixels).toBeGreaterThan(8000)
+      expect(cyanPixels).toBeGreaterThan(8000)
+      expect(nearBlackPixels).toBe(0)
     }
+  })
+
+  test('EMP v4 logo has a repo-native SVG source instead of a raster-only edit', () => {
+    const websiteSvg = readFileSync(websiteLogoSvgPath, 'utf8')
+    const docsSvg = readFileSync(docsLogoSvgPath, 'utf8')
+
+    expect(websiteSvg).toBe(docsSvg)
+    expect(websiteSvg).toContain('<svg')
+    expect(websiteSvg).toContain('viewBox="0 0 512 512"')
+    expect(websiteSvg).toContain('data-logo-source="emp-v4-generated"')
+    expect(websiteSvg).not.toContain('url(')
+    expect(websiteSvg).not.toMatch(/<image\b|href=|data:image|base64|#000000|#000\b/i)
   })
 
   test('documentation tree is Chinese-only and declarative', () => {

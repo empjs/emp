@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-logo-source="emp-v4-generated" role="img" aria-label="EMP v4 logo">
+  <g fill="none" stroke="#10BCEB" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M151 423C82 333 84 190 170 102C202 70 239 61 282 68" stroke-width="34"/>
+    <path d="M326 435C382 415 421 372 438 318" stroke-width="34"/>
+  </g>
+
+  <g>
+    <polygon points="310 35 172 250 246 250 176 477 356 211 284 223" fill="#FFC21A"/>
+    <polygon points="246 250 176 477 285 315 306 230" fill="#F47A08" opacity="0.78"/>
+    <polygon points="310 35 224 237 284 223" fill="#FFF06A" opacity="0.62"/>
+    <polygon points="188 250 247 250 228 309" fill="#FF9300" opacity="0.52"/>
+    <polygon points="280 247 356 211 286 314" fill="#FF9F0F" opacity="0.5"/>
+  </g>
+
+  <g fill="none" stroke="#14CDEB" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
+    <path d="M315 242 371 170 423 148"/>
+    <path d="M338 277 410 238 455 250"/>
+    <path d="M319 319 374 358 425 338"/>
+    <path d="M294 342 292 403 322 434"/>
+    <path d="M257 367 215 392 188 418"/>
+    <path d="M374 170 405 199 407 238"/>
+    <path d="M374 358 374 410"/>
+    <circle cx="423" cy="148" r="8" fill="#26DCEE"/>
+    <circle cx="455" cy="250" r="8" fill="#26DCEE"/>
+    <circle cx="425" cy="338" r="8" fill="#26DCEE"/>
+    <circle cx="322" cy="434" r="7" fill="#26DCEE"/>
+    <circle cx="188" cy="418" r="7" fill="#26DCEE"/>
+    <circle cx="405" cy="199" r="6" fill="#26DCEE"/>
+    <circle cx="374" cy="410" r="6" fill="#26DCEE"/>
+  </g>
+
+  <g stroke="#18D4EF" stroke-linejoin="round">
+    <g transform="translate(288 221)">
+      <polygon points="0 24 43 0 86 24 43 49" fill="#FFC21A"/>
+      <polygon points="0 24 43 49 43 99 0 74" fill="#0DA6C9"/>
+      <polygon points="86 24 43 49 43 99 86 74" fill="#0878C7"/>
+      <path d="M0 24 43 0 86 24 86 74 43 99 0 74Z" fill="none" stroke-width="5"/>
+      <path d="M43 49v50M0 24l43 25 43-25" fill="none" stroke-width="5"/>
+      <circle cx="17" cy="61" r="4" fill="#D8F8FF" stroke-width="0"/>
+      <circle cx="27" cy="67" r="4" fill="#D8F8FF" stroke-width="0"/>
+    </g>
+
+    <g transform="translate(361 131) scale(.66)">
+      <polygon points="0 24 43 0 86 24 43 49" fill="#FFC21A"/>
+      <polygon points="0 24 43 49 43 99 0 74" fill="#0DA6C9"/>
+      <polygon points="86 24 43 49 43 99 86 74" fill="#0878C7"/>
+      <path d="M0 24 43 0 86 24 86 74 43 99 0 74Z" fill="none" stroke-width="7"/>
+      <path d="M43 49v50M0 24l43 25 43-25" fill="none" stroke-width="7"/>
+      <circle cx="20" cy="62" r="5" fill="#D8F8FF" stroke-width="0"/>
+      <circle cx="31" cy="68" r="5" fill="#D8F8FF" stroke-width="0"/>
+    </g>
+
+    <g transform="translate(390 279) scale(.68)">
+      <polygon points="0 24 43 0 86 24 43 49" fill="#FFC21A"/>
+      <polygon points="0 24 43 49 43 99 0 74" fill="#0DA6C9"/>
+      <polygon points="86 24 43 49 43 99 86 74" fill="#0878C7"/>
+      <path d="M0 24 43 0 86 24 86 74 43 99 0 74Z" fill="none" stroke-width="7"/>
+      <path d="M43 49v50M0 24l43 25 43-25" fill="none" stroke-width="7"/>
+    </g>
+
+    <g transform="translate(282 333) scale(.56)">
+      <polygon points="0 24 43 0 86 24 43 49" fill="#FFC21A"/>
+      <polygon points="0 24 43 49 43 99 0 74" fill="#0DA6C9"/>
+      <polygon points="86 24 43 49 43 99 86 74" fill="#0878C7"/>
+      <path d="M0 24 43 0 86 24 86 74 43 99 0 74Z" fill="none" stroke-width="8"/>
+      <path d="M43 49v50M0 24l43 25 43-25" fill="none" stroke-width="8"/>
+    </g>
+
+    <g transform="translate(214 390) scale(.28)">
+      <polygon points="0 24 43 0 86 24 43 49" fill="#FFC21A"/>
+      <polygon points="0 24 43 49 43 99 0 74" fill="#0DA6C9"/>
+      <polygon points="86 24 43 49 43 99 86 74" fill="#0878C7"/>
+      <path d="M0 24 43 0 86 24 86 74 43 99 0 74Z" fill="none" stroke-width="14"/>
+      <path d="M43 49v50M0 24l43 25 43-25" fill="none" stroke-width="14"/>
+    </g>
+  </g>
+</svg>
