@@ -3,6 +3,7 @@ import {existsSync, readdirSync, readFileSync, realpathSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import {join} from 'node:path'
 import {pathToFileURL} from 'node:url'
+import {inflateSync} from 'node:zlib'
 import {repoRoot} from './helpers/repo-root'
 
 const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T
@@ -25,6 +26,99 @@ const readPngHeader = (path: string) => {
     colorType: png[25],
     width: png.readUInt32BE(16),
     height: png.readUInt32BE(20),
+  }
+}
+
+const paethPredictor = (left: number, up: number, upLeft: number) => {
+  const estimate = left + up - upLeft
+  const leftDistance = Math.abs(estimate - left)
+  const upDistance = Math.abs(estimate - up)
+  const upLeftDistance = Math.abs(estimate - upLeft)
+
+  if (leftDistance <= upDistance && leftDistance <= upLeftDistance) {
+    return left
+  }
+
+  if (upDistance <= upLeftDistance) {
+    return up
+  }
+
+  return upLeft
+}
+
+const readPngRgba = (path: string) => {
+  const png = readFileSync(path)
+  const header = readPngHeader(path)
+  const chunks: Buffer[] = []
+  let offset = 8
+
+  while (offset < png.length) {
+    const length = png.readUInt32BE(offset)
+    const type = png.toString('ascii', offset + 4, offset + 8)
+    const dataStart = offset + 8
+    const dataEnd = dataStart + length
+
+    if (type === 'IDAT') {
+      chunks.push(png.subarray(dataStart, dataEnd))
+    }
+
+    if (type === 'IEND') {
+      break
+    }
+
+    offset = dataEnd + 4
+  }
+
+  expect(header.bitDepth).toBe(8)
+  expect(header.colorType).toBe(6)
+
+  const bytesPerPixel = 4
+  const stride = header.width * bytesPerPixel
+  const inflated = inflateSync(Buffer.concat(chunks))
+  const rgba = Buffer.alloc(header.height * stride)
+  let inputOffset = 0
+
+  for (let y = 0; y < header.height; y++) {
+    const filter = inflated[inputOffset++]
+    const row = inflated.subarray(inputOffset, inputOffset + stride)
+    const outputStart = y * stride
+
+    inputOffset += stride
+
+    for (let x = 0; x < stride; x++) {
+      const raw = row[x]
+      const left = x >= bytesPerPixel ? rgba[outputStart + x - bytesPerPixel] : 0
+      const up = y > 0 ? rgba[outputStart - stride + x] : 0
+      const upLeft = y > 0 && x >= bytesPerPixel ? rgba[outputStart - stride + x - bytesPerPixel] : 0
+
+      if (filter === 0) {
+        rgba[outputStart + x] = raw
+      } else if (filter === 1) {
+        rgba[outputStart + x] = (raw + left) & 0xff
+      } else if (filter === 2) {
+        rgba[outputStart + x] = (raw + up) & 0xff
+      } else if (filter === 3) {
+        rgba[outputStart + x] = (raw + Math.floor((left + up) / 2)) & 0xff
+      } else if (filter === 4) {
+        rgba[outputStart + x] = (raw + paethPredictor(left, up, upLeft)) & 0xff
+      } else {
+        throw new Error(`Unsupported PNG filter ${filter} in ${path}`)
+      }
+    }
+  }
+
+  return {
+    ...header,
+    getPixel: (x: number, y: number) => {
+      const pixelOffset = (y * header.width + x) * bytesPerPixel
+
+      return {
+        r: rgba[pixelOffset],
+        g: rgba[pixelOffset + 1],
+        b: rgba[pixelOffset + 2],
+        a: rgba[pixelOffset + 3],
+      }
+    },
   }
 }
 
@@ -137,16 +231,23 @@ describe('website rebuild rules', () => {
     expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(false)
   })
 
-  test('EMP v4 logo assets keep transparent PNG backgrounds', () => {
+  test('EMP v4 logo assets keep transparent PNG backgrounds without losing dark details', () => {
     for (const logoPath of [websiteLogoPath, docsLogoPath]) {
-      const header = readPngHeader(logoPath)
+      const logo = readPngRgba(logoPath)
 
-      expect(header).toMatchObject({
+      expect(logo).toMatchObject({
         width: 512,
         height: 512,
         bitDepth: 8,
         colorType: 6,
       })
+      expect(logo.getPixel(0, 0).a).toBe(0)
+      expect(logo.getPixel(336, 260).a).toBeGreaterThan(200)
+
+      const darkCubeDetail = logo.getPixel(326, 263)
+
+      expect(darkCubeDetail.a).toBeGreaterThan(200)
+      expect(Math.max(darkCubeDetail.r, darkCubeDetail.g, darkCubeDetail.b)).toBeLessThan(50)
     }
   })
 
