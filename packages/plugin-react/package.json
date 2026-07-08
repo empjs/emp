@@ -45,7 +45,7 @@
     "@types/react": "^19.2.10"
   },
   "dependencies": {
-    "@rspack/plugin-react-refresh": "^2.0.0",
+    "@rspack/plugin-react-refresh": "^2.0.2",
     "@svgr/webpack": "8.1.0",
     "react-refresh": "0.18.0"
   }

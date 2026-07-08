@@ -9,8 +9,8 @@
     "start": "rspress preview"
   },
   "devDependencies": {
-    "@rspress/core": "^2.0.16",
-    "@rspress/plugin-sitemap": "^2.0.16",
+    "@rspress/core": "^2.0.17",
+    "@rspress/plugin-sitemap": "^2.0.17",
     "typescript": "7.0.2"
   }
 }

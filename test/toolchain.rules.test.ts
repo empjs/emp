@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs'
+import {existsSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
@@ -131,13 +131,13 @@ describe('toolchain version contract', () => {
     )
   })
 
-  test('cli depends on Rspack 2.1 and TS7-aware checker', () => {
+  test('cli depends on the current Rspack 2.1 latest and TS7-aware checker', () => {
     const cliPkg = readJson('packages/cli/package.json')
     const reactPkg = readJson('packages/plugin-react/package.json')
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
-    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.2')
+    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.3')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
-    expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.0')
+    expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.2')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
     expect(cliRstestConfig).toContain("pool: {type: 'forks', maxWorkers: 1, minWorkers: 1}")
@@ -147,17 +147,23 @@ describe('toolchain version contract', () => {
 
   test('declaration tooling uses TS7-aware Rslib and Module Federation compatibility alias', () => {
     const pkg = readJson('package.json')
+    const rslibPresetsPkg = readJson('packages/rslib-presets/package.json')
     const workspace = readText('pnpm-workspace.yaml')
     const lockfile = readText('pnpm-lock.yaml')
-    const mfPatch = readText('patches/@module-federation__dts-plugin@2.6.0.patch')
+    const mfPatchPath = 'patches/@module-federation__dts-plugin@2.7.0.patch'
 
-    expect(pkg.devDependencies['@rslib/core']).toBe('^0.23.1')
+    expect(existsSync(join(repoRoot, mfPatchPath))).toBe(true)
+    const mfPatch = readText(mfPatchPath)
+
+    expect(pkg.devDependencies['@rslib/core']).toBe('^0.23.2')
+    expect(rslibPresetsPkg.dependencies['@rslib/core']).toBe('^0.23.2')
     expect(pkg.devDependencies['typescript-mf']).toBe('npm:typescript@5.9.3')
     expect(pkg.devDependencies['typescript-rslib']).toBeUndefined()
     expect(workspace).toContain('patchedDependencies:')
-    expect(workspace).toContain("'@module-federation/dts-plugin@2.6.0': patches/@module-federation__dts-plugin@2.6.0.patch")
+    expect(workspace).toContain("'@module-federation/dts-plugin@2.7.0': patches/@module-federation__dts-plugin@2.7.0.patch")
+    expect(workspace).not.toContain('@module-federation/dts-plugin@2.6.0')
     expect(workspace).not.toContain('rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch')
-    expect(lockfile).toContain('rsbuild-plugin-dts@0.23.1')
+    expect(lockfile).toContain('rsbuild-plugin-dts@0.23.2')
     expect(lockfile).toContain('typescript: ^5 || ^6 || ^7.0.1-0')
     expect(lockfile).toContain('typescript@7.0.2')
     expect(mfPatch).toContain('from "typescript-mf"')

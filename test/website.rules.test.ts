@@ -164,8 +164,8 @@ describe('website rebuild rules', () => {
       build: 'rspress build',
       start: 'rspress preview',
     })
-    expect(allDeps['@rspress/core']).toBe('^2.0.16')
-    expect(allDeps['@rspress/plugin-sitemap']).toBe('^2.0.16')
+    expect(allDeps['@rspress/core']).toBe('^2.0.17')
+    expect(allDeps['@rspress/plugin-sitemap']).toBe('^2.0.17')
     expect(allDeps.typescript).toBe('7.0.2')
 
     for (const legacyPackage of [

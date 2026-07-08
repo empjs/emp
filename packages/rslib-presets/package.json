@@ -7,6 +7,6 @@
     ".": "./index.mjs"
   },
   "dependencies": {
-    "@rslib/core": "^0.23.1"
+    "@rslib/core": "^0.23.2"
   }
 }

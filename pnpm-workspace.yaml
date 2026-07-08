@@ -16,4 +16,4 @@ ignoredBuiltDependencies:
   - fsevents
 
 patchedDependencies:
-  '@module-federation/dts-plugin@2.6.0': patches/@module-federation__dts-plugin@2.6.0.patch
+  '@module-federation/dts-plugin@2.7.0': patches/@module-federation__dts-plugin@2.7.0.patch
