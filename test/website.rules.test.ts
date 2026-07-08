@@ -264,13 +264,18 @@ describe('website rebuild rules', () => {
     expect(existsSync(join(repoRoot, 'website/docs/public/emp-v4-logo.png'))).toBe(true)
   })
 
-  test('top navigation uses compact two-character Chinese labels', () => {
+  test('top navigation only surfaces functional documentation labels', () => {
     const nav = readJson<Array<{text: string; link: string}>>(websiteNavPath)
+    const hiddenUtilityLabels = ['首页', '示例', '迁移', '问答', '发布']
 
-    expect(nav.map(item => item.text)).toEqual(['首页', '入门', '核心', '插件', '配置', '示例', '迁移', '问答'])
+    expect(nav.map(item => item.text)).toEqual(['入门', '核心', '插件', '配置'])
 
     for (const item of nav) {
       expect(item.text).toMatch(/^[\u4e00-\u9fa5]{2}$/)
+    }
+
+    for (const label of hiddenUtilityLabels) {
+      expect(nav.some(item => item.text === label || item.text.includes(label))).toBe(false)
     }
   })
 

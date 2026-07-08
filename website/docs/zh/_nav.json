@@ -1,9 +1,5 @@
 [
   {
-    "text": "首页",
-    "link": "/"
-  },
-  {
     "text": "入门",
     "link": "/guide/quick-start",
     "activeMatch": "^/guide/"
@@ -22,20 +18,5 @@
     "text": "配置",
     "link": "/config/",
     "activeMatch": "^/config/"
-  },
-  {
-    "text": "示例",
-    "link": "/examples/",
-    "activeMatch": "^/examples/"
-  },
-  {
-    "text": "迁移",
-    "link": "/migration/",
-    "activeMatch": "^/(migration|release)/"
-  },
-  {
-    "text": "问答",
-    "link": "/faq/",
-    "activeMatch": "^/faq/"
   }
 ]
