@@ -110,6 +110,24 @@ const readPngRgba = (path: string) => {
 
   return {
     ...header,
+    countPixels: (predicate: (pixel: {r: number; g: number; b: number; a: number}) => boolean) => {
+      let count = 0
+
+      for (let pixelOffset = 0; pixelOffset < rgba.length; pixelOffset += bytesPerPixel) {
+        if (
+          predicate({
+            r: rgba[pixelOffset],
+            g: rgba[pixelOffset + 1],
+            b: rgba[pixelOffset + 2],
+            a: rgba[pixelOffset + 3],
+          })
+        ) {
+          count++
+        }
+      }
+
+      return count
+    },
     getPixel: (x: number, y: number) => {
       const pixelOffset = (y * header.width + x) * bytesPerPixel
 
@@ -232,7 +250,7 @@ describe('website rebuild rules', () => {
     expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(false)
   })
 
-  test('EMP v4 logo assets keep transparent PNG backgrounds without losing dark details', () => {
+  test('EMP v4 logo assets keep transparent PNG backgrounds without black matte pixels', () => {
     for (const logoPath of [websiteLogoPath, docsLogoPath]) {
       const logo = readPngRgba(logoPath)
 
@@ -248,7 +266,8 @@ describe('website rebuild rules', () => {
       const darkCubeDetail = logo.getPixel(326, 263)
 
       expect(darkCubeDetail.a).toBeGreaterThan(200)
-      expect(Math.max(darkCubeDetail.r, darkCubeDetail.g, darkCubeDetail.b)).toBeLessThan(50)
+      expect(Math.max(darkCubeDetail.r, darkCubeDetail.g, darkCubeDetail.b)).toBeGreaterThan(80)
+      expect(logo.countPixels(pixel => pixel.a > 200 && Math.max(pixel.r, pixel.g, pixel.b) < 80)).toBe(0)
     }
   })
 
