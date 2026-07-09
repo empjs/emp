@@ -80,6 +80,7 @@ class RspackModule {
             dynamicImportPreload: false,
             url: true,
             importMeta: true,
+            createRequire: true,
             ...parserOptions?.javascript,
           },
           // CSS 模块的解析器选项

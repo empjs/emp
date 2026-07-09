@@ -1,10 +1,13 @@
 :root {
+  --emp-hero-bg: #020b18;
+  --emp-hero-bg-deep: #000815;
   --emp-fox-orange: #f97316;
   --emp-fox-amber: #ffc21a;
   --emp-electric-cyan: #10bceb;
   --emp-ink: #111827;
-  --emp-cool-gray: #f6f8fb;
-  --emp-line: rgba(17, 24, 39, 0.1);
+  --emp-muted: rgba(226, 232, 240, 0.74);
+  --emp-line-dark: rgba(148, 163, 184, 0.18);
+  --emp-line-light: rgba(15, 23, 42, 0.1);
   --rp-c-brand: #f97316;
   --rp-c-brand-light: #fb923c;
   --rp-c-brand-dark: #ea580c;
@@ -12,179 +15,594 @@
 }
 
 :root.dark {
-  --emp-cool-gray: #111827;
-  --emp-line: rgba(255, 255, 255, 0.13);
   --rp-c-brand: #fb923c;
   --rp-c-brand-light: #fdba74;
   --rp-c-brand-dark: #f97316;
   --rp-c-brand-darker: #ea580c;
 }
 
-.rp-nav {
-  border-bottom: 1px solid var(--emp-line);
-  backdrop-filter: saturate(140%) blur(16px);
+body {
+  background: #fff;
 }
 
-.rp-nav__title__logo {
-  width: 34px;
-  height: 34px;
-}
-
-.rp-nav__title__logo-image {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
-.rp-home-hero {
-  position: relative;
-  overflow: hidden;
-  padding-top: 72px;
-}
-
-.rp-home-hero::before {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  content: "";
-  background:
-    linear-gradient(120deg, rgba(249, 115, 22, 0.15), transparent 34%),
-    linear-gradient(240deg, rgba(16, 188, 235, 0.14), transparent 36%);
-}
-
-.rp-home-hero__container {
-  align-items: center;
-  min-height: 560px;
-}
-
-.rp-home-hero__title-brand {
-  color: var(--emp-fox-orange);
-  letter-spacing: 0;
-}
-
-.rp-home-hero__subtitle {
-  max-width: 760px;
-  color: var(--emp-ink);
-  letter-spacing: 0;
-}
-
-:root.dark .rp-home-hero__subtitle {
+html body .rp-nav,
+html body:not(.notTopArrived) .rp-nav {
+  box-sizing: border-box;
+  height: 88px;
+  padding: 0 56px !important;
+  border-bottom: 1px solid var(--emp-line-dark) !important;
   color: #f8fafc;
+  background: rgba(2, 11, 24, 0.92) !important;
+  backdrop-filter: saturate(140%) blur(18px);
 }
 
-.rp-home-hero__tagline {
-  max-width: 640px;
-  color: rgba(17, 24, 39, 0.74);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  letter-spacing: 0;
+html body .rp-nav__left,
+html body .rp-nav__right {
+  height: 88px;
 }
 
-:root.dark .rp-home-hero__tagline {
-  color: rgba(248, 250, 252, 0.72);
-}
-
-.rp-home-hero__actions {
-  gap: 12px;
-}
-
-.rp-home-hero__action {
-  border-radius: 8px;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-.rp-home-hero__action:first-child {
-  border-color: var(--emp-fox-orange);
-  background: var(--emp-fox-orange);
+html body .rp-nav__title__link {
+  gap: 10px;
   color: #fff;
-}
-
-.rp-home-hero__action:first-child:hover {
-  border-color: #ea580c;
-  background: #ea580c;
-}
-
-.rp-home-hero__image {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-
-.rp-home-hero__image::before {
-  position: absolute;
-  width: 82%;
-  height: 82%;
-  content: "";
-  border: 1px solid rgba(16, 188, 235, 0.2);
-  border-radius: 8px;
-  transform: rotate(-6deg);
-}
-
-.rp-home-hero__image-img {
-  position: relative;
-  z-index: 1;
-  max-width: 440px;
-  max-height: 440px;
-  filter: drop-shadow(0 28px 56px rgba(17, 24, 39, 0.22));
-}
-
-.rp-home-feature {
-  padding-top: 22px;
-}
-
-.rp-home-feature__card {
-  min-height: 186px;
-  border: 1px solid var(--emp-line);
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 248, 251, 0.92)),
-    var(--emp-cool-gray);
-  box-shadow: 0 10px 28px rgba(17, 24, 39, 0.06);
-}
-
-:root.dark .rp-home-feature__card {
-  background:
-    linear-gradient(180deg, rgba(31, 41, 55, 0.88), rgba(17, 24, 39, 0.9)),
-    var(--emp-ink);
-  box-shadow: none;
-}
-
-.rp-home-feature__icon {
-  min-width: 42px;
-  height: 42px;
-  border: 1px solid rgba(249, 115, 22, 0.22);
-  border-radius: 8px;
-  background: rgba(249, 115, 22, 0.1);
-  color: var(--emp-fox-orange);
-  font-size: 0.9rem;
+  font-size: 29px;
   font-weight: 800;
   letter-spacing: 0;
 }
 
-.rp-home-feature__title {
+html body .rp-nav__title__link span {
+  color: #fff;
+}
+
+html body .rp-nav__title__link::after {
+  color: var(--emp-fox-orange);
+  content: "v4";
+}
+
+html body .rp-nav__title__logo,
+html body .rp-nav__title__logo-image {
+  width: 50px;
+  height: 50px;
+  max-height: 50px;
+}
+
+html body .rp-nav__title__logo-image {
+  object-fit: contain;
+}
+
+html body .rp-nav__right {
+  flex: 1;
+  justify-content: flex-start;
+  margin-left: 90px;
+}
+
+html body .rp-nav-menu--right {
+  order: 1;
+  margin-left: 0;
+}
+
+html body .rp-nav-menu__item__container {
+  color: rgba(248, 250, 252, 0.92);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+html body .rp-nav-menu__item__container:hover {
+  color: #fff;
+}
+
+html body .rp-search-button {
+  order: 2;
+  height: 40px;
+  margin-left: 150px;
+  border-color: rgba(148, 163, 184, 0.32);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.45);
+  color: rgba(248, 250, 252, 0.86);
+}
+
+html body .rp-search-button__hotkey {
+  color: rgba(248, 250, 252, 0.62);
+}
+
+html body .rp-nav__others {
+  order: 3;
+  margin-left: auto;
+}
+
+html body .rp-switch-appearance,
+html body .rp-social-links__item {
+  color: rgba(248, 250, 252, 0.88);
+}
+
+html body .rp-home-background {
+  display: none;
+}
+
+html body .rp-home-hero {
+  position: relative;
+  display: block !important;
+  box-sizing: border-box;
+  width: 100vw !important;
+  max-width: none !important;
+  height: calc(100vh - 128px);
+  min-height: 600px;
+  max-height: 675px;
+  margin: 0 calc(50% - 50vw) !important;
+  padding: 72px 0 28px !important;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 84% 38%, rgba(16, 188, 235, 0.2), transparent 26%),
+    radial-gradient(circle at 59% 74%, rgba(249, 115, 22, 0.28), transparent 28%),
+    linear-gradient(115deg, rgba(2, 11, 24, 0.98), rgba(3, 14, 31, 0.98) 52%, rgba(4, 23, 43, 0.98)),
+    var(--emp-hero-bg);
+  color: #fff;
+}
+
+html body .rp-home-hero::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(145deg, transparent 0 43%, rgba(249, 115, 22, 0.28) 43.2%, transparent 44.2%),
+    linear-gradient(145deg, transparent 0 51%, rgba(16, 188, 235, 0.26) 51.2%, transparent 52%),
+    linear-gradient(145deg, transparent 0 61%, rgba(249, 115, 22, 0.18) 61.1%, transparent 61.8%),
+    radial-gradient(circle at 88% 23%, rgba(16, 188, 235, 0.18), transparent 12%);
+  opacity: 0.82;
+}
+
+html body .rp-home-hero::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-image:
+    linear-gradient(30deg, transparent 0 46%, rgba(16, 188, 235, 0.15) 46.2%, transparent 46.6%),
+    linear-gradient(150deg, transparent 0 58%, rgba(148, 163, 184, 0.1) 58.2%, transparent 58.6%);
+  background-size: 260px 150px;
+  mask-image: linear-gradient(90deg, transparent, #000 45%, #000);
+  opacity: 0.7;
+}
+
+html body .rp-home-hero__container {
+  position: relative;
+  z-index: 1;
+  display: grid !important;
+  grid-template-columns: 620px minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  align-content: start;
+  align-items: start !important;
+  width: min(1340px, calc(100vw - 128px)) !important;
+  max-width: 1340px !important;
+  min-height: 560px !important;
+  margin: 0 auto !important;
+  row-gap: 0 !important;
+  column-gap: 32px !important;
+}
+
+html body .rp-home-hero__content {
+  display: block !important;
+  grid-column: 1;
+  grid-row: 2;
+  max-width: 690px;
+}
+
+html body .rp-home-hero__badge {
+  grid-column: 1;
+  grid-row: 1;
+  width: fit-content;
+  margin-bottom: 30px;
+  padding: 8px 18px;
+  border: 1px solid rgba(249, 115, 22, 0.9);
+  border-radius: 999px;
+  color: var(--emp-fox-amber);
+  background: rgba(249, 115, 22, 0.08) !important;
+  font-size: 15px;
+  font-weight: 600;
   letter-spacing: 0;
 }
 
-.rp-home-feature__detail {
-  line-height: 1.75;
+html body .rp-home-hero__title {
+  margin: 0;
+}
+
+html body .rp-home-hero__title-brand {
+  display: block;
+  color: #fff;
+  background: none !important;
+  font-size: 104px;
+  line-height: 0.88;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 8px 40px rgba(255, 255, 255, 0.08);
+  -webkit-text-fill-color: #fff;
+}
+
+html body .rp-home-hero__title-brand::after {
+  margin-left: 26px;
+  color: var(--emp-fox-orange);
+  background: none !important;
+  content: "v4";
+  -webkit-text-fill-color: var(--emp-fox-orange);
+}
+
+html body .rp-home-hero__subtitle {
+  max-width: 760px;
+  margin-top: 22px;
+  color: #f8fafc;
+  font-size: 52px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+html body .rp-home-hero__tagline {
+  grid-column: 1;
+  grid-row: 3;
+  max-width: 670px;
+  margin-top: 22px;
+  color: var(--emp-muted);
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+html body .rp-home-hero__tagline::before {
+  display: block;
+  margin-bottom: 22px;
+  color: var(--emp-fox-orange);
+  font-size: 18px;
+  font-weight: 600;
+  content: "Rspack 2  ·  Module Federation 2  ·  ESM  ·  TypeScript 7";
+}
+
+html body .rp-home-hero__actions {
+  grid-column: 1;
+  grid-row: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+html body .rp-home-hero__action {
+  min-width: 214px !important;
+  height: 58px !important;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+html body .rp-home-hero__action:first-child {
+  border-color: var(--emp-fox-orange);
+  background: linear-gradient(135deg, #ff7a18, #ff5f00) !important;
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(249, 115, 22, 0.28);
+}
+
+html body .rp-home-hero__action:first-child:hover {
+  border-color: #fb923c;
+  background: linear-gradient(135deg, #fb923c, #f97316) !important;
+}
+
+html body .rp-home-hero__action:last-child {
+  border-color: rgba(148, 163, 184, 0.48);
+  background: rgba(15, 23, 42, 0.42) !important;
+  color: #fff;
+}
+
+html body .rp-home-hero__actions::after {
+  display: block;
+  flex-basis: 100%;
+  margin-top: 26px;
+  color: rgba(248, 250, 252, 0.94);
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  content: "Blazing Fast  Built on Rspack 2     Federated  Native MF2 Support     Fully Typed  TypeScript 7 Ready     Production Ready  Stable & Reliable";
+}
+
+html body .rp-home-hero__image {
+  position: absolute;
+  top: 32px;
+  right: max(72px, calc((100vw - 1340px) / 2));
+  z-index: 1;
+  display: grid !important;
+  place-items: center;
+  width: min(620px, 45vw);
+  min-height: 590px !important;
+  pointer-events: none;
+}
+
+html body .rp-home-hero__image::before {
+  position: absolute;
+  width: 88%;
+  height: 76%;
+  content: "";
+  border: 1px solid rgba(16, 188, 235, 0.18);
+  background:
+    linear-gradient(135deg, rgba(16, 188, 235, 0.08), transparent 46%),
+    linear-gradient(315deg, rgba(249, 115, 22, 0.11), transparent 42%);
+  transform: rotate(-5deg) translateY(18px);
+}
+
+html body .rp-home-hero__image-img {
+  position: relative;
+  z-index: 1;
+  width: 590px !important;
+  max-width: min(590px, 44vw) !important;
+  max-height: 590px !important;
+  filter: drop-shadow(0 34px 70px rgba(0, 0, 0, 0.45));
+}
+
+html body .rp-home-feature {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px !important;
+  width: 100vw !important;
+  max-width: none !important;
+  margin: 0 calc(50% - 50vw) !important;
+  padding: 36px max(48px, calc((100vw - 1340px) / 2)) 56px !important;
+  background: #fff;
+}
+
+html body .rp-home-feature::before {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+  color: #0f172a;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: 0;
+  content: "Everything you need for modern micro frontends";
+}
+
+html body .rp-home-feature__item {
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0;
+}
+
+html body .rp-home-feature__item-wrapper {
+  width: 100% !important;
+  min-width: 0;
+}
+
+html body .rp-home-feature__card {
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: 18px;
+  width: 100% !important;
+  min-height: 156px;
+  padding: 26px 22px !important;
+  border: 1px solid var(--emp-line-light);
+  border-radius: 8px;
+  background: #fff !important;
+  text-align: left;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+}
+
+html body .rp-home-feature__title-wrapper {
+  display: contents !important;
+}
+
+html body .rp-home-feature__icon {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  min-width: 48px;
+  width: 48px;
+  height: 48px;
+  margin: 0 !important;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.98), rgba(255, 194, 26, 0.98)) !important;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+html body .rp-home-feature__item:nth-child(n + 2) .rp-home-feature__icon {
+  background: linear-gradient(135deg, #0ea5e9, var(--emp-electric-cyan)) !important;
+}
+
+html body .rp-home-feature__title {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0 0 8px !important;
+  color: #0f172a;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+html body .rp-home-feature__detail {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0 !important;
+  color: #475569;
+  line-height: 1.6;
+}
+
+html body .rp-home-feature__card::after {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: end;
+  margin-top: 14px;
+  color: #0ea5e9;
+  font-size: 14px;
+  font-weight: 500;
+  content: "Learn more  →";
+}
+
+@media (max-width: 1180px) {
+  html body .rp-nav-menu {
+    display: none;
+  }
+
+  html body .rp-nav__right {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  html body .rp-search-button {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  html body .rp-home-hero {
+    height: auto;
+    max-height: none;
+  }
+
+  html body .rp-home-hero__container {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-height: auto !important;
+  }
+
+  html body .rp-home-hero__image {
+    position: relative;
+    top: auto;
+    right: auto;
+    order: -1;
+    width: 100%;
+    min-height: 330px !important;
+  }
+
+  html body .rp-home-hero__image-img {
+    width: min(420px, 82vw) !important;
+    max-width: min(420px, 82vw) !important;
+  }
+
+  html body .rp-home-feature {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
-  .rp-home-hero {
-    padding-top: 44px;
+  html body .rp-nav,
+  html body:not(.notTopArrived) .rp-nav {
+    height: 56px;
+    padding: 0 18px !important;
   }
 
-  .rp-home-hero__container {
-    min-height: auto;
+  html body .rp-nav__left,
+  html body .rp-nav__right {
+    height: 56px;
   }
 
-  .rp-home-hero__image-img {
-    max-width: 300px;
-    max-height: 300px;
+  html body .rp-nav__title__link {
+    font-size: 0;
   }
 
-  .rp-home-hero__actions {
+  html body .rp-nav__title__link::after {
+    display: none;
+  }
+
+  html body .rp-nav__title__logo,
+  html body .rp-nav__title__logo-image {
+    width: 36px;
+    height: 36px;
+    max-height: 36px;
+  }
+
+  html body .rp-search-button {
+    display: none;
+  }
+
+  html body .rp-home-hero {
+    padding: 34px 0 44px !important;
+  }
+
+  html body .rp-home-hero__container {
+    width: calc(100vw - 36px) !important;
+    gap: 8px !important;
+  }
+
+  html body .rp-home-hero__badge {
+    justify-self: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto 18px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  html body .rp-home-hero__content {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  html body .rp-home-hero__title-brand {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 48px;
+    letter-spacing: 0;
+  }
+
+  html body .rp-home-hero__title-brand::after {
+    margin-left: 12px;
+  }
+
+  html body .rp-home-hero__subtitle {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 14px;
+    font-size: 28px;
+  }
+
+  html body .rp-home-hero__tagline {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100%;
+    margin: 18px auto 0;
+    font-size: 15px;
+  }
+
+  html body .rp-home-hero__tagline::before {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  html body .rp-home-hero__actions {
+    width: 100%;
     align-items: stretch;
+    justify-content: center;
+  }
+
+  html body .rp-home-hero__image {
+    width: 100%;
+    min-height: 260px !important;
+  }
+
+  html body .rp-home-hero__image-img {
+    width: 280px !important;
+    max-width: 280px !important;
+    max-height: 280px !important;
+    margin: 0 auto;
+  }
+
+  html body .rp-home-hero__action {
+    width: 100%;
+    min-width: 0 !important;
+    height: 48px !important;
+    font-size: 15px;
+  }
+
+  html body .rp-home-hero__actions::after {
+    display: none;
+  }
+
+  html body .rp-home-feature {
+    grid-template-columns: 1fr;
+    padding: 44px 18px 70px !important;
+  }
+
+  html body .rp-home-feature::before {
+    font-size: 21px;
+    line-height: 1.35;
   }
 }

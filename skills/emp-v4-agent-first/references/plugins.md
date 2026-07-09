@@ -2,6 +2,15 @@
 
 Use this reference for EMP v4 plugins and package-level configuration.
 
+## Contents
+
+- [Framework Plugins](#framework-plugins)
+- [React Compiler](#react-compiler)
+- [CSS Plugins](#css-plugins)
+- [Quality Packages](#quality-packages)
+- [Current Package Surface](#current-package-surface)
+- [Selection Rules](#selection-rules)
+
 ## Framework Plugins
 
 React:
@@ -35,6 +44,57 @@ import pluginVue3 from '@empjs/plugin-vue3'
 export default defineConfig({
   plugins: [pluginVue3()],
 })
+```
+
+## React Compiler
+
+`@empjs/plugin-react` 支持 React Compiler，但 EMP 默认不自动开启。默认策略如下：
+
+- 默认不自动开启 React Compiler。
+- Agent 可以建议开启，但最终必须由项目配置显式写入 `reactCompiler`。
+- 新 React 19 应用可以在真实构建和浏览器冒烟通过后使用 `reactCompiler: true`。
+- React 17 / React 18 应用必须安装 `react-compiler-runtime`，并设置 `target: '17'` 或 `target: '18'`。
+- 既有应用、Module Federation 应用、CDN React 应用，或外置 React 的项目，在确认共享 React/runtime 合约前必须保持手动开启。
+- 大型应用或已经依赖手写 memo 的应用，优先使用 `compilationMode: 'annotation'` 做渐进式接入。
+
+React 19 显式开启：
+
+```ts
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    pluginReact({
+      reactCompiler: true,
+    }),
+  ],
+})
+```
+
+React 18 渐进式开启：
+
+```ts
+import {defineConfig} from '@empjs/cli'
+import pluginReact from '@empjs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    pluginReact({
+      reactCompiler: {
+        target: '18',
+        compilationMode: 'annotation',
+      },
+    }),
+  ],
+})
+```
+
+保留配置前必须验证：
+
+```bash
+corepack pnpm --filter <app-or-package> build
+corepack pnpm apps:acceptance
 ```
 
 ## CSS Plugins

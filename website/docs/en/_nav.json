@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Guide",
+    "link": "/en/guide/quick-start",
+    "activeMatch": "^/guide/"
+  },
+  {
+    "text": "Core",
+    "link": "/en/core/",
+    "activeMatch": "^/core/"
+  },
+  {
+    "text": "Plugins",
+    "link": "/en/plugins/",
+    "activeMatch": "^/plugins/"
+  },
+  {
+    "text": "Config",
+    "link": "/en/config/",
+    "activeMatch": "^/config/"
+  }
+]

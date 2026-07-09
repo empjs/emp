@@ -10,8 +10,8 @@ describe('toolchain version contract', () => {
   test('root README stays aligned with the v4 homepage product surface', () => {
     const readme = readText('README.md')
 
-    expect(readme).toContain('docs/assets/emp-v4-logo.png')
-    expect(readme).toContain('高性能、微前端构建')
+    expect(readme).toContain('docs/assets/emp-federation-fox-full.png')
+    expect(readme).toContain('高性能微前端联邦构建')
     expect(readme).toContain('ESM 输出')
     expect(readme).toContain('ESM 优先输出')
     expect(readme).toContain('TS 7 稳定类型基线')

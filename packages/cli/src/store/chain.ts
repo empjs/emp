@@ -25,6 +25,7 @@ export const chainName = {
   },
   plugin: {
     tsCheckerRspackPlugin: 'TsCheckerRspackPlugin',
+    circularCheckRspackPlugin: 'CircularCheckRspackPlugin',
     bundleAnalyzer: 'bundleAnalyzerPlugin',
     define: 'definePlugin',
     copy: 'copyRspackPlugin',

@@ -19,6 +19,7 @@ class RspackPlugin {
     this.redoctor()
     this.sourceMapDevToolPlugin()
     this.tsCheckerRspackPlugin()
+    this.circularCheckRspackPlugin()
     this.cssChunkingPlugin()
     await this.store.empConfig.lifeCycle.afterPlugin()
   }
@@ -136,8 +137,11 @@ class RspackPlugin {
         .use(rspack.SourceMapDevToolPlugin, [this.store.empConfig.build.sourcemap.devToolPluginOptions])
     }
   }
-  circularDependency() {
-    this.store.chain.plugin('circularDependency').use(rspack.CircularDependencyRspackPlugin, [{}])
+  circularCheckRspackPlugin() {
+    if (this.store.empConfig.circularCheckRspackPlugin === false) return false
+    this.store.chain
+      .plugin(this.store.chainName.plugin.circularCheckRspackPlugin)
+      .use(rspack.CircularCheckRspackPlugin, [this.store.empConfig.circularCheckRspackPlugin])
   }
   // https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
   cssChunkingPlugin() {

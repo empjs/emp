@@ -71,6 +71,7 @@ const loadConfigForFixture = async fixtureRoot => {
           experiments: {
             pureFunctions: true,
             deferImport: true,
+            sourceImport: true,
           },
           parser: {
             javascript: {
@@ -93,6 +94,8 @@ const loadConfigForFixture = async fixtureRoot => {
   assert.equal(config.optimization.splitChunks.enforceSizeThreshold, 80000)
   assert.equal(config.experiments.pureFunctions, true)
   assert.equal(config.experiments.deferImport, true)
+  assert.equal(config.experiments.sourceImport, true)
+  assert.equal(config.module.parser.javascript.createRequire, true)
   assert.deepEqual(config.module.parser.javascript.pureFunctions, ['createPureValue'])
   assert.equal(config.module.parser.css.resolveImport, false)
   assert.equal(config.module.parser['css/auto'].resolveImport, false)
@@ -112,12 +115,13 @@ const loadConfigForFixture = async fixtureRoot => {
       cache: {
         type: 'persistent',
         maxAge: 1000 * 60 * 60,
-        maxGenerations: 2,
+        maxVersions: 2,
       },
       build: {
         rspack: {
           experiments: {
             runtimeMode: 'single',
+            sourceImport: true,
           },
         },
       },
@@ -125,7 +129,23 @@ const loadConfigForFixture = async fixtureRoot => {
   )
 
   assert.equal(config.experiments.runtimeMode, 'single')
+  assert.equal(config.experiments.sourceImport, true)
   assert.equal(config.cache.type, 'persistent')
   assert.equal(config.cache.maxAge, 1000 * 60 * 60)
-  assert.equal(config.cache.maxGenerations, 2)
+  assert.equal(config.cache.maxVersions, 2)
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('rspack21-defaults', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+    }),
+  )
+
+  assert.equal(config.module.parser.javascript.createRequire, true)
+  assert.equal(config.cache.type, 'persistent')
+  assert.equal(config.cache.maxAge, 7 * 24 * 60 * 60)
+  assert.equal(config.cache.maxVersions, 3)
+  assert.equal(config.experiments.sourceImport, undefined)
 }

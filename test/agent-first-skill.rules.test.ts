@@ -16,8 +16,8 @@ const referenceFiles = [
   'validation-release.md',
 ] as const
 const websiteAgentFirstPath = join(repoRoot, 'website/docs/zh/guide/agent-first.md')
+const websiteGuideIndexPath = join(repoRoot, 'website/docs/zh/guide/index.md')
 const websiteGuideMetaPath = join(repoRoot, 'website/docs/zh/guide/_meta.json')
-const websiteHomePath = join(repoRoot, 'website/docs/zh/index.mdx')
 const websitePluginsPath = join(repoRoot, 'website/docs/zh/plugins/index.md')
 const staleNestedSkillDirs = ['.agent/skills', '.agents/skills', '.shared/skills'] as const
 
@@ -112,6 +112,18 @@ describe('EMP v4 Agent-First repository skill', () => {
     expect(plugins).not.toMatch(/Tailwind CSS 3|Tailwind 3|tailwind-3/)
 
     for (const marker of [
+      'React Compiler',
+      '默认不自动开启',
+      'Agent 可以建议开启',
+      'react-compiler-runtime',
+      "target: '18'",
+      'compilationMode',
+      'Module Federation',
+    ]) {
+      expect(plugins).toContain(marker)
+    }
+
+    for (const marker of [
       'corepack pnpm workflow:check',
       'corepack pnpm ci:verify',
       'corepack pnpm empbuild',
@@ -125,14 +137,14 @@ describe('EMP v4 Agent-First repository skill', () => {
 
   test('official docs guide users to the repository skill instead of duplicating the manual', () => {
     const guidePage = expectFile(websiteAgentFirstPath)
+    const guideIndex = expectFile(websiteGuideIndexPath)
     const guideMeta = expectFile(websiteGuideMetaPath)
-    const home = expectFile(websiteHomePath)
     const pluginsPage = expectFile(websitePluginsPath)
 
     expect(guideMeta).toContain('"agent-first"')
-    expect(home).toContain('27 篇中文文档')
-    expect(home).toContain('Agent-First 使用手册')
-    expect(home).toContain('/guide/agent-first.html')
+    expect(guideIndex).toContain('Agent-First 使用手册')
+    expect(guideIndex).toContain('skills/emp-v4-agent-first/')
+    expect(guidePage).toContain('# Agent-First 仓库手册')
     expect(pluginsPage).toContain('skills/emp-v4-agent-first/references/plugins.md')
 
     for (const marker of [

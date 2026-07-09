@@ -2,6 +2,7 @@ import type {InspectOptions} from 'node:util'
 import type {
   DevServer as devServerConfig,
   CacheOptions,
+  CircularCheckRspackPluginOptions,
   Externals,
   HtmlRspackPluginOptions,
   // LightningCssMinimizerRspackPluginOptions,
@@ -137,7 +138,7 @@ export type Rspack2BuildOptions = {
   /**
    * Rspack 2 experiments 显式开关。实验能力不默认开启，避免改变业务语义。
    */
-  experiments?: Pick<NonNullable<RsConfig['experiments']>, 'pureFunctions' | 'deferImport' | 'runtimeMode'>
+  experiments?: Pick<NonNullable<RsConfig['experiments']>, 'pureFunctions' | 'deferImport' | 'runtimeMode' | 'sourceImport'>
   /**
    * Rspack splitChunks 透传配置，用于接入 enforceSizeThreshold 等 Rspack 2 分包能力。
    */
@@ -147,6 +148,7 @@ export type Rspack2BuildOptions = {
    */
   parser?: {
     javascript?: {
+      createRequire?: boolean | string
       pureFunctions?: string[]
     }
     css?: {
@@ -484,6 +486,11 @@ export type EmpOptions = {
    * 详情 https://github.com/rspack-contrib/ts-checker-rspack-plugin
    */
   tsCheckerRspackPlugin?: TsCheckerRspackPluginOptions | boolean
+  /**
+   * Rspack 内置循环依赖检查插件，默认关闭
+   * 详情 https://rspack.rs/plugins/rspack/circular-check-rspack-plugin
+   */
+  circularCheckRspackPlugin?: CircularCheckRspackPluginOptions | boolean
   /**
    * 是否显示日志标题
    * @default undefined

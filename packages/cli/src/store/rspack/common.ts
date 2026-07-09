@@ -26,12 +26,26 @@ class RspackCommon {
     if (this.store.empConfig.cache === false) {
       return false
     }
-    let defaultCache: CacheOptions = {
-      type: this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory',
+    const cacheType = this.store.empConfig.cache === 'persistent' ? 'persistent' : 'memory'
+    const defaultCacheBase = {
       buildDependencies: getBuildDependencies(),
       version: this.store.empConfig.server.port
         ? `${this.store.empPkg.version}_${this.store.empConfig.server.port}`
         : this.store.empPkg.version,
+    }
+    let defaultCache: Exclude<CacheOptions, boolean>
+    if (cacheType === 'persistent') {
+      defaultCache = {
+        ...defaultCacheBase,
+        type: 'persistent',
+        maxAge: 7 * 24 * 60 * 60,
+        maxVersions: 3,
+      }
+    } else {
+      defaultCache = {
+        ...defaultCacheBase,
+        type: 'memory',
+      }
     }
     if (typeof this.store.empConfig.cache === 'object') {
       defaultCache = this.store.deepAssign(defaultCache, this.store.empConfig.cache)

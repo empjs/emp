@@ -24,7 +24,17 @@ const loadStoreForFixture = async (fixtureRoot) => {
     process.env.ENV = ''
     const {store} = await import(${JSON.stringify(`file://${path.join(repoRoot, 'packages/cli/dist/index.js')}`)})
     await store.setup('dev', {})
-    console.log('__EMP_JSON__' + JSON.stringify(store.rsConfig))
+    const plugins = store.rsConfig.plugins ?? []
+    const pluginNames = plugins.map(plugin => plugin?.constructor?.name ?? plugin?.name ?? '')
+    const circularCheckPlugin = plugins.find(plugin => plugin?.constructor?.name === 'CircularCheckRspackPlugin')
+    console.log(
+      '__EMP_JSON__' +
+        JSON.stringify({
+          ...store.rsConfig,
+          __pluginNames: pluginNames,
+          __circularCheckOptions: circularCheckPlugin?._options ?? null,
+        }),
+    )
   `
   const {stdout} = await execFile(process.execPath, ['--input-type=module', '--eval', script], {
     cwd: repoRoot,
@@ -46,6 +56,8 @@ const loadStoreForFixture = async (fixtureRoot) => {
   assert.equal(config.experiments?.css, undefined)
   assert.ok(Object.hasOwn(config, 'incremental'))
   assert.ok(Object.hasOwn(config, 'lazyCompilation'))
+  assert.ok(!config.__pluginNames.includes('CircularCheckRspackPlugin'))
+  assert.equal(config.__circularCheckOptions, null)
 }
 
 {
@@ -66,4 +78,22 @@ const loadStoreForFixture = async (fixtureRoot) => {
   assert.equal(config.experiments?.nativeWatcher, false)
   assert.equal(config.incremental, false)
   assert.equal(config.lazyCompilation, false)
+}
+
+{
+  const config = await loadStoreForFixture(
+    await createFixture('rspack-circular-check', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      circularCheckRspackPlugin: {
+        failOnError: true,
+      },
+    }),
+  )
+
+  assert.ok(
+    config.__pluginNames.includes('CircularCheckRspackPlugin'),
+    `expected CircularCheckRspackPlugin in plugins, got: ${config.__pluginNames.join(', ')}`,
+  )
+  assert.deepEqual(config.__circularCheckOptions, {failOnError: true})
 }

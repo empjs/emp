@@ -341,6 +341,15 @@ export class EmpConfig {
     }
     return this.assign({}, tp)
   }
+  get circularCheckRspackPlugin() {
+    let options = {}
+    if (!this.store.empOptions.circularCheckRspackPlugin) {
+      return false
+    } else if (typeof this.store.empOptions.circularCheckRspackPlugin === 'object') {
+      options = this.store.empOptions.circularCheckRspackPlugin
+    }
+    return this.assign({}, options)
+  }
   private setDefine(o: {[k: string]: any}): {[k: string]: string} {
     const defineFix = this.store.empOptions.defineFix ? this.store.empOptions.defineFix : this.isESM ? 'esm' : 'cjs'
     const options: any = {}

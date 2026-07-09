@@ -1,5 +1,59 @@
 # Changelog
 
+## 4.0.0-rc.2 - 2026-07-09
+
+### Highlights
+
+- Publish EMP v4 rc packages to the npm `rc` dist-tag from the root `4.0.0-rc.2` release line.
+- Adopt selected Rspack 2.1 defaults in generated configs: `module.parser.javascript.createRequire` and persistent-cache cleanup.
+- Expose higher-risk Rspack 2.1 features as explicit opt-ins: `build.rspack.experiments.sourceImport` and `circularCheckRspackPlugin`.
+- Document the Agent-First React Compiler policy: agents may recommend it, but projects must opt in explicitly.
+- Ship the Rspress v2 official site as a bilingual Agent-First documentation surface with Chinese default routes and English `/en/` routes.
+
+### What's Changed
+
+#### New Features
+
+- feat(cli): enable `module.parser.javascript.createRequire` by default while keeping `build.rspack.parser.javascript.createRequire` overridable.
+- feat(cli): set default persistent cache cleanup to `maxAge: 7 * 24 * 60 * 60` and `maxVersions: 3`, with project cache config taking precedence.
+- feat(cli): expose `build.rspack.experiments.sourceImport` as a manual opt-in for source phase imports.
+- feat(cli): add the `circularCheckRspackPlugin` config switch for Rspack's built-in circular dependency check plugin, defaulting to disabled.
+- feat(plugin-react): document manual React Compiler opt-in for React 19 and React 17/18 target/runtime adoption.
+
+#### Build
+
+- chore(release): align the root workspace and 17 core `@empjs/*` packages to `4.0.0-rc.2`.
+- chore(release): exclude `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` from the unified release set.
+
+#### Document
+
+- docs(config): document the Rspack 2.1 default-enabled and manual opt-in behavior in the build config guide.
+- docs(skill): add Agent-First React Compiler decision rules, Module Federation cautions, and validation commands.
+- docs(website): rebuild the Rspress v2 site with bilingual navigation, Federation Fox homepage styling, and apps acceptance matrix coverage.
+
+#### Tests
+
+- test(cli): assert Rspack 2.1 config defaults, cache override behavior, `sourceImport` passthrough, and `CircularCheckRspackPlugin` injection.
+
+### Verification
+
+- `corepack pnpm --filter @empjs/cli build`
+- `node packages/cli/test/rspack2-features-shape.test.mjs`
+- `node packages/cli/test/rspack-config-shape.test.mjs`
+- `corepack pnpm test:cli`
+- `corepack pnpm release:check`
+- `node scripts/release.mjs publish --dry-run --skip-build --force-all --tag rc`
+- `python3 /Users/Bigo/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/emp-v4-agent-first`
+- `corepack pnpm ci:verify`
+- `corepack pnpm workflow:check`
+- `corepack pnpm empbuild`
+- `corepack pnpm --dir website build`
+- `git diff --check`
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-rc.2`.
+
 ## 4.0.0-rc.1 - 2026-07-06
 
 ### Highlights
