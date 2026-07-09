@@ -137,7 +137,7 @@ describe('EMP v4 Agent-First repository skill', () => {
 
     for (const marker of [
       '$emp-v4-agent-first',
-      'https://github.com/empjs/emp/tree/v4-rsbuild/skills/emp-v4-agent-first',
+      'https://github.com/empjs/emp/tree/v4/skills/emp-v4-agent-first',
       'skills/emp-v4-agent-first/SKILL.md',
       'references/project-setup.md',
       'references/module-federation.md',
