@@ -252,11 +252,9 @@ describe('website rebuild rules', () => {
     for (const requiredMarker of [
       'pageType:',
       'hero:',
-      'badge:',
       'features:',
       'image:',
       'actions:',
-      'High performance · Zero compromise',
       '/emp-federation-fox-full.png',
       'Rspack 2',
       'Federated Frontend Build',
@@ -271,7 +269,9 @@ describe('website rebuild rules', () => {
     expect(parsedEn.frontmatter.hero?.name).toBe('EMP')
     expect(parsedEn.frontmatter.titleSuffix).toBe('Federated Frontend Build')
     expect(parsedEn.frontmatter.hero?.text).toBe('Federated Frontend Build')
-    expect(parsedEn.frontmatter.hero?.badge).toBe('High performance · Zero compromise')
+    expect(parsedEn.frontmatter.hero?.badge).toBeUndefined()
+    expect(enHome).not.toContain('badge:')
+    expect(enHome).not.toContain('High performance · Zero compromise')
     expect(parsedEn.frontmatter.description).toContain('Rspack 2')
     expect(parsedEn.frontmatter.description).toContain('TypeScript 7 stable')
     expect(parsedEn.frontmatter.description).toContain('Federated Frontend Build')
@@ -293,7 +293,9 @@ describe('website rebuild rules', () => {
     expect(parsedZh.frontmatter.hero?.name).toBe('EMP')
     expect(parsedZh.frontmatter.titleSuffix).toBe('联邦前端构建')
     expect(parsedZh.frontmatter.hero?.text).toBe('联邦前端构建')
-    expect(parsedZh.frontmatter.hero?.badge).toBe('高性能 · 零妥协')
+    expect(parsedZh.frontmatter.hero?.badge).toBeUndefined()
+    expect(zhHome).not.toContain('badge:')
+    expect(zhHome).not.toContain('高性能 · 零妥协')
     expect(parsedZh.frontmatter.description).toContain('微前端')
     expect(parsedZh.frontmatter.hero?.tagline).toContain('轻松构建')
     expect(parsedZh.frontmatter.hero?.actions?.[0]?.text).toBe('快速开始')
@@ -325,6 +327,10 @@ describe('website rebuild rules', () => {
 
     expect(readme).toContain('docs/assets/emp-federation-fox-full.png')
     expect(readme).toContain('EMP Federation Fox')
+    expect(readme).toContain('npm latest manifest')
+    expect(readme).not.toContain('@empjs/cli@rc')
+    expect(readme).not.toContain('%40empjs%2Fcli%40rc')
+    expect(readme).not.toContain('rc manifest')
     expect(readme).not.toContain('docs/assets/emp-v4-logo.png')
   })
 
@@ -361,11 +367,87 @@ describe('website rebuild rules', () => {
 
     expect(theme).toContain('--emp-hero-bg: #020b18')
     expect(theme).toContain('--emp-fox-orange: #f97316')
-    expect(theme).toContain('--emp-electric-cyan: #10bceb')
+    expect(theme).toContain('--emp-electric-cyan: #22d3ee')
+    expect(theme).toContain('--emp-logo-gold: #ffd84d')
+    expect(theme).toContain('--emp-logo-orange: #f97316')
+    expect(theme).toContain('--emp-logo-cyan: #22d3ee')
+    expect(theme).toContain('--emp-logo-blue: #0ea5e9')
+    expect(theme).toContain('--emp-logo-navy: #061225')
+    expect(theme).toContain('--emp-page-bg: #f6fbff')
+    expect(theme).toContain('--emp-page-bg: #030712')
+    expect(theme).toContain('--emp-footer-bg: #f6fbff')
+    expect(theme).toContain('--emp-footer-bg: #030712')
+    expect(theme).toContain('--emp-footer-text: rgba(51, 81, 106, 0.68)')
+    expect(theme).toContain('--emp-footer-text: rgba(226, 232, 240, 0.66)')
+    expect(theme).toContain('--rp-c-bg: #f6fbff')
+    expect(theme).toContain('--rp-c-bg: #030712')
+    expect(theme).toContain('--emp-hero-wave-light:')
+    expect(theme).toContain('--emp-hero-wave-dark:')
+    expect(theme).toContain('--emp-hero-soft-transition-layer:')
+    expect(theme).toContain('--emp-hero-spark-layer:')
+    expect(theme).toContain('--emp-hero-mascot-aura:')
+    expect(theme).toContain('--emp-nav-bg: rgba(246, 251, 255, 0.86)')
+    expect(theme).toContain('--emp-nav-surface:')
+    expect(theme).toContain('--emp-nav-divider: rgba(14, 165, 233, 0.18)')
+    expect(theme).toContain('--emp-hero-text: #061225')
     expect(theme).toContain('--rp-c-brand')
+    expect(theme).toContain('--emp-nav-bg: rgba(3, 7, 18, 0.78)')
+    expect(theme).toContain('--emp-nav-divider: rgba(255, 216, 77, 0.16)')
+    expect(theme).toContain('--emp-hero-text: #f8fafc')
+    expect(theme).toContain('background: var(--emp-nav-surface) !important')
+    expect(theme).toContain('background-color: var(--emp-nav-bg) !important')
+    expect(theme).toContain('--emp-mobile-hero-image-size: 200px')
+    expect(theme).toContain('--emp-feature-heading-copy: "现代微前端所需能力"')
+    expect(theme).toContain('html[lang="en"]')
+    expect(theme).toContain('--emp-feature-heading-copy: "Everything you need for modern micro frontends"')
+    expect(theme).toContain('content: var(--emp-feature-heading-copy)')
+    expect(theme).toContain('height: clamp(620px, calc(100vh - 76px), 700px)')
+    expect(theme).toContain('padding: 36px 0 86px !important')
+    expect(theme).toContain('grid-template-columns: minmax(0, 1fr);')
+    expect(theme).toContain('justify-items: center;')
+    expect(theme).toContain('text-align: center;')
+    expect(theme).toContain('width: min(260px, 30vw)')
+    expect(theme).toContain('background: var(--emp-hero-soft-transition-layer);')
+    expect(theme).toContain('filter: blur(28px);')
+    expect(theme).toContain('background: var(--emp-hero-mascot-aura);')
+    expect(theme).toContain('height: 76px')
+    expect(theme).toContain('padding: 0 32px !important')
+    expect(theme).toContain('width: 178px')
+    expect(theme).toContain('html body .rp-nav-hamburger__md')
+    expect(theme).toContain('html body .rp-nav__others {')
+    expect(theme).toContain('display: flex !important')
+    expect(theme).toContain('border-bottom: 0 !important')
+    expect(theme).toContain('border-left: 0')
+    expect(theme).toContain('html.dark body .rp-search-button__hotkey')
+    expect(theme).toContain('min-height: 600px')
+    expect(theme).toContain('margin-top: -44px !important')
     expect(theme).toContain('.rp-nav__title__link::after')
-    expect(theme).toContain('.rp-home-hero__badge')
+    expect(theme).toContain('.rp-nav-screen-langs-group__inner')
+    expect(theme).toContain('overflow: visible !important')
+    expect(theme).not.toContain('.rp-home-hero__badge')
+    expect(theme).not.toContain('.rp-home-hero__image::before')
+    expect(theme).not.toContain('transparent 0 47%')
+    expect(theme).not.toContain('transparent 0 56%')
+    expect(theme).not.toContain('transparent 0 44%')
+    expect(theme).not.toContain('transparent 0 60%')
+    expect(theme).not.toContain('47.4% 62%')
+    expect(theme).not.toContain('56.3% 65%')
+    expect(theme).not.toContain('44.4%')
+    expect(theme).not.toContain('60.3%')
+    expect(theme).not.toContain('background: rgba(17, 17, 16, 0.94) !important')
+    expect(theme).not.toContain('background: rgba(17, 17, 16, 0.96) !important')
+    expect(theme).not.toContain('background-color: rgba(17, 17, 16, 0.96) !important')
+    expect(theme).not.toContain('border-bottom: 1px solid var(--emp-nav-border) !important')
+    expect(theme).not.toContain('border-left: 1px solid var(--emp-nav-divider)')
     expect(theme).toContain('.rp-home-hero__image')
+    expect(theme).toContain('--emp-feature-icon-cube')
+    expect(theme).toContain('--emp-feature-icon-bolt')
+    expect(theme).toContain('--emp-feature-icon-ts')
+    expect(theme).toContain('--emp-feature-icon-puzzle')
+    expect(theme).toContain('.rp-home-feature__icon::before')
+    expect(theme.match(/data:image\/svg\+xml/g)?.length ?? 0).toBeGreaterThanOrEqual(4)
+    expect(theme).toContain('html body .rp-home-footer')
+    expect(theme).toContain('color: var(--emp-footer-text);')
     expect(theme).toContain('.rp-home-hero::after')
     expect(theme).not.toContain('@tailwind')
   })
@@ -381,6 +463,21 @@ describe('website rebuild rules', () => {
     expect(existsSync(websiteEnHomePath)).toBe(true)
     expect(existsSync(websiteZhHomePath)).toBe(true)
     expect(existsSync(join(repoRoot, 'website/docs/public/emp-federation-fox-compact.png'))).toBe(true)
+
+    for (const docPath of [
+      join(websiteEnPath, 'guide/index.md'),
+      join(websiteZhPath, 'guide/index.md'),
+      join(websiteEnPath, 'guide/quick-start.md'),
+      join(websiteZhPath, 'guide/quick-start.md'),
+      join(websiteEnPath, 'migration/v4.md'),
+      join(websiteZhPath, 'migration/v4.md'),
+    ]) {
+      const doc = readFileSync(docPath, 'utf8')
+
+      expect(doc).not.toContain('@rc')
+      expect(doc).not.toContain('rc 包')
+      expect(doc).not.toContain('release candidate')
+    }
   })
 
   test('top navigation matches the design reference labels and Chinese locale labels', () => {

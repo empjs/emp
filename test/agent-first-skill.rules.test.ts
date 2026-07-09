@@ -40,6 +40,8 @@ describe('EMP v4 Agent-First repository skill', () => {
     expect(frontmatter).toContain('Module Federation')
     expect(skill).toContain('# EMP v4 Agent-First')
     expect(skill).toContain('skills/emp-v4-agent-first')
+    expect(skill).toContain('TypeScript 7 stable')
+    expect(skill).not.toContain('TypeScript 7 rc')
 
     for (const referenceFile of referenceFiles) {
       expect(skill).toContain(`references/${referenceFile}`)
@@ -76,12 +78,15 @@ describe('EMP v4 Agent-First repository skill', () => {
     for (const marker of [
       'Node.js `^20.19.0 || >=22.12.0`',
       'pnpm@10.33.0',
+      'formal release packages',
       'emp create',
       '--dry-run --json',
       'emp doctor --json',
     ]) {
       expect(setup).toContain(marker)
     }
+    expect(setup).not.toContain('@rc')
+    expect(setup).not.toContain('rc packages')
 
     for (const marker of [
       '@empjs/share/rspack',
@@ -139,6 +144,8 @@ describe('EMP v4 Agent-First repository skill', () => {
     ]) {
       expect(validation).toContain(marker)
     }
+    expect(validation).toContain('formal release')
+    expect(validation).not.toContain('release candidate')
   })
 
   test('official docs guide users to the repository skill instead of duplicating the manual', () => {

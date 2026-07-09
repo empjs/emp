@@ -6,7 +6,7 @@
 
 - 使用 Node.js `^20.19.0 || >=22.12.0`。
 - 使用 pnpm 10，仓库内固定为 `pnpm@10.33.0`。
-- v4 试用包优先使用 `@rc` dist-tag。
+- v4 文档默认使用正式发布包，安装命令不追加预发布 dist-tag。
 - 微前端项目需要明确 host、remote、shared 和 manifest 的边界。
 
 ## 典型接入步骤

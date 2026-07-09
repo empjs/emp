@@ -1,6 +1,6 @@
 # Validation And Release
 
-Use this reference when an agent must prove an EMP v4 change, app integration, or release candidate.
+Use this reference when an agent must prove an EMP v4 change, app integration, or formal release.
 
 ## Application-Level Validation
 

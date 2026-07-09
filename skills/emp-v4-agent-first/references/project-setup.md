@@ -6,7 +6,7 @@ Use this reference for EMP v4 project creation, installation, and machine-readab
 
 - Node.js `^20.19.0 || >=22.12.0`
 - pnpm `pnpm@10.33.0`
-- EMP v4 rc packages use the `@rc` dist-tag for trial installs.
+- EMP v4 docs use formal release packages and do not append prerelease dist-tags to install commands.
 - Run package-manager commands through Corepack when operating in this repository.
 
 ## Install Patterns
@@ -14,19 +14,19 @@ Use this reference for EMP v4 project creation, installation, and machine-readab
 React host or standalone React project:
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-react@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-react @empjs/share
 ```
 
 Vue 3 remote or standalone Vue 3 project:
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-vue3@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-vue3 @empjs/share
 ```
 
 Vue 2 project:
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-vue2@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-vue2 @empjs/share
 ```
 
 ## Agent-First Create

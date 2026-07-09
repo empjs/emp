@@ -3,13 +3,13 @@
 React 项目可以安装 CLI、React 插件和共享依赖能力：
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-react@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-react @empjs/share
 ```
 
 Vue 3 项目使用对应框架插件：
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-vue3@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-vue3 @empjs/share
 ```
 
 最小配置保持 EMP 熟悉的 `defineConfig(...)` 形态：
