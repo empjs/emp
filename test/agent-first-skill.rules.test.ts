@@ -130,6 +130,12 @@ describe('EMP v4 Agent-First repository skill', () => {
       'corepack pnpm apps:acceptance',
       'corepack pnpm release:acceptance',
       'corepack pnpm release:publish:dry -- --skip-build',
+      '版本封面',
+      'EMP Federation Fox',
+      '左上角',
+      'docs/assets/emp-v4-readme-logo.png',
+      'GitHub Release asset',
+      '中文 release notes',
     ]) {
       expect(validation).toContain(marker)
     }

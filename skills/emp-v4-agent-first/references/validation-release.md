@@ -64,6 +64,22 @@ corepack pnpm release:acceptance -- --include-browser
 
 The command writes `.release/acceptance/index.html` as a release credential. Use it as evidence for command status, coverage, release boundaries, and skipped optional lanes.
 
+## Version Cover
+
+Every GitHub tag release needs a 版本封面 before publishing the release body.
+
+- Use EMP Federation Fox as the project IP. Do not use the Rspack mascot or another project's brand.
+- Follow the Rspack-style composition from the reference: project IP mark and `EMP v4` brand lockup in the 左上角, version pill in the upper-right, and the version feature topic in the main visual area.
+- Use `docs/assets/emp-v4-readme-logo.png` as the IP source, or generate a version-specific `docs/assets/emp-v4-<version>-release-hero.png` with imagegen.
+- Upload the selected cover as a GitHub Release asset.
+- Put the image before the 中文 release notes so the release page opens with the cover.
+
+Release body image example:
+
+```md
+![EMP v4 发布封面](https://github.com/empjs/emp/releases/download/<tag>/<asset>.png)
+```
+
 ## Final Git Checks
 
 Before commit or push:

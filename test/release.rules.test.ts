@@ -172,6 +172,12 @@ describe('release rules', () => {
 
       expect(entry).toMatch(/## 4\.0\.0 - 2026-06-23/)
       expect(entry).toMatch(/### Highlights/)
+      expect(entry).toMatch(/### Release Cover/)
+      expect(entry).toMatch(/EMP Federation Fox/)
+      expect(entry).toMatch(/左上角/)
+      expect(entry).toMatch(/docs\/assets\/emp-v4-readme-logo\.png/)
+      expect(entry).toMatch(/GitHub Release asset/)
+      expect(entry).toMatch(/中文 release notes/)
       expect(entry).toMatch(/### What's Changed/)
       expect(entry).toMatch(/#### Build/)
       expect(entry).toMatch(/dist-tag `internal`/)

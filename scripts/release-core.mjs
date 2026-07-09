@@ -262,6 +262,12 @@ export const renderChangelogEntry = (plan, options = {}) => {
 - Align the root workspace and ${plan.internalPackages.length} core \`@empjs/*\` packages to \`${version}\`.
 - Keep CDN and legacy runtime package lines independent for framework-specific runtime delivery.
 
+### Release Cover
+
+- GitHub Release cover must use the EMP Federation Fox project IP in the 左上角 brand lockup, following the Rspack-style layout: project IP mark + \`EMP v4\` name at the upper-left, version pill at the upper-right, and the release topic in the main visual area.
+- Use \`docs/assets/emp-v4-readme-logo.png\` as the IP source, or generate a version-specific \`docs/assets/emp-v4-${version}-release-hero.png\` asset with imagegen.
+- Upload the selected cover as a GitHub Release asset and place it before the 中文 release notes.
+
 ### What's Changed
 
 #### New Features
