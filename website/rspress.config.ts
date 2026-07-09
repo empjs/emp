@@ -5,21 +5,22 @@ import {pluginSitemap} from '@rspress/plugin-sitemap'
 export default defineConfig({
   base: '/',
   root: path.join(__dirname, 'docs'),
+  globalStyles: path.join(__dirname, 'docs/theme.css'),
   title: 'EMP v4',
-  description: 'Rspack 2 驱动的微前端构建工具，保留熟悉的 EMP 配置。',
-  icon: '/emp-v4-logo.png',
+  description: 'Rspack 2 驱动的微前端联邦构建工具，使用 EMP Federation Fox 视觉系统。',
+  icon: '/emp-federation-fox-compact.png',
   lang: 'zh',
   locales: [
     {
       lang: 'zh',
       label: '简体中文',
       title: 'EMP v4',
-      description: 'Rspack 2 驱动的微前端构建工具，保留熟悉的 EMP 配置。',
+      description: 'Rspack 2 驱动的微前端联邦构建工具，使用 EMP Federation Fox 视觉系统。',
     },
   ],
   logo: {
-    light: '/emp-v4-logo.png',
-    dark: '/emp-v4-logo.png',
+    light: '/emp-federation-fox-compact.png',
+    dark: '/emp-federation-fox-compact.png',
   },
   llms: true,
   markdown: {

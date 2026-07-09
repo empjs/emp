@@ -15,10 +15,18 @@ const websiteZhPath = join(websiteDocsPath, 'zh')
 const websiteHomePath = join(websiteZhPath, 'index.mdx')
 const websiteNavPath = join(websiteZhPath, '_nav.json')
 const websiteAppsMatrixPath = join(websiteZhPath, 'examples/apps-matrix.md')
-const websiteLogoPath = join(websiteDocsPath, 'public/emp-v4-logo.png')
-const websiteLogoSvgPath = join(websiteDocsPath, 'public/emp-v4-logo.svg')
-const docsLogoPath = join(repoRoot, 'docs/assets/emp-v4-logo.png')
-const docsLogoSvgPath = join(repoRoot, 'docs/assets/emp-v4-logo.svg')
+const readmePath = join(repoRoot, 'README.md')
+const websiteThemePath = join(websiteDocsPath, 'theme.css')
+const federationFoxAssetNames = [
+  'emp-federation-fox-full.png',
+  'emp-federation-fox-compact.png',
+  'emp-federation-fox-monochrome.png',
+  'emp-federation-fox-outline.png',
+]
+const websiteFederationFoxAssetPaths = federationFoxAssetNames.map(assetName =>
+  join(websiteDocsPath, 'public', assetName),
+)
+const docsFederationFoxAssetPaths = federationFoxAssetNames.map(assetName => join(repoRoot, 'docs/assets', assetName))
 
 const readPngHeader = (path: string) => {
   const png = readFileSync(path)
@@ -200,11 +208,12 @@ describe('website rebuild rules', () => {
     expect(config).toContain('llms: true')
     expect(config).toContain("lang: 'zh'")
     expect(config).toContain("root: path.join(__dirname, 'docs')")
-    expect(config).toContain("icon: '/emp-v4-logo.png'")
-    expect(config).toContain("light: '/emp-v4-logo.png'")
+    expect(config).toContain("globalStyles: path.join(__dirname, 'docs/theme.css')")
+    expect(config).toContain("icon: '/emp-federation-fox-compact.png'")
+    expect(config).toContain("light: '/emp-federation-fox-compact.png'")
+    expect(config).toContain("dark: '/emp-federation-fox-compact.png'")
     expect(config).not.toContain("from 'rspress/config'")
     expect(config).not.toContain("name: 'emp-homepage-design'")
-    expect(config).not.toContain('globalStyles')
     expect(config).not.toMatch(/\bnav\s*:/)
     expect(config).not.toMatch(/\bsidebar\s*:/)
   })
@@ -233,12 +242,13 @@ describe('website rebuild rules', () => {
       'features:',
       'image:',
       'actions:',
+      'Federation Fox',
+      '/emp-federation-fox-full.png',
       'Rspack 2',
       'ESM 优先输出',
       'TS 7 稳定类型基线',
       'Module Federation 2',
       '7 个插件包',
-      '27 篇中文文档',
       'Agent-First 使用手册',
     ]) {
       expect(home).toContain(requiredMarker)
@@ -246,21 +256,23 @@ describe('website rebuild rules', () => {
 
     expect(parsed.frontmatter.pageType).toBe('home')
     expect(parsed.frontmatter.hero?.name).toBe('EMP v4')
-    expect(parsed.frontmatter.titleSuffix).toBe('高性能、微前端构建')
-    expect(parsed.frontmatter.hero?.text).toBe('高性能、微前端构建')
+    expect(parsed.frontmatter.titleSuffix).toBe('Federation Fox')
+    expect(parsed.frontmatter.hero?.text).toBe('微前端联邦构建工具')
     expect(parsed.frontmatter.description).toContain('ESM 输出')
     expect(parsed.frontmatter.description).toContain('TypeScript 7 stable')
+    expect(parsed.frontmatter.description).toContain('Federation Fox')
     expect(home).not.toContain('TypeScript 7 RC')
     expect(parsed.frontmatter.hero?.tagline).toContain('ESM 输出')
-    expect(parsed.frontmatter.hero?.tagline).toContain('TS 7 类型校验')
+    expect(parsed.frontmatter.hero?.tagline).toContain('联邦运行时')
+    expect(parsed.frontmatter.hero?.image?.src).toBe('/emp-federation-fox-full.png')
     expect(parsed.frontmatter.features).toHaveLength(8)
     expect(parsed.frontmatter.features.map((feature: {title: string}) => feature.title)).toEqual([
+      '联邦狐品牌系统',
       'Rspack 2 构建底座',
+      'Module Federation 2',
       'ESM 优先输出',
       'TS 7 稳定类型基线',
-      'Module Federation 2',
       '7 个插件包',
-      '27 篇中文文档',
       'Agent-First 使用手册',
       '发布验收证据',
     ])
@@ -270,11 +282,19 @@ describe('website rebuild rules', () => {
     expect(home).not.toContain('data-section=')
     expect(home).not.toContain('<section')
     expect(home).not.toContain('<article')
-    expect(existsSync(join(websiteDocsPath, 'styles/home.css'))).toBe(false)
+    expect(existsSync(websiteThemePath)).toBe(true)
   })
 
-  test('EMP v4 logo assets keep transparent PNG backgrounds without black matte pixels', () => {
-    for (const logoPath of [websiteLogoPath, docsLogoPath]) {
+  test('README uses the federation fox mascot as the primary project mark', () => {
+    const readme = readFileSync(readmePath, 'utf8')
+
+    expect(readme).toContain('docs/assets/emp-federation-fox-full.png')
+    expect(readme).toContain('EMP Federation Fox')
+    expect(readme).not.toContain('docs/assets/emp-v4-logo.png')
+  })
+
+  test('federation fox PNG asset system keeps transparent backgrounds', () => {
+    for (const logoPath of [...websiteFederationFoxAssetPaths, ...docsFederationFoxAssetPaths]) {
       const logo = readPngRgba(logoPath)
 
       expect(logo).toMatchObject({
@@ -290,23 +310,25 @@ describe('website rebuild rules', () => {
       const cyanPixels = logo.countPixels(pixel => pixel.a > 200 && pixel.r < 120 && pixel.g > 100 && pixel.b > 120)
       const nearBlackPixels = logo.countPixels(pixel => pixel.a > 200 && Math.max(pixel.r, pixel.g, pixel.b) < 80)
 
-      expect(opaquePixels).toBeGreaterThan(30000)
-      expect(goldPixels).toBeGreaterThan(8000)
-      expect(cyanPixels).toBeGreaterThan(8000)
-      expect(nearBlackPixels).toBe(0)
+      expect(opaquePixels).toBeGreaterThan(12000)
+
+      if (logoPath.includes('monochrome') || logoPath.includes('outline')) {
+        expect(nearBlackPixels).toBeGreaterThan(1000)
+      } else {
+        expect(goldPixels).toBeGreaterThan(2000)
+        expect(cyanPixels).toBeGreaterThan(1200)
+      }
     }
   })
 
-  test('EMP v4 logo has a repo-native SVG source instead of a raster-only edit', () => {
-    const websiteSvg = readFileSync(websiteLogoSvgPath, 'utf8')
-    const docsSvg = readFileSync(docsLogoSvgPath, 'utf8')
+  test('theme stylesheet defines federation fox homepage tokens without theme eject', () => {
+    const theme = readFileSync(websiteThemePath, 'utf8')
 
-    expect(websiteSvg).toBe(docsSvg)
-    expect(websiteSvg).toContain('<svg')
-    expect(websiteSvg).toContain('viewBox="0 0 512 512"')
-    expect(websiteSvg).toContain('data-logo-source="emp-v4-generated"')
-    expect(websiteSvg).not.toContain('url(')
-    expect(websiteSvg).not.toMatch(/<image\b|href=|data:image|base64|#000000|#000\b/i)
+    expect(theme).toContain('--emp-fox-orange: #f97316')
+    expect(theme).toContain('--emp-electric-cyan: #10bceb')
+    expect(theme).toContain('--rp-c-brand')
+    expect(theme).toContain('.rp-home-hero__image')
+    expect(theme).not.toContain('@tailwind')
   })
 
   test('documentation tree is Chinese-only and declarative', () => {
@@ -318,7 +340,7 @@ describe('website rebuild rules', () => {
     expect(locales).toEqual(['zh'])
     expect(existsSync(websiteNavPath)).toBe(true)
     expect(existsSync(join(websiteDocsPath, 'en'))).toBe(false)
-    expect(existsSync(join(repoRoot, 'website/docs/public/emp-v4-logo.png'))).toBe(true)
+    expect(existsSync(join(repoRoot, 'website/docs/public/emp-federation-fox-compact.png'))).toBe(true)
   })
 
   test('top navigation only surfaces functional documentation labels', () => {

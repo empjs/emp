@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="docs/assets/emp-v4-logo.png" width="220" alt="EMP v4">
+  <img src="docs/assets/emp-federation-fox-full.png" width="240" alt="EMP Federation Fox">
 </p>
 
 <h1 align="center">EMP v4</h1>
 
 <p align="center">
-  <em>高性能、微前端构建 · ESM 输出 · TS 7 稳定类型基线</em>
+  <em>EMP Federation Fox · 高性能微前端联邦构建 · ESM 输出 · TS 7 稳定类型基线</em>
 </p>
 
 <p align="center">
@@ -24,6 +24,8 @@
 ---
 
 EMP 是面向高性能微前端工程的构建工具。它把 Rspack 2、Module Federation 2、ESM 输出、TypeScript 7 stable 类型基线和常用框架插件收在一套配置模型里，让 host、remote、shared、manifest、DTS 和运行时适配都由工具链统一处理。
+
+EMP Federation Fox 是 v4 的新视觉系统：完整狐形用于官网首屏和 README，compact 狐头用于导航和小尺寸入口，monochrome / outline 版本用于周边、深浅底和弱品牌场景。
 
 v4 的重点是换到新的构建、联邦与类型底座，同时尽量保留 EMP 既有的使用习惯。业务项目可以继续围绕 EMP 插件组织配置，把更多精力放在模块拆分、依赖共享和应用交付上。
 
