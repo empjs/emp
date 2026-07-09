@@ -108,6 +108,15 @@ describe('toolchain version contract', () => {
     expect(readText('pnpm-lock.yaml')).not.toContain('@typescript/native-preview@7.0.0-dev')
   })
 
+  test('project-facing TypeScript declarations use TS7 stable everywhere', () => {
+    const cdnReact17Pkg = readJson('packages/cdn-react-17/package.json')
+    const templates = readText('packages/cli/src/agent-create/templates.ts')
+
+    expect(cdnReact17Pkg.devDependencies.typescript).toBe('7.0.2')
+    expect(templates).toContain("typescript: '^7.0.2'")
+    expect(templates).not.toContain("typescript: '^5.9.2'")
+  })
+
   test('apps acceptance includes shared tsconfig and DTS type guards', () => {
     const pkg = readJson('package.json')
     expect(pkg.scripts['apps:acceptance']).toBe(
@@ -129,6 +138,20 @@ describe('toolchain version contract', () => {
     expect(readText('scripts/root-test-targets.mjs')).toContain(
       "['plugins', ['test/plugin-config-shape.test.ts', 'test/plugin-output-coverage.test.ts']]",
     )
+  })
+
+  test('Rstest uses the current Rsbuild and Rspack stack', () => {
+    const pkg = readJson('package.json')
+    const cliPkg = readJson('packages/cli/package.json')
+    const lockfile = readText('pnpm-lock.yaml')
+
+    expect(pkg.devDependencies['@rstest/core']).toBe('0.11.0')
+    expect(pkg.devDependencies['@rstest/browser']).toBe('0.11.0')
+    expect(cliPkg.devDependencies['@rstest/core']).toBe('0.11.0')
+    expect(lockfile).toContain('@rsbuild/core@2.1.5')
+    expect(lockfile).toContain('@rspack/core@2.1.3')
+    expect(lockfile).not.toContain('@rsbuild/core@2.0.15')
+    expect(lockfile).not.toContain('@rspack/core@2.0.8')
   })
 
   test('cli depends on the current Rspack 2.1 latest and TS7-aware checker', () => {

@@ -29,7 +29,7 @@ function rootPackageJson(plan: PlannedProject): string {
       '@empjs/plugin-react': EMP_VERSION,
       '@empjs/plugin-vue3': EMP_VERSION,
       '@empjs/share': EMP_VERSION,
-      typescript: '^5.9.2',
+      typescript: '^7.0.2',
     },
   })
 }
@@ -95,7 +95,7 @@ function hostPackageJson(): string {
     devDependencies: {
       '@types/react': '^19.0.0',
       '@types/react-dom': '^19.0.0',
-      typescript: '^5.9.2',
+      typescript: '^7.0.2',
     },
   })
 }
@@ -118,7 +118,7 @@ function remotePackageJson(): string {
       vue: '^3.5.21',
     },
     devDependencies: {
-      typescript: '^5.9.2',
+      typescript: '^7.0.2',
     },
   })
 }
