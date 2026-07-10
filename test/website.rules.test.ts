@@ -1,6 +1,6 @@
-import {describe, expect, test} from '@rstest/core'
 import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs'
 import {join} from 'node:path'
+import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
 
 const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T
@@ -21,6 +21,7 @@ const readmePath = join(repoRoot, 'README.md')
 
 const githubSkillDir = 'https://github.com/empjs/emp/tree/v4/skills/emp'
 const githubRepository = 'https://github.com/empjs/emp'
+const rspackLogo = 'https://assets.rspack.rs/rspack/rspack-logo.svg'
 
 const websiteAssets = [
   {
@@ -34,6 +35,10 @@ const websiteAssets = [
   {
     name: 'emp-federation-fox-mark.png',
     maxBytes: 260 * 1024,
+  },
+  {
+    name: 'emp-circuit-background.svg',
+    maxBytes: 32 * 1024,
   },
 ] as const
 
@@ -124,14 +129,11 @@ describe('website agent-first special page rules', () => {
       '技术底座',
       githubSkillDir,
       githubRepository,
-      'Rspack 2.1.3',
-      'Rust 构建内核',
-      'Module Federation 2.7',
-      '官方联邦运行时',
-      'TypeScript 7.0',
-      '稳定类型基线',
+      rspackLogo,
+      "name: 'Rspack 2'",
+      "name: 'Module Federation 2'",
+      "name: 'TypeScript 7'",
       'React Compiler',
-      '按需启用',
       '© 2026 EMP · AGENT-FIRST',
     ]) {
       expect(sourceFiles).toContain(marker)
@@ -140,9 +142,20 @@ describe('website agent-first special page rules', () => {
     expect(app).toContain('emp-federation-fox-mark.png')
     expect(app).toContain('<footer className="site-footer">')
     expect(app).toContain('aria-label="页脚导航"')
+    const foundationSection = app.slice(
+      app.indexOf('<section className="foundation-section"'),
+      app.indexOf('</section>', app.indexOf('<section className="foundation-section"')),
+    )
+    expect(foundationSection).not.toContain('<a')
     expect(styles).toContain('@import "tailwindcss"')
+    expect(styles).toContain('url("../public/emp-circuit-background.svg")')
+    expect(styles).toContain('"Arial Black"')
+    expect(styles).toContain('"PingFang SC"')
+    expect(styles).toContain('@media (min-width: 900px)')
+    expect(styles).toContain('grid-template-columns: repeat(4, minmax(0, 1fr));')
+    expect(styles).toContain('@media (max-width: 899px)')
+    expect(styles).toContain('grid-template-columns: repeat(2, minmax(0, 1fr));')
     expect(styles).toContain('.site-footer')
-    expect(styles).toContain('@media (max-width: 767px)')
     expect(styles).toContain('@media (prefers-reduced-motion: reduce)')
 
     for (const removedMarker of [

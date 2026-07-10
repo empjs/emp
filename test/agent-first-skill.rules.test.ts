@@ -1,6 +1,6 @@
-import {describe, expect, test} from '@rstest/core'
-import {existsSync, readFileSync, readdirSync} from 'node:fs'
+import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
+import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
 
 const readText = (path: string) => readFileSync(path, 'utf8')
@@ -9,12 +9,7 @@ const skillDir = join(repoRoot, 'skills/emp')
 const skillPath = join(skillDir, 'SKILL.md')
 const openaiYamlPath = join(skillDir, 'agents/openai.yaml')
 const referencesDir = join(skillDir, 'references')
-const referenceFiles = [
-  'project-setup.md',
-  'module-federation.md',
-  'plugins.md',
-  'validation-release.md',
-] as const
+const referenceFiles = ['project-setup.md', 'module-federation.md', 'plugins.md', 'validation-release.md'] as const
 const websiteAppPath = join(repoRoot, 'website/src/App.tsx')
 const staleNestedSkillDirs = ['.agent/skills', '.agents/skills', '.shared/skills'] as const
 
@@ -172,15 +167,7 @@ describe('EMP v4 Agent-First repository skill', () => {
   test('official website guides users to the repository skill instead of duplicating the manual', () => {
     const homepage = expectFile(websiteAppPath)
 
-    for (const marker of [
-      '$emp',
-      'https://github.com/empjs/emp/tree/v4/skills/emp',
-      'skills/emp/SKILL.md',
-      'references/project-setup.md',
-      'references/module-federation.md',
-      'references/plugins.md',
-      'references/validation-release.md',
-    ]) {
+    for (const marker of ['$emp', 'https://github.com/empjs/emp/tree/v4/skills/emp']) {
       expect(homepage).toContain(marker)
     }
 

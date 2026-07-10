@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1500" fill="none">
+  <defs>
+    <linearGradient id="fade" x1="450" y1="0" x2="450" y2="1500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071428"/>
+      <stop offset="0.52" stop-color="#020817"/>
+      <stop offset="1" stop-color="#020713"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="76" y1="120" x2="824" y2="1330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0284C7" stop-opacity="0.12"/>
+      <stop offset="0.5" stop-color="#22D3EE" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#0369A1" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="90" y1="590" x2="810" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B" stop-opacity="0"/>
+      <stop offset="0.52" stop-color="#F59E0B" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#F59E0B" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" stroke="#0EA5E9" stroke-opacity="0.055"/>
+    </pattern>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="900" height="1500" fill="url(#fade)"/>
+  <rect width="900" height="1500" fill="url(#grid)"/>
+
+  <g stroke="url(#cyan)" stroke-width="1.2">
+    <path d="M0 146H112L156 190H267L306 151H407"/>
+    <path d="M900 102H782L738 146H650L612 184H522"/>
+    <path d="M0 276H92L136 232H226L274 280H342"/>
+    <path d="M900 304H817L770 257H690L644 303H556"/>
+    <path d="M0 488H132L181 439H270L312 481H395"/>
+    <path d="M900 514H802L749 461H674L625 510H536"/>
+    <path d="M0 727H103L148 682H242L289 729H364"/>
+    <path d="M900 747H809L761 699H676L625 750H529"/>
+    <path d="M0 986H119L166 939H267L308 980H394"/>
+    <path d="M900 1011H803L756 964H658L618 1004H538"/>
+    <path d="M0 1240H86L134 1192H225L271 1238H350"/>
+    <path d="M900 1267H826L773 1214H686L638 1262H548"/>
+    <path d="M84 0V74L126 116V214"/>
+    <path d="M815 0V81L773 123V223"/>
+    <path d="M72 1500V1418L119 1371V1274"/>
+    <path d="M828 1500V1410L782 1364V1266"/>
+  </g>
+
+  <g fill="#22D3EE" filter="url(#glow)">
+    <circle cx="156" cy="190" r="3"/><circle cx="306" cy="151" r="3"/>
+    <circle cx="738" cy="146" r="3"/><circle cx="612" cy="184" r="3"/>
+    <circle cx="136" cy="232" r="3"/><circle cx="274" cy="280" r="3"/>
+    <circle cx="770" cy="257" r="3"/><circle cx="644" cy="303" r="3"/>
+    <circle cx="181" cy="439" r="3"/><circle cx="749" cy="461" r="3"/>
+    <circle cx="148" cy="682" r="3"/><circle cx="761" cy="699" r="3"/>
+    <circle cx="166" cy="939" r="3"/><circle cx="756" cy="964" r="3"/>
+    <circle cx="134" cy="1192" r="3"/><circle cx="773" cy="1214" r="3"/>
+  </g>
+
+  <g stroke="url(#amber)" stroke-width="1">
+    <path d="M-45 638L936 158"/><path d="M-28 673L948 198"/>
+    <path d="M-36 704L932 234"/><path d="M-10 738L951 271"/>
+  </g>
+  <g fill="#F59E0B" filter="url(#glow)">
+    <circle cx="104" cy="592" r="2.5"/><circle cx="796" cy="257" r="2.5"/>
+    <circle cx="223" cy="574" r="2"/><circle cx="708" cy="345" r="2"/>
+  </g>
+</svg>
