@@ -140,7 +140,10 @@ describe('apps catalog rules', () => {
 
   test('public docs do not recommend retired app projects', async () => {
     const collectDocs = async (dir: string): Promise<string[]> => {
-      const entries = await fs.promises.readdir(join(repoRoot, dir), {withFileTypes: true})
+      const targetDir = join(repoRoot, dir)
+      if (!existsSync(targetDir)) return []
+
+      const entries = await fs.promises.readdir(targetDir, {withFileTypes: true})
       const files = await Promise.all(
         entries.map(async entry => {
           const entryPath = `${dir}/${entry.name}`
@@ -356,7 +359,7 @@ describe('legacy apps rules coverage', () => {
     expect(workflowGuard).toContain('apps/<app>/test/browser')
     expect(workflowGuard).toContain('packages/emp-share/test/browser')
     expect(workflowGuard).toContain('test:apps:browser')
-    expect(rootPackage.devDependencies?.['@rstest/browser']).toBe('0.11.0')
+    expect(rootPackage.devDependencies?.['@rstest/browser']).toBe('0.11.1')
     expect(rootPackage.devDependencies?.playwright).toBe('1.61.1')
   })
 })

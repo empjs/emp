@@ -4,13 +4,20 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "rspress dev",
-    "build": "rspress build",
-    "start": "rspress preview"
+    "dev": "emp dev",
+    "build": "emp build",
+    "start": "emp serve"
+  },
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@rspress/core": "^2.0.17",
-    "@rspress/plugin-sitemap": "^2.0.17",
+    "@empjs/cli": "workspace:*",
+    "@empjs/plugin-react": "workspace:*",
+    "@empjs/plugin-tailwindcss": "workspace:^",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "7.0.2"
   }
 }

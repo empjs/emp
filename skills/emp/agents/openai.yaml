@@ -1,0 +1,4 @@
+interface:
+  display_name: "EMP"
+  short_description: "EMP v4 agent-first usage guide"
+  default_prompt: "Use $emp to configure an EMP v4 project with plugins, federation, and validation gates."

@@ -5,7 +5,7 @@ import {repoRoot} from './helpers/repo-root'
 
 const readText = (path: string) => readFileSync(path, 'utf8')
 
-const skillDir = join(repoRoot, 'skills/emp-v4-agent-first')
+const skillDir = join(repoRoot, 'skills/emp')
 const skillPath = join(skillDir, 'SKILL.md')
 const openaiYamlPath = join(skillDir, 'agents/openai.yaml')
 const referencesDir = join(skillDir, 'references')
@@ -15,10 +15,7 @@ const referenceFiles = [
   'plugins.md',
   'validation-release.md',
 ] as const
-const websiteAgentFirstPath = join(repoRoot, 'website/docs/zh/guide/agent-first.md')
-const websiteGuideIndexPath = join(repoRoot, 'website/docs/zh/guide/index.md')
-const websiteGuideMetaPath = join(repoRoot, 'website/docs/zh/guide/_meta.json')
-const websitePluginsPath = join(repoRoot, 'website/docs/zh/plugins/index.md')
+const websiteAppPath = join(repoRoot, 'website/src/App.tsx')
 const staleNestedSkillDirs = ['.agent/skills', '.agents/skills', '.shared/skills'] as const
 
 const expectFile = (path: string) => {
@@ -34,13 +31,23 @@ describe('EMP v4 Agent-First repository skill', () => {
     const frontmatterKeys = [...frontmatter.matchAll(/^([a-z-]+):/gm)].map(match => match[1])
 
     expect(frontmatterKeys).toEqual(['name', 'description'])
-    expect(frontmatter).toContain('name: emp-v4-agent-first')
+    expect(frontmatter).toContain('name: emp')
     expect(frontmatter).toContain('Agent-First')
     expect(frontmatter).toContain('plugins')
     expect(frontmatter).toContain('Module Federation')
-    expect(skill).toContain('# EMP v4 Agent-First')
-    expect(skill).toContain('skills/emp-v4-agent-first')
+    expect(skill).toContain('# EMP')
+    expect(skill).toContain('skills/emp')
     expect(skill).toContain('TypeScript 7 stable')
+    expect(skill).toContain('Task Map')
+    expect(skill).toContain('project creation')
+    expect(skill).toContain('existing project migration')
+    expect(skill).toContain('Module Federation')
+    expect(skill).toContain('plugin selection')
+    expect(skill).toContain('app acceptance')
+    expect(skill).toContain('release evidence')
+    expect(skill).toContain('GitHub releases')
+    expect(skill).toContain('https://github.com/empjs/emp/releases')
+    expect(skill).toContain('https://github.com/empjs/emp/tags')
     expect(skill).not.toContain('TypeScript 7 rc')
 
     for (const referenceFile of referenceFiles) {
@@ -49,8 +56,8 @@ describe('EMP v4 Agent-First repository skill', () => {
     }
 
     expect(skill).not.toMatch(/\bTODO\b|\[TODO/)
-    expect(openaiYaml).toContain('display_name: "EMP v4 Agent-First"')
-    expect(openaiYaml).toContain('default_prompt: "Use $emp-v4-agent-first')
+    expect(openaiYaml).toContain('display_name: "EMP"')
+    expect(openaiYaml).toContain('default_prompt: "Use $emp')
   })
 
   test('skill folders do not ship nested compatibility skill directories', () => {
@@ -58,7 +65,7 @@ describe('EMP v4 Agent-First repository skill', () => {
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
 
-    expect(skillFolders).toEqual(['emp-v4-agent-first', 'emp-workflow'])
+    expect(skillFolders).toEqual(['emp', 'emp-workflow'])
 
     for (const skillFolder of skillFolders) {
       for (const staleDir of staleNestedSkillDirs) {
@@ -82,6 +89,9 @@ describe('EMP v4 Agent-First repository skill', () => {
       'emp create',
       '--dry-run --json',
       'emp doctor --json',
+      'Inputs to collect',
+      'Files to inspect',
+      'Success evidence',
     ]) {
       expect(setup).toContain(marker)
     }
@@ -96,6 +106,9 @@ describe('EMP v4 Agent-First repository skill', () => {
       'shared',
       'empRuntime.version',
       'manifest',
+      'Inputs to collect',
+      'Files to inspect',
+      'Success evidence',
     ]) {
       expect(federation).toContain(marker)
     }
@@ -111,6 +124,9 @@ describe('EMP v4 Agent-First repository skill', () => {
       '@empjs/biome-config',
       '@empjs/eslint-config-react',
       'Tailwind CSS 4',
+      'Inputs to collect',
+      'Files to inspect',
+      'Success evidence',
     ]) {
       expect(plugins).toContain(marker)
     }
@@ -141,6 +157,11 @@ describe('EMP v4 Agent-First repository skill', () => {
       'docs/assets/emp-v4-readme-logo.png',
       'GitHub Release asset',
       '中文 release notes',
+      'GitHub Releases',
+      'GitHub Tags',
+      'Inputs to collect',
+      'Files to inspect',
+      'Success evidence',
     ]) {
       expect(validation).toContain(marker)
     }
@@ -148,33 +169,23 @@ describe('EMP v4 Agent-First repository skill', () => {
     expect(validation).not.toContain('release candidate')
   })
 
-  test('official docs guide users to the repository skill instead of duplicating the manual', () => {
-    const guidePage = expectFile(websiteAgentFirstPath)
-    const guideIndex = expectFile(websiteGuideIndexPath)
-    const guideMeta = expectFile(websiteGuideMetaPath)
-    const pluginsPage = expectFile(websitePluginsPath)
-
-    expect(guideMeta).toContain('"agent-first"')
-    expect(guideIndex).toContain('Agent-First 使用手册')
-    expect(guideIndex).toContain('skills/emp-v4-agent-first/')
-    expect(guidePage).toContain('# Agent-First 仓库手册')
-    expect(pluginsPage).toContain('skills/emp-v4-agent-first/references/plugins.md')
+  test('official website guides users to the repository skill instead of duplicating the manual', () => {
+    const homepage = expectFile(websiteAppPath)
 
     for (const marker of [
-      '$emp-v4-agent-first',
-      'https://github.com/empjs/emp/tree/v4/skills/emp-v4-agent-first',
-      'skills/emp-v4-agent-first/SKILL.md',
+      '$emp',
+      'https://github.com/empjs/emp/tree/v4/skills/emp',
+      'skills/emp/SKILL.md',
       'references/project-setup.md',
       'references/module-federation.md',
       'references/plugins.md',
       'references/validation-release.md',
     ]) {
-      expect(guidePage).toContain(marker)
+      expect(homepage).toContain(marker)
     }
 
-    expect(guidePage).not.toContain('pluginRspackEmpShare({')
-    expect(guidePage).not.toContain('plugins: [')
-    expect(guidePage).not.toContain('github.com/empjs/emp/tree/main/skills')
-    expect(guidePage).not.toContain('github.com/empjs/emp/blob/main/skills')
+    expect(homepage).not.toContain('pluginRspackEmpShare({')
+    expect(homepage).not.toContain('github.com/empjs/emp/tree/main/skills')
+    expect(homepage).not.toContain('github.com/empjs/emp/blob/main/skills')
   })
 })

@@ -1,4 +1,0 @@
-interface:
-  display_name: "EMP v4 Agent-First"
-  short_description: "EMP v4 usage guide for agents"
-  default_prompt: "Use $emp-v4-agent-first to configure an EMP v4 project with plugins, federation, and validation gates."

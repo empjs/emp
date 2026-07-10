@@ -16,8 +16,5 @@
     "isolatedModules": true,
     "strict": true
   },
-  "include": ["docs", "rspress.config.ts"],
-  "mdx": {
-    "checkMdx": true
-  }
+  "include": ["src", "emp.config.ts"]
 }

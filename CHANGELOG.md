@@ -43,7 +43,7 @@
 - `corepack pnpm test:cli`
 - `corepack pnpm release:check`
 - `node scripts/release.mjs publish --dry-run --skip-build --force-all --tag rc`
-- `python3 /Users/Bigo/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/emp-v4-agent-first`
+- `python3 /Users/Bigo/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/emp`
 - `corepack pnpm ci:verify`
 - `corepack pnpm workflow:check`
 - `corepack pnpm empbuild`

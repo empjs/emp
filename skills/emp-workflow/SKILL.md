@@ -41,6 +41,7 @@ description: EMP repository workflow guide for Codex agents. Use when working in
 - For repo workflow or agent rules, edit `AGENTS.md`.
 - For Codex runtime feature flags, short trigger reminders, or repo-local subagent definitions, edit `.codex/config.toml`, `.codex/hooks.json`, and `.codex/agents/emp-*.toml`.
 - For reusable EMP agent behavior, create or update `skills/<skill-name>/` with `skill-creator`.
+- For public usage docs, keep the website as a concise task index and put complete agent-readable usage in `skills/emp`; route blog-like launch notes and new version content to GitHub Releases and GitHub Tags.
 - For repeated checks, add deterministic Node scripts under `scripts/` and expose them from root `package.json`.
 - For GitHub gates, use `.github/workflows/ci.yml`, `.github/pull_request_template.md`, and `.github/CODEOWNERS`.
 - For long-lived Superpowers plans/specs, use `.superpowers/plans/` and `.superpowers/specs/`; for subagent dispatch rules, use `.superpowers/subagents.md`.
