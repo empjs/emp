@@ -5,6 +5,17 @@ import {repoRoot} from './helpers/repo-root'
 
 const readJson = (file: string) => JSON.parse(readFileSync(join(repoRoot, file), 'utf8'))
 const readText = (file: string) => readFileSync(join(repoRoot, file), 'utf8')
+const readLockImporter = (importer: string) => {
+  const lockfile = readText('pnpm-lock.yaml')
+  const marker = `\n  ${importer}:\n`
+  const start = lockfile.indexOf(marker)
+  if (start === -1) {
+    throw new Error(`Missing lockfile importer: ${importer}`)
+  }
+  const rest = lockfile.slice(start + marker.length)
+  const nextImporter = rest.search(/\n  [^\s][^:\n]*:\n/)
+  return nextImporter === -1 ? rest : rest.slice(0, nextImporter)
+}
 
 describe('toolchain version contract', () => {
   test('root README stays aligned with the v4 homepage product surface', () => {
@@ -145,27 +156,58 @@ describe('toolchain version contract', () => {
     const cliPkg = readJson('packages/cli/package.json')
     const lockfile = readText('pnpm-lock.yaml')
 
-    expect(pkg.devDependencies['@rstest/core']).toBe('0.11.0')
-    expect(pkg.devDependencies['@rstest/browser']).toBe('0.11.0')
-    expect(cliPkg.devDependencies['@rstest/core']).toBe('0.11.0')
+    expect(pkg.devDependencies['@rstest/core']).toBe('0.11.1')
+    expect(pkg.devDependencies['@rstest/browser']).toBe('0.11.1')
+    expect(cliPkg.devDependencies['@rstest/core']).toBe('0.11.1')
+    expect(lockfile).toContain('@rstest/core@0.11.1')
+    expect(lockfile).toContain('@rstest/browser@0.11.1')
     expect(lockfile).toContain('@rsbuild/core@2.1.5')
     expect(lockfile).toContain('@rspack/core@2.1.3')
+    expect(lockfile).not.toContain('@rstest/core@0.11.0')
+    expect(lockfile).not.toContain('@rstest/browser@0.11.0')
     expect(lockfile).not.toContain('@rsbuild/core@2.0.15')
     expect(lockfile).not.toContain('@rspack/core@2.0.8')
   })
 
-  test('cli depends on the current Rspack 2.1 latest and TS7-aware checker', () => {
+  test('cli depends on the current Rspack 2.1 latest and TS7-aware tooling', () => {
     const cliPkg = readJson('packages/cli/package.json')
     const reactPkg = readJson('packages/plugin-react/package.json')
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
+    const lockfile = readText('pnpm-lock.yaml')
+
     expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.3')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
     expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.2')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
-    expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.1')
+    expect(cliPkg.dependencies['@rsdoctor/rspack-plugin']).toBe('1.5.18')
+    expect(cliPkg.dependencies.cors).toBe('2.8.6')
+    expect(cliPkg.dependencies['fs-extra']).toBe('11.3.6')
+    expect(cliPkg.dependencies['html-webpack-plugin']).toBe('5.6.7')
+    expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.2')
+    expect(cliPkg.devDependencies['@vue/tsconfig']).toBe('^0.9.1')
+    expect(lockfile).toContain('@rsdoctor/rspack-plugin@1.5.18')
+    expect(lockfile).toContain('ts-checker-rspack-plugin@1.5.2')
+    expect(lockfile).not.toContain('@rsdoctor/rspack-plugin@1.5.17')
+    expect(lockfile).not.toContain('ts-checker-rspack-plugin@1.5.1')
     expect(cliRstestConfig).toContain("pool: {type: 'forks', maxWorkers: 1, minWorkers: 1}")
     expect(cliRstestConfig).toContain('maxConcurrency: 1')
     expect(cliRstestConfig).toContain('testTimeout: 180000')
+  })
+
+  test('emp-share keeps Module Federation current and SWC patched', () => {
+    const sharePkg = readJson('packages/emp-share/package.json')
+    const lockfile = readText('pnpm-lock.yaml')
+    const shareLockImporter = readLockImporter('packages/emp-share')
+
+    expect(sharePkg.dependencies['@module-federation/rspack']).toBe('^2.7.0')
+    expect(sharePkg.dependencies['@module-federation/runtime']).toBe('^2.7.0')
+    expect(sharePkg.dependencies['@module-federation/runtime-tools']).toBe('^2.7.0')
+    expect(sharePkg.dependencies['@module-federation/sdk']).toBe('^2.7.0')
+    expect(sharePkg.devDependencies['@swc/core']).toBe('^1.15.43')
+    expect(lockfile).toContain('@module-federation/rspack@2.7.0')
+    expect(lockfile).toContain('@swc/core@1.15.43')
+    expect(shareLockImporter).toContain('specifier: ^1.15.43')
+    expect(shareLockImporter).toContain('version: 1.15.43(@swc/helpers@0.5.23)')
   })
 
   test('declaration tooling uses TS7-aware Rslib and Module Federation compatibility alias', () => {

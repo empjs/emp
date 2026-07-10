@@ -136,6 +136,6 @@
   },
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@swc/core": "^1.15.1"
+    "@swc/core": "^1.15.43"
   }
 }
