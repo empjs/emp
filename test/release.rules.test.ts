@@ -98,11 +98,7 @@ describe('release rules', () => {
     await withFixture(async root => {
       const plan = await createReleasePlan(root)
 
-      expect(plan.internalPackages.map(pkg => pkg.name)).toEqual([
-        '@empjs/chain',
-        '@empjs/cli',
-        '@empjs/plugin-react',
-      ])
+      expect(plan.internalPackages.map(pkg => pkg.name)).toEqual(['@empjs/chain', '@empjs/cli', '@empjs/plugin-react'])
       expect(plan.independentPackages.map(pkg => pkg.name)).toEqual(['@empjs/cdn-react', '@empjs/lib-react'])
       expect(plan.workspacePackages.some(pkg => pkg.dir.startsWith('apps/'))).toBe(true)
       expect(plan.internalPackages.some(pkg => pkg.dir.startsWith('apps/'))).toBe(false)
@@ -137,9 +133,7 @@ describe('release rules', () => {
       await writeFile(rootPath, `${JSON.stringify(rootPkg, null, 2)}\n`)
 
       const plan = await createReleasePlan(root)
-      expect(validateReleasePlan(plan)).toEqual([
-        'root engines.node must be ^20.19.0 || >=22.12.0, got >=18.0.0',
-      ])
+      expect(validateReleasePlan(plan)).toEqual(['root engines.node must be ^20.19.0 || >=22.12.0, got >=18.0.0'])
     })
   })
 
@@ -160,7 +154,21 @@ describe('release rules', () => {
     })
   })
 
-  test('renderChangelogEntry and prependChangelog create a concise release-notes entry', async () => {
+  test('version command ignores the package-manager argument separator', async () => {
+    await withFixture(async root => {
+      await execFile(process.execPath, [releaseCli, 'version', '--', '4.0.0-rc.3', '--root', root])
+
+      const rootPkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+      const cliPkg = JSON.parse(await readFile(join(root, 'packages/cli/package.json'), 'utf8'))
+      const cdnPkg = JSON.parse(await readFile(join(root, 'packages/cdn-react-19/package.json'), 'utf8'))
+
+      expect(rootPkg.version).toBe('4.0.0-rc.3')
+      expect(cliPkg.version).toBe('4.0.0-rc.3')
+      expect(cdnPkg.version).toBe('0.19.2')
+    })
+  })
+
+  test('renderChangelogEntry and prependChangelog describe prerelease and stable releases accurately', async () => {
     await withFixture(async root => {
       const plan = await createReleasePlan(root)
       const entry = renderChangelogEntry(plan, {
@@ -180,6 +188,7 @@ describe('release rules', () => {
       expect(entry).toMatch(/中文 release notes/)
       expect(entry).toMatch(/### What's Changed/)
       expect(entry).toMatch(/#### Build/)
+      expect(entry).toMatch(/Publish EMP v4 stable packages/)
       expect(entry).toMatch(/dist-tag `internal`/)
       expect(entry).toMatch(/core `@empjs\/\*` packages/)
       expect(entry).not.toMatch(/发布包范围/)
@@ -192,6 +201,13 @@ describe('release rules', () => {
       await prependChangelog(root, entry)
       const changelog = await readFile(join(root, 'CHANGELOG.md'), 'utf8')
       expect(changelog).toMatch(/^# Changelog\n\n## 4\.0\.0 - 2026-06-23/)
+
+      const prereleaseEntry = renderChangelogEntry(plan, {
+        version: '4.0.0-rc.3',
+        tag: 'rc',
+      })
+      expect(prereleaseEntry).toMatch(/Publish EMP v4 prerelease packages/)
+      expect(prereleaseEntry).not.toMatch(/Publish EMP v4 beta packages/)
     })
   })
 
@@ -300,7 +316,7 @@ describe('release rules', () => {
   test('current repository internal release set stays explicitly bounded', async () => {
     const plan = await createReleasePlan(repoRoot)
 
-    expect(plan.rootPackage.version).toBe('4.0.0-rc.2')
+    expect(plan.rootPackage.version).toBe('4.0.0-rc.4')
     expect(validateReleasePlan(plan)).toEqual([])
     expect(plan.internalPackages.map(pkg => pkg.name)).toEqual([
       '@empjs/adapter-react',
@@ -348,6 +364,8 @@ describe('release rules', () => {
 
     expect(workflow).toMatch(/name:\s*Publish/)
     expect(workflow).toMatch(/id-token:\s*write/)
+    expect(workflow).toMatch(/dry_run:[\s\S]*?default:\s*true/)
+    expect(workflow).toMatch(/environment:[\s\S]*?npm-dry-run[\s\S]*?npm-production/)
     expect(workflow).toMatch(/node-version:\s*['"]?24/)
     expect(workflow).toMatch(/tags:\n\s+- ['"]empjs-\*-v\*['"]/)
     expect(workflow).toMatch(/tag="[^"]*\$\{GITHUB_REF_NAME\}"/)
@@ -379,14 +397,18 @@ describe('release rules', () => {
   test('ci verify job covers the supported Node release floor and current runtime', async () => {
     const workflow = await readFile(join(repoRoot, '.github/workflows/ci.yml'), 'utf8')
 
-    expect(workflow).toMatch(/verify:\n[\s\S]*?strategy:\n[\s\S]*?matrix:\n[\s\S]*?node-version:\s*\[['"]20\.19\.0['"], ['"]22\.12\.0['"], ['"]24['"]\]/)
+    expect(workflow).toMatch(
+      /verify:\n[\s\S]*?strategy:\n[\s\S]*?matrix:\n[\s\S]*?node-version:\s*\[['"]20\.19\.0['"], ['"]22\.12\.0['"], ['"]24['"]\]/,
+    )
     expect(workflow).toMatch(/verify:\n[\s\S]*?node-version:\s*\$\{\{ matrix\.node-version \}\}/)
     expect(workflow).toMatch(/build:\n[\s\S]*?node-version:\s*['"]24['"]/)
     expect(workflow).toMatch(/apps:\n[\s\S]*?node-version:\s*['"]24['"]/)
-    const setupPnpmBlocks = workflow.match(/- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.33\.0 --activate\n)/g) ?? []
+    const setupPnpmBlocks =
+      workflow.match(
+        /- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.33\.0 --activate\n)/g,
+      ) ?? []
     expect(setupPnpmBlocks).toHaveLength(3)
     expect(workflow).not.toMatch(/NODE_AUTH_TOKEN/)
     expect(workflow).not.toMatch(/release:publish/)
   })
-
 })

@@ -1,4 +1,4 @@
-import {existsSync, readFileSync} from 'node:fs'
+import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
@@ -154,15 +154,17 @@ describe('toolchain version contract', () => {
   test('Rstest uses the current Rsbuild and Rspack stack', () => {
     const pkg = readJson('package.json')
     const cliPkg = readJson('packages/cli/package.json')
+    const postcssPkg = readJson('packages/plugin-postcss/package.json')
     const lockfile = readText('pnpm-lock.yaml')
 
     expect(pkg.devDependencies['@rstest/core']).toBe('0.11.1')
     expect(pkg.devDependencies['@rstest/browser']).toBe('0.11.1')
     expect(cliPkg.devDependencies['@rstest/core']).toBe('0.11.1')
+    expect(postcssPkg.dependencies['postcss-loader']).toBe('^8.2.1')
     expect(lockfile).toContain('@rstest/core@0.11.1')
     expect(lockfile).toContain('@rstest/browser@0.11.1')
     expect(lockfile).toContain('@rsbuild/core@2.1.5')
-    expect(lockfile).toContain('@rspack/core@2.1.3')
+    expect(lockfile).toContain('@rspack/core@2.1.4')
     expect(lockfile).not.toContain('@rstest/core@0.11.0')
     expect(lockfile).not.toContain('@rstest/browser@0.11.0')
     expect(lockfile).not.toContain('@rsbuild/core@2.0.15')
@@ -175,7 +177,7 @@ describe('toolchain version contract', () => {
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
     const lockfile = readText('pnpm-lock.yaml')
 
-    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.3')
+    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.4')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
     expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.2')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
@@ -199,39 +201,32 @@ describe('toolchain version contract', () => {
     const lockfile = readText('pnpm-lock.yaml')
     const shareLockImporter = readLockImporter('packages/emp-share')
 
-    expect(sharePkg.dependencies['@module-federation/rspack']).toBe('^2.7.0')
-    expect(sharePkg.dependencies['@module-federation/runtime']).toBe('^2.7.0')
-    expect(sharePkg.dependencies['@module-federation/runtime-tools']).toBe('^2.7.0')
-    expect(sharePkg.dependencies['@module-federation/sdk']).toBe('^2.7.0')
+    expect(sharePkg.dependencies['@module-federation/rspack']).toBe('^2.8.0')
+    expect(sharePkg.dependencies['@module-federation/runtime']).toBe('^2.8.0')
+    expect(sharePkg.dependencies['@module-federation/runtime-tools']).toBe('^2.8.0')
+    expect(sharePkg.dependencies['@module-federation/sdk']).toBe('^2.8.0')
     expect(sharePkg.devDependencies['@swc/core']).toBe('^1.15.43')
-    expect(lockfile).toContain('@module-federation/rspack@2.7.0')
+    expect(lockfile).toContain('@module-federation/rspack@2.8.0')
     expect(lockfile).toContain('@swc/core@1.15.43')
     expect(shareLockImporter).toContain('specifier: ^1.15.43')
     expect(shareLockImporter).toContain('version: 1.15.43(@swc/helpers@0.5.23)')
   })
 
-  test('declaration tooling uses TS7-aware Rslib and Module Federation compatibility alias', () => {
+  test('declaration tooling uses native TS7 support from Module Federation 2.8', () => {
     const pkg = readJson('package.json')
     const rslibPresetsPkg = readJson('packages/rslib-presets/package.json')
     const workspace = readText('pnpm-workspace.yaml')
     const lockfile = readText('pnpm-lock.yaml')
-    const mfPatchPath = 'patches/@module-federation__dts-plugin@2.7.0.patch'
-
-    expect(existsSync(join(repoRoot, mfPatchPath))).toBe(true)
-    const mfPatch = readText(mfPatchPath)
-
     expect(pkg.devDependencies['@rslib/core']).toBe('^0.23.2')
     expect(rslibPresetsPkg.dependencies['@rslib/core']).toBe('^0.23.2')
-    expect(pkg.devDependencies['typescript-mf']).toBe('npm:typescript@5.9.3')
+    expect(pkg.devDependencies['typescript-mf']).toBeUndefined()
     expect(pkg.devDependencies['typescript-rslib']).toBeUndefined()
-    expect(workspace).toContain('patchedDependencies:')
-    expect(workspace).toContain("'@module-federation/dts-plugin@2.7.0': patches/@module-federation__dts-plugin@2.7.0.patch")
-    expect(workspace).not.toContain('@module-federation/dts-plugin@2.6.0')
+    expect(workspace).not.toContain('patchedDependencies:')
+    expect(workspace).not.toContain('@module-federation/dts-plugin@2.7.0')
     expect(workspace).not.toContain('rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch')
     expect(lockfile).toContain('rsbuild-plugin-dts@0.23.2')
-    expect(lockfile).toContain('typescript: ^5 || ^6 || ^7.0.1-0')
+    expect(lockfile).toContain('typescript: ^4.9.0 || ^5.0.0 || ^6.0.0 || ^7.0.0')
     expect(lockfile).toContain('typescript@7.0.2')
-    expect(mfPatch).toContain('from "typescript-mf"')
-    expect(mfPatch).toContain('require("typescript-mf")')
+    expect(lockfile).not.toContain('typescript-mf')
   })
 })

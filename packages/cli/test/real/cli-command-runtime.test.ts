@@ -1,6 +1,16 @@
 import path from 'node:path'
 import {describe, expect, it} from '@rstest/core'
-import {listFiles, createRealProject, findFreePort, runCli, spawnCli, waitForHttp, waitForPortReleased, writeProjectFile} from '../support/real-project'
+import {
+  listFiles,
+  createRealProject,
+  findFreePort,
+  readProjectFile,
+  runCli,
+  spawnCli,
+  waitForHttp,
+  waitForPortReleased,
+  writeProjectFile,
+} from '../support/real-project'
 
 async function writeRuntimeFixture(root: string, options: {outDir: string; port?: number}) {
   await writeProjectFile(
@@ -47,7 +57,7 @@ async function writeRuntimeFixture(root: string, options: {outDir: string; port?
     "    sourcemap: {js: 'source-map', css: true},",
     '  },',
     "  html: {mountId: 'runtime-root', title: 'CLI Runtime Fixture'},",
-    "  entries: {main: {}},",
+    '  entries: {main: {}},',
   ]
   if (options.port) {
     configLines.push(`  server: {host: '127.0.0.1', port: ${options.port}},`)
@@ -58,25 +68,38 @@ async function writeRuntimeFixture(root: string, options: {outDir: string; port?
   await writeProjectFile(
     root,
     'src/main.ts',
-    [
-      "import './style.css'",
-      "document.getElementById('runtime-root')!.textContent = 'runtime'",
-      '',
-    ].join('\n'),
+    ["import './style.css'", "document.getElementById('runtime-root')!.textContent = 'runtime'", ''].join('\n'),
   )
   await writeProjectFile(root, 'src/style.css', '.runtime { color: #123456; }\n')
 }
 
 describe('cli command runtime', () => {
-  it('rejects unsupported dts and init commands with the v4 alpha message', async () => {
+  it('rejects unsupported dts and init commands without a prerelease claim', async () => {
     const repoRoot = path.resolve(import.meta.dirname, '../../..')
     const dts = await runCli(['dts'], repoRoot)
     const init = await runCli(['init'], repoRoot)
 
     expect(dts.code).toBe(1)
     expect(init.code).toBe(1)
-    expect(`${dts.stdout}${dts.stderr}`).toContain('emp dts 在 @empjs/cli v4 alpha 中尚未实现。')
-    expect(`${init.stdout}${init.stderr}`).toContain('emp init 在 @empjs/cli v4 alpha 中尚未实现。')
+    expect(`${dts.stdout}${dts.stderr}`).toContain('emp dts 在 @empjs/cli v4 中尚未实现。')
+    expect(`${init.stdout}${init.stderr}`).toContain('emp init 在 @empjs/cli v4 中尚未实现。')
+  })
+
+  it('generates rc.4 dependencies for a created project', async () => {
+    const project = await createRealProject('cli-create-rc3')
+    try {
+      const targetDir = project.path('generated')
+      const result = await runCli(
+        ['create', 'React 主应用 + Vue 子应用', '--dir', targetDir, '--skip-install', '--skip-dev', '--skip-verify'],
+        project.root,
+      )
+
+      expect(result.code).toBe(0)
+      const packageJson = JSON.parse(await readProjectFile(targetDir, 'package.json'))
+      expect(packageJson.devDependencies['@empjs/cli']).toBe('^4.0.0-rc.4')
+    } finally {
+      await project.cleanup()
+    }
   })
 
   it('rejects invalid env-vars input with a key=value message', async () => {
@@ -88,27 +111,27 @@ describe('cli command runtime', () => {
   })
 
   it('surfaces analyzer output when build --analyze is enabled', async () => {
-      const project = await createRealProject('cli-analyze')
-      try {
-        await writeRuntimeFixture(project.root, {outDir: 'dist-analyze', port: await findFreePort()})
-        const result = await runCli(['build', '--analyze', '--clearLog=false'], project.root, 180000)
-        expect(result.code).toBe(0)
-        expect(result.stderr).not.toContain('Failed to compile')
+    const project = await createRealProject('cli-analyze')
+    try {
+      await writeRuntimeFixture(project.root, {outDir: 'dist-analyze', port: await findFreePort()})
+      const result = await runCli(['build', '--analyze', '--clearLog=false'], project.root, 180000)
+      expect(result.code).toBe(0)
+      expect(result.stderr).not.toContain('Failed to compile')
 
-        const files = await listFiles(path.join(project.root, 'dist-analyze'))
-        const analyzerArtifact = files.find(
-          file =>
-            file.endsWith('report.html') ||
-            file.endsWith('analyzer.html') ||
-            file.endsWith('bundle-report.html') ||
-            (file.endsWith('.html') && file !== 'main.html'),
-        )
-        const analyzerLog = `${result.stdout}\n${result.stderr}`
+      const files = await listFiles(path.join(project.root, 'dist-analyze'))
+      const analyzerArtifact = files.find(
+        file =>
+          file.endsWith('report.html') ||
+          file.endsWith('analyzer.html') ||
+          file.endsWith('bundle-report.html') ||
+          (file.endsWith('.html') && file !== 'main.html'),
+      )
+      const analyzerLog = `${result.stdout}\n${result.stderr}`
 
-        expect(Boolean(analyzerArtifact) || /Could't analyze webpack bundle/i.test(analyzerLog)).toBe(true)
-      } finally {
-        await project.cleanup()
-      }
+      expect(Boolean(analyzerArtifact) || /Could't analyze webpack bundle/i.test(analyzerLog)).toBe(true)
+    } finally {
+      await project.cleanup()
+    }
   })
 
   it('starts build --watch --serve, serves html, and stops cleanly on SIGTERM', async () => {

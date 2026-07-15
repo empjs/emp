@@ -1,6 +1,6 @@
 {
   "name": "emp-workspace",
-  "version": "4.0.0-rc.2",
+  "version": "4.0.0-rc.4",
   "description": "emp workspace",
   "main": "index.js",
   "type": "module",
@@ -88,8 +88,7 @@
     "@types/node": "^24.9.2",
     "cross-env": "^7.0.3",
     "playwright": "1.61.1",
-    "typescript": "7.0.2",
-    "typescript-mf": "npm:typescript@5.9.3"
+    "typescript": "7.0.2"
   },
   "packageManager": "pnpm@10.33.0"
 }

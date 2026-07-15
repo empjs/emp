@@ -1,5 +1,86 @@
 # Changelog
 
+## 4.0.0-rc.4 - 2026-07-15
+
+### Highlights
+
+- Upgrade EMP's Module Federation integration to `2.8.0`, including optional runtime capabilities, a slimmer dependency surface, and Node.js 24 LTS-ready upstream support.
+- Remove the temporary `typescript-mf@5.9.3` compatibility alias and the patched Module Federation DTS plugin; declaration generation now resolves the workspace's native TypeScript 7 runtime.
+- Keep the unified EMP v4 release line on npm's `rc` dist-tag across all 17 core `@empjs/*` packages.
+
+### What's Changed
+
+#### Build
+
+- chore(module-federation): align `@module-federation/rspack`, `runtime`, `runtime-tools`, and `sdk` to `^2.8.0`.
+- chore(toolchain): use Module Federation 2.8's native TypeScript 7 peer contract and remove the TS5-only compatibility dependency and patch.
+
+#### Document
+
+- docs(release): add the EMP Federation Fox release cover for Module Federation 2.8 and native TypeScript 7.
+
+### Verification
+
+- `corepack pnpm test:toolchain`
+- `corepack pnpm test:ts7:packages`
+- `corepack pnpm release:check`
+- `corepack pnpm release:publish:dry -- --skip-build --force-all --tag rc`
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `git diff --check`
+
+#### Release Cover
+
+![EMP v4.0.0-rc.4 release cover](docs/assets/emp-v4-rc4-release-hero.png)
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-rc.4`.
+
+## 4.0.0-rc.3 - 2026-07-15
+
+### Highlights
+
+- Prepare the EMP v4 `4.0.0-rc.3` release candidate as the stable-ready migration line; packages remain on the `rc` dist-tag until stable promotion.
+- Update generated projects and unsupported-command guidance so new consumers do not receive obsolete alpha-era messaging.
+- Carry the rc.2 follow-up work into the release contract: Rspack ecosystem alignment, the Agent-First v4 website, repository agent workflow hardening, and the CI website lockfile repair.
+
+### What's Changed
+
+#### Build
+
+- chore(toolchain): update the Rspack ecosystem dependency set and retain the locked workspace resolution for release verification.
+- chore(ci): synchronize the website lockfile so clean CI installs use the committed dependency graph.
+
+#### New Features
+
+- feat(website): launch the Agent-First EMP v4 landing page and publish the accompanying EMP skill entry.
+
+#### Document
+
+- docs(migration): mark the v4 migration path stable-ready for rc.3, with explicit `@rc` installation and stable-promotion guidance.
+- docs(release): prepare dynamic prerelease/stable changelog wording instead of hard-coding a beta release label.
+
+#### Workflow
+
+- chore(workflow): streamline repository agent routing, context controls, and workflow checks for the v4 release branch.
+
+#### Tests
+
+- test(cli): cover unsupported commands without asserting an obsolete alpha-stage message.
+- test(release): verify generated changelog entries describe prerelease and stable versions correctly.
+
+### Verification Plan
+
+- `corepack pnpm --filter @empjs/cli build && corepack pnpm --filter @empjs/cli exec rstest run test/real/cli-command-runtime.test.ts`
+- `corepack pnpm test:rules`
+- `corepack pnpm release:check`
+- `git diff --check`
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-rc.3`.
+
 ## 4.0.0-rc.2 - 2026-07-09
 
 ### Highlights

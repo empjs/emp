@@ -2,7 +2,7 @@ import type {CreateProjectPlan, GeneratedFile} from './types'
 
 type PlannedProject = Omit<CreateProjectPlan, 'files'>
 
-const EMP_VERSION = '^4.0.0-alpha.2'
+const EMP_VERSION = '^4.0.0-rc.4'
 
 function stringifyJson(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`

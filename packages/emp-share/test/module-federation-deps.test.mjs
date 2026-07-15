@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs'
 
 const packageJson = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
 
-const expectedVersion = '^2.7.0'
+const expectedVersion = '^2.8.0'
 const expectedDeps = [
   '@module-federation/rspack',
   '@module-federation/runtime',

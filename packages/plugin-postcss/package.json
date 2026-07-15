@@ -1,6 +1,6 @@
 {
   "name": "@empjs/plugin-postcss",
-  "version": "4.0.0-rc.2",
+  "version": "4.0.0-rc.4",
   "description": "emp postcss plugin",
   "license": "MIT",
   "type": "module",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "postcss": "^8.4.38",
-    "postcss-loader": "^8.1.1",
+    "postcss-loader": "^8.2.1",
     "autoprefixer": "^10.4.19",
     "postcss-pxtorem": "^6.1.0"
   }
