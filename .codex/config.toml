@@ -1,7 +1,12 @@
+model = "gpt-5.5"
+model_reasoning_effort = "low"
+model_reasoning_summary = "none"
+
 [features]
 hooks = true
 goals = true
 multi_agent = true
 
 [agents]
-max_threads = 6
+max_depth = 1
+max_threads = 4

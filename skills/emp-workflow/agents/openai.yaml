@@ -1,4 +1,4 @@
 interface:
   display_name: "EMP Workflow"
   short_description: "EMP repo workflow and validation guide"
-  default_prompt: "Use $emp-workflow to plan and validate an EMP repository change."
+  default_prompt: "Use $emp-workflow to route an EMP change through the lowest-cost sufficient model and validate the result."

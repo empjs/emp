@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '%s\\n' '[EMP workflow] Use AGENTS.md + skills/emp-workflow/SKILL.md. For cross-file code discovery, run codegraph sync/status first. For .superpowers/plans/* execution or any subagent dispatch, read .superpowers/subagents.md and .codex/agents/emp-*.toml. Run corepack pnpm workflow:check for workflow drift.'",
+            "command": "printf '%s\\n' '[EMP token-first] Default 5.5 low; Spark text only; 5.4 repo work; 5.6 only for verification or deep review. Keep max_depth=1.'",
             "async": false
           }
         ]
@@ -14,11 +14,11 @@
     ],
     "UserPromptSubmit": [
       {
-        "matcher": ".*(subagent|子代理|派发|\\.superpowers/plans|计划执行|执行计划|codegraph|CodeGraph|提交|commit|push|worktree|\\.worktrees|git worktree|清理).*",
+        "matcher": ".*(subagent|子代理|派发|计划执行|执行计划|codegraph|CodeGraph|架构|发布|依赖|验收|审阅|review|提交|commit|push|worktree|\\.worktrees|git worktree|清理).*",
         "hooks": [
           {
             "type": "command",
-            "command": "printf '%s\\n' '[EMP workflow gate] Read AGENTS.md decision matrix. Use CodeGraph for cross-file code discovery, rg for docs/config/literals, commit only on explicit commit/push or release/PR closure, inspect git worktree list and per-worktree status before .worktrees cleanup, and read .superpowers/subagents.md + .codex/agents/emp-*.toml before subagent dispatch.'",
+            "command": "printf '%s\\n' '[EMP token-first workflow gate] Do simple work locally; use the cheapest sufficient lane, short briefs, no full-context fork, one writer, and controller verification.'",
             "async": false
           }
         ]

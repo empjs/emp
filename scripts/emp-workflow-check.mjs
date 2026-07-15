@@ -60,6 +60,9 @@ const requireNoPattern = (file, pattern) => {
   if (pattern.test(read(file))) failures.push(`${file} contains forbidden pattern: ${pattern.source}`)
 }
 
+const retiredWorkflowPattern = new RegExp(['super', 'powers'].join(''), 'i')
+const forbiddenCodexModelPattern = /gpt-5\.4-mini/
+
 const parseFrontmatter = file => {
   const content = read(file)
   const match = content.match(/^---\n([\s\S]*?)\n---\n/)
@@ -102,6 +105,7 @@ for (const file of [
   'package.json',
   '.codex/config.toml',
   '.codex/hooks.json',
+  '.codex/agents/emp-spark.toml',
   '.codex/agents/emp-fast.toml',
   '.codex/agents/emp-impl.toml',
   '.codex/agents/emp-deep.toml',
@@ -109,7 +113,6 @@ for (const file of [
   '.github/workflows/publish.yml',
   '.github/pull_request_template.md',
   '.github/CODEOWNERS',
-  '.superpowers/subagents.md',
   'skills/emp-workflow/SKILL.md',
   'skills/emp-workflow/agents/openai.yaml',
   'skills/emp-workflow/references/change-matrix.md',
@@ -131,14 +134,15 @@ for (const heading of [
   '## 统一真实测试策略',
   '## Codex 触发层',
   '## 工作流决策矩阵',
+  '## Token 优先编排规则',
 ]) {
   requireText('AGENTS.md', heading)
 }
 
 for (const text of [
-  '.superpowers/subagents.md',
   '.codex/config.toml',
   '.codex/hooks.json',
+  '.codex/agents/emp-spark.toml',
   '.codex/agents/emp-fast.toml',
   '.codex/agents/emp-impl.toml',
   '.codex/agents/emp-deep.toml',
@@ -164,11 +168,20 @@ for (const file of ['AGENTS.md', 'skills/emp-workflow/SKILL.md']) {
   requireNoPattern(file, /codebase-memory-mcp/)
 }
 
-for (const text of ['hooks = true', 'goals = true', 'multi_agent = true', 'max_threads = 6']) {
+for (const text of [
+  'model = "gpt-5.5"',
+  'model_reasoning_effort = "low"',
+  'model_reasoning_summary = "none"',
+  'hooks = true',
+  'goals = true',
+  'multi_agent = true',
+  'max_depth = 1',
+  'max_threads = 4',
+]) {
   requireText('.codex/config.toml', text)
 }
 
-for (const text of ['SessionStart', 'UserPromptSubmit', '.superpowers/subagents.md', '.codex/agents/emp-*.toml', 'CodeGraph', 'commit', 'push', 'worktree', '.worktrees', 'workflow gate']) {
+for (const text of ['SessionStart', 'UserPromptSubmit', 'token-first', 'Spark', '5.4', '5.5', '5.6', 'workflow gate']) {
   requireText('.codex/hooks.json', text)
 }
 
@@ -193,44 +206,29 @@ if (hooksConfig) {
 }
 
 const agentExpectations = {
-  '.codex/agents/emp-fast.toml': ['name = "emp-fast"', 'gpt-5.3-codex-spark', 'CodeGraph'],
-  '.codex/agents/emp-impl.toml': ['name = "emp-impl"', 'gpt-5.4-mini', 'NEEDS_CONTEXT'],
-  '.codex/agents/emp-deep.toml': ['name = "emp-deep"', 'gpt-5.4', 'BLOCKED'],
+  '.codex/agents/emp-spark.toml': ['name = "emp-spark"', 'model = "gpt-5.3-codex-spark"', 'model_reasoning_effort = "low"', 'model_reasoning_summary = "none"', 'sandbox_mode = "read-only"'],
+  '.codex/agents/emp-fast.toml': ['name = "emp-fast"', 'model = "gpt-5.4"', 'model_reasoning_effort = "low"', 'CodeGraph'],
+  '.codex/agents/emp-impl.toml': ['name = "emp-impl"', 'model = "gpt-5.5"', 'model_reasoning_effort = "medium"', 'NEEDS_CONTEXT'],
+  '.codex/agents/emp-deep.toml': ['name = "emp-deep"', 'model = "gpt-5.6-sol"', 'model_reasoning_effort = "high"', 'sandbox_mode = "read-only"', 'BLOCKED'],
 }
 for (const [file, texts] of Object.entries(agentExpectations)) {
   for (const text of texts) requireText(file, text)
+  requireNoPattern(file, /^model\s*=\s*"gpt-5\.6"$/m)
 }
 
 for (const text of [
   '.codex/hooks.json',
   '.codex/agents/',
-  '.superpowers/subagents.md',
   'subagent',
   'Decision Rules',
   'spawn_agent',
+  'Token-First Model Routing',
+  'Delegation Contract',
 ]) {
   requireText('skills/emp-workflow/SKILL.md', text)
 }
 
-for (const text of [
-  '## Codex 触发入口',
-  '## 实际派发方式',
-  '## 派发决策',
-  'Brief Template',
-  'Review Package Template',
-  'agent_type',
-  'Profile:',
-  'emp-fast',
-  'emp-impl',
-  'emp-deep',
-  'NEEDS_CONTEXT',
-  'BLOCKED',
-  'spawn_agent',
-]) {
-  requireText('.superpowers/subagents.md', text)
-}
-
-for (const text of ['只读审计', '实际派发方式', '.superpowers/subagents.md']) {
+for (const text of ['只读审计', '.codex/agents/emp-*.toml']) {
   requireText('AGENTS.md', text)
 }
 
@@ -255,13 +253,33 @@ for (const text of ['parse `.codex/hooks.json`', 'prompt assembly, not hook stdo
   requireText('skills/emp-workflow/references/change-matrix.md', text)
 }
 
-for (const file of ['.codex/config.toml', '.codex/hooks.json', '.codex/agents/emp-fast.toml', '.codex/agents/emp-impl.toml', '.codex/agents/emp-deep.toml', '.superpowers/subagents.md']) {
+for (const file of ['.codex/config.toml', '.codex/hooks.json', '.codex/agents/emp-spark.toml', '.codex/agents/emp-fast.toml', '.codex/agents/emp-impl.toml', '.codex/agents/emp-deep.toml']) {
   requireNoPattern(file, /codebase-memory-mcp/)
 }
 
-for (const protectedPath of ['apps/**', 'website', 'docs/superpowers/', 'packages/cdn-*', 'packages/lib-*', '.worktrees/']) {
+for (const protectedPath of ['apps/**', 'website', '仓库内历史工作流目录', 'packages/cdn-*', 'packages/lib-*', '.worktrees/']) {
   requireText('AGENTS.md', protectedPath)
 }
+
+for (const file of [
+  'AGENTS.md',
+  '.codex/hooks.json',
+  '.codex/agents/emp-spark.toml',
+  '.codex/agents/emp-fast.toml',
+  '.codex/agents/emp-impl.toml',
+  '.codex/agents/emp-deep.toml',
+  '.github/pull_request_template.md',
+  'skills/emp-workflow/SKILL.md',
+  'skills/emp-workflow/references/change-matrix.md',
+]) {
+  requireNoPattern(file, retiredWorkflowPattern)
+  requireNoPattern(file, forbiddenCodexModelPattern)
+}
+
+if (exists(['.super', 'powers'].join(''))) {
+  failures.push('retired workflow directory must not exist')
+}
+if (exists('.agents')) failures.push('.agents must not be used for repo-local skill injection')
 
 requireNoPattern('.github/workflows/ci.yml', /NODE_AUTH_TOKEN|npm publish|release:publish/)
 
@@ -449,7 +467,9 @@ for (const packageFile of staticScriptPackages) {
   }
 }
 
-if (exists('docs/superpowers')) failures.push('docs/superpowers must not be used')
+if (exists(path.join('docs', ['super', 'powers'].join('')))) {
+  failures.push('retired docs workflow directory must not be used')
+}
 
 if (exists('skills')) {
   for (const entry of fs.readdirSync(path.join(root, 'skills'), {withFileTypes: true})) {

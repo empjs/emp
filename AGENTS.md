@@ -16,7 +16,7 @@
 
 - 当前项目默认使用 CodeGraph 做代码发现、调用链和影响面判断。
 - 开始跨文件或跨包分析前先运行 `codegraph sync .`，再用 `codegraph status .` 确认索引是最新状态。
-- 如果任务明确是只读审计，或目标只是文档、配置、脚本、Skill、`.codex/*`、`.superpowers/*`，可以只跑 `codegraph status .` 并跳过 `codegraph sync .`；跳过时必须说明这是只读/配置文档场景，且不把 CodeGraph 当作最新代码事实来源。
+- 如果任务明确是只读审计，或目标只是文档、配置、脚本、Skill、`.codex/*`，可以只跑 `codegraph status .` 并跳过 `codegraph sync .`；跳过时必须说明这是只读/配置文档场景，且不把 CodeGraph 当作最新代码事实来源。
 - 代码发现优先顺序：
   1. `codegraph query <symbol-or-topic>`：查符号、文件、入口和相似主题。
   2. `codegraph node <symbol-or-file>`：读源码、调用方和被调用方。
@@ -29,37 +29,39 @@
 ## 工作流决策矩阵
 
 - 必须用 CodeGraph：跨文件/跨包代码理解、符号定位、调用链、影响面、受影响测试、公共 API 或运行时链路判断；这类任务先 `codegraph sync . && codegraph status .`，再用 `query/node/callers/callees/affected/explore`。
-- 可以不用 CodeGraph：单文件文档、字符串字面量、配置、脚本、GitHub workflow、Skill、`.codex/*`、`.superpowers/*`、package manifest 字段检查；这类优先 `rg` / 直接读文件，并说明是配置/文档场景 fallback。
-- 必须先写计划：非平凡实现、发布/包管理、自动化、测试体系、跨目录改动、需要 subagent 或多阶段验证的任务；计划放 `.superpowers/plans/`。
+- 可以不用 CodeGraph：单文件文档、字符串字面量、配置、脚本、GitHub workflow、Skill、`.codex/*`、package manifest 字段检查；这类优先 `rg` / 直接读文件，并说明是配置/文档场景 fallback。
+- 必须先写计划：非平凡实现、发布/包管理、自动化、测试体系、跨目录改动、需要 subagent 或多阶段验证的任务；计划写入当前任务回复或用户明确指定的项目文档，不再落到仓库内的专用工作流目录。
 - 可以不写完整计划：单点文案、只读解释、单文件轻量规则修正；但仍要读现状、最小改动、跑对应验证。
-- 必须派 subagent：计划中存在 2 个以上互不共享写入状态的独立任务域，或需要并行探索/实现/审阅来缩短关键路径；派发前读取 `.superpowers/subagents.md` 和 `.codex/agents/emp-*.toml`。
-- 不派 subagent：任务是探索性调试、架构取舍、发布 go/no-go、受保护目录决策、共享文件强耦合修改，或下一步被该结果直接阻塞；这些由 Codex 主控制器本地处理。
+- 派 subagent：只有独立 sidecar 能减少主上下文，或中高风险改动需要独立验收/审阅时才派发；派发前读取 `.codex/agents/emp-*.toml`，选择最便宜且足够的角色。
+- 不派 subagent：简单问答、单文件轻改、单条确定性命令、探索性调试、架构取舍、发布 go/no-go、共享文件强耦合修改，或下一步被该结果直接阻塞；这些由 Codex 主控制器本地处理。
 - 必须提交代码：用户明确说 `提交`、`push`、`改完要 push 代码`、发布/PR 收口，或同线程已进入提交闭环；提交前必须重查 `git status --short --branch`，只 stage 本任务文件，跑 `git diff --cached --check` 和相关验证。
 - 不主动提交：规划/审计/只读分析、用户说不落盘、存在未确认的无关脏改、验证未通过、或需要用户确认范围；最终只汇报 diff 和验证状态。
 - 必须走 worktree 清理流程：用户提到 `.worktrees`、`git worktree`、隔离目录、分支临时环境或磁盘清理时，先按“Worktree 清理规则”盘点状态；不能直接 `rm -rf .worktrees`。
 
-## Superpowers 强制流程
-
-- 只要任务有 1% 可能匹配某个 Superpowers skill，先读取并遵循对应 skill，再行动。
-- 非平凡功能、脚本、发布、包管理、配置变更，默认遵循：
-  1. `superpowers:writing-plans`：先写计划，保存到 `.superpowers/plans/YYYY-MM-DD-<topic>.md`。
-  2. `superpowers:test-driven-development`：新增行为先写失败的真实验收/集成测试，再实现；不要用零散纯单测替代真实链路验证。
-  3. `superpowers:executing-plans` 或 `superpowers:subagent-driven-development`：按计划执行并维护任务状态。
-  4. `superpowers:verification-before-completion`：完成前做独立验证，不用“应该可以”代替结果。
-- 执行任何 `.superpowers/plans/*` 计划或派发 subagent 前，必须先读取 `.superpowers/subagents.md`；该文件是本仓库 subagent 模型分工、brief、review gate 和停止条件的项目级约束。
-- 简单文档或规范变更可以不创建完整计划，但仍要遵守读现状、最小改动、真实验证。
-
 ## Codex 触发层
 
-- `.codex/config.toml` 是当前仓库的 Codex runtime 开关层；必须启用 `hooks`、`goals` 和 `multi_agent`，以支持 goal 模式、项目 hook 和 subagent 工具。
-- `.codex/hooks.json` 只放短提醒，用于 startup/resume/compact 和涉及计划执行或 subagent 的提示；完整规则仍以 `AGENTS.md`、`skills/emp-workflow/SKILL.md` 和 `.superpowers/subagents.md` 为准。
-- `.codex/agents/emp-fast.toml`、`.codex/agents/emp-impl.toml`、`.codex/agents/emp-deep.toml` 是本仓库子 agent 分工定义；派发前按任务复杂度选择最便宜且足够的角色。
-- 如果当前 `spawn_agent` 不直接支持 `emp-fast` / `emp-impl` / `emp-deep` 作为 `agent_type`，按 `.superpowers/subagents.md` 的“实际派发方式”把项目角色映射到通用 `agent_type`、模型和 brief。
+- `.codex/config.toml` 是当前仓库的 Codex runtime 开关层；默认控制器使用 `gpt-5.5` + `low`，关闭 reasoning summary，并启用 `hooks`、`goals` 和 `multi_agent`。
+- `.codex/hooks.json` 只放短提醒，用于 startup/resume/compact 和涉及计划执行或 subagent 的提示；完整规则仍以 `AGENTS.md` 和 `skills/emp-workflow/SKILL.md` 为准。
+- `.codex/agents/emp-spark.toml` 使用 `gpt-5.3-codex-spark` + `low` + `model_reasoning_summary = "none"`，只处理 brief 已提供文本的分类、压缩和格式化，不调用工具或读取仓库。
+- `.codex/agents/emp-fast.toml` 使用 `gpt-5.4` + `low`，处理单文件修改、文档/配置和低风险修复。
+- `.codex/agents/emp-impl.toml` 使用 `gpt-5.5` + `medium`，处理边界明确的多文件实现、测试和工具密集执行。
+- `.codex/agents/emp-deep.toml` 使用 `gpt-5.6-sol` 且保持只读，处理架构、发布风险、依赖策略、跨包契约和最终审阅。
+- 中高风险行为、依赖、构建、发布或跨模块改动完成后，使用 `gpt-5.6-terra` verifier 独立验收；只有复杂判断和高风险审阅升级到 Sol。
+- 禁止在 profile 中使用通用 `gpt-5.6` model id；必须使用具体模型 ID。
+- 如果当前 `spawn_agent` 不支持项目 profile，映射到最接近的通用 Agent，并保留模型、权限、brief 和验证要求。
 - hook 不承载大段流程，不做业务判断，不替代 `workflow:check`；任何工作流规则变更都必须能被 `corepack pnpm workflow:check` 验证。
+
+## Token 优先编排规则
+
+- 按判断成本逐级升级：Spark 纯文本处理 -> GPT-5.4 仓库检索/小改 -> GPT-5.5 常规实现/主控制 -> GPT-5.6 Terra 验收 -> GPT-5.6 Sol 复杂判断；不要预先升级。
+- 简单任务由主控制器直接完成。默认只派 1 个子 Agent；确有独立任务域时并行 2 个，最多 3 个直接子 Agent，`max_depth = 1`。
+- 同一文件或共享状态只允许一个写入者；依赖、锁文件、迁移、快照、端口、发布状态和外部系统写入必须串行。
+- brief 只包含目标、责任边界、必要输入、禁止项、完成条件和验证命令；默认不复制完整会话或完整 Skill。
+- 子 Agent 只返回结果、改动、验证和风险；主控制器复核 live state，不重复其探索过程。
 
 ## 项目级 Skill 约定
 
-- EMP 项目级 Skill 统一放在 `skills/<skill-name>/`，每个 Skill 必须包含 `SKILL.md`；不要放到 `.superpowers/`、`docs/superpowers/` 或全局 `~/.codex/skills/` 里。
+- EMP 项目级 Skill 统一放在 `skills/<skill-name>/`，每个 Skill 必须包含 `SKILL.md`；不要放到仓库根的临时工作流目录、历史文档目录或全局 `~/.codex/skills/` 里。
 - 新建或更新项目级 Skill 时，必须先加载并遵循 `skill-creator`；新建 Skill 默认使用 `skill-creator` 提供的 `init_skill.py` 初始化到 `skills/`，不要手写完整模板。
 - Skill 名称必须使用小写字母、数字和连字符，目录名与 `SKILL.md` frontmatter 的 `name` 保持一致。
 - `SKILL.md` frontmatter 只保留 `name` 和 `description`；`description` 必须写清能力和触发场景。正文保持精简，详细资料拆到 `references/`，确定性脚本放 `scripts/`，输出模板或资源放 `assets/`。
@@ -73,7 +75,7 @@
 - `packages/cdn-*` 和 `packages/lib-*` 默认保持独立版本线；除非用户明确要求纳入统一版本或迁移范围，否则不要改版本、发布配置或依赖线。
 - `.github/workflows/publish.yml` 只在发布流程任务中修改；普通 CI、PR、review 自动化优先修改 `.github/workflows/ci.yml`、`.github/pull_request_template.md` 和 `.github/CODEOWNERS`。
 - `pnpm-lock.yaml` 只在依赖、package 范围或安装结果确实变化时修改；不要为了格式化或无关任务重写 lockfile。
-- 禁止新建或继续使用 `docs/superpowers/`；Superpowers 长期计划和规格放 `.superpowers/plans/`、`.superpowers/specs/`，执行记录放 `.superpowers/sdd/`。
+- 禁止新建或继续使用仓库内历史工作流目录；计划、规格和执行记录只在用户明确要求落盘时保存到当前任务指定的位置。
 - 禁止提交生成物、缓存、本地索引或本地隔离 checkout，包括 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rspack-cache/`、`.worktrees/`。
 
 ## Git / PR / Review 闭环
@@ -116,8 +118,8 @@
 
 ## 计划文档格式
 
-- Superpowers 相关计划、执行记录、评审记录等工作产物统一放在 `.superpowers/` 下。
-- 禁止新建或继续使用 `docs/superpowers/`；历史文档如果需要迁移，必须移动到 `.superpowers/` 对应子目录。
+- 非平凡实现、发布、自动化或跨目录改动需要先写可执行计划；默认写在当前任务回复中，只有用户明确要求落盘时才创建项目文档。
+- 计划、执行记录和评审记录不得落到仓库内历史工作流目录。
 - 计划文件必须包含：
   - `Goal`
   - `Architecture`

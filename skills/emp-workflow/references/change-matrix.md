@@ -8,10 +8,6 @@ Default writable areas:
 - `.codex/config.toml`
 - `.codex/hooks.json`
 - `.codex/agents/emp-*.toml`
-- `.superpowers/plans/`
-- `.superpowers/specs/`
-- `.superpowers/sdd/`
-- `.superpowers/subagents.md`
 - `skills/<skill-name>/`
 - `scripts/*.mjs`
 - `.github/workflows/ci.yml`
@@ -31,7 +27,7 @@ Ask for explicit user confirmation before changing:
 
 Do not create or continue:
 
-- `docs/superpowers/**`
+- repo-local historical workflow directories
 - repo-local Skill files outside `skills/<skill-name>/`
 - new test runners beside the existing real-test strategy
 
@@ -39,6 +35,7 @@ Never commit or preserve local caches:
 
 - `node_modules/`
 - `.codegraph/`
+- `.agents/`
 - `.worktrees/`
 - `.turbo/`
 - `.rslib/`
@@ -51,12 +48,14 @@ For any workflow or documentation-only change:
 - `git diff --check`
 - `pnpm workflow:check`
 
-For Codex trigger or Superpowers subagent rule changes:
+For Codex trigger or subagent rule changes:
 
 - `git diff --check`
 - `pnpm workflow:check`
+- `codex debug models` must list `gpt-5.3-codex-spark`, `gpt-5.4`, `gpt-5.5`, `gpt-5.6-terra`, and `gpt-5.6-sol`
+- Spark smoke must set `model_reasoning_summary = "none"`; otherwise current Codex request assembly sends an unsupported parameter
 - parse `.codex/hooks.json` as JSON and smoke-test hook commands locally
-- `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` should show the repo `AGENTS.md` instructions and `.superpowers/subagents.md` rule without mentioning `codebase-memory-mcp`; this proves prompt assembly, not hook stdout execution
+- `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` should show the repo `AGENTS.md` instructions and avoid retired workflow or memory-MCP terminology; this proves prompt assembly, not hook stdout execution
 - `codegraph sync . && codegraph status .` before finalizing workflow guard changes
 
 For `skills/*` changes:
@@ -102,12 +101,20 @@ Every implementation should leave a reviewable trail:
 4. Review: identify whether the change needs code review, release review, or workflow review.
 5. CI: ensure PR/push CI runs `pnpm ci:verify` and `pnpm empbuild`.
 
+## Token-First Model Gates
+
+- Spark is text-only and limited to routing, classification, compression, and formatting of content already in the brief; it does not receive repository or tool work.
+- GPT-5.4 handles one-file edits and low-risk fixes; GPT-5.5 handles normal multi-file implementation and controller work.
+- Medium/high-risk behavior, dependency, build, release, or cross-module changes get a separate GPT-5.6-Terra verification pass.
+- GPT-5.6-Sol review is reserved for architecture, public API, dependency strategy, security, release scope, or go/no-go recommendations.
+- No child result authorizes commit, push, publish, merge, destructive cleanup, or external writes; the controller applies the repository gates.
+
 ## Commit Rules
 
 - Commit when the user explicitly says `提交`, `push`, `改完要 push 代码`, or when release/PR closure is the requested deliverable.
 - Do not commit for read-only analysis, planning-only work, failed validation, unclear scope, or unrelated dirty worktree state.
 - Before commit: run `git status --short --branch`, stage only intended files, run `git diff --cached --check`, and run the validation commands required by this matrix.
-- For newly created workflow files, always include `git status --short --branch` or `git diff --stat --cached` in the handoff so untracked `.codex/*` / `.superpowers/*` files are not invisible to reviewers.
+- For newly created workflow files, always include `git status --short --branch` or `git diff --stat --cached` in the handoff so untracked `.codex/*` files are not invisible to reviewers.
 
 ## Release Safety
 

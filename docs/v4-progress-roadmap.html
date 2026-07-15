@@ -612,7 +612,7 @@
                     包进入 v4 alpha 版本线，CDN 和 legacy runtime 包保持独立版本线。
                   </td>
                   <td data-label="主要证据">
-                    <code>package.json</code>、<code>CHANGELOG.md</code>、<code>.superpowers/sdd/task-1-report.md</code>
+                    <code>package.json</code>、<code>CHANGELOG.md</code>、历史任务验收报告
                   </td>
                 </tr>
                 <tr>
@@ -639,8 +639,7 @@
                     <code>createRequire</code> 方案，避免 CJS 产物中 <code>import.meta.resolve</code> 崩溃。
                   </td>
                   <td data-label="主要证据">
-                    <code>packages/emp-share/package.json</code>、<code>packages/emp-share/src/helper/rspack.ts</code>、
-                    <code>.superpowers/sdd/task-3-fix-report.md</code>
+                    <code>packages/emp-share/package.json</code>、<code>packages/emp-share/src/helper/rspack.ts</code>、历史修复验收报告
                   </td>
                 </tr>
                 <tr>
@@ -651,8 +650,7 @@
                     解决 <code>dist/index.cjs</code> require 时 <code>hex</code> 方法缺失的问题。
                   </td>
                   <td data-label="主要证据">
-                    <code>.superpowers/specs/2026-06-22-rspack-2-v4-upgrade-design.md</code>、
-                    <code>.superpowers/sdd/task-5-fix-report.md</code>
+                    历史升级设计记录、历史修复验收报告
                   </td>
                 </tr>
                 <tr>
@@ -664,7 +662,7 @@
                     <code>mf-host</code>、<code>mf-app</code> 构建通过并产出 manifest。
                   </td>
                   <td data-label="主要证据">
-                    <code>.superpowers/sdd/task-6-final-report.md</code>、<code>.superpowers/sdd/task-7-report.md</code>
+                    历史最终验收报告、历史任务验收报告
                   </td>
                 </tr>
                 <tr>
@@ -677,8 +675,7 @@
                     <code>@empjs/cdn-*</code> 和 <code>@empjs/lib-*</code>。
                   </td>
                   <td data-label="主要证据">
-                    <code>scripts/release-core.mjs</code>、<code>scripts/release.mjs</code>、
-                    <code>.superpowers/plans/2026-06-23-emp-internal-release-automation.md</code>
+                    <code>scripts/release-core.mjs</code>、<code>scripts/release.mjs</code>、历史发布自动化计划
                   </td>
                 </tr>
                 <tr>
@@ -896,11 +893,11 @@
                   <td data-label="用途">发布范围分类、dry-run 默认、真实发布确认、changelog 和 pack/publish 命令生成。</td>
                 </tr>
                 <tr>
-                  <td data-label="证据"><code>.superpowers/sdd/progress.md</code>、<code>.superpowers/sdd/task-*-report.md</code></td>
+                  <td data-label="证据">历史进度记录、历史任务验收报告</td>
                   <td data-label="用途">v4 Rspack 2 七个任务完成状态、构建验证、CJS 修复和已知风险。</td>
                 </tr>
                 <tr>
-                  <td data-label="证据"><code>.superpowers/specs/2026-06-23-emp-share-version-isolation-design.md</code></td>
+                  <td data-label="证据">历史版本隔离设计记录</td>
                   <td data-label="用途"><code>empRuntime.version</code> 的目标、API、边界和测试建议。</td>
                 </tr>
               </tbody>

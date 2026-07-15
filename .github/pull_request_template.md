@@ -8,7 +8,7 @@
 
 - [ ] I did not modify `apps/**` or `website/**` unless this PR is explicitly about examples/sites/acceptance apps.
 - [ ] I did not modify `packages/cdn-*` or `packages/lib-*` version lines unless explicitly requested.
-- [ ] I did not create or continue `docs/superpowers/**`.
+- [ ] I did not create or continue repo-local historical workflow directories.
 - [ ] I did not commit generated output, caches, or local indexes.
 
 ## Validation
