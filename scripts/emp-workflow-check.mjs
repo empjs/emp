@@ -60,6 +60,12 @@ const requireNoPattern = (file, pattern) => {
   if (pattern.test(read(file))) failures.push(`${file} contains forbidden pattern: ${pattern.source}`)
 }
 
+const requireMaxBytes = (file, maxBytes) => {
+  if (!exists(file)) return
+  const bytes = Buffer.byteLength(read(file), 'utf8')
+  if (bytes > maxBytes) failures.push(`${file} exceeds context budget: ${bytes} > ${maxBytes} bytes`)
+}
+
 const retiredWorkflowPattern = new RegExp(['super', 'powers'].join(''), 'i')
 const forbiddenCodexModelPattern = /gpt-5\.4-mini/
 
@@ -116,6 +122,8 @@ for (const file of [
   'skills/emp-workflow/SKILL.md',
   'skills/emp-workflow/agents/openai.yaml',
   'skills/emp-workflow/references/change-matrix.md',
+  'skills/emp-workflow/references/routing-and-context.md',
+  'skills/emp-workflow/references/repository-operations.md',
   'scripts/emp-workflow-check.mjs',
   'scripts/root-test-targets.mjs',
   'scripts/run-root-test.mjs',
@@ -125,33 +133,37 @@ for (const file of [
   requireFile(file)
 }
 
+requireMaxBytes('AGENTS.md', 7000)
+requireMaxBytes('skills/emp-workflow/SKILL.md', 4000)
+for (const file of listFiles('skills/emp-workflow/references')) {
+  if (path.dirname(file) !== 'skills/emp-workflow/references') {
+    failures.push(`skill reference must stay one level below SKILL.md: ${file}`)
+  }
+  requireMaxBytes(file, 8000)
+}
+
 for (const heading of [
-  '## 项目级 Skill 约定',
-  '## 目录边界',
-  '## Git / PR / Review 闭环',
-  '## Worktree 清理规则',
-  '## 自动化运行规则',
-  '## 统一真实测试策略',
-  '## Codex 触发层',
-  '## 工作流决策矩阵',
-  '## Token 优先编排规则',
+  '## 核心约束',
+  '## 分级预检',
+  '## 计划与编排',
+  '## 模型路由',
+  '## 目录与 Git',
+  '## 发现与验证',
+  '## 按需参考',
 ]) {
   requireText('AGENTS.md', heading)
 }
 
 for (const text of [
   '.codex/config.toml',
-  '.codex/hooks.json',
-  '.codex/agents/emp-spark.toml',
-  '.codex/agents/emp-fast.toml',
-  '.codex/agents/emp-impl.toml',
-  '.codex/agents/emp-deep.toml',
-  'multi_agent',
+  '.codex/agents/emp-*.toml',
+  'routing-and-context.md',
+  'change-matrix.md',
+  'repository-operations.md',
 ]) {
   requireText('AGENTS.md', text)
 }
 
-requireText('AGENTS.md', '## CodeGraph 优先级')
 for (const codegraphCommand of [
   'codegraph sync .',
   'codegraph status .',
@@ -161,10 +173,13 @@ for (const codegraphCommand of [
   'codegraph affected',
   'codegraph explore',
 ]) {
-  requireText('AGENTS.md', codegraphCommand)
-  requireText('skills/emp-workflow/SKILL.md', codegraphCommand)
+  requireText('skills/emp-workflow/references/routing-and-context.md', codegraphCommand)
 }
-for (const file of ['AGENTS.md', 'skills/emp-workflow/SKILL.md']) {
+for (const file of [
+  'AGENTS.md',
+  'skills/emp-workflow/SKILL.md',
+  'skills/emp-workflow/references/routing-and-context.md',
+]) {
   requireNoPattern(file, /codebase-memory-mcp/)
 }
 
@@ -217,19 +232,21 @@ for (const [file, texts] of Object.entries(agentExpectations)) {
 }
 
 for (const text of [
+  'Core Flow',
+  'Reference Map',
+  'Decision Rules',
   '.codex/hooks.json',
   '.codex/agents/',
-  'subagent',
-  'Decision Rules',
   'spawn_agent',
-  'Token-First Model Routing',
-  'Delegation Contract',
+  'routing-and-context.md',
+  'change-matrix.md',
+  'repository-operations.md',
 ]) {
   requireText('skills/emp-workflow/SKILL.md', text)
 }
 
-for (const text of ['只读审计', '.codex/agents/emp-*.toml']) {
-  requireText('AGENTS.md', text)
+for (const text of ['Token-First Model Routing', 'Delegation Contract', 'Tool Output Budget', 'fork']) {
+  requireText('skills/emp-workflow/references/routing-and-context.md', text)
 }
 
 for (const text of [
@@ -241,15 +258,14 @@ for (const text of [
   'git merge-base --is-ancestor <branch> v4',
   'rm -rf .worktrees',
 ]) {
-  requireText('AGENTS.md', text)
+  requireText('skills/emp-workflow/references/repository-operations.md', text)
 }
 
 for (const text of ['git worktree list --porcelain', 'du -sh .worktrees', 'git worktree remove <path>', 'git worktree prune']) {
-  requireText('skills/emp-workflow/SKILL.md', text)
   requireText('skills/emp-workflow/references/change-matrix.md', text)
 }
 
-for (const text of ['parse `.codex/hooks.json`', 'prompt assembly, not hook stdout execution', 'untracked `.codex/*`']) {
+for (const text of ['Parse `.codex/hooks.json`', 'prompt assembly, not hook stdout execution', 'untracked `.codex/*`']) {
   requireText('skills/emp-workflow/references/change-matrix.md', text)
 }
 
@@ -271,6 +287,8 @@ for (const file of [
   '.github/pull_request_template.md',
   'skills/emp-workflow/SKILL.md',
   'skills/emp-workflow/references/change-matrix.md',
+  'skills/emp-workflow/references/routing-and-context.md',
+  'skills/emp-workflow/references/repository-operations.md',
 ]) {
   requireNoPattern(file, retiredWorkflowPattern)
   requireNoPattern(file, forbiddenCodexModelPattern)

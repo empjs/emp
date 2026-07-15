@@ -1,124 +1,83 @@
 # EMP Change Matrix
 
-## Directory Boundaries
+Read this file only to select validation commands, confirm protected scope, or decide whether independent GPT-5.6 verification is required.
 
-Default writable areas:
+## Scope Matrix
 
-- `AGENTS.md`
-- `.codex/config.toml`
-- `.codex/hooks.json`
-- `.codex/agents/emp-*.toml`
-- `skills/<skill-name>/`
-- `scripts/*.mjs`
-- `.github/workflows/ci.yml`
-- `.github/pull_request_template.md`
-- `.github/CODEOWNERS`
-- package files directly required by the task
+| Change | Default scope | Extra authorization |
+| --- | --- | --- |
+| Workflow/config | `AGENTS.md`, `.codex/**`, `skills/**`, workflow scripts | Publish workflow |
+| Package code | Task-owning `packages/**` | `packages/cdn-*`, `packages/lib-*` |
+| CI/review | CI workflow, PR template, CODEOWNERS | Publish workflow |
+| Examples/sites | None by default | `apps/**`, `website/**` |
+| Dependencies | Required manifests | `pnpm-lock.yaml` only when install graph changes |
 
-Ask for explicit user confirmation before changing:
-
-- `apps/**`
-- `website/**`
-- `packages/cdn-*/**`
-- `packages/lib-*/**`
-- `.github/workflows/publish.yml`
-- `pnpm-lock.yaml` unless the task changes dependencies
-- generated outputs such as `dist/`, `output/`, `coverage/`
-
-Do not create or continue:
-
-- repo-local historical workflow directories
-- repo-local Skill files outside `skills/<skill-name>/`
-- new test runners beside the existing real-test strategy
-
-Never commit or preserve local caches:
-
-- `node_modules/`
-- `.codegraph/`
-- `.agents/`
-- `.worktrees/`
-- `.turbo/`
-- `.rslib/`
-- `.rspack-cache/`
+Never commit generated output or caches: `node_modules/`, `dist/`, `output/`, `coverage/`, `.codegraph/`, `.agents/`, `.worktrees/`, `.turbo/`, `.rslib/`, `.rspack-cache/`.
 
 ## Validation Matrix
 
-For any workflow or documentation-only change:
+### Documentation or workflow text
 
 - `git diff --check`
-- `pnpm workflow:check`
+- `corepack pnpm workflow:check`
 
-For Codex trigger or subagent rule changes:
+### Codex routing, hooks, or Agent profiles
 
-- `git diff --check`
-- `pnpm workflow:check`
-- `codex debug models` must list `gpt-5.3-codex-spark`, `gpt-5.4`, `gpt-5.5`, `gpt-5.6-terra`, and `gpt-5.6-sol`
-- Spark smoke must set `model_reasoning_summary = "none"`; otherwise current Codex request assembly sends an unsupported parameter
-- parse `.codex/hooks.json` as JSON and smoke-test hook commands locally
-- `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` should show the repo `AGENTS.md` instructions and avoid retired workflow or memory-MCP terminology; this proves prompt assembly, not hook stdout execution
-- `codegraph sync . && codegraph status .` before finalizing workflow guard changes
+- Documentation/workflow checks above
+- `codex debug models` must list the configured concrete model IDs
+- Parse `.codex/hooks.json` as JSON and smoke-test hook commands locally
+- Spark smoke keeps `model_reasoning_summary = "none"`
+- `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` validates prompt assembly, not hook stdout execution
+- Run `codegraph sync . && codegraph status .` only when the guard change depends on code-index behavior
 
-For `skills/*` changes:
+### Project Skill
 
 - `python3 /Users/Bigo/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<skill-name>`
-- `pnpm workflow:check`
+- `corepack pnpm workflow:check`
+- Run a representative command for each deterministic Skill script changed
 
-For `.worktrees/` or Git worktree cleanup:
+### GitHub Actions, PR, or review automation
+
+- `corepack pnpm workflow:check`
+- `git diff --check`
+- Confirm CI has no `NODE_AUTH_TOKEN`, `npm publish`, or `release:publish`
+
+### Tests or test configuration
+
+- Relevant root test target
+- `corepack pnpm ci:verify`
+
+### Package source, build chain, Rslib/Rspack, or workspace dependency
+
+- Relevant package/real acceptance test
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+
+### Release automation or package scope
+
+- `corepack pnpm workflow:check`
+- `corepack pnpm test:rules`
+- `corepack pnpm release:check`
+- `corepack pnpm ci:verify`
+- Verify dry-run, package scope, and reproducible changelog
+
+### Worktree cleanup
 
 - `git worktree list --porcelain`
 - `du -sh .worktrees`
-- `git -C <path> status --short --branch` for every cleanup candidate
-- `git -C <path> diff --stat` for every dirty candidate
-- Use `git worktree remove <path>` for clean or explicitly confirmed candidates, then `git worktree prune`
-- Check `git merge-base --is-ancestor <branch> v4` before branch deletion; do not delete branches as part of directory cleanup unless explicitly requested
+- Per candidate: status, and diff stat when dirty
+- Use `git worktree remove <path>` then `git worktree prune`
 
-For GitHub Actions, PR, review, or automation changes:
+## Independent Verification Gates
 
-- `pnpm workflow:check`
-- `git diff --check`
-- `rg -n "NODE_AUTH_TOKEN|npm publish|release:publish" .github/workflows/ci.yml` should return no matches
+- No extra Agent for deterministic Git commands, text-only edits, or single-file low-risk changes.
+- Use GPT-5.6 Terra after medium/high-risk behavior, dependency, build, release, or cross-module changes when independent execution can catch material risk.
+- Use read-only GPT-5.6 Sol only for architecture, public API, dependency strategy, security, release scope, or go/no-go recommendations.
+- A child cannot authorize commit, push, publish, merge, destructive cleanup, or external writes.
 
-For release automation or package-scope changes:
+## Delivery Check
 
-- `pnpm workflow:check`
-- `pnpm test:rules`
-- `pnpm release:check`
-- `pnpm ci:verify`
-
-For build-chain, package source, Rslib, Rspack, or workspace dependency changes:
-
-- relevant package test
-- `pnpm ci:verify`
-- `pnpm empbuild`
-
-## PR / Review Closure
-
-Every implementation should leave a reviewable trail:
-
-1. Scope: state the files and directories intentionally changed.
-2. Boundaries: state protected directories that were not touched.
-3. Tests: paste exact commands and outcomes.
-4. Review: identify whether the change needs code review, release review, or workflow review.
-5. CI: ensure PR/push CI runs `pnpm ci:verify` and `pnpm empbuild`.
-
-## Token-First Model Gates
-
-- Spark is text-only and limited to routing, classification, compression, and formatting of content already in the brief; it does not receive repository or tool work.
-- GPT-5.4 handles one-file edits and low-risk fixes; GPT-5.5 handles normal multi-file implementation and controller work.
-- Medium/high-risk behavior, dependency, build, release, or cross-module changes get a separate GPT-5.6-Terra verification pass.
-- GPT-5.6-Sol review is reserved for architecture, public API, dependency strategy, security, release scope, or go/no-go recommendations.
-- No child result authorizes commit, push, publish, merge, destructive cleanup, or external writes; the controller applies the repository gates.
-
-## Commit Rules
-
-- Commit when the user explicitly says `提交`, `push`, `改完要 push 代码`, or when release/PR closure is the requested deliverable.
-- Do not commit for read-only analysis, planning-only work, failed validation, unclear scope, or unrelated dirty worktree state.
-- Before commit: run `git status --short --branch`, stage only intended files, run `git diff --cached --check`, and run the validation commands required by this matrix.
-- For newly created workflow files, always include `git status --short --branch` or `git diff --stat --cached` in the handoff so untracked `.codex/*` files are not invisible to reviewers.
-
-## Release Safety
-
-- CI workflow must not contain `NODE_AUTH_TOKEN`, `npm publish`, or `release:publish`.
-- Publish workflow may publish only through explicit release paths.
-- `release:check` must keep automatic internal release scope under `packages/**`.
-- `apps/**` and `website/**` are examples or sites, not automatic publish scope.
+1. State intentionally changed files and protected scope not touched.
+2. Report exact commands and outcomes using concise summaries.
+3. State skipped checks and resulting risk.
+4. Before commit, inspect status, stage exact files, run `git diff --cached --check`, and ensure untracked `.codex/*` files are not omitted accidentally.
