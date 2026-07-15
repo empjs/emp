@@ -139,4 +139,9 @@ describe('TS7-compatible tsconfig contract', () => {
       rmSync(tempDir, {force: true, recursive: true})
     }
   })
+
+  test('Module Federation 2.8 host and remote typecheck under TypeScript 7', () => {
+    runTsc('apps/mf-host/tsconfig.json')
+    runTsc('apps/mf-app/tsconfig.json')
+  })
 })

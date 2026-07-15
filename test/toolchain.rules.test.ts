@@ -121,9 +121,12 @@ describe('toolchain version contract', () => {
 
   test('project-facing TypeScript declarations use TS7 stable everywhere', () => {
     const cdnReact17Pkg = readJson('packages/cdn-react-17/package.json')
+    const vue3BasePkg = readJson('apps/vue-3-base/package.json')
     const templates = readText('packages/cli/src/agent-create/templates.ts')
 
     expect(cdnReact17Pkg.devDependencies.typescript).toBe('7.0.2')
+    expect(vue3BasePkg.devDependencies.typescript).toBe('7.0.2')
+    expect(vue3BasePkg.devDependencies['@vue/tsconfig']).toBe('^0.9.1')
     expect(templates).toContain("typescript: '^7.0.2'")
     expect(templates).not.toContain("typescript: '^5.9.2'")
   })
@@ -207,6 +210,7 @@ describe('toolchain version contract', () => {
     expect(sharePkg.dependencies['@module-federation/sdk']).toBe('^2.8.0')
     expect(sharePkg.devDependencies['@swc/core']).toBe('^1.15.43')
     expect(lockfile).toContain('@module-federation/rspack@2.8.0')
+    expect(lockfile).toContain('@module-federation/dts-plugin@2.8.0')
     expect(lockfile).toContain('@swc/core@1.15.43')
     expect(shareLockImporter).toContain('specifier: ^1.15.43')
     expect(shareLockImporter).toContain('version: 1.15.43(@swc/helpers@0.5.23)')
@@ -227,6 +231,7 @@ describe('toolchain version contract', () => {
     expect(lockfile).toContain('rsbuild-plugin-dts@0.23.2')
     expect(lockfile).toContain('typescript: ^4.9.0 || ^5.0.0 || ^6.0.0 || ^7.0.0')
     expect(lockfile).toContain('typescript@7.0.2')
+    expect(lockfile).not.toContain('typescript@5.9.3')
     expect(lockfile).not.toContain('typescript-mf')
   })
 })

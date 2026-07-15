@@ -1,5 +1,5 @@
 import {loadRemote, registerRemotes} from '@empjs/share/sdk'
-import {lazy, Suspense, useEffect} from 'react'
+import {lazy, Suspense, type ComponentType} from 'react'
 import css from './App.module.scss'
 import Bound from './Bound'
 
@@ -10,7 +10,17 @@ registerRemotes([
   },
 ])
 
-const Host = lazy(() => loadRemote('mfHost/App'))
+type HostProps = {
+  from?: string
+  nameformRemote?: string
+  increment?: number
+}
+
+const Host = lazy(async () => {
+  const remote = await loadRemote<{default: ComponentType<HostProps>}>('mfHost/App')
+  if (!remote) throw new Error('mfHost/App was not loaded')
+  return remote
+})
 
 const App = () => {
   return (
