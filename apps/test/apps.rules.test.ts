@@ -60,6 +60,8 @@ describe('apps catalog rules', () => {
       'adapter-app',
       'adapter-host',
       'demo',
+      'dual-role',
+      'esm-federation',
       'mf-app',
       'mf-host',
       'react-19-tanstack',
@@ -71,7 +73,7 @@ describe('apps catalog rules', () => {
       'vue-3-base',
       'vue-3-project',
     ])
-    expect(TARGET_APP_DIRS).toHaveLength(13)
+    expect(TARGET_APP_DIRS).toHaveLength(15)
     expect(TARGET_APP_DIRS.every(dir => appDirs.includes(dir))).toBe(true)
   })
 

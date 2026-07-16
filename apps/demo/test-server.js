@@ -7,7 +7,7 @@
 
 const http = require('http')
 
-const PORT = 3001
+const PORT = Number(process.env.EMP_DEMO_API_PORT ?? 3101)
 
 const server = http.createServer((req, res) => {
   // 设置 CORS 头

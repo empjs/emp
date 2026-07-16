@@ -1,5 +1,6 @@
 import {spawn} from 'node:child_process'
 import {fileURLToPath} from 'node:url'
+import net from 'node:net'
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 const localhost = '127.0.0.1'
@@ -9,10 +10,31 @@ const allowExistingServices = process.env.APPS_BROWSER_REUSE_SERVICES === 'true'
 const startedServicesEnvKey = 'APPS_BROWSER_STARTED_SERVICES'
 const serviceFilterEnvKey = 'APPS_BROWSER_SERVICE_FILTER'
 
+async function findFreePort(host = localhost) {
+  return await new Promise((resolve, reject) => {
+    const server = net.createServer()
+    server.once('error', reject)
+    server.listen(0, host, () => {
+      const address = server.address()
+      if (!address || typeof address === 'string') {
+        server.close(() => reject(new Error('Unable to allocate demo API port')))
+        return
+      }
+      server.close(() => resolve(address.port))
+    })
+  })
+}
+
+const demoApiPort = Number(process.env.APPS_BROWSER_DEMO_API_PORT ?? (await findFreePort()))
+process.env.EMP_DEMO_API_PORT = String(demoApiPort)
+
 export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
   'adapter-app': `http://${localhost}:7702/`,
   'adapter-host': `http://${localhost}:7701/`,
   demo: `http://${localhost}:8000/`,
+  'dual-role-a': `http://${localhost}:8201/`,
+  'dual-role-b': `http://${localhost}:8202/`,
+  'esm-federation': `http://${localhost}:8103/`,
   'emp-share': `http://${localhost}:2100/`,
   'mf-app': `http://${localhost}:6002/`,
   'mf-host': `http://${localhost}:6001/`,
@@ -169,8 +191,16 @@ const services = [
   staticService('emp-share', 'packages/emp-share/output', 2100),
   staticService('adapter-app', 'apps/adapter-app/dist', 7702),
   staticService('adapter-host', 'apps/adapter-host/dist', 7701),
+  staticService('dual-role-a', 'apps/dual-role/dist', 8201),
+  staticService('dual-role-b', 'apps/dual-role/dist', 8202),
+  staticService('esm-federation', 'apps/esm-federation/dist', 8103),
   staticService('mf-host', 'apps/mf-host/dist', 6001),
-  staticService('mf-app', 'apps/mf-app/dist', 6002),
+  {
+    name: 'mf-app',
+    cmd: 'corepack',
+    args: ['pnpm', '--filter', './apps/mf-app', 'dev'],
+    readyUrl: `http://${localhost}:6002/`,
+  },
   staticService('vue-2-base', 'apps/vue-2-base/dist', 9001),
   staticService('vue-2-project', 'apps/vue-2-project/dist', 9002),
   staticService('vue-3-base', 'apps/vue-3-base/dist', 9301),
@@ -180,7 +210,7 @@ const services = [
     name: 'demo-api',
     cmd: 'node',
     args: ['apps/demo/test-server.js'],
-    readyUrl: `http://${localhost}:3001/api/hello`,
+    readyUrl: `http://${localhost}:${demoApiPort}/api/hello`,
   },
   {
     name: 'demo',
@@ -208,7 +238,11 @@ function shouldRunNamedTarget(name, selectedNames) {
 }
 
 function shouldRunService(service, selectedNames) {
-  return shouldRunNamedTarget(service.name, selectedNames) || service.name === containerService.name
+  return (
+    shouldRunNamedTarget(service.name, selectedNames) ||
+    (service.name === 'demo-api' && selectedNames.has('demo')) ||
+    service.name === containerService.name
+  )
 }
 
 async function buildBrowserAppTarget(name, filter, args) {
@@ -223,6 +257,10 @@ export async function buildAppsBrowserTargets(filter = selectedBrowserServiceNam
   await buildBrowserAppTarget('vue-3-base', filter, ['pnpm', '--filter', './apps/vue-3-base', 'build'])
   await buildBrowserAppTarget('adapter-host', filter, ['pnpm', '--filter', './apps/adapter-host', 'build'])
   await buildBrowserAppTarget('adapter-app', filter, ['pnpm', '--filter', './apps/adapter-app', 'build'])
+  if (filter.size === 0 || filter.has('dual-role-a') || filter.has('dual-role-b')) {
+    await run('corepack', ['pnpm', '--filter', './apps/dual-role', 'build'])
+  }
+  await buildBrowserAppTarget('esm-federation', filter, ['pnpm', '--filter', './apps/esm-federation', 'build'])
   await buildBrowserAppTarget('mf-host', filter, ['pnpm', '--filter', './apps/mf-host', 'build'])
   await buildBrowserAppTarget('mf-app', filter, ['pnpm', '--filter', './apps/mf-app', 'build'])
   await buildBrowserAppTarget('vue-2-project', filter, ['pnpm', '--filter', './apps/vue-2-project', 'build'])

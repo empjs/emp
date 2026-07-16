@@ -13,6 +13,7 @@ const logoStr = `
 // import pluginShare from '@empjs/share'
 const port = 8000
 export default defineConfig(store => {
+  const demoApiPort = process.env.EMP_DEMO_API_PORT ?? '3101'
   return {
     // showLogTitle: (o: any) => {
     //   console.log(logoStr)
@@ -34,7 +35,7 @@ export default defineConfig(store => {
       proxy: [
         {
           context: ['/api'],
-          target: 'http://localhost:3001',
+          target: `http://localhost:${demoApiPort}`,
           changeOrigin: true,
           // pathRewrite: {'^/api': ''}, // 如果需要重写路径，可以取消注释
         },

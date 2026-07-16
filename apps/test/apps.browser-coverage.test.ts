@@ -7,6 +7,8 @@ const browserCoverage = {
   'adapter-app': 'browser-interactive',
   'adapter-host': 'browser-smoke',
   demo: 'browser-interactive',
+  'dual-role': 'browser-interactive',
+  'esm-federation': 'browser-smoke',
   'mf-app': 'browser-interactive',
   'mf-host': 'browser-interactive',
   'react-19-tanstack': 'browser-interactive',
@@ -28,6 +30,14 @@ const p2BoundaryCoverage = {
     boundaries: ['remote-provider-manifest-diagnostic'],
     files: ['apps/adapter-host/test/browser/smoke.browser.ts'],
   },
+  'dual-role': {
+    boundaries: ['dual-role-mutual-container-consumption', 'federation-dts-consumer-compile'],
+    files: ['apps/dual-role/test/browser/mutual-consumption.browser.ts'],
+  },
+  'esm-federation': {
+    boundaries: ['native-esm-federation-entry'],
+    files: ['apps/esm-federation/test/browser/esm-entry.browser.ts'],
+  },
   demo: {
     boundaries: ['proxy-target-unavailable-diagnostic'],
     files: ['apps/demo/test/browser/proxy.browser.ts'],
@@ -37,8 +47,17 @@ const p2BoundaryCoverage = {
     files: ['apps/mf-host/test/browser/mobx.browser.ts'],
   },
   'mf-app': {
-    boundaries: ['remote-consumer-manifest-diagnostic'],
-    files: ['apps/mf-app/test/browser/remote.browser.ts'],
+    boundaries: [
+      'remote-consumer-manifest-diagnostic',
+      'runtime-init-register-load-diagnostic',
+      'federation-async-chunk-request',
+      'tailwind-remote-style-isolation',
+    ],
+    files: [
+      'apps/mf-app/test/browser/remote.browser.ts',
+      'apps/mf-app/test/browser/split-chunk.browser.ts',
+      'apps/mf-app/test/browser/tailwind-isolation.browser.ts',
+    ],
   },
   'react-19-tanstack': {
     boundaries: ['route-deep-refresh'],
@@ -49,8 +68,11 @@ const p2BoundaryCoverage = {
     files: ['apps/vue-2-base/test/browser/interactive.browser.ts'],
   },
   'vue-2-project': {
-    boundaries: ['remote-consumer-manifest-diagnostic'],
-    files: ['apps/vue-2-project/test/browser/remote.browser.ts'],
+    boundaries: ['remote-consumer-manifest-diagnostic', 'vue3-in-vue2-lifecycle-pinia'],
+    files: [
+      'apps/vue-2-project/test/browser/remote.browser.ts',
+      'apps/vue-2-project/test/browser/vue3-in-vue2.browser.ts',
+    ],
   },
   'vue-3-base': {
     boundaries: ['remote-provider-manifest-diagnostic'],

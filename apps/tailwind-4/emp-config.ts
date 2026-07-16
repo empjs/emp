@@ -8,6 +8,11 @@ export default defineConfig(store => {
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
+        name: 'tailwindRemote',
+        exposes: {
+          './ScopedCard': './src/TailwindRemote',
+        },
+        manifest: true,
         empRuntime: {
           runtime: {
             lib: `http://${store.server.ip}:2100/sdk.js`,

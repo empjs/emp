@@ -18,7 +18,24 @@ export function rewriteDemoApiFetch(frame: HTMLIFrameElement) {
 
   const originalFetch = win!.fetch.bind(win)
   const ResponseCtor = win!.Response
-  const fetchDemoApi = (pathname: string, init?: RequestInit) => originalFetch(`http://localhost:3001${pathname}`, init)
+  const fetchDemoApi = (pathname: string, init?: RequestInit) => {
+    const url = new URL(`/container-static/demo${pathname}`, 'http://localhost:51203')
+    return new Promise<Response>((resolve, reject) => {
+      const request = new win!.XMLHttpRequest()
+      request.open(pathname.startsWith('/api/echo') ? 'POST' : (init?.method ?? 'GET'), url.href)
+      request.onload = () => {
+        resolve(
+          new ResponseCtor(request.responseText, {
+            status: request.status,
+            statusText: request.statusText,
+            headers: {'content-type': request.getResponseHeader('content-type') ?? 'application/json'},
+          }),
+        )
+      }
+      request.onerror = () => reject(new TypeError(`Demo API request failed: ${url.pathname}`))
+      request.send((init?.body as XMLHttpRequestBodyInit | null | undefined) ?? null)
+    })
+  }
   const errorResponse = () =>
     Promise.resolve(
       new ResponseCtor(

@@ -14,6 +14,8 @@ const appsBrowserForceRerunTriggers = [
   'apps/*/emp*.ts',
   'apps/adapter-host/src/**',
   'apps/demo/src/**',
+  'apps/dual-role/src/**',
+  'apps/esm-federation/src/**',
   'apps/mf-app/src/**',
   'apps/mf-host/src/**',
   'apps/react-19-tanstack/src/**',

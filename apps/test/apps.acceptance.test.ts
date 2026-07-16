@@ -1,6 +1,7 @@
 import {describe, expect, test} from '@rstest/core'
 import {execFile as execFileCallback} from 'node:child_process'
-import {existsSync, readdirSync, readFileSync} from 'node:fs'
+import {existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
 import {DEFAULT_APP_ACCEPTANCE} from '../../scripts/apps.catalog.mjs'
@@ -17,7 +18,13 @@ type FederationManifest = {
       name?: string
     }
   }
-  exposes?: Array<{path?: string}>
+  exposes?: Array<{
+    path?: string
+    assets?: {
+      js?: {async?: string[]; sync?: string[]}
+      css?: {async?: string[]; sync?: string[]}
+    }
+  }>
   remotes?: Array<{
     alias?: string
     entry?: string
@@ -26,7 +33,7 @@ type FederationManifest = {
   }>
 }
 
-const supplementalAppAcceptance = ['adapter-host', 'demo', 'vue-2-base', 'vue-2-project']
+const supplementalAppAcceptance = ['adapter-host', 'demo', 'dual-role', 'esm-federation', 'vue-2-base', 'vue-2-project']
 
 async function buildApp(appDir: string) {
   const result = await execFile('corepack', ['pnpm@10.33.0', '--filter', `./apps/${appDir}`, 'build'], {
@@ -92,6 +99,8 @@ function assertNoDefaultTailwindPostcssWarning(stderr: string) {
 }
 
 const expectedArtifacts: Record<string, string[]> = {
+  'dual-role': ['dist/@mf-types.d.ts', 'dist/@mf-types.zip', 'dist/emp.json', 'dist/emp.js', 'dist/index.html'],
+  'esm-federation': ['dist/emp.json', 'dist/esm-entry.js', 'dist/index.html'],
   'rspack2-modern-module': ['dist/index.html'],
   'rspack2-optimization': ['dist/index.html'],
   'mf-host': ['dist/emp.json', 'dist/emp.js'],
@@ -120,6 +129,48 @@ describe('default apps real acceptance', () => {
         expect(js).toContain('document.body.appendChild')
       }
 
+      if (appDir === 'esm-federation') {
+        const manifest = readDistJson<FederationManifest>(appDir, 'emp.json')
+        expect(manifest.metaData?.buildInfo?.buildName).toBe('esmFederation')
+        expect(manifest.metaData?.remoteEntry?.name).toBe('esm-entry.js')
+        expectManifestExposes(manifest, ['./Message'])
+        const entry = readDistText(appDir, 'esm-entry.js')
+        expect(entry).toMatch(/export\s*\{[^}]*get[^}]*init[^}]*\}/)
+      }
+
+      if (appDir === 'dual-role') {
+        const manifest = readDistJson<FederationManifest>(appDir, 'emp.json')
+        expect(manifest.metaData?.buildInfo?.buildName).toBe('dualRole')
+        expectManifestExposes(manifest, ['./Peer'])
+
+        const consumerRoot = mkdtempSync(join(tmpdir(), 'emp-dual-role-dts-'))
+        try {
+          const typeRoot = join(consumerRoot, 'remote-types')
+          await execFile('unzip', [
+            '-q',
+            join(repoRoot, 'apps', appDir, 'dist', '@mf-types.zip'),
+            '-d',
+            typeRoot,
+          ])
+          const consumerFile = join(consumerRoot, 'consumer.ts')
+          writeFileSync(
+            consumerFile,
+            [
+              "import {renderPeer} from './remote-types/compiled-types/Peer'",
+              "renderPeer(document.body, {sourcePort: '8201', targetPort: '8202'})",
+              '',
+            ].join('\n'),
+          )
+          await execFile(
+            join(repoRoot, 'node_modules', '.bin', 'tsc'),
+            ['--noEmit', '--strict', '--module', 'ESNext', '--moduleResolution', 'Bundler', '--target', 'ES2022', consumerFile],
+            {cwd: consumerRoot},
+          )
+        } finally {
+          rmSync(consumerRoot, {force: true, recursive: true})
+        }
+      }
+
       if (appDir === 'rspack2-optimization') {
         expectDistFileMatching(distFiles, /^js\/index\.[a-f0-9]+\.js$/)
         expectDistFileMatching(distFiles, /^js\/\d+\.[a-f0-9]+\.js$/)
@@ -134,13 +185,24 @@ describe('default apps real acceptance', () => {
         const manifest = readDistJson<FederationManifest>(appDir, 'emp.json')
         expect(manifest.metaData?.buildInfo?.buildName).toBe('mf-host')
         expect(manifest.metaData?.remoteEntry?.name).toBe('emp.js')
-        expectManifestExposes(manifest, ['./App', './CountComp', './Section'])
+        expectManifestExposes(manifest, ['./App', './CountComp', './RuntimeCapability', './Section'])
+        const appExpose = manifest.exposes?.find(expose => expose.path === './App')
+        const asyncAssets = [...(appExpose?.assets?.js?.async ?? []), ...(appExpose?.assets?.css?.async ?? [])]
+        expect(asyncAssets.length).toBeGreaterThanOrEqual(2)
+        for (const asset of asyncAssets) {
+          expect(existsSync(join(repoRoot, 'apps', appDir, 'dist', asset))).toBe(true)
+        }
       }
 
       if (appDir === 'mf-app') {
         const manifest = readDistJson<FederationManifest>(appDir, 'emp.json')
         expect(manifest.exposes).toEqual([])
-        expectManifestRemotes(manifest, ['.'], 'mfHost', ':6001/emp.json')
+        const remotes = manifest.remotes ?? []
+        expect(remotes.map(remote => remote.moduleName).sort()).toEqual(['.', 'ScopedCard'])
+        expect(remotes.find(remote => remote.moduleName === '.')?.federationContainerName).toBe('mfHost')
+        expect(remotes.find(remote => remote.moduleName === '.')?.entry).toMatch(/:6001\/emp\.json$/)
+        expect(remotes.find(remote => remote.moduleName === 'ScopedCard')?.federationContainerName).toBe('tailwindRemote')
+        expect(remotes.find(remote => remote.moduleName === 'ScopedCard')?.entry).toMatch(/:8104\/emp\.json$/)
       }
 
       if (appDir === 'tailwind-4') {
@@ -155,6 +217,8 @@ describe('default apps real acceptance', () => {
         expect(css).toContain('--tw')
         expect(css).toContain('.grid')
         expect(css).toContain('.bg-')
+        const manifest = readDistJson<FederationManifest>(appDir, 'emp.json')
+        expectManifestExposes(manifest, ['./ScopedCard'])
       }
 
       if (appDir === 'vue-3-base') {
@@ -253,7 +317,21 @@ describe('supplemental apps artifact contracts', () => {
       if (appDir === 'vue-2-project') {
         const manifest = readDistJson<FederationManifest>(appDir, 'mf-manifest.json')
         expect(manifest.exposes).toEqual([])
-        expectManifestRemotes(manifest, ['CompositionApi', 'Content', 'Table', 'store'], 'vue2Base', ':9001/emp.js')
+        const remotes = manifest.remotes ?? []
+        expect(remotes.map(remote => remote.moduleName).sort()).toEqual([
+          'CompositionApi',
+          'Content',
+          'PiniaCount',
+          'Table',
+          'store',
+        ])
+        expect(
+          remotes
+            .filter(remote => remote.federationContainerName === 'vue2Base')
+            .every(remote => String(remote.entry).endsWith(':9001/emp.js')),
+        ).toBe(true)
+        expect(remotes.find(remote => remote.moduleName === 'PiniaCount')?.federationContainerName).toBe('vue3Base')
+        expect(remotes.find(remote => remote.moduleName === 'PiniaCount')?.entry).toMatch(/:9301\/emp\.js$/)
       }
     }, 120000)
   }

@@ -28,6 +28,7 @@ export default defineConfig(store => {
         exposes: {
           './App': './src/App',
           './CountComp': './src/CountComp',
+          './RuntimeCapability': './src/RuntimeCapability',
           './Section': './src/component/Section',
         },
         manifest: true,

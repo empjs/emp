@@ -2,6 +2,8 @@ import {loadRemote, registerRemotes} from '@empjs/share/sdk'
 import {lazy, Suspense, type ComponentType} from 'react'
 import css from './App.module.scss'
 import Bound from './Bound'
+import RuntimeApiLab from './RuntimeApiLab'
+import TailwindIsolationLab from './TailwindIsolationLab'
 
 registerRemotes([
   {
@@ -17,7 +19,7 @@ type HostProps = {
 }
 
 const Host = lazy(async () => {
-  const remote = await loadRemote<{default: ComponentType<HostProps>}>('mfHost/App')
+  const remote = await loadRemote<'mfHost/App', {default: ComponentType<HostProps>}>('mfHost/App')
   if (!remote) throw new Error('mfHost/App was not loaded')
   return remote
 })
@@ -33,6 +35,8 @@ const App = () => {
       <Bound name="MF-APP">
         <h1>mf-app</h1>
         <p>mf app body</p>
+        <RuntimeApiLab />
+        <TailwindIsolationLab />
       </Bound>
     </div>
   )

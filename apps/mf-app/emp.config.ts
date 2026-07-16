@@ -22,6 +22,7 @@ export default defineConfig(store => {
         },
         remotes: {
           mfHost: `mfHost@http://${store.server.ip}:6001/emp.json`,
+          tailwindRemote: `tailwindRemote@http://${store.server.ip}:8104/emp.json`,
         },
         empRuntime: {
           framework: {

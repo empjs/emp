@@ -143,7 +143,7 @@ const ProxyTest: React.FC = () => {
                 确保测试服务器已启动: <code>node test-server.js</code>
               </p>
               <p>
-                代理配置: <code>/api/*</code> → <code>http://localhost:3001</code>
+                代理配置: <code>/api/*</code> → <code>本地测试 API</code>
               </p>
             </div>
           }

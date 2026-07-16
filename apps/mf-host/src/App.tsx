@@ -1,9 +1,11 @@
-import {useState, version} from 'react'
+import {lazy, Suspense, useState, version} from 'react'
 import './App.css'
 import ReactLogo from './assets/react.svg'
 import ReactInline from './assets/react.svg?inline'
 import {CountComp, ShowCountComp} from './CountComp'
 import Section from './component/Section'
+
+const AsyncFederationContent = lazy(() => import('./async/AsyncFederationContent'))
 
 //
 type AppType = {
@@ -17,6 +19,7 @@ console.log('test console')
 
 function App(o: AppType) {
   const [count, setCount] = useState(0)
+  const [showAsyncContent, setShowAsyncContent] = useState(false)
   return (
     <div className="App">
       <div>
@@ -33,6 +36,12 @@ function App(o: AppType) {
       <h2>Inject Diff Component</h2>
       {o.component && <o.component />}
       <Section />
+      <button type="button" onClick={() => setShowAsyncContent(true)}>
+        Load federation split chunk
+      </button>
+      <Suspense fallback={<p>Loading federation chunk...</p>}>
+        {showAsyncContent ? <AsyncFederationContent /> : null}
+      </Suspense>
       <CountComp />
       <h2>Image List</h2>
       <div className="imageList">

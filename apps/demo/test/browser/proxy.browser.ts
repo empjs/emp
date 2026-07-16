@@ -25,7 +25,7 @@ test('demo shell and proxy page keep form and API interactions working end to en
     rewriteDemoApiFetch(frame)
 
     await expectFrameText(frame, 'EMP Proxy 功能测试')
-    await expectFrameText(frame, '代理配置: /api/* → http://localhost:3001')
+    await expectFrameText(frame, '代理配置: /api/* → 本地测试 API')
 
     await clickButton(frame, '运行所有基础测试')
 
@@ -51,7 +51,7 @@ test('demo proxy page surfaces proxy target unavailable diagnostics', async () =
   const frame = await loadAppFrame('demo', '/proxy-test.html')
   try {
     rewriteDemoApiFetch(frame)
-    simulateDemoApiFailure(frame, '/api/hello', 'proxy target unavailable: ECONNREFUSED 127.0.0.1:3001')
+    simulateDemoApiFailure(frame, '/api/hello', 'proxy target unavailable: ECONNREFUSED')
 
     await expectFrameText(frame, 'EMP Proxy 功能测试')
     await clickButton(frame, '测试 GET /api/hello')

@@ -21,3 +21,16 @@ test('mf-app renders the remote host shell and updates remote state', async () =
     await removeFrame(frame)
   }
 }, 90000)
+
+test('mf-app dev host registers and loads the production remote through the real runtime API', async () => {
+  const frame = await loadAppFrame('mf-app')
+  try {
+    await clickButton(frame, 'Load runtime remote')
+    await expectFrameText(frame, 'Runtime API remote loaded: isolated-init-register-load')
+
+    await clickButton(frame, 'Verify runtime diagnostic')
+    await expectFrameText(frame, /Runtime diagnostic:.*(?:UnknownExpose|expose|module)/i)
+  } finally {
+    await removeFrame(frame)
+  }
+}, 120000)

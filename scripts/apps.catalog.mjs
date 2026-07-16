@@ -73,6 +73,8 @@ export const TARGET_APP_DIRS = [
   'adapter-app',
   'adapter-host',
   'demo',
+  'dual-role',
+  'esm-federation',
   'mf-app',
   'mf-host',
   'react-19-tanstack',
