@@ -1,5 +1,5 @@
 {
-  "extends": "@empjs/cli/tsconfig/base",
+  "extends": "@empjs/cli/tsconfig/react",
   "compilerOptions": {
     "lib": ["DOM", "ES2022"],
     "types": []

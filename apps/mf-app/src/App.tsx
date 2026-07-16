@@ -19,7 +19,7 @@ type HostProps = {
 }
 
 const Host = lazy(async () => {
-  const remote = await loadRemote<'mfHost/App', {default: ComponentType<HostProps>}>('mfHost/App')
+  const remote = (await loadRemote('mfHost/App')) as {default: ComponentType<HostProps>} | null
   if (!remote) throw new Error('mfHost/App was not loaded')
   return remote
 })
