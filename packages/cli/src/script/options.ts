@@ -57,7 +57,7 @@ export function registerUnsupportedCommand(program: Command, name: string, descr
     .command(name, {hidden: true})
     .description(description)
     .action(() => {
-      console.error(`emp ${name} 在 @empjs/cli v4 alpha 中尚未实现。`)
+      console.error(`emp ${name} 在 @empjs/cli v4 中尚未实现。`)
       process.exitCode = 1
     })
 }

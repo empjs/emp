@@ -1,5 +1,5 @@
 import {type GlobalStore} from '@empjs/cli'
-import {shareForceRemote} from 'src/helper/config'
+import {shareForceRemote} from '../../../helper/config'
 import {ForceRemoteOptions} from '../types'
 
 export const registerRemotes = (store: GlobalStore, forceRemotes: ForceRemoteOptions) => {

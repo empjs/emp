@@ -7,7 +7,12 @@ on:
         description: Run publish dry-run only
         required: false
         type: boolean
-        default: false
+        default: true
+      confirm_publish:
+        description: When dry-run is disabled, enter the exact package.json version to confirm publishing.
+        required: false
+        type: string
+        default: ''
       package:
         description: Package name to publish. Leave empty to publish all internal packages.
         required: false
@@ -43,33 +48,76 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && 'npm-dry-run' || 'npm-production' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
       - name: Resolve release package
+        env:
+          INPUT_CHANGED_SINCE: ${{ inputs.changed_since || '' }}
+          INPUT_CONFIRM_PUBLISH: ${{ inputs.confirm_publish || '' }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run || false }}
+          INPUT_FORCE_ALL: ${{ inputs.force_all || false }}
+          INPUT_PACKAGE: ${{ inputs.package || '' }}
+          INPUT_TAG: ${{ inputs.tag || '' }}
         run: |
           if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
             tag="${GITHUB_REF_NAME}"
             package_name="${tag#empjs-}"
             package_name="${package_name%-v*}"
-            echo "RELEASE_PACKAGE=@empjs/$package_name" >> "$GITHUB_ENV"
+            release_package="@empjs/$package_name"
+            tag_version="${tag##*-v}"
           else
-            echo "RELEASE_PACKAGE=${{ github.event.inputs.package }}" >> "$GITHUB_ENV"
+            release_package="$INPUT_PACKAGE"
+            tag_version=''
           fi
-          release_tag="${{ github.event.inputs.tag || '' }}"
+          if [[ -n "$release_package" && ! "$release_package" =~ ^@empjs/[a-z0-9-]+$ ]]; then
+            echo "Invalid package name: $release_package" >&2
+            exit 1
+          fi
+          echo "RELEASE_PACKAGE=$release_package" >> "$GITHUB_ENV"
+
+          if [[ -n "$tag_version" ]]; then
+            RELEASE_PACKAGE="$release_package" TAG_VERSION="$tag_version" node --input-type=module <<'NODE'
+          import {readdirSync, readFileSync} from 'node:fs'
+          import {join} from 'node:path'
+
+          const manifests = readdirSync('packages', {withFileTypes: true})
+            .filter(entry => entry.isDirectory())
+            .map(entry => join('packages', entry.name, 'package.json'))
+          const manifest = manifests
+            .map(file => JSON.parse(readFileSync(file, 'utf8')))
+            .find(pkg => pkg.name === process.env.RELEASE_PACKAGE)
+          if (!manifest) throw new Error(`Unknown release package: ${process.env.RELEASE_PACKAGE}`)
+          if (manifest.version !== process.env.TAG_VERSION) {
+            throw new Error(`Tag version ${process.env.TAG_VERSION} does not match ${manifest.name}@${manifest.version}`)
+          }
+          NODE
+          fi
+
+          release_tag="$INPUT_TAG"
           if [[ -n "$release_tag" && ! "$release_tag" =~ ^[A-Za-z0-9._-]+$ ]]; then
             echo "Invalid release tag: $release_tag" >&2
             exit 1
           fi
           echo "RELEASE_TAG=$release_tag" >> "$GITHUB_ENV"
-          changed_since="${{ github.event.inputs.changed_since }}"
+          changed_since="$INPUT_CHANGED_SINCE"
           if [[ -n "$changed_since" && ! "$changed_since" =~ ^[A-Za-z0-9._/@:-]+$ ]]; then
             echo "Invalid changed_since ref: $changed_since" >&2
             exit 1
           fi
           echo "CHANGED_SINCE=$changed_since" >> "$GITHUB_ENV"
-          echo "FORCE_ALL=${{ github.event.inputs.force_all || false }}" >> "$GITHUB_ENV"
+          echo "FORCE_ALL=$INPUT_FORCE_ALL" >> "$GITHUB_ENV"
+
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "$INPUT_DRY_RUN" != "true" ]]; then
+            expected_version="$(node -p "require('./package.json').version")"
+            if [[ "$INPUT_CONFIRM_PUBLISH" != "$expected_version" ]]; then
+              echo "Production publish requires confirm_publish=$expected_version" >&2
+              exit 1
+            fi
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v6

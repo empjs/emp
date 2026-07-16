@@ -68,6 +68,7 @@ const requireMaxBytes = (file, maxBytes) => {
 
 const retiredWorkflowPattern = new RegExp(['super', 'powers'].join(''), 'i')
 const forbiddenCodexModelPattern = /gpt-5\.4-mini/
+const legacyRoutingModelPattern = /gpt-5\.(?:4|5)(?!\d)/
 
 const parseFrontmatter = file => {
   const content = read(file)
@@ -123,6 +124,7 @@ for (const file of [
   'skills/emp-workflow/agents/openai.yaml',
   'skills/emp-workflow/references/change-matrix.md',
   'skills/emp-workflow/references/routing-and-context.md',
+  'skills/emp-workflow/references/routing-evaluation.md',
   'skills/emp-workflow/references/repository-operations.md',
   'scripts/emp-workflow-check.mjs',
   'scripts/root-test-targets.mjs',
@@ -133,8 +135,10 @@ for (const file of [
   requireFile(file)
 }
 
-requireMaxBytes('AGENTS.md', 7000)
-requireMaxBytes('skills/emp-workflow/SKILL.md', 4000)
+requireMaxBytes('AGENTS.md', 3000)
+requireMaxBytes('skills/emp-workflow/SKILL.md', 2400)
+requireMaxBytes('.codex/hooks.json', 500)
+for (const file of listFiles('.codex/agents')) requireMaxBytes(file, 900)
 for (const file of listFiles('skills/emp-workflow/references')) {
   if (path.dirname(file) !== 'skills/emp-workflow/references') {
     failures.push(`skill reference must stay one level below SKILL.md: ${file}`)
@@ -143,12 +147,10 @@ for (const file of listFiles('skills/emp-workflow/references')) {
 }
 
 for (const heading of [
-  '## 核心约束',
-  '## 分级预检',
-  '## 计划与编排',
-  '## 模型路由',
-  '## 目录与 Git',
-  '## 发现与验证',
+  '## 完成标准',
+  '## 不变量',
+  '## 路由',
+  '## 验证与交付',
   '## 按需参考',
 ]) {
   requireText('AGENTS.md', heading)
@@ -184,7 +186,7 @@ for (const file of [
 }
 
 for (const text of [
-  'model = "gpt-5.5"',
+  'model = "gpt-5.6-terra"',
   'model_reasoning_effort = "low"',
   'model_reasoning_summary = "none"',
   'hooks = true',
@@ -196,13 +198,14 @@ for (const text of [
   requireText('.codex/config.toml', text)
 }
 
-for (const text of ['SessionStart', 'UserPromptSubmit', 'token-first', 'Spark', '5.4', '5.5', '5.6', 'workflow gate']) {
+for (const text of ['SessionStart', 'Preserve task scope', 'verified completion']) {
   requireText('.codex/hooks.json', text)
 }
+requireNoPattern('.codex/hooks.json', /UserPromptSubmit/)
 
 const hooksConfig = exists('.codex/hooks.json') ? parseJson('.codex/hooks.json') : null
 if (hooksConfig) {
-  for (const eventName of ['SessionStart', 'UserPromptSubmit']) {
+  for (const eventName of ['SessionStart']) {
     if (!Array.isArray(hooksConfig.hooks?.[eventName])) failures.push(`.codex/hooks.json missing hooks.${eventName} array`)
   }
   for (const [eventName, entries] of Object.entries(hooksConfig.hooks ?? {})) {
@@ -222,9 +225,9 @@ if (hooksConfig) {
 
 const agentExpectations = {
   '.codex/agents/emp-spark.toml': ['name = "emp-spark"', 'model = "gpt-5.3-codex-spark"', 'model_reasoning_effort = "low"', 'model_reasoning_summary = "none"', 'sandbox_mode = "read-only"'],
-  '.codex/agents/emp-fast.toml': ['name = "emp-fast"', 'model = "gpt-5.4"', 'model_reasoning_effort = "low"', 'CodeGraph'],
-  '.codex/agents/emp-impl.toml': ['name = "emp-impl"', 'model = "gpt-5.5"', 'model_reasoning_effort = "medium"', 'NEEDS_CONTEXT'],
-  '.codex/agents/emp-deep.toml': ['name = "emp-deep"', 'model = "gpt-5.6-sol"', 'model_reasoning_effort = "high"', 'sandbox_mode = "read-only"', 'BLOCKED'],
+  '.codex/agents/emp-fast.toml': ['name = "emp-fast"', 'model = "gpt-5.6-terra"', 'model_reasoning_effort = "low"', 'CodeGraph'],
+  '.codex/agents/emp-impl.toml': ['name = "emp-impl"', 'model = "gpt-5.6-terra"', 'model_reasoning_effort = "medium"', 'NEEDS_CONTEXT'],
+  '.codex/agents/emp-deep.toml': ['name = "emp-deep"', 'model = "gpt-5.6-sol"', 'model_reasoning_effort = "medium"', 'sandbox_mode = "read-only"', 'BLOCKED', 'Ask the controller'],
 }
 for (const [file, texts] of Object.entries(agentExpectations)) {
   for (const text of texts) requireText(file, text)
@@ -240,6 +243,7 @@ for (const text of [
   'spawn_agent',
   'routing-and-context.md',
   'change-matrix.md',
+  'routing-evaluation.md',
   'repository-operations.md',
 ]) {
   requireText('skills/emp-workflow/SKILL.md', text)
@@ -265,8 +269,12 @@ for (const text of ['git worktree list --porcelain', 'du -sh .worktrees', 'git w
   requireText('skills/emp-workflow/references/change-matrix.md', text)
 }
 
-for (const text of ['Parse `.codex/hooks.json`', 'prompt assembly, not hook stdout execution', 'untracked `.codex/*`']) {
+for (const text of ['Parse `.codex/hooks.json`', 'prompt assembly, not hook stdout execution', 'representative tasks', 'routing-evaluation.md', 'one level lower', 'untracked `.codex/*`']) {
   requireText('skills/emp-workflow/references/change-matrix.md', text)
+}
+
+for (const text of ['P1', 'P6', 'Hard failure', 'Reject the change']) {
+  requireText('skills/emp-workflow/references/routing-evaluation.md', text)
 }
 
 for (const file of ['.codex/config.toml', '.codex/hooks.json', '.codex/agents/emp-spark.toml', '.codex/agents/emp-fast.toml', '.codex/agents/emp-impl.toml', '.codex/agents/emp-deep.toml']) {
@@ -288,10 +296,12 @@ for (const file of [
   'skills/emp-workflow/SKILL.md',
   'skills/emp-workflow/references/change-matrix.md',
   'skills/emp-workflow/references/routing-and-context.md',
+  'skills/emp-workflow/references/routing-evaluation.md',
   'skills/emp-workflow/references/repository-operations.md',
 ]) {
   requireNoPattern(file, retiredWorkflowPattern)
   requireNoPattern(file, forbiddenCodexModelPattern)
+  requireNoPattern(file, legacyRoutingModelPattern)
 }
 
 if (exists(['.super', 'powers'].join(''))) {
@@ -300,6 +310,10 @@ if (exists(['.super', 'powers'].join(''))) {
 if (exists('.agents')) failures.push('.agents must not be used for repo-local skill injection')
 
 requireNoPattern('.github/workflows/ci.yml', /NODE_AUTH_TOKEN|npm publish|release:publish/)
+requireText('.github/workflows/publish.yml', 'default: true')
+requireText('.github/workflows/publish.yml', 'npm-production')
+requireText('.github/workflows/publish.yml', 'confirm_publish')
+requireNoPattern('.github/workflows/publish.yml', /\$\{\{\s*github\.event\.inputs\./)
 
 if (exists('package.json')) {
   const pkg = readJson('package.json')

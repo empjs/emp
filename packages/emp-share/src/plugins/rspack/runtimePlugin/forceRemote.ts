@@ -3,7 +3,7 @@
  * 支持两种方式二选一：指定完整 entry 地址，或仅指定 version 做 URL 内版本号替换。
  */
 import {type ModuleFederationRuntimePlugin} from '@module-federation/runtime'
-import {shareForceRemote} from 'src/helper/config'
+import {shareForceRemote} from '../../../helper/config'
 import {type ForceRemoteItem, type ForceRemoteOptions, type RemoteInfoForForce} from '../types'
 
 declare global {
@@ -77,7 +77,8 @@ export default function (): ModuleFederationRuntimePlugin {
       if (!entryFieldKey) return args
 
       const currentEntryUrl = remote[entryFieldKey] as string | undefined
-      const forceConfig = remote.alias ? forceRemotes[remote.alias] : undefined
+      const forceConfig =
+        (remote.alias ? forceRemotes[remote.alias] : undefined) ?? (remote.name ? forceRemotes[remote.name] : undefined)
 
       // 优先 version：有则替换并直接 return，不再走 entry
       const versionMap = buildVersionReplaceMap(forceRemotes)

@@ -44,7 +44,8 @@ const parseArgs = (argv) => {
 
   for (let i = 0; i < rest.length; i += 1) {
     const arg = rest[i]
-    if (arg === '--root') options.root = rest[++i]
+    if (arg === '--') continue
+    else if (arg === '--root') options.root = rest[++i]
     else if (arg === '--version') options.version = rest[++i]
     else if (arg === '--date') options.date = rest[++i]
     else if (arg === '--tag') options.tag = rest[++i]

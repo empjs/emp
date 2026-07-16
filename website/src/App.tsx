@@ -22,135 +22,125 @@ function GitHubIcon() {
   )
 }
 
-function FoundationIcon({tone}: {tone: FoundationTone}) {
-  if (tone === 'rspack') {
-    return <img alt="" className="foundation-logo" src={rspackLogo} />
-  }
-
-  if (tone === 'typescript') {
-    return (
-      <span aria-hidden="true" className="typescript-mark">
-        TS
-      </span>
-    )
-  }
-
-  if (tone === 'federation') {
-    return (
-      <svg aria-hidden="true" className="foundation-logo federation-mark" viewBox="0 0 64 64">
-        <path d="m32 7 21 12v25L32 57 11 44V19L32 7Z" fill="none" stroke="currentColor" strokeWidth="4" />
-        <path d="m12 19 20 12 21-12M32 31v26" fill="none" stroke="currentColor" strokeWidth="4" />
-        <circle cx="32" cy="31" fill="currentColor" r="5" />
-      </svg>
-    )
-  }
-
+function FederationIcon() {
   return (
-    <svg aria-hidden="true" className="foundation-logo react-mark" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" fill="currentColor" r="5" />
-      <ellipse cx="32" cy="32" fill="none" rx="27" ry="10" stroke="currentColor" strokeWidth="3" />
-      <ellipse
-        cx="32"
-        cy="32"
-        fill="none"
-        rx="27"
-        ry="10"
-        stroke="currentColor"
-        strokeWidth="3"
-        transform="rotate(60 32 32)"
-      />
-      <ellipse
-        cx="32"
-        cy="32"
-        fill="none"
-        rx="27"
-        ry="10"
-        stroke="currentColor"
-        strokeWidth="3"
-        transform="rotate(120 32 32)"
-      />
+    <svg aria-hidden="true" className="federation-mark" viewBox="0 0 96 72">
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3">
+        <path d="m48 10 13 7.5v15L48 40l-13-7.5v-15L48 10Z" />
+        <path d="m22 38 13 7.5v15L22 68 9 60.5v-15L22 38Zm52 0 13 7.5v15L74 68l-13-7.5v-15L74 38Z" />
+        <path d="m35 25-13 13m39-13 13 13M35 53h26" />
+      </g>
     </svg>
   )
+}
+
+function ReactIcon() {
+  return (
+    <svg aria-hidden="true" className="react-mark" viewBox="0 0 96 96">
+      <circle cx="48" cy="48" fill="currentColor" r="5" />
+      <g fill="none" stroke="currentColor" strokeWidth="4">
+        <ellipse cx="48" cy="48" rx="40" ry="16" />
+        <ellipse cx="48" cy="48" rx="40" ry="16" transform="rotate(60 48 48)" />
+        <ellipse cx="48" cy="48" rx="40" ry="16" transform="rotate(120 48 48)" />
+      </g>
+    </svg>
+  )
+}
+
+function FoundationIcon({tone}: {tone: FoundationTone}) {
+  if (tone === 'rspack') return <img alt="" className="rspack-mark" src={rspackLogo} />
+  if (tone === 'federation') return <FederationIcon />
+  if (tone === 'typescript') return <span className="typescript-mark">TS</span>
+  return <ReactIcon />
 }
 
 export function App() {
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="brand-lockup" href={githubRepository} rel="noreferrer" target="_blank">
-          <img alt="EMP" height="52" src="/emp-federation-fox-mark.png" width="52" />
+        <a aria-label="EMP 首页" className="brand-lockup" href="#top">
+          <img alt="" height="64" src="/emp-federation-fox-mark.png" width="64" />
           <span>EMP</span>
         </a>
-
         <nav aria-label="主导航" className="top-nav">
-          <a href={githubSkillDir} rel="noreferrer" target="_blank">
+          <a className="skills-nav" href={githubSkillDir} rel="noopener noreferrer" target="_blank">
             Skills
           </a>
-          <a className="github-nav" href={githubRepository} rel="noreferrer" target="_blank">
+          <a className="github-nav" href={githubRepository} rel="noopener noreferrer" target="_blank">
             GitHub
           </a>
         </nav>
       </header>
 
-      <main className="page-content">
-        <section className="hero-section">
-          <div className="hero-visual">
-            <img alt="EMP Federation Fox" height="512" src="/emp-federation-fox-mark.png" width="512" />
+      <main className="hero-page" id="top">
+        <section className="hero-layout" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="hero-eyebrow">
+              <span className="eyebrow-pulse" aria-hidden="true" />
+              EMP V4 / AGENT-NATIVE PLATFORM
+            </p>
+            <h1 id="hero-title">EMP</h1>
+            <p className="hero-title">
+              <span className="desktop-title">
+                <strong>Agent Skill First</strong>
+                <span>Enterprise Micro-Frontend Solution</span>
+              </span>
+              <span className="mobile-title">AGENT-FIRST</span>
+            </p>
+            <div className="hero-signals" aria-label="EMP 产品能力">
+              <span>
+                <b>01</b>
+                Skill-native
+              </span>
+              <span>
+                <b>02</b>
+                Composable delivery
+              </span>
+            </div>
           </div>
 
-          <div className="hero-copy">
-            <h1>EMP</h1>
-            <p className="hero-eyebrow">AGENT-FIRST</p>
-            <p className="hero-tagline">高性能、微前端构建</p>
+          <div className="hero-visual">
+            <span className="visual-tag visual-tag-top">MODULE ORCHESTRATION</span>
+            <span className="visual-tag visual-tag-bottom">FEDERATED AT SCALE</span>
+            <img
+              alt="EMP Federation Fox 与联邦模块"
+              height="768"
+              src="/emp-federation-fox-mark-native.webp"
+              width="768"
+            />
+          </div>
 
-            <div className="hero-actions">
-              <a
-                aria-label="Use $emp"
-                className="primary-action"
-                href={githubSkillDir}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <span aria-hidden="true" className="terminal-mark">
-                  &gt;_
-                </span>
-                <span>Use $emp</span>
-              </a>
+          <div className="hero-actions">
+            <a className="github-action" href={githubRepository} rel="noopener noreferrer" target="_blank">
+              <GitHubIcon />
+              <span>Open GitHub</span>
+            </a>
+            <a className="skill-action" href={githubSkillDir} rel="noopener noreferrer" target="_blank">
+              <span aria-hidden="true" className="terminal-mark">
+                &gt;_
+              </span>
+              <span>
+                Use <strong>$emp</strong>
+              </span>
+            </a>
+          </div>
 
-              <a className="github-action" href={githubRepository} rel="noreferrer" target="_blank">
-                <GitHubIcon />
-                GitHub
-              </a>
+          <div className="foundation-area">
+            <div className="foundation-heading">
+              <p>ENGINEERED FOR THE MODERN WEB</p>
+              <span>One platform. Composable at every boundary.</span>
+            </div>
+            <div className="foundation-grid" aria-label="EMP 技术栈">
+              {foundations.map(foundation => (
+                <article className={`foundation-card ${foundation.tone}`} key={foundation.name}>
+                  <FoundationIcon tone={foundation.tone} />
+                  <h2>{foundation.name}</h2>
+                </article>
+              ))}
             </div>
           </div>
         </section>
-
-        <section className="foundation-section" aria-labelledby="foundation-title">
-          <h2 className="sr-only" id="foundation-title">
-            技术底座
-          </h2>
-          <div className="foundation-list">
-            {foundations.map(foundation => (
-              <div className={`foundation-card foundation-card-${foundation.tone}`} key={foundation.name}>
-                <FoundationIcon tone={foundation.tone} />
-                <strong>{foundation.name}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
-
-      <footer className="site-footer">
-        <p>© 2026 EMP · AGENT-FIRST</p>
-        <nav aria-label="页脚导航" className="footer-nav">
-          <a href={githubSkillDir} rel="noreferrer" target="_blank">
-            Skills
-          </a>
-          <a href={githubRepository} rel="noreferrer" target="_blank">
-            GitHub
-          </a>
-        </nav>
-      </footer>
     </div>
   )
 }

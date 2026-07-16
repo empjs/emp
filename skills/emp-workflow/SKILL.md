@@ -1,31 +1,30 @@
 ---
 name: emp-workflow
-description: EMP repository workflow guide for scoped development, CI, dependency, package, release, Skill, Codex routing, Git, PR, worktree, review, and validation tasks in /Users/Bigo/Desktop/develop/fontend-workspace/emp. Use when repository-specific boundaries or verification are needed.
+description: EMP workflow guide for CI, dependencies, builds, releases, Codex routing, Git/PR, worktrees, cross-package impact, and repository validation. Use when these repository-specific boundaries matter; skip for text-only work and narrow source edits already covered by AGENTS.md.
 ---
 
 # EMP Workflow
 
 ## Core Flow
 
-1. Classify the task before reading more context: text-only, single-file/config, cross-file code, CI/dependency/build/release, or external-system work.
-2. Run only the matching preflight from `references/routing-and-context.md`; always preserve unrelated user changes.
-3. Use CodeGraph only for symbols, call chains, package boundaries, runtime paths, or affected tests. Use `rg` and direct parsing for docs, literals, configs, scripts, and workflows.
-4. Keep simple and shared-state work in the controller. Delegate only an independent sidecar or medium/high-risk verification, using the cheapest sufficient `.codex/agents/` profile and a short brief.
-5. For non-trivial implementation, write the plan in the current task unless the user explicitly requests a durable file.
-6. Before editing, select the minimum checks from `references/change-matrix.md`; after editing, run them and summarize successful logs.
-7. Deliver changed files, exact verification outcomes, skipped checks, and remaining risk. Commit or push only when explicitly requested or required by release/PR closure.
+1. Define the requested outcome, allowed scope, completion evidence, and stop condition.
+2. Read only the matching section in `references/routing-and-context.md`; preserve unrelated checkout changes.
+3. Use CodeGraph for symbols, call chains, package boundaries, runtime paths, or affected tests. Use `rg` or structured parsing for text and config.
+4. Keep simple or shared-state work in the controller. Use `spawn_agent` only for an independent domain or medium/high-risk verification, after reading the selected `.codex/agents/` profile.
+5. For non-trivial implementation, state the plan in the task unless the user requests a durable file.
+6. Select the smallest checks from `references/change-matrix.md`. Stop when the requested result and required evidence are complete.
+7. Report changed files, exact verification, skipped checks, and remaining risk. Commit or push only when requested or required by release/PR closure.
 
 ## Reference Map
 
-- Read `references/routing-and-context.md` for task-tier preflight, CodeGraph commands, Token-First Model Routing, Delegation Contract, short briefs, and tool-output limits.
-- Read `references/change-matrix.md` only to choose validation commands, confirm protected paths, or apply model verification gates.
-- Read `references/repository-operations.md` only for project Skill changes, Git/PR closure, worktree cleanup, test strategy, release automation, or package scope.
-- Read `.codex/config.toml` and `.codex/hooks.json` only for runtime-routing changes. Read only the selected `.codex/agents/emp-*.toml` before `spawn_agent`; do not load every profile by default.
+- `references/routing-and-context.md`: preflight, CodeGraph, model routing, delegation briefs, and tool-output limits.
+- `references/change-matrix.md`: protected scope, minimum verification, and reasoning/prompt evaluation gates.
+- `references/routing-evaluation.md`: fixed task set, hard gates, and before/after record for Codex routing changes.
+- `references/repository-operations.md`: Skill, Git/PR, worktree, tests, and release procedures.
+- Read `.codex/config.toml` or `.codex/hooks.json` only for runtime configuration work; read only the Agent profile being used.
 
 ## Decision Rules
 
-- One writer per file or shared state. Serialize lockfile, migration, snapshot, port, publish, and external-write work.
-- Do not touch `apps/**`, `website`, `packages/cdn-*`, `packages/lib-*`, publish workflow, or lockfile unless the task authorizes that scope.
-- Do not create repo-local historical workflow directories or commit generated output, caches, `.codegraph/`, or `.worktrees/`.
-- Use `corepack pnpm`; report real results instead of predicted success.
-- Keep successful command output to command + exit code + concise summary. Read full logs only to diagnose a failure.
+- One writer per file or shared state. Serialize dependency graphs, migrations, snapshots, ports, publishing, and external writes.
+- Do not extend into protected paths without task authorization or commit generated output, caches, `.codegraph/`, or `.worktrees/`.
+- Use `corepack pnpm`; prefer live evidence and bounded logs.

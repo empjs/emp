@@ -85,7 +85,7 @@ describe('cli command runtime', () => {
     expect(`${init.stdout}${init.stderr}`).toContain('emp init 在 @empjs/cli v4 中尚未实现。')
   })
 
-  it('generates rc.4 dependencies for a created project', async () => {
+  it('generates rc.5 dependencies for a created project', async () => {
     const project = await createRealProject('cli-create-rc3')
     try {
       const targetDir = project.path('generated')
@@ -96,7 +96,7 @@ describe('cli command runtime', () => {
 
       expect(result.code).toBe(0)
       const packageJson = JSON.parse(await readProjectFile(targetDir, 'package.json'))
-      expect(packageJson.devDependencies['@empjs/cli']).toBe('^4.0.0-rc.4')
+      expect(packageJson.devDependencies['@empjs/cli']).toBe('^4.0.0-rc.5')
     } finally {
       await project.cleanup()
     }

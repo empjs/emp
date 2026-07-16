@@ -253,12 +253,13 @@ export const renderChangelogEntry = (plan, options = {}) => {
   const date = options.date ?? new Date().toISOString().slice(0, 10)
   const tag = options.tag ?? defaultReleaseTagForVersion(version)
   const registry = options.registry ?? process.env.RELEASE_REGISTRY ?? '默认 npm registry'
+  const releaseKind = String(version).includes('-') ? 'prerelease' : 'stable'
 
   return `## ${version} - ${date}
 
 ### Highlights
 
-- Publish EMP v4 beta packages to \`${registry}\` with dist-tag \`${tag}\`.
+- Publish EMP v4 ${releaseKind} packages to \`${registry}\` with dist-tag \`${tag}\`.
 - Align the root workspace and ${plan.internalPackages.length} core \`@empjs/*\` packages to \`${version}\`.
 - Keep CDN and legacy runtime package lines independent for framework-specific runtime delivery.
 

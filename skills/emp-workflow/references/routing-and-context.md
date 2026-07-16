@@ -38,17 +38,18 @@ Read this reference only when deciding preflight depth, CodeGraph use, model esc
 
 | Lane | Model | Use |
 | --- | --- | --- |
-| Controller | `gpt-5.5` low | Normal decisions and shared-state work |
+| Controller | `gpt-5.6-terra` low | Normal decisions and shared-state work |
 | `emp-spark` | `gpt-5.3-codex-spark` low | Provided-text classification, compression, formatting |
-| `emp-fast` | `gpt-5.4` low | Search, one-file edits, docs/config, low-risk fixes |
-| `emp-impl` | `gpt-5.5` medium | Bounded multi-file implementation and tests |
+| `emp-fast` | `gpt-5.6-terra` low | Search, one-file edits, docs/config, low-risk fixes |
+| `emp-impl` | `gpt-5.6-terra` medium | Bounded multi-file implementation and tests |
 | Verifier | `gpt-5.6-terra` | Independent medium/high-risk acceptance |
-| `emp-deep` | `gpt-5.6-sol` high, read-only | Architecture, public API, dependency/release/security risk |
+| `emp-deep` | `gpt-5.6-sol` medium, read-only | Architecture, public API, dependency/release/security risk |
 
-- Escalate by judgment cost; do not preselect GPT-5.6.
+- Escalate reasoning effort and lane by judgment cost; do not preselect Sol.
 - Low-risk edits and deterministic Git commands do not need a verifier.
 - Use Terra after behavior, dependency, build, release, or cross-module changes when independent execution can catch material risk.
 - Use Sol only when the task needs complex judgment, not merely because it is large.
+- Raise Sol to high only when representative evals show a material quality gain over medium.
 - Never use a generic `gpt-5.6` model id.
 
 ## Delegation Contract

@@ -37,8 +37,20 @@ const websiteAssets = [
     maxBytes: 260 * 1024,
   },
   {
+    name: 'emp-federation-fox-mark-native.webp',
+    maxBytes: 220 * 1024,
+  },
+  {
     name: 'emp-circuit-background.svg',
     maxBytes: 32 * 1024,
+  },
+  {
+    name: 'emp-tech-background-desktop.webp',
+    maxBytes: 100 * 1024,
+  },
+  {
+    name: 'emp-tech-background-mobile.webp',
+    maxBytes: 80 * 1024,
   },
 ] as const
 
@@ -117,16 +129,16 @@ describe('website agent-first special page rules', () => {
     expect(config).toContain("path: path.resolve(__dirname, 'dist')")
   })
 
-  test('single page only keeps the selected agent-first content and GitHub routes', () => {
+  test('homepage matches the skills-first EMP landing-page contract', () => {
     const app = readText(websiteAppPath)
     const styles = readText(websiteStylesPath)
     const sourceFiles = collectFiles(websiteSrcPath).map(readText).join('\n')
 
     for (const marker of [
       'AGENT-FIRST',
-      '高性能、微前端构建',
-      'Use $emp',
-      '技术底座',
+      'Agent Skill First',
+      'Enterprise Micro-Frontend Solution',
+      'Open GitHub',
       githubSkillDir,
       githubRepository,
       rspackLogo,
@@ -134,48 +146,27 @@ describe('website agent-first special page rules', () => {
       "name: 'Module Federation 2'",
       "name: 'TypeScript 7'",
       'React Compiler',
-      '© 2026 EMP · AGENT-FIRST',
     ]) {
       expect(sourceFiles).toContain(marker)
     }
 
     expect(app).toContain('emp-federation-fox-mark.png')
-    expect(app).toContain('<footer className="site-footer">')
-    expect(app).toContain('aria-label="页脚导航"')
-    const foundationSection = app.slice(
-      app.indexOf('<section className="foundation-section"'),
-      app.indexOf('</section>', app.indexOf('<section className="foundation-section"')),
-    )
-    expect(foundationSection).not.toContain('<a')
+    expect(app).toContain('emp-federation-fox-mark-native.webp')
+    expect(app).toContain('<strong>$emp</strong>')
+    expect(app).toContain('className="hero-layout"')
+    expect(app).toContain('className="foundation-grid"')
+    expect(app).not.toContain('<footer')
     expect(styles).toContain('@import "tailwindcss"')
-    expect(styles).toContain('url("../public/emp-circuit-background.svg")')
+    expect(styles).toContain('url("../public/emp-tech-background-desktop.webp")')
+    expect(styles).toContain('url("../public/emp-tech-background-mobile.webp")')
     expect(styles).toContain('"Arial Black"')
     expect(styles).toContain('"PingFang SC"')
-    expect(styles).toContain('@media (min-width: 900px)')
     expect(styles).toContain('grid-template-columns: repeat(4, minmax(0, 1fr));')
-    expect(styles).toContain('@media (max-width: 899px)')
+    expect(styles).toContain('@media (max-width: 820px)')
     expect(styles).toContain('grid-template-columns: repeat(2, minmax(0, 1fr));')
-    expect(styles).toContain('.site-footer')
     expect(styles).toContain('@media (prefers-reduced-motion: reduce)')
 
-    for (const removedMarker of [
-      'Release',
-      '查看发布',
-      '版本进展',
-      '验收通过',
-      '构建提速',
-      '功能清单',
-      '创建项目',
-      '联邦配置',
-      '插件选择',
-      '验收发布',
-      'ESM-first',
-      'Rspress',
-      '博客',
-      'Blog',
-      'data-theme',
-      'localStorage',
-    ]) {
+    for (const removedMarker of ['Rspress', '博客', 'Blog', 'data-theme', 'localStorage']) {
       expect(sourceFiles).not.toContain(removedMarker)
     }
   })

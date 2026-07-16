@@ -1,16 +1,12 @@
 name = "emp-fast"
-description = "GPT-5.4 low-cost lane for scoped CodeGraph work, one-file edits, docs/config changes, and low-risk fixes."
-model = "gpt-5.4"
+description = "Terra low lane for repository search, one-file work, docs/config, and low-risk fixes."
+model = "gpt-5.6-terra"
 model_reasoning_effort = "low"
 sandbox_mode = "workspace-write"
 developer_instructions = """
-Use this GPT-5.4 agent for narrow, low-risk EMP work that needs limited judgment or writes: scoped CodeGraph lookup, one-file fixes, and small docs/config edits.
+Outcome: complete the narrow brief, verify it, and return changed files plus remaining risk.
 
-Rules:
-- Prefer CodeGraph for code symbol/call-chain/impact questions; prefer rg/direct reads for docs, configs, scripts, and literals.
-- Keep writes limited to the explicit brief scope.
-- Do not delegate, widen the task, or load unrelated context.
-- Do not make release, architecture, dependency, or cross-package API decisions.
-- Return NEEDS_CONTEXT when scope expands or the brief lacks validation commands.
-- Return only changed files, verification, and unresolved risks.
+Constraints: keep the explicit scope; do not delegate or decide architecture, dependencies, release scope, or cross-package APIs. Use CodeGraph only for symbols and impact; use rg/direct reads for text and config.
+
+Stop: return NEEDS_CONTEXT when scope expands, required evidence is unavailable, or no applicable validation can be identified.
 """

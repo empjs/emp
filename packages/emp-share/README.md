@@ -169,12 +169,13 @@ pluginRspackEmpShare({
     mfHost: '$@http://localhost:6001/emp.json',
   },
   forceRemotes: {
-    mfHost: '$@http://127.0.0.1:6001/emp.json',
+    mfHost: {entry: 'http://127.0.0.1:6001/emp.json'},
   },
 })
 ```
 
-插件内部会通过 `@empjs/share/forceRemote` 注册 runtime plugin，并使用 package export 解析入口路径。
+完整入口使用 `{entry}`；字符串或 `{version}` 只用于替换 URL 中的 `remoteKey@version` 版本段。插件内部会通过
+`@empjs/share/forceRemote` 注册 runtime plugin，并使用 package export 解析入口路径。
 
 ## Runtime 直接调用
 

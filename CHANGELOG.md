@@ -1,5 +1,49 @@
 # Changelog
 
+## 4.0.0-rc.5 - 2026-07-16
+
+### Highlights
+
+- Make `forceRemotes` honor the documented alias-first, name-fallback contract and correct the full-entry configuration example.
+- Add a real Chromium Module Federation test that proves an invalid remote manifest is overridden before runtime fetch and module loading.
+- Harden manual npm publishing with dry-run defaults, shell-safe inputs, exact version confirmation, and tag-to-package version validation.
+- Align the root workspace, generated project templates, and 17 core `@empjs/*` packages to `4.0.0-rc.5`.
+
+### Release Cover
+
+- GitHub Release cover must use the EMP Federation Fox project IP in the 左上角 brand lockup, following the Rspack-style layout: project IP mark + `EMP v4` name at the upper-left, version pill at the upper-right, and the release topic in the main visual area.
+- Use `docs/assets/emp-v4-readme-logo.png` as the IP source, or generate a version-specific `docs/assets/emp-v4-4.0.0-rc.5-release-hero.png` asset with imagegen.
+- Upload the selected cover as a GitHub Release asset and place it before the 中文 release notes.
+
+### What's Changed
+
+#### New Features
+
+- fix(module-federation): apply full-entry overrides by remote alias first and fall back to the remote name.
+- test(module-federation): load a real exposed module through the overridden manifest URL in Chromium.
+- docs(migration): promote the maintained v4 migration guide and archive the alpha-specific path.
+
+#### Build
+
+- chore(release): default manual workflow runs to dry-run and require an exact version confirmation for production publishing.
+- fix(release): pass workflow inputs through the environment before validation to prevent shell interpolation.
+- chore(release): keep `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` outside the unified release set.
+
+### Verification
+
+- `corepack pnpm workflow:check`
+- `corepack pnpm test:rules`
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `corepack pnpm apps:acceptance`
+- `corepack pnpm test:browser:all`
+- `corepack pnpm release:publish:dry -- --skip-build --force-all --tag rc`
+- `git diff --check`
+
+#### Full Changelog
+
+- Pending GitHub release compare for `4.0.0-rc.5`.
+
 ## 4.0.0-rc.4 - 2026-07-15
 
 ### Highlights

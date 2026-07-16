@@ -6,19 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '%s\\n' '[EMP token-first] Default 5.5 low; Spark text only; 5.4 repo work; 5.6 only for verification or deep review. Keep max_depth=1.'",
-            "async": false
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": ".*(subagent|子代理|派发|计划执行|执行计划|codegraph|CodeGraph|架构|发布|依赖|验收|审阅|review|提交|commit|push|worktree|\\.worktrees|git worktree|清理).*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "printf '%s\\n' '[EMP token-first workflow gate] Do simple work locally; use the cheapest sufficient lane, short briefs, no full-context fork, one writer, and controller verification.'",
+            "command": "printf '%s\\n' '[EMP] Preserve task scope and stop after verified completion.'",
             "async": false
           }
         ]

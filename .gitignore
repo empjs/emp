@@ -19,3 +19,4 @@ doc_build
 .cursor/debug.log
 .playwright-cli
 .worktrees/
+tmp/

@@ -28,6 +28,7 @@ Never commit generated output or caches: `node_modules/`, `dist/`, `output/`, `c
 - Parse `.codex/hooks.json` as JSON and smoke-test hook commands locally
 - Spark smoke keeps `model_reasoning_summary = "none"`
 - `codex debug prompt-input --enable hooks --enable multi_agent "subagent 计划执行"` validates prompt assembly, not hook stdout execution
+- Record prompt bytes before and after structural changes. Use `references/routing-evaluation.md` to compare the same representative tasks at the current reasoning effort and one level lower before raising defaults.
 - Run `codegraph sync . && codegraph status .` only when the guard change depends on code-index behavior
 
 ### Project Skill
@@ -72,7 +73,7 @@ Never commit generated output or caches: `node_modules/`, `dist/`, `output/`, `c
 
 - No extra Agent for deterministic Git commands, text-only edits, or single-file low-risk changes.
 - Use GPT-5.6 Terra after medium/high-risk behavior, dependency, build, release, or cross-module changes when independent execution can catch material risk.
-- Use read-only GPT-5.6 Sol only for architecture, public API, dependency strategy, security, release scope, or go/no-go recommendations.
+- Use read-only GPT-5.6 Sol medium only for architecture, public API, dependency strategy, security, release scope, or go/no-go recommendations; raise to high only when representative evals show a material gain.
 - A child cannot authorize commit, push, publish, merge, destructive cleanup, or external writes.
 
 ## Delivery Check
