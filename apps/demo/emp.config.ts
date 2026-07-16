@@ -14,6 +14,8 @@ const logoStr = `
 const port = 8000
 export default defineConfig(store => {
   const demoApiPort = process.env.EMP_DEMO_API_PORT ?? '3101'
+  const isAndroid6Build = process.env.EMP_ANDROID6 === 'true'
+  const android6OutDir = process.env.EMP_ANDROID6_OUT_DIR
   return {
     // showLogTitle: (o: any) => {
     //   console.log(logoStr)
@@ -74,7 +76,7 @@ export default defineConfig(store => {
     },
     plugins: [
       pluginReact({
-        reactCompiler: true,
+        reactCompiler: !isAndroid6Build,
       }),
       pluginlightningcss({
         transform: {
@@ -97,13 +99,32 @@ export default defineConfig(store => {
       // cssChunkingPlugin: true,
     },
     build: {
+      ...(isAndroid6Build
+        ? {
+            outDir: android6OutDir ?? 'dist-android6',
+            minOptions: {
+              minimizerOptions: {
+                ecma: 5,
+                compress: {
+                  const_to_let: false,
+                },
+              },
+            },
+          }
+        : {}),
       // polyfill: 'entry',
-      polyfill: {
-        entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
-      },
+      polyfill: isAndroid6Build
+        ? {
+            mode: 'entry',
+            splitChunks: true,
+            browserslist: ['Chrome >= 44'],
+          }
+        : {
+            entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
+          },
       // browserslist: store.browserslistOptions.h5,
       sourcemap: true,
-      target: 'es2017',
+      target: isAndroid6Build ? 'es5' : 'es2017',
       // minify: false,
     },
     entries: {
@@ -123,6 +144,27 @@ export default defineConfig(store => {
         '~': store.resolve('src'),
       },
     },
+    output: isAndroid6Build
+      ? {
+          environment: {
+            arrowFunction: false,
+            asyncFunction: false,
+            bigIntLiteral: false,
+            const: false,
+            computedProperty: false,
+            destructuring: false,
+            dynamicImport: false,
+            dynamicImportInWorker: false,
+            forOf: false,
+            globalThis: false,
+            logicalAssignment: false,
+            methodShorthand: false,
+            module: false,
+            optionalChaining: false,
+            templateLiteral: false,
+          },
+        }
+      : {},
     define: {
       buildhash: '1146428e',
     },
