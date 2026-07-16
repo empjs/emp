@@ -14,8 +14,8 @@ const logoStr = `
 const port = 8000
 export default defineConfig(store => {
   const demoApiPort = process.env.EMP_DEMO_API_PORT ?? '3101'
-  const isAndroid6Build = process.env.EMP_ANDROID6 === 'true'
-  const android6OutDir = process.env.EMP_ANDROID6_OUT_DIR
+  const isChrome60Build = process.env.EMP_CHROME60 === 'true'
+  const chrome60OutDir = process.env.EMP_CHROME60_OUT_DIR
   return {
     // showLogTitle: (o: any) => {
     //   console.log(logoStr)
@@ -76,7 +76,7 @@ export default defineConfig(store => {
     },
     plugins: [
       pluginReact({
-        reactCompiler: !isAndroid6Build,
+        reactCompiler: !isChrome60Build,
       }),
       pluginlightningcss({
         transform: {
@@ -99,9 +99,9 @@ export default defineConfig(store => {
       // cssChunkingPlugin: true,
     },
     build: {
-      ...(isAndroid6Build
+      ...(isChrome60Build
         ? {
-            outDir: android6OutDir ?? 'dist-android6',
+            outDir: chrome60OutDir ?? 'dist-chrome60',
             minOptions: {
               minimizerOptions: {
                 ecma: 5,
@@ -113,18 +113,18 @@ export default defineConfig(store => {
           }
         : {}),
       // polyfill: 'entry',
-      polyfill: isAndroid6Build
+      polyfill: isChrome60Build
         ? {
             mode: 'entry',
             splitChunks: true,
-            browserslist: ['Chrome >= 44'],
+            browserslist: ['Chrome >= 60'],
           }
         : {
             entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
           },
       // browserslist: store.browserslistOptions.h5,
       sourcemap: true,
-      target: isAndroid6Build ? 'es5' : 'es2017',
+      target: isChrome60Build ? 'es2015' : 'es2017',
       // minify: false,
     },
     entries: {
@@ -144,24 +144,24 @@ export default defineConfig(store => {
         '~': store.resolve('src'),
       },
     },
-    output: isAndroid6Build
+    output: isChrome60Build
       ? {
           environment: {
-            arrowFunction: false,
+            arrowFunction: true,
             asyncFunction: false,
             bigIntLiteral: false,
-            const: false,
-            computedProperty: false,
-            destructuring: false,
+            const: true,
+            computedProperty: true,
+            destructuring: true,
             dynamicImport: false,
             dynamicImportInWorker: false,
-            forOf: false,
+            forOf: true,
             globalThis: false,
             logicalAssignment: false,
-            methodShorthand: false,
+            methodShorthand: true,
             module: false,
             optionalChaining: false,
-            templateLiteral: false,
+            templateLiteral: true,
           },
         }
       : {},

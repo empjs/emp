@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "emp dev",
     "build": "emp build",
-    "build:android6": "EMP_ANDROID6=true emp build",
+    "build:chrome60": "EMP_CHROME60=true emp build",
     "build:watch": "emp build --watch --serve",
     "start": "emp serve",
     "stat": "emp build --analyze",
