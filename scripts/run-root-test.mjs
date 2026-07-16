@@ -12,6 +12,18 @@ const extraArgs = rawExtraArgs[0] === '--' ? rawExtraArgs.slice(1) : rawExtraArg
 const quote = part => (/[\s"'$]/.test(part) ? JSON.stringify(part) : part)
 const commandText = command => command.map(quote).join(' ')
 
+const runCommand = command =>
+  new Promise((resolve, reject) => {
+    console.log(`$ ${commandText(command)}`)
+    const child = spawn(command[0], command.slice(1), {cwd: repoRoot, stdio: 'inherit'})
+
+    child.on('error', reject)
+    child.on('exit', code => {
+      if (code === 0) resolve()
+      else reject(new Error(`Command failed with exit code ${code ?? 1}: ${commandText(command)}`))
+    })
+  })
+
 const printUsage = () => {
   console.log('Usage: node scripts/run-root-test.mjs <target> [rstest args...]')
   console.log(`Targets: ${Object.keys(ROOT_TEST_TARGETS).join(', ')}`)
@@ -36,14 +48,7 @@ const runRstest = (label, files) =>
     }
 
     const command = ['corepack', 'pnpm', 'exec', 'rstest', 'run', '--config', ROOT_RSTEST_CONFIG, ...files, ...extraArgs]
-    console.log(`$ ${commandText(command)}`)
-    const child = spawn(command[0], command.slice(1), {cwd: repoRoot, stdio: 'inherit'})
-
-    child.on('error', reject)
-    child.on('exit', code => {
-      if (code === 0) resolve()
-      else reject(new Error(`Root test target "${label}" failed with exit code ${code ?? 1}`))
-    })
+    runCommand(command).then(resolve, () => reject(new Error(`Root test target "${label}" failed`)))
   })
 
 const main = async () => {
@@ -65,6 +70,10 @@ const main = async () => {
       await runRstest(target, ROOT_TEST_TARGETS[target])
     }
     return
+  }
+
+  if (targetName === 'tsconfig') {
+    await runCommand(['corepack', 'pnpm', 'test:ts7:prepare'])
   }
 
   await runRstest(targetName, ROOT_TEST_TARGETS[targetName])

@@ -44,7 +44,7 @@
     "test:plugins": "corepack pnpm --filter @empjs/chain build && corepack pnpm empbuild:plugin && node scripts/run-root-test.mjs plugins",
     "test:toolchain": "node scripts/run-root-test.mjs toolchain",
     "test:tsconfig": "node scripts/run-root-test.mjs tsconfig",
-    "test:ts7:prepare": "corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build",
+    "test:ts7:prepare": "corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build && corepack pnpm --filter @empjs/share build",
     "test:ts7": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/cli/tsconfig.json",
     "test:ts7:packages": "corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/cli/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/plugin-react/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/emp-share/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/emp-chain/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project apps/mf-host/tsconfig.json && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project apps/mf-app/tsconfig.json",
     "test:rules": "node scripts/run-root-test.mjs rules",

@@ -108,7 +108,10 @@ describe('toolchain version contract', () => {
     expect(pkg.devDependencies.typescript).toBe('7.0.2')
     expect(pkg.devDependencies['@typescript/native-preview']).toBeUndefined()
     expect(pkg.scripts['test:ts7:prepare']).toBe(
-      'corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build',
+      'corepack pnpm --filter @empjs/chain build && corepack pnpm --filter @empjs/cli build && corepack pnpm --filter @empjs/share build',
+    )
+    expect(readText('scripts/run-root-test.mjs')).toMatch(
+      /targetName === 'tsconfig'[\s\S]*?corepack', 'pnpm', 'test:ts7:prepare'/,
     )
     expect(pkg.scripts['test:ts7']).toBe(
       'corepack pnpm test:ts7:prepare && corepack pnpm dlx --package typescript@7.0.2 tsc --noEmit --pretty false --project packages/cli/tsconfig.json',

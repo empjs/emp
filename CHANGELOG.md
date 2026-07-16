@@ -27,6 +27,7 @@
 
 - chore(release): default manual workflow runs to dry-run and require an exact version confirmation for production publishing.
 - fix(release): pass workflow inputs through the environment before validation to prevent shell interpolation.
+- fix(ci): build `@empjs/share` declarations before app tsconfig checks on clean runners.
 - chore(release): keep `apps/**`, `website`, `@empjs/cdn-*`, and `@empjs/lib-*` outside the unified release set.
 
 ### Verification
