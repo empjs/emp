@@ -14,13 +14,13 @@ EMP Bridge Vue 是一个用于在 React 应用中集成 Vue3 组件的桥接工�
 
 ```bash
 # 使用 npm
-npm install @empjs/bridge-vue3@rc
+npm install @empjs/bridge-vue3
 
 # 使用 yarn
 yarn add @empjs/bridge-react
 
 # 使用 pnpm
-pnpm add @empjs/bridge-vue3@rc
+pnpm add @empjs/bridge-vue3
 ```
 
 ## 基本用法

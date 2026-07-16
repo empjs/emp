@@ -1,12 +1,12 @@
 # EMP v4 Migration Guide
 
-This guide is for teams moving to the EMP v4 `4.0.0-rc.5` release candidate. The v4 API and migration path are stable-ready; install the `rc` line until the `4.0.0` stable release is published.
+This guide is for teams moving to the stable EMP v4 `4.0.0` release.
 
-## Current Release Candidate
+## Current Stable Release
 
-- Target v4 release candidate: `4.0.0-rc.5`.
-- Install matching v4 packages from the `rc` dist-tag before stable is published.
-- npm `latest` can remain on the 3.x line during the release-candidate period, so do not replace the explicit `@rc` tag with `@latest` yet.
+- Current v4 stable version: `4.0.0`.
+- Install matching v4 packages from npm's `latest` dist-tag.
+- Keep all core `@empjs/*` packages on the same v4 version line.
 
 ```bash
 npm view @empjs/cli dist-tags
@@ -21,25 +21,25 @@ npm view @empjs/plugin-react dist-tags
 - Rspack: v4 is built on the Rspack 2 toolchain.
 - Module Federation: `@empjs/share` uses official Module Federation 2.x packages.
 
-## Install The RC Line
+## Install The Stable Line
 
-Install v4 packages with the `rc` tag:
+Install v4 packages from `latest`:
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-react@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-react @empjs/share
 ```
 
 For Vue projects, use the matching framework plugin:
 
 ```bash
-pnpm add -D @empjs/cli@rc @empjs/plugin-vue3@rc @empjs/share@rc
+pnpm add -D @empjs/cli @empjs/plugin-vue3 @empjs/share
 ```
 
-Do not move CDN or legacy runtime packages to the unified v4 version line. `@empjs/cdn-*` and `@empjs/lib-*` remain independent package lines, and example or website workspaces under `apps/**` and `website` are not part of the rc publish set.
+Do not move CDN or legacy runtime packages to the unified v4 version line. `@empjs/cdn-*` and `@empjs/lib-*` remain independent package lines, and example or website workspaces under `apps/**` and `website` are not part of the stable publish set.
 
 ## Release Scope
 
-`4.0.0-rc.5` aligns the root workspace and 17 core internal packages:
+`4.0.0` aligns the root workspace and 17 core internal packages:
 
 - `@empjs/adapter-react`
 - `@empjs/biome-config`
@@ -116,7 +116,7 @@ pluginRspackEmpShare({
 
 ## Agent-First Create Flow
 
-`@empjs/cli@rc` includes the P0 agent-first project generator:
+`@empjs/cli` includes the P0 agent-first project generator:
 
 ```bash
 emp create "React 主应用 + Vue 子应用"
@@ -134,7 +134,7 @@ The P0 topology is one React host plus one Vue remote. It writes `emp.intent.yam
 
 ## Consumer Validation
 
-After installing the rc line, run the same user-facing checks that CI covers in this repository:
+After installing the stable line, run the same user-facing checks that CI covers in this repository:
 
 ```bash
 pnpm build
@@ -145,13 +145,15 @@ For Module Federation projects, also verify manifest and type generation in the 
 
 ## Maintainer Evidence
 
-The rc.5 release-candidate validation plan uses these repository gates:
+The stable release validation plan uses these repository gates:
 
 ```bash
 corepack pnpm test:cli
 corepack pnpm test:rules
 corepack pnpm release:check
+corepack pnpm ci:verify
+corepack pnpm empbuild
+corepack pnpm apps:acceptance
+corepack pnpm test:apps:browser
 git diff --check
 ```
-
-Before promoting rc.5 to stable, run the broader package and consumer gates (`corepack pnpm ci:verify`, `corepack pnpm empbuild`, and `corepack pnpm apps:acceptance`) and keep the CI `verify`, `build`, and `apps` jobs green.

@@ -30,13 +30,13 @@ describe('toolchain version contract', () => {
     expect(readme).not.toContain('TypeScript 7 RC')
     expect(readme).toContain('Rspack 2')
     expect(readme).toContain('Module Federation 2')
-    expect(readme).toContain('img.shields.io/npm/v/@empjs/cli/rc')
-    expect(readme).toContain('%40empjs%252Fcli%2Frc')
-    expect(readme).toContain('%40empjs%252Fshare%2Frc')
-    expect(readme).not.toContain('%2Flatest&query=')
+    expect(readme).toContain('img.shields.io/npm/v/@empjs/cli/latest')
+    expect(readme).toContain('%40empjs%252Fcli%2Flatest')
+    expect(readme).toContain('%40empjs%252Fshare%2Flatest')
+    expect(readme).not.toContain('%2Frc&query=')
   })
 
-  test('published package READMEs keep v4 install commands on the rc dist-tag', () => {
+  test('published package READMEs use stable untagged v4 install commands', () => {
     const packageDocs = [
       'packages/adapter-react/README.md',
       'packages/bridge-react/README.md',
@@ -64,12 +64,14 @@ describe('toolchain version contract', () => {
         const packageSpecs = line.match(/@empjs\/[a-z0-9-]+(?:@[a-z0-9.-]+)?/gi) ?? []
         expect(packageSpecs.length, `${file} contains no parsable EMP package in: ${line}`).toBeGreaterThan(0)
         for (const packageSpec of packageSpecs) {
-          expect(packageSpec, `${file} contains an untagged EMP v4 install command: ${line}`).toMatch(/@rc$/)
+          expect(packageSpec, `${file} contains a prerelease-tagged EMP install command: ${line}`).not.toMatch(
+            /@(alpha|beta|rc)(?:[.-]|$)/,
+          )
         }
       }
     }
-    expect(readText('packages/bridge-vue3/README.md')).toContain('@empjs/bridge-vue3@rc')
-    expect(readText('packages/plugin-tailwindcss/README.md')).toContain('@empjs/plugin-tailwindcss@rc -D')
+    expect(readText('packages/bridge-vue3/README.md')).toContain('@empjs/bridge-vue3')
+    expect(readText('packages/plugin-tailwindcss/README.md')).toContain('@empjs/plugin-tailwindcss -D')
   })
 
   test('root scripts are grouped by workflow area', () => {

@@ -1,5 +1,42 @@
 # Changelog
 
+## 4.0.0 - 2026-07-16
+
+### Highlights
+
+- Publish the first stable EMP v4 line with Rspack 2, Module Federation 2.8, TypeScript 7 and Node.js 24 support.
+- Promote the v4 branch to the default `main` branch while preserving the previous v3 line as `v3`.
+- Align the root workspace and all 17 core `@empjs/*` packages to `4.0.0` on npm's `latest` dist-tag.
+- Preserve CDN and legacy runtime packages as independent version lines.
+
+### What's Changed
+
+#### New Features
+
+- feat(module-federation): support runtime registration/loading, ESM containers, async remote chunks and deterministic remote overrides.
+- feat(frameworks): cover React, Vue 2, Vue 3, cross-version Vue mounting and Tailwind remote style isolation.
+- feat(cli): ship the agent-first project generator and stable v4 dependency templates.
+
+#### Build
+
+- chore(toolchain): align the stable line on Rspack 2.1.4, Module Federation 2.8.0, Rslib 0.23.2 and TypeScript 7.0.2.
+- chore(release): publish the bounded 17-package core set with trusted publishing and guarded dry-run support.
+- chore(release): switch public documentation and generated projects from the `rc` line to stable v4.
+
+### Verification
+
+- `corepack pnpm workflow:check`
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `corepack pnpm apps:acceptance`
+- `corepack pnpm test:apps:browser`
+- `corepack pnpm release:publish:dry -- --skip-build --force-all --tag latest`
+- `git diff --check`
+
+#### Full Changelog
+
+- Compare: `v4.0.0-rc.5...v4.0.0`.
+
 ## 4.0.0-rc.5 - 2026-07-16
 
 ### Highlights

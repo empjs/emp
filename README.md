@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <a href="https://npmjs.com/package/@empjs/cli?activeTab=versions"><img src="https://img.shields.io/npm/v/@empjs/cli/rc?style=flat-square&color=111111&label=%40empjs%2Fcli%40rc" alt="@empjs/cli rc version"></a>
-  <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Frc&query=%24.dependencies%5B%22%40rspack%2Fcore%22%5D&style=flat-square&color=2563eb&label=Rspack" alt="Rspack dependency version from @empjs/cli@rc"></a>
-  <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fshare%2Frc&query=%24.dependencies%5B%22%40module-federation%2Fsdk%22%5D&style=flat-square&color=0f766e&label=Module%20Federation" alt="Module Federation dependency version from @empjs/share@rc"></a>
-  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli/rc?style=flat-square&color=339933&label=Node" alt="Node engine version from @empjs/cli@rc"></a>
-  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fempjs%2Femp%2Fv4%2Fpackage.json&query=%24.packageManager&style=flat-square&color=f69220&label=package%20manager" alt="package manager version">
-  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Frc&query=%24.license&style=flat-square&color=111111&label=license" alt="license from @empjs/cli@rc">
+  <a href="https://npmjs.com/package/@empjs/cli"><img src="https://img.shields.io/npm/v/@empjs/cli/latest?style=flat-square&color=111111&label=%40empjs%2Fcli" alt="@empjs/cli latest version"></a>
+  <a href="https://rspack.rs/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Flatest&query=%24.dependencies%5B%22%40rspack%2Fcore%22%5D&style=flat-square&color=2563eb&label=Rspack" alt="Rspack dependency version from @empjs/cli@latest"></a>
+  <a href="https://module-federation.io/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fshare%2Flatest&query=%24.dependencies%5B%22%40module-federation%2Fsdk%22%5D&style=flat-square&color=0f766e&label=Module%20Federation" alt="Module Federation dependency version from @empjs/share@latest"></a>
+  <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@empjs/cli/latest?style=flat-square&color=339933&label=Node" alt="Node engine version from @empjs/cli@latest"></a>
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fempjs%2Femp%2Fmain%2Fpackage.json&query=%24.packageManager&style=flat-square&color=f69220&label=package%20manager" alt="package manager version">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.npmjs.org%2F%40empjs%252Fcli%2Flatest&query=%24.license&style=flat-square&color=111111&label=license" alt="license from @empjs/cli@latest">
 </p>
 
 ---
@@ -37,9 +37,9 @@ EMP 是一套面向现代 Web 的微前端工程工具：用统一配置完成 h
 
 ## 📚 开始使用
 
-快速开始和迁移步骤见 [EMP v4 迁移指南](docs/v4-migration.md)。正式版发布前请安装 `@rc` dist-tag。
+快速开始和迁移步骤见 [EMP v4 迁移指南](docs/v4-migration.md)。EMP v4 正式版从 npm `latest` 安装。
 
-<sub>顶部 badge 从 npm `rc` manifest 和 `v4` 分支的 `packageManager` 字段动态读取，无需手写维护版本号。</sub>
+<sub>顶部 badge 从 npm `latest` manifest 和 `main` 分支的 `packageManager` 字段动态读取，无需手写维护版本号。</sub>
 
 ## 💬 QQ 交流群
 

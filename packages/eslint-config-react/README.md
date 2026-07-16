@@ -2,7 +2,7 @@
 
 ## 安装 
 ```
-pnpm add @empjs/eslint-config-react@rc -D
+pnpm add @empjs/eslint-config-react -D
 ```
 
 ## 配置 package.json

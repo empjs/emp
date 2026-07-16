@@ -316,7 +316,7 @@ describe('release rules', () => {
   test('current repository internal release set stays explicitly bounded', async () => {
     const plan = await createReleasePlan(repoRoot)
 
-    expect(plan.rootPackage.version).toBe('4.0.0-rc.5')
+    expect(plan.rootPackage.version).toBe('4.0.0')
     expect(validateReleasePlan(plan)).toEqual([])
     expect(plan.internalPackages.map(pkg => pkg.name)).toEqual([
       '@empjs/adapter-react',

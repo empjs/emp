@@ -13,7 +13,7 @@
 ## 安装
 
 ```bash
-npm install @empjs/adapter-react@rc
+npm install @empjs/adapter-react
 ```
 
 ## 使用

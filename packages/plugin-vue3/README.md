@@ -1,7 +1,7 @@
 # @empjs/plugin-vue3 
 ## 安装 
 ```
-pnpm add @empjs/plugin-vue3@rc -D
+pnpm add @empjs/plugin-vue3 -D
 ```
 ## 使用 
 ```js

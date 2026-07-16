@@ -3,7 +3,7 @@
 ## 安装 
 
 ```
-pnpm add @empjs/plugin-react@rc -D
+pnpm add @empjs/plugin-react -D
 ```
 
 ## 使用 
