@@ -19,13 +19,13 @@ node ^20.19.0 || >=22.12.0
 ## 安装
 
 ```bash
-pnpm add @empjs/share
+pnpm add @empjs/share@rc
 ```
 
 React 项目通常还需要：
 
 ```bash
-pnpm add @empjs/cli @empjs/plugin-react
+pnpm add @empjs/cli@rc @empjs/plugin-react@rc
 ```
 
 ## 导出入口

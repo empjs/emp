@@ -25,5 +25,5 @@ EMP 官方默认格式化配置、`v6.0` 已支持 CSS
 ```
 
 
-[npm-version-src]: https://img.shields.io/npm/v/@empjs/biome-config?style=flat&colorA=18181B&colorB=F0DB4F
+[npm-version-src]: https://img.shields.io/npm/v/@empjs/biome-config/rc?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/@empjs/biome-config

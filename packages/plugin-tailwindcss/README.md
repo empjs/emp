@@ -2,8 +2,8 @@
 > base tailwindcss v4
 ## 安装 
 ```
-pnpm add @empjs/plugin-tailwindcss-D
-pnpm add tailwindcss // 需要在落地项目安装、否则引入css会报错、暂时没找到解决方案
+pnpm add @empjs/plugin-tailwindcss@rc -D
+pnpm add tailwindcss # 需要在落地项目安装，否则引入 CSS 会报错
 ```
 ## 使用 
 ```js

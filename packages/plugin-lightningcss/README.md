@@ -2,7 +2,7 @@
 
 ## 安装 
 ```
-pnpm add @empjs/plugin-lightningcss -D
+pnpm add @empjs/plugin-lightningcss@rc -D
 ```
 
 ## 使用 

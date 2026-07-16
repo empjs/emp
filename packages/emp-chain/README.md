@@ -26,7 +26,7 @@ yarn add --dev @empjs/chain
 ### **npm方式**
 
 ```bash
-npm install --save-dev @empjs/chain
+npm install --save-dev @empjs/chain@rc
 ```
 
 ## 入门

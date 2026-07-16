@@ -1,7 +1,7 @@
 # @empjs/plugin-stylus
 ## 安装 
 ```
-pnpm add @empjs/plugin-stylus -D
+pnpm add @empjs/plugin-stylus@rc -D
 ```
 ## 使用 
 ```js

@@ -30,6 +30,46 @@ describe('toolchain version contract', () => {
     expect(readme).not.toContain('TypeScript 7 RC')
     expect(readme).toContain('Rspack 2')
     expect(readme).toContain('Module Federation 2')
+    expect(readme).toContain('img.shields.io/npm/v/@empjs/cli/rc')
+    expect(readme).toContain('%40empjs%252Fcli%2Frc')
+    expect(readme).toContain('%40empjs%252Fshare%2Frc')
+    expect(readme).not.toContain('%2Flatest&query=')
+  })
+
+  test('published package READMEs keep v4 install commands on the rc dist-tag', () => {
+    const packageDocs = [
+      'packages/adapter-react/README.md',
+      'packages/bridge-react/README.md',
+      'packages/bridge-vue2/README.md',
+      'packages/bridge-vue3/README.md',
+      'packages/cli/README.md',
+      'packages/emp-chain/README.md',
+      'packages/emp-share/README.md',
+      'packages/eslint-config-react/README.md',
+      'packages/plugin-lightningcss/README.md',
+      'packages/plugin-postcss/README.md',
+      'packages/plugin-react/README.md',
+      'packages/plugin-stylus/README.md',
+      'packages/plugin-tailwindcss/README.md',
+      'packages/plugin-vue2/README.md',
+      'packages/plugin-vue3/README.md',
+    ]
+
+    for (const file of packageDocs) {
+      const content = readText(file)
+      const installLines = content
+        .split('\n')
+        .filter(line => /^(?:npm (?:i|install)|pnpm (?:i|add))\b/i.test(line) && line.includes('@empjs/'))
+      for (const line of installLines) {
+        const packageSpecs = line.match(/@empjs\/[a-z0-9-]+(?:@[a-z0-9.-]+)?/gi) ?? []
+        expect(packageSpecs.length, `${file} contains no parsable EMP package in: ${line}`).toBeGreaterThan(0)
+        for (const packageSpec of packageSpecs) {
+          expect(packageSpec, `${file} contains an untagged EMP v4 install command: ${line}`).toMatch(/@rc$/)
+        }
+      }
+    }
+    expect(readText('packages/bridge-vue3/README.md')).toContain('@empjs/bridge-vue3@rc')
+    expect(readText('packages/plugin-tailwindcss/README.md')).toContain('@empjs/plugin-tailwindcss@rc -D')
   })
 
   test('root scripts are grouped by workflow area', () => {

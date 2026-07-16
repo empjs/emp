@@ -185,9 +185,9 @@ describe('website agent-first special page rules', () => {
 
     expect(readme).toContain('docs/assets/emp-federation-fox-full.png')
     expect(readme).toContain('EMP Federation Fox')
-    expect(readme).toContain('npm latest manifest')
-    expect(readme).not.toContain('@empjs/cli@rc')
-    expect(readme).not.toContain('%40empjs%2Fcli%40rc')
-    expect(readme).not.toContain('rc manifest')
+    expect(readme).toContain('npm `rc` manifest')
+    expect(readme).toContain('@empjs/cli@rc')
+    expect(readme).toContain('%40empjs%2Fcli%40rc')
+    expect(readme).not.toContain('npm latest manifest')
   })
 })
