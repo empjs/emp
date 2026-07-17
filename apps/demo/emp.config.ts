@@ -14,8 +14,6 @@ const logoStr = `
 const port = 8000
 export default defineConfig(store => {
   const demoApiPort = process.env.EMP_DEMO_API_PORT ?? '3101'
-  const isChrome60Build = process.env.EMP_CHROME60 === 'true'
-  const chrome60OutDir = process.env.EMP_CHROME60_OUT_DIR
   return {
     // showLogTitle: (o: any) => {
     //   console.log(logoStr)
@@ -76,7 +74,7 @@ export default defineConfig(store => {
     },
     plugins: [
       pluginReact({
-        reactCompiler: !isChrome60Build,
+        reactCompiler: false,
       }),
       pluginlightningcss({
         transform: {
@@ -99,32 +97,8 @@ export default defineConfig(store => {
       // cssChunkingPlugin: true,
     },
     build: {
-      ...(isChrome60Build
-        ? {
-            outDir: chrome60OutDir ?? 'dist-chrome60',
-            minOptions: {
-              minimizerOptions: {
-                ecma: 5,
-                compress: {
-                  const_to_let: false,
-                },
-              },
-            },
-          }
-        : {}),
-      // polyfill: 'entry',
-      polyfill: isChrome60Build
-        ? {
-            mode: 'entry',
-            splitChunks: true,
-            browserslist: ['Chrome >= 60'],
-          }
-        : {
-            entryCdn: `https://unpkg.com/@empjs/polyfill@0.0.1/dist/es.js`,
-          },
-      // browserslist: store.browserslistOptions.h5,
+      preset: 'chrome60',
       sourcemap: true,
-      target: isChrome60Build ? 'es2015' : 'es2017',
       // minify: false,
     },
     entries: {
@@ -144,27 +118,6 @@ export default defineConfig(store => {
         '~': store.resolve('src'),
       },
     },
-    output: isChrome60Build
-      ? {
-          environment: {
-            arrowFunction: true,
-            asyncFunction: false,
-            bigIntLiteral: false,
-            const: true,
-            computedProperty: true,
-            destructuring: true,
-            dynamicImport: false,
-            dynamicImportInWorker: false,
-            forOf: true,
-            globalThis: false,
-            logicalAssignment: false,
-            methodShorthand: true,
-            module: false,
-            optionalChaining: false,
-            templateLiteral: true,
-          },
-        }
-      : {},
     define: {
       buildhash: '1146428e',
     },

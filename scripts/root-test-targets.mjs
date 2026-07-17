@@ -24,6 +24,7 @@ const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.
 const appsBrowserTestFiles = [
   'apps/adapter-app/test/browser/local-remote.browser.ts',
   'apps/adapter-host/test/browser/smoke.browser.ts',
+  'apps/demo/test/browser/chrome60.browser.ts',
   'apps/demo/test/browser/proxy.browser.ts',
   'apps/dual-role/test/browser/mutual-consumption.browser.ts',
   'apps/esm-federation/test/browser/esm-entry.browser.ts',

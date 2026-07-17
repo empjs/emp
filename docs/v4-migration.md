@@ -74,8 +74,7 @@ import {defineConfig} from '@empjs/cli'
 
 export default defineConfig(() => ({
   build: {
-    useESM: true,
-    target: 'es2018',
+    preset: 'modern',
     rspack: {
       experiments: {
         pureFunctions: true,

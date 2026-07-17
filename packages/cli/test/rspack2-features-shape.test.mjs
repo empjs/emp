@@ -45,8 +45,7 @@ const loadConfigForFixture = async fixtureRoot => {
     appSrc: 'src',
     appEntry: 'index.ts',
     build: {
-      useESM: true,
-      target: 'es2018',
+      preset: 'modern',
     },
   })
   const config = await loadConfigForFixture(fixtureRoot)
@@ -54,6 +53,59 @@ const loadConfigForFixture = async fixtureRoot => {
   assert.equal(config.output.module, true)
   assert.equal(config.output.library.type, 'modern-module')
   assert.equal(config.output.library.preserveModules, await realpath(path.join(fixtureRoot, 'src')))
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('chrome60-preset', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      build: {
+        preset: 'chrome60',
+      },
+    }),
+  )
+
+  assert.deepEqual(config.target, ['web', 'es2015'])
+  assert.equal(config.output.module, false)
+  assert.equal(config.output.environment.dynamicImport, false)
+  assert.equal(config.output.environment.module, false)
+  assert.equal(config.output.environment.optionalChaining, false)
+  const swcUses = config.module.rules
+    .flatMap(rule => rule.use ?? [])
+    .filter(use => use.loader === 'builtin:swc-loader')
+  assert.ok(swcUses.length >= 2)
+  assert.ok(swcUses.every(use => use.options.env?.mode === 'entry'))
+  assert.ok(swcUses.every(use => use.options.env?.targets?.includes('Chrome >= 60')))
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('chrome60-overrides', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      build: {
+        preset: 'chrome60',
+        target: 'es2017',
+        polyfill: {
+          browserslist: ['Chrome >= 70'],
+        },
+      },
+      output: {
+        environment: {
+          optionalChaining: true,
+        },
+      },
+    }),
+  )
+
+  assert.deepEqual(config.target, ['web', 'es2017'])
+  assert.equal(config.output.environment.dynamicImport, false)
+  assert.equal(config.output.environment.optionalChaining, true)
+  const swcUses = config.module.rules
+    .flatMap(rule => rule.use ?? [])
+    .filter(use => use.loader === 'builtin:swc-loader')
+  assert.ok(swcUses.every(use => use.options.env?.targets?.includes('Chrome >= 70')))
 }
 
 {

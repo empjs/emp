@@ -5,8 +5,7 @@ export default defineConfig(() => {
     appSrc: 'src',
     appEntry: 'index.ts',
     build: {
-      useESM: true,
-      target: 'es2018',
+      preset: 'modern',
     },
     debug: {
       clearLog: false,

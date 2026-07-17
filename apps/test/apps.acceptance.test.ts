@@ -301,10 +301,15 @@ describe('supplemental apps artifact contracts', () => {
 
       if (appDir === 'demo') {
         expect(distFiles).toEqual(expect.arrayContaining(['index.html', 'info.html', 'proxy-test.html', 'work/index.html']))
+        expectDistFileMatching(distFiles, /^js\/coreJs\.[a-f0-9]+\.js$/)
         expectDistFileMatching(distFiles, /^js\/lib-react\.[a-f0-9]+\.js$/)
         expectDistFileMatching(distFiles, /^js\/lib-antd\.[a-f0-9]+\.js$/)
         expectDistFileMatching(distFiles, /^js\/lib-common\.[a-f0-9]+\.js$/)
         expectDistFileMatching(distFiles, /^js\/proxy-test\.[a-f0-9]+\.js$/)
+        const html = readDistText(appDir, 'index.html')
+        expect(html).not.toContain('type="module"')
+        expect(html.indexOf('js/coreJs.')).toBeGreaterThan(-1)
+        expect(html.indexOf('js/coreJs.')).toBeLessThan(html.indexOf('js/index.'))
       }
 
       if (appDir === 'vue-2-base') {

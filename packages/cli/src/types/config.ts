@@ -161,7 +161,14 @@ export type Rspack2BuildOptions = {
   swc?: Pick<SwcLoaderOptions, 'detectSyntax' | 'transformImport'>
 }
 //
+export type BuildPresetName = 'chrome60' | 'modern'
+
 export type BuildType = {
+  /**
+   * 组合语法目标、模块格式、polyfill 与 Rspack runtime 能力的构建预设。
+   * 显式 build/output 配置会覆盖预设值。
+   */
+  preset?: BuildPresetName
   /**
    * 生成代码目录
    * @default 'dist'

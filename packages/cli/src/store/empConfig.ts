@@ -3,6 +3,7 @@ import {logger} from 'src/helper'
 import {loadConfig} from 'src/helper/loadConfig'
 import {deepAssign} from 'src/helper/utils'
 import type {GlobalStore} from 'src/store'
+import {getBuildPreset} from 'src/store/buildPresets'
 import {LifeCycle} from 'src/store/lifeCycle'
 import type {
   BuildType,
@@ -37,17 +38,16 @@ export class EmpConfig {
    */
   public base = ''
   public target: RsTarget = []
-  private assign<T>(t: T, s: any): T {
-    s = s || {}
-    return deepAssign(t, s)
+  private assign<T>(target: T, ...sources: any[]): T {
+    return deepAssign(target, ...sources.map(source => source || {}))
   }
   /**
    * 是否启动 esm 模块
-   * @default true
+   * @default false
    */
   // public isESM = false
   get isESM() {
-    const isCjs = ['es3', 'es5'].indexOf(this.store.empConfig.build.target) === 1
+    const isCjs = ['es3', 'es5'].includes(this.store.empConfig.build.target)
     return !isCjs && this.store.empConfig.build.useESM
   }
   public lifeCycle!: LifeCycle
@@ -135,6 +135,7 @@ export class EmpConfig {
     return this.assign(defaultDebug, this.store.empOptions.debug)
   }
   get build() {
+    const preset = getBuildPreset(this.store.empOptions.build?.preset)
     const staticDir = this.store.empOptions.build?.staticDir ? `${this.store.empOptions.build?.staticDir}/` : ''
     //
     const sourcemap: SourceMapType = {js: this.store.isDev ? 'cheap-module-source-map' : 'source-map', css: false}
@@ -146,7 +147,7 @@ export class EmpConfig {
       sourcemap.js = this.store.empOptions.build?.devtool
     }
     //
-    return this.assign<Required<BuildType> & {sourcemap: SourceMapType}>(
+    return this.assign<Required<Omit<BuildType, 'preset'>> & Pick<BuildType, 'preset'> & {sourcemap: SourceMapType}>(
       {
         outDir: 'dist',
         staticDir,
@@ -176,6 +177,7 @@ export class EmpConfig {
         swcConfig: {},
         devtool: this.store.isDev ? 'cheap-module-source-map' : 'source-map',
       },
+      preset?.build,
       {...this.store.empOptions.build, staticDir},
     )
   }
@@ -308,7 +310,8 @@ export class EmpConfig {
     // if (this.store.isDev && this.store.empConfig.empShare.dts !== false) {
     //   output.clean = false
     // }
-    const mergedOutput = this.assign(output, this.store.empOptions.output)
+    const preset = getBuildPreset(this.store.empOptions.build?.preset)
+    const mergedOutput = deepAssign<Output>(output, preset?.output, this.store.empOptions.output)
     if (this.store.empConfig.isESM) {
       const library =
         mergedOutput.library && typeof mergedOutput.library === 'object' && !Array.isArray(mergedOutput.library)

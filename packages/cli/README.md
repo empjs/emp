@@ -115,6 +115,23 @@ export default defineConfig(store => {
 })
 ```
 
+### 构建预设
+
+`build.preset` 将语法目标、模块格式、polyfill 与 Rspack runtime 能力组合成经过验收的默认值；同级 `build` 和顶层 `output` 显式配置仍拥有更高优先级。
+
+```js
+import {defineConfig} from '@empjs/cli'
+
+export default defineConfig(() => ({
+  build: {
+    // Chrome 60：ES2015、非原生 ESM、内置 core-js
+    preset: 'chrome60',
+  },
+}))
+```
+
+现代浏览器或现代模块产物使用 `preset: 'modern'`，对应 ES2018 与原生 `modern-module` 输出。
+
 ### Rspack 2 配置入口
 `build.rspack` 用于显式接入 Rspack 2 的新增能力。EMP 不会默认开启高风险实验能力，业务需要按场景配置。
 
@@ -125,8 +142,7 @@ export default defineConfig(() => {
   return {
     build: {
       // ESM library 输出会自动使用 output.library.type = 'modern-module'
-      useESM: true,
-      target: 'es2018',
+      preset: 'modern',
       // Rspack 2 支持 hashed module id；默认仍保持 development=named、production=deterministic
       moduleIds: 'hashed',
       rspack: {
