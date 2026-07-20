@@ -30,6 +30,14 @@ const runPostcss = async (pluginTuple: [string, Record<string, unknown>], css: s
   return result.css
 }
 
+const compileStylus = (source: string) => {
+  const stylusPath = require.resolve('stylus', {paths: [join(repoRoot, 'packages/plugin-stylus')]})
+  const stylus = require(stylusPath)
+  return new Promise<string>((resolve, reject) => {
+    stylus(source).render((error: Error | null, css: string) => (error ? reject(error) : resolve(css)))
+  })
+}
+
 const runLightningcss = (visitor: any, css: string) => {
   const result = transform({
     filename: 'plugin-output.css',
@@ -48,17 +56,35 @@ describe('plugin output coverage', () => {
 
     const remCss = await runPostcss(
       postcss.pxtorem({rootValue: 10}),
-      '.card { width: 20px; border-width: 1px; }',
+      '.card { width: 20px; border-width: 1px; padding: calc(10px + 5px); }',
     )
     expect(remCss).toContain('width: 2rem')
     expect(remCss).toContain('border-width: 0.1rem')
+    expect(remCss).toContain('padding: calc(1rem + 0.5rem)')
 
     const vwCss = await runPostcss(
       postcss.pxtovw({viewportWidth: 320, unitPrecision: 5}),
-      '.card { width: 160px; font-size: 16px; }',
+      '.card { width: 160px; font-size: 16px; border-width: 1px; padding: calc(80px + 16px); }',
     )
     expect(vwCss).toContain('width: 50vw')
     expect(vwCss).toContain('font-size: 5vw')
+    expect(vwCss).toContain('border-width: 1px')
+    expect(vwCss).toContain('padding: calc(25vw + 5vw)')
+  })
+
+  test('plugin-stylus uses the installed compiler for variables, nesting, and arithmetic', async () => {
+    const css = await compileStylus(`
+$unit = 10px
+.card
+  width: $unit * 2
+  .title
+    margin: ($unit / 2)
+`)
+
+    expect(css).toContain('.card {')
+    expect(css).toContain('width: 20px')
+    expect(css).toContain('.card .title {')
+    expect(css).toContain('margin: 5px')
   })
 
   test('plugin-lightningcss unit visitors produce real rem and viewport CSS output', async () => {
