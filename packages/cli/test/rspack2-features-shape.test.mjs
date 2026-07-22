@@ -37,7 +37,7 @@ const loadConfigForFixture = async fixtureRoot => {
 
 {
   const {rspack} = await import(`file://${path.join(repoRoot, 'packages/cli/dist/index.js')}`)
-  assert.equal(rspack.rspackVersion, '2.1.4')
+  assert.equal(rspack.rspackVersion, '2.1.5')
 }
 
 {
