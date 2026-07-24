@@ -93,7 +93,7 @@
   },
   "author": "Ken",
   "devDependencies": {
-    "@rstest/core": "0.11.1",
+    "@rstest/core": "0.11.3",
     "@types/compression": "^1.7.2",
     "@types/connect": "^3.4.38",
     "@types/cors": "^2.8.12",
