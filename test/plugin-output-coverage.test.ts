@@ -2,12 +2,13 @@ import {createRequire} from 'node:module'
 import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {pathToFileURL} from 'node:url'
-import postcssProcessor from 'postcss'
 import {transform} from 'lightningcss'
 import {describe, expect, test} from '@rstest/core'
 import {repoRoot} from './helpers/repo-root'
 
 const require = createRequire(import.meta.url)
+const pluginPostcssRequire = createRequire(join(repoRoot, 'packages/plugin-postcss/package.json'))
+const postcssProcessor = pluginPostcssRequire('postcss')
 
 const importDist = async <T = any>(relativePath: string): Promise<T> => {
   return import(pathToFileURL(join(repoRoot, relativePath)).href) as Promise<T>

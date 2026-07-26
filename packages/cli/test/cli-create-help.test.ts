@@ -78,29 +78,8 @@ async function listenOnAvailablePort(basePort: number): Promise<{port: number; s
   throw new Error(`Unable to reserve an available test port from ${basePort}`)
 }
 
-async function closeServer(server: net.Server): Promise<void> {
-  await new Promise<void>(resolve => {
-    server.close(() => resolve())
-  })
-}
-
-function killDevProcess(stdout: string): void {
-  const result = JSON.parse(stdout)
-  const devCommand = result.report.commands.find((command: {name: string}) => command.name === 'dev')
-  const pidMatch = /pid=(\d+)/.exec(devCommand?.stdout ?? '')
-
-  if (!pidMatch) {
-    return
-  }
-
-  const pid = Number(pidMatch[1])
-  try {
-    process.kill(-pid, 'SIGTERM')
-  } catch {
-    try {
-      process.kill(pid, 'SIGTERM')
-    } catch {}
-  }
+function closeServer(server: net.Server): void {
+  server.close()
 }
 
 interface FakePnpmOptions {
@@ -155,7 +134,7 @@ if (command === 'dev') {
     })
     .listen(remotePort, '127.0.0.1')
   process.stdout.write('fake dev ready host=' + hostPort + ' remote=' + remotePort + '\\n')
-  setInterval(() => {}, 1000)
+  setTimeout(() => process.exit(0), 2000)
 } else {
   process.stderr.write('unsupported fake pnpm command: ' + process.argv.slice(2).join(' ') + '\\n')
   process.exit(1)
@@ -381,8 +360,6 @@ describe('emp create CLI', () => {
       const secondOccupied = await listenOnAvailablePort(firstOccupied.port + 1)
       const occupiedPorts = [firstOccupied.port, secondOccupied.port]
       const occupiedServers = [firstOccupied.server, secondOccupied.server]
-      let stdout = ''
-
       try {
         const result = await runCli(
           ['create', 'React 主应用 + Vue 子应用', '--dir', targetDir, '--json'],
@@ -394,8 +371,7 @@ describe('emp create CLI', () => {
             timeout: 10_000,
           },
         )
-        stdout = result.stdout
-        const output = JSON.parse(stdout)
+        const output = JSON.parse(result.stdout)
         const reportJson = JSON.parse(
           await fs.readFile(path.join(targetDir, 'emp-report.json'), 'utf8'),
         )
@@ -425,9 +401,6 @@ describe('emp create CLI', () => {
         ])
         expect(reportJson.apps).toEqual(output.report.apps)
       } finally {
-        if (stdout) {
-          killDevProcess(stdout)
-        }
         await Promise.all(occupiedServers.map(closeServer))
       }
     })
