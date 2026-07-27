@@ -362,6 +362,6 @@ describe('legacy apps rules coverage', () => {
     expect(workflowGuard).toContain('packages/emp-share/test/browser')
     expect(workflowGuard).toContain('test:apps:browser')
     expect(rootPackage.devDependencies?.['@rstest/browser']).toBe('0.11.4')
-    expect(rootPackage.devDependencies?.playwright).toBe('1.61.1')
+    expect(rootPackage.devDependencies?.playwright).toBe('1.62.0')
   })
 })

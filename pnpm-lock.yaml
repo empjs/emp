@@ -19,7 +19,7 @@ importers:
         version: 0.23.2(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0)(typescript@7.0.2)
       '@rstest/browser':
         specifier: 0.11.4
-        version: 0.11.4(@rstest/core@0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0))(playwright@1.61.1)
+        version: 0.11.4(@rstest/core@0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0))(playwright@1.62.0)
       '@rstest/core':
         specifier: 0.11.4
         version: 0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0)
@@ -30,8 +30,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       playwright:
-        specifier: 1.61.1
-        version: 1.61.1
+        specifier: 1.62.0
+        version: 1.62.0
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -5989,14 +5989,14 @@ packages:
     resolution: {integrity: sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==}
     engines: {node: '>=14.16'}
 
-  playwright-core@1.61.1:
-    resolution: {integrity: sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==}
-    engines: {node: '>=18'}
+  playwright-core@1.62.0:
+    resolution: {integrity: sha512-nsNRyq0r2zsG8AcRHWknc9QRA5XCueC7gWMrs+Gx2tlZn9hcl8zudfh00lhJPY1DE7NmZ6bDsT9g2yey8mXljA==}
+    engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.61.1:
-    resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
-    engines: {node: '>=18'}
+  playwright@1.62.0:
+    resolution: {integrity: sha512-Z14dG305dgaLu6foB1TXQagFiW8JfSUIUaUuPaKQ6NtBPKF1P/qXcqfh6c6K/icPqdy37JmjbiBXf6JNg6Sylw==}
+    engines: {node: '>=20'}
     hasBin: true
 
   possible-typed-array-names@1.1.0:
@@ -9202,7 +9202,7 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@rstest/browser@0.11.4(@rstest/core@0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0))(playwright@1.61.1)':
+  '@rstest/browser@0.11.4(@rstest/core@0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0))(playwright@1.62.0)':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@rstest/core': 0.11.4(@module-federation/runtime-tools@2.8.0)(core-js@3.49.0)
@@ -9212,7 +9212,7 @@ snapshots:
       sirv: 3.0.2
       ws: 8.21.1
     optionalDependencies:
-      playwright: 1.61.1
+      playwright: 1.62.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -12701,11 +12701,11 @@ snapshots:
     dependencies:
       find-up: 6.3.0
 
-  playwright-core@1.61.1: {}
+  playwright-core@1.62.0: {}
 
-  playwright@1.61.1:
+  playwright@1.62.0:
     dependencies:
-      playwright-core: 1.61.1
+      playwright-core: 1.62.0
     optionalDependencies:
       fsevents: 2.3.2
 
