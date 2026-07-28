@@ -43,9 +43,9 @@
     "@empjs/cli": "workspace:*"
   },
   "dependencies": {
-    "postcss": "^8.4.38",
-    "postcss-loader": "^8.2.1",
     "autoprefixer": "^10.4.19",
+    "postcss": "^8.5.23",
+    "postcss-loader": "^8.2.1",
     "postcss-pxtorem": "^6.1.0"
   }
 }
