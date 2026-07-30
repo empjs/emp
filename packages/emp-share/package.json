@@ -128,10 +128,10 @@
   },
   "author": "Ken",
   "dependencies": {
-    "@module-federation/rspack": "^2.8.0",
-    "@module-federation/runtime": "^2.8.0",
-    "@module-federation/runtime-tools": "^2.8.0",
-    "@module-federation/sdk": "^2.8.0",
+    "@module-federation/rspack": "^2.8.1",
+    "@module-federation/runtime": "^2.8.1",
+    "@module-federation/runtime-tools": "^2.8.1",
+    "@module-federation/sdk": "^2.8.1",
     "core-js": "^3.46.0"
   },
   "devDependencies": {
