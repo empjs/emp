@@ -122,6 +122,7 @@ describe('toolchain version contract', () => {
       'test:apps:browser',
       'test:browser:all',
       'test:browser:watch',
+      'deps:core:check',
       'workflow:check',
       'ci:verify',
       'apps:list',

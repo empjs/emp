@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "releaseCooldownHours": 48,
+  "prereleaseTags": ["beta", "rc", "next"],
+  "dependencies": [
+    {
+      "name": "@rspack/core",
+      "tier": "critical",
+      "areas": ["bundler", "runtime"],
+      "includePaths": ["packages/cli/package.json"]
+    },
+    {
+      "name": "@rspack/dev-server",
+      "tier": "critical",
+      "areas": ["dev-server"],
+      "includePaths": ["packages/cli/package.json"]
+    },
+    {
+      "name": "@rslib/core",
+      "tier": "critical",
+      "areas": ["library-build", "declarations"],
+      "includePaths": ["package.json", "packages/rslib-presets/package.json"],
+      "prereleaseTags": ["beta", "rc", "next"],
+      "configSignals": [
+        {
+          "pattern": "\\bautoExternal\\b",
+          "pathPattern": "(?:^|/)rslib\\.config\\.[cm]?[jt]s$",
+          "reason": "Rslib 1.0 将 lib.autoExternal 迁移到 output.autoExternal"
+        },
+        {
+          "pattern": "\\bdts\\s*:",
+          "pathPattern": "(?:^|/)rslib\\.config\\.[cm]?[jt]s$",
+          "reason": "Rslib 1.0 Beta 改变声明文件扩展名重定向默认行为"
+        }
+      ]
+    },
+    {
+      "name": "@rsbuild/core",
+      "tier": "high",
+      "areas": ["transitive-build-core"],
+      "includeTransitive": true
+    },
+    {
+      "name": "@rstest/core",
+      "tier": "high",
+      "areas": ["test-runner"],
+      "includePaths": ["package.json", "packages/cli/package.json"]
+    },
+    {
+      "name": "@rstest/browser",
+      "tier": "high",
+      "areas": ["browser-test"],
+      "includePaths": ["package.json"]
+    },
+    {
+      "name": "@module-federation/rspack",
+      "tier": "critical",
+      "areas": ["module-federation"],
+      "includePaths": ["packages/emp-share/package.json"]
+    },
+    {
+      "name": "@module-federation/runtime",
+      "tier": "critical",
+      "areas": ["module-federation-runtime"],
+      "includePaths": ["packages/emp-share/package.json"]
+    },
+    {
+      "name": "@module-federation/runtime-tools",
+      "tier": "critical",
+      "areas": ["module-federation-runtime"],
+      "includePaths": ["packages/emp-share/package.json"]
+    },
+    {
+      "name": "ts-checker-rspack-plugin",
+      "tier": "high",
+      "areas": ["type-check", "build"],
+      "includePaths": ["packages/cli/package.json"]
+    },
+    {
+      "name": "@rsdoctor/rspack-plugin",
+      "tier": "medium",
+      "areas": ["build-diagnostics"],
+      "includePaths": ["packages/cli/package.json"]
+    },
+    {
+      "name": "@swc/core",
+      "tier": "medium",
+      "areas": ["transform"],
+      "includePaths": ["packages/emp-share/package.json"]
+    },
+    {
+      "name": "typescript",
+      "tier": "critical",
+      "areas": ["types", "declarations"],
+      "includePaths": ["package.json"]
+    },
+    {
+      "name": "pnpm",
+      "tier": "critical",
+      "areas": ["package-manager"],
+      "source": "packageManager",
+      "stableTag": "latest-10",
+      "prereleaseTags": []
+    }
+  ]
+}
