@@ -223,14 +223,14 @@ describe('toolchain version contract', () => {
     expect(lockfile).not.toContain('@rspack/core@2.0.8')
   })
 
-  test('cli depends on the current Rspack 2.1 latest and TS7-aware tooling', () => {
+  test('cli depends on the current Rspack core and dev-server stack with TS7-aware tooling', () => {
     const cliPkg = readJson('packages/cli/package.json')
     const reactPkg = readJson('packages/plugin-react/package.json')
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
     const lockfile = readText('pnpm-lock.yaml')
 
     expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.5')
-    expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.1.0')
+    expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.2.0')
     expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.2')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
     expect(cliPkg.dependencies['@rsdoctor/rspack-plugin']).toBe('1.5.18')
@@ -240,6 +240,7 @@ describe('toolchain version contract', () => {
     expect(cliPkg.dependencies['ts-checker-rspack-plugin']).toBe('^1.5.2')
     expect(cliPkg.devDependencies['@vue/tsconfig']).toBe('^0.9.1')
     expect(lockfile).toContain('@rsdoctor/rspack-plugin@1.5.18')
+    expect(lockfile).toContain('@rspack/dev-server@2.2.0')
     expect(lockfile).toContain('ts-checker-rspack-plugin@1.5.2')
     expect(lockfile).not.toContain('@rsdoctor/rspack-plugin@1.5.17')
     expect(lockfile).not.toContain('ts-checker-rspack-plugin@1.5.1')
