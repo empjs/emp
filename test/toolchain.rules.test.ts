@@ -258,12 +258,13 @@ describe('toolchain version contract', () => {
     expect(sharePkg.dependencies['@module-federation/runtime']).toBe('^2.8.1')
     expect(sharePkg.dependencies['@module-federation/runtime-tools']).toBe('^2.8.1')
     expect(sharePkg.dependencies['@module-federation/sdk']).toBe('^2.8.1')
-    expect(sharePkg.devDependencies['@swc/core']).toBe('^1.15.43')
+    expect(sharePkg.devDependencies['@swc/core']).toBe('^1.15.47')
     expect(lockfile).toContain('@module-federation/rspack@2.8.1')
     expect(lockfile).toContain('@module-federation/dts-plugin@2.8.1')
-    expect(lockfile).toContain('@swc/core@1.15.43')
-    expect(shareLockImporter).toContain('specifier: ^1.15.43')
-    expect(shareLockImporter).toContain('version: 1.15.43(@swc/helpers@0.5.23)')
+    expect(lockfile).toContain('@swc/core@1.15.47')
+    expect(lockfile).not.toContain('@swc/core@1.15.43')
+    expect(shareLockImporter).toContain('specifier: ^1.15.47')
+    expect(shareLockImporter).toContain('version: 1.15.47(@swc/helpers@0.5.23)')
   })
 
   test('React 18 CDN keeps the patched React Router release', () => {
