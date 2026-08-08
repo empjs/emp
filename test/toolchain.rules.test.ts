@@ -214,7 +214,7 @@ describe('toolchain version contract', () => {
     expect(lockfile).toContain('@rstest/browser@0.11.4')
     expect(lockfile).toContain('@rsbuild/core@2.1.8')
     expect(lockfile).toContain('@rsbuild/core@2.1.5')
-    expect(lockfile).toContain('@rspack/core@2.1.5')
+    expect(lockfile).toContain('@rspack/core@2.1.8')
     expect(lockfile).not.toContain('@rstest/core@0.11.0')
     expect(lockfile).not.toContain('@rstest/browser@0.11.0')
     expect(lockfile).not.toContain('@rstest/core@0.11.1')
@@ -229,7 +229,7 @@ describe('toolchain version contract', () => {
     const cliRstestConfig = readText('packages/cli/rstest.config.ts')
     const lockfile = readText('pnpm-lock.yaml')
 
-    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.5')
+    expect(cliPkg.dependencies['@rspack/core']).toBe('2.1.8')
     expect(cliPkg.dependencies['@rspack/dev-server']).toBe('^2.2.0')
     expect(reactPkg.dependencies['@rspack/plugin-react-refresh']).toBe('^2.0.2')
     expect(cliPkg.dependencies['@swc/helpers']).toBe('^0.5.23')
