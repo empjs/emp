@@ -134,7 +134,7 @@
     "sass-embedded": "1.93.2",
     "sass-loader": "17.0.0",
     "serve-static": "2.2.0",
-    "ts-checker-rspack-plugin": "^1.5.2",
+    "ts-checker-rspack-plugin": "^1.6.0",
     "typescript-plugin-css-modules": "5.2.0",
     "webpack-bundle-analyzer": "4.10.2"
   }

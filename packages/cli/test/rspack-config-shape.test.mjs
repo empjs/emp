@@ -26,12 +26,14 @@ const loadStoreForFixture = async (fixtureRoot) => {
     await store.setup('dev', {})
     const plugins = store.rsConfig.plugins ?? []
     const pluginNames = plugins.map(plugin => plugin?.constructor?.name ?? plugin?.name ?? '')
+    const tsCheckerPlugin = plugins.find(plugin => plugin?.constructor?.name === 'TsCheckerRspackPlugin')
     const circularCheckPlugin = plugins.find(plugin => plugin?.constructor?.name === 'CircularCheckRspackPlugin')
     console.log(
       '__EMP_JSON__' +
         JSON.stringify({
           ...store.rsConfig,
           __pluginNames: pluginNames,
+          __tsCheckerOptions: tsCheckerPlugin?.options ?? null,
           __circularCheckOptions: circularCheckPlugin?._options ?? null,
         }),
     )
@@ -56,8 +58,37 @@ const loadStoreForFixture = async (fixtureRoot) => {
   assert.equal(config.experiments?.css, undefined)
   assert.ok(Object.hasOwn(config, 'incremental'))
   assert.ok(Object.hasOwn(config, 'lazyCompilation'))
+  assert.ok(!config.__pluginNames.includes('TsCheckerRspackPlugin'))
   assert.ok(!config.__pluginNames.includes('CircularCheckRspackPlugin'))
   assert.equal(config.__circularCheckOptions, null)
+}
+
+{
+  const config = await loadStoreForFixture(
+    await createFixture('rspack-ts-checker', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      tsCheckerRspackPlugin: {
+        async: false,
+        devServer: false,
+      },
+    }),
+  )
+
+  assert.ok(config.__pluginNames.includes('TsCheckerRspackPlugin'))
+  assert.deepEqual(config.__tsCheckerOptions, {async: false, devServer: false})
+}
+
+{
+  const config = await loadStoreForFixture(
+    await createFixture('rspack-ts-checker-disabled', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      tsCheckerRspackPlugin: false,
+    }),
+  )
+
+  assert.ok(!config.__pluginNames.includes('TsCheckerRspackPlugin'))
 }
 
 {
