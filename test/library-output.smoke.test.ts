@@ -93,7 +93,7 @@ async function stopProcess(child: ReturnType<typeof spawn>) {
 describe('library output package smoke', () => {
   test('Rslib/CDN packages build and serve representative runtime assets', async () => {
     for (const target of buildTargets) {
-      await execFile('corepack', ['pnpm@10.33.0', '--filter', target, 'build'], {
+      await execFile('corepack', ['pnpm@10.34.5', '--filter', target, 'build'], {
         cwd: repoRoot,
         maxBuffer: 1024 * 1024 * 20,
       })

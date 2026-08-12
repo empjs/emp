@@ -67,7 +67,7 @@ describe('createProjectPlan', () => {
       build: expect.any(String),
       verify: expect.any(String),
     })
-    expect(rootPackageJson.packageManager).toBe('pnpm@10.33.0')
+    expect(rootPackageJson.packageManager).toBe('pnpm@10.34.5')
     expect(rootPackageJson.engines).toEqual({
       node: '^20.19.0 || >=22.12.0',
       pnpm: '10.x',

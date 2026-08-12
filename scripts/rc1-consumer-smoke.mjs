@@ -105,20 +105,20 @@ async function main() {
     await mkdir(consumerRoot, {recursive: true})
 
     for (const packageName of packageNames) {
-      await run('corepack', ['pnpm@10.33.0', '--filter', packageName, 'build'])
+      await run('corepack', ['pnpm@10.34.5', '--filter', packageName, 'build'])
     }
 
     const tarballByPackage = new Map()
     for (const packageName of packageNames) {
       const tarballPath = join(packDir, tarballName(packageName))
-      await run('corepack', ['pnpm@10.33.0', '--filter', packageName, 'pack', '--out', tarballPath])
+      await run('corepack', ['pnpm@10.34.5', '--filter', packageName, 'pack', '--out', tarballPath])
       const manifest = await readPackedManifest(tarballPath)
       assertNoWorkspaceRanges(manifest, tarballPath)
       tarballByPackage.set(packageName, tarballPath)
     }
 
     await writeConsumerSmoke(consumerRoot, tarballByPackage)
-    await run('corepack', ['pnpm@10.33.0', 'install'], {cwd: consumerRoot})
+    await run('corepack', ['pnpm@10.34.5', 'install'], {cwd: consumerRoot})
     await run(process.execPath, ['smoke.mjs'], {cwd: consumerRoot})
 
     const cliBin = join(consumerRoot, 'node_modules/@empjs/cli/bin/emp.js')

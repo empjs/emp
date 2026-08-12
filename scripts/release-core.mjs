@@ -210,8 +210,8 @@ export const validateReleasePlan = (plan) => {
   const root = plan.rootPackage
 
   if (!root.private) errors.push('root package must stay private')
-  if (root.manifest.packageManager !== 'pnpm@10.33.0') {
-    errors.push(`root packageManager must be pnpm@10.33.0, got ${root.manifest.packageManager ?? 'missing'}`)
+  if (root.manifest.packageManager !== 'pnpm@10.34.5') {
+    errors.push(`root packageManager must be pnpm@10.34.5, got ${root.manifest.packageManager ?? 'missing'}`)
   }
   if (root.manifest.engines?.node !== REQUIRED_NODE_ENGINE) {
     errors.push(`root engines.node must be ${REQUIRED_NODE_ENGINE}, got ${root.manifest.engines?.node ?? 'missing'}`)

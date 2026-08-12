@@ -17,7 +17,7 @@ npm view @empjs/plugin-react dist-tags
 ## Runtime Baseline
 
 - Node.js: `^20.19.0 || >=22.12.0`
-- pnpm: `10.x`; this repository is pinned to `pnpm@10.33.0`.
+- pnpm: `10.x`; this repository is pinned to `pnpm@10.34.5`.
 - Rspack: v4 is built on the Rspack 2 toolchain.
 - Module Federation: `@empjs/share` uses official Module Federation 2.x packages.
 

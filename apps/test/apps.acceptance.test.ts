@@ -36,7 +36,7 @@ type FederationManifest = {
 const supplementalAppAcceptance = ['adapter-host', 'demo', 'dual-role', 'esm-federation', 'vue-2-base', 'vue-2-project']
 
 async function buildApp(appDir: string) {
-  const result = await execFile('corepack', ['pnpm@10.33.0', '--filter', `./apps/${appDir}`, 'build'], {
+  const result = await execFile('corepack', ['pnpm@10.34.5', '--filter', `./apps/${appDir}`, 'build'], {
     cwd: repoRoot,
     maxBuffer: 1024 * 1024 * 20,
   })
