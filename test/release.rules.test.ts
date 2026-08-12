@@ -129,6 +129,18 @@ describe('release rules', () => {
     await withFixture(async root => {
       const rootPath = join(root, 'package.json')
       const rootPkg = JSON.parse(await readFile(rootPath, 'utf8'))
+      rootPkg.packageManager = 'pnpm@10.0.0'
+      await writeFile(rootPath, `${JSON.stringify(rootPkg, null, 2)}\n`)
+
+      const plan = await createReleasePlan(root)
+      expect(validateReleasePlan(plan)).toEqual(['root packageManager must be pnpm@10.34.5, got pnpm@10.0.0'])
+    })
+  })
+
+  test('validateReleasePlan reports Node engine baseline drift', async () => {
+    await withFixture(async root => {
+      const rootPath = join(root, 'package.json')
+      const rootPkg = JSON.parse(await readFile(rootPath, 'utf8'))
       rootPkg.engines.node = '>=18.0.0'
       await writeFile(rootPath, `${JSON.stringify(rootPkg, null, 2)}\n`)
 
