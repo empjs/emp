@@ -32,7 +32,7 @@ const createFixture = async () => {
     version: '4.0.0',
     private: true,
     engines: {node: '^20.19.0 || >=22.12.0', pnpm: '10.x'},
-    packageManager: 'pnpm@10.33.0',
+    packageManager: 'pnpm@10.34.5',
   })
   await writeFile(join(root, 'pnpm-workspace.yaml'), 'packages:\n  - packages/**\n  - apps/**\n  - website\n')
   await writeJson('packages/cli/package.json', {
@@ -384,7 +384,7 @@ describe('release rules', () => {
     expect(workflow).toMatch(/Production publish requires confirm_publish=/)
     expect(workflow).not.toMatch(/run:\s*\|[\s\S]*?\$\{\{ github\.event\.inputs\./)
     expect(workflow).toMatch(/npm install -g corepack@latest/)
-    expect(workflow).toMatch(/corepack prepare pnpm@10\.33\.0 --activate/)
+    expect(workflow).toMatch(/corepack prepare pnpm@10\.34\.5 --activate/)
     expect(workflow).toMatch(/pnpm test:rules/)
     expect(workflow).not.toMatch(/node --test scripts\/release\.test\.mjs/)
     expect(workflow).toMatch(/args=\(--yes --skip-build\)/)
@@ -411,7 +411,7 @@ describe('release rules', () => {
     expect(workflow).toMatch(/apps:\n[\s\S]*?node-version:\s*['"]24['"]/)
     const setupPnpmBlocks =
       workflow.match(
-        /- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.33\.0 --activate\n)/g,
+        /- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.34\.5 --activate\n)/g,
       ) ?? []
     expect(setupPnpmBlocks).toHaveLength(3)
     expect(workflow).not.toMatch(/NODE_AUTH_TOKEN/)

@@ -11,7 +11,7 @@ EMP 是一个基于 Rspack 的高性能模块联邦框架，专注于微前端�
 
 ### 环境要求
 - Node.js `^20.19.0 || >=22.12.0`
-- pnpm `10.x`（推荐使用仓库根 `packageManager` 指定的 `pnpm@10.33.0`）
+- pnpm `10.x`（推荐使用仓库根 `packageManager` 指定的 `pnpm@10.34.5`）
 
 ### 安装
 ```bash

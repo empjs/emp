@@ -79,7 +79,7 @@ describe('EMP v4 Agent-First repository skill', () => {
 
     for (const marker of [
       'Node.js `^20.19.0 || >=22.12.0`',
-      'pnpm@10.33.0',
+      'pnpm@10.34.5',
       'formal release packages',
       'emp create',
       '--dry-run --json',

@@ -27,7 +27,7 @@ Use this reference for EMP v4 project creation, installation, and machine-readab
 ## Environment Baseline
 
 - Node.js `^20.19.0 || >=22.12.0`
-- pnpm `pnpm@10.33.0`
+- pnpm `pnpm@10.34.5`
 - EMP v4 docs use formal release packages and do not append prerelease dist-tags to install commands.
 - Run package-manager commands through Corepack when operating in this repository.
 
