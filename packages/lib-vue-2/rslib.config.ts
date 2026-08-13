@@ -55,7 +55,6 @@ function getRuntimeUmdConfig(env: 'development' | 'production'): LibConfig {
     format: 'umd',
     umdName: 'EMP_ADAPTER_VUE',
     bundle: true,
-    autoExternal: false,
     syntax,
     source: {
       tsconfigPath: './tsconfig.json',
@@ -68,6 +67,7 @@ function getRuntimeUmdConfig(env: 'development' | 'production'): LibConfig {
     },
     output: {
       target: 'web',
+      autoExternal: false,
       sourceMap: true,
       filename: {
         js: isProd ? '[name].umd.js' : '[name].development.umd.js',

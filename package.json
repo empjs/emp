@@ -83,7 +83,7 @@
   "devDependencies": {
     "@empjs/biome-config": "workspace:^",
     "@empjs/rslib-presets": "workspace:*",
-    "@rslib/core": "^0.23.2",
+    "@rslib/core": "1.0.0-beta.2",
     "@rstest/browser": "0.11.4",
     "@rstest/core": "0.11.4",
     "@types/node": "^24.9.2",

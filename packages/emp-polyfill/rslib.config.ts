@@ -5,10 +5,10 @@ export default defineConfig({
     {
       format: 'iife',
       bundle: true,
-      autoExternal: false,
       syntax: 'es2017',
       output: {
         target: 'web',
+        autoExternal: false,
         cleanDistPath: true,
         filename: {
           js: '[name].js',
