@@ -31,11 +31,15 @@ const expectedArtifacts = [
   'packages/lib-react-17/dist/runtime.umd.js',
   'packages/lib-react-17/dist/runtime.js',
   'packages/lib-react-17/dist/runtime.d.ts',
+  'packages/lib-react-17/dist/runtime.d.cts',
   'packages/lib-vue-2/dist/runtime.umd.js',
   'packages/lib-vue-2/dist/runtime.js',
   'packages/lib-vue-2/dist/runtime.d.ts',
+  'packages/lib-vue-2/dist/runtime.d.cts',
   'packages/emp-share/output/sdk.js',
+  'packages/emp-share/output/sdk.d.ts',
   'packages/emp-share/dist/rspack.js',
+  'packages/emp-share/dist/rspack.d.ts',
   'packages/emp-share/dist/runtime.js',
 ]
 
@@ -108,6 +112,14 @@ describe('library output package smoke', () => {
       'EMP_ADAPTER_REACT',
     )
     expect(readFileSync(join(repoRoot, 'packages/lib-vue-2/dist/runtime.umd.js'), 'utf8')).toContain('EMP_ADAPTER_VUE')
+    expect(readFileSync(join(repoRoot, 'packages/lib-react-17/dist/runtime.d.cts'), 'utf8')).toContain("from 'react'")
+    expect(readFileSync(join(repoRoot, 'packages/lib-vue-2/dist/runtime.d.cts'), 'utf8')).toContain("from 'vue'")
+    expect(readFileSync(join(repoRoot, 'packages/emp-share/output/sdk.d.ts'), 'utf8')).toContain(
+      "./library/full",
+    )
+    expect(readFileSync(join(repoRoot, 'packages/emp-share/dist/rspack.d.ts'), 'utf8')).toContain(
+      "./plugins/rspack/index",
+    )
 
     for (const target of httpSmokeTargets) {
       const service = staticServices.find(item => item.id === target.serviceId)

@@ -213,7 +213,7 @@ describe('toolchain version contract', () => {
     expect(lockfile).toContain('@rstest/core@0.11.4')
     expect(lockfile).toContain('@rstest/browser@0.11.4')
     expect(lockfile).toContain('@rsbuild/core@2.1.8')
-    expect(lockfile).toContain('@rsbuild/core@2.1.5')
+    expect(lockfile).toContain('@rsbuild/core@2.1.11')
     expect(lockfile).toContain('@rspack/core@2.1.8')
     expect(lockfile).not.toContain('@rstest/core@0.11.0')
     expect(lockfile).not.toContain('@rstest/browser@0.11.0')
@@ -278,22 +278,38 @@ describe('toolchain version contract', () => {
     expect(cdnReact18LockImporter).toContain('version: 6.30.4(')
   })
 
-  test('declaration tooling uses native TS7 support from Module Federation 2.8', () => {
+  test('Rslib beta declaration tooling keeps native TS7 support and migrated externals', () => {
     const pkg = readJson('package.json')
     const rslibPresetsPkg = readJson('packages/rslib-presets/package.json')
     const workspace = readText('pnpm-workspace.yaml')
     const lockfile = readText('pnpm-lock.yaml')
-    expect(pkg.devDependencies['@rslib/core']).toBe('^0.23.2')
-    expect(rslibPresetsPkg.dependencies['@rslib/core']).toBe('^0.23.2')
+    expect(pkg.devDependencies['@rslib/core']).toBe('1.0.0-beta.2')
+    expect(rslibPresetsPkg.dependencies['@rslib/core']).toBe('1.0.0-beta.2')
     expect(pkg.devDependencies['typescript-mf']).toBeUndefined()
     expect(pkg.devDependencies['typescript-rslib']).toBeUndefined()
     expect(workspace).not.toContain('patchedDependencies:')
     expect(workspace).not.toContain('@module-federation/dts-plugin@2.7.0')
     expect(workspace).not.toContain('rsbuild-plugin-dts: patches/rsbuild-plugin-dts.patch')
-    expect(lockfile).toContain('rsbuild-plugin-dts@0.23.2')
+    expect(lockfile).toContain('rsbuild-plugin-dts@1.0.0-beta.2')
+    expect(lockfile).not.toContain('rsbuild-plugin-dts@0.23.2')
+    expect(lockfile).toContain('@rspack/core@2.1.9')
     expect(lockfile).toContain('typescript: ^4.9.0 || ^5.0.0 || ^6.0.0 || ^7.0.0')
     expect(lockfile).toContain('typescript@7.0.2')
     expect(lockfile).not.toContain('typescript@5.9.3')
     expect(lockfile).not.toContain('typescript-mf')
+
+    const migratedConfigs = [
+      'packages/emp-polyfill/rslib.config.ts',
+      'packages/emp-share/rslib.config.ts',
+      'packages/lib-react-17/rslib.config.ts',
+      'packages/lib-vue-2/rslib.config.ts',
+    ]
+    for (const file of migratedConfigs) {
+      const config = readText(file)
+      expect(config, `${file} must not use deprecated lib.autoExternal`).not.toMatch(
+        /bundle: true,\n\s+autoExternal: false,/,
+      )
+      expect(config, `${file} must set output.autoExternal`).toMatch(/output:\s*\{[\s\S]*?autoExternal: false/)
+    }
   })
 })

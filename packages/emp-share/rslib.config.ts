@@ -80,7 +80,6 @@ function getBrowserSdkConfig(isDev: boolean): LibConfig {
     format: 'umd',
     umdName: shareGlobalName,
     bundle: true,
-    autoExternal: false,
     syntax,
     dts: {
       distPath: './output',
@@ -100,6 +99,7 @@ function getBrowserSdkConfig(isDev: boolean): LibConfig {
     },
     output: {
       target: 'web',
+      autoExternal: false,
       distPath: './output',
       sourceMap: false,
       cleanDistPath: true,
