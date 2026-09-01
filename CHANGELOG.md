@@ -1,5 +1,52 @@
 # Changelog
 
+## 4.0.1 - 2026-09-01
+
+### Highlights
+
+- Upgrade the stable EMP v4 build stack to Rspack `2.2.1`, Rsbuild `2.2.1`, Rslib `1.0.0-rc.2`, and Module Federation `2.9.0`.
+- Add compatibility-oriented build presets and acceptance coverage for modern modules, Android 6, and Chrome 60 targets.
+- Strengthen dependency maintenance with deterministic core-upgrade detection, lockfile security remediation, and pnpm `10.34.5` release contracts.
+- Align all 17 core `@empjs/*` packages to `4.0.1` on npm's `latest` dist-tag while preserving CDN and legacy runtime packages as independent version lines.
+
+### Release Cover
+
+![EMP v4.0.1 release cover](docs/assets/emp-v4-4.0.1-release-hero.png)
+
+### What's Changed
+
+#### Build
+
+- Upgrade Rspack core/dev-server, Rsdoctor, Rstest, SWC, HTML integration, type checking, and the complete Module Federation 2 runtime/DTS closure.
+- Remove the deprecated Rspack `cache.maxVersions` passthrough and keep persistent cache lifetime configuration on supported options.
+- Migrate the Rslib v1 prerelease line to `1.0.0-rc.2` with Rsbuild `2.2.1` and native TypeScript 7 declaration generation.
+
+#### Compatibility
+
+- Add explicit compatibility build presets and preserve modern-module optimization coverage.
+- Extend real application acceptance for legacy Android/Chrome targets, auto pages, Module Federation runtime behavior, and package output contracts.
+
+#### Maintenance and Security
+
+- Add a machine-readable core dependency upgrade policy with release age, peer/engine, prerelease, and migration-signal checks.
+- Refresh vulnerable dependency chains without widening the unified release scope to CDN or legacy library packages.
+- Keep CI, release checks, dry-run publishing, and trusted npm publishing aligned across Node.js 20, 22, and 24.
+
+### Verification
+
+- `corepack pnpm workflow:check`
+- `corepack pnpm test:rules`
+- `corepack pnpm release:check`
+- `corepack pnpm ci:verify`
+- `corepack pnpm empbuild`
+- `corepack pnpm test:browser:all`
+- `corepack pnpm release:publish:dry -- --skip-build --force-all --tag latest`
+- `git diff --check`
+
+#### Full Changelog
+
+- Compare: `v4.0.0...v4.0.1`.
+
 ## 4.0.0 - 2026-07-16
 
 ### Highlights
