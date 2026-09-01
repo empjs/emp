@@ -31,8 +31,8 @@ const createFixture = async () => {
     name: 'emp-workspace',
     version: '4.0.0',
     private: true,
-    engines: {node: '^20.19.0 || >=22.12.0', pnpm: '10.x'},
-    packageManager: 'pnpm@10.34.5',
+    engines: {node: '^20.19.0 || >=22.12.0', pnpm: '12.x'},
+    packageManager: 'pnpm@12.2.1',
   })
   await writeFile(join(root, 'pnpm-workspace.yaml'), 'packages:\n  - packages/**\n  - apps/**\n  - website\n')
   await writeJson('packages/cli/package.json', {
@@ -129,11 +129,11 @@ describe('release rules', () => {
     await withFixture(async root => {
       const rootPath = join(root, 'package.json')
       const rootPkg = JSON.parse(await readFile(rootPath, 'utf8'))
-      rootPkg.packageManager = 'pnpm@10.0.0'
+      rootPkg.packageManager = 'pnpm@12.0.0'
       await writeFile(rootPath, `${JSON.stringify(rootPkg, null, 2)}\n`)
 
       const plan = await createReleasePlan(root)
-      expect(validateReleasePlan(plan)).toEqual(['root packageManager must be pnpm@10.34.5, got pnpm@10.0.0'])
+      expect(validateReleasePlan(plan)).toEqual(['root packageManager must be pnpm@12.2.1, got pnpm@12.0.0'])
     })
   })
 
@@ -396,7 +396,7 @@ describe('release rules', () => {
     expect(workflow).toMatch(/Production publish requires confirm_publish=/)
     expect(workflow).not.toMatch(/run:\s*\|[\s\S]*?\$\{\{ github\.event\.inputs\./)
     expect(workflow).toMatch(/npm install -g corepack@latest/)
-    expect(workflow).toMatch(/corepack prepare pnpm@10\.34\.5 --activate/)
+    expect(workflow).toMatch(/corepack prepare pnpm@12\.2\.1 --activate/)
     expect(workflow).toMatch(/pnpm test:rules/)
     expect(workflow).not.toMatch(/node --test scripts\/release\.test\.mjs/)
     expect(workflow).toMatch(/args=\(--yes --skip-build\)/)
@@ -423,10 +423,27 @@ describe('release rules', () => {
     expect(workflow).toMatch(/apps:\n[\s\S]*?node-version:\s*['"]24['"]/)
     const setupPnpmBlocks =
       workflow.match(
-        /- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@10\.34\.5 --activate\n)/g,
+        /- name: Setup pnpm\n\s+run: \|\n(?:\s+npm install -g corepack@latest\n\s+corepack enable\n\s+corepack prepare pnpm@12\.2\.1 --activate\n)/g,
       ) ?? []
     expect(setupPnpmBlocks).toHaveLength(3)
     expect(workflow).not.toMatch(/NODE_AUTH_TOKEN/)
     expect(workflow).not.toMatch(/release:publish/)
+  })
+
+  test('pnpm 12 keeps a single-document lockfile and explicit dependency build policy', async () => {
+    const rootPkg = JSON.parse(await readFile(join(repoRoot, 'package.json'), 'utf8'))
+    const workspace = await readFile(join(repoRoot, 'pnpm-workspace.yaml'), 'utf8')
+    const lockfile = await readFile(join(repoRoot, 'pnpm-lock.yaml'), 'utf8')
+
+    expect(rootPkg.packageManager).toBe('pnpm@12.2.1')
+    expect(rootPkg.engines.pnpm).toBe('12.x')
+    expect(workspace).toMatch(/^pmOnFail: ignore$/m)
+    expect(workspace).toMatch(/^allowBuilds:$/m)
+    expect(workspace).not.toContain('ignoredBuiltDependencies:')
+    expect(workspace).toContain("- '@rstest/browser@0.11.11'")
+    expect(workspace).toContain("- '@rstest/core@0.11.11'")
+    expect(workspace).toMatch(/^minimumReleaseAgeExcludePrune: true$/m)
+    expect(lockfile.match(/^---$/gm) ?? []).toHaveLength(0)
+    expect(lockfile).not.toContain('packageManagerDependencies:')
   })
 })

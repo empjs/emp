@@ -210,14 +210,14 @@ export const validateReleasePlan = (plan) => {
   const root = plan.rootPackage
 
   if (!root.private) errors.push('root package must stay private')
-  if (root.manifest.packageManager !== 'pnpm@10.34.5') {
-    errors.push(`root packageManager must be pnpm@10.34.5, got ${root.manifest.packageManager ?? 'missing'}`)
+  if (root.manifest.packageManager !== 'pnpm@12.2.1') {
+    errors.push(`root packageManager must be pnpm@12.2.1, got ${root.manifest.packageManager ?? 'missing'}`)
   }
   if (root.manifest.engines?.node !== REQUIRED_NODE_ENGINE) {
     errors.push(`root engines.node must be ${REQUIRED_NODE_ENGINE}, got ${root.manifest.engines?.node ?? 'missing'}`)
   }
-  if (root.manifest.engines?.pnpm !== '10.x') {
-    errors.push(`root engines.pnpm must be 10.x, got ${root.manifest.engines?.pnpm ?? 'missing'}`)
+  if (root.manifest.engines?.pnpm !== '12.x') {
+    errors.push(`root engines.pnpm must be 12.x, got ${root.manifest.engines?.pnpm ?? 'missing'}`)
   }
 
   for (const pkg of plan.internalPackages) {
@@ -278,7 +278,7 @@ export const renderChangelogEntry = (plan, options = {}) => {
 
 #### Build
 
-- chore(release): publish with pnpm 10 workspace filters and dist-tag \`${tag}\`.
+- chore(release): publish with pnpm 12 workspace filters and dist-tag \`${tag}\`.
 - chore(release): exclude \`apps/**\`, \`website\`, \`@empjs/cdn-*\`, and \`@empjs/lib-*\` from the unified release set.
 
 #### Full Changelog

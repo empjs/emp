@@ -14,10 +14,10 @@ function rootPackageJson(plan: PlannedProject): string {
     version: '0.0.0',
     private: true,
     type: 'module',
-    packageManager: 'pnpm@10.34.5',
+    packageManager: 'pnpm@12.2.1',
     engines: {
       node: '^20.19.0 || >=22.12.0',
-      pnpm: '10.x',
+      pnpm: '12.x',
     },
     scripts: {
       dev: 'pnpm --parallel --filter "./apps/*" dev',

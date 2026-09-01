@@ -67,10 +67,10 @@ describe('createProjectPlan', () => {
       build: expect.any(String),
       verify: expect.any(String),
     })
-    expect(rootPackageJson.packageManager).toBe('pnpm@10.34.5')
+    expect(rootPackageJson.packageManager).toBe('pnpm@12.2.1')
     expect(rootPackageJson.engines).toEqual({
       node: '^20.19.0 || >=22.12.0',
-      pnpm: '10.x',
+      pnpm: '12.x',
     })
 
     const hostPackageJson = JSON.parse(fileContent('apps/host/package.json'))

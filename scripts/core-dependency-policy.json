@@ -99,7 +99,7 @@
       "tier": "critical",
       "areas": ["package-manager"],
       "source": "packageManager",
-      "stableTag": "latest-10",
+      "stableTag": "latest-12",
       "prereleaseTags": []
     }
   ]
