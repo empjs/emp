@@ -41,7 +41,7 @@ Canonical public links:
 
 ## Boundaries
 
-- Keep usage examples aligned with EMP v4, Rspack 2, Module Federation 2, TypeScript 7 stable, and pnpm 10.
+- Keep usage examples aligned with EMP v4, Rspack 2, Module Federation 2, TypeScript 7 stable, and pnpm 12.
 - Treat `@empjs/cdn-*` and `@empjs/lib-*` as independent package lines unless the user explicitly asks about them.
 - Use Tailwind CSS 4 as the current Tailwind line.
 - Do not present `apps/**` or `website` as publish package scope; they are examples, acceptance surfaces, or docs.

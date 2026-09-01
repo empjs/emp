@@ -95,7 +95,7 @@ function buildNodeCheck(): DoctorCheck {
 }
 
 function buildPackageManagerCheck(): DoctorCheck {
-  const expected = 'pnpm 10.x'
+  const expected = 'pnpm 12.x'
   const actual = process.env.npm_config_user_agent ?? ''
   const pnpmMatch = /pnpm\/(\d+\.\d+\.\d+)/.exec(actual)
 
@@ -110,7 +110,7 @@ function buildPackageManagerCheck(): DoctorCheck {
 
   return {
     name: 'package-manager',
-    status: pnpmMatch?.[1].startsWith('10.') ? 'passed' : 'warning',
+    status: pnpmMatch?.[1].startsWith('12.') ? 'passed' : 'warning',
     expected,
     actual,
     message: pnpmMatch

@@ -4,13 +4,24 @@ packages:
   - '!**/test/**'
   - website
 
-ignoredBuiltDependencies:
-  - '@biomejs/biome'
-  - '@parcel/watcher'
-  - '@swc/core'
-  - '@tailwindcss/oxide'
-  - core-js
-  - core-js-bundle
-  - core-js-pure
-  - esbuild
-  - fsevents
+# Keep pnpm-lock.yaml single-document so GitHub dependency graph and security
+# scanners read the workspace graph instead of pnpm's environment lockfile.
+pmOnFail: ignore
+
+# These already-reviewed, locked Rstest releases predate the pnpm 12 migration.
+# Exact selectors preserve the 24-hour policy for every future version.
+minimumReleaseAgeExclude:
+  - '@rstest/browser@0.11.11'
+  - '@rstest/core@0.11.11'
+minimumReleaseAgeExcludePrune: true
+
+allowBuilds:
+  '@biomejs/biome': false
+  '@parcel/watcher': false
+  '@swc/core': false
+  '@tailwindcss/oxide': false
+  core-js: false
+  core-js-bundle: false
+  core-js-pure: false
+  esbuild: false
+  fsevents: false
