@@ -37,7 +37,7 @@ const loadConfigForFixture = async fixtureRoot => {
 
 {
   const {rspack} = await import(`file://${path.join(repoRoot, 'packages/cli/dist/index.js')}`)
-  assert.equal(rspack.rspackVersion, '2.1.8')
+  assert.equal(rspack.rspackVersion, '2.2.1')
 }
 
 {
@@ -161,7 +161,7 @@ const loadConfigForFixture = async fixtureRoot => {
 
 {
   const config = await loadConfigForFixture(
-    await createFixture('rspack21-options', {
+    await createFixture('rspack22-options', {
       appSrc: 'src',
       appEntry: 'index.ts',
       cache: {
@@ -184,12 +184,12 @@ const loadConfigForFixture = async fixtureRoot => {
   assert.equal(config.experiments.sourceImport, true)
   assert.equal(config.cache.type, 'persistent')
   assert.equal(config.cache.maxAge, 1000 * 60 * 60)
-  assert.equal(config.cache.maxVersions, 2)
+  assert.equal(config.cache.maxVersions, undefined)
 }
 
 {
   const config = await loadConfigForFixture(
-    await createFixture('rspack21-defaults', {
+    await createFixture('rspack22-defaults', {
       appSrc: 'src',
       appEntry: 'index.ts',
     }),
@@ -198,6 +198,6 @@ const loadConfigForFixture = async fixtureRoot => {
   assert.equal(config.module.parser.javascript.createRequire, true)
   assert.equal(config.cache.type, 'persistent')
   assert.equal(config.cache.maxAge, 7 * 24 * 60 * 60)
-  assert.equal(config.cache.maxVersions, 3)
+  assert.equal(config.cache.maxVersions, undefined)
   assert.equal(config.experiments.sourceImport, undefined)
 }

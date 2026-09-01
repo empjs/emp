@@ -93,7 +93,7 @@
   },
   "author": "Ken",
   "devDependencies": {
-    "@rstest/core": "0.11.4",
+    "@rstest/core": "0.11.11",
     "@types/compression": "^1.7.2",
     "@types/connect": "^3.4.38",
     "@types/cors": "^2.8.12",
@@ -111,9 +111,9 @@
   },
   "dependencies": {
     "@empjs/chain": "workspace:*",
-    "@rsdoctor/rspack-plugin": "1.6.1",
-    "@rspack/core": "2.1.8",
-    "@rspack/dev-server": "^2.2.0",
+    "@rsdoctor/rspack-plugin": "1.6.3",
+    "@rspack/core": "2.2.1",
+    "@rspack/dev-server": "^2.2.1",
     "@swc/helpers": "^0.5.23",
     "address": "^2.0.2",
     "chalk": "^5.3.0",
@@ -126,7 +126,7 @@
     "fs-extra": "11.3.6",
     "glob": "11.1.0",
     "gzip-size": "7.0.0",
-    "html-webpack-plugin": "5.6.7",
+    "html-webpack-plugin": "5.6.8",
     "http-proxy-middleware": "^3.0.5",
     "jiti": "2.6.1",
     "less-loader": "^12.2.0",
@@ -134,7 +134,7 @@
     "sass-embedded": "1.93.2",
     "sass-loader": "17.0.0",
     "serve-static": "2.2.0",
-    "ts-checker-rspack-plugin": "^1.6.0",
+    "ts-checker-rspack-plugin": "^1.6.1",
     "typescript-plugin-css-modules": "5.2.0",
     "webpack-bundle-analyzer": "4.10.2"
   }

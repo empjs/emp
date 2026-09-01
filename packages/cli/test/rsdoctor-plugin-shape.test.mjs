@@ -77,7 +77,7 @@ try {
     [path.join(repoRoot, 'packages/cli/bin/emp.js'), 'build', '--env', 'prod', '--clearLog', 'false'],
     {cwd: configuredFixture, env: {...process.env, NODE_ENV: '', ENV: ''}, maxBuffer: 1024 * 1024 * 10},
   )
-  assert.match(`${stdout}\n${stderr}`, /Rsdoctor v1\.6\.1/)
+  assert.match(`${stdout}\n${stderr}`, /Rsdoctor v1\.6\.3/)
   const reportManifest = await stat(path.join(configuredFixture, 'custom-rsdoctor-report/.rsdoctor/manifest.json'))
   assert.ok(reportManifest.isFile() && reportManifest.size > 0, 'expected Rsdoctor report manifest')
 } finally {

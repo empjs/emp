@@ -39,7 +39,6 @@ class RspackCommon {
         ...defaultCacheBase,
         type: 'persistent',
         maxAge: 7 * 24 * 60 * 60,
-        maxVersions: 3,
       }
     } else {
       defaultCache = {
@@ -48,7 +47,11 @@ class RspackCommon {
       }
     }
     if (typeof this.store.empConfig.cache === 'object') {
-      defaultCache = this.store.deepAssign(defaultCache, this.store.empConfig.cache)
+      const cacheOptions = {...this.store.empConfig.cache}
+      if ('maxVersions' in cacheOptions) {
+        delete cacheOptions.maxVersions
+      }
+      defaultCache = this.store.deepAssign(defaultCache, cacheOptions)
     }
     // console.log('defaultCache', defaultCache)
     return defaultCache
