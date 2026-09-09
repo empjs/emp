@@ -16,6 +16,7 @@ doc_build
 .codegraph/
 
 .rslib
+.rstack
 .cursor/debug.log
 .playwright-cli
 .worktrees/
