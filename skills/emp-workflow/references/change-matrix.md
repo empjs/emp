@@ -12,7 +12,7 @@ Read this file only to select validation commands, confirm protected scope, or d
 | Examples/sites | None by default | `apps/**`, `website/**` |
 | Dependencies | Required manifests | `pnpm-lock.yaml` only when install graph changes |
 
-Never commit generated output or caches: `node_modules/`, `dist/`, `output/`, `coverage/`, `.codegraph/`, `.agents/`, `.worktrees/`, `.turbo/`, `.rslib/`, `.rspack-cache/`.
+Never commit generated output or caches: `node_modules/`, `dist/`, `output/`, `coverage/`, `.codegraph/`, `.agents/`, `.worktrees/`, `.turbo/`, `.rslib/`, `.rstack/`, `.rspack-cache/`.
 
 ## Validation Matrix
 

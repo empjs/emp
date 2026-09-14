@@ -26,9 +26,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:bundle": "rslib build --watch",
-    "dev:serve": "node ../../scripts/static-services.mjs start --service cdn-react-17",
+    "dev:serve": "emp-static start --service cdn-react-17",
     "build": "rslib build",
-    "start": "node ../../scripts/static-services.mjs start --service cdn-react-17"
+    "start": "emp-static start --service cdn-react-17"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

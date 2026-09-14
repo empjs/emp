@@ -1,4 +1,4 @@
-export type {BuildPresetName, EmpOptions} from 'src/types/config'
+export type {BuildFormat, EmpOptions} from 'src/types/config'
 
 import type {GlobalStore} from 'src/store'
 import type {EmpOptions} from 'src/types/config'

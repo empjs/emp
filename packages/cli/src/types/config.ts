@@ -3,9 +3,10 @@ import type {
   DevServer as devServerConfig,
   CacheOptions,
   CircularCheckRspackPluginOptions,
+  DefinePluginOptions,
   Externals,
   HtmlRspackPluginOptions,
-  // LightningCssMinimizerRspackPluginOptions,
+  LightningCssMinimizerRspackPluginOptions,
   Output,
   Resolve,
   Configuration as RsConfig,
@@ -24,23 +25,20 @@ import type {EMP3PluginType} from './plugin'
 
 export type LoggerType = 'debug' | 'info' | 'warn' | 'error'
 export type RsdoctorRspackPluginOptions = Record<string, unknown>
-// export type CssminOptionsType = ConstructorParameters<typeof SwcCssMinimizerRspackPlugin>[0]
-// export type CssminOptionsType = LightningCssMinimizerRspackPluginOptions
-export type CssminOptionsType = any
+export type CssminOptionsType = LightningCssMinimizerRspackPluginOptions
 // DebugType
 export type DebugType = {
   loggerLevel?: LoggerType
   clearLog?: boolean
   progress?: boolean
   showRsconfig?: boolean | string | InspectOptions
-  /**
-   * 已经弃用
-   */
+  /** @deprecated 已无独立性能报告路径，请使用 debug.rsdoctor 或构建统计。 */
   showPerformance?: boolean
   showScriptDebug?: boolean
   //rspackCache 已弃用
   // rspackCache?: boolean
   rsdoctor?: boolean | RsdoctorRspackPluginOptions
+  /** @deprecated Rspack 2 已不消费该开关；后续主版本将移除。 */
   newTreeshaking?: boolean
   devShowAllLog?: boolean //显示所有错误 默认关闭
   warnRuleAsWarning?: boolean
@@ -58,7 +56,7 @@ export type DebugType = {
    * https://rspack.rs/zh/plugins/rspack/css-chunking-plugin
    * 启用 CssChunkingPlugin 后，SplitChunksPlugin 将不再处理 CSS 模块。 这意味着 optimization.splitChunks 等配置对 CSS 模块将不再生效，所有 CSS 模块的代码分割逻辑完全由 CssChunkingPlugin 处理。
    */
-  cssChunkingPlugin?: boolean | Record<string, any>
+  cssChunkingPlugin?: boolean | Record<string, unknown>
   /**
    * 是否启用 Rspack 原生文件监听器。
    * @default true
@@ -87,6 +85,7 @@ export type ServerType = devServerConfig & {
    * @default true
    */
   hot?: devServerConfig['hot']
+  /** @deprecated 兼容旧配置并映射为 h2；新配置应使用 dev server 原生 server 选项。 */
   http2?: boolean
   https?: boolean
 }
@@ -118,7 +117,8 @@ export type PolyfillType = {
    */
   externalHelpers?: boolean
   /**
-   * 浏览器 兼容版本
+   * 浏览器兼容版本。
+   * @deprecated 请使用 build.targets，后续主版本将移除此字段。
    */
   browserslist?: string[]
 }
@@ -160,15 +160,21 @@ export type Rspack2BuildOptions = {
    */
   swc?: Pick<SwcLoaderOptions, 'detectSyntax' | 'transformImport'>
 }
-//
-export type BuildPresetName = 'chrome60' | 'modern'
+export type BuildFormat = 'script' | 'esm'
 
 export type BuildType = {
   /**
-   * 组合语法目标、模块格式、polyfill 与 Rspack runtime 能力的构建预设。
-   * 显式 build/output 配置会覆盖预设值。
+   * 浏览器兼容范围，统一驱动 Rspack runtime、SWC、CSS 与 polyfill。
+   * 使用 Browserslist 查询语法。
+   * 未配置时保留现有 build.target 语法目标行为。
    */
-  preset?: BuildPresetName
+  targets?: string | string[]
+  /**
+   * 浏览器产物加载格式。script 使用普通 defer 脚本，esm 使用原生模块脚本。
+   * 此配置不隐式开启 output.library 或 preserveModules。
+   * @default 'script'
+   */
+  format?: BuildFormat
   /**
    * 生成代码目录
    * @default 'dist'
@@ -236,7 +242,8 @@ export type BuildType = {
    */
   target?: JscTarget
   /**
-   * 是否用 ESM
+   * 是否使用 ESM 产物。
+   * @deprecated 请使用 build.format: 'esm'，后续主版本将移除此字段。
    */
   useESM?: boolean
   /**
@@ -295,7 +302,7 @@ export interface HtmlType extends HtmlRspackPluginOptions {
    * externals 文件插入到html
    */
   tags?: InjectTagsTypeItem[]
-  templateParameters?: any
+  templateParameters?: HtmlRspackPluginOptions['templateParameters']
   cache?: boolean
   /**
    * 注入的 js 文件
@@ -438,6 +445,13 @@ export type EmpOptions = {
      * - 将 `javascriptEnabled` 设为 `false`。
      */
     less?: CssLessOptionsType
+    /**
+     * CSS Modules className 前缀。
+     */
+    prefixName?: string
+    /**
+     * @deprecated 拼写错误，请使用 css.prefixName，后续主版本将移除此字段。
+     */
     prifixName?: string
   }
   /**
@@ -458,7 +472,7 @@ export type EmpOptions = {
   /**
    * 全局环境替换
    */
-  define?: Record<string, any>
+  define?: DefinePluginOptions
   /**
    * 是否创建 cjs 的 process.env 或者 esm 的 import.meta.env
    * all 两者创建

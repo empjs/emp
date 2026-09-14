@@ -18,7 +18,7 @@ import {
   staticServices,
   validateStaticServices,
   waitForStaticServiceChildren,
-} from '../../scripts/static-services.mjs'
+} from '../../packages/dev-services/static-services.mjs'
 import {EventEmitter} from 'node:events'
 import fs from 'node:fs'
 import {repoRoot} from '../../test/helpers/repo-root'
@@ -33,13 +33,14 @@ describe('apps catalog rules', () => {
       'rspack2-optimization',
       'mf-host',
       'mf-app',
+      'legacy-config-compat',
       'vue-3-base',
       'vue-3-project',
       'tailwind-4',
       'react-19-tanstack',
     ])
     expect(DEFAULT_APP_ACCEPTANCE.every(dir => appDirs.has(dir))).toBe(true)
-    expect(DEFAULT_APP_ACCEPTANCE.length).toBeLessThanOrEqual(8)
+    expect(DEFAULT_APP_ACCEPTANCE.length).toBeLessThanOrEqual(9)
   })
 
   test('current workspace apps still pass structural validation', async () => {
@@ -62,6 +63,7 @@ describe('apps catalog rules', () => {
       'demo',
       'dual-role',
       'esm-federation',
+      'legacy-config-compat',
       'mf-app',
       'mf-host',
       'react-19-tanstack',
@@ -73,7 +75,7 @@ describe('apps catalog rules', () => {
       'vue-3-base',
       'vue-3-project',
     ])
-    expect(TARGET_APP_DIRS).toHaveLength(15)
+    expect(TARGET_APP_DIRS).toHaveLength(16)
     expect(TARGET_APP_DIRS.every(dir => appDirs.includes(dir))).toBe(true)
   })
 
@@ -304,14 +306,29 @@ describe('legacy apps rules coverage', () => {
       'packages/emp-polyfill/package.json',
     ]
 
+    const serveScriptNames = ['dev:serve', 'serve', 'start', 'https']
+
     for (const packageScriptFile of packageScriptFiles) {
       const pkg = JSON.parse(await fs.promises.readFile(join(repoRoot, packageScriptFile), 'utf8'))
       const scripts = Object.entries(pkg.scripts ?? {})
       expect(scripts.every(([, command]) => !String(command).startsWith('serve ./'))).toBe(true)
+      expect(scripts.every(([, command]) => !String(command).includes('../'))).toBe(true)
+      for (const serveScriptName of serveScriptNames) {
+        const serveCommand = pkg.scripts?.[serveScriptName]
+        if (serveCommand === undefined) continue
+        expect(String(serveCommand).startsWith('emp-static ')).toBe(true)
+      }
     }
+
+    const devServicesPackage = JSON.parse(
+      await fs.promises.readFile(join(repoRoot, 'packages/dev-services/package.json'), 'utf8'),
+    )
+    expect(devServicesPackage.private).toBe(true)
+    expect(devServicesPackage.bin?.['emp-static']).toBeDefined()
 
     const rootPackage = JSON.parse(await fs.promises.readFile(join(repoRoot, 'package.json'), 'utf8'))
     expect(rootPackage.devDependencies?.serve).toBeUndefined()
+    expect(rootPackage.devDependencies?.['@empjs/dev-services']).toBe('workspace:*')
   })
 
   test('apps acceptance keeps browser smoke out of the default apps acceptance lane', async () => {
@@ -361,7 +378,48 @@ describe('legacy apps rules coverage', () => {
     expect(workflowGuard).toContain('apps/<app>/test/browser')
     expect(workflowGuard).toContain('packages/emp-share/test/browser')
     expect(workflowGuard).toContain('test:apps:browser')
-    expect(rootPackage.devDependencies?.['@rstest/browser']).toBe('0.11.11')
-    expect(rootPackage.devDependencies?.playwright).toBe('1.62.0')
+    expect(rootPackage.devDependencies?.['@rstest/browser']).toBe('0.11.12')
+    expect(rootPackage.devDependencies?.playwright).toBe('1.63.0')
+  })
+
+  test('library adapter browser lane covers the published EMP runtime adapters', async () => {
+    const rootTestTargets = await import('../../scripts/root-test-targets.mjs')
+    const rstestConfig = await fs.promises.readFile(join(repoRoot, 'rstest.config.ts'), 'utf8')
+    const workflowGuard = await fs.promises.readFile(join(repoRoot, 'scripts/emp-workflow-check.mjs'), 'utf8')
+    const browserHarness = await fs.promises.readFile(join(repoRoot, 'scripts/apps-browser-harness.mjs'), 'utf8')
+    const libAdapterBrowserFiles = [
+      'packages/lib-react-17/test/browser/adapter-runtime.browser.ts',
+      'packages/lib-vue-2/test/browser/adapter-runtime.browser.ts',
+    ]
+
+    expect(rootTestTargets.ROOT_BROWSER_TEST_TARGETS['lib-adapter-browser']).toEqual(libAdapterBrowserFiles)
+    expect(rootTestTargets.ROOT_BROWSER_TEST_TARGETS['browser-all']).toEqual(
+      expect.arrayContaining(libAdapterBrowserFiles),
+    )
+
+    for (const file of libAdapterBrowserFiles) {
+      expect(existsSync(join(repoRoot, file))).toBe(true)
+    }
+
+    expect(rstestConfig).toContain('packages/lib-react-17/test/browser/**/*.browser.ts')
+    expect(rstestConfig).toContain('packages/lib-vue-2/test/browser/**/*.browser.ts')
+    expect(workflowGuard).toContain('packages/lib-react-17/test/browser')
+    expect(workflowGuard).toContain('packages/lib-vue-2/test/browser')
+
+    expect(browserHarness).toContain(
+      "staticAssetService('lib-react-17', 'packages/lib-react-17/dist', 2110, 'runtime.umd.js')",
+    )
+    expect(browserHarness).toContain(
+      "staticAssetService('lib-vue-2', 'packages/lib-vue-2/dist', 2111, 'runtime.umd.js')",
+    )
+    expect(browserHarness).toContain("['pnpm', '--filter', '@empjs/lib-react', 'build']")
+    expect(browserHarness).toContain("['pnpm', '--filter', '@empjs/lib-vue-2', 'build']")
+
+    const reactAdapterBrowserTest = await fs.promises.readFile(join(repoRoot, libAdapterBrowserFiles[0]), 'utf8')
+    const vueAdapterBrowserTest = await fs.promises.readFile(join(repoRoot, libAdapterBrowserFiles[1]), 'utf8')
+    expect(reactAdapterBrowserTest).toContain("'/container-static/lib-react-17/runtime.umd.js'")
+    expect(reactAdapterBrowserTest).toContain("'EMP_ADAPTER_REACT'")
+    expect(vueAdapterBrowserTest).toContain("'/container-static/lib-vue-2/runtime.umd.js'")
+    expect(vueAdapterBrowserTest).toContain("'EMP_ADAPTER_VUE'")
   })
 })

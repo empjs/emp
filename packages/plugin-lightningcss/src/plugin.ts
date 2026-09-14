@@ -12,7 +12,7 @@ const uselightningcssLoader = async (store: GlobalStore, o: PluginLightningcssOp
   const ruleMap = ['sass', 'less', 'css']
   //
   // const targets = browserslistToTargets(browserslist('>= 0.25%'))
-  const targets = browserslistToTargets(browserslist(store.empConfig.build.polyfill.browserslist))
+  const targets = browserslistToTargets(browserslist(store.empConfig.build.targets))
   //
   const loaderOptions = {targets, ...o.transform}
   for (const ruleName of ruleMap) {
@@ -36,7 +36,7 @@ const uselightningcssMinify = async (store: GlobalStore, o: PluginLightningcssOp
   if (!o.minify) return
   o.minify = typeof o.minify !== 'boolean' ? o.minify : {}
   if (!o.minify.targets) {
-    o.minify.targets = browserslistToTargets(browserslist(store.empConfig.build.polyfill.browserslist))
+    o.minify.targets = browserslistToTargets(browserslist(store.empConfig.build.targets))
   }
   const {chain} = store
   const {LightningCSSMinifyPlugin} = await import('./minimizer')

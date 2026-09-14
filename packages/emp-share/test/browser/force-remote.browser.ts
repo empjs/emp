@@ -5,7 +5,7 @@ import forceRemotePlugin from '../../dist/forceRemote.js'
 import {shareForceRemote} from '../../src/helper/config'
 import {registerRemotes} from '../../src/plugins/rspack/runtimePlugin/registerRemotes'
 
-type ForceRemoteMap = Record<string, {entry?: string} | string>
+type ForceRemoteMap = Record<string, {entry?: string; version?: string} | string>
 
 function createRemote(field: 'entry' | 'url' | 'manifest', value: string, alias: string) {
   return {
@@ -55,6 +55,17 @@ test('forceRemote replaces versions in entry url and manifest fields', () => {
       runBeforeRegisterRemote(remote)
       expect(remote[field]).toBe('https://cdn.example.test/versionedRemote@9.9.9/emp.js')
     }
+
+    win[shareForceRemote] = {
+      versionedRemote: {version: '10.0.0'},
+    }
+    const objectVersionRemote = createRemote(
+      'entry',
+      'https://cdn.example.test/versionedRemote@1.2.3/emp.js',
+      'versionedRemote',
+    )
+    runBeforeRegisterRemote(objectVersionRemote)
+    expect(objectVersionRemote.entry).toBe('https://cdn.example.test/versionedRemote@10.0.0/emp.js')
   } finally {
     delete win[shareForceRemote]
   }

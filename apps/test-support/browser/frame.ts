@@ -9,6 +9,7 @@ export const appPaths = {
   'dual-role-a': '/container-static/dual-role-a/',
   'dual-role-b': '/container-static/dual-role-b/',
   'esm-federation': '/container-static/esm-federation/',
+  'legacy-config-compat': '/container-static/legacy-config-compat/',
   'mf-app': '/container-static/mf-app/',
   'mf-host': '/container-static/mf-host/',
   'react-19-tanstack': '/container-static/react-19-tanstack/',

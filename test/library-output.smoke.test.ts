@@ -4,7 +4,7 @@ import {existsSync, readFileSync} from 'node:fs'
 import {createServer} from 'node:net'
 import {join} from 'node:path'
 import {promisify} from 'node:util'
-import {buildStaticCommand, staticServices} from '../scripts/static-services.mjs'
+import {buildStaticCommand, staticServices} from '../packages/dev-services/static-services.mjs'
 import {repoRoot} from './helpers/repo-root'
 
 const execFile = promisify(execFileCallback)

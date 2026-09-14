@@ -25,10 +25,10 @@ class RspackModule {
     await this.store.empConfig.lifeCycle.afterModule()
   }
   private rspackGenerator() {
-    const prifixName = this.store.empConfig.css?.prifixName ? `${this.store.empConfig.css?.prifixName}-` : ''
+    const prefixName = this.store.empConfig.css?.prefixName ? `${this.store.empConfig.css.prefixName}-` : ''
     const localIdentName = this.store.isDev
-      ? `${prifixName}[id]-[local]-[hash:base64:8]`
-      : `${prifixName}[local]-[hash:5]`
+      ? `${prefixName}[id]-[local]-[hash:base64:8]`
+      : `${prefixName}[local]-[hash:5]`
 
     this.store.chain.merge({
       module: {
@@ -119,7 +119,7 @@ class RspackModule {
     return {
       parser: this.swcParser(lang),
       transform: {},
-      target,
+      ...(this.store.empConfig.usesBrowserslistTargets ? {} : {target}),
       externalHelpers,
       // Requires v1.2.50 or upper and requires target to be es2016 or upper.
       // keepClassNames: true,
@@ -151,20 +151,23 @@ class RspackModule {
     if (rspackSwcOptions?.transformImport) {
       op.transformImport = rspackSwcOptions.transformImport
     }
+    if (this.store.empConfig.usesBrowserslistTargets) {
+      delete op.jsc.target
+      op.env = {
+        targets: this.store.empConfig.build.targets,
+      }
+    }
     if (this.isPolyfill) {
       delete op.jsc.target
-      //
       op.env = {
+        ...op.env,
         coreJs: this.swcCoreVersion,
-        // modules: false,
-        // loose: true,
-        // debug: true,
-        targets: this.store.empConfig.build.polyfill.browserslist,
+        targets: this.store.empConfig.build.targets,
       }
       /**
        * ESM Mode 没有 entry
        */
-      if (!this.store.empConfig.isESM) {
+      if (this.store.empConfig.build.polyfill.mode !== 'entry' || !this.store.empConfig.isESM) {
         op.env.mode = this.store.empConfig.build.polyfill.mode
       }
       if (this.store.empConfig.build.polyfill.mode === 'usage') {

@@ -47,8 +47,8 @@
     "@babel/preset-typescript": "7.27.1",
     "@empjs/vue-loader": "17.4.5",
     "@vue/babel-plugin-jsx": "1.5.0",
-    "babel-loader": "10.0.0",
-    "vue": "3.5.20",
+    "babel-loader": "10.1.1",
+    "vue": "3.5.42",
     "vue-svg-loader": "0.16.0"
   }
 }

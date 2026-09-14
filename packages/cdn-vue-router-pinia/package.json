@@ -26,9 +26,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:bundle": "rslib build --watch",
-    "dev:serve": "node ../../scripts/static-services.mjs start --service cdn-vue-router-pinia",
+    "dev:serve": "emp-static start --service cdn-vue-router-pinia",
     "build": "rslib build",
-    "start": "node ../../scripts/static-services.mjs start --service cdn-vue-router-pinia"
+    "start": "emp-static start --service cdn-vue-router-pinia"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

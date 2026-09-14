@@ -399,17 +399,25 @@ if (exists('package.json')) {
       failures.push(`ROOT_TEST_TARGETS references missing root test file: ${file}`)
     }
   }
+  const browserTestRoots = [
+    'apps',
+    'packages/emp-share/test/browser',
+    'packages/lib-react-17/test/browser',
+    'packages/lib-vue-2/test/browser',
+  ]
+  const browserTestFilePattern = /^(?:apps\/[^/]+|packages\/[^/]+)\/test\/browser\/.+\.browser\.ts$/
   const browserTargetFiles = Object.values(ROOT_BROWSER_TEST_TARGETS).flat()
   const expectedBrowserTestFiles = new Set(browserTargetFiles)
-  const actualBrowserTestFiles = [...listFiles('apps'), ...listFiles('packages/emp-share/test/browser')]
+  const actualBrowserTestFiles = browserTestRoots
+    .flatMap(root => listFiles(root))
     .filter(file => file.endsWith('.browser.ts'))
     .sort()
   for (const file of browserTargetFiles) requireFile(file)
   for (const file of actualBrowserTestFiles) {
-    const isAppsBrowserTest = /^apps\/[^/]+\/test\/browser\/.+\.browser\.ts$/.test(file)
-    const isEmpShareBrowserTest = file.startsWith('packages/emp-share/test/browser/')
-    if (!isAppsBrowserTest && !isEmpShareBrowserTest) {
-      failures.push(`browser test file must live under apps/<app>/test/browser/ or packages/emp-share/test/browser/: ${file}`)
+    if (!browserTestFilePattern.test(file)) {
+      failures.push(
+        `browser test file must live under apps/<app>/test/browser/ or packages/<package>/test/browser/: ${file}`,
+      )
     }
     if (!expectedBrowserTestFiles.has(file)) {
       failures.push(`browser test file must be listed in ROOT_BROWSER_TEST_TARGETS: ${file}`)
@@ -431,7 +439,7 @@ if (exists('package.json')) {
     failures.push('package.json test:cli builds @empjs/chain after @empjs/cli tests')
   }
   if (pkg.devDependencies?.serve || pkg.dependencies?.serve) {
-    failures.push('root package.json must not depend on third-party serve; use scripts/static-services.mjs and emp static')
+    failures.push('root package.json must not depend on third-party serve; use the emp-static bin from @empjs/dev-services')
   }
 }
 
@@ -474,6 +482,24 @@ for (const packageFile of ['packages/emp-chain/package.json', 'packages/plugin-r
   }
 }
 
+const devServicesManifest = 'packages/dev-services/package.json'
+if (!exists(devServicesManifest)) {
+  failures.push(`${devServicesManifest} must exist: it owns the shared emp-static static service runner`)
+} else {
+  const devServicesPackage = readJson(devServicesManifest)
+  if (!devServicesPackage.bin?.['emp-static']) {
+    failures.push(`${devServicesManifest} must expose the emp-static bin`)
+  }
+  const rootManifest = readJson('package.json')
+  const declaresRunner =
+    rootManifest.devDependencies?.[devServicesPackage.name] ?? rootManifest.dependencies?.[devServicesPackage.name]
+  if (!declaresRunner) {
+    failures.push(
+      `package.json must depend on ${devServicesPackage.name} so pnpm links the emp-static bin into node_modules/.bin`,
+    )
+  }
+}
+
 const staticScriptPackages = [
   'packages/cdn-react-17/package.json',
   'packages/cdn-react-18/package.json',
@@ -489,12 +515,50 @@ const staticScriptPackages = [
   'packages/emp-polyfill/package.json',
 ]
 
+const staticServeScriptNames = ['dev:serve', 'serve', 'start', 'https']
+
 for (const packageFile of staticScriptPackages) {
   if (!exists(packageFile)) continue
   const pkg = readJson(packageFile)
-  for (const [scriptName, command] of Object.entries(pkg.scripts ?? {})) {
-    if (String(command).startsWith('serve ./')) {
-      failures.push(`${packageFile} script ${scriptName} must use scripts/static-services.mjs instead of serve ./`)
+  for (const scriptName of staticServeScriptNames) {
+    const command = pkg.scripts?.[scriptName]
+    if (command === undefined) continue
+    if (!String(command).startsWith('emp-static ')) {
+      failures.push(`${packageFile} script ${scriptName} must serve via the emp-static bin, not "${command}"`)
+    }
+  }
+}
+
+function workspaceManifestFiles() {
+  const manifests = ['package.json']
+  for (const group of ['packages', 'apps']) {
+    const absoluteGroup = path.join(root, group)
+    if (!fs.existsSync(absoluteGroup)) continue
+    for (const entry of fs.readdirSync(absoluteGroup, {withFileTypes: true})) {
+      if (!entry.isDirectory()) continue
+      const manifestFile = `${group}/${entry.name}/package.json`
+      if (exists(manifestFile)) manifests.push(manifestFile)
+    }
+  }
+  if (exists('website/package.json')) manifests.push('website/package.json')
+  return manifests
+}
+
+for (const manifestFile of workspaceManifestFiles()) {
+  for (const [scriptName, command] of Object.entries(readJson(manifestFile).scripts ?? {})) {
+    const scriptCommand = String(command)
+    if (scriptCommand.startsWith('serve ./')) {
+      failures.push(`${manifestFile} script ${scriptName} must use the emp-static bin instead of serve ./`)
+    }
+    if (scriptCommand.includes('../')) {
+      failures.push(
+        `${manifestFile} script ${scriptName} must not reach outside its own package with a relative path (${scriptCommand})`,
+      )
+    }
+    if (scriptCommand.includes('static-services.mjs') || scriptCommand.includes('static-services.config.mjs')) {
+      failures.push(
+        `${manifestFile} script ${scriptName} must call the emp-static bin instead of referencing static-services internals`,
+      )
     }
   }
 }

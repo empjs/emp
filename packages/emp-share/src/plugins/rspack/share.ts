@@ -231,7 +231,7 @@ export class EmpShare {
     }
   }
   private setCssModulesPrefix(name: string) {
-    if (this.store.empConfig.css?.prifixName) return
+    if (this.store.empConfig.css?.prefixName ?? this.store.empConfig.css?.prifixName) return
 
     const localIdentName = this.store.isDev ? `${name}-[id]-[local]-[hash:base64:8]` : `${name}-[local]-[hash:5]`
 

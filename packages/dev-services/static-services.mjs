@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {spawn} from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -5,7 +6,7 @@ import process from 'node:process'
 import {fileURLToPath} from 'node:url'
 import {staticServices as serviceDefinitions} from './static-services.config.mjs'
 
-export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 export const staticServices = serviceDefinitions.map(service => ({...service}))
 
 function normalizeList(value) {
@@ -204,6 +205,15 @@ async function main() {
   process.exitCode = 1
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+function resolveEntryPath(value) {
+  if (!value) return ''
+  try {
+    return fs.realpathSync(value)
+  } catch {
+    return path.resolve(value)
+  }
+}
+
+if (resolveEntryPath(process.argv[1]) === resolveEntryPath(fileURLToPath(import.meta.url))) {
   await main()
 }

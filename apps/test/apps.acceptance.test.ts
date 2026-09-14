@@ -101,6 +101,7 @@ function assertNoDefaultTailwindPostcssWarning(stderr: string) {
 const expectedArtifacts: Record<string, string[]> = {
   'dual-role': ['dist/@mf-types.d.ts', 'dist/@mf-types.zip', 'dist/emp.json', 'dist/emp.js', 'dist/index.html'],
   'esm-federation': ['dist/emp.json', 'dist/esm-entry.js', 'dist/index.html'],
+  'legacy-config-compat': ['dist/index.html'],
   'rspack2-modern-module': ['dist/index.html'],
   'rspack2-optimization': ['dist/index.html'],
   'mf-host': ['dist/emp.json', 'dist/emp.js'],
@@ -123,8 +124,24 @@ describe('default apps real acceptance', () => {
       const distFiles = listDistFiles(appDir)
       expect(distFiles.length).toBeGreaterThan(0)
 
+      if (appDir === 'legacy-config-compat') {
+        await execFile('corepack', ['pnpm@12.2.1', '--filter', './apps/legacy-config-compat', 'test:config'], {
+          cwd: repoRoot,
+          maxBuffer: 1024 * 1024 * 10,
+        })
+        const html = readDistText(appDir, 'index.html')
+        const js = readDistJs(appDir, distFiles)
+        expect(html).not.toContain('type="module"')
+        expect(html).toContain('defer')
+        expect(js).toContain('Legacy configuration compatibility works')
+        expectDistFileMatching(distFiles, /coreJs.*\.js$/)
+        expectDistFileMatching(distFiles, /\.js\.map$/)
+      }
+
       if (appDir === 'rspack2-modern-module') {
         const js = readDistJs(appDir, distFiles)
+        const html = readDistText(appDir, 'index.html')
+        expect(html).toContain('type="module"')
         expect(js).toContain('rspack2 modern module ready')
         expect(js).toContain('document.body.appendChild')
       }

@@ -122,7 +122,7 @@ class RspackCommon {
         ...this.store.empConfig.output,
         // 用于在生成产物中注入当前使用的 Rspack 信息
         bundlerInfo: {force: false},
-        module: this.store.empConfig.output.module || this.store.empConfig.isESM,
+        module: this.store.empConfig.output.module || this.store.empConfig.build.format === 'esm',
       },
       resolve: this.store.empConfig.resolve,
       externals: this.store.empConfig.externals,

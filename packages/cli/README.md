@@ -115,22 +115,26 @@ export default defineConfig(store => {
 })
 ```
 
-### 构建预设
+### 兼容范围与产物格式
 
-`build.preset` 将语法目标、模块格式、polyfill 与 Rspack runtime 能力组合成经过验收的默认值；同级 `build` 和顶层 `output` 显式配置仍拥有更高优先级。
+`build.targets` 使用 Browserslist 查询统一驱动 Rspack runtime、SWC、Lightning CSS 和 polyfill。`build.format` 只控制浏览器产物以普通 script 或原生 ESM 加载，两者互不推断。
 
 ```js
 import {defineConfig} from '@empjs/cli'
 
 export default defineConfig(() => ({
   build: {
-    // Chrome 60：ES2015、非原生 ESM、内置 core-js
-    preset: 'chrome60',
+    targets: ['Chrome >= 60'],
+    format: 'script',
+    polyfill: {
+      mode: 'entry',
+      splitChunks: true,
+    },
   },
 }))
 ```
 
-现代浏览器或现代模块产物使用 `preset: 'modern'`，对应 ES2018 与原生 `modern-module` 输出。
+原生 ESM 产物使用 `format: 'esm'`。它不会隐式开启 `output.library` 或 `preserveModules`；库发布形态应通过 `output.library` 显式配置。已发布的 `build.useESM` 和 `build.polyfill.browserslist` 仅作为弃用兼容入口保留，分别迁移到 `build.format` 和 `build.targets`。
 
 ### Rspack 2 配置入口
 `build.rspack` 用于显式接入 Rspack 2 的新增能力。EMP 不会默认开启高风险实验能力，业务需要按场景配置。
@@ -141,8 +145,8 @@ import {defineConfig} from '@empjs/cli'
 export default defineConfig(() => {
   return {
     build: {
-      // ESM library 输出会自动使用 output.library.type = 'modern-module'
-      preset: 'modern',
+      targets: ['Chrome >= 80', 'Edge >= 80', 'Firefox >= 80', 'Safari >= 14'],
+      format: 'esm',
       // Rspack 2 支持 hashed module id；默认仍保持 development=named、production=deterministic
       moduleIds: 'hashed',
       rspack: {
@@ -215,10 +219,10 @@ export default defineConfig(store => {
     ],
     define: {ip, port},
     build: {
+      targets: store.browserslistOptions.h5,
       polyfill: {
         mode: 'entry',
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
-        browserslist: store.browserslistOptions.h5,
       },
       sourcemap: true,
     },

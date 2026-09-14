@@ -30,10 +30,10 @@ export default defineConfig(store => {
       title: 'tailwind 4 demo',
     },
     build: {
+      targets: store.browserslistOptions.h5,
       polyfill: {
         mode: 'entry',
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
-        browserslist: store.browserslistOptions.h5,
       },
       sourcemap: true,
     },

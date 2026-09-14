@@ -97,7 +97,12 @@ export default defineConfig(store => {
       // cssChunkingPlugin: true,
     },
     build: {
-      preset: 'chrome60',
+      targets: ['Chrome >= 60'],
+      format: 'script',
+      polyfill: {
+        mode: 'entry',
+        splitChunks: true,
+      },
       sourcemap: true,
       // minify: false,
     },
@@ -122,7 +127,7 @@ export default defineConfig(store => {
       buildhash: '1146428e',
     },
     css: {
-      prifixName: 'v1',
+      prefixName: 'v1',
     },
     // tsCheckerRspackPlugin: true,
     // cache: false,

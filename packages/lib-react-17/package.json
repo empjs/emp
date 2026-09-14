@@ -1,6 +1,6 @@
 {
   "name": "@empjs/lib-react",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "empShare runtime",
   "license": "MIT",
   "type": "module",
@@ -61,18 +61,14 @@
     "build": "rslib build --env-mode production",
     "build:development": "rslib build --env-mode development --lib runtime-umd-development",
     "build:production": "rslib build --env-mode production --lib runtime-umd-production",
-    "dev:serve": "node ../../scripts/static-services.mjs start --service lib-react-17",
-    "start": "node ../../scripts/static-services.mjs start --service lib-react-17"
+    "dev:serve": "emp-static start --service lib-react-17",
+    "start": "emp-static start --service lib-react-17"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
   "author": "Ken",
   "dependencies": {
-    "@empjs/module-federation-runtime": "^0.6.2",
-    "@module-federation/runtime": "0.6.1",
-    "@module-federation/sdk": "0.6.1",
-    "history": "^5.3.0",
     "react": "17",
     "react-dom": "17",
     "react-router-dom": "^6.25.1"

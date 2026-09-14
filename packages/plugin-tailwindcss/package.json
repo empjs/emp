@@ -49,7 +49,7 @@
     "@empjs/cli": "workspace:*"
   },
   "dependencies": {
-    "@tailwindcss/webpack": "4.3.1",
-    "tailwindcss": "4.3.1"
+    "@tailwindcss/webpack": "4.3.3",
+    "tailwindcss": "4.3.3"
   }
 }

@@ -9,6 +9,7 @@ const browserCoverage = {
   demo: 'browser-interactive',
   'dual-role': 'browser-interactive',
   'esm-federation': 'browser-smoke',
+  'legacy-config-compat': 'browser-interactive',
   'mf-app': 'browser-interactive',
   'mf-host': 'browser-interactive',
   'react-19-tanstack': 'browser-interactive',

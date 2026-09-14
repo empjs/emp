@@ -1,18 +1,18 @@
 # Apps 功能测试清单
 
-更新日期：2026-07-16
+更新日期：2026-07-17
 
 ## 范围
 
-本清单只覆盖当前 v4 仓库 `scripts/apps.catalog.mjs` 中的 `TARGET_APP_DIRS`，共 15 个 apps。`tailwind-2`、`tailwind-3`、`tailwind-demo`、`daisyui-demo`、`shadcn-ui` 等旧项目已在 `RETIRED_APP_DIRS` 中，不纳入当前补测范围。
+本清单只覆盖当前 v4 仓库 `scripts/apps.catalog.mjs` 中的 `TARGET_APP_DIRS`，共 16 个 apps。`tailwind-2`、`tailwind-3`、`tailwind-demo`、`daisyui-demo`、`shadcn-ui` 等旧项目已在 `RETIRED_APP_DIRS` 中，不纳入当前补测范围。
 
 ## 当前测试入口
 
 | 入口 | 覆盖范围 | 说明 |
 | --- | --- | --- |
 | `corepack pnpm apps:acceptance` | `test:tsconfig`、`empbuild`、`apps:check`、`test:apps:single`、`test:library-output` | 默认 apps 构建验收入口，不包含浏览器 E2E。 |
-| `corepack pnpm test:apps:single` | `apps/test/apps.acceptance.test.ts` | 默认构建验收，覆盖 8 个关键 app 的 build 和产物断言。 |
-| `corepack pnpm test:apps:browser` | `apps/*/test/browser/**/*.browser.ts` | apps 浏览器真实交互入口，当前覆盖 15 个 app。 |
+| `corepack pnpm test:apps:single` | `apps/test/apps.acceptance.test.ts` | 默认构建验收，覆盖 9 个关键 app 的 build 和产物断言。 |
+| `corepack pnpm test:apps:browser` | `apps/*/test/browser/**/*.browser.ts` | apps 浏览器真实交互入口，当前覆盖 16 个 app。 |
 | `corepack pnpm test:rules` | apps catalog、browser coverage、release rules | 保护目标 app 清单、退休项目边界、browser test 文件映射和测试入口。 |
 | `corepack pnpm release:acceptance` | `workflow:check`、`ci:verify`、`empbuild`、`apps:acceptance`、`release:publish:dry -- --skip-build` | 生成 `.release/acceptance/index.html` 自包含验收 HTML，命令失败时仍落盘并返回非 0，用作每次发版凭证。 |
 | `corepack pnpm release:acceptance -- --include-browser` | 以上发布 gates + `test:apps:browser` | 需要把浏览器 E2E 一起纳入发版凭证时使用；默认不塞进 `apps:acceptance`，避免本地端口/浏览器环境影响基础验收。 |
@@ -23,13 +23,14 @@
 | --- | --- | --- | --- | --- | --- |
 | `adapter-host` | browser-smoke + build | React bridge host、`adapterHost` remote expose、React CDN external、manifest/types 产物 | 页面显示 `React Adapter Host`；React 版本可见；build 产出 `emp.json` / `emp.js`，并断言 `./App` expose、remote entry 和 buildName | `apps/adapter-host/test/browser/smoke.browser.ts`；`apps/test/apps.acceptance.test.ts`；被 `adapter-app` 作为 remote 消费 | P2 已覆盖：remote provider manifest/entry 产物和 browser 可加载链路已纳入契约 |
 | `adapter-app` | browser-interactive | React host 同时消费 React、Vue 2、Vue 3 remote；bridge adapters；跨框架状态交互 | 页面显示 Vue 2 remote、React Adapter Host、Vue 3 文案；Vuex 计数从 0 到 1；React add 后 value 从 0 到 1 | `apps/adapter-app/test/browser/local-remote.browser.ts` | P0：保持现有真实浏览器链路；后续可补 remote 加载失败时的诊断输出 |
-| `demo` | browser-interactive + build | React demo shell、Chrome 60 build preset、core-js、多入口页面、dev proxy、POST/GET/error/delay API、Lightning CSS rem/vw 转换、splitChunks | Chrome 60 preset 页面渲染并具备兼容 API；`/proxy-test.html` 调用 `/api/hello`、`/api/user`、`/api/posts`、`/api/delay`、`/api/error`、`/api/echo`；build 断言 core-js 先于非 module 入口加载，以及 `info.html`、`proxy-test.html`、`work/index.html` 和拆包 JS | `apps/demo/test/browser/chrome60.browser.ts`；`apps/demo/test/browser/proxy.browser.ts`；`apps/test/apps.acceptance.test.ts` | P2 已覆盖：`/api/hello` proxy target unavailable 浏览器诊断已覆盖 |
+| `demo` | browser-interactive + build | React demo shell、`Chrome >= 60` 兼容目标、script format、core-js、多入口页面、dev proxy、POST/GET/error/delay API、Lightning CSS rem/vw 转换、splitChunks | 兼容产物页面渲染并具备兼容 API；`/proxy-test.html` 调用 `/api/hello`、`/api/user`、`/api/posts`、`/api/delay`、`/api/error`、`/api/echo`；build 断言 core-js 先于非 module 入口加载，以及 `info.html`、`proxy-test.html`、`work/index.html` 和拆包 JS | `apps/demo/test/browser/compatibility.browser.ts`；`apps/demo/test/browser/proxy.browser.ts`；`apps/test/apps.acceptance.test.ts` | P2 已覆盖：`/api/hello` proxy target unavailable 浏览器诊断已覆盖；真实 Chrome 60 运行需独立旧浏览器环境 |
 | `dual-role` | browser-interactive + build | 同一 MF container 产物运行于两个端口、双向 `init/get`、DTS 生成与消费 | 8201/8202 页面分别消费对端；产出 `@mf-types.zip`；解压声明由独立 TypeScript consumer 在 strict 模式编译通过 | `apps/dual-role/test/browser/mutual-consumption.browser.ts`；`apps/test/apps.acceptance.test.ts` | 已补齐 upstream `app-and-host` 的双角色与 DTS 能力 |
 | `esm-federation` | browser-smoke + build | 原生 ESM Module Federation entry、module chunk loading | 生产构建产出含 `get/init` export 的 `esm-entry.js`；Chromium 原生 `import()` 后调用远程导出 | `apps/esm-federation/test/browser/esm-entry.browser.ts`；`apps/test/apps.acceptance.test.ts` | 已补齐 upstream ESM Federation 能力 |
+| `legacy-config-compat` | browser-interactive + build + config | v4 保留兼容字段的归一化、Chrome 60 targets、script format、core-js、source map、CSS Modules 前缀、React splitChunks、http2 映射 | resolved config 断言旧字段映射到 canonical 语义；产出非 module HTML、coreJs chunk 和 source map；页面 API、CSS 前缀及计数交互通过 | `apps/legacy-config-compat/test/config-shape.mjs`；`apps/legacy-config-compat/test/browser/compatibility.browser.ts`；`apps/test/apps.acceptance.test.ts` | 兼容字段仅用于迁移守护，新项目仍使用 canonical 配置 |
 | `mf-host` | browser-interactive + build | React Module Federation host、4 个 expose、MobX 状态、runtime SDK、remote async chunk | 页面显示并更新 MobX；build 断言 expose 与 async JS/CSS；点击后远程异步内容渲染 | `apps/mf-host/test/browser/mobx.browser.ts`；`apps/mf-app/test/browser/split-chunk.browser.ts`；`apps/test/apps.acceptance.test.ts` | remote provider、Runtime API 和 Federation splitChunks 均有真实验收 |
 | `mf-app` | browser-interactive + build | React remote consumer、独立 Runtime API、remote splitChunks、Tailwind MF 隔离 | remote 状态交互；`init/register/load`；未知 expose 诊断；新 async chunk 请求；Tailwind remote 样式生效且 host sentinel 不变 | `apps/mf-app/test/browser/*.browser.ts`；`apps/test/apps.acceptance.test.ts` | upstream Runtime、splitChunks、Tailwind 隔离能力均已补齐 |
 | `react-19-tanstack` | browser-interactive + build | React 19 hooks、Tailwind 4、TanStack Router、router code splitting、external React/TanStack CDN | React 19 页面显示 `useActionState`、`useOptimistic`、`useDeferredValue`、`startTransition`、`useFormStatus`；表单保存；optimistic 新增；过滤匹配；Router Lab 跳转到 `/router-lab/alice`；CSS 含 Tailwind v4 产物；route tree 含 `/router-lab` 和 `$id` | `apps/react-19-tanstack/test/browser/react19.browser.ts`；`apps/test/apps.acceptance.test.ts` | P2 已覆盖：直接加载 `/router-lab/alice` 深链刷新 |
-| `rspack2-modern-module` | browser-smoke + build | Rspack 2 ESM 输出、`useESM`、现代模块构建目标、页面非空执行结果 | build 成功；产出 `dist/index.html`；JS 产物包含 `rspack2 modern module ready` 和 DOM append；browser smoke 能看到该文案 | `apps/rspack2-modern-module/test/browser/smoke.browser.ts`；`apps/test/apps.acceptance.test.ts` | 已补齐 P1 |
+| `rspack2-modern-module` | browser-smoke + build | Rspack 2 ESM 输出、`build.format`、统一 Browserslist targets、页面非空执行结果 | build 成功；产出 `dist/index.html`；HTML 使用 module script；JS 产物包含 `rspack2 modern module ready` 和 DOM append；browser smoke 能看到该文案 | `apps/rspack2-modern-module/test/browser/smoke.browser.ts`；`apps/test/apps.acceptance.test.ts` | 已补齐 P1 |
 | `rspack2-optimization` | browser-smoke + build | Rspack 2 optimization、hashed module id、splitChunks、dynamic import、pureFunctions、CSS parser 配置 | 页面显示动态 chunk 输出 `pure-value`；build 产出 `dist/index.html`、entry JS、async chunk JS、CSS；JS 含 `pure-value` 且不含 `unused-call` | `apps/rspack2-optimization/test/browser/chunk.browser.ts`；`apps/test/apps.acceptance.test.ts` | 已补齐 P1 |
 | `tailwind-4` | browser-interactive + build | Tailwind CSS 4、React product form、scoped MF remote、旧 Tailwind 2/3 不回归 | standalone 交互通过；`ScopedCard` utility computed style 生效；不加载 preflight，host sentinel 前后样式一致 | `apps/tailwind-4/test/browser/product-form.browser.ts`；`apps/mf-app/test/browser/tailwind-isolation.browser.ts`；`apps/test/apps.acceptance.test.ts` | 当前 Tailwind 主覆盖与 MF 隔离均已验收 |
 | `vue-2-base` | browser-interactive + build | Vue 2 base remote、Element UI table、Vuex、Composition API、remote-ready exposes | 页面显示 `Content Component`、`Hello JSX Component`、`Element Table`、`CompositionApi`；Vuex 从 0 到 1；base content toggle；composition count 同步变化；build manifest 断言 `./Content`、`./Table`、`./CompositionApi`、`./store`、`./setup` | `apps/vue-2-base/test/browser/interactive.browser.ts`；`apps/test/apps.acceptance.test.ts` | P2 已覆盖：remote provider exposes、manifest 和 browser 可加载链路已纳入契约 |

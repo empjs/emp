@@ -6,7 +6,7 @@
   "type": "module",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@empjs/plugin-vue3": "workspace:^*",
+    "@empjs/plugin-vue3": "workspace:^",
     "@vue/tsconfig": "^0.9.1",
     "typescript": "7.0.2"
   },

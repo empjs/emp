@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {execFile as execFileCallback} from 'node:child_process'
-import {mkdir, realpath, writeFile} from 'node:fs/promises'
+import {mkdir, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import {promisify} from 'node:util'
@@ -37,40 +37,87 @@ const loadConfigForFixture = async fixtureRoot => {
 
 {
   const {rspack} = await import(`file://${path.join(repoRoot, 'packages/cli/dist/index.js')}`)
-  assert.equal(rspack.rspackVersion, '2.2.1')
-}
-
-{
-  const fixtureRoot = await createFixture('modern-module', {
-    appSrc: 'src',
-    appEntry: 'index.ts',
-    build: {
-      preset: 'modern',
-    },
-  })
-  const config = await loadConfigForFixture(fixtureRoot)
-
-  assert.equal(config.output.module, true)
-  assert.equal(config.output.library.type, 'modern-module')
-  assert.equal(config.output.library.preserveModules, await realpath(path.join(fixtureRoot, 'src')))
+  assert.equal(rspack.rspackVersion, '2.2.3')
 }
 
 {
   const config = await loadConfigForFixture(
-    await createFixture('chrome60-preset', {
+    await createFixture('default-target', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+    }),
+  )
+
+  assert.deepEqual(config.target, ['web', 'es5'])
+  const swcUses = config.module.rules.flatMap(rule => rule.use ?? []).filter(use => use.loader === 'builtin:swc-loader')
+  assert.ok(swcUses.every(use => use.options.jsc?.target === 'es5'))
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('css-prefix', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      css: {prefixName: 'product'},
+    }),
+  )
+
+  assert.match(config.module.generator['css/auto'].localIdentName, /^product-/)
+  assert.match(config.module.generator['css/module'].localIdentName, /^product-/)
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('legacy-css-prefix', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      css: {prifixName: 'legacy'},
+    }),
+  )
+
+  assert.match(config.module.generator['css/auto'].localIdentName, /^legacy-/)
+  assert.match(config.module.generator['css/module'].localIdentName, /^legacy-/)
+}
+
+{
+  const fixtureRoot = await createFixture('esm-format', {
+    appSrc: 'src',
+    appEntry: 'index.ts',
+    build: {
+      targets: ['Chrome >= 80', 'Safari >= 14'],
+      format: 'esm',
+    },
+  })
+  const config = await loadConfigForFixture(fixtureRoot)
+
+  assert.equal(config.target, 'browserslist:Chrome >= 80, Safari >= 14')
+  assert.equal(config.output.module, true)
+  assert.equal(config.output.library, undefined)
+  const swcUses = config.module.rules
+    .flatMap(rule => rule.use ?? [])
+    .filter(use => use.loader === 'builtin:swc-loader')
+  assert.ok(swcUses.every(use => use.options.env?.targets?.includes('Chrome >= 80')))
+  assert.ok(swcUses.every(use => use.options.jsc?.target === undefined))
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('compatibility-target', {
       appSrc: 'src',
       appEntry: 'index.ts',
       build: {
-        preset: 'chrome60',
+        targets: ['Chrome >= 60'],
+        format: 'script',
+        polyfill: {
+          mode: 'entry',
+          splitChunks: true,
+        },
       },
     }),
   )
 
-  assert.deepEqual(config.target, ['web', 'es2015'])
+  assert.equal(config.target, 'browserslist:Chrome >= 60')
   assert.equal(config.output.module, false)
-  assert.equal(config.output.environment.dynamicImport, false)
-  assert.equal(config.output.environment.module, false)
-  assert.equal(config.output.environment.optionalChaining, false)
   const swcUses = config.module.rules
     .flatMap(rule => rule.use ?? [])
     .filter(use => use.loader === 'builtin:swc-loader')
@@ -81,15 +128,11 @@ const loadConfigForFixture = async fixtureRoot => {
 
 {
   const config = await loadConfigForFixture(
-    await createFixture('chrome60-overrides', {
+    await createFixture('legacy-syntax-target', {
       appSrc: 'src',
       appEntry: 'index.ts',
       build: {
-        preset: 'chrome60',
         target: 'es2017',
-        polyfill: {
-          browserslist: ['Chrome >= 70'],
-        },
       },
       output: {
         environment: {
@@ -100,12 +143,140 @@ const loadConfigForFixture = async fixtureRoot => {
   )
 
   assert.deepEqual(config.target, ['web', 'es2017'])
-  assert.equal(config.output.environment.dynamicImport, false)
   assert.equal(config.output.environment.optionalChaining, true)
   const swcUses = config.module.rules
     .flatMap(rule => rule.use ?? [])
     .filter(use => use.loader === 'builtin:swc-loader')
+  assert.ok(swcUses.every(use => use.options.jsc?.target === 'es2017'))
+  assert.ok(swcUses.every(use => use.options.env === undefined))
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('legacy-esm-alias', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      build: {
+        target: 'es2018',
+        useESM: true,
+      },
+    }),
+  )
+
+  assert.equal(config.output.module, true)
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('legacy-devtool-disabled', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      build: {
+        devtool: false,
+      },
+    }),
+  )
+
+  assert.equal(config.devtool, false)
+}
+
+{
+  const config = await loadConfigForFixture(
+    await createFixture('legacy-browser-targets', {
+      appSrc: 'src',
+      appEntry: 'index.ts',
+      build: {
+        polyfill: {
+          mode: 'entry',
+          browserslist: ['Chrome >= 70'],
+        },
+      },
+    }),
+  )
+
+  assert.equal(config.target, 'browserslist:Chrome >= 70')
+  const swcUses = config.module.rules.flatMap(rule => rule.use ?? []).filter(use => use.loader === 'builtin:swc-loader')
   assert.ok(swcUses.every(use => use.options.env?.targets?.includes('Chrome >= 70')))
+}
+
+{
+  await assert.rejects(
+    loadConfigForFixture(
+      await createFixture('conflicting-format', {
+        appSrc: 'src',
+        appEntry: 'index.ts',
+        build: {
+          format: 'script',
+          useESM: true,
+        },
+      }),
+    ),
+    /build\.format .* build\.useESM/,
+  )
+}
+
+{
+  await assert.rejects(
+    loadConfigForFixture(
+      await createFixture('conflicting-targets', {
+        appSrc: 'src',
+        appEntry: 'index.ts',
+        build: {
+          target: 'es2015',
+          targets: ['Chrome >= 60'],
+        },
+      }),
+    ),
+    /build\.targets .* build\.target/,
+  )
+}
+
+{
+  await assert.rejects(
+    loadConfigForFixture(
+      await createFixture('conflicting-browser-alias', {
+        appSrc: 'src',
+        appEntry: 'index.ts',
+        build: {
+          targets: ['Chrome >= 60'],
+          polyfill: {browserslist: ['Chrome >= 70']},
+        },
+      }),
+    ),
+    /build\.targets .* build\.polyfill\.browserslist/,
+  )
+}
+
+{
+  await assert.rejects(
+    loadConfigForFixture(
+      await createFixture('conflicting-sourcemap-alias', {
+        appSrc: 'src',
+        appEntry: 'index.ts',
+        build: {
+          devtool: 'source-map',
+          sourcemap: {js: 'hidden-source-map'},
+        },
+      }),
+    ),
+    /build\.sourcemap\.js .* build\.devtool/,
+  )
+}
+
+{
+  await assert.rejects(
+    loadConfigForFixture(
+      await createFixture('conflicting-css-prefix-alias', {
+        appSrc: 'src',
+        appEntry: 'index.ts',
+        css: {
+          prefixName: 'canonical',
+          prifixName: 'legacy',
+        },
+      }),
+    ),
+    /css\.prefixName .* css\.prifixName/,
+  )
 }
 
 {

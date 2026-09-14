@@ -24,10 +24,11 @@ const releaseTestTargetEntries = [['release-rc1', ['test/release-rc1.acceptance.
 const appsBrowserTestFiles = [
   'apps/adapter-app/test/browser/local-remote.browser.ts',
   'apps/adapter-host/test/browser/smoke.browser.ts',
-  'apps/demo/test/browser/chrome60.browser.ts',
+  'apps/demo/test/browser/compatibility.browser.ts',
   'apps/demo/test/browser/proxy.browser.ts',
   'apps/dual-role/test/browser/mutual-consumption.browser.ts',
   'apps/esm-federation/test/browser/esm-entry.browser.ts',
+  'apps/legacy-config-compat/test/browser/compatibility.browser.ts',
   'apps/mf-app/test/browser/remote.browser.ts',
   'apps/mf-app/test/browser/split-chunk.browser.ts',
   'apps/mf-app/test/browser/tailwind-isolation.browser.ts',
@@ -49,10 +50,16 @@ const empShareBrowserTestFiles = [
   'packages/emp-share/test/browser/runtime-sdk.browser.ts',
 ]
 
+const libAdapterBrowserTestFiles = [
+  'packages/lib-react-17/test/browser/adapter-runtime.browser.ts',
+  'packages/lib-vue-2/test/browser/adapter-runtime.browser.ts',
+]
+
 const rootBrowserTestTargetEntries = [
   ['apps-browser', appsBrowserTestFiles],
   ['emp-share-browser', empShareBrowserTestFiles],
-  ['browser-all', [...appsBrowserTestFiles, ...empShareBrowserTestFiles]],
+  ['lib-adapter-browser', libAdapterBrowserTestFiles],
+  ['browser-all', [...appsBrowserTestFiles, ...empShareBrowserTestFiles, ...libAdapterBrowserTestFiles]],
 ]
 
 export const ROOT_TEST_TARGET_ORDER = Object.freeze(rootTestTargetEntries.map(([targetName]) => targetName))

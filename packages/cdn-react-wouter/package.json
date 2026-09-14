@@ -26,9 +26,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:bundle": "rslib build --watch",
-    "dev:serve": "node ../../scripts/static-services.mjs start --service cdn-react-wouter",
+    "dev:serve": "emp-static start --service cdn-react-wouter",
     "build": "rslib build",
-    "start": "node ../../scripts/static-services.mjs start --service cdn-react-wouter"
+    "start": "emp-static start --service cdn-react-wouter"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
@@ -37,13 +37,13 @@
   "dependencies": {
     "@empjs/share": "workspace:*",
     "@tanstack/react-router": "^1.141.8",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-router-dom": "6",
     "wouter": "^3.9.0"
   },
   "devDependencies": {
-    "@types/react": "19.2.7",
-    "@types/react-dom": "19.2.3"
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
   }
 }

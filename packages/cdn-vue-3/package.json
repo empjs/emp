@@ -26,9 +26,9 @@
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
     "dev:bundle": "rslib build --watch",
-    "dev:serve": "node ../../scripts/static-services.mjs start --service cdn-vue-3",
+    "dev:serve": "emp-static start --service cdn-vue-3",
     "build": "rslib build",
-    "start": "node ../../scripts/static-services.mjs start --service cdn-vue-3"
+    "start": "emp-static start --service cdn-vue-3"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

@@ -1,7 +1,7 @@
 import {frameDocument, loadAppFrame, removeFrame} from '@empjs/test-support/browser/frame'
 import {expect, test} from '@rstest/core'
 
-test('demo chrome60 preset renders with the expected compatibility APIs', async () => {
+test('demo compatibility target renders with the expected polyfilled APIs', async () => {
   const frame = await loadAppFrame('demo')
   try {
     const view = frameDocument(frame).defaultView

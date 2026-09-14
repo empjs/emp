@@ -74,7 +74,8 @@ import {defineConfig} from '@empjs/cli'
 
 export default defineConfig(() => ({
   build: {
-    preset: 'modern',
+    targets: ['Chrome >= 80', 'Edge >= 80', 'Firefox >= 80', 'Safari >= 14'],
+    format: 'esm',
     rspack: {
       experiments: {
         pureFunctions: true,
@@ -85,6 +86,8 @@ export default defineConfig(() => ({
 ```
 
 Avoid carrying deprecated Rspack 1-only flags into v4 configs. Keep high-risk Rspack 2 experiments explicit and project-owned.
+
+Use `build.targets` as the single Browserslist compatibility source and `build.format` for browser delivery format. Migrate `build.useESM: true` to `build.format: 'esm'`; migrate `build.polyfill.browserslist` to `build.targets`. `format: 'esm'` does not implicitly enable `output.library` or `preserveModules`.
 
 ## Module Federation Notes
 

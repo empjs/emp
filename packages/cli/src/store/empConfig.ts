@@ -3,7 +3,6 @@ import {logger} from 'src/helper'
 import {loadConfig} from 'src/helper/loadConfig'
 import {deepAssign} from 'src/helper/utils'
 import type {GlobalStore} from 'src/store'
-import {getBuildPreset} from 'src/store/buildPresets'
 import {LifeCycle} from 'src/store/lifeCycle'
 import type {
   BuildType,
@@ -42,13 +41,19 @@ export class EmpConfig {
     return deepAssign(target, ...sources.map(source => source || {}))
   }
   /**
-   * 是否启动 esm 模块
+   * 当前产物是否使用原生 ESM 格式。
    * @default false
    */
-  // public isESM = false
   get isESM() {
-    const isCjs = ['es3', 'es5'].includes(this.store.empConfig.build.target)
-    return !isCjs && this.store.empConfig.build.useESM
+    return this.store.empConfig.build.format === 'esm'
+  }
+  /**
+   * 是否由 Browserslist targets 统一推导构建目标。
+   * 显式的旧 build.target 在未配置 targets 时保持原有语义。
+   */
+  get usesBrowserslistTargets() {
+    const build = this.store.empOptions.build
+    return build?.targets !== undefined || build?.polyfill?.browserslist !== undefined
   }
   public lifeCycle!: LifeCycle
   async setup(store: GlobalStore) {
@@ -61,13 +66,17 @@ export class EmpConfig {
      */
     this.lifeCycle = new LifeCycle(this.store.empOptions.lifeCycle)
     await this.lifeCycle.afterGetEmpOptions()
-    // 是否启动 is ESM
-    // this.isESM = this.checkIsESM(this.build.target)
     if (this.store.empOptions.target) {
       this.target = this.store.empOptions.target
-      if (Array.isArray(this.target) && !this.target.includes(this.build.target)) {
+      if (
+        !this.usesBrowserslistTargets &&
+        Array.isArray(this.target) &&
+        !this.target.includes(this.build.target)
+      ) {
         this.target.push(this.build.target)
       }
+    } else if (this.usesBrowserslistTargets) {
+      this.target = `browserslist:${this.build.targets.join(', ')}`
     } else {
       this.target = ['web', this.build.target]
     }
@@ -135,19 +144,57 @@ export class EmpConfig {
     return this.assign(defaultDebug, this.store.empOptions.debug)
   }
   get build() {
-    const preset = getBuildPreset(this.store.empOptions.build?.preset)
-    const staticDir = this.store.empOptions.build?.staticDir ? `${this.store.empOptions.build?.staticDir}/` : ''
+    const input = this.store.empOptions.build
+    const staticDir = input?.staticDir ? `${input.staticDir}/` : ''
+    const legacyFormat = input?.useESM === undefined ? undefined : input.useESM ? 'esm' : 'script'
+    if (input?.format && legacyFormat && input.format !== legacyFormat) {
+      throw new Error(`build.format (${input.format}) 与已弃用的 build.useESM (${input.useESM}) 冲突`)
+    }
+    if (input?.targets !== undefined && input.target !== undefined) {
+      throw new Error('build.targets 与 build.target 不能同时配置；浏览器兼容优先使用 build.targets')
+    }
+    if (input?.targets !== undefined && input.polyfill?.browserslist !== undefined) {
+      const targets = Array.isArray(input.targets) ? input.targets : [input.targets]
+      if (JSON.stringify(targets) !== JSON.stringify(input.polyfill.browserslist)) {
+        throw new Error('build.targets 与已弃用的 build.polyfill.browserslist 冲突')
+      }
+    }
+    const canonicalSourcemap =
+      typeof input?.sourcemap === 'object'
+        ? input.sourcemap.js
+        : input?.sourcemap === false
+          ? false
+          : input?.sourcemap === true
+            ? this.store.isDev
+              ? 'cheap-module-source-map'
+              : 'source-map'
+            : undefined
+    if (input?.devtool !== undefined && canonicalSourcemap !== undefined && input.devtool !== canonicalSourcemap) {
+      throw new Error('build.sourcemap.js 与已弃用的 build.devtool 冲突')
+    }
+    const format = input?.format ?? legacyFormat ?? 'script'
+    if (!['script', 'esm'].includes(format)) {
+      throw new Error(`build.format 仅支持 script 或 esm，当前值为 ${format}`)
+    }
+    const rawTargets = input?.targets ?? input?.polyfill?.browserslist ?? this.store.browserslistOptions.default
+    const targets = (Array.isArray(rawTargets) ? rawTargets : [rawTargets]).filter(Boolean)
+    if (targets.length === 0) {
+      throw new Error('build.targets 至少需要一个有效的 Browserslist 查询')
+    }
     //
     const sourcemap: SourceMapType = {js: this.store.isDev ? 'cheap-module-source-map' : 'source-map', css: false}
     if (this.store.empOptions.build?.sourcemap === true) {
       sourcemap.css = true
       sourcemap.js = this.store.isDev ? 'cheap-module-source-map' : 'source-map'
     }
-    if (this.store.empOptions.build?.devtool) {
+    if (this.store.empOptions.build?.devtool !== undefined) {
       sourcemap.js = this.store.empOptions.build?.devtool
     }
     //
-    return this.assign<Required<Omit<BuildType, 'preset'>> & Pick<BuildType, 'preset'> & {sourcemap: SourceMapType}>(
+    return this.assign<
+      Required<Omit<BuildType, 'useESM' | 'targets'>> &
+        Pick<BuildType, 'useESM'> & {targets: string[]; sourcemap: SourceMapType}
+    >(
       {
         outDir: 'dist',
         staticDir,
@@ -162,7 +209,8 @@ export class EmpConfig {
         incremental: 'advance-silent',
         lazyCompilation: this.store.isDev,
         target: 'es5',
-        useESM: false,
+        targets,
+        format,
         rspack: {},
         polyfill: {
           mode: undefined,
@@ -171,14 +219,12 @@ export class EmpConfig {
           include: [],
           coreJsFeatures: 'stable',
           externalHelpers: false,
-          browserslist: this.store.browserslistOptions.default,
           // include:['es.object.values', 'es.object.entries', 'es.array.flat']
         },
         swcConfig: {},
         devtool: this.store.isDev ? 'cheap-module-source-map' : 'source-map',
       },
-      preset?.build,
-      {...this.store.empOptions.build, staticDir},
+      {...input, targets, format, staticDir},
     )
   }
   get html() {
@@ -268,14 +314,21 @@ export class EmpConfig {
     return merged
   }
   get css() {
+    const input = this.store.empOptions.css
+    if (input?.prefixName !== undefined && input.prifixName !== undefined && input.prefixName !== input.prifixName) {
+      throw new Error('css.prefixName 与已弃用的 css.prifixName 冲突')
+    }
+    const prefixName = input?.prefixName ?? input?.prifixName ?? ''
     const cb: Required<EmpOptions['css']> = this.assign(
       {
         sass: {mode: 'modern', warnRuleAsWarning: this.store.empConfig.debug.warnRuleAsWarning},
         // 默认开启 Less 的兼容选项，便于适配常见 UI 生态与旧 Less 写法
         less: {lessOptions: {javascriptEnabled: true, math: 'always'}},
-        prifixName: '',
+        prefixName,
+        prifixName: prefixName,
       },
-      this.store.empOptions.css,
+      input,
+      {prefixName, prifixName: prefixName},
     )
     return cb
   }
@@ -310,21 +363,9 @@ export class EmpConfig {
     // if (this.store.isDev && this.store.empConfig.empShare.dts !== false) {
     //   output.clean = false
     // }
-    const preset = getBuildPreset(this.store.empOptions.build?.preset)
-    const mergedOutput = deepAssign<Output>(output, preset?.output, this.store.empOptions.output)
+    const mergedOutput = deepAssign<Output>(output, this.store.empOptions.output)
     if (this.store.empConfig.isESM) {
-      const library =
-        mergedOutput.library && typeof mergedOutput.library === 'object' && !Array.isArray(mergedOutput.library)
-          ? mergedOutput.library
-          : {}
       mergedOutput.module = true
-      mergedOutput.library = this.assign(
-        {
-          type: 'modern-module',
-          preserveModules: this.store.resolve(this.store.empConfig.appSrc),
-        },
-        library,
-      )
     }
     return mergedOutput
   }

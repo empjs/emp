@@ -10,7 +10,7 @@
 - 涉及仓库读取或修改时，从 `git status --short --branch` 开始，保留用户已有改动；只修改、验证、stage 和提交本任务文件。
 - 未明确授权不得 force push、reset、破坏性 clean、发布、写外部系统或扩大目录范围。
 - `apps/**`、`website`、`packages/cdn-*`、`packages/lib-*` 和 `.github/workflows/publish.yml` 需要任务明确授权；`pnpm-lock.yaml` 只随依赖图变化。
-- 不提交 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rspack-cache/`、`.worktrees/`；不得创建仓库内历史工作流目录。
+- 不提交 `node_modules/`、`dist/`、`output/`、`coverage/`、`.codegraph/`、`.turbo/`、`.rslib/`、`.rstack/`、`.rspack-cache/`、`.worktrees/`；不得创建仓库内历史工作流目录。
 
 ## 路由
 

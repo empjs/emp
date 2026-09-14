@@ -1,0 +1,26 @@
+.page {
+  box-sizing: border-box;
+  max-width: 760px;
+  margin: 48px auto;
+  padding: 32px;
+  color: #172033;
+  font-family: system-ui, sans-serif;
+  background: #f5f7fb;
+  border: 1px solid #d9e0ee;
+  border-radius: 16px;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.button {
+  padding: 8px 14px;
+  color: white;
+  background: #2457d6;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}

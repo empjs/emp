@@ -109,8 +109,8 @@ $unit = 10px
     const tailwindPkg = JSON.parse(readFileSync(join(repoRoot, 'packages/plugin-tailwindcss/package.json'), 'utf8'))
     const rootPkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8'))
 
-    expect(tailwindPkg.dependencies?.tailwindcss).toBe('4.3.1')
-    expect(tailwindPkg.dependencies?.['@tailwindcss/webpack']).toBe('4.3.1')
+    expect(tailwindPkg.dependencies?.tailwindcss).toBe('4.3.3')
+    expect(tailwindPkg.dependencies?.['@tailwindcss/webpack']).toBe('4.3.3')
     expect(rootPkg.devDependencies?.['@empjs/plugin-tailwindcss2']).toBeUndefined()
     expect(rootPkg.devDependencies?.['@empjs/plugin-tailwindcss3']).toBeUndefined()
   })

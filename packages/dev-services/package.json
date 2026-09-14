@@ -1,0 +1,18 @@
+{
+  "name": "@empjs/dev-services",
+  "version": "4.0.0",
+  "private": true,
+  "description": "emp workspace local static service runner",
+  "type": "module",
+  "exports": {
+    ".": "./static-services.mjs",
+    "./config": "./static-services.config.mjs"
+  },
+  "bin": {
+    "emp-static": "./static-services.mjs"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "author": "Ken"
+}

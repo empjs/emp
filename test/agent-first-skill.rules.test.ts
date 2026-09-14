@@ -9,13 +9,41 @@ const skillDir = join(repoRoot, 'skills/emp')
 const skillPath = join(skillDir, 'SKILL.md')
 const openaiYamlPath = join(skillDir, 'agents/openai.yaml')
 const referencesDir = join(skillDir, 'references')
-const referenceFiles = ['project-setup.md', 'module-federation.md', 'plugins.md', 'validation-release.md'] as const
+const referenceFiles = [
+  'project-setup.md',
+  'configuration.md',
+  'build-compatibility.md',
+  'legacy-compatibility.md',
+  'html-server-css.md',
+  'advanced-configuration.md',
+  'module-federation.md',
+  'plugins.md',
+  'validation-release.md',
+] as const
 const websiteAppPath = join(repoRoot, 'website/src/App.tsx')
+const cliConfigPath = join(repoRoot, 'packages/cli/src/types/config.ts')
 const staleNestedSkillDirs = ['.agent/skills', '.agents/skills', '.shared/skills'] as const
 
 const expectFile = (path: string) => {
   expect(existsSync(path), `${path} should exist`).toBe(true)
   return readText(path)
+}
+
+const extractOwnFields = (source: string, declaration: string) => {
+  const start = source.indexOf(declaration)
+  expect(start, `${declaration} should exist`).toBeGreaterThanOrEqual(0)
+  const openingBrace = source.indexOf('{', start)
+  let depth = 0
+  let end = openingBrace
+  for (; end < source.length; end += 1) {
+    if (source[end] === '{') depth += 1
+    if (source[end] === '}') depth -= 1
+    if (depth === 0 && end > openingBrace) break
+  }
+  return source
+    .slice(openingBrace + 1, end)
+    .split('\n')
+    .flatMap(line => line.match(/^  ([A-Za-z][A-Za-z0-9]*)\??:/)?.[1] ?? [])
 }
 
 describe('EMP v4 Agent-First repository skill', () => {
@@ -162,6 +190,114 @@ describe('EMP v4 Agent-First repository skill', () => {
     }
     expect(validation).toContain('formal release')
     expect(validation).not.toContain('release candidate')
+  })
+
+  test('configuration references cover every EMP-owned public config field', () => {
+    const source = expectFile(cliConfigPath)
+    const configuration = expectFile(join(referencesDir, 'configuration.md'))
+    const build = expectFile(join(referencesDir, 'build-compatibility.md'))
+    const htmlServerCss = expectFile(join(referencesDir, 'html-server-css.md'))
+    const advanced = expectFile(join(referencesDir, 'advanced-configuration.md'))
+
+    for (const field of extractOwnFields(source, 'export type EmpOptions = {')) {
+      expect(configuration, `EmpOptions.${field} is undocumented`).toContain(`\`${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export type BuildType = {')) {
+      expect(build, `BuildType.${field} is undocumented`).toContain(`\`build.${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export type PolyfillType = {')) {
+      expect(build, `PolyfillType.${field} is undocumented`).toContain(`\`build.polyfill.${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export type Rspack2BuildOptions = {')) {
+      expect(build, `Rspack2BuildOptions.${field} is undocumented`).toContain(`\`build.rspack.${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export type DebugType = {')) {
+      expect(advanced, `DebugType.${field} is undocumented`).toContain(`\`debug.${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export type ServerType = devServerConfig & {')) {
+      expect(htmlServerCss, `ServerType.${field} is undocumented`).toContain(`\`server.${field}\``)
+    }
+    for (const field of extractOwnFields(source, 'export interface HtmlType extends HtmlRspackPluginOptions {')) {
+      expect(htmlServerCss, `HtmlType.${field} is undocumented`).toContain(`\`html.${field}\``)
+    }
+
+    for (const marker of [
+      'css.sass.api',
+      'css.sass.sassOptions',
+      'css.sass.mode',
+      'css.sass.implementation',
+      'css.sass.webpackImporter',
+      'css.sass.warnRuleAsWarning',
+      'css.sass.additionalData',
+      'css.less.lessOptions.javascriptEnabled',
+      'css.less.lessOptions.math',
+      'css.prefixName',
+      'css.prifixName',
+    ]) {
+      expect(htmlServerCss).toContain(`\`${marker}\``)
+    }
+  })
+
+  test('legacy compatibility reference routes every retained alias to executable evidence', () => {
+    const compatibility = expectFile(join(referencesDir, 'legacy-compatibility.md'))
+
+    for (const marker of [
+      'apps/legacy-config-compat',
+      'build.useESM',
+      'build.polyfill.browserslist',
+      'build.devtool',
+      'css.prifixName',
+      'splickChunks',
+      'server.http2',
+      'debug.showPerformance',
+      'debug.newTreeshaking',
+      'test:config',
+      'compatibility.browser.ts',
+    ]) {
+      expect(compatibility).toContain(marker)
+    }
+  })
+
+  test('plugin and federation references cover every EMP-owned option surface', () => {
+    const plugins = expectFile(join(referencesDir, 'plugins.md'))
+    const federation = expectFile(join(referencesDir, 'module-federation.md'))
+
+    for (const marker of [
+      'hmr',
+      'svgrQuery',
+      'reactRuntime',
+      'splitChunks',
+      'splickChunks',
+      'version',
+      'import.src',
+      'import.externals',
+      'reactCompiler',
+      'postcssOptions',
+      'transform',
+      'minify',
+      'implementation',
+      'enablePostcss',
+      'base',
+      'optimize',
+    ]) {
+      expect(plugins, `plugin option ${marker} is undocumented`).toContain(`\`${marker}\``)
+    }
+
+    for (const marker of [
+      'empRuntime.shareLib',
+      'empRuntime.version',
+      'empRuntime.frameworkGlobal',
+      'empRuntime.runtimeLib',
+      'empRuntime.runtime',
+      'empRuntime.runtimeGlobal',
+      'empRuntime.setExternals',
+      'empRuntime.injectGlobalValToHtml',
+      'empRuntime.framework',
+      'empRuntime.frameworkLib',
+      'forceRemotes',
+    ]) {
+      expect(federation, `federation option ${marker} is undocumented`).toContain(`\`${marker}\``)
+    }
   })
 
   test('official website guides users to the repository skill instead of duplicating the manual', () => {

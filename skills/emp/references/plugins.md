@@ -27,8 +27,10 @@ Use this reference for EMP v4 plugins and package-level configuration.
 ## Contents
 
 - [Framework Plugins](#framework-plugins)
+- [React Plugin Options](#react-plugin-options)
 - [React Compiler](#react-compiler)
 - [CSS Plugins](#css-plugins)
+- [CSS Plugin Options](#css-plugin-options)
 - [Quality Packages](#quality-packages)
 - [Current Package Surface](#current-package-surface)
 - [Selection Rules](#selection-rules)
@@ -67,6 +69,22 @@ export default defineConfig({
   plugins: [pluginVue3()],
 })
 ```
+
+Vue 2, Vue 3, and Stylus plugins currently expose no public options. Configure their surrounding build, server, and CSS behavior through the owning EMP fields rather than passing undocumented objects.
+
+## React Plugin Options
+
+| Field | Default/behavior |
+| --- | --- |
+| `hmr` | `true`; coordinates React Refresh with `server.hot`. |
+| `svgrQuery` | `react`; SVG resource query that selects SVGR component handling. |
+| `reactRuntime` | Auto-detected `automatic` or `classic` JSX runtime override. |
+| `splitChunks` | `false`; creates React and React Router cache groups. |
+| `splickChunks` | Deprecated spelling alias for `splitChunks`. |
+| `version` | React major/version hint when React is external and cannot be read from package dependencies. |
+| `import.src` | External React script URL injected into HTML. |
+| `import.externals` | Rspack externals installed with the injected script. |
+| `reactCompiler` | Boolean enablement or React Compiler options described below. |
 
 ## React Compiler
 
@@ -164,6 +182,32 @@ export default defineConfig({
   plugins: [pluginStylus()],
 })
 ```
+
+## CSS Plugin Options
+
+Tailwind CSS:
+
+| Field | Default/behavior |
+| --- | --- |
+| `base` | Project root used by `@tailwindcss/webpack`. |
+| `optimize` | Enabled outside development; accepts boolean or `{minify}`. |
+
+PostCSS:
+
+| Field | Behavior |
+| --- | --- |
+| `postcssOptions` | Passed to `postcss-loader` for CSS, Sass, and Less rules. |
+
+Lightning CSS:
+
+| Field | Default/behavior |
+| --- | --- |
+| `transform` | `false`; boolean enablement or Lightning CSS transform options. Targets default from normalized `build.targets`. |
+| `minify` | Enabled automatically when transform is enabled unless explicitly set; accepts boolean or minimizer options. |
+| `implementation` | Custom Lightning CSS implementation. |
+| `enablePostcss` | `false`; retain PostCSS only when an existing plugin chain requires it. |
+
+`@empjs/plugin-lightningcss` also exports `composeVisitors`, `postcss`, `PxToRemOptions`, and `PxToVwOptions` for explicit unit-transform composition. Keep visitor configuration in plugin code and verify generated CSS values.
 
 ## Quality Packages
 

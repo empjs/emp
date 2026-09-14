@@ -15,6 +15,14 @@ export type PluginReactType = {
    * @default undefined
    */
   reactRuntime?: string
+  /**
+   * 是否为 React 与 React Router 依赖创建独立 splitChunks cache group。
+   * @default false
+   */
+  splitChunks?: boolean
+  /**
+   * @deprecated 拼写错误，请使用 splitChunks，后续主版本将移除此字段。
+   */
   splickChunks?: boolean
   /**
    * react version 适配cdn 加载环境

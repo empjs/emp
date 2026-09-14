@@ -25,7 +25,7 @@ EMP 是一套面向现代 Web 的微前端工程工具：用统一配置完成 h
 
 - **联邦构建**：内置 host、remote、共享依赖和类型声明生成。
 - **高性能底座**：基于 Rspack 2，覆盖开发、构建、预览与分析。
-- **ESM 优先输出**：支持 `build.useESM`、`modern-module` 与 `preserveModules`。
+- **明确的产物格式**：使用 `build.format` 选择普通 script 或原生 ESM，并通过 `build.targets` 统一兼容范围。
 - **TS 7 稳定类型基线**：守住 CLI、插件、DTS 和样式类型兼容性。
 - **框架生态**：开箱支持 React、Vue 2 / 3、Tailwind CSS、Lightning CSS 等。
 

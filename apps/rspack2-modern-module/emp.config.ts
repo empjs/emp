@@ -5,7 +5,8 @@ export default defineConfig(() => {
     appSrc: 'src',
     appEntry: 'index.ts',
     build: {
-      preset: 'modern',
+      targets: ['Chrome >= 80', 'Edge >= 80', 'Firefox >= 80', 'Safari >= 14'],
+      format: 'esm',
     },
     debug: {
       clearLog: false,

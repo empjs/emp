@@ -6,7 +6,7 @@
   "type": "module",
   "devDependencies": {
     "@empjs/cli": "workspace:*",
-    "@empjs/plugin-vue3": "workspace:^*"
+    "@empjs/plugin-vue3": "workspace:^"
   },
   "dependencies": {
     "@empjs/share": "workspace:^",

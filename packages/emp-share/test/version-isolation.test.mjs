@@ -167,7 +167,7 @@ async function runSharePlugin(options, storeOverrides) {
     {
       empConfig: {
         css: {
-          prifixName: 'custom_css',
+          prefixName: 'custom_css',
         },
         output: {
           uniqueName: 'legacy_unique_name',

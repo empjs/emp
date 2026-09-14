@@ -60,10 +60,10 @@ export default defineConfig(store => {
     ],
     define: {ip, port},
     build: {
+      targets: store.browserslistOptions.h5,
       polyfill: {
         mode: 'entry',
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
-        browserslist: store.browserslistOptions.h5,
       },
       sourcemap: {
         js: store.isDev ? 'cheap-module-source-map' : 'source-map',

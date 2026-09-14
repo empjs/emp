@@ -12,6 +12,10 @@ export default (o: PluginReactType = {}) => {
     name: '@empjs/plugin-react',
     async rsConfig(store: GlobalStore) {
       const {chain, deepAssign} = store
+      if (o.splitChunks !== undefined && o.splickChunks !== undefined && o.splitChunks !== o.splickChunks) {
+        throw new Error('pluginReact splitChunks 与已弃用的 splickChunks 配置冲突')
+      }
+      const splitChunks = o.splitChunks ?? o.splickChunks ?? false
       //
       if (store.empConfig.server.hot === false) {
         o.hmr = false
@@ -20,7 +24,7 @@ export default (o: PluginReactType = {}) => {
         store.empConfig.server.hot = false
       }
       //
-      o = deepAssign({hmr: true, svgrQuery: 'react', splickChunks: false}, o)
+      o = deepAssign({hmr: true, svgrQuery: 'react', splitChunks: false}, o, {splitChunks})
       //
       let reactVersion = `18.0.0`
       if (o.version) {
@@ -123,7 +127,7 @@ export default (o: PluginReactType = {}) => {
         },
       })
       //
-      if (o.splickChunks) {
+      if (o.splitChunks) {
         store.chain.optimization.merge({
           splitChunks: {
             cacheGroups: {

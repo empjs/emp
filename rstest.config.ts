@@ -8,7 +8,14 @@ const skipNextBrowserRebuildKey = 'APPS_BROWSER_SKIP_NEXT_REBUILD'
 const browserScope = process.env.EMP_BROWSER_SCOPE === 'apps' ? 'apps' : 'all'
 const appsBrowserTestFiles = ['apps/*/test/browser/**/*.browser.ts']
 const empShareBrowserTestFiles = ['packages/emp-share/test/browser/**/*.browser.ts']
-const browserTestFiles = browserScope === 'apps' ? appsBrowserTestFiles : [...appsBrowserTestFiles, ...empShareBrowserTestFiles]
+const libAdapterBrowserTestFiles = [
+  'packages/lib-react-17/test/browser/**/*.browser.ts',
+  'packages/lib-vue-2/test/browser/**/*.browser.ts',
+]
+const browserTestFiles =
+  browserScope === 'apps'
+    ? appsBrowserTestFiles
+    : [...appsBrowserTestFiles, ...empShareBrowserTestFiles, ...libAdapterBrowserTestFiles]
 const appsBrowserForceRerunTriggers = [
   'apps/*/emp*.js',
   'apps/*/emp*.ts',
@@ -34,8 +41,20 @@ const appsBrowserForceRerunTriggers = [
   'apps/test-support/browser/**/*.ts',
 ]
 const empShareBrowserForceRerunTriggers = ['packages/emp-share/test/browser/**/*.browser.ts', 'packages/emp-share/output/**']
+const libAdapterBrowserForceRerunTriggers = [
+  'packages/lib-react-17/src/**',
+  'packages/lib-vue-2/src/**',
+  'packages/lib-react-17/test/browser/**/*.browser.ts',
+  'packages/lib-vue-2/test/browser/**/*.browser.ts',
+]
 const browserForceRerunTriggers =
-  browserScope === 'apps' ? appsBrowserForceRerunTriggers : [...appsBrowserForceRerunTriggers, ...empShareBrowserForceRerunTriggers]
+  browserScope === 'apps'
+    ? appsBrowserForceRerunTriggers
+    : [
+        ...appsBrowserForceRerunTriggers,
+        ...empShareBrowserForceRerunTriggers,
+        ...libAdapterBrowserForceRerunTriggers,
+      ]
 const testSupportAlias = fileURLToPath(new URL('./apps/test-support', import.meta.url))
 
 if (isBrowserMode) {

@@ -9,6 +9,20 @@ const importDist = async <T = any>(relativePath: string): Promise<T> => {
   return module.default
 }
 
+const deepAssign = (target: any, ...sources: any[]) => {
+  for (const source of sources) {
+    for (const key in source) {
+      const sourceValue = source[key]
+      const targetValue = target[key]
+      target[key] =
+        Object(sourceValue) === sourceValue && Object(targetValue) === targetValue
+          ? deepAssign(targetValue, sourceValue)
+          : sourceValue
+    }
+  }
+  return target
+}
+
 class DefinePlugin {
   options: Record<string, unknown>
 
@@ -42,24 +56,40 @@ const createStore = async (options: {isDev?: boolean} = {}) => {
     .use('lessLoader')
     .loader('less-loader')
     .end()
-  chain.module.rule('javascript').test(/\.[jt]sx?$/).use('swc').loader('builtin:swc-loader').options({jsc: {}})
-  chain.module.rule('typescript').test(/\.[jt]sx?$/).use('swc').loader('builtin:swc-loader').options({jsc: {}})
+  chain.module
+    .rule('javascript')
+    .test(/\.[jt]sx?$/)
+    .use('swc')
+    .loader('builtin:swc-loader')
+    .options({jsc: {transform: {}}})
+  chain.module
+    .rule('typescript')
+    .test(/\.[jt]sx?$/)
+    .use('swc')
+    .loader('builtin:swc-loader')
+    .options({jsc: {transform: {}}})
   chain.module.rule('svg').test(/\.svg$/).type('asset')
   chain.plugin('definePlugin').use(DefinePlugin, [{EXISTING_FLAG: true}])
 
   return {
     chain,
     chainName: {rule: {css: 'css'}},
+    deepAssign,
     empConfig: {
-      build: {polyfill: {browserslist: ['chrome 100']}},
+      build: {targets: ['chrome 100']},
       server: {port: 7331},
     },
     isDev: options.isDev ?? false,
+    injectTags() {},
     merge(config: Record<string, unknown>) {
       chain.merge(config)
     },
     root: repoRoot,
+    pkg: {dependencies: {react: '19.0.0'}, devDependencies: {}},
     uniqueName: 'plugin_config_test',
+    vCompare() {
+      return 1
+    },
   }
 }
 
@@ -121,6 +151,26 @@ describe('plugin config shape coverage', () => {
     expect(useByLoader(cssRule, 'plugin-lightningcss/dist/loader.js')).toBeTruthy()
     expect(useByLoader(cssRule, 'postcss-loader')).toBeTruthy()
     expect(config.optimization).toBeUndefined()
+  })
+
+  test('plugin-react accepts the canonical splitChunks option', async () => {
+    const config = await configFrom(await pluginFrom('packages/plugin-react/dist/index.js', {splitChunks: true}))
+
+    expect(config.optimization?.splitChunks?.cacheGroups?.react?.name).toBe('common-react')
+    expect(config.optimization?.splitChunks?.cacheGroups?.reactRouter?.name).toBe('common-react-router')
+  })
+
+  test('plugin-react keeps the deprecated splickChunks alias working', async () => {
+    const config = await configFrom(await pluginFrom('packages/plugin-react/dist/index.js', {splickChunks: true}))
+
+    expect(config.optimization?.splitChunks?.cacheGroups?.react?.name).toBe('common-react')
+    expect(config.optimization?.splitChunks?.cacheGroups?.reactRouter?.name).toBe('common-react-router')
+  })
+
+  test('plugin-react rejects conflicting splitChunks aliases', async () => {
+    await expect(
+      configFrom(await pluginFrom('packages/plugin-react/dist/index.js', {splitChunks: true, splickChunks: false})),
+    ).rejects.toThrow(/splitChunks .* splickChunks/)
   })
 
   test('plugin-postcss injects postcss-loader before Sass and Less compilers', async () => {

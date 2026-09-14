@@ -132,7 +132,7 @@ pluginRspackEmpShare({
 })
 ```
 
-派生规则为 `` `${pkg.name}_${pkg.version}`.replace(/@/g, '').replace(/[^\w_]/g, '_') ``。启用后插件会把派生值同时用于 Module Federation `name`、Rspack `output.uniqueName`，并在业务未显式配置 `css.prifixName` 时用于 CSS Modules className 前缀。
+派生规则为 `` `${pkg.name}_${pkg.version}`.replace(/@/g, '').replace(/[^\w_]/g, '_') ``。启用后插件会把派生值同时用于 Module Federation `name`、Rspack `output.uniqueName`，并在业务未显式配置 `css.prefixName` 时用于 CSS Modules className 前缀。
 
 该能力只接受布尔值，不支持手写版本号；缺少 `package.json` 的 `name` 或 `version` 时会回退到原有 `name` 行为。文件名仍是 `emp.js`，直接用 `scope@url/emp.js` 消费时需要使用派生后的实际 scope。
 

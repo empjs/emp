@@ -35,7 +35,10 @@ export const APP_BROWSER_PROXY_TARGETS = Object.freeze({
   'dual-role-a': `http://${localhost}:8201/`,
   'dual-role-b': `http://${localhost}:8202/`,
   'esm-federation': `http://${localhost}:8103/`,
+  'legacy-config-compat': `http://${localhost}:8105/`,
   'emp-share': `http://${localhost}:2100/`,
+  'lib-react-17': `http://${localhost}:2110/`,
+  'lib-vue-2': `http://${localhost}:2111/`,
   'mf-app': `http://${localhost}:6002/`,
   'mf-host': `http://${localhost}:6001/`,
   'react-19-tanstack': `http://${localhost}:1992/`,
@@ -177,6 +180,11 @@ function staticService(name, dist, port) {
   }
 }
 
+function staticAssetService(name, dist, port, asset) {
+  const service = staticService(name, dist, port)
+  return {...service, readyUrl: `http://${localhost}:${port}/${asset}`}
+}
+
 const containerService = {
   name: 'rstest-container',
   cmd: 'node',
@@ -189,11 +197,14 @@ const containerService = {
 
 const services = [
   staticService('emp-share', 'packages/emp-share/output', 2100),
+  staticAssetService('lib-react-17', 'packages/lib-react-17/dist', 2110, 'runtime.umd.js'),
+  staticAssetService('lib-vue-2', 'packages/lib-vue-2/dist', 2111, 'runtime.umd.js'),
   staticService('adapter-app', 'apps/adapter-app/dist', 7702),
   staticService('adapter-host', 'apps/adapter-host/dist', 7701),
   staticService('dual-role-a', 'apps/dual-role/dist', 8201),
   staticService('dual-role-b', 'apps/dual-role/dist', 8202),
   staticService('esm-federation', 'apps/esm-federation/dist', 8103),
+  staticService('legacy-config-compat', 'apps/legacy-config-compat/dist', 8105),
   staticService('mf-host', 'apps/mf-host/dist', 6001),
   {
     name: 'mf-app',
@@ -253,6 +264,8 @@ export async function buildAppsBrowserTargets(filter = selectedBrowserServiceNam
   await run('corepack', ['pnpm', '--filter', '@empjs/chain', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/cli', 'build'])
   await run('corepack', ['pnpm', '--filter', '@empjs/share', 'build'])
+  await buildBrowserAppTarget('lib-react-17', filter, ['pnpm', '--filter', '@empjs/lib-react', 'build'])
+  await buildBrowserAppTarget('lib-vue-2', filter, ['pnpm', '--filter', '@empjs/lib-vue-2', 'build'])
   await buildBrowserAppTarget('vue-2-base', filter, ['pnpm', '--filter', './apps/vue-2-base', 'build'])
   await buildBrowserAppTarget('vue-3-base', filter, ['pnpm', '--filter', './apps/vue-3-base', 'build'])
   await buildBrowserAppTarget('adapter-host', filter, ['pnpm', '--filter', './apps/adapter-host', 'build'])
@@ -261,6 +274,12 @@ export async function buildAppsBrowserTargets(filter = selectedBrowserServiceNam
     await run('corepack', ['pnpm', '--filter', './apps/dual-role', 'build'])
   }
   await buildBrowserAppTarget('esm-federation', filter, ['pnpm', '--filter', './apps/esm-federation', 'build'])
+  await buildBrowserAppTarget('legacy-config-compat', filter, [
+    'pnpm',
+    '--filter',
+    './apps/legacy-config-compat',
+    'build',
+  ])
   await buildBrowserAppTarget('mf-host', filter, ['pnpm', '--filter', './apps/mf-host', 'build'])
   await buildBrowserAppTarget('mf-app', filter, ['pnpm', '--filter', './apps/mf-app', 'build'])
   await buildBrowserAppTarget('vue-2-project', filter, ['pnpm', '--filter', './apps/vue-2-project', 'build'])
