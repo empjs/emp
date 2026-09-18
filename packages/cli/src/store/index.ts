@@ -18,7 +18,6 @@ import {HtmlEmpInjectPlugin} from './rspack/builtInPlugin'
 export class GlobalStore {
   public rspack: typeof rspack = rspack
   public rspackVersion = rspack.rspackVersion
-  public isOldRspack = vCompare(this.rspackVersion, '1.0.0') === -1
   /**
    * EMP Version
    * @default package version
@@ -157,6 +156,8 @@ export class GlobalStore {
     if (this.debug.clearLog) {
       clearConsole()
     }
+    // 清屏之后再发弃置告警：clearConsole 含回滚缓冲，在它之前打印的内容会被整屏抹掉
+    this.empConfig.warnDeprecatedFields()
   }
   /**
    * 初始化 基础变量

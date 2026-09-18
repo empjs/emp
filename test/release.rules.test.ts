@@ -1,9 +1,9 @@
-import {describe, expect, test} from '@rstest/core'
 import {execFile as execFileCallback} from 'node:child_process'
-import {mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises'
+import {mkdir, mkdtemp, readdir, readFile, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join, relative} from 'node:path'
 import {promisify} from 'node:util'
+import {describe, expect, test} from '@rstest/core'
 import {
   applyInternalVersion,
   buildPublishCommands,
@@ -91,6 +91,41 @@ const withFixture = async (fn: (root: string) => Promise<void>) => {
   } finally {
     await rm(root, {recursive: true, force: true})
   }
+}
+
+type ManifestShape = {
+  name?: string
+  dependencies?: Record<string, string>
+  devDependencies?: Record<string, string>
+  optionalDependencies?: Record<string, string>
+}
+
+const manifestSearchSkips = new Set([
+  'node_modules',
+  'dist',
+  'output',
+  'coverage',
+  '.git',
+  '.rspack-cache',
+  '.rslib',
+  '.rstack',
+  '.turbo',
+  'tmp',
+])
+
+const collectManifests = async (dir: string, depth = 0): Promise<string[]> => {
+  if (depth > 3) return []
+
+  const found: string[] = []
+  for (const entry of await readdir(dir, {withFileTypes: true})) {
+    if (manifestSearchSkips.has(entry.name)) continue
+
+    const child = join(dir, entry.name)
+    if (entry.isDirectory()) found.push(...(await collectManifests(child, depth + 1)))
+    else if (entry.name === 'package.json') found.push(child)
+  }
+
+  return found
 }
 
 describe('release rules', () => {
@@ -440,10 +475,62 @@ describe('release rules', () => {
     expect(workspace).toMatch(/^pmOnFail: ignore$/m)
     expect(workspace).toMatch(/^allowBuilds:$/m)
     expect(workspace).not.toContain('ignoredBuiltDependencies:')
-    expect(workspace).toContain("- '@rstest/browser@0.11.11'")
-    expect(workspace).toContain("- '@rstest/core@0.11.11'")
     expect(workspace).toMatch(/^minimumReleaseAgeExcludePrune: true$/m)
+    // With minimumReleaseAgeExcludePrune on, pnpm prunes any pinned exclusion
+    // its freshly written lockfile no longer resolves. Asserting the invariant
+    // rather than specific selectors keeps this test from going stale: the
+    // 0.11.11 Rstest entries this file used to assert were removed by pnpm
+    // itself once the lockfile moved to 0.11.12.
+    // https://pnpm.io/settings/dependency-resolution#minimumreleaseageexcludeprune
+    const pinnedExemptions = [...workspace.matchAll(/^\s+- '([^'\s]+@[^'\s]+)'$/gm)].map(([, selector]) => selector)
+    for (const selector of pinnedExemptions) {
+      const reason = `${selector} is exempted from minimumReleaseAge but the lockfile no longer resolves it`
+      expect(lockfile, reason).toContain(selector)
+    }
     expect(lockfile.match(/^---$/gm) ?? []).toHaveLength(0)
     expect(lockfile).not.toContain('packageManagerDependencies:')
+  })
+
+  test('root .npmrc holds only the settings pnpm 12 still reads', async () => {
+    // pnpm 12 reads authorization and registry settings from .npmrc and nothing
+    // else. Every other setting belongs in pnpm-workspace.yaml or the global
+    // config.yaml, and is dropped here without a warning.
+    // https://pnpm.io/settings
+    const npmrc = await readFile(join(repoRoot, '.npmrc'), 'utf8').catch(() => '')
+    const ignored = npmrc
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0 && !line.startsWith('#') && !line.startsWith(';'))
+      .map(line => line.split('=')[0].trim())
+      .filter(key => key !== 'registry' && !/(_auth|_authToken|_password|tokenHelper)$/.test(key))
+
+    expect(ignored, 'pnpm 12 ignores these .npmrc settings; move them to pnpm-workspace.yaml').toEqual([])
+  })
+
+  test('install-driving dependencies on workspace packages use the workspace protocol', async () => {
+    // Every internal edge carries workspace:, so link-workspace-packages and
+    // prefer-workspace-packages (both false by default in pnpm 12) never have a
+    // bare range to resolve and are not needed in pnpm-workspace.yaml.
+    const manifests = await Promise.all(
+      (await collectManifests(repoRoot)).map(async file => ({
+        file,
+        manifest: JSON.parse(await readFile(file, 'utf8')) as ManifestShape,
+      })),
+    )
+    const internalNames = new Set(
+      manifests.flatMap(({manifest}) => (manifest.name === undefined ? [] : [manifest.name])),
+    )
+
+    const bareRanges: string[] = []
+    for (const {file, manifest} of manifests) {
+      for (const section of ['dependencies', 'devDependencies', 'optionalDependencies'] as const) {
+        for (const [name, range] of Object.entries(manifest[section] ?? {})) {
+          const target = `${relative(repoRoot, file)} → ${section}.${name} = ${range}`
+          if (internalNames.has(name) && !range.startsWith('workspace:')) bareRanges.push(target)
+        }
+      }
+    }
+
+    expect(bareRanges, 'use a workspace: range so the local package is linked').toEqual([])
   })
 })

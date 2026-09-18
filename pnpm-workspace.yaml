@@ -4,15 +4,17 @@ packages:
   - '!**/test/**'
   - website
 
-# Keep pnpm-lock.yaml single-document so GitHub dependency graph and security
-# scanners read the workspace graph instead of pnpm's environment lockfile.
+# Skip the packageManager-version check entirely: pnpm is pinned by corepack
+# (CI runs `corepack prepare pnpm@12.2.1 --activate`), so a version mismatch is
+# handled there and must not fail the command here.
+# NOTE: this is NOT about the lockfile shape. Keeping pnpm-lock.yaml a single
+# document is sharedWorkspaceLockfile, which is on by default in pnpm 12.
 pmOnFail: ignore
 
-# These already-reviewed, locked Rstest releases predate the pnpm 12 migration.
-# Exact selectors preserve the 24-hour policy for every future version.
-minimumReleaseAgeExclude:
-  - '@rstest/browser@0.11.11'
-  - '@rstest/core@0.11.11'
+# minimumReleaseAgeExcludePrune drops any exclusion the freshly written lockfile
+# no longer resolves, so an entry here survives only while it is still needed:
+# add a pinned exemption when a specific release must bypass the 24h
+# minimumReleaseAge window, and pnpm removes it again once that version is gone.
 minimumReleaseAgeExcludePrune: true
 
 allowBuilds:

@@ -74,29 +74,24 @@ class RspackPlugin {
       ])
   }
   async progress() {
-    // if (!this.store.empConfig.debug.progress) return
+    // 进度条语义固定：dev 关闭、生产开启（原 debug.progress 开关无消费者，已移除）
     if (this.store.mode === 'development') return
-    //
-    let op: any = {}
-    if (this.store.isOldRspack) {
-    } else {
-      op = {
-        // prefix: 'EMP',
-        // 是否收集进度步骤的性能数据。
-        // profile: true,
-        /**
-         * 进度条的模板。
-         * Default: ● {prefix:.bold} {bar:25.green/white.dim} ({percent}%) {wide_msg:.dim}
-         */
-        template: `{bar:25.green/white}{spinner:.green}{percent}% {wide_msg:.dim}`,
-        // Spinner 变化的字符串序列，如果是字符串，则会被拆分为字符。
-        tick: undefined,
-        /**
-         * 组成进度条的字符。
-         * Default: ━━
-         */
-        progressChars: `▩▩`,
-      }
+    const op: any = {
+      // prefix: 'EMP',
+      // 是否收集进度步骤的性能数据。
+      // profile: true,
+      /**
+       * 进度条的模板。
+       * Default: ● {prefix:.bold} {bar:25.green/white.dim} ({percent}%) {wide_msg:.dim}
+       */
+      template: `{bar:25.green/white}{spinner:.green}{percent}% {wide_msg:.dim}`,
+      // Spinner 变化的字符串序列，如果是字符串，则会被拆分为字符。
+      tick: undefined,
+      /**
+       * 组成进度条的字符。
+       * Default: ━━
+       */
+      progressChars: `▩▩`,
     }
     //
     this.store.chain.plugin(this.store.chainName.plugin.progress).use(rspack.ProgressPlugin, [op])
@@ -109,16 +104,11 @@ class RspackPlugin {
       .minimizer(this.store.chainName.minimizer.minJs)
       .use(rspack.SwcJsMinimizerRspackPlugin, [this.store.empConfig.build.minOptions])
     // min css
-    const {SwcCssMinimizerRspackPlugin, LightningCssMinimizerRspackPlugin}: any = rspack
-    if (SwcCssMinimizerRspackPlugin) {
-      this.store.chain.optimization
-        .minimizer(this.store.chainName.minimizer.minCss)
-        .use(SwcCssMinimizerRspackPlugin, [this.store.empConfig.build.cssminOptions])
-    } else if (LightningCssMinimizerRspackPlugin) {
-      this.store.chain.optimization
-        .minimizer(this.store.chainName.minimizer.minCss)
-        .use(LightningCssMinimizerRspackPlugin, [this.store.empConfig.build.cssminOptions])
-    }
+    // Rspack 2 只导出 LightningCssMinimizerRspackPlugin（SwcCssMinimizerRspackPlugin 已不存在），不再做运行时探测
+    const {LightningCssMinimizerRspackPlugin}: any = rspack
+    this.store.chain.optimization
+      .minimizer(this.store.chainName.minimizer.minCss)
+      .use(LightningCssMinimizerRspackPlugin, [this.store.empConfig.build.cssminOptions])
   }
   redoctor() {
     if (!this.store.empConfig.debug.rsdoctor) return

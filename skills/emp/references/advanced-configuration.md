@@ -16,12 +16,9 @@ Use this reference for cache, injected values, Rspack passthroughs, imperative h
 | Field | Behavior |
 | --- | --- |
 | `cacheDir` | Persistent cache directory; default `node_modules/.emp-cache`. |
-| `cache` | `false` disables cache, `true`/memory behavior uses the normal runtime cache, `persistent` enables persistent cache, and a Rspack cache object passes through advanced options. |
-| `moduleTransform.exclude` | Additional loader exclusions. |
-| `moduleTransform.include` | Additional loader inclusions. |
-| `moduleTransform.defaultExclude` | Controls EMP's default dependency exclusion behavior. |
+| `cache` | `false` disables cache, `true`/memory behavior uses the normal runtime cache, `persistent` enables persistent cache, and a Rspack cache object passes through advanced options. `cache.maxVersions` no longer exists in Rspack 2: setting it emits a warning and the value is ignored. |
 
-Use transformation overrides only after proving an installed dependency ships syntax outside the declared `build.targets` contract.
+Transformation include/exclude control has no `emp-config` field. Adjust loader rules through `chain` or a first-party plugin, and prove the change with a resolved-config or artifact assertion.
 
 ## Define and environment expressions
 
@@ -59,12 +56,11 @@ Before using `chain`, confirm the same behavior is not already represented by `b
 | --- | --- |
 | `debug.loggerLevel` | `info`; accepts `debug`, `info`, `warn`, or `error`. |
 | `debug.clearLog` | `true`; controls terminal clearing. |
-| `debug.progress` | `true`; controls Rspack progress output. |
 | `debug.showRsconfig` | `false`; `true` prints resolved config, a string writes JSON to that path, and inspect options customize terminal rendering. |
-| `debug.showPerformance` | Deprecated compatibility field with no active report path. |
+| `debug.showPerformance` | Deprecated compatibility field with no active report path; a truthy value logs a warning at setup. |
 | `debug.showScriptDebug` | Enables additional script debug behavior where consumed. |
 | `debug.rsdoctor` | `false`, boolean enablement, or Rsdoctor options; CLI doctor mode enables it automatically. |
-| `debug.newTreeshaking` | Deprecated compatibility field; Rspack 2 has no active consumer. |
+| `debug.newTreeshaking` | Deprecated compatibility field; Rspack 2 has no active consumer, and a truthy value logs a warning at setup. |
 | `debug.devShowAllLog` | Show all development logs. |
 | `debug.warnRuleAsWarning` | `true`; default warning policy inherited by Sass. Prefer `css.sass.warnRuleAsWarning` for CSS-only intent. |
 | `debug.infrastructureLogging` | Defaults to append-only warning-level Rspack infrastructure logs. |

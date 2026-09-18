@@ -11,15 +11,18 @@ export type EMPSHARERuntimeOptions = {
   version?: boolean
   /**
    * UI框架 全局命名
+   * @deprecated 请使用 `framework.global`（结构化描述符的优先级高于本字段）。
    */
   frameworkGlobal?: string
   /**
    * MFRuntime 远程地址
+   * @deprecated 请使用 `runtime.lib`。
    */
   runtimeLib?: string | 'useFrameworkLib'
   runtime?: runtimeLibType
   /**
    * MFRuntime 全局命名
+   * @deprecated 请使用 `runtime.global`。
    */
   runtimeGlobal?: string
   setExternals?: (o: any, frameworkGlobal: string, runtimeGlobal?: string) => void
@@ -30,6 +33,7 @@ export type EMPSHARERuntimeOptions = {
   framework?: 'react' | 'vue2' | 'vue' | frameworkOptions
   /**
    * UI框架 远程地址 统一规范 或者 dev prod 分离都支持
+   * @deprecated 请使用 `framework.lib`（结构化描述符的优先级高于本字段）。
    */
   frameworkLib?: frameworLibType
 }
@@ -143,7 +147,7 @@ export type ExternalsItemType = {
   global?: string
   /**
    * 入口地址
-   * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
+   * 不填则可以通过 emp-config 里的 `html.tags` 注入合并后的请求
    * 如 http://...?react&react-dom&react-router&mobx
    * @example http://
    */

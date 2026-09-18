@@ -4,15 +4,16 @@ export type PluginReactType = {
    */
   hmr?: boolean
   /**
-   * 是否启动 Svg React Component
-   * @default ?react
+   * 是否启动 Svg React Component。
+   * 该值作为正则源码匹配 svg 请求的 `resourceQuery`：默认 'react' 命中 `?react`。
+   * @default 'react'
    */
   svgrQuery?: string
   /**
-   * React Runtime 手动切换jsx模式
-   * 当 external react时需要设置
-   * 本地安装时会自动判断 不需要设置
-   * @default undefined
+   * React Runtime 手动切换 jsx 模式。
+   * 本地安装 React 时会按依赖版本自动判定（>=17 为 automatic），一般不需要设置。
+   * @deprecated EMP v4 面向 React >= 17，自动判定恒为 `automatic`；本字段只在需要
+   * `classic` 的 React <= 16 场景下有意义，而该组合不在 v4 支持范围内。后续主版本将移除。
    */
   reactRuntime?: string
   /**
@@ -30,8 +31,14 @@ export type PluginReactType = {
    * @default 18
    */
   version?: number
+  /**
+   * @deprecated 请改用 `html.tags` 注入脚本，`import.externals` 改用顶层 `externals`。
+   * 本字段注入的 script 没有指定 `pos`，会落到 body；而 externals 对应的 CDN 脚本
+   * 必须早于业务代码加载。外置 React 场景推荐 `pluginRspackEmpShare({empRuntime})`。
+   */
   import?: {
     src: string
+    /** @deprecated 与顶层 `externals` 重复，请使用 `externals`。 */
     externals?: {
       [key: string]: string
     }

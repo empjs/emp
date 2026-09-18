@@ -87,7 +87,6 @@ export default () => {
             // vue js and ts compile
             // vuejs: {
             //   test: /\.(js|ts)$/,
-            //   exclude: store.empConfig.moduleTransformRule,
             //   sideEffects: false, // 标记模块是否存在副作用。
             //   use: [
             //     {

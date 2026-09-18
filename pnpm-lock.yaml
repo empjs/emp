@@ -156,6 +156,9 @@ importers:
       '@empjs/cli':
         specifier: workspace:^4.0.0
         version: link:../../packages/cli
+      '@empjs/plugin-postcss':
+        specifier: workspace:^4.0.0
+        version: link:../../packages/plugin-postcss
       '@empjs/plugin-react':
         specifier: workspace:^4.0.0
         version: link:../../packages/plugin-react

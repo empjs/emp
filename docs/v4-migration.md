@@ -1,10 +1,10 @@
 # EMP v4 Migration Guide
 
-This guide is for teams moving to the stable EMP v4 `4.0.0` release.
+This guide is for teams moving to the stable EMP v4 `4.0.1` release.
 
 ## Current Stable Release
 
-- Current v4 stable version: `4.0.0`.
+- Current v4 stable version: `4.0.1`.
 - Install matching v4 packages from npm's `latest` dist-tag.
 - Keep all core `@empjs/*` packages on the same v4 version line.
 
@@ -39,7 +39,7 @@ Do not move CDN or legacy runtime packages to the unified v4 version line. `@emp
 
 ## Release Scope
 
-`4.0.0` aligns the root workspace and 17 core internal packages:
+`4.0.1` aligns the root workspace and 17 core internal packages:
 
 - `@empjs/adapter-react`
 - `@empjs/biome-config`
@@ -88,6 +88,42 @@ export default defineConfig(() => ({
 Avoid carrying deprecated Rspack 1-only flags into v4 configs. Keep high-risk Rspack 2 experiments explicit and project-owned.
 
 Use `build.targets` as the single Browserslist compatibility source and `build.format` for browser delivery format. Migrate `build.useESM: true` to `build.format: 'esm'`; migrate `build.polyfill.browserslist` to `build.targets`. `format: 'esm'` does not implicitly enable `output.library` or `preserveModules`.
+
+### Removed Config Fields
+
+These fields were declared but had no consumer on the v4 (Rspack 2) line. They are removed rather than kept as silently-ignored options, so a config that still sets one now fails TypeScript instead of quietly doing nothing:
+
+| Removed field | Use instead | Why it was removed |
+| --- | --- | --- |
+| `build.preset` | `build.targets` + `build.format` + `build.polyfill` | Replaced by the explicit compatibility fields above. |
+| `debug.progress` | — | Its only read site was commented out; progress output is fixed to "off in dev, on in production". |
+| `moduleTransform` / `moduleTransform.exclude` / `.include` / `.defaultExclude` | `chain` (adjust `module.rules[].exclude`), or a first-party plugin | The resolved exclude rule was never attached to any loader rule. |
+
+Deleting these fields never changes build output — verify with the same build before and after if a project relied on them.
+
+## Pnpm 12 Workspace Settings
+
+pnpm 12 reads **only authorization and registry settings** from `.npmrc`. Every other setting belongs in `pnpm-workspace.yaml` (or the global `config.yaml`); written into `.npmrc` it is **silently ignored** — no warning, no error:
+
+```sh
+printf 'node-linker=bogus\n' > .npmrc
+pnpm install   # succeeds: the value is never read
+```
+
+The same value in `pnpm-workspace.yaml` fails the install outright with ``unknown variant `bogus` ``, so a misplaced setting looks active while doing nothing.
+
+v4 deletes the root `.npmrc`, whose four settings had no effect:
+
+| Dropped `.npmrc` setting | pnpm 12 reality |
+| --- | --- |
+| `link-workspace-packages=true` | Ignored, and unnecessary: every internal dependency uses the `workspace:` protocol, so there is never a bare range for it to link. Guarded by `test/release.rules.test.ts`. |
+| `prefer-workspace-packages=true` | Ignored, same reasoning. |
+| `save-workspace-protocol=true` | Ignored; the effective default is `rolling`, which writes `workspace:^` on `pnpm add`. Declare it in `pnpm-workspace.yaml` to pin `workspace:*` instead. |
+| `shared-workspace-lockfile=true` | Ignored; already the default. A single-document `pnpm-lock.yaml` needs no setting. |
+
+`pnpm-workspace.yaml` keeps `pmOnFail: ignore`, which skips the `packageManager` version check because corepack pins pnpm in CI (`corepack prepare pnpm@12.2.1 --activate`). It has nothing to do with the lockfile shape.
+
+`minimumReleaseAgeExclude` deliberately holds no entries. With `minimumReleaseAgeExcludePrune: true`, pnpm drops every exemption the freshly written lockfile no longer resolves, so an exemption only survives while it is still needed.
 
 ## Module Federation Notes
 

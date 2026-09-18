@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@empjs/cli": "workspace:^4.0.0",
+    "@empjs/plugin-postcss": "workspace:^4.0.0",
     "@empjs/plugin-react": "workspace:^4.0.0"
   }
 }

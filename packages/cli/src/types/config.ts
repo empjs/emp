@@ -10,10 +10,8 @@ import type {
   Output,
   Resolve,
   Configuration as RsConfig,
-  RuleSetRule,
   SourceMapDevToolPluginOptions,
   SwcLoaderOptions,
-  // SwcCssMinimizerRspackPlugin,
   SwcJsMinimizerRspackPluginOptions,
 } from '@rspack/core'
 import type {HtmlTagObject} from 'html-webpack-plugin'
@@ -30,15 +28,20 @@ export type CssminOptionsType = LightningCssMinimizerRspackPluginOptions
 export type DebugType = {
   loggerLevel?: LoggerType
   clearLog?: boolean
-  progress?: boolean
   showRsconfig?: boolean | string | InspectOptions
-  /** @deprecated 已无独立性能报告路径，请使用 debug.rsdoctor 或构建统计。 */
+  /**
+   * @deprecated 已无独立性能报告路径；显式开启时会发出告警，且不会有任何行为。
+   * 请使用 debug.rsdoctor 或常规构建统计。
+   */
   showPerformance?: boolean
   showScriptDebug?: boolean
   //rspackCache 已弃用
   // rspackCache?: boolean
   rsdoctor?: boolean | RsdoctorRspackPluginOptions
-  /** @deprecated Rspack 2 已不消费该开关；后续主版本将移除。 */
+  /**
+   * @deprecated Rspack 2 已不消费该开关；显式开启时会发出告警，且不会有任何行为。
+   * 后续主版本将移除。
+   */
   newTreeshaking?: boolean
   devShowAllLog?: boolean //显示所有错误 默认关闭
   warnRuleAsWarning?: boolean
@@ -85,7 +88,10 @@ export type ServerType = devServerConfig & {
    * @default true
    */
   hot?: devServerConfig['hot']
-  /** @deprecated 兼容旧配置并映射为 h2；新配置应使用 dev server 原生 server 选项。 */
+  /**
+   * @deprecated 已不再生效。保留接收是为了不让该键泄漏进 dev-server 配置，setup 时会发出告警。
+   * 请改用 `server: {type: 'https'}`——开发服务器会把 https 自动升级为 http2。
+   */
   http2?: boolean
   https?: boolean
 }
@@ -312,15 +318,6 @@ export interface HtmlType extends HtmlRspackPluginOptions {
 //
 export type EntriesType = {[entryFilename: string]: HtmlType}
 //
-export interface ModuleTransform {
-  exclude?: RuleSetRule['exclude'][]
-  include?: RuleSetRule['include'][]
-  /**
-   * 默认exclude /(node_modules|bower_components)/
-   * @default false
-   */
-  defaultExclude?: boolean
-}
 export type CssSassOptionsType = {
   api?: 'modern' | 'modern-compiler'
   sassOptions?: SassOptions<'async'>
@@ -365,7 +362,7 @@ export type ExternalsItemType = {
   global?: string
   /**
    * 入口地址
-   * 不填则可以通过 emp-config 里的 html.files.js[url] 传入合并后的请求
+   * 不填则可以通过 emp-config 里的 `html.tags` 注入合并后的请求
    * 如 http://...?react&react-dom&react-router&mobx
    * @example http://
    */
@@ -454,11 +451,6 @@ export type EmpOptions = {
      */
     prifixName?: string
   }
-  /**
-   * 模块编译
-   * 如 node_modules 模块 是否加入编译
-   */
-  moduleTransform?: ModuleTransform
   /**
    * 缓存目录
    * @default 'node_modules/.emp-cache'

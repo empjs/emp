@@ -1,6 +1,7 @@
 import type {CacheOptions} from '@rspack/core'
 import fs from 'fs-extra'
 import {getBuildDependencies} from 'src/helper/loadConfig'
+import logger from 'src/helper/logger'
 import type {GlobalStore} from 'src/store'
 
 class RspackCommon {
@@ -48,7 +49,11 @@ class RspackCommon {
     }
     if (typeof this.store.empConfig.cache === 'object') {
       const cacheOptions = {...this.store.empConfig.cache}
+      // Rspack 2 起 cache.maxVersions 已无任何效果：显式告知，不要静默丢弃用户的配置
       if ('maxVersions' in cacheOptions) {
+        logger.warn(
+          '[emp-config] cache.maxVersions 自 Rspack 2 起已失效（官方标记为 no effect），该值已被忽略，请从 cache 配置中移除。',
+        )
         delete cacheOptions.maxVersions
       }
       defaultCache = this.store.deepAssign(defaultCache, cacheOptions)
@@ -90,7 +95,8 @@ class RspackCommon {
         asyncWebAssembly: true,
         ...this.store.empConfig.build.rspack.experiments,
       },
-      // 控制是否启用增量构建功能 https://rspack.rs/zh/config/experiments#experimentsincremental
+      // 控制是否启用增量构建功能 https://rspack.rs/zh/config/incremental
+      // 注意：Rspack 2 起 incremental 位于根级，不再是 experiments.incremental
       incremental: this.store.empConfig.build.incremental,
       /**
        * 懒编译，对提高多入口应用（MPA）或大型单页面应用（SPA）的 dev 启动性能会非常有帮助
@@ -136,14 +142,7 @@ class RspackCommon {
     const tsConfigPath = this.store.resolve('tsconfig.json')
     const isExist = await fs.exists(tsConfigPath)
     if (isExist) {
-      const resolve: any = {}
-      if (this.store.isOldRspack) {
-        resolve.tsConfigPath = tsConfigPath
-      } else {
-        resolve.tsConfig = tsConfigPath
-      }
-      //
-      this.store.merge({resolve})
+      this.store.merge({resolve: {tsConfig: tsConfigPath}})
     }
   }
   async stats() {

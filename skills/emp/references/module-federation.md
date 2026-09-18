@@ -150,7 +150,9 @@ pluginRspackEmpShare({
 | `empRuntime.framework` | `react`, `vue2`, `vue`, or a framework descriptor. |
 | `empRuntime.frameworkLib` | Framework runtime URL or development/production URL pair. |
 
-Prefer the structured `runtime` and `framework` descriptors in new configs. Treat `shareLib` and duplicated `*Global`/`*Lib` fields as compatibility surfaces until a future major provides one normalized runtime descriptor.
+Prefer the structured `runtime` and `framework` descriptors in new configs. Treat `shareLib` and duplicated `*Global`/`*Lib` fields as compatibility surfaces until a future major provides one normalized runtime descriptor. Those duplicated fields are marked `@deprecated` in the type.
+
+Precedence is not symmetric, so set only one of each pair: a structured `framework.global` / `framework.lib` overrides the flat `frameworkGlobal` / `frameworkLib`, while a flat `runtimeGlobal` / `runtimeLib` still wins over `runtime.global` / `runtime.lib`.
 
 ## Force Remotes
 

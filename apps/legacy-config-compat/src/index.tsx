@@ -28,6 +28,7 @@ function App() {
       <button className={styles.button} data-testid="counter" type="button" onClick={() => setCount(value => value + 1)}>
         Count: {count}
       </button>
+      <div className={styles.remProbe} data-testid="rem-probe" />
     </main>
   )
 }

@@ -12,7 +12,6 @@ export class StoreServer {
   public host = this.ip
   public isAutoDevBase = false
   public isHttps = false
-  public httpsType: 'default' | 'h2' | 'h3' = 'default'
   public protocol = 'http'
   public port = 8000
   public store: GlobalStore

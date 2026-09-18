@@ -136,6 +136,13 @@ describe('default apps real acceptance', () => {
         expect(js).toContain('Legacy configuration compatibility works')
         expectDistFileMatching(distFiles, /coreJs.*\.js$/)
         expectDistFileMatching(distFiles, /\.js\.map$/)
+
+        // @empjs/plugin-postcss 是本仓唯一真实的 postcss-loader 消费者：其余 CSS 应用走
+        // @empjs/plugin-lightningcss，那条链路按设计不挂 postcss-loader。断言 pxtorem 真的
+        // 在构建期执行过——产物里必须是转换后的 20rem，不能残留源文件里的 320px。
+        const compatCss = readDistCss(appDir)
+        expect(compatCss).toContain('20rem')
+        expect(compatCss).not.toContain('320px')
       }
 
       if (appDir === 'rspack2-modern-module') {

@@ -222,7 +222,6 @@ class RspackModule {
      * 你可以使用 module.rule.sideEffects 覆盖某些模块的 sideEffects 选项。
      */
     // const sideEffects = false
-    // const exclude = this.store.empConfig.moduleTransformRule
     // const exclude: any = [{and: [/(node_modules|bower_components)/], not: [/@module-federation/]}]
     const exclude: any = []
     const {rule, use} = this.store.chainName

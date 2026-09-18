@@ -37,7 +37,6 @@ Use this reference as the public `EmpOptions` index. Read the linked domain refe
 | `debug` | Logging, Rsdoctor, resolved-config output, watcher, and CSS chunking controls. | `advanced-configuration.md` |
 | `chain` | Final imperative chain customization hook. | `advanced-configuration.md` |
 | `css` | Sass, Less, and CSS Modules prefix configuration. | `html-server-css.md` |
-| `moduleTransform` | Include/exclude control for source transformation. | `advanced-configuration.md` |
 | `cacheDir` | Persistent cache directory; default `node_modules/.emp-cache`. | `advanced-configuration.md` |
 | `cache` | Disable cache, use memory cache, persistent cache, or raw Rspack cache options. | `advanced-configuration.md` |
 | `define` | Values injected into build-time environment expressions. | `advanced-configuration.md` |
@@ -72,9 +71,15 @@ Do not assume every nested value has identical merge semantics. For a disputed v
 | `build.devtool` | `build.sourcemap.js` | Deprecated compatibility alias; remove in the next major. |
 | `css.prifixName` | `css.prefixName` | Deprecated spelling alias; both resolve to the canonical value. |
 | React `splickChunks` | React `splitChunks` | Deprecated spelling alias; reject conflicting values. |
-| `debug.showPerformance` | `debug.rsdoctor` or normal build output | Deprecated and has no active performance-reporting path; remove in the next major. |
-| `debug.newTreeshaking` | Rspack 2 defaults | Deprecated compatibility field with no active consumer; remove in the next major. |
-| `server.http2` | Dev server native `server` options | Deprecated compatibility mapping to h2; retain until the next major because old configs still execute it. |
+| `debug.showPerformance` | `debug.rsdoctor` or normal build output | Deprecated and has no active performance-reporting path; a truthy value logs a warning at setup. Remove in the next major. |
+| `debug.newTreeshaking` | Rspack 2 defaults | Deprecated compatibility field with no active consumer; a truthy value logs a warning at setup. Remove in the next major. |
+| `server.http2` | `server: {type: 'https'}` | Deprecated and accepted-but-inert: the key is stripped so it cannot leak into the dev-server schema, and a warning is logged at setup. Retain until the next major because old configs still pass it. |
+
+Removed outright on the v4 line, because they were declared but had no consumer: `build.preset` (use `build.targets` + `build.format` + `build.polyfill`), `debug.progress` (progress output is fixed to dev-off/production-on), and `moduleTransform` (use `chain` or a plugin to adjust loader rules). Setting a removed field is a TypeScript error; see `docs/v4-migration.md`.
+
+The internal `store.server.httpsType` field was removed in the same way. It was the write-only target of the `server.http2` mapping and never had a reader — not even at the v3.7.1 commit that introduced it — so it is not a config field but it is part of the same dead chain. Nothing on `store.server` other than `httpsType` changed.
+
+A deprecated field that has no consumer must not be preserved *silently*. The three inert aliases above keep working (so existing configs still build) but `store.setup()` reports each one that is explicitly enabled, once, after the console clear. The pass lives in `EmpConfig.warnDeprecatedFields()` and is called at the end of `store.setup()` on purpose: `clearConsole()` emits `ESC[2J ESC[3J ESC[H` (a scrollback wipe), so anything logged before it is erased for a human reader.
 
 For the complete executable alias project, normalized config assertions, artifact contracts, and browser test, read `legacy-compatibility.md` and `apps/legacy-config-compat`.
 

@@ -71,7 +71,7 @@ Each entry may override HTML fields such as `title`, `template`, `filename`, tag
 | `server.open` | Enabled on macOS by default; set `false` in automation. |
 | `server.hot` | `true`; framework plugins may coordinate their HMR setting with it. |
 | `server.https` | Enable HTTPS using the accepted dev-server form. |
-| `server.http2` | Legacy compatibility switch mapped internally to h2; avoid in new configs until a supported replacement is formalized. |
+| `server.http2` | Deprecated and inert: the key is stripped before the config reaches the dev server and a warning is logged at setup. Use `server: {type: 'https'}`, which the dev server upgrades to http2. |
 | `server.proxy` | Rspack dev-server proxy passthrough. |
 | `server.headers` | Defaults include permissive CORS headers for federation development. |
 | `server.historyApiFallback` | `true`. |

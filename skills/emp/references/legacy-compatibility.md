@@ -19,14 +19,15 @@ Keep an alias only when all four conditions hold:
 3. Conflicting legacy and canonical values in the same schema fail immediately.
 4. A project or package acceptance test proves the old value still works.
 
-Do not silently preserve a field with no consumer. `debug.showPerformance` and `debug.newTreeshaking` remain readable during the compatibility window but have no Rspack 2 behavior; migrate them instead of depending on them.
+Do not silently preserve a field with no consumer. `debug.showPerformance`, `debug.newTreeshaking`, and `server.http2` remain readable during the compatibility window but have no Rspack 2 behavior. Because "no behavior" is only acceptable if it is not hidden, `EmpConfig.warnDeprecatedFields()` reports each of them once at setup when it is explicitly enabled, and `test/agent-first-skill.rules.test.ts` keeps all three names documented here. Migrate them instead of depending on them.
 
 ## Complete project
 
-Use `apps/legacy-config-compat` as the executable compatibility project. Its config intentionally uses every supported migration alias:
+Use `apps/legacy-config-compat` as the executable compatibility project. Its config intentionally uses every supported migration alias, plus the legacy PostCSS pipeline that no other project in the repository consumes:
 
 ```ts
 import {defineConfig} from '@empjs/cli'
+import pluginPostcss, {postcss} from '@empjs/plugin-postcss'
 import pluginReact from '@empjs/plugin-react'
 
 export default defineConfig({
@@ -51,7 +52,10 @@ export default defineConfig({
     showPerformance: false,
     newTreeshaking: false,
   },
-  plugins: [pluginReact({splickChunks: true})],
+  plugins: [
+    pluginReact({splickChunks: true}),
+    pluginPostcss({postcssOptions: {plugins: [postcss.pxtorem({rootValue: 16})]}}),
+  ],
 })
 ```
 
@@ -71,9 +75,11 @@ Read the complete source and tests in:
 | `build.devtool` | `build.sourcemap.js` | JavaScript source maps are emitted. |
 | `css.prifixName` | `css.prefixName` | Browser DOM contains a CSS Modules class beginning with `legacy-`. |
 | React `splickChunks` | React `splitChunks` | Resolved cache group is named `common-react`. |
-| `server.http2` | internal h2 server mode | `EMP_LEGACY_HTTP2=true` resolves `store.server.httpsType` to `h2`. |
-| `debug.showPerformance` | no active replacement behavior | Value remains readable; use normal stats or `debug.rsdoctor`. |
-| `debug.newTreeshaking` | Rspack 2 defaults | Value remains readable but is not consumed. |
+| `server.http2` | accepted but inert | `EMP_LEGACY_HTTP2=true` is accepted, stripped before the config reaches the dev server, and reported once at setup. `test/config-shape.mjs` asserts the key does not leak into the resolved dev-server config and that the rest of `server` is untouched. |
+| `debug.showPerformance` | no active replacement behavior | Value remains readable; `true` is reported once at setup. Use normal stats or `debug.rsdoctor`. |
+| `debug.newTreeshaking` | Rspack 2 defaults | Value remains readable but is not consumed; `true` is reported once at setup. |
+| PostCSS `pxtorem` via `postcssOptions` | build-time CSS unit transform | `src/App.module.css` declares `320px`; the emitted `dist/css/*.css` contains `20rem` and no `320px`, and the browser asserts the element still lays out at `320px`. This is the only project where `postcss-loader` executes inside a real build. |
+| PostCSS `pxtorem` (`postcssOptions`) | build-time CSS unit transform | `src/App.module.css` declares `320px`; the emitted `dist/css/*.css` contains `20rem` and no `320px`, and the browser asserts the element still lays out at `320px`. This is the only project where `postcss-loader` executes in a real build. |
 
 Conflict tests live in the owning package suites. They reject contradictory pairs for `build.format`/`build.useESM`, `build.targets`/legacy browserslist, `build.sourcemap.js`/`build.devtool`, `css.prefixName`/`css.prifixName`, and React `splitChunks`/`splickChunks`.
 

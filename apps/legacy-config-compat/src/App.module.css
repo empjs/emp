@@ -24,3 +24,9 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* 供 @empjs/plugin-postcss 的 postcss.pxtorem({rootValue: 16}) 消费：
+   320px 必须被转换成 20rem 才会出现在产物 CSS 里。 */
+.remProbe {
+  width: 320px;
+}

@@ -78,12 +78,12 @@ Vue 2, Vue 3, and Stylus plugins currently expose no public options. Configure t
 | --- | --- |
 | `hmr` | `true`; coordinates React Refresh with `server.hot`. |
 | `svgrQuery` | `react`; SVG resource query that selects SVGR component handling. |
-| `reactRuntime` | Auto-detected `automatic` or `classic` JSX runtime override. |
+| `reactRuntime` | Deprecated. Auto-detection already resolves to `automatic` for React >= 17; only meaningful for the unsupported React <= 16 `classic` runtime. |
 | `splitChunks` | `false`; creates React and React Router cache groups. |
 | `splickChunks` | Deprecated spelling alias for `splitChunks`. |
 | `version` | React major/version hint when React is external and cannot be read from package dependencies. |
-| `import.src` | External React script URL injected into HTML. |
-| `import.externals` | Rspack externals installed with the injected script. |
+| `import.src` | Deprecated. External React script URL; use `html.tags` so the script can be injected into the head. |
+| `import.externals` | Deprecated. Duplicates top-level `externals`; use `externals` instead. |
 | `reactCompiler` | Boolean enablement or React Compiler options described below. |
 
 ## React Compiler
@@ -154,12 +154,20 @@ PostCSS:
 
 ```ts
 import {defineConfig} from '@empjs/cli'
-import pluginPostcss from '@empjs/plugin-postcss'
+import pluginPostcss, {postcss} from '@empjs/plugin-postcss'
 
 export default defineConfig({
-  plugins: [pluginPostcss()],
+  plugins: [
+    pluginPostcss({
+      postcssOptions: {
+        plugins: [postcss.pxtorem({rootValue: 16})],
+      },
+    }),
+  ],
 })
 ```
+
+`@empjs/plugin-postcss` is the only package that injects `postcss-loader`, and `apps/legacy-config-compat` is the only project that consumes it end to end — every other CSS app uses `@empjs/plugin-lightningcss`, whose loader chain removes `postcss-loader` by design. Treat that project as the regression net for this package: it is the only place where `postcss-loader` execution and the `postcssOptions` pass-through are exercised inside a real build rather than only as resolved-config shape.
 
 Lightning CSS:
 
@@ -196,7 +204,7 @@ PostCSS:
 
 | Field | Behavior |
 | --- | --- |
-| `postcssOptions` | Passed to `postcss-loader` for CSS, Sass, and Less rules. |
+| `postcssOptions` | Passed to `postcss-loader` for CSS, Sass, and Less rules. Import the exported helpers with the plugin: `import pluginPostcss, {postcss} from '@empjs/plugin-postcss'`; `postcss.pxtorem` and `postcss.pxtovw` return `[resolvedPluginPath, options]` pairs ready for this field. |
 
 Lightning CSS:
 

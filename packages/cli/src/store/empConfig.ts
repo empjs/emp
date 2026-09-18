@@ -9,7 +9,6 @@ import type {
   DebugType,
   EmpOptions,
   HtmlType,
-  ModuleTransform,
   RsdoctorRspackPluginOptions,
   RsTarget,
   ServerType,
@@ -61,6 +60,8 @@ export class EmpConfig {
     //=== before sync emp-config.js
     await this.syncEmpOptions()
     await this.setupEmpOptions()
+    // 弃置字段的检测必须早于任何 getter（`get server()` 会删掉 http2），上报则在清屏之后
+    this.collectDeprecatedFields()
     /**
      * 开始执行 LifeCycle 周期
      */
@@ -92,6 +93,46 @@ export class EmpConfig {
    */
   private async setupEmpOptions() {
     await this.store.server.setupOnEmpOptionSync()
+  }
+  /**
+   * 本次 setup 中「被显式启用但已无消费方」的弃置字段。
+   *
+   * 采集必须早于任何 getter 改动 `empOptions`：`get server()` 为了不让 `http2` 漏进
+   * dev-server schema 会把它删掉，删完就再也看不出用户配置过它。所以检测放这里（早），
+   * 上报放 `warnDeprecatedFields()`（晚，清屏之后）。`empConfig` 是跨 store 复用的单例，
+   * 每次 `setup()` 都整体覆盖，不会串台。
+   */
+  private enabledDeprecatedFields: string[] = []
+  private collectDeprecatedFields() {
+    const {debug, server} = this.store.empOptions
+    const enabled: string[] = []
+    if (debug?.showPerformance) enabled.push('debug.showPerformance')
+    if (debug?.newTreeshaking) enabled.push('debug.newTreeshaking')
+    if (server?.http2 !== undefined) enabled.push('server.http2')
+    this.enabledDeprecatedFields = enabled
+  }
+  /**
+   * 对「已弃置且已无消费方」的字段发一次显式告警。
+   *
+   * 这些字段保留是为了让存量配置继续可读（见
+   * `skills/emp/references/legacy-compatibility.md` 的支持策略），但它们不会有任何行为。
+   * 仓库的支持策略明确要求「不要把没有消费方的字段静默保留」，所以用户一旦显式打开它们，
+   * 必须被告知该设置不会生效，而不是被静默吞掉。
+   *
+   * 调用点必须在 `store.setup()` 的最后（`clearLog` 清屏之后）：清屏用的是
+   * `\x1B[2J\x1B[3J\x1B[H`，含回滚缓冲，在它之前打印的告警会被整屏抹掉。
+   * 该位置同时保证 `setLogger()` 已应用用户配置的 `debug.loggerLevel`。
+   *
+   * 也不要放进 `get debug()`：它有十余个读取点，且 `empConfig` 是跨 store 复用的单例，
+   * 放在 getter 里会重复打印。
+   */
+  public warnDeprecatedFields() {
+    const messages: Record<string, string> = {
+      'debug.showPerformance': 'debug.showPerformance 已弃用且无生效路径；请改用 debug.rsdoctor 或常规构建统计。',
+      'debug.newTreeshaking': 'debug.newTreeshaking 已弃用；Rspack 2 的默认摇树优化已覆盖该开关，可直接移除。',
+      'server.http2': "server.http2 已弃用且不会生效；请改用 server: {type: 'https'}，开发服务器会自动升级为 http2。",
+    }
+    for (const field of this.enabledDeprecatedFields) logger.warn(messages[field])
   }
   async chain() {
     if (this.store.empOptions.chain) {
@@ -125,7 +166,6 @@ export class EmpConfig {
     const defaultDebug: Required<DebugType> = {
       loggerLevel: 'info',
       clearLog: true,
-      progress: true,
       showRsconfig: false,
       showPerformance: false,
       rsdoctor,
@@ -294,9 +334,10 @@ export class EmpConfig {
       //   webSocketURL: 'ws://172.29.104.208:8000/ws',
       // },
     }
-    // server http2 已经弃置 需要特殊处理
-    if (this.store.empOptions.server?.http2) {
-      this.store.server.httpsType = 'h2'
+    // server.http2 已弃置：这里保留删除动作，是为了不让它泄漏进 dev-server schema
+    // （下方 assign 会把 empOptions.server 整体合并成 devServer 配置）。无论取值为 true 还是
+    // false 都要删掉，否则一个非法键会带着原值进入 rspack。告警在 setup() 中统一发出。
+    if (this.store.empOptions.server) {
       delete this.store.empOptions.server.http2
     }
     const merged = this.assign(sf, this.store.empOptions.server)
@@ -471,23 +512,6 @@ export class EmpConfig {
     } finally {
       logger.timeEnd(timeTag)
     }
-  }
-  get moduleTransformRule() {
-    // const moduleTransformExclude: RuleSetRule['exclude'] = {and: [/(node_modules|bower_components)/]}
-    const {moduleTransform} = this.store.empOptions
-    const tf: ModuleTransform = this.assign({defaultExclude: false}, moduleTransform)
-    const moduleTransformExclude: any = {and: [], not: []}
-    if (tf.defaultExclude === true) {
-      moduleTransformExclude.and.push(/(node_modules|bower_components)/)
-    }
-    if (tf?.exclude) {
-      moduleTransformExclude.and = moduleTransformExclude.and.concat(tf.exclude)
-    }
-    if (moduleTransform?.include) {
-      moduleTransformExclude.not = tf.include
-    }
-    // console.log('moduleTransformExclude', moduleTransformExclude)
-    return moduleTransformExclude
   }
   get cacheDir() {
     return this.store.empOptions.cacheDir ? this.store.empOptions.cacheDir : 'node_modules/.emp-cache'
