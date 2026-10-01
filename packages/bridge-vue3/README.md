@@ -1,144 +1,126 @@
 # EMP Bridge Vue3
 
-EMP Bridge Vue 是一个用于在 React 应用中集成 Vue3 组件的桥接工具，它解决了 React 与 Vue 之间组件共享和通信的问题。
-
-## 功能特点
-
-- 支持在 React 应用中使用 Vue 组件
-- 提供简单的 API 用于生产者和消费者之间的通信
-- 自动处理 React 与 Vue 之间的渲染和卸载方法差异
-- 支持插件系统扩展 Vue 功能
-
+`@empjs/bridge-vue3` 将 Vue 3 组件包装成统一的 DOM Bridge Provider，也支持在 Vue 3 宿主中消费 React、Vue 2 或 Vue 3 Provider。
 
 ## 安装
 
-```bash
-# 使用 npm
-npm install @empjs/bridge-react
-
-# 使用 yarn
-yarn add @empjs/bridge-react
-
-# 使用 pnpm
+```sh
+pnpm add @empjs/bridge-vue3
+# React 宿主还需要对应的消费端
 pnpm add @empjs/bridge-react
 ```
 
-## 基本用法
+## Vue 3 生产者
 
-### 生产者（导出组件的应用）
+使用组件所属的 Vue 运行时，不能用宿主的框架版本代替：
 
-```tsx
-// 在 React 16/17 应用中
-import React from 'react';
-import { createBridgeComponent } from '@empjs/bridge-react';
+```ts
+import * as Vue from 'vue'
+import {createBridgeComponent} from '@empjs/bridge-vue3'
 
-// 创建要共享的组件
-const MyComponent = (props) => {
-  return <div>Hello from React 16/17! {props.message}</div>;
-};
+const Counter = Vue.defineComponent({
+  props: {
+    message: String,
+    onChange: Function,
+  },
+  setup(props) {
+    const count = Vue.ref(0)
+    return () => Vue.h('button', {
+      onClick() {
+        count.value++
+        props.onChange?.(count.value)
+      },
+    }, `Vue ${Vue.version} · ${props.message} · ${count.value}`)
+  },
+})
 
-// 导出桥接组件
-export default createBridgeComponent(MyComponent, {
-  React,
-  ReactDOM: require('react-dom'),
-  // React 18+ 才有 createRoot
-  // createRoot: require('react-dom/client').createRoot
-});
+export default createBridgeComponent(Counter, {
+  Vue,
+  // plugin(app) { app.use(pinia) },
+})
 ```
 
-### 消费者（使用组件的应用）
+生产者可以通过 Module Federation 暴露这个模块，也可以由本地异步模块提供。其默认导出为 Provider 工厂，调用后得到 `render` / `destroy`。
+
+## React 消费者
+
+React 宿主使用 `@empjs/bridge-react` 的消费端，生产者仍使用 Vue 3 的运行时：
 
 ```tsx
-// 在 React 18/19 应用中
-import React from 'react';
-import { createRemoteAppComponent } from '@empjs/bridge-react';
+import React from 'react'
+import {createRemoteAppComponent} from '@empjs/bridge-react'
 
-// 导入远程组件（可以是动态导入）
-import RemoteComponent from 'remote-app/MyComponent';
+const VueCounter = createRemoteAppComponent(
+  () => import('remote-app/Bridge'),
+  {React},
+  {onError: error => console.error(error)},
+)
 
-// 创建可在当前 React 版本中使用的组件
-const BridgedComponent = createRemoteAppComponent(
-  RemoteComponent,
-  {
-    React,
-    ReactDOM: require('react-dom'),
-    createRoot: require('react-dom/client').createRoot
-  },
-  {
-    onError: (error) => console.error('Failed to load component:', error)
-  }
-);
-
-// 在应用中使用
-function App() {
-  return (
-    <div>
-      <h1>My App (React 18/19)</h1>
-      <BridgedComponent message="Passed from React 18/19" />
-    </div>
-  );
+export function App() {
+  return <VueCounter
+    message="来自 React 宿主"
+    onChange={(value: number) => console.log('Vue 计数', value)}
+  />
 }
 ```
 
-## API 参考
+## Vue 3 消费者
 
-### createBridgeComponent
+Vue 3 宿主使用本包的消费端。下例可以加载任何实现相同 Provider 协议的框架组件：
 
-用于生产者包装应用级别导出模块。
+```ts
+import * as Vue from 'vue'
+import {createRemoteAppComponent} from '@empjs/bridge-vue3'
 
-```typescript
-function createBridgeComponent(
-  Component: React.ComponentType<any>,
-  options: {
-    React: any;
-    ReactDOM: any;
-    createRoot?: Function;
-  }
-): BridgeProvider
+const Remote = createRemoteAppComponent(
+  () => import('remote-app/Bridge'),
+  {Vue},
+  {onError: error => console.error(error)},
+)
+
+export default Vue.defineComponent({
+  setup() {
+    const message = Vue.ref('来自 Vue 3 宿主')
+    return () => Vue.h(Remote, {
+      message: message.value,
+      onChange: (value: number) => console.log('远端计数', value),
+    })
+  },
+})
 ```
 
-参数:
-- `Component`: 要导出的 React 组件
-- `options`: React 相关配置
-  - `React`: React 实例
-  - `ReactDOM`: ReactDOM 实例
-  - `createRoot`: (可选) React 18+ 的 createRoot 方法
+## API
 
-### createRemoteAppComponent
+```ts
+interface BridgeProviderReturn {
+  render(dom: HTMLElement, props?: Record<string, any>): void
+  destroy(dom: HTMLElement): void
+}
 
-用于消费者加载应用级别模块。
+type BridgeProvider = () => BridgeProviderReturn
 
-```typescript
+type ComponentProvider =
+  | BridgeProvider
+  | (() => Promise<{default: BridgeProvider}>)
+
+function createBridgeComponent(
+  Component: any,
+  options: {Vue: any; plugin?: (app: any) => void},
+): BridgeProvider
+
 function createRemoteAppComponent(
   component: ComponentProvider,
-  reactOptions: {
-    React: any;
-    ReactDOM: any;
-    createRoot?: Function;
-  },
-  options?: {
-    onError?: (error: Error) => void;
-  }
-): React.ComponentType<any>
+  vueOptions: {Vue: any},
+  options?: {onError?: (error: Error) => void},
+): any
 ```
 
-参数:
-- `component`: 组件提供者函数，可以是同步或异步的
-- `reactOptions`: 当前应用的 React 相关配置
-  - `React`: React 实例
-  - `ReactDOM`: ReactDOM 实例
-  - `createRoot`: (可选) React 18+ 的 createRoot 方法
-- `options`: (可选) 额外配置
-  - `onError`: 错误处理回调函数
+`render` 在同一容器中保留组件实例，更新 Props 并移除本次没有传入的键；每个容器拥有独立实例。`destroy` 卸载 Vue 应用，多次销毁同一容器不会重复卸载。
 
-## 使用场景
+消费端将任意属性和函数回调传给 Provider，并使用宿主 Vue 的真实生命周期；异步模块在卸载后返回时不会重新挂载。
 
-1. 微前端架构中不同 React 版本的应用集成
-2. 逐步升级大型 React 应用时的版本兼容
-3. 共享组件库到不同 React 版本的项目中
+## 跨框架通信约定
 
-## 注意事项
-
-- 确保正确提供对应版本的 React 和 ReactDOM 实例
-- 对于 React 18+，需要提供 createRoot 方法
-- 组件间通信仅限于 props 传递，不支持 Context API 跨版本共享
+- 通过普通 Props 和函数回调通信。例如 `onChange` 是回调属性，不会自动转换为 Vue 的 `$emit`。
+- Context、provide/inject 和框架 VNode 留在所属运行时内。Vuex / Pinia 等插件通过生产者的 `plugin` 初始化。
+- 读取 `Vue.version` 展示真实组件版本；CDN 包版本或 `package.json` 中的依赖范围不能替代运行时版本。

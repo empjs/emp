@@ -1,0 +1,11 @@
+{
+  "name": "@empjs/bridge-demo-react19",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./index.ts",
+  "dependencies": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  }
+}

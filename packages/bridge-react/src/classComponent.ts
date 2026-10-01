@@ -1,4 +1,4 @@
-import {BridgeProvider, BridgeProviderReturn, ComponentProvider, ReactOptions} from './types'
+import type {BridgeProvider, BridgeProviderReturn, ComponentProvider, ReactOptions} from './types'
 import {handleError} from './utils'
 
 /**
@@ -77,30 +77,28 @@ export function createRemoteAppComponent(
     provider: BridgeProviderReturn | null = null
     providerInfo: BridgeProvider | null = null
     isMounted = false
-
-    constructor(props: any) {
-      super(props)
-      this.loadComponent()
-    }
+    disposed = false
+    loadRevision = 0
 
     async loadComponent() {
+      const revision = ++this.loadRevision
       try {
-        if (typeof component === 'function') {
-          const result = component()
-
-          if (result instanceof Promise) {
-            const module = await result
-            this.providerInfo = module.default
-          } else {
-            this.providerInfo = component as BridgeProvider
-          }
+        const result = await component()
+        if (this.disposed || revision !== this.loadRevision) return
+        if ('default' in result) {
+          this.providerInfo = result.default
+        } else {
+          this.provider = result
+          this.providerInfo = component as BridgeProvider
         }
 
         if (this.isMounted && this.containerRef.current) {
           this.renderComponent()
         }
       } catch (error) {
-        handleError(error as Error, 'Failed to load component', options.onError)
+        if (!this.disposed && revision === this.loadRevision) {
+          handleError(error as Error, 'Failed to load component', options.onError)
+        }
       }
     }
 
@@ -113,56 +111,40 @@ export function createRemoteAppComponent(
         }
         this.provider.render(this.containerRef.current, this.props)
       } catch (error) {
-        handleError(error as Error, 'Failed to render component')
-      }
-    }
-
-    unmountComponent() {
-      try {
-        // 不强依赖containerRef.current存在，避免可能的null引用
-        if (this.provider) {
-          if (this.containerRef && this.containerRef.current) {
-            try {
-              this.provider.destroy(this.containerRef.current)
-            } catch (destroyError) {
-              console.warn('[bridge-react] Error during provider unmount:', destroyError)
-            }
-          }
-
-          // 确保清理provider引用
-          this.provider = null
-        }
-      } catch (error) {
-        handleError(error as Error, 'Failed to unmount component')
+        handleError(error as Error, 'Failed to render component', options.onError)
       }
     }
 
     componentDidMount() {
       this.isMounted = true
-      if (this.providerInfo) this.renderComponent()
+      this.disposed = false
+      this.loadComponent()
     }
 
     componentDidUpdate() {
-      if (this.provider && this.containerRef.current) {
-        this.provider.render(this.containerRef.current, this.props)
-      }
+      this.renderComponent()
     }
 
     componentWillUnmount() {
       this.isMounted = false
-
-      // 检查是否使用同步卸载
-      if (reactOptions?.syncUnmount) {
-        // 直接同步卸载组件，避免异步操作导致的DOM节点关系变化
-        this.unmountComponent()
-      } else {
-        // 使用微任务队列，比setTimeout更快但仍然异步
-        Promise.resolve().then(() => {
-          if (this.containerRef && this.containerRef.current) {
-            this.unmountComponent()
-          }
-        })
+      this.disposed = true
+      this.loadRevision++
+      this.providerInfo = null
+      // Capture the container before React clears its ref. Deferred cleanup must
+      // destroy this instance even after the wrapper has left the document.
+      const dom = this.containerRef.current
+      const provider = this.provider
+      this.provider = null
+      const cleanup = () => {
+        if (!provider || !dom) return
+        try {
+          provider.destroy(dom)
+        } catch (error) {
+          handleError(error as Error, 'Failed to unmount component', options.onError)
+        }
       }
+      if (reactOptions.syncUnmount) cleanup()
+      else Promise.resolve().then(cleanup)
     }
 
     render() {

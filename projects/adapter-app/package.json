@@ -9,7 +9,12 @@
     "build": "emp build",
     "start": "emp serve",
     "stat": "emp build --analyze",
-    "emp": "emp"
+    "emp": "emp",
+    "dev:legacy": "emp dev -ev legacy=true",
+    "build:legacy": "emp build -ev legacy=true",
+    "typecheck": "tsc --noEmit -p tsconfig.lab.json",
+    "test:bridge": "node tests/acceptance.mjs",
+    "test:unit": "node --test tests/bridge-react.test.mjs"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +23,8 @@
     "@empjs/cli": "workspace:*",
     "@empjs/plugin-react": "workspace:*",
     "@types/react": "17",
-    "@types/react-dom": "17"
+    "@types/react-dom": "17",
+    "playwright": "1.63.0"
   },
   "dependencies": {
     "@empjs/bridge-react": "workspace:^",
@@ -26,6 +32,12 @@
     "@empjs/bridge-vue3": "workspace:^",
     "@empjs/share": "workspace:^",
     "react": "17",
-    "react-dom": "17"
+    "react-dom": "17",
+    "@empjs/bridge-demo-react16": "workspace:*",
+    "@empjs/bridge-demo-react17": "workspace:*",
+    "@empjs/bridge-demo-react18": "workspace:*",
+    "@empjs/bridge-demo-react19": "workspace:*",
+    "@empjs/bridge-demo-vue2": "workspace:*",
+    "@empjs/bridge-demo-vue3": "workspace:*"
   }
 }

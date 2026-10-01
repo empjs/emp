@@ -3,6 +3,15 @@ import pluginReact from '@empjs/plugin-react'
 import {externalReact, pluginRspackEmpShare} from '@empjs/share'
 
 export default defineConfig(store => {
+  const legacy = store.cliOptions.envVars?.legacy === 'true'
+  if (!legacy) {
+    return {
+      base: store.cliOptions.envVars?.deploy === 'cloudflare' ? '/adapter-app/' : '/',
+      plugins: [pluginReact({hmr: false})],
+      html: {title: 'EMP Bridge · 全框架演示台'},
+      server: {port: 7704, host: '0.0.0.0', open: false},
+    }
+  }
   const isDeploy = store.cliOptions.envVars?.deploy === 'cloudflare'
   const base = isDeploy ? `/adapter-app/` : '/'
   const remotesfn = (scopeName, {port, projectName}) => {
@@ -14,6 +23,7 @@ export default defineConfig(store => {
   const port = 7702
   return {
     base,
+    appEntry: 'legacy.tsx',
     plugins: [
       pluginReact(),
       pluginRspackEmpShare({
@@ -53,6 +63,7 @@ export default defineConfig(store => {
     ],
     define: {ip, port, isDeploy},
     build: {
+      outDir: 'dist-legacy',
       polyfill: {
         entryCdn: 'https://unpkg.com/@empjs/polyfill@0.0.2/dist/es.js',
       },

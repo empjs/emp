@@ -7,7 +7,6 @@
     "strict": true,
     "declaration": true,
     "noImplicitOverride": true,
-    "noCheck": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "useUnknownInCatchVariables": false,

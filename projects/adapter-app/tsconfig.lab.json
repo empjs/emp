@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "verbatimModuleSyntax": false,
+    "ignoreDeprecations": "5.0"
+  },
+  "include": ["src/App.tsx", "src/bootstrap.tsx", "src/lab/**/*", "runtimes/**/*", "src/lab.d.ts"]
+}

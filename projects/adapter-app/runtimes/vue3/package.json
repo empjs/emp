@@ -1,0 +1,10 @@
+{
+  "name": "@empjs/bridge-demo-vue3",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./index.ts",
+  "dependencies": {
+    "vue": "3.5.38"
+  }
+}

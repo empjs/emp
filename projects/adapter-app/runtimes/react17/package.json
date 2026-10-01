@@ -1,0 +1,11 @@
+{
+  "name": "@empjs/bridge-demo-react17",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./index.ts",
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
