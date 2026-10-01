@@ -6,7 +6,12 @@ export default defineConfig(store => {
   const legacy = store.cliOptions.envVars?.legacy === 'true'
   if (!legacy) {
     return {
-      base: store.cliOptions.envVars?.deploy === 'cloudflare' ? '/adapter-app/' : '/',
+      base:
+        store.cliOptions.envVars?.base || (store.cliOptions.envVars?.deploy === 'cloudflare' ? '/adapter-app/' : '/'),
+      build: {
+        outDir: store.cliOptions.envVars?.outDir || 'dist',
+        sourcemap: store.cliOptions.envVars?.base ? {js: false, css: false} : undefined,
+      },
       plugins: [pluginReact({hmr: false})],
       html: {title: 'EMP Bridge · 全框架演示台'},
       server: {port: 7704, host: '0.0.0.0', open: false},

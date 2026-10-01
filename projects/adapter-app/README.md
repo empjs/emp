@@ -78,3 +78,13 @@ pnpm --filter adapter-app dev:legacy
 旧入口监听 7702；`build:legacy` 输出到 `dist-legacy`，不覆盖演示台 `dist`。新矩阵验证的是 Bridge 跨框架渲染和通信；Module Federation 的网络、远端清单及发布链路需要在远端示例中另外验收。
 
 原有架构说明保留在 [LEGACY.md](./LEGACY.md)。
+
+## 发布到静态文件空间
+
+通过环境参数指定资源根路径和独立产物目录，保持本地预览产物可用：
+
+```sh
+pnpm --filter adapter-app build -ev base=/your-public-prefix/ -ev outDir=/tmp/bridge-release
+```
+
+`base` 应以 `/` 开头和结尾，并与页面发布目录一致。上传 JS、CSS、图标等资源后，最后上传 `index.html`；发布后重新执行浏览器验收。
