@@ -11,6 +11,7 @@ projects/e-svga*
 @mf-types
 .output
 doc_build
+/website/docs/public/examples/bridge/
 
 .rslib
 .cursor/debug.log

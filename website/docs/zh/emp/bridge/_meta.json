@@ -1,0 +1,6 @@
+[
+  { "type": "file", "name": "bridge-demo", "label": "全框架演示台" },
+  { "type": "file", "name": "bridge-react", "label": "React Bridge" },
+  { "type": "file", "name": "bridge-vue2", "label": "Vue 2 Bridge" },
+  { "type": "file", "name": "bridge-vue3", "label": "Vue 3 Bridge" }
+]

@@ -2,6 +2,23 @@
 
 Bridge 演示台覆盖 React 16、17、18、19 与 Vue 2、3，使用统一组件展示宿主与组件之间的渲染、Props、事件和生命周期。
 
+<a href="/examples/bridge/index.html" target="_blank" rel="noopener noreferrer">打开全框架演示台 →</a>
+
+演示台随官网一起构建和发布。选择宿主和组件后可以直接操作 Props、计数、卸载与重试；点击“验证全部 36 种组合”运行当前页面的交互验证。
+
+## 演示运行时版本
+
+| 框架 | 实际运行版本 | 渲染器 |
+| --- | --- | --- |
+| React 16 | 16.14.0 | ReactDOM 16.14.0 |
+| React 17 | 17.0.2 | ReactDOM 17.0.2 |
+| React 18 | 18.3.1 | ReactDOM 18.3.1 |
+| React 19 | 19.2.3 | ReactDOM 19.2.3 |
+| Vue 2 | 2.7.16 | Vue 2.7.16 |
+| Vue 3 | 3.5.38 | Vue 3.5.38 |
+
+每种运行时都能作为宿主和组件，共形成 6 × 6 种组合。表格列出本次演示的锁定版本，实时版本以组件卡片显示为准。
+
 ## 如何阅读组件卡片
 
 每张卡片展示“宿主 → 组件”的完整关系。框架版本读取对应运行时的 `React.version` 或 `Vue.version`，不是依赖声明中的版本范围。展开“框架与 Bridge 版本”还可以查看桥接包版本。
@@ -37,4 +54,4 @@ pnpm --filter adapter-app dev
 
 默认端口为 7704。运行时使用各自独立的私有 workspace 包，通过本地异步模块加载，避免多版本 React 共用渲染器。
 
-源码及完整验收命令见仓库 `projects/adapter-app/README.md`。原有 Module Federation 远端示例通过 `dev:legacy` 运行，保留 Vuex / Pinia 用例；其远端清单、网络与发布链路需要单独验证。
+源码及完整验收命令见 [演示台 README](https://github.com/empjs/emp/blob/v3/projects/adapter-app/README.md)，实现见 [adapter-app 源码](https://github.com/empjs/emp/tree/v3/projects/adapter-app)。原有 Module Federation 远端示例通过 `dev:legacy` 运行，保留 Vuex / Pinia 用例；其远端清单、网络与发布链路需要单独验证。
