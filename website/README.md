@@ -2,6 +2,8 @@
 
 通过 `pnpm --filter @empjs/offical build` 构建官网。构建会先生成 Bridge 演示台到 `docs/public/examples/bridge`，再随文档一起输出到 `doc_build`；演示入口为 `/examples/bridge/index.html`。生成目录已忽略，不需要提交产物。
 
+构建最后为 HTML 正文添加内容保护标记，防止 CDN 邮箱混淆功能误改写带 `@` 的 npm 包版本链接，保持文档服务端渲染结构与客户端一致。
+
 > Markdown 文档写作规范 - 标点符号与文本分割!
 
 ## 1. 标点符号

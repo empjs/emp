@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "rspress dev",
-    "build": "node scripts/build-bridge.mjs && rspress build",
+    "build": "node scripts/build-bridge.mjs && rspress build && node scripts/protect-ssr.mjs",
     "start": "rspress preview"
   },
   "dependencies": {
