@@ -55,7 +55,7 @@ export default function App() {
     <main>
       <header className="hero">
         <div className="brand">
-          EMP <span>/ BRIDGE</span>
+          Nova <span>Share Bridge</span>
         </div>
         <div className="hero-row">
           <div>

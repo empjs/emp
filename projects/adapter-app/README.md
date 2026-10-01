@@ -1,4 +1,4 @@
-# EMP Bridge 全框架演示台
+# Nova Share Bridge 全框架演示台
 
 同一套计数器组件，在 React 16 / 17 / 18 / 19、Vue 2 / 3 六种宿主中运行。
 

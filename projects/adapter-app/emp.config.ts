@@ -10,10 +10,10 @@ export default defineConfig(store => {
         store.cliOptions.envVars?.base || (store.cliOptions.envVars?.deploy === 'cloudflare' ? '/adapter-app/' : '/'),
       build: {
         outDir: store.cliOptions.envVars?.outDir || 'dist',
-        sourcemap: store.cliOptions.envVars?.base ? {js: false, css: false} : undefined,
+        ...(store.cliOptions.envVars?.base ? {sourcemap: {js: false, css: false}} : {}),
       },
       plugins: [pluginReact({hmr: false})],
-      html: {title: 'EMP Bridge · 全框架演示台'},
+      html: {title: 'Nova Share Bridge · 全框架演示台'},
       server: {port: 7704, host: '0.0.0.0', open: false},
     }
   }
